@@ -1,0 +1,31 @@
+name: NFSMW - preflight Android SDK NDK Gradle (sem jogo)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  android-toolchain:
+    name: Medir SDK NDK e compilacoes sinteticas
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout apenas deste repositorio de teste
+        uses: actions/checkout@v4
+
+      - name: Configurar Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Configurar Gradle 9.1.0
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '9.1.0'
+
+      - name: Diagnosticar Android 36 NDK r28 CMake Ninja e Gradle
+        shell: bash
+        run: bash scripts/nfsmw-android-probe.sh
