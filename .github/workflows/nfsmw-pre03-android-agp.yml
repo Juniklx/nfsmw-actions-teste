@@ -1,0 +1,50 @@
+name: NFSMW - PRE03 aplicativo Android AGP JNI (sintetico)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  synthetic-android:
+    name: PRE03 Android AGP JNI ARM64 sem dados do jogo
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - name: Checkout apenas do repositorio publico sintetico
+        uses: actions/checkout@v4
+
+      - name: Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Gradle 9.1.0
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '9.1.0'
+
+      - name: Instalar somente NDK exato r28c em runner temporario
+        shell: bash
+        run: |
+          set -euo pipefail
+          SDK="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
+          VERSION='28.2.13676358'
+          TARGET="$SDK/ndk/$VERSION"
+          if [ -f "$TARGET/build/cmake/android.toolchain.cmake" ]; then
+            echo "[OK] NDK $VERSION presente"
+          else
+            SDKM="$SDK/cmdline-tools/latest/bin/sdkmanager"
+            if [ ! -x "$SDKM" ]; then SDKM="$(command -v sdkmanager || true)"; fi
+            test -n "$SDKM" && test -x "$SDKM" || { echo '[ERRO] sdkmanager ausente'; exit 10; }
+            # Nao aceita novas licencas automaticamente, nem altera a chave do projeto.
+            "$SDKM" --sdk_root="$SDK" --install "ndk;$VERSION" </dev/null
+          fi
+          test -f "$TARGET/build/cmake/android.toolchain.cmake"
+          echo '[OK] NDK exato pronto'
+
+      - name: Compilar projeto Android completamente sintetico e conferir APK unsigned
+        shell: bash
+        run: bash scripts/nfsmw-pre03-android-app.sh
