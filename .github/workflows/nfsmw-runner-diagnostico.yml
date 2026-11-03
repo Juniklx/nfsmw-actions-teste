@@ -1,0 +1,90 @@
+name: NFSMW - diagnostico de compilacao C++ (sem jogo)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  diagnostico:
+    name: Medir CPU, RAM, disco e build C++
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Recursos e teste sintetico CMake Ninja
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo '=== NFSMW ACTIONS / TESTE SEGURO - NAO COMPILA O JOGO ==='
+          echo "Sistema: $(uname -srm)"
+          echo "CPUs logicas (nproc): $(nproc)"
+          echo "Memoria:"; free -h
+          echo "Disco:"; df -h / /mnt || true
+          echo 'Versoes de ferramentas:'
+          cmake --version | head -n 1
+          ninja --version
+          c++ --version | head -n 1
+          java -version 2>&1 | head -n 2 || true
+
+          DIR="${RUNNER_TEMP}/nfsmw_runner_sintetico"
+          mkdir -p "$DIR"
+          export NFSMW_BENCH_DIR="$DIR"
+          python3 - <<'PY'
+          from pathlib import Path
+          import os
+          root = Path(os.environ['NFSMW_BENCH_DIR'])
+          (root / 'CMakeLists.txt').write_text(
+              'cmake_minimum_required(VERSION 3.16)\n'
+              'project(nfsmw_bench LANGUAGES CXX)\n'
+              'file(GLOB BENCH_SOURCES "*.cpp")\n'
+              'add_library(nfsmw_bench STATIC ${BENCH_SOURCES})\n'
+              'target_compile_features(nfsmw_bench PRIVATE cxx_std_17)\n',
+              encoding='utf-8'
+          )
+          for i in range(32):
+              source = '''#include <algorithm>
+          #include <array>
+          #include <cstdint>
+          #include <numeric>
+          #include <unordered_map>
+          #include <vector>
+          extern "C" std::uint64_t nfsmw_bench_%d(std::uint64_t seed) {
+            std::vector<std::uint64_t> v(1024);
+            std::iota(v.begin(), v.end(), seed);
+            std::sort(v.begin(), v.end(), std::greater<std::uint64_t>());
+            std::unordered_map<std::uint64_t, std::uint64_t> m;
+            for (auto x : v) m[x] = x ^ (seed + %d);
+            return m.size() + v.front();
+          }
+          ''' % (i, i)
+              (root / ('unit_%02d.cpp' % i)).write_text(source, encoding='utf-8')
+          print(f'Geradas 32 unidades C++ artificiais em {root}')
+          PY
+
+          echo '=== CONFIGURACAO CMAKE ==='
+          ini=$(date +%s)
+          cmake -S "$DIR" -B "$DIR/build" -G Ninja -DCMAKE_BUILD_TYPE=Release
+          fim=$(date +%s)
+          tempo_config=$((fim - ini))
+
+          echo '=== COMPILACAO NINJA ==='
+          workers=$(nproc)
+          if [ "$workers" -gt 4 ]; then workers=4; fi
+          ini=$(date +%s)
+          cmake --build "$DIR/build" --parallel "$workers"
+          fim=$(date +%s)
+          tempo_build=$((fim - ini))
+          echo "[RESULTADO] workers=$workers; cmake_config_s=${tempo_config}; cpp_build_s=${tempo_build}"
+
+          {
+            echo '## NFSMW - resultado do runner (teste sintetico)'
+            echo ''
+            echo '| Indicador | Valor |'
+            echo '|---|---|'
+            echo "| CPU logica | $(nproc) |"
+            echo "| Workers Ninja | $workers |"
+            echo "| CMake configuracao | ${tempo_config} s |"
+            echo "| C++ sintetico (32 fontes) | ${tempo_build} s |"
+            echo '| Build do NFSMW real | Nao executado |'
+          } >> "$GITHUB_STEP_SUMMARY"
