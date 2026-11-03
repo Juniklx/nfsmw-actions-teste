@@ -1,0 +1,62 @@
+name: NFSMW - PRE02B Android NDK r28 e build sintetica
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  android-toolchain:
+    name: PRE02B Instalar NDK r28 e testar arm64
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout somente do repositorio sintetico
+        uses: actions/checkout@v4
+
+      - name: Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Gradle 9.1.0
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '9.1.0'
+
+      - name: Instalar somente NDK 28.2.13676358 se ausente
+        shell: bash
+        run: |
+          set -euo pipefail
+          SDK="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
+          VERSION='28.2.13676358'
+          TARGET="$SDK/ndk/$VERSION"
+          echo "SDK=$SDK"
+          echo 'Disco antes da instalacao:'
+          df -h / "$SDK"
+          if [ -f "$TARGET/build/cmake/android.toolchain.cmake" ]; then
+            echo "[OK] NDK $VERSION ja existe"
+          else
+            SDKM="$SDK/cmdline-tools/latest/bin/sdkmanager"
+            if [ ! -x "$SDKM" ]; then
+              SDKM="$(command -v sdkmanager || true)"
+            fi
+            if [ -z "$SDKM" ] || [ ! -x "$SDKM" ]; then
+              echo '[ERRO] sdkmanager nao encontrado; sem instalacao'
+              exit 10
+            fi
+            echo "Instalando exclusivamente ndk;$VERSION em runner temporario"
+            # Sem aceitar licencas novas automaticamente. Usa apenas licencas ja aceitas no runner.
+            "$SDKM" --sdk_root="$SDK" --install "ndk;$VERSION" </dev/null
+          fi
+          test -f "$TARGET/build/cmake/android.toolchain.cmake" || { echo '[ERRO] NDK exato nao instalado'; exit 11; }
+          echo '[OK] Android NDK exato presente'
+          grep -E '^Pkg.Revision\s*=' "$TARGET/source.properties" || true
+          echo 'Disco depois da instalacao:'
+          df -h / "$SDK"
+
+      - name: Diagnosticar Android 36 NDK r28 CMake Ninja e Gradle
+        shell: bash
+        run: bash scripts/nfsmw-android-probe.sh
