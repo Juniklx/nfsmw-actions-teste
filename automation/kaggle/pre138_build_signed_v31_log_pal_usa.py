@@ -446,7 +446,23 @@ def main()->int:
             child["ANDROID_HOME"]=str(sdk)
             child["ANDROID_SDK_ROOT"]=str(sdk)
             child["CMAKE_BUILD_PARALLEL_LEVEL"]="2"
-            child["GRADLE_USER_HOME"]=str(temp/"gradle_cache")
+            # PRE139: persist ONLY Gradle downloaded dependencies / wrapper,
+            # outside this ephemeral source and private signing workspace.
+            external_gradle=os.environ.get("NFSMW_GRADLE_USER_HOME")
+            if external_gradle:
+                root_cache=Path(external_gradle).absolute()
+                runner_temp=Path(os.environ.get("RUNNER_TEMP","/tmp")).resolve()
+                if (root_cache.name!="nfsmw-gradle-home" or
+                        runner_temp not in root_cache.parents or
+                        root_cache.is_symlink() or
+                        root_cache==temp or temp in root_cache.parents):
+                    raise ValueError("Unsafe persistent dependency cache path")
+                root_cache.mkdir(parents=True,exist_ok=True,mode=0o700)
+                child["GRADLE_USER_HOME"]=str(root_cache)
+                report["gradle_dependency_cache_policy"]="PRE139_DEPENDENCIES_ONLY"
+            else:
+                child["GRADLE_USER_HOME"]=str(temp/"gradle_cache")
+                report["gradle_dependency_cache_policy"]="EPHEMERAL_FALLBACK_NO_SHARED_CACHE"
             args_gradle=[
                 "bash","gradlew","assembleRelease","--no-daemon","--console=plain","--max-workers=2",
                 "-Pnfsmw.motor=nativo","-Pnfsmw.edicion=pal_es",
