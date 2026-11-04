@@ -1,0 +1,18 @@
+{
+  "etapa": "PRE133",
+  "dispositivo": "Galaxy S24 FE",
+  "observacao_V29": "Modern ImGui font and readable CVAR labels confirmed by screenshot, but dragging Settings content by finger does not scroll; scrollbar itself responds",
+  "hipotese": "IsTouchPointerActive relies on OnTouchEvent, but Android WindowSDL event path processes SDL mouse events; gate can be false",
+  "alteracao": "Use io.MouseDown[0] + finite io.MousePos while preserving root Settings scroll owner and interactive controls",
+  "snapshot": "PRE99 exact",
+  "patches": [
+    "PRE117",
+    "PRE128",
+    "PRE131",
+    "PRE133 focused"
+  ],
+  "target": "Android ARM64 C++23 dryrun only",
+  "no_keys": true,
+  "no_apk": true,
+  "no_drive_mutation": true
+}
