@@ -1,0 +1,1367 @@
+{
+  "etapa": "PRE105_SOURCE_REVIEW",
+  "run_id": "41804397305",
+  "status": "FONTE_VERIFICADA_E_ANALISADA",
+  "phase": "COMPLETE",
+  "snapshot_sha256_valid": true,
+  "source_sha256_valid": true,
+  "restore_executed": false,
+  "patch_executed": false,
+  "apk_built": false,
+  "key_accessed": false,
+  "source_sha256": "5509b4ad8de3f78522e0d5718ab853fbaff79ea4ff9184173a969b63eb3ab034",
+  "settings_source": {
+    "file": "workspace/nativo/sdk/src/ui/overlay/settings_overlay.cpp",
+    "line_count": 765,
+    "selection_truncated": true,
+    "match_summary": {
+      "imgui_style": {
+        "count": 48,
+        "numbers": [
+          255,
+          256,
+          258,
+          259,
+          261,
+          271,
+          272,
+          282,
+          283,
+          284,
+          287,
+          291,
+          293,
+          295,
+          297,
+          299,
+          301,
+          303,
+          305,
+          307,
+          309,
+          311,
+          316,
+          317,
+          319,
+          320,
+          322,
+          323,
+          325,
+          326,
+          328,
+          329,
+          331,
+          332,
+          334,
+          335,
+          337,
+          338,
+          340,
+          341,
+          346,
+          347,
+          360,
+          735,
+          736,
+          745,
+          760,
+          761
+        ]
+      },
+      "window": {
+        "count": 22,
+        "numbers": [
+          177,
+          248,
+          250,
+          251,
+          264,
+          276,
+          350,
+          359,
+          388,
+          416,
+          422,
+          473,
+          503,
+          534,
+          547,
+          620,
+          622,
+          673,
+          682,
+          720,
+          729,
+          762
+        ]
+      },
+      "labels": {
+        "count": 25,
+        "numbers": [
+          2,
+          4,
+          12,
+          45,
+          48,
+          62,
+          177,
+          233,
+          241,
+          250,
+          252,
+          264,
+          265,
+          275,
+          280,
+          281,
+          356,
+          357,
+          365,
+          383,
+          394,
+          610,
+          630,
+          741,
+          749
+        ]
+      },
+      "colors": {
+        "count": 33,
+        "numbers": [
+          62,
+          257,
+          260,
+          292,
+          294,
+          296,
+          298,
+          300,
+          302,
+          304,
+          306,
+          308,
+          310,
+          312,
+          318,
+          320,
+          321,
+          324,
+          327,
+          330,
+          333,
+          336,
+          339,
+          342,
+          348,
+          355,
+          363,
+          368,
+          376,
+          419,
+          726,
+          733,
+          737
+        ]
+      }
+    },
+    "lines": [
+      {
+        "line": 1,
+        "text": "/**"
+      },
+      {
+        "line": 2,
+        "text": " * @file        ui/overlay/settings_overlay.cpp"
+      },
+      {
+        "line": 3,
+        "text": " *"
+      },
+      {
+        "line": 4,
+        "text": " * @brief       Settings overlay implementation. See settings_overlay.h for details."
+      },
+      {
+        "line": 5,
+        "text": " *"
+      },
+      {
+        "line": 6,
+        "text": " * @copyright   Copyright (c) 2026 Tom Clay <tomc@tctechstuff.com>"
+      },
+      {
+        "line": 10,
+        "text": " *              See LICENSE file in the project root for full license text."
+      },
+      {
+        "line": 11,
+        "text": " */"
+      },
+      {
+        "line": 12,
+        "text": "#include <rex/ui/overlay/settings_overlay.h>"
+      },
+      {
+        "line": 13,
+        "text": "#include <rex/cvar.h>"
+      },
+      {
+        "line": 14,
+        "text": "#include <rex/string.h>"
+      },
+      {
+        "line": 43,
+        "text": "}"
+      },
+      {
+        "line": 44,
+        "text": ""
+      },
+      {
+        "line": 45,
+        "text": "SettingsDialog::SettingsDialog(ImGuiDrawer* imgui_drawer, std::filesystem::path config_path)"
+      },
+      {
+        "line": 46,
+        "text": "    : ImGuiDialog(imgui_drawer), config_path_(std::move(config_path)) {}"
+      },
+      {
+        "line": 47,
+        "text": ""
+      },
+      {
+        "line": 48,
+        "text": "SettingsDialog::~SettingsDialog() {}"
+      },
+      {
+        "line": 49,
+        "text": ""
+      },
+      {
+        "line": 50,
+        "text": "static const char* LifecycleBadge(rex::cvar::Lifecycle lc) {"
+      },
+      {
+        "line": 60,
+        "text": "}"
+      },
+      {
+        "line": 61,
+        "text": ""
+      },
+      {
+        "line": 62,
+        "text": "static ImVec4 LifecycleColor(rex::cvar::Lifecycle lc, const SettingsStyle& style) {"
+      },
+      {
+        "line": 63,
+        "text": "  switch (lc) {"
+      },
+      {
+        "line": 64,
+        "text": "    case rex::cvar::Lifecycle::kHotReload:"
+      },
+      {
+        "line": 175,
+        "text": "}"
+      },
+      {
+        "line": 176,
+        "text": ""
+      },
+      {
+        "line": 177,
+        "text": "void SettingsDialog::OnDraw(ImGuiIO& /*io*/) {"
+      },
+      {
+        "line": 178,
+        "text": "  auto& registry = rex::cvar::GetRegistry();"
+      },
+      {
+        "line": 179,
+        "text": "  // nfsmw: hidden cvars are not listed, and a category with nothing visible does not show either."
+      },
+      {
+        "line": 231,
+        "text": "    return;"
+      },
+      {
+        "line": 232,
+        "text": "  }"
+      },
+      {
+        "line": 233,
+        "text": "  // NFSMW PRE80: Android touch settings layout."
+      },
+      {
+        "line": 234,
+        "text": "#if defined(__ANDROID__)"
+      },
+      {
+        "line": 235,
+        "text": "  const bool mobile_layout = true;"
+      },
+      {
+        "line": 239,
+        "text": ""
+      },
+      {
+        "line": 240,
+        "text": "  const float margin = mobile_layout ? 16.0f : 12.0f;"
+      },
+      {
+        "line": 241,
+        "text": "  const ImVec2 settings_size("
+      },
+      {
+        "line": 242,
+        "text": "      std::max(1.0f, std::min("
+      },
+      {
+        "line": 243,
+        "text": "          mobile_layout ? 1400.0f : 620.0f,"
+      },
+      {
+        "line": 246,
+        "text": "          mobile_layout ? 900.0f : 480.0f,"
+      },
+      {
+        "line": 247,
+        "text": "          display_size.y - 2.0f * margin)));"
+      },
+      {
+        "line": 248,
+        "text": "  ImGui::SetNextWindowPos(ImVec2(display_size.x * 0.5f, display_size.y * 0.5f),"
+      },
+      {
+        "line": 249,
+        "text": "                          ImGuiCond_Always, ImVec2(0.5f, 0.5f));"
+      },
+      {
+        "line": 250,
+        "text": "  ImGui::SetNextWindowSize(settings_size, ImGuiCond_Always);"
+      },
+      {
+        "line": 251,
+        "text": "  ImGui::SetNextWindowBgAlpha(mobile_layout ? 0.98f : 0.85f);"
+      },
+      {
+        "line": 252,
+        "text": "  // NFSMW PRE92: full yellow settings window."
+      },
+      {
+        "line": 253,
+        "text": "  // A cor e os cantos da janela devem ser definidos antes de Begin()."
+      },
+      {
+        "line": 254,
+        "text": "  if (mobile_layout) {"
+      },
+      {
+        "line": 255,
+        "text": "    ImGui::PushStyleColor("
+      },
+      {
+        "line": 256,
+        "text": "        ImGuiCol_WindowBg,"
+      },
+      {
+        "line": 257,
+        "text": "        ImVec4(0.055f, 0.065f, 0.075f, 0.99f));"
+      },
+      {
+        "line": 258,
+        "text": "    ImGui::PushStyleColor("
+      },
+      {
+        "line": 259,
+        "text": "        ImGuiCol_Border,"
+      },
+      {
+        "line": 260,
+        "text": "        ImVec4(0.40f, 0.34f, 0.12f, 1.0f));"
+      },
+      {
+        "line": 261,
+        "text": "    ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 16.0f);"
+      },
+      {
+        "line": 262,
+        "text": "  }"
+      },
+      {
+        "line": 263,
+        "text": ""
+      },
+      {
+        "line": 264,
+        "text": "  const bool settings_visible = ImGui::Begin("
+      },
+      {
+        "line": 265,
+        "text": "      \"Settings##rex\", nullptr,"
+      },
+      {
+        "line": 266,
+        "text": "      ImGuiWindowFlags_NoCollapse |"
+      },
+      {
+        "line": 267,
+        "text": "      ImGuiWindowFlags_NoMove |"
+      },
+      {
+        "line": 269,
+        "text": ""
+      },
+      {
+        "line": 270,
+        "text": "  if (mobile_layout) {"
+      },
+      {
+        "line": 271,
+        "text": "    ImGui::PopStyleVar();"
+      },
+      {
+        "line": 272,
+        "text": "    ImGui::PopStyleColor(2);"
+      },
+      {
+        "line": 273,
+        "text": "  }"
+      },
+      {
+        "line": 274,
+        "text": ""
+      },
+      {
+        "line": 275,
+        "text": "  if (!settings_visible) {"
+      },
+      {
+        "line": 276,
+        "text": "    ImGui::End();"
+      },
+      {
+        "line": 277,
+        "text": "    return;"
+      },
+      {
+        "line": 278,
+        "text": "  }"
+      },
+      {
+        "line": 279,
+        "text": ""
+      },
+      {
+        "line": 280,
+        "text": "  // NFSMW PRE86: most wanted yellow mobile theme"
+      },
+      {
+        "line": 281,
+        "text": "  // NFSMW PRE61: estilo visual local do Settings."
+      },
+      {
+        "line": 282,
+        "text": "  ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, mobile_layout ? 14.0f : 8.0f);"
+      },
+      {
+        "line": 283,
+        "text": "  ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, mobile_layout ? 10.0f : 6.0f);"
+      },
+      {
+        "line": 284,
+        "text": "  ImGui::PushStyleVar("
+      },
+      {
+        "line": 285,
+        "text": "      ImGuiStyleVar_ItemSpacing,"
+      },
+      {
+        "line": 286,
+        "text": "      mobile_layout ? ImVec2(12.0f, 12.0f) : ImVec2(9.0f, 8.0f));"
+      },
+      {
+        "line": 287,
+        "text": "  ImGui::PushStyleVar("
+      },
+      {
+        "line": 288,
+        "text": "      ImGuiStyleVar_FramePadding,"
+      },
+      {
+        "line": 289,
+        "text": "      mobile_layout ? ImVec2(14.0f, 12.0f) : ImVec2(9.0f, 7.0f));"
+      },
+      {
+        "line": 290,
+        "text": ""
+      },
+      {
+        "line": 291,
+        "text": "  ImGui::PushStyleColor(ImGuiCol_ChildBg,"
+      },
+      {
+        "line": 292,
+        "text": "      mobile_layout ? ImVec4(0.105f, 0.115f, 0.125f, 0.980f) : ImVec4(0.065f, 0.075f, 0.095f, 0.94f));"
+      },
+      {
+        "line": 293,
+        "text": "  ImGui::PushStyleColor(ImGuiCol_FrameBg,"
+      },
+      {
+        "line": 294,
+        "text": "      mobile_layout ? ImVec4(0.165f, 0.175f, 0.185f, 1.000f) : ImVec4(0.12f, 0.14f, 0.17f, 1.0f));"
+      },
+      {
+        "line": 295,
+        "text": "  ImGui::PushStyleColor(ImGuiCol_FrameBgHovered,"
+      },
+      {
+        "line": 296,
+        "text": "      mobile_layout ? ImVec4(0.235f, 0.235f, 0.210f, 1.000f) : ImVec4(0.17f, 0.19f, 0.22f, 1.0f));"
+      },
+      {
+        "line": 297,
+        "text": "  ImGui::PushStyleColor(ImGuiCol_Button,"
+      },
+      {
+        "line": 298,
+        "text": "      mobile_layout ? ImVec4(0.940f, 0.730f, 0.030f, 1.000f) : ImVec4(0.22f, 0.23f, 0.25f, 1.0f));"
+      },
+      {
+        "line": 299,
+        "text": "  ImGui::PushStyleColor(ImGuiCol_ButtonHovered,"
+      },
+      {
+        "line": 300,
+        "text": "      mobile_layout ? ImVec4(1.000f, 0.840f, 0.100f, 1.000f) : ImVec4(0.35f, 0.30f, 0.14f, 1.0f));"
+      },
+      {
+        "line": 301,
+        "text": "  ImGui::PushStyleColor(ImGuiCol_ButtonActive,"
+      },
+      {
+        "line": 302,
+        "text": "      mobile_layout ? ImVec4(0.790f, 0.590f, 0.020f, 1.000f) : ImVec4(0.52f, 0.42f, 0.10f, 1.0f));"
+      },
+      {
+        "line": 303,
+        "text": "  ImGui::PushStyleColor(ImGuiCol_Header,"
+      },
+      {
+        "line": 304,
+        "text": "      mobile_layout ? ImVec4(0.580f, 0.430f, 0.020f, 0.850f) : ImVec4(0.40f, 0.33f, 0.10f, 0.75f));"
+      },
+      {
+        "line": 305,
+        "text": "  ImGui::PushStyleColor(ImGuiCol_HeaderHovered,"
+      },
+      {
+        "line": 306,
+        "text": "      mobile_layout ? ImVec4(0.780f, 0.600f, 0.030f, 0.950f) : ImVec4(0.48f, 0.39f, 0.12f, 0.85f));"
+      },
+      {
+        "line": 307,
+        "text": "  ImGui::PushStyleColor(ImGuiCol_HeaderActive,"
+      },
+      {
+        "line": 308,
+        "text": "      mobile_layout ? ImVec4(0.950f, 0.750f, 0.050f, 1.000f) : ImVec4(0.55f, 0.44f, 0.10f, 1.0f));"
+      },
+      {
+        "line": 309,
+        "text": "  ImGui::PushStyleColor(ImGuiCol_CheckMark,"
+      },
+      {
+        "line": 310,
+        "text": "      mobile_layout ? ImVec4(1.000f, 0.820f, 0.080f, 1.000f) : ImVec4(1.0f, 0.79f, 0.16f, 1.0f));"
+      },
+      {
+        "line": 311,
+        "text": "  ImGui::PushStyleColor(ImGuiCol_Border,"
+      },
+      {
+        "line": 312,
+        "text": "      mobile_layout ? ImVec4(0.290f, 0.290f, 0.255f, 0.900f) : ImVec4(0.27f, 0.28f, 0.31f, 0.85f));"
+      },
+      {
+        "line": 313,
+        "text": ""
+      },
+      {
+        "line": 314,
+        "text": "  // Cores adicionais: painéis, listas, textos e barras."
+      },
+      {
+        "line": 315,
+        "text": "  if (mobile_layout) {"
+      },
+      {
+        "line": 316,
+        "text": "    ImGui::PushStyleColor("
+      },
+      {
+        "line": 317,
+        "text": "        ImGuiCol_PopupBg,"
+      },
+      {
+        "line": 318,
+        "text": "        ImVec4(0.11f, 0.12f, 0.13f, 1.0f));"
+      },
+      {
+        "line": 319,
+        "text": "    ImGui::PushStyleColor("
+      },
+      {
+        "line": 320,
+        "text": "        ImGuiCol_Separator,"
+      },
+      {
+        "line": 321,
+        "text": "        ImVec4(0.34f, 0.32f, 0.22f, 0.85f));"
+      },
+      {
+        "line": 322,
+        "text": "    ImGui::PushStyleColor("
+      },
+      {
+        "line": 323,
+        "text": "        ImGuiCol_ScrollbarGrab,"
+      },
+      {
+        "line": 324,
+        "text": "        ImVec4(0.55f, 0.46f, 0.12f, 1.0f));"
+      },
+      {
+        "line": 325,
+        "text": "    ImGui::PushStyleColor("
+      },
+      {
+        "line": 326,
+        "text": "        ImGuiCol_ScrollbarGrabHovered,"
+      },
+      {
+        "line": 327,
+        "text": "        ImVec4(0.85f, 0.69f, 0.07f, 1.0f));"
+      },
+      {
+        "line": 328,
+        "text": "    ImGui::PushStyleColor("
+      },
+      {
+        "line": 329,
+        "text": "        ImGuiCol_ScrollbarGrabActive,"
+      },
+      {
+        "line": 330,
+        "text": "        ImVec4(1.0f, 0.82f, 0.05f, 1.0f));"
+      },
+      {
+        "line": 331,
+        "text": "    ImGui::PushStyleColor("
+      },
+      {
+        "line": 332,
+        "text": "        ImGuiCol_Text,"
+      },
+      {
+        "line": 333,
+        "text": "        ImVec4(0.95f, 0.95f, 0.93f, 1.0f));"
+      },
+      {
+        "line": 334,
+        "text": "    ImGui::PushStyleColor("
+      },
+      {
+        "line": 335,
+        "text": "        ImGuiCol_TextDisabled,"
+      },
+      {
+        "line": 336,
+        "text": "        ImVec4(0.67f, 0.68f, 0.65f, 1.0f));"
+      },
+      {
+        "line": 337,
+        "text": "    ImGui::PushStyleColor("
+      },
+      {
+        "line": 338,
+        "text": "        ImGuiCol_TitleBg,"
+      },
+      {
+        "line": 339,
+        "text": "        ImVec4(0.08f, 0.09f, 0.10f, 1.0f));"
+      },
+      {
+        "line": 340,
+        "text": "    ImGui::PushStyleColor("
+      },
+      {
+        "line": 341,
+        "text": "        ImGuiCol_TitleBgActive,"
+      },
+      {
+        "line": 342,
+        "text": "        ImVec4(0.14f, 0.14f, 0.12f, 1.0f));"
+      },
+      {
+        "line": 343,
+        "text": "  }"
+      },
+      {
+        "line": 344,
+        "text": ""
+      },
+      {
+        "line": 345,
+        "text": "  if (mobile_layout) {"
+      },
+      {
+        "line": 346,
+        "text": "    ImGui::PushStyleColor("
+      },
+      {
+        "line": 347,
+        "text": "        ImGuiCol_ChildBg,"
+      },
+      {
+        "line": 348,
+        "text": "        ImVec4(0.14f, 0.15f, 0.15f, 1.0f));"
+      },
+      {
+        "line": 349,
+        "text": ""
+      },
+      {
+        "line": 350,
+        "text": "    ImGui::BeginChild("
+      },
+      {
+        "line": 351,
+        "text": "        \"##mw_header\", ImVec2(0.0f, 70.0f),"
+      },
+      {
+        "line": 352,
+        "text": "        true, ImGuiWindowFlags_NoScrollbar);"
+      },
+      {
+        "line": 353,
+        "text": ""
+      },
+      {
+        "line": 354,
+        "text": "    ImGui::TextColored("
+      },
+      {
+        "line": 355,
+        "text": "        ImVec4(1.0f, 0.82f, 0.05f, 1.0f),"
+      },
+      {
+        "line": 356,
+        "text": "        \"NEED FOR SPEED / MOST WANTED\");"
+      },
+      {
+        "line": 357,
+        "text": "    ImGui::TextDisabled(\"SETTINGS  /  ANDROID\");"
+      },
+      {
+        "line": 358,
+        "text": ""
+      },
+      {
+        "line": 359,
+        "text": "    ImGui::EndChild();"
+      },
+      {
+        "line": 360,
+        "text": "    ImGui::PopStyleColor();"
+      },
+      {
+        "line": 361,
+        "text": "  } else {"
+      },
+      {
+        "line": 362,
+        "text": "    ImGui::TextColored("
+      },
+      {
+        "line": 363,
+        "text": "        ImVec4(1.0f, 0.79f, 0.16f, 1.0f), \"NFSMW\");"
+      },
+      {
+        "line": 364,
+        "text": "    ImGui::SameLine();"
+      },
+      {
+        "line": 365,
+        "text": "    ImGui::TextDisabled(\" / SETTINGS\");"
+      },
+      {
+        "line": 366,
+        "text": "  }"
+      },
+      {
+        "line": 367,
+        "text": ""
+      },
+      {
+        "line": 368,
+        "text": "  ImGui::Separator();"
+      },
+      {
+        "line": 369,
+        "text": ""
+      },
+      {
+        "line": 370,
+        "text": "  // Search bar at the top (full width)."
+      },
+      {
+        "line": 374,
+        "text": "  ImGui::Dummy(ImVec2(0, 0));"
+      },
+      {
+        "line": 375,
+        "text": ""
+      },
+      {
+        "line": 376,
+        "text": "  ImGui::Separator();"
+      },
+      {
+        "line": 377,
+        "text": ""
+      },
+      {
+        "line": 378,
+        "text": "  if (mobile_layout) {"
+      },
+      {
+        "line": 381,
+        "text": "    std::string selected_label ="
+      },
+      {
+        "line": 382,
+        "text": "        selected_category_.empty()"
+      },
+      {
+        "line": 383,
+        "text": "            ? std::string(\"All settings\")"
+      },
+      {
+        "line": 384,
+        "text": "            : selected_category_;"
+      },
+      {
+        "line": 385,
+        "text": ""
+      },
+      {
+        "line": 386,
+        "text": "    ImGui::SetNextItemWidth(-1.0f);"
+      },
+      {
+        "line": 387,
+        "text": ""
+      },
+      {
+        "line": 388,
+        "text": "    if (ImGui::BeginCombo("
+      },
+      {
+        "line": 389,
+        "text": "            \"##nfsmw_mobile_category\","
+      },
+      {
+        "line": 390,
+        "text": "            selected_label.c_str())) {"
+      },
+      {
+        "line": 392,
+        "text": "      const bool all_selected = selected_category_.empty();"
+      },
+      {
+        "line": 393,
+        "text": ""
+      },
+      {
+        "line": 394,
+        "text": "      if (ImGui::Selectable(\"All settings\", all_selected)) {"
+      },
+      {
+        "line": 395,
+        "text": "        selected_category_.clear();"
+      },
+      {
+        "line": 396,
+        "text": "      }"
+      },
+      {
+        "line": 414,
+        "text": "      }"
+      },
+      {
+        "line": 415,
+        "text": ""
+      },
+      {
+        "line": 416,
+        "text": "      ImGui::EndCombo();"
+      },
+      {
+        "line": 417,
+        "text": "    }"
+      },
+      {
+        "line": 418,
+        "text": ""
+      },
+      {
+        "line": 419,
+        "text": "    ImGui::Separator();"
+      },
+      {
+        "line": 420,
+        "text": "  } else {"
+      },
+      {
+        "line": 421,
+        "text": "  const float panel_width = 160.0f;"
+      },
+      {
+        "line": 422,
+        "text": "  ImGui::BeginChild(\"##cats\", ImVec2(panel_width, -30.0f), true);"
+      },
+      {
+        "line": 423,
+        "text": ""
+      },
+      {
+        "line": 424,
+        "text": "  // Recursive lambda to draw the category tree."
+      },
+      {
+        "line": 471,
+        "text": "  }"
+      },
+      {
+        "line": 472,
+        "text": ""
+      },
+      {
+        "line": 473,
+        "text": "  ImGui::EndChild();"
+      },
+      {
+        "line": 474,
+        "text": ""
+      },
+      {
+        "line": 475,
+        "text": "  ImGui::SameLine();"
+      },
+      {
+        "line": 501,
+        "text": "  // enters at its first value and not at a remembered one that is no longer shown."
+      },
+      {
+        "line": 502,
+        "text": "  ImGui::PushID(selected_category_.c_str());"
+      },
+      {
+        "line": 503,
+        "text": "  ImGui::BeginChild(\"##cvars\", ImVec2(0, -30.0f), false);"
+      },
+      {
+        "line": 504,
+        "text": "  for (auto& entry : registry) {"
+      },
+      {
+        "line": 505,
+        "text": "    if (ocultos.count(entry.name)) {"
+      },
+      {
+        "line": 532,
+        "text": ""
+      },
+      {
+        "line": 533,
+        "text": "    if (read_only)"
+      },
+      {
+        "line": 534,
+        "text": "      ImGui::BeginDisabled();"
+      },
+      {
+        "line": 535,
+        "text": ""
+      },
+      {
+        "line": 536,
+        "text": "    std::string current_val = entry.getter();"
+      },
+      {
+        "line": 545,
+        "text": "          (entry.category == \"Input/Keybinds/Controller\" && !REXCVAR_QUERY(bool, mnk_mode));"
+      },
+      {
+        "line": 546,
+        "text": "      if (mnk_disabled)"
+      },
+      {
+        "line": 547,
+        "text": "        ImGui::BeginDisabled();"
+      },
+      {
+        "line": 548,
+        "text": ""
+      },
+      {
+        "line": 549,
+        "text": "      // Show description as label (e.g. \"A button\"), not the raw CVAR name"
+      },
+      {
+        "line": 608,
+        "text": "        if (conflict_count > 0) {"
+      },
+      {
+        "line": 609,
+        "text": "          ImGui::SameLine();"
+      },
+      {
+        "line": 610,
+        "text": "          ImGui::TextColored(imgui_drawer()->style().settings.warning, \"(!)\");"
+      },
+      {
+        "line": 611,
+        "text": "          if (ImGui::IsItemHovered()) {"
+      },
+      {
+        "line": 612,
+        "text": "            ImGui::SetTooltip(\"Key '%s' is also bound to %d other action(s)\", current_val.c_str(),"
+      },
+      {
+        "line": 618,
+        "text": "      // Skip the generic name + lifecycle badge rendering for keybinds"
+      },
+      {
+        "line": 619,
+        "text": "      if (mnk_disabled)"
+      },
+      {
+        "line": 620,
+        "text": "        ImGui::EndDisabled();"
+      },
+      {
+        "line": 621,
+        "text": "      if (read_only)"
+      },
+      {
+        "line": 622,
+        "text": "        ImGui::EndDisabled();"
+      },
+      {
+        "line": 623,
+        "text": "      ImGui::PopID();"
+      },
+      {
+        "line": 624,
+        "text": "      continue;"
+      },
+      {
+        "line": 628,
+        "text": "          LifecycleColor("
+      },
+      {
+        "line": 629,
+        "text": "              entry.lifecycle,"
+      },
+      {
+        "line": 630,
+        "text": "              imgui_drawer()->style().settings),"
+      },
+      {
+        "line": 631,
+        "text": "          \"%s\","
+      },
+      {
+        "line": 632,
+        "text": "          entry.name.c_str());"
+      },
+      {
+        "line": 671,
+        "text": "          }"
+      },
+      {
+        "line": 672,
+        "text": "        }"
+      },
+      {
+        "line": 673,
+        "text": "        if (ImGui::BeginCombo(\"##v\", opts[cur_idx].c_str())) {"
+      },
+      {
+        "line": 674,
+        "text": "          for (int i = 0; i < static_cast<int>(opts.size()); ++i) {"
+      },
+      {
+        "line": 675,
+        "text": "            bool sel = (i == cur_idx);"
+      },
+      {
+        "line": 680,
+        "text": "              ImGui::SetItemDefaultFocus();"
+      },
+      {
+        "line": 681,
+        "text": "          }"
+      },
+      {
+        "line": 682,
+        "text": "          ImGui::EndCombo();"
+      },
+      {
+        "line": 683,
+        "text": "        }"
+      },
+      {
+        "line": 684,
+        "text": "      } else if (entry.type == rex::cvar::FlagType::Int32 ||"
+      },
+      {
+        "line": 718,
+        "text": ""
+      },
+      {
+        "line": 719,
+        "text": "    if (read_only)"
+      },
+      {
+        "line": 720,
+        "text": "      ImGui::EndDisabled();"
+      },
+      {
+        "line": 721,
+        "text": ""
+      },
+      {
+        "line": 722,
+        "text": "    ImGui::PopID();"
+      },
+      {
+        "line": 724,
+        "text": "    if (mobile_layout) {"
+      },
+      {
+        "line": 725,
+        "text": "      ImGui::Spacing();"
+      },
+      {
+        "line": 726,
+        "text": "      ImGui::Separator();"
+      },
+      {
+        "line": 727,
+        "text": "    }"
+      },
+      {
+        "line": 728,
+        "text": "  }"
+      },
+      {
+        "line": 729,
+        "text": "  ImGui::EndChild();"
+      },
+      {
+        "line": 730,
+        "text": "  ImGui::PopID();"
+      },
+      {
+        "line": 731,
+        "text": ""
+      },
+      {
+        "line": 732,
+        "text": "  // Bottom bar: Save button."
+      },
+      {
+        "line": 733,
+        "text": "  ImGui::Separator();"
+      },
+      {
+        "line": 734,
+        "text": "  if (mobile_layout) {"
+      },
+      {
+        "line": 735,
+        "text": "    ImGui::PushStyleColor("
+      },
+      {
+        "line": 736,
+        "text": "        ImGuiCol_Text,"
+      },
+      {
+        "line": 737,
+        "text": "        ImVec4(0.08f, 0.08f, 0.07f, 1.0f));"
+      }
+    ]
+  },
+  "other_ui_sources": [
+    {
+      "file": "workspace/nativo/sdk/src/ui/rex_app.cpp",
+      "line_count": 698,
+      "selection_truncated": false,
+      "match_summary": {
+        "imgui_style": {
+          "count": 0,
+          "numbers": []
+        },
+        "window": {
+          "count": 0,
+          "numbers": []
+        },
+        "labels": {
+          "count": 8,
+          "numbers": [
+            27,
+            289,
+            468,
+            469,
+            470,
+            472,
+            645,
+            657
+          ]
+        },
+        "colors": {
+          "count": 0,
+          "numbers": []
+        }
+      },
+      "lines": [
+        {
+          "line": 25,
+          "text": "#include <rex/ui/overlay/console_overlay.h>"
+        },
+        {
+          "line": 26,
+          "text": "#include <rex/ui/overlay/debug_overlay.h>"
+        },
+        {
+          "line": 27,
+          "text": "#include <rex/ui/overlay/settings_overlay.h>"
+        },
+        {
+          "line": 28,
+          "text": "#include <rex/audio/audio_system.h>"
+        },
+        {
+          "line": 29,
+          "text": "#if REX_PLATFORM_SWITCH"
+        },
+        {
+          "line": 287,
+          "text": "    if (input_sys) {"
+        },
+        {
+          "line": 288,
+          "text": "      input_sys->SetActiveCallback([this]() {"
+        },
+        {
+          "line": 289,
+          "text": "        if (!debug_overlay_ && !console_overlay_ && !settings_overlay_ && !achievements_overlay_)"
+        },
+        {
+          "line": 290,
+          "text": "          return true;"
+        },
+        {
+          "line": 291,
+          "text": "#if REX_PLATFORM_SWITCH"
+        },
+        {
+          "line": 466,
+          "text": "    }"
+        },
+        {
+          "line": 467,
+          "text": "  });"
+        },
+        {
+          "line": 468,
+          "text": "  rex::ui::RegisterBind(\"bind_settings\", \"F4\", \"Toggle settings overlay\", [this] {"
+        },
+        {
+          "line": 469,
+          "text": "    if (settings_overlay_) {"
+        },
+        {
+          "line": 470,
+          "text": "      settings_overlay_.reset();"
+        },
+        {
+          "line": 471,
+          "text": "    } else {"
+        },
+        {
+          "line": 472,
+          "text": "      settings_overlay_ = std::make_unique<ui::SettingsDialog>(imgui_drawer_.get(), config_path_);"
+        },
+        {
+          "line": 473,
+          "text": "    }"
+        },
+        {
+          "line": 474,
+          "text": "  });"
+        },
+        {
+          "line": 643,
+          "text": "  rex::ui::UnregisterBind(\"bind_debug_overlay\");"
+        },
+        {
+          "line": 644,
+          "text": "  rex::ui::UnregisterBind(\"bind_console\");"
+        },
+        {
+          "line": 645,
+          "text": "  rex::ui::UnregisterBind(\"bind_settings\");"
+        },
+        {
+          "line": 646,
+          "text": "  rex::ui::UnregisterBind(\"bind_achievements\");"
+        },
+        {
+          "line": 647,
+          "text": ""
+        },
+        {
+          "line": 655,
+          "text": "  achievement_notification_.reset();"
+        },
+        {
+          "line": 656,
+          "text": "  achievements_overlay_.reset();"
+        },
+        {
+          "line": 657,
+          "text": "  settings_overlay_.reset();"
+        },
+        {
+          "line": 658,
+          "text": "  console_overlay_.reset();"
+        },
+        {
+          "line": 659,
+          "text": "  debug_overlay_.reset();"
+        }
+      ]
+    }
+  ],
+  "timestamp_utc": "2026-11-04T09:04:57.554011+00:00",
+  "run_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/41804397305",
+  "setup_outcome": "success",
+  "inspection_outcome": "success",
+  "recorded_utc": "2026-11-04T09:04:57.645389+00:00"
+}
