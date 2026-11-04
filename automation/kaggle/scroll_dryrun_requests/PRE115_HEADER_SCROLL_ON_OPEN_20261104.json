@@ -1,0 +1,11 @@
+{
+  "etapa": "PRE115_DRYRUN_HEADER_SCROLL_ON_OPEN",
+  "hipotese": "persistencia de posicao de rolagem pode ocultar cabecalho ao reabrir Settings",
+  "escopo": "Android somente no frame de abertura",
+  "base": "PRE99 SHA256 verificado",
+  "compilador": "NDK28.2 ARM64 C++23",
+  "modifica_workspace": false,
+  "compila_apk": false,
+  "assina": false,
+  "teste_dispositivo": false
+}
