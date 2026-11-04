@@ -1,0 +1,23 @@
+{
+  "etapa": "PRE107_RESTAURACAO_ISOLADA_PRE99",
+  "evidencia_tipo": "reconstituicao_a_partir_do_log_e_do_codigo_confirmado",
+  "run_id": "41805685718",
+  "run_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/41805685718",
+  "github_overall_conclusion": "failure",
+  "github_restore_step": "success",
+  "github_record_result_step": "failure",
+  "script_stdout_marker": "PRE107: RESTAURACAO_ISOLADA_VALIDADA",
+  "tar_integrity_check_enforced_by_script": true,
+  "member_count_check_enforced_by_script": true,
+  "per_file_size_check_enforced_by_script": true,
+  "settings_overlay_hash_check_enforced_by_script": true,
+  "original_generated_json_persisted": false,
+  "reason_report_not_persisted": "git push rejected, remote branch advanced (non-fast-forward)",
+  "validated_environment": "GitHub Actions ephemeral /tmp only",
+  "google_drive_modified": false,
+  "original_kaggle_workspace_modified": false,
+  "apk_built": false,
+  "signing_key_accessed": false,
+  "caveat": "Os totais detalhados do JSON original nao foram recuperados; estas flags descrevem as condicoes implementadas no script para produzir o marcador e retornar sucesso.",
+  "upcoming_fix": "Workflow atualizado para git fetch e git rebase origin/main antes do push de relatorios futuros."
+}
