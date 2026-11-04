@@ -46,7 +46,7 @@ def main():
     policy_steps=[x for x in steps if "pre139_verify_dependency_cache.py" in str(x.get("run",""))]
     need(len(policy_steps)>=1,"no production dependency cache content guard")
     release_index=steps.index(build[0])
-    guard_index=next(i for i,x in enumerate(steps) if "PRE139 verify dependency-only cache contents"==x.get("name"))
+    guard_index=next(i for i,x in enumerate(steps) if "PRE139 verify dependency-only cache contents" in x.get("name",""))
     need(guard_index>release_index,"guard must run after build and before cache action post")
     need("steps.release.outcome == 'success'"==steps[guard_index].get("if"),"safety audit execution condition altered")
     need("pre139_verify_dependency_cache.py" in wftext,"safety script not referenced")
