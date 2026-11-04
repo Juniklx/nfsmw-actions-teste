@@ -1,0 +1,9 @@
+{
+  "etapa": "PRE100_KAGGLE_AUTOMACAO_SMOKE",
+  "motivo": "corrigir dependencia six verificada no log do job 126408072705",
+  "alvo": "juniklx/nfsmw-automacao-smoke-pre100",
+  "modifica_notebook_principal": false,
+  "acessa_backup_pre99": false,
+  "usa_assinatura": false,
+  "compila_apk": false
+}
