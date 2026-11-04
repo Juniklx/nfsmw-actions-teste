@@ -1,0 +1,120 @@
+name: NFSMW - Kaggle PRE102 Drive probe (somente leitura)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/drive_requests/*.json'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nfsmw-kaggle-drive-probe
+  cancel-in-progress: false
+
+jobs:
+  pre102-drive-probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      KAGGLE_API_TOKEN: ${{ secrets.KAGGLE_API_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verificar token Kaggle sem revelar valor
+        id: auth
+        run: |
+          if [ -z "${KAGGLE_API_TOKEN:-}" ]; then
+            echo 'KAGGLE_API_TOKEN ausente nos Secrets do GitHub' >&2
+            exit 1
+          fi
+      - name: Instalar Kaggle CLI e dependencia
+        id: install
+        run: |
+          python -m pip install --disable-pip-version-check kaggle six
+          python -c 'import six; from kaggle.cli import main; print("CLI import OK")'
+      - name: Preparar notebook privado de diagnostico Drive
+        id: generate
+        run: |
+          python automation/kaggle/create_drive_probe.py \
+            --output /tmp/nfsmw-pre102-probe \
+            --run-id "$GITHUB_RUN_ID"
+      - name: Enviar e executar notebook PRE102
+        id: push_kernel
+        continue-on-error: true
+        run: kaggle kernels push -p /tmp/nfsmw-pre102-probe
+      - name: Verificar fim da execucao e resultado PRE102
+        id: poll
+        if: steps.push_kernel.outcome == 'success'
+        continue-on-error: true
+        run: |
+          python automation/kaggle/check_drive_probe_completion.py \
+            --run-id "$GITHUB_RUN_ID" \
+            --report /tmp/nfsmw-pre102-github-report.json \
+            --output-dir /tmp/nfsmw-pre102-kaggle-output \
+            --timeout-seconds 900
+      - name: Gravar relatorio da execucao no repositorio privado
+        if: always()
+        env:
+          AUTH_OUTCOME: ${{ steps.auth.outcome }}
+          INSTALL_OUTCOME: ${{ steps.install.outcome }}
+          GENERATE_OUTCOME: ${{ steps.generate.outcome }}
+          PUSH_OUTCOME: ${{ steps.push_kernel.outcome }}
+          POLL_OUTCOME: ${{ steps.poll.outcome }}
+        run: |
+          python - <<'PY'
+          import json, os
+          from datetime import datetime, timezone
+          from pathlib import Path
+          poll_path = Path('/tmp/nfsmw-pre102-github-report.json')
+          poll = json.loads(poll_path.read_text(encoding='utf-8')) if poll_path.is_file() else {}
+          status = {
+              'etapa': 'PRE102_KAGGLE_DRIVE_PROBE',
+              'run_id': os.environ['GITHUB_RUN_ID'],
+              'run_attempt': os.environ['GITHUB_RUN_ATTEMPT'],
+              'run_url': f"https://github.com/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{os.environ['GITHUB_RUN_ID']}",
+              'timestamp_utc': datetime.now(timezone.utc).isoformat(),
+              'auth_kaggle': os.environ['AUTH_OUTCOME'],
+              'install_cli': os.environ['INSTALL_OUTCOME'],
+              'generate_notebook': os.environ['GENERATE_OUTCOME'],
+              'kaggle_push': os.environ['PUSH_OUTCOME'],
+              'kaggle_poll': os.environ['POLL_OUTCOME'],
+              'kaggle_final_status': poll.get('kaggle_final_status', 'NAO_CONFIRMADO'),
+              'kaggle_execution_completed': poll.get('kaggle_execution_completed', False),
+              'drive_backup_metadata_validated': poll.get('drive_backup_metadata_validated', False),
+              'probe_result': poll.get('probe_result'),
+              'probe_checks': poll.get('probe_checks', {}),
+              'probe_failure_phase': poll.get('probe_failure_phase'),
+              'probe_failure_type': poll.get('probe_failure_type'),
+              'probe_missing_secret_label': poll.get('probe_missing_secret_label'),
+              'verification_error_type': poll.get('error_type'),
+              'notebook_principal_modificado': False,
+              'backup_restaurado': False,
+              'compilacao': False,
+              'assinatura_acessada': False,
+          }
+          target = Path('automation/kaggle/status/pre102_drive_probe.json')
+          target.parent.mkdir(parents=True, exist_ok=True)
+          target.write_text(json.dumps(status, ensure_ascii=False, indent=2) + '\n',
+                            encoding='utf-8')
+          print('Relatorio PRE102 pronto. Nenhuma credencial incluída.')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add automation/kaggle/status/pre102_drive_probe.json
+          git commit -m 'Record PRE102 Drive metadata probe result [skip ci]'
+          git push
+      - name: Exigir prova de acesso Drive
+        if: always()
+        env:
+          PUSH_OUTCOME: ${{ steps.push_kernel.outcome }}
+          POLL_OUTCOME: ${{ steps.poll.outcome }}
+        run: |
+          test "$PUSH_OUTCOME" = 'success'
+          test "$POLL_OUTCOME" = 'success'
