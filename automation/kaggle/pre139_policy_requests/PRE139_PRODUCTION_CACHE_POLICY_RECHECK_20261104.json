@@ -1,0 +1,6 @@
+{
+  "stage": "PRE139",
+  "attempt": 2,
+  "reason": "Fix static auditor expected guard step title, no release build or signing touched",
+  "expected": "strict guard passed"
+}
