@@ -41,7 +41,9 @@ jobs:
             automation/kaggle/pre128_android_touch_scroll_visual_patch.py \
             automation/kaggle/pre131_native_touch_and_modern_ui_patch.py \
             automation/kaggle/pre133_mouse_bridge_swipe_patch.py \
-            automation/kaggle/pre138_build_signed_v31_log_pal_usa.py
+            automation/kaggle/pre138_build_signed_v31_log_pal_usa.py \
+            automation/kaggle/pre139_verify_dependency_cache.py
+          python automation/kaggle/pre139_verify_dependency_cache.py --self-test
       - name: Prepare exact Android NDK CMake and SDK build tools in ephemeral runner
         id: android_tools
         continue-on-error: true
@@ -56,25 +58,38 @@ jobs:
             if [ -x "$p" ]; then SDKMANAGER="$p"; break; fi
           done
           test -n "$SDKMANAGER"
-          for p in "$SDK"/ndk/*; do
-            [ -d "$p" ] || continue
-            if [ "$(basename "$p")" != "28.2.13676358" ]; then
-              rm -rf "$p"
-            fi
-          done
-          set +o pipefail
-          yes | "$SDKMANAGER" --sdk_root="$SDK" --install \
-            "ndk;28.2.13676358" "cmake;3.31.6" "platforms;android-36" "build-tools;36.0.0" \
-            > /tmp/nfsmw-pre138-sdk-install.log 2>&1
-          EXIT="${PIPESTATUS[1]}"
-          set -o pipefail
-          if [ "$EXIT" -ne 0 ]; then echo "PRE138 SDK installer exit code $EXIT"; exit "$EXIT"; fi
+          # PRE139: check pinned versions and install ONLY genuinely missing tools.
+          # Do not delete other NDKs. Each hosted runner is ephemeral anyway.
+          MISSING=()
+          [ -f "$SDK/ndk/28.2.13676358/source.properties" ] || MISSING+=("ndk;28.2.13676358")
+          [ -d "$SDK/cmake/3.31.6" ] || MISSING+=("cmake;3.31.6")
+          [ -f "$SDK/platforms/android-36/android.jar" ] || MISSING+=("platforms;android-36")
+          [ -f "$SDK/build-tools/36.0.0/apksigner" ] || MISSING+=("build-tools;36.0.0")
+          if [ "${#MISSING[@]}" -gt 0 ]; then
+            echo "PRE139 SDK packages missing: ${#MISSING[@]}"
+            set +o pipefail
+            yes | "$SDKMANAGER" --sdk_root="$SDK" --install "${MISSING[@]}" \
+              > /tmp/nfsmw-pre138-sdk-install.log 2>&1
+            EXIT="${PIPESTATUS[1]}"
+            set -o pipefail
+            if [ "$EXIT" -ne 0 ]; then echo "PRE139 SDK install failed, exit=$EXIT"; exit "$EXIT"; fi
+          else
+            echo "PRE139 all pinned SDK tools already present; skipping SDK installer"
+          fi
           test -f "$SDK/ndk/28.2.13676358/source.properties"
           test -d "$SDK/cmake/3.31.6"
           test -f "$SDK/build-tools/36.0.0/apksigner"
           test -f "$SDK/build-tools/36.0.0/aapt"
           echo "PRE138 ephemeral NDK/CMake/build-tools ready"
           df -h "$SDK" | tail -n 1
+      - name: PRE139 restore dependency-only Gradle cache
+        uses: actions/cache@v4
+        id: gradle_deps_cache
+        with:
+          path: |
+            ${{ runner.temp }}/nfsmw-gradle-home/caches/modules-2
+            ${{ runner.temp }}/nfsmw-gradle-home/wrapper
+          key: nfsmw-pre99-gradle-ef570ba95703-jdk21-v1-${{ runner.os }}
       - name: Build V31 release and strictly verify signed APK, preserve locally for private artifact
         id: release
         continue-on-error: true
@@ -82,6 +97,7 @@ jobs:
           GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          NFSMW_GRADLE_USER_HOME: ${{ runner.temp }}/nfsmw-gradle-home
         run: |
           set -e
           test "${{ steps.android_tools.outcome }}" = "success"
@@ -90,6 +106,12 @@ jobs:
             --run-id "$GITHUB_RUN_ID" \
             --report /tmp/nfsmw-pre138-out/pre138-report.json \
             --verified-output /tmp/nfsmw-pre138-out/nfsmw-v31-pal-usa-verified.apk
+      - name: PRE139 verify dependency-only cache contents before GitHub cache save
+        if: steps.release.outcome == 'success'
+        run: |
+          python automation/kaggle/pre139_verify_dependency_cache.py \
+            --cache-home "${{ runner.temp }}/nfsmw-gradle-home" \
+            --report /tmp/nfsmw-pre138-out/pre139-safe-cache-report.json
       - name: Preserve private report and verified APK if produced
         if: always()
         uses: actions/upload-artifact@v4
