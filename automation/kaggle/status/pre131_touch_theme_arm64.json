@@ -1,0 +1,46 @@
+{
+  "stage": "PRE131_NATIVE_TOUCH_MODERN_UI_DRYRUN",
+  "run_id": "41868450408",
+  "status": "PRE131_ANDROID_ARM64_SYNTAX_PASSED",
+  "phase": "COMPLETE",
+  "pre99_verified": true,
+  "pre117_verified": true,
+  "pre128_verified": true,
+  "pre131_sources_patched_in_isolated_runner": true,
+  "arm64_settings_syntax_ok": true,
+  "arm64_imgui_drawer_syntax_ok": true,
+  "key_accessed": false,
+  "apk_built": false,
+  "drive_modified": false,
+  "original_source_modified": false,
+  "phone_touch_verified": false,
+  "mobile_theme_verified_on_device": false,
+  "ndk_revision": "28.2.13676358",
+  "android_api": 26,
+  "pre128_source_sha": "cf3cc930904303ec3b4a081f9987a1ced478697678fcab90b056f07ba0b4957d",
+  "patch_file_hashes": {
+    "workspace/nativo/sdk/src/ui/overlay/settings_overlay.cpp": "9e95ab6637ec742be5d2f0d9aca94c8ce4f5f4f19f93ec94700183699b23ece7",
+    "workspace/nativo/sdk/include/rex/ui/overlay/settings_overlay.h": "0b6e351358d421c7cd5122fa2baccfb3145a24921943239d53aeb023f99ca17a",
+    "workspace/nativo/sdk/src/ui/imgui_drawer.cpp": "00b1dc75778f9718bd0eceeaae90c49915bebd0f0627698580a8bf8c32c91fa4",
+    "workspace/nativo/sdk/include/rex/ui/imgui_drawer.h": "2d91946b4e1aff8437070e381b59ced3aecd07b7a106685da2520c565ef36543",
+    "workspace/nativo/sdk/src/ui/nfsmw_modern_font.h": "b1eb3bc2d5a09e535701546ad15e16bde3960915fb3ba0eb5c7df4c7e59e3e83"
+  },
+  "arm64_settings_syntax": {
+    "attempted": true,
+    "exit_code": 0,
+    "passed": true,
+    "diagnostic_excerpt": "",
+    "missing_include": false
+  },
+  "arm64_imgui_drawer_syntax": {
+    "attempted": true,
+    "exit_code": 0,
+    "passed": true,
+    "diagnostic_excerpt": "",
+    "missing_include": false
+  },
+  "recorded_utc": "2026-11-04T16:35:01.685800+00:00",
+  "ndk_setup_outcome": "success",
+  "syntax_step_outcome": "success",
+  "run_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/41868450408"
+}
