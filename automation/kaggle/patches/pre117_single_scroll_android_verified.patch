@@ -1,0 +1,30 @@
+--- PRE92 settings_overlay.cpp (verified SHA-256)
++++ PRE117 ONE-SCROLL ANDROID PROPOSAL — NOT APPLIED
+@@ -499,9 +499,13 @@
+ 
+   // One value panel per category: when the category changes, the controller
+   // enters at its first value and not at a remembered one that is no longer shown.
+   ImGui::PushID(selected_category_.c_str());
+-  ImGui::BeginChild("##cvars", ImVec2(0, -30.0f), false);
++  // PRE117: Android uses the root Settings window as the sole scroll owner.
++  // Desktop keeps the original CVar child and its existing scroll behavior.
++  if (!mobile_layout) {
++    ImGui::BeginChild("##cvars", ImVec2(0, -30.0f), false);
++  }
+   for (auto& entry : registry) {
+     if (ocultos.count(entry.name)) {
+       continue;  // nfsmw: OcultarAjustesEnMenu
+     }
+@@ -725,9 +729,11 @@
+       ImGui::Spacing();
+       ImGui::Separator();
+     }
+   }
+-  ImGui::EndChild();
++  if (!mobile_layout) {
++    ImGui::EndChild();
++  }
+   ImGui::PopID();
+ 
+   // Bottom bar: Save button.
+   ImGui::Separator();
