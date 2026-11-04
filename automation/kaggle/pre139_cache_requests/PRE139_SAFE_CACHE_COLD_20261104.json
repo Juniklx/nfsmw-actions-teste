@@ -1,0 +1,8 @@
+{
+  "stage": "PRE139",
+  "intent": "validate cross-run GitHub Actions dependency-only cache with synthetic marker, never include real game assets/keystore",
+  "sequence": 1,
+  "tag": "warm_cold",
+  "run_real_gradle": false,
+  "run_ccache": false
+}
