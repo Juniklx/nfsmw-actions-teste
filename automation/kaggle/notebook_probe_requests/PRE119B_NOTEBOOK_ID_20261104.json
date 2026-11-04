@@ -1,0 +1,7 @@
+{
+  "etapa": "PRE119B_IDENTIFICAR_NOTEBOOK_ORIGINAL",
+  "modo": "somente leitura, kaggle kernels list --mine e pull juniklx/nfsmw",
+  "no_push": true,
+  "no_run": true,
+  "no_apk": true
+}
