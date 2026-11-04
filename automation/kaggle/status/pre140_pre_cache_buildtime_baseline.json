@@ -1,0 +1,53 @@
+{
+  "stage": "PRE140_PRE_CACHE_BUILDTIME_BASELINE",
+  "recorded_on": "2026-11-04",
+  "unit": "seconds",
+  "source": "GitHub Actions workflow run jobs steps metadata; only successful full signed APK builds",
+  "repo": "Juniklx/nfsmw-actions-teste",
+  "pre140_safety_run_id": 41901696449,
+  "pre140_safety_status": "success",
+  "cache_synthetic_cold_run_id": 41899119460,
+  "cache_synthetic_warm_run_id": 41899259138,
+  "measured_real_cache_savings": false,
+  "production_cache_warm_build_tested": false,
+  "ccache_enabled": false,
+  "batches": [
+    {
+      "version": "V28",
+      "run_id": 41856921883,
+      "total_job_sec": 1618,
+      "main_build_sec": 1572,
+      "android_tools_sec": 30,
+      "build_stage_share_pct": 97
+    },
+    {
+      "version": "V29",
+      "run_id": 41869326935,
+      "total_job_sec": 1681,
+      "main_build_sec": 1614,
+      "android_tools_sec": 51,
+      "build_stage_share_pct": 96
+    },
+    {
+      "version": "V30",
+      "run_id": 41877000027,
+      "total_job_sec": 1356,
+      "main_build_sec": 1288,
+      "android_tools_sec": 49,
+      "build_stage_share_pct": 95
+    },
+    {
+      "version": "V31",
+      "run_id": 41896331611,
+      "total_job_sec": 1502,
+      "main_build_sec": 1456,
+      "android_tools_sec": 29,
+      "build_stage_share_pct": 97
+    }
+  ],
+  "unweighted_mean_job_sec": 1539,
+  "unweighted_mean_build_step_sec": 1483,
+  "interpretation": "The Build Vxx step contains PRE99 download/check/extract, patches, CMake/NDK compilation, Gradle, signing and APK verification, so it is not an exclusive C++ time. Cached SDK tools alone have limited possible impact; next goal is instrument sub-phases before considering native artifacts cache.",
+  "security": "PRE140 uses actions/cache/restore and explicit actions/cache/save only after post-build policy. No native game data or signing key permitted in cache.",
+  "next_step": "Collect separate sub-phase durations on future fully validated real build; do not run redundant signed V31 release just to benchmark unless necessary; consider copyright/security implications of native ccache."
+}
