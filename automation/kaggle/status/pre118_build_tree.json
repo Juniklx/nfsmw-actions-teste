@@ -1,0 +1,78 @@
+{
+  "etapa": "PRE118_AUDIT_PRE99_BUILD_TREE_AND_PRE117",
+  "run_id": "41827163959",
+  "phase": "COMPLETE",
+  "status": "PRE118_PRE99_BUILD_TREE_AUDITADO_SEM_APLICAR",
+  "archive_full_sha256_verified": true,
+  "archive_matches_expected_size": true,
+  "original_workspace_modified": false,
+  "kaggle_main_notebook_modified": false,
+  "google_drive_modified": false,
+  "apk_built": false,
+  "linker_invoked": false,
+  "signing_key_accessed": false,
+  "audit": {
+    "member_count": 28911,
+    "public_file_presence": {
+      "app_gradle": true,
+      "gradle_wrapper": true,
+      "android_settings": true,
+      "cmake_android": true,
+      "settings_cpp": true
+    },
+    "public_file_sha256": {
+      "app_gradle": "ef570ba95703cb54df3c0e503fec6bce11aaa0f640e907208bdfb22bd8711230",
+      "gradle_wrapper": "d5af567ad117ba311cc4cf12639407dda372f4eb7fd06e3d1772eff65894e9eb",
+      "android_settings": "670b5ea70afde4cbbdb4ee06f236340fc7ffe99294b0ca29deb7567017b84442",
+      "cmake_android": "2bdbbe95383b7928c91b6c2199136c0b0462fe8fa5a06680a1bb243fe585e1b6",
+      "settings_cpp": "5509b4ad8de3f78522e0d5718ab853fbaff79ea4ff9184173a969b63eb3ab034"
+    },
+    "source_pre92_sha256_matches_expected": true,
+    "pre117_proposal_sha256_matches_expected": true,
+    "source_pre92_sha256": "5509b4ad8de3f78522e0d5718ab853fbaff79ea4ff9184173a969b63eb3ab034",
+    "proposed_pre117_sha256": "8fa1f89c29e59cd96234d1ccaf18d9ff72baab790449b9e84151eac7c64794af",
+    "pre117_diff_lines": 30,
+    "build_family_counts": {
+      "gradle_root_files": 3,
+      "native_generated_cpp": 263,
+      "app_generated_cpp": 0,
+      "native_shader_packs_nfsp": 6,
+      "native_arm64_libraries": 1,
+      "android_gradle_wrapper_jar_present": true,
+      "android_gradlew_present": true,
+      "android_local_properties_present": true,
+      "app_generated_android_folder_present": false,
+      "native_codegen_rexglue_folder_present": true
+    },
+    "gradle_version_from_public_wrapper": "9.1.0",
+    "app_gradle_safe_markers": {
+      "application_id_expected_literal_present": true,
+      "version_code_numeric_constants": [],
+      "version_code_dynamic": true,
+      "release_signing_explicit": true,
+      "permanent_signing_symbol_reference": true,
+      "debug_signing_symbol_reference": false,
+      "min_sdk_constants": [
+        26
+      ],
+      "compile_sdk_constants": [
+        36
+      ],
+      "gradle_properties_reference": true,
+      "generated_code_location_reference": true,
+      "native_motor_option_reference": true,
+      "edition_option_reference": true,
+      "gradle_signing_validated_for_release": false
+    },
+    "private_signing_key_opened": false,
+    "credential_file_opened": false,
+    "private_material_does_not_reside_in_pre99_manifest": true,
+    "active_kaggle_workspace_state_confirmed": false,
+    "can_release_sign_now": false
+  },
+  "timestamp_utc": "2026-11-04T12:12:24.493300+00:00",
+  "run_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/41827163959",
+  "workflow_setup_outcome": "success",
+  "workflow_inspection_outcome": "success",
+  "recorded_utc": "2026-11-04T12:12:26.198947+00:00"
+}
