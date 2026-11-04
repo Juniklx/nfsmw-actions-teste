@@ -11,6 +11,7 @@ KERNEL_ID = "juniklx/nfsmw-automacao-smoke-pre100"
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument('--output', required=True)
+    parser.add_argument('--run-id', required=True, help='GitHub Actions run ID for output correlation')
     args = parser.parse_args()
     out = Path(args.output)
     out.mkdir(parents=True, exist_ok=True)
@@ -50,7 +51,7 @@ def main() -> None:
                     "from datetime import datetime, timezone\n",
                     "from pathlib import Path\n",
                     "from json import dumps\n",
-                    "result = {'etapa': 'PRE100_KAGGLE_AUTOMACAO_SMOKE', 'status': 'EXECUTADO', 'utc': datetime.now(timezone.utc).isoformat(), 'altera_projeto': False, 'chaves_acessadas': False}\n",
+                    "result = {'etapa': 'PRE100_KAGGLE_AUTOMACAO_SMOKE', 'status': 'EXECUTADO', 'utc': datetime.now(timezone.utc).isoformat(), 'altera_projeto': False, 'chaves_acessadas': False, 'github_run_id': " + repr(args.run_id) + "}\n",
                     "path = Path('/kaggle/working/NFSMW_PRE100_SMOKE_RESULTADO.json')\n",
                     "path.write_text(dumps(result, indent=2), encoding='utf-8')\n",
                     "print('NFSMW PRE100 SMOKE OK -', path.name)\n",
