@@ -1,0 +1,12 @@
+{
+  "etapa": "PRE119B_INSERCAO_NOTEBOOK_SALVAR_SEM_EXECUTAR",
+  "notebook_confirmado": "juniklx/nfsmw",
+  "read_only_probe_run_id": "41830024991",
+  "pull_ok": true,
+  "cells_original": 3,
+  "action": "append idempotent and --no-run quick-save",
+  "no_kernel_execute": true,
+  "keep_original_cells": true,
+  "no_game_patch": true,
+  "no_apk": true
+}
