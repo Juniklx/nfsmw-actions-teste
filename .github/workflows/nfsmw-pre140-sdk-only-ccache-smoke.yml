@@ -1,0 +1,110 @@
+name: NFSMW PRE140 SDK-only C++ compiler-cache smoke
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre140_smoke_requests/*.json'
+permissions:
+  contents: read
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - name: Checkout accelerator wrapper only
+        uses: actions/checkout@v4
+      - name: Install or locate CMake Ninja and ccache
+        shell: bash
+        run: |
+          set -euo pipefail
+          cmake --version | head -1
+          ninja --version
+          if ! command -v ccache >/dev/null; then
+            sudo apt-get update -qq >/dev/null
+            sudo apt-get install -y -qq ccache >/dev/null
+          fi
+          ccache --version | head -1
+      - name: Restore PRIVATE synthetic SDK-only ccache
+        uses: actions/cache@v4
+        id: sdk_ccache
+        with:
+          path: ${{ runner.temp }}/nfsmw-ccache-sdk-only
+          key: nfsmw-pre140-sdk-ccache-synthetic-v1-${{ runner.os }}
+      - name: Compile synthetic runtime twice, prove SDK hits and game bypass
+        shell: bash
+        env:
+          CACHE_HIT: ${{ steps.sdk_ccache.outputs.cache-hit }}
+          TEST_RUN_ID: ${{ github.run_id }}
+          RUNNER_TEMP: ${{ runner.temp }}
+          TEST_ROOT: ${{ runner.temp }}/pre140-test-sources
+        run: |
+          set -euo pipefail
+          LAUNCHER="$GITHUB_WORKSPACE/automation/kaggle/pre140_sdk_only_ccache_launcher.sh"
+          chmod 755 "$LAUNCHER"
+          bash -n "$LAUNCHER"
+          mkdir -p "$TEST_ROOT/nativo/sdk/src" "$TEST_ROOT/nativo/app/src"
+          cat > "$TEST_ROOT/CMakeLists.txt" <<'CMAKE'
+          cmake_minimum_required(VERSION 3.20)
+          project(NFSMW_PRE140_SYNTHETIC LANGUAGES CXX)
+          add_library(test_sdk OBJECT nativo/sdk/src/test_sdk.cpp)
+          add_library(test_game OBJECT nativo/app/src/test_game.cpp)
+          CMAKE
+          cat > "$TEST_ROOT/nativo/sdk/src/test_sdk.cpp" <<'CPP'
+          extern "C" int pre140_runtime_synthetic(int x) { return x + 140; }
+          CPP
+          cat > "$TEST_ROOT/nativo/app/src/test_game.cpp" <<'CPP'
+          extern "C" int pre140_bypass_synthetic(int x) { return x + 9; }
+          CPP
+          export NFSMW_SDK_ONLY_CCACHE_ENABLED=1
+          export NFSMW_SDK_SOURCE_ROOT="$TEST_ROOT/nativo/sdk"
+          export NFSMW_CCACHE_BIN="$(command -v ccache)"
+          export CCACHE_DIR="$RUNNER_TEMP/nfsmw-ccache-sdk-only"
+          export CCACHE_BASEDIR="$TEST_ROOT"
+          export CCACHE_COMPILERCHECK=content
+          export CCACHE_MAXSIZE=256M
+          export CCACHE_COMPRESS=1
+          cmake -S "$TEST_ROOT" -B "$RUNNER_TEMP/pre140-build-a" -G Ninja \
+            "-DCMAKE_CXX_COMPILER_LAUNCHER=$LAUNCHER" >/dev/null
+          cmake -S "$TEST_ROOT" -B "$RUNNER_TEMP/pre140-build-b" -G Ninja \
+            "-DCMAKE_CXX_COMPILER_LAUNCHER=$LAUNCHER" >/dev/null
+          ccache --zero-stats
+          cmake --build "$RUNNER_TEMP/pre140-build-a" >/dev/null
+          ccache --show-stats > "$RUNNER_TEMP/pre140-first-stats.txt"
+          cmake --build "$RUNNER_TEMP/pre140-build-b" >/dev/null
+          ccache --show-stats > "$RUNNER_TEMP/pre140-final-stats.txt"
+          cat "$RUNNER_TEMP/pre140-final-stats.txt"
+          ccache --show-stats --format=json > "$RUNNER_TEMP/pre140-stats.json"
+          python3 - <<'PY'
+          import json,os
+          from pathlib import Path
+          path=Path(os.environ["RUNNER_TEMP"])/"pre140-stats.json"
+          d=json.loads(path.read_text())
+          stats=d.get("stats",{})
+          misses=int(stats.get("cache_miss",0))
+          hits=int(stats.get("cache_hit_direct",0))+int(stats.get("cache_hit_preprocessed",0))
+          if misses<0 or hits<1:
+              raise SystemExit(f"PRE140 no SDK cache hit, misses={misses} hits={hits}")
+          if misses>1:
+              raise SystemExit(f"PRE140 game translation bypass failed or unexpected cacheable compile: misses={misses}")
+          report={"stage":"PRE140_SDK_ONLY_COMPILER_CACHE_SYNTHETIC",
+                  "run_id":os.environ["TEST_RUN_ID"],
+                  "github_cache_warm":os.environ.get("CACHE_HIT")=="true",
+                  "status":"PRE140_SDK_CCACHE_HIT_AND_GAME_BYPASS_VERIFIED",
+                  "sdk_compiles_cachable":True,
+                  "game_compiles_cached":False,
+                  "real_game_source_used":False,
+                  "signing_credentials_used":False,
+                  "real_nfmsw_full_build_measured":False,
+                  "ccache_misses":misses,"ccache_hits":hits}
+          out=Path(os.environ["RUNNER_TEMP"])/"pre140-sdk-only-smoke.json"
+          out.write_text(json.dumps(report,indent=2)+"\n")
+          print("PRE140 result:",report["status"],"warm:",report["github_cache_warm"],
+                "SDK hits:",hits,"misses:",misses)
+          PY
+      - name: Upload synthetic-only report
+        uses: actions/upload-artifact@v4
+        with:
+          name: pre140-sdk-ccache-smoke-${{ github.run_id }}
+          path: ${{ runner.temp }}/pre140-sdk-only-smoke.json
+          retention-days: 7
