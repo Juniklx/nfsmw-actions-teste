@@ -8,7 +8,7 @@ on:
       - 'automation/kaggle/requests/*.json'
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: nfsmw-kaggle-smoke
@@ -28,18 +28,62 @@ jobs:
         with:
           python-version: '3.11'
       - name: Verificar segredo de forma silenciosa
+        id: auth
         run: |
           if [ -z "${KAGGLE_API_TOKEN:-}" ]; then
             echo 'KAGGLE_API_TOKEN nao configurado nos Secrets do repositorio.' >&2
             exit 1
           fi
       - name: Instalar CLI oficial Kaggle e dependência ausente
+        id: install
         run: |
           python -m pip install --disable-pip-version-check kaggle six
           python -c 'import six; from kaggle.cli import main; print("Kaggle CLI import OK")'
       - name: Criar notebook isolado de teste
+        id: generate
         run: python automation/kaggle/create_smoke.py --output /tmp/nfsmw-smoke-kaggle
       - name: Publicar e executar notebook de teste no Kaggle
+        id: submit
+        continue-on-error: true
         run: kaggle kernels push -p /tmp/nfsmw-smoke-kaggle
-      - name: Mostrar link do teste
-        run: echo 'https://www.kaggle.com/code/juniklx/nfsmw-automacao-smoke-pre100'
+      - name: Registrar resultado consultavel pelo ChatGPT
+        if: always()
+        env:
+          AUTH_RESULT: ${{ steps.auth.outcome }}
+          INSTALL_RESULT: ${{ steps.install.outcome }}
+          GENERATE_RESULT: ${{ steps.generate.outcome }}
+          SUBMIT_RESULT: ${{ steps.submit.outcome }}
+        run: |
+          python - <<'PY'
+          import json, os
+          from datetime import datetime, timezone
+          from pathlib import Path
+          p = Path('automation/kaggle/status/latest.json')
+          p.parent.mkdir(parents=True, exist_ok=True)
+          data = {
+              'etapa': 'PRE100_KAGGLE_AUTOMACAO_SMOKE',
+              'run_id': os.environ['GITHUB_RUN_ID'],
+              'run_attempt': os.environ['GITHUB_RUN_ATTEMPT'],
+              'run_url': f"https://github.com/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{os.environ['GITHUB_RUN_ID']}",
+              'timestamp_utc': datetime.now(timezone.utc).isoformat(),
+              'auth_check': os.environ['AUTH_RESULT'],
+              'kaggle_cli_install': os.environ['INSTALL_RESULT'],
+              'notebook_generation': os.environ['GENERATE_RESULT'],
+              'kaggle_push': os.environ['SUBMIT_RESULT'],
+              'kaggle_execution_completed': False,
+              'notebook_original_modificado': False,
+              'smoke_notebook': 'juniklx/nfsmw-automacao-smoke-pre100',
+          }
+          p.write_text(json.dumps(data, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
+          print('Status PRE100 preparado; sem segredos ou tokens.')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add automation/kaggle/status/latest.json
+          git commit -m 'Record PRE100 Kaggle smoke execution status [skip ci]'
+          git push
+      - name: Falhar se envio ao Kaggle nao foi concluido
+        if: always()
+        env:
+          SUBMIT_RESULT: ${{ steps.submit.outcome }}
+        run: test "$SUBMIT_RESULT" = 'success'
