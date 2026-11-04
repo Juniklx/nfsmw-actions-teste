@@ -1,0 +1,12 @@
+{
+  "etapa": "PRE119B_ANEXAR_CELULA_NO_NOTEBOOK_KAGGLE",
+  "alvo": "juniklx/nfsmw",
+  "modo": "kaggle kernels pull + append exactly one code cell + kaggle kernels push --no-run + pull/readback",
+  "preservar": "todas as celulas originais e kernel-metadata, versao anterior no historico Kaggle",
+  "rodar_notebook": false,
+  "executa_auditoria_agora": false,
+  "compilar_apk": false,
+  "acessar_assinatura": false,
+  "alterar_drive": false,
+  "finalidade": "disponibilizar auditoria PRE119B para proxima execucao do notebook Kaggle"
+}
