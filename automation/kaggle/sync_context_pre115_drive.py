@@ -50,7 +50,7 @@ def main():
     out = Path(args.report)
     out.parent.mkdir(parents=True, exist_ok=True)
     report = {
-        "etapa": "PRE112_CONTEXT_CANONICAL_SYNC",
+        "etapa": "PRE115_CONTEXT_CANONICAL_SYNC",
         "github_run_id": args.run_id,
         "target_drive_id": CONTEXT_ID,
         "status": "NAO_VALIDADO",
@@ -64,7 +64,7 @@ def main():
     }
     try:
         report["phase"] = "VERIFY_EVIDENCE"
-        r112 = json.loads(Path("automation/kaggle/status/pre115_cpp_syntax.json").read_text(encoding="utf-8"))
+        r112 = json.loads(Path("automation/kaggle/status/pre112_cpp_syntax.json").read_text(encoding="utf-8"))
         r111 = json.loads(Path("automation/kaggle/status/pre111_dryrun_palette.json").read_text(encoding="utf-8"))
         if (r112.get("status") != "SINTAXE_CPP_FONTE_COMPLETA_VALIDADA_NO_HOST"
             or r112.get("host_cpp_standard") != "c++23"
@@ -179,12 +179,12 @@ def main():
         report["phase"] = "COMPLETE"
     except Exception as exc:
         report["error_type"] = type(exc).__name__
-        print("PRE112 context sync not confirmed, phase:", report["phase"],
+        print("PRE115 context sync not confirmed, phase:", report["phase"],
               "error type:", type(exc).__name__)
     finally:
         report["timestamp_utc"] = datetime.now(timezone.utc).isoformat()
         out.write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-        print("PRE112 canonical context sync:", report["status"])
+        print("PRE115 canonical context sync:", report["status"])
     return 0 if report["status"] in (
         "CONTEXTO_CANONICO_ATUALIZADO_VALIDADO", "ADENDO_JA_EXISTENTE"
     ) else 1
