@@ -1,0 +1,8 @@
+{
+  "etapa": "PRE116_MOBILE_NESTED_SCROLL_ROOT_CAUSE",
+  "motivacao": "captura S24 FE fora do DeX: cabeçalho visível, scrollbar interna muito curta e rolagem externa adicional",
+  "fontes": "PRE99 SHA256 verificado com settings_overlay.cpp PRE92",
+  "meta": "identificar root scroll e child ##cvars -30.0f, botao save altura 52",
+  "escopo": "somente leitura, sem patch e sem APK",
+  "assinatura_permanente": "nao acessar"
+}
