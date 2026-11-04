@@ -1,0 +1,10 @@
+{
+  "stage": "PRE139",
+  "sequence": 2,
+  "intent": "verify second GitHub-hosted runner restores synthetic dependency-only cache from PRE139 first run",
+  "expected_cache_hit": true,
+  "first_run": "41899119460",
+  "no_real_gradle_build": true,
+  "no_game_data": true,
+  "no_signing_data": true
+}
