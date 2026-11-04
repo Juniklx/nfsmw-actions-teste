@@ -83,13 +83,24 @@ jobs:
           echo "PRE138 ephemeral NDK/CMake/build-tools ready"
           df -h "$SDK" | tail -n 1
       - name: PRE139 restore dependency-only Gradle cache
-        uses: actions/cache@v4
+        uses: actions/cache/restore@v4
         id: gradle_deps_cache
         with:
           path: |
             ${{ runner.temp }}/nfsmw-gradle-home/caches/modules-2
             ${{ runner.temp }}/nfsmw-gradle-home/wrapper
           key: nfsmw-pre99-gradle-ef570ba95703-jdk21-v1-${{ runner.os }}
+      - name: PRE140 verify restored Gradle cache before build
+        if: steps.gradle_deps_cache.outputs.cache-hit == 'true'
+        run: |
+          python automation/kaggle/pre139_verify_dependency_cache.py \
+            --cache-home "${{ runner.temp }}/nfsmw-gradle-home"
+      - name: PRE140 report cache restore status
+        env:
+          GRADLE_CACHE_HIT: ${{ steps.gradle_deps_cache.outputs.cache-hit }}
+        run: |
+          echo "Gradle dependency cache hit: ${GRADLE_CACHE_HIT:-false}" >> "$GITHUB_STEP_SUMMARY"
+          echo "Only modules-2 and wrapper; no game assets, signing data, native outputs." >> "$GITHUB_STEP_SUMMARY"
       - name: Build V31 release and strictly verify signed APK, preserve locally for private artifact
         id: release
         continue-on-error: true
@@ -107,11 +118,20 @@ jobs:
             --report /tmp/nfsmw-pre138-out/pre138-report.json \
             --verified-output /tmp/nfsmw-pre138-out/nfsmw-v31-pal-usa-verified.apk
       - name: PRE139 verify dependency-only cache contents before GitHub cache save
+        id: deps_policy
         if: steps.release.outcome == 'success'
         run: |
           python automation/kaggle/pre139_verify_dependency_cache.py \
             --cache-home "${{ runner.temp }}/nfsmw-gradle-home" \
             --report /tmp/nfsmw-pre138-out/pre139-safe-cache-report.json
+      - name: PRE140 persist audited Gradle dependency cache only after successful gate
+        if: ${{ success() && steps.release.outcome == 'success' && steps.deps_policy.outcome == 'success' && steps.gradle_deps_cache.outputs.cache-hit != 'true' }}
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            ${{ runner.temp }}/nfsmw-gradle-home/caches/modules-2
+            ${{ runner.temp }}/nfsmw-gradle-home/wrapper
+          key: ${{ steps.gradle_deps_cache.outputs.cache-primary-key }}
       - name: Preserve private report and verified APK if produced
         if: always()
         uses: actions/upload-artifact@v4
