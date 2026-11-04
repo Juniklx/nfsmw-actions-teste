@@ -45,6 +45,24 @@ jobs:
           python automation/kaggle/create_drive_probe.py \
             --output /tmp/nfsmw-pre102-probe \
             --run-id "$GITHUB_RUN_ID"
+      - name: Validar sintaxe dos scripts e da celula Kaggle
+        id: syntax
+        run: |
+          python -m py_compile \
+            automation/kaggle/create_drive_probe.py \
+            automation/kaggle/check_drive_probe_completion.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          nb = json.loads(Path('/tmp/nfsmw-pre102-probe/nfsmw_pre102_drive_probe.ipynb').read_text(encoding='utf-8'))
+          cells = [c for c in nb['cells'] if c['cell_type'] == 'code']
+          assert len(cells) == 1
+          compile(''.join(cells[0]['source']), '<PRE102 Kaggle notebook>', 'exec')
+          meta = json.loads(Path('/tmp/nfsmw-pre102-probe/kernel-metadata.json').read_text(encoding='utf-8'))
+          assert meta['id'] == 'juniklx/nfsmw-pre102-drive-probe'
+          assert meta['is_private'] is True
+          print('PRE102 notebook validado sintaticamente, sem executar')
+          PY
       - name: Enviar e executar notebook PRE102
         id: push_kernel
         continue-on-error: true
