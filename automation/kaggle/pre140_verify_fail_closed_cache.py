@@ -1,0 +1,76 @@
+#!/usr/bin/env python3
+"""PRE140 isolated security audit for split restore/audit/save cache workflow.
+
+Only reads public repository text, no game data, signing or APK builds.
+"""
+from __future__ import annotations
+import ast,hashlib,json
+from pathlib import Path
+import yaml
+
+ROOT=Path(__file__).resolve().parents[2]
+WF=ROOT/".github/workflows/nfsmw-pre138-signed-v31-log-diagnostic.yml"
+RELEASE=ROOT/"automation/kaggle/pre138_build_signed_v31_log_pal_usa.py"
+POLICY=ROOT/"automation/kaggle/pre139_verify_dependency_cache.py"
+EXPECTED_PATHS={
+    "${{ runner.temp }}/nfsmw-gradle-home/caches/modules-2",
+    "${{ runner.temp }}/nfsmw-gradle-home/wrapper",
+}
+EXPECTED_KEY="nfsmw-pre99-gradle-ef570ba95703-jdk21-v1-${{ runner.os }}"
+
+def need(ok,message):
+    if not ok: raise AssertionError("PRE140 safety audit: "+message)
+
+def main():
+    source=RELEASE.read_text(encoding="utf-8")
+    policy=POLICY.read_text(encoding="utf-8")
+    workflow=WF.read_text(encoding="utf-8")
+    ast.parse(source)
+    ast.parse(policy)
+    steps=yaml.safe_load(workflow)["jobs"]["release"]["steps"]
+    def one(test,label):
+        found=[(i,s) for i,s in enumerate(steps) if test(s)]
+        need(len(found)==1,label+" expected exactly once")
+        return found[0]
+    restore_i,restore=one(lambda s:s.get("id")=="gradle_deps_cache","cache restore")
+    build_i,build=one(lambda s:s.get("id")=="release","release step")
+    guard_i,guard=one(lambda s:s.get("id")=="deps_policy","cache guard")
+    save_i,save=one(lambda s:s.get("uses")=="actions/cache/save@v4","cache save")
+    precheck_i,precheck=one(lambda s:s.get("name")=="PRE140 verify restored Gradle cache before build","restored cache precheck")
+    need(restore.get("uses")=="actions/cache/restore@v4","restore must never auto-save")
+    need(all(s.get("uses")!="actions/cache@v4" for s in steps),"generic cache with uncontrolled post-save forbidden")
+    need(restore_i<precheck_i<build_i<guard_i<save_i,"cache must be checked before build and before saving")
+    need(precheck.get("if")=="steps.gradle_deps_cache.outputs.cache-hit == 'true'","restored cache precheck condition")
+    need("pre139_verify_dependency_cache.py" in precheck.get("run",""),"restore cache not scanned")
+    need(guard.get("if")=="steps.release.outcome == 'success'","guard only after validated build")
+    need("pre139_verify_dependency_cache.py" in guard.get("run",""),"save cache not scanned")
+    need(build.get("continue-on-error") is True,"expected build step failure accounting changed")
+    need(build.get("env",{}).get("NFSMW_GRADLE_USER_HOME")=="${{ runner.temp }}/nfsmw-gradle-home","unexpected Gradle cache home")
+    def paths(c):
+        return {p.strip() for p in c.get("with",{}).get("path","").splitlines() if p.strip()}
+    need(paths(restore)==EXPECTED_PATHS and paths(save)==EXPECTED_PATHS,"allowlisted cache content differs")
+    need(restore["with"]["key"]==EXPECTED_KEY,"pinned cache key changed")
+    need(save["with"]["key"]=="${{ steps.gradle_deps_cache.outputs.cache-primary-key }}","save key not matched to restore primary key")
+    condition=save.get("if","")
+    for required in ("success()","steps.release.outcome == 'success'",
+                     "steps.deps_policy.outcome == 'success'",
+                     "steps.gradle_deps_cache.outputs.cache-hit != 'true'"):
+        need(required in condition,"save conditional guard missing "+required)
+    need('MISSING=()' in workflow and 'rm -rf "$p"' not in workflow,
+         "SDK setup must be conditional and non-destructive")
+    need("VERSION_CODE=31" in source and '"-Pnfsmw.registro=true"' in source,
+         "V31 release target changed")
+    need("certificate_sha256(key,secret_props)!=CERT_SHA" in source,
+         "permanent certificate verification missing")
+    need("propose_pre133(src.read_bytes())" in source,
+         "functional Android touch patch missing")
+    report={"stage":"PRE140_CACHE_FAIL_CLOSED_POLICY_AUDIT","status":"PASS",
+        "workflow_sha256":hashlib.sha256(workflow.encode()).hexdigest(),
+        "source_sha256":hashlib.sha256(source.encode()).hexdigest(),
+        "restore_only":True,"scan_restored_cache":True,
+        "post_build_explicit_scan":True,"save_requires_passed_build_and_guard":True,
+        "cache_contents":sorted(EXPECTED_PATHS),
+        "game_binary_cached":False,"signing_material_cached":False,
+        "apk_built":False,"fps_tested":False}
+    print(json.dumps(report,indent=2))
+if __name__=="__main__": main()
