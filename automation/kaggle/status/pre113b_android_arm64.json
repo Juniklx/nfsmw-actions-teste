@@ -1,0 +1,61 @@
+{
+  "etapa": "PRE113B_NDK_R28_ANDROID_ARM64_CXX23",
+  "github_run_id": "41814082266",
+  "status": "SINTAXE_ANDROID_ARM64_CPP23_VALIDADA",
+  "phase": "COMPLETE",
+  "required_ndk_revision": "28.2.13676358",
+  "target_triple": "aarch64-linux-android26",
+  "cpp_standard": "c++23",
+  "ndk_found_and_revision_confirmed": true,
+  "predefines_aarch64_android_passed": true,
+  "snapshot_sha256_verified": true,
+  "restoration_to_ephemeral_runner_verified": true,
+  "pre92_source_sha256_verified": true,
+  "pre111_proposal_sha256_verified": true,
+  "android_arm64_fragment": {
+    "attempted": true,
+    "exit_code": 0,
+    "passed": true,
+    "diagnostic_excerpt": "",
+    "missing_include": false
+  },
+  "android_arm64_baseline": {
+    "attempted": true,
+    "exit_code": 0,
+    "passed": true,
+    "diagnostic_excerpt": "",
+    "missing_include": false
+  },
+  "android_arm64_proposal": {
+    "attempted": true,
+    "exit_code": 0,
+    "passed": true,
+    "diagnostic_excerpt": "",
+    "missing_include": false
+  },
+  "original_workspace_modified": false,
+  "google_drive_modified": false,
+  "apk_compiled": false,
+  "linker_invoked": false,
+  "signing_key_accessed": false,
+  "device_tested": false,
+  "ndk_driver_name": "aarch64-linux-android26-clang++",
+  "android_target_probe": {
+    "attempted": true,
+    "exit_code": 0,
+    "passed": true,
+    "diagnostic_excerpt": "",
+    "missing_include": false
+  },
+  "restored_member_count": 28911,
+  "original_source_sha256": "5509b4ad8de3f78522e0d5718ab853fbaff79ea4ff9184173a969b63eb3ab034",
+  "proposed_source_sha256": "19102b563eb4cdd6c81d4a6bfa5bbc8cadfbb1e030247f535633cbc11524e069",
+  "include_directory_count": 11,
+  "recorded_utc": "2026-11-04T10:27:01.819410+00:00",
+  "run_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/41814082266",
+  "run_id": "41814082266",
+  "python_setup_outcome": "success",
+  "ndk_install_outcome": "success",
+  "cross_syntax_outcome": "success",
+  "saved_utc": "2026-11-04T10:27:02.911003+00:00"
+}
