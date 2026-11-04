@@ -1,0 +1,376 @@
+#!/usr/bin/env python3
+"""PRE126: Rebuild NFSMW V27 PAL+USA with PRE117 in a private, ephemeral runner.
+
+Strict gates: PRE99 archive SHA, PRE92 source SHA, PRE117 target SHA,
+original V26 APK SHA, USA library + shaders unchanged, permanent P12 SHA,
+certificate SHA, versionCode=27 and Android package name. Only after all
+gates pass may the new signed APK be uploaded as a new Drive file.
+
+No original Kaggle session, prior APK, signing backup or version counter is
+modified. Signing files remain in runner-local temporary storage only.
+"""
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import os
+import re
+import shutil
+import subprocess
+import tempfile
+import zipfile
+from datetime import datetime,timezone
+from pathlib import Path
+
+from pre104_verify_backup_tar import EXPECTED_BYTES,EXPECTED_SHA256,sha_file
+from pre105_read_settings_source import SOURCE_NAME,SOURCE_SHA256,drive_client,download
+from pre107_restore_isolated import restore
+from pre117_one_scroll_android_dryrun import propose
+from pre118_audit_build_tree import EXPECTED_PRE117_SHA
+from pre125_ephemeral_gradle_signing_preflight import (
+    P12_DRIVE_ID,PROPERTIES_DRIVE_ID,P12_SHA,CERT_SHA,GRADLE_SHA,
+    download_file,digest,parse_properties_safely,certificate_sha256,classify_gradle_error,
+)
+
+V26_ID="1HcWA8UFugXNO4IPPH8kgUcX5CwP4UobW"
+V26_SHA="d8aebdaaf75df75739b47148f69ecfcdf1add37422416249375e31eca7812092"
+V26_BYTES=47065185
+VERSION_CODE=27
+EXPECTED_PACKAGE="io.github.nfsmwrecomp"
+DEST_FOLDER="1ac3fI_ahnp3yp7kU4JvsgDdsKkpy5tBh"
+APK_NAME="NFSMW_V27_PAL_USA_PRE117_SCROLL_UNICO_EXPERIMENTAL.apk"
+REQUIRED_LIBS=(
+    "libSDL3.so", "libc++_shared.so", "libfile_redirect_hook.so",
+    "libgsl_alloc_hook.so", "libhook_impl.so", "libmain.so",
+    "libmain_hook.so", "libmain_usa.so", "librexgpu-xenos.so",
+    "librexruntime.so",
+)
+PRESERVE={
+    "lib/arm64-v8a/libmain_usa.so":"4f32de8f2ff10d4748aa33f208774038ef9bfa402eacc61a49dd7e70f3b1bc83",
+    "assets/nativo/usa/nfsmw_shaders.nfsp":"8c49de7587c4405a37fe8904981a4902c5294f4e74472dbe3b5d9a643adfa267",
+    "assets/nativo/usa/nfsmw_shaders_gles.nfsp":"8a2c9488e930df1a55b1286ee07c1b4eaf6a0cf89fd75815108ca4f0e76c0e02",
+    "assets/nativo/nfsmw_shaders.nfsp":"b84602ca9bf6efd84f54ad1509297baccd57c04ffcda494c77f5780a433f95a7",
+    "assets/nativo/nfsmw_shaders_gles.nfsp":"aa509b41a484b16226b98aa67f51c88d2a193278719f4123840fe689dc4ef02b",
+    "assets/nativo/nfsmw.toml":"9602e9f7409eaab83b295521d00fecb95b04d629a8f7cea48911473f77a4f0d2",
+}
+V26_RUNTIME_SHA="2c24104abde7a2b255cb88550c26c3cf884ebd2cbb4a73ed67f7f2d6ad187611"
+
+
+def sha_bytes(data:bytes)->str:
+    return hashlib.sha256(data).hexdigest()
+
+
+def sdk_root()->Path:
+    for candidate in (os.environ.get("ANDROID_HOME"),os.environ.get("ANDROID_SDK_ROOT"),"/usr/local/lib/android/sdk"):
+        if candidate and (Path(candidate)/"build-tools").is_dir():
+            return Path(candidate).resolve()
+    raise FileNotFoundError("Android SDK build tools unavailable")
+
+
+def latest_tool(sdk:Path,name:str)->Path:
+    for folder in sorted((sdk/"build-tools").iterdir(),reverse=True):
+        p=folder/name
+        if p.is_file():return p
+    raise FileNotFoundError("Android build tool "+name+" missing")
+
+
+def safe_gradle_error_context(content:str,props:dict)->list[str]:
+    # Keep only limited failure markers. Never publish raw Gradle logs.
+    lines=[]
+    markers=("FAILURE: Build failed","What went wrong:","Could not resolve",
+             "Could not find","Execution failed for task","CMake Error",
+             "ninja: error","clang++: error","error:","SDK location not found",
+             "Build failed with an exception","No matching variant","A problem occurred")
+    for line in content.splitlines():
+        if any(v.lower() in line.lower() for v in markers):
+            s=line.strip()
+            for secret in (props.get("storePassword",""),props.get("keyPassword","")):
+                if secret and len(secret)>3:s=s.replace(secret,"[REDACTED]")
+            s=re.sub(r"(/[^\s:]+){2,}","[path]",s)
+            s=re.sub(r"(token|password|secret)\s*[:=]\s*\S+",r"\1=[REDACTED]",s,flags=re.I)
+            lines.append(s[:220])
+    return lines[-15:]
+
+
+def verified_v26(apk:Path)->dict[str,bytes]:
+    if apk.stat().st_size!=V26_BYTES or digest(apk)!=V26_SHA:
+        raise ValueError("V26 baseline APK changed")
+    result={}
+    with zipfile.ZipFile(apk,"r") as z:
+        if z.testzip() is not None:raise ValueError("V26 ZIP CRC failed")
+        for path,expected_sha in PRESERVE.items():
+            data=z.read(path)
+            if sha_bytes(data)!=expected_sha:raise ValueError("V26 asset hash mismatch")
+            result[path]=data
+        result["runtime"]=z.read("lib/arm64-v8a/librexruntime.so")
+        if sha_bytes(result["runtime"])!=V26_RUNTIME_SHA:raise ValueError("V26 runtime hash changed")
+    return result
+
+
+def prepare_usa_edition(root:Path,bundle:Path,v26:dict[str,bytes])->dict:
+    required=[
+        root/"nativo/app/generated/default/sources.cmake",
+        root/"nativo/app_usa/generated/default/sources.cmake",
+        root/"nativo/out/nfsmw_shaders.nfsp",
+        root/"nativo/out/nfsmw_shaders_gles.nfsp",
+        root/"nativo/out/usa/edicion.json",
+    ]
+    if not all(p.is_file() for p in required):raise FileNotFoundError("Native PAL/USA staging incomplete")
+    for name,suffix in (
+        ("assets/nativo/nfsmw_shaders.nfsp","nativo/out/nfsmw_shaders.nfsp"),
+        ("assets/nativo/nfsmw_shaders_gles.nfsp","nativo/out/nfsmw_shaders_gles.nfsp"),
+    ):
+        if digest(root/suffix)!=PRESERVE[name]:raise ValueError("PAL shader differs from V26")
+    meta=json.loads((root/"nativo/out/usa/edicion.json").read_text(encoding="utf-8"))
+    if not isinstance(meta,dict) or str(meta.get("id","")).lower()!="usa":
+        raise ValueError("USA edition metadata id mismatch")
+    # Preserve USA game library and assets from the verified V26 APK.
+    # No generated game files are uploaded to GitHub source control.
+    dll=bundle/"jniLibs/arm64-v8a/libmain_usa.so"
+    dll.parent.mkdir(parents=True,exist_ok=True)
+    dll.write_bytes(v26["lib/arm64-v8a/libmain_usa.so"])
+    for name in (
+        "assets/nativo/usa/nfsmw_shaders.nfsp",
+        "assets/nativo/usa/nfsmw_shaders_gles.nfsp",
+    ):
+        dest=bundle/name
+        dest.parent.mkdir(parents=True,exist_ok=True)
+        dest.write_bytes(v26[name])
+    (bundle/"ediciones.json").write_text(json.dumps([meta],ensure_ascii=False)+"\n",encoding="utf-8")
+    return {"usa_edition_id_verified":True,
+            "usa_library_preserved":True,
+            "usa_shader_assets_preserved":True,
+            "pal_shader_assets_match_v26":True}
+
+
+def verify_apk(apk:Path,sdk:Path,v26:dict[str,bytes])->dict:
+    if not apk.is_file() or apk.stat().st_size<25_000_000:
+        raise ValueError("APK absent or unexpectedly small")
+    apksigner=latest_tool(sdk,"apksigner")
+    aapt=latest_tool(sdk,"aapt")
+    check=subprocess.run([str(apksigner),"verify","--verbose","--print-certs",str(apk)],
+                         capture_output=True,text=True,timeout=90,check=False)
+    if check.returncode!=0:raise ValueError("apksigner verify failed")
+    fingerprints=re.findall(r"Signer #1 certificate SHA-256 digest:\s*([0-9a-fA-F:]+)",check.stdout)
+    if not fingerprints or fingerprints[0].replace(":","").lower()!=CERT_SHA:
+        raise ValueError("APK permanent signing certificate mismatch")
+    badge=subprocess.run([str(aapt),"dump","badging",str(apk)],
+                         capture_output=True,text=True,timeout=90,check=False)
+    if badge.returncode!=0:raise ValueError("AAPT could not inspect APK")
+    match=re.search(r"package:\s+name='([^']+)'\s+versionCode='(\d+)'",badge.stdout)
+    if match is None or match.group(1)!=EXPECTED_PACKAGE or int(match.group(2))!=VERSION_CODE:
+        raise ValueError("APK applicationId/versionCode mismatch")
+    with zipfile.ZipFile(apk) as z:
+        if z.testzip() is not None:raise ValueError("Generated APK ZIP CRC failed")
+        present=set(z.namelist())
+        missing=[x for x in REQUIRED_LIBS if "lib/arm64-v8a/"+x not in present]
+        if missing:raise ValueError("New APK missing required native library")
+        kept={}
+        for name,expected in PRESERVE.items():
+            if name not in present or sha_bytes(z.read(name))!=expected:
+                raise ValueError("V27 changed required V26 PAL/USA content")
+            kept[name]=True
+        runtime=sha_bytes(z.read("lib/arm64-v8a/librexruntime.so"))
+        if runtime==V26_RUNTIME_SHA:raise ValueError("Rebuilt runtime is identical to V26: PRE117 linkage not proven")
+        return {
+            "signed_certificate_sha256_match":True,
+            "signed_schemes_verified":True,
+            "package_id":match.group(1),
+            "version_code":int(match.group(2)),
+            "android_arm64_required_libraries_present":True,
+            "required_arm64_library_count":len(REQUIRED_LIBS),
+            "pal_usa_shaders_preserved":True,
+            "usa_main_library_unchanged_from_v26":True,
+            "runtime_changed_from_v26":True,
+            "new_librexruntime_sha256":runtime,
+            "apk_size":apk.stat().st_size,
+            "apk_sha256":digest(apk),
+            "zip_entries":len(present),
+        }
+
+
+def upload_verified_apk(drive,apk:Path)->dict:
+    from googleapiclient.http import MediaFileUpload
+    media=MediaFileUpload(str(apk),mimetype="application/vnd.android.package-archive",resumable=True,chunksize=8*1024*1024)
+    operation=drive.files().create(
+        body={"name":APK_NAME,"parents":[DEST_FOLDER],
+              "mimeType":"application/vnd.android.package-archive"},
+        media_body=media,fields="id,name,mimeType,size,md5Checksum,webViewLink",
+        supportsAllDrives=True,
+    )
+    reply=None
+    while reply is None:
+        _progress,reply=operation.next_chunk(num_retries=4)
+    if reply.get("name")!=APK_NAME or int(reply.get("size",-1))!=apk.stat().st_size:
+        raise ValueError("Drive upload size/name mismatch")
+    info=drive.files().get(fileId=reply["id"],fields="id,name,size,md5Checksum,webViewLink,parents",
+                           supportsAllDrives=True).execute()
+    if info.get("name")!=APK_NAME or int(info.get("size",-1))!=apk.stat().st_size:
+        raise ValueError("Drive upload readback size mismatch")
+    if DEST_FOLDER not in info.get("parents",[]):
+        raise ValueError("Drive upload is outside intended APK folder")
+    md5=hashlib.md5()
+    with apk.open("rb") as f:
+        for block in iter(lambda:f.read(8*1024*1024),b""):md5.update(block)
+    if info.get("md5Checksum","").lower()!=md5.hexdigest():
+        raise ValueError("Drive upload MD5 mismatch")
+    return {"id":info["id"],"file_name":info["name"],
+            "url":info.get("webViewLink"),"size":int(info["size"]),
+            "remote_md5_matches":True,"folder_verified":True}
+
+
+def main()->int:
+    p=argparse.ArgumentParser()
+    p.add_argument("--run-id",required=True)
+    p.add_argument("--report",required=True)
+    p.add_argument("--verified-output",required=True)
+    p.add_argument("--upload",action="store_true")
+    args=p.parse_args()
+    if not re.fullmatch(r"\d+",args.run_id):raise ValueError("Bad GitHub run ID")
+    report_path=Path(args.report)
+    report_path.parent.mkdir(parents=True,exist_ok=True)
+    output=Path(args.verified_output)
+    report={
+        "etapa":"PRE126_BUILD_V27_PAL_USA_PRE117",
+        "run_id":args.run_id,
+        "phase":"INITIAL","status":"NAO_VALIDADO",
+        "target_version_code":VERSION_CODE,
+        "verified_source_pre99":False,
+        "pre117_exact_patch_applied_in_runner":False,
+        "permanent_certificate_verified":False,
+        "v26_baseline_verified":False,
+        "gradle_release_succeeded":False,
+        "signed_apk_verified":False,
+        "drive_upload_requested":bool(args.upload),
+        "drive_upload_success":False,
+        "original_kaggle_workspace_modified":False,
+        "original_drive_apk_modified":False,
+        "permanent_signing_backup_modified":False,
+        "version_counter_in_drive_modified":False,
+        "source_code_published_to_github":False,
+        "private_credentials_in_report":False,
+    }
+    try:
+        prelim=Path("automation/kaggle/status/pre125_gradle_signing_preflight.json")
+        q=json.loads(prelim.read_text(encoding="utf-8"))
+        if q.get("status")!="PRE125_CERTIFICADO_E_GRADLE_CONFIG_VALIDOS" or not q.get("signing_certificate_sha256_expected"):
+            raise ValueError("PRE125 signing/Gradle gate not passed")
+        sdk=sdk_root()
+        if not (sdk/"ndk/28.2.13676358/source.properties").is_file():
+            raise FileNotFoundError("NDK r28.2 not installed")
+        if not (sdk/"cmake/3.31.6").is_dir():
+            raise FileNotFoundError("CMake 3.31.6 not installed")
+        base=Path(os.environ.get("RUNNER_TEMP","/tmp"))
+        with tempfile.TemporaryDirectory(prefix="nfsmw_pre126_",dir=base) as tmp:
+            temp=Path(tmp)
+            if shutil.disk_usage(temp).free<6*1024**3:
+                raise RuntimeError("Insufficient ephemeral disk for native release")
+            signing=temp/"signing"
+            signing.mkdir(mode=0o700)
+            key=signing/"NFSMW_ASSINATURA_PERMANENTE.p12"
+            creds=signing/"NFSMW_ASSINATURA_CREDENCIAIS.properties"
+            report["phase"]="VERIFY_ORIGINAL_PERMANENT_SIGNING"
+            d=drive_client()
+            download_file(d,P12_DRIVE_ID,key)
+            download_file(d,PROPERTIES_DRIVE_ID,creds)
+            key.chmod(0o600)
+            creds.chmod(0o600)
+            if digest(key)!=P12_SHA:raise ValueError("P12 SHA256 wrong")
+            secret_props=parse_properties_safely(creds)
+            if certificate_sha256(key,secret_props)!=CERT_SHA:raise ValueError("Signing certificate wrong")
+            report["permanent_certificate_verified"]=True
+            (signing/"NFSMW_PROXIMO_VERSION_CODE.txt").write_text(str(VERSION_CODE)+"\n")
+            report["phase"]="DOWNLOAD_V26_BASELINE"
+            old=temp/"v26.apk"
+            download_file(d,V26_ID,old)
+            old_files=verified_v26(old)
+            report["v26_baseline_verified"]=True
+            report["phase"]="DOWNLOAD_PRE99_SNAPSHOT"
+            tar=temp/"pre99.tar.gz"
+            download(d,tar)
+            sha,_md5,sz=sha_file(tar)
+            if sha!=EXPECTED_SHA256 or sz!=EXPECTED_BYTES:
+                raise ValueError("PRE99 SHA mismatch")
+            restored=temp/"restored"
+            restored.mkdir()
+            report["phase"]="RESTORE_VERIFIED_PRE99"
+            restore(tar,restored)
+            tar.unlink(missing_ok=True)
+            root=restored/"workspace"
+            src=root/"nativo/sdk/src/ui/overlay/settings_overlay.cpp"
+            if digest(src)!=SOURCE_SHA256:raise ValueError("PRE92 source mismatch")
+            if digest(root/"android/app/build.gradle.kts")!=GRADLE_SHA:
+                raise ValueError("PRE99 Gradle source mismatch")
+            report["verified_source_pre99"]=True
+            report["phase"]="APPLY_EXACT_PRE117_EPHEMERAL_ONLY"
+            modified,diff=propose(src.read_text(encoding="utf-8"))
+            src.write_text(modified,encoding="utf-8")
+            if digest(src)!=EXPECTED_PRE117_SHA:raise ValueError("PRE117 patch SHA mismatch")
+            report["pre117_exact_patch_applied_in_runner"]=True
+            report["phase"]="STAGE_VERIFIED_USA_FROM_V26"
+            bundle=temp/"editions"
+            bundle.mkdir()
+            report["edition_gates"]=prepare_usa_edition(root,bundle,old_files)
+            report["phase"]="ANDROID_SDK_CONFIGURATION"
+            android=root/"android"
+            (android/"local.properties").write_text("sdk.dir="+str(sdk)+"\n",encoding="utf-8")
+            child=os.environ.copy()
+            child["NFSMW_SIGNING_DIR"]=str(signing)
+            child["NFSMW_VERSION_CODE"]=str(VERSION_CODE)
+            child["ANDROID_HOME"]=str(sdk)
+            child["ANDROID_SDK_ROOT"]=str(sdk)
+            child["CMAKE_BUILD_PARALLEL_LEVEL"]="2"
+            child["GRADLE_USER_HOME"]=str(temp/"gradle_cache")
+            args_gradle=[
+                "bash","gradlew","assembleRelease","--no-daemon","--console=plain","--max-workers=2",
+                "-Pnfsmw.motor=nativo","-Pnfsmw.edicion=pal_es",
+                "-Pnfsmw.ediciones="+str(bundle),
+                "-Pnfsmw.sdk="+str(root/"nativo/sdk"),
+                "-Dorg.gradle.jvmargs=-Xmx3g -XX:MaxMetaspaceSize=768m",
+            ]
+            report["phase"]="GRADLE_ASSEMBLE_RELEASE_ARM64"
+            log_path=temp/"gradle_private.log"
+            try:
+                with log_path.open("w",encoding="utf-8") as log:
+                    finished=subprocess.run(args_gradle,cwd=android,env=child,stdout=log,
+                                            stderr=subprocess.STDOUT,timeout=9000,check=False)
+                report["gradle_release_exit_code"]=finished.returncode
+            except subprocess.TimeoutExpired:
+                report["status"]="PRE126_GRADLE_TIMEOUT"
+                return 1
+            log=log_path.read_text(encoding="utf-8",errors="replace")[-1000000:]
+            report["gradle_failure_categories"]=classify_gradle_error(log)
+            if finished.returncode!=0:
+                report["gradle_failure_context_sanitized"]=safe_gradle_error_context(log,secret_props)
+                report["status"]="PRE126_GRADLE_BUILD_FALHOU"
+                return 1
+            report["gradle_release_succeeded"]=True
+            report["phase"]="SELECT_APK_AND_VERIFY"
+            outputs=list((android/"app/build/outputs/apk/release").glob("*.apk"))
+            if len(outputs)!=1:raise RuntimeError("Unexpected Gradle APK outputs")
+            apk=outputs[0]
+            report["apk_validation"]=verify_apk(apk,sdk,old_files)
+            report["signed_apk_verified"]=True
+            output.parent.mkdir(parents=True,exist_ok=True)
+            shutil.copy2(apk,output)
+            if digest(output)!=report["apk_validation"]["apk_sha256"]:
+                raise ValueError("Verified artifact copy digest mismatch")
+            if args.upload:
+                report["phase"]="UPLOAD_NEW_APK_TO_PRIVATE_DRIVE"
+                report["drive_upload"]=upload_verified_apk(d,output)
+                report["drive_upload_success"]=True
+            report["status"]="PRE126_V27_PAL_USA_ASSINADA_E_VERIFICADA"
+            report["phase"]="COMPLETE"
+    except Exception as exc:
+        report["error_type"]=type(exc).__name__
+        print("PRE126 stopped at",report["phase"],type(exc).__name__)
+    finally:
+        report["utc"]=datetime.now(timezone.utc).isoformat()
+        report_path.write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+        print("PRE126:",report["status"],"APK verified:",report["signed_apk_verified"],
+              "Drive upload:",report["drive_upload_success"])
+    return 0 if report["status"]=="PRE126_V27_PAL_USA_ASSINADA_E_VERIFICADA" else 1
+
+if __name__=="__main__":
+    raise SystemExit(main())
