@@ -32,7 +32,7 @@ MAX_INCLUDES = 70
 def compile_syntax(compiler: str, cpp_path: Path, includes: list[Path],
                    *, timeout: int = 120) -> dict:
     argv = [
-        compiler, "-std=c++20", "-fsyntax-only",
+        compiler, "-std=c++23", "-fsyntax-only",
         "-Wno-unused-function", "-Wno-unused-variable",
         *(x for include in includes for x in ("-I", str(include))),
         str(cpp_path),
@@ -132,6 +132,8 @@ def main() -> int:
         "github_run_id": args.run_id,
         "status": "NAO_VALIDADO",
         "phase": "INITIAL",
+        "host_cpp_standard": "c++23",
+        "reason_for_retry": "source uses std::byteswap in rex/types.h, C++23 feature",
         "snapshot_sha256_verified": False,
         "pre92_source_verified": False,
         "pre111_proposal_sha256_verified": False,
