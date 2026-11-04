@@ -1,0 +1,29 @@
+{
+  "etapa": "PRE103_GITHUB_DRIVE_PROBE",
+  "run_id": "41802218266",
+  "run_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/41802218266",
+  "timestamp_utc": "2026-11-04T08:47:42.794013+00:00",
+  "setup_outcome": "success",
+  "probe_outcome": "success",
+  "drive_status": "DRIVE_PRE99_METADATA_VALIDADO",
+  "checks": {
+    "refresh_google_oauth": true,
+    "backup_bytes": true,
+    "backup_md5_metadados": true,
+    "backup_na_pasta": true,
+    "manifesto_na_pasta": true,
+    "manifesto_sha256_declarado": true,
+    "manifesto_md5": true,
+    "manifesto_bytes": true,
+    "manifesto_staging_pal_usa": true,
+    "manifesto_fonte_pre92": true,
+    "manifesto_upload_confirmado": true
+  },
+  "fase_falha": null,
+  "erro_tipo": null,
+  "secrets_ausentes": [],
+  "backup_restaurado": false,
+  "notebook_principal_modificado": false,
+  "compilacao": false,
+  "chave_permanente_acessada": false
+}
