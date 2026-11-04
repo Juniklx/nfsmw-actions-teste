@@ -1,0 +1,17 @@
+{
+  "stage": "PRE135",
+  "date": "2026-11-04",
+  "objective": "Optimize FPS, frame pacing, stability without visual downgrade on Galaxy S24 FE",
+  "baseline": "V30 PAL/USA installed and user-confirmed single Settings touch drag; no V30 real-world performance benchmark yet",
+  "integrity": "Verify original PRE99 archive SHA256, scan SDL wait/wake, frame prep GPU/present and vertex copy paths, source-only",
+  "no_build": true,
+  "no_source_mutation": true,
+  "no_signing_key": true,
+  "no_apk": true,
+  "measure_before_patch": true,
+  "keep_resolution": "1920x1080",
+  "fps_limit": 120,
+  "keep_shaders_physics": true,
+  "keep_thermal_protection": true,
+  "keep_pre117_pre131_pre133": true
+}
