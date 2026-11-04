@@ -144,35 +144,50 @@ def prepare_usa_edition(root:Path,bundle:Path,v26:dict[str,bytes])->dict:
             "pal_shader_assets_match_v26":True}
 
 
-def verify_apk(apk:Path,sdk:Path,v26:dict[str,bytes])->dict:
+def verify_apk(apk:Path,sdk:Path,v26:dict[str,bytes],progress:dict)->dict:
+    progress["verification_subphase"]="APK_FILE_SIZE"
     if not apk.is_file() or apk.stat().st_size<25_000_000:
         raise ValueError("APK absent or unexpectedly small")
+    progress["apk_candidate_bytes"]=apk.stat().st_size
+    progress["apk_candidate_sha256"]=digest(apk)
+    progress["verification_subphase"]="APK_SIGNER_CRYPTOVALIDATION"
     apksigner=latest_tool(sdk,"apksigner")
     aapt=latest_tool(sdk,"aapt")
     check=subprocess.run([str(apksigner),"verify","--verbose","--print-certs",str(apk)],
                          capture_output=True,text=True,timeout=90,check=False)
     if check.returncode!=0:raise ValueError("apksigner verify failed")
+    progress["verification_subphase"]="APK_SIGNER_CERTIFICATE_FINGERPRINT"
     fingerprints=re.findall(r"Signer #1 certificate SHA-256 digest:\s*([0-9a-fA-F:]+)",check.stdout)
     if not fingerprints or fingerprints[0].replace(":","").lower()!=CERT_SHA:
         raise ValueError("APK permanent signing certificate mismatch")
+    progress["verification_subphase"]="APK_AAPT_BADGING"
     badge=subprocess.run([str(aapt),"dump","badging",str(apk)],
                          capture_output=True,text=True,timeout=90,check=False)
     if badge.returncode!=0:raise ValueError("AAPT could not inspect APK")
     match=re.search(r"package:\s+name='([^']+)'\s+versionCode='(\d+)'",badge.stdout)
     if match is None or match.group(1)!=EXPECTED_PACKAGE or int(match.group(2))!=VERSION_CODE:
         raise ValueError("APK applicationId/versionCode mismatch")
+    progress["verification_subphase"]="APK_ZIP_CRC"
     with zipfile.ZipFile(apk) as z:
         if z.testzip() is not None:raise ValueError("Generated APK ZIP CRC failed")
         present=set(z.namelist())
+        progress["verification_subphase"]="APK_REQUIRED_ARM64_LIBRARIES"
         missing=[x for x in REQUIRED_LIBS if "lib/arm64-v8a/"+x not in present]
-        if missing:raise ValueError("New APK missing required native library")
+        if missing:
+            progress["missing_required_arm64_libraries"]=missing
+            raise ValueError("New APK missing required native library")
         kept={}
         for name,expected in PRESERVE.items():
+            progress["verification_subphase"]="APK_PRESERVED_ASSET_SHA256"
             if name not in present or sha_bytes(z.read(name))!=expected:
+                progress["mismatched_preserved_asset"]=name
+                progress["mismatched_asset_was_present"]=name in present
                 raise ValueError("V27 changed required V26 PAL/USA content")
             kept[name]=True
+        progress["verification_subphase"]="APK_RUNTIME_LINKAGE_DIFFERENCE"
         runtime=sha_bytes(z.read("lib/arm64-v8a/librexruntime.so"))
         if runtime==V26_RUNTIME_SHA:raise ValueError("Rebuilt runtime is identical to V26: PRE117 linkage not proven")
+        progress["verification_subphase"]="APK_ALL_GATES_PASSED"
         return {
             "signed_certificate_sha256_match":True,
             "signed_schemes_verified":True,
@@ -350,7 +365,7 @@ def main()->int:
             outputs=list((android/"app/build/outputs/apk/release").glob("*.apk"))
             if len(outputs)!=1:raise RuntimeError("Unexpected Gradle APK outputs")
             apk=outputs[0]
-            report["apk_validation"]=verify_apk(apk,sdk,old_files)
+            report["apk_validation"]=verify_apk(apk,sdk,old_files,report)
             report["signed_apk_verified"]=True
             output.parent.mkdir(parents=True,exist_ok=True)
             shutil.copy2(apk,output)
@@ -364,7 +379,21 @@ def main()->int:
             report["phase"]="COMPLETE"
     except Exception as exc:
         report["error_type"]=type(exc).__name__
-        print("PRE126 stopped at",report["phase"],type(exc).__name__)
+        safe_messages={
+            "APK absent or unexpectedly small",
+            "apksigner verify failed",
+            "APK permanent signing certificate mismatch",
+            "AAPT could not inspect APK",
+            "APK applicationId/versionCode mismatch",
+            "Generated APK ZIP CRC failed",
+            "New APK missing required native library",
+            "V27 changed required V26 PAL/USA content",
+            "Rebuilt runtime is identical to V26: PRE117 linkage not proven",
+        }
+        if report.get("phase")=="SELECT_APK_AND_VERIFY" and str(exc) in safe_messages:
+            report["validation_failure_code"]=str(exc)
+        print("PRE126 stopped at",report["phase"],type(exc).__name__,
+              "validation subphase",report.get("verification_subphase","UNKNOWN"))
     finally:
         report["utc"]=datetime.now(timezone.utc).isoformat()
         report_path.write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
