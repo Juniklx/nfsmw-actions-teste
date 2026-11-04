@@ -1,0 +1,32 @@
+{
+  "stage": "PRE134_V30_PHONE_USER_FEEDBACK",
+  "recorded_on": "2026-11-04",
+  "reported_by": "user_in_chat",
+  "user_message": "funcionou",
+  "interpretation_scope": "The immediately preceding instruction was to install V30 and test dragging the Settings content directly with finger, without touching scrollbar.",
+  "device": "Samsung Galaxy S24 FE",
+  "build": "V30 PAL/USA",
+  "version_code": 30,
+  "android_package": "io.github.nfsmwrecomp",
+  "drive_apk_file_id": "1Nl3J0gOwGHfV1Yu8FP3Gl5KdzM51gmdi",
+  "drive_apk_sha256": "150438943b709f44b55d44a83baea5f239dd55677c3846f3508ee7a4760b2388",
+  "pre134_run_id": "41877000027",
+  "finger_drag_settings_scroll_confirmed_by_user": true,
+  "single_root_scroll_previously_confirmed_by_user_in_V27": true,
+  "modern_visual_previously_confirmed_by_screenshot_in_V29": true,
+  "unknown_in_V30": [
+    "SAVE SETTINGS test",
+    "physical PG-9076 test",
+    "DeX test",
+    "stability/endurance",
+    "frame rate performance improvement",
+    "all Settings controls"
+  ],
+  "interpretation_note": "User feedback confirms the specific Settings finger-scroll goal only; not other functionality.",
+  "baseline_for_next_work": "V30 and PRE117+PRE131+PRE133 patches; future versionCode must increase above 30, keep original signing certificate.",
+  "canonical_context_drive_file_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+  "canonical_context_sha256_after_update": "ac591f3512f10ea574561e6e76e4f1b92f15edbba7e6a5a55e6efaf266b7a127",
+  "backup_file_id": "1QKx2qCFZwkOBQyN6MtzbyYZ8Leu0mg7W",
+  "backup_sha256": "3eac545625a9dce8f08fa62a07dd567ea0fc81a95d043b8fdbbf25253c3bdff0",
+  "addendum_drive_file_id": "1ThWFK95_k19VRQW5hvRbUmTlr2FxGD0E"
+}
