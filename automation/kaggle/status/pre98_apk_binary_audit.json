@@ -1,0 +1,164 @@
+{
+  "etapa": "PRE98_AUDITORIA_BINARIA_APK_V25_V26",
+  "github_run_id": "41803202464",
+  "status": "AUDITORIA_BINARIA_CONCLUIDA",
+  "phase": "COMPLETE",
+  "modo": "SOMENTE_LEITURA",
+  "notebook_principal_modificado": false,
+  "backup_pre99_modificado": false,
+  "apk_modificado": false,
+  "compilacao_executada": false,
+  "chave_permanente_acessada": false,
+  "apks": {
+    "V25": {
+      "zip_entries": 872,
+      "arm64_library_count": 10,
+      "arm64_libraries": {
+        "lib/arm64-v8a/libSDL3.so": {
+          "sha256": "7439e5e23410cdb47aa2c38a8632aa2b2c58c58b8eef6f9ee7ad40e08d01340f",
+          "size": 1824304,
+          "markers": {}
+        },
+        "lib/arm64-v8a/libc++_shared.so": {
+          "sha256": "cd61762848882a16c8244c964a6f396c0caa0b440588a210ce9cc4ab0e6d9f0c",
+          "size": 1253544,
+          "markers": {}
+        },
+        "lib/arm64-v8a/libfile_redirect_hook.so": {
+          "sha256": "27c4759979b400a0ebfc29f2615c3016a304eca2487681a3ed022520341304d4",
+          "size": 4032,
+          "markers": {}
+        },
+        "lib/arm64-v8a/libgsl_alloc_hook.so": {
+          "sha256": "7c7a27a07db7ce48945ffe1a105ac9ca7cc0adecfc052e37bc103ca2c8d22431",
+          "size": 4344,
+          "markers": {}
+        },
+        "lib/arm64-v8a/libhook_impl.so": {
+          "sha256": "5428843b7ad70426f4e1f0556ad48303f6eb7164f3ce46738b3e106cad55284e",
+          "size": 38776,
+          "markers": {}
+        },
+        "lib/arm64-v8a/libmain.so": {
+          "sha256": "1e8e2d7c5ef6f8e0e1cede5a092061a22482fcd46293e8e3aee021245cf14cb5",
+          "size": 41752240,
+          "markers": {}
+        },
+        "lib/arm64-v8a/libmain_hook.so": {
+          "sha256": "89c7ad67c33f4c6ce31aac1cd887dd795e10cba1128804a4a60dfc66d86af355",
+          "size": 4248,
+          "markers": {}
+        },
+        "lib/arm64-v8a/libmain_usa.so": {
+          "sha256": "4f32de8f2ff10d4748aa33f208774038ef9bfa402eacc61a49dd7e70f3b1bc83",
+          "size": 41749696,
+          "markers": {}
+        },
+        "lib/arm64-v8a/librexgpu-xenos.so": {
+          "sha256": "967d5b2f3edc5d8d3a99f20f3d3d66bf6d17374ac1fbb61cf40ea698ed4a7f1e",
+          "size": 4651224,
+          "markers": {}
+        },
+        "lib/arm64-v8a/librexruntime.so": {
+          "sha256": "a9d3899b06deb8a33aa5825467e65ec50cdfd8617c54f808025de61667692b70",
+          "size": 9027976,
+          "markers": {}
+        }
+      },
+      "sha256": "35850d4ac0830d957a7f01e403f905bc8e8a4497904983654d0f608450420610",
+      "bytes": 47064917,
+      "drive_id": "1dJOZasd-wYMNIrQer7IG7Mk3k3lYevPz"
+    },
+    "V26": {
+      "zip_entries": 872,
+      "arm64_library_count": 10,
+      "arm64_libraries": {
+        "lib/arm64-v8a/libSDL3.so": {
+          "sha256": "7439e5e23410cdb47aa2c38a8632aa2b2c58c58b8eef6f9ee7ad40e08d01340f",
+          "size": 1824304,
+          "markers": {}
+        },
+        "lib/arm64-v8a/libc++_shared.so": {
+          "sha256": "cd61762848882a16c8244c964a6f396c0caa0b440588a210ce9cc4ab0e6d9f0c",
+          "size": 1253544,
+          "markers": {}
+        },
+        "lib/arm64-v8a/libfile_redirect_hook.so": {
+          "sha256": "27c4759979b400a0ebfc29f2615c3016a304eca2487681a3ed022520341304d4",
+          "size": 4032,
+          "markers": {}
+        },
+        "lib/arm64-v8a/libgsl_alloc_hook.so": {
+          "sha256": "7c7a27a07db7ce48945ffe1a105ac9ca7cc0adecfc052e37bc103ca2c8d22431",
+          "size": 4344,
+          "markers": {}
+        },
+        "lib/arm64-v8a/libhook_impl.so": {
+          "sha256": "5428843b7ad70426f4e1f0556ad48303f6eb7164f3ce46738b3e106cad55284e",
+          "size": 38776,
+          "markers": {}
+        },
+        "lib/arm64-v8a/libmain.so": {
+          "sha256": "1e8e2d7c5ef6f8e0e1cede5a092061a22482fcd46293e8e3aee021245cf14cb5",
+          "size": 41752240,
+          "markers": {}
+        },
+        "lib/arm64-v8a/libmain_hook.so": {
+          "sha256": "89c7ad67c33f4c6ce31aac1cd887dd795e10cba1128804a4a60dfc66d86af355",
+          "size": 4248,
+          "markers": {}
+        },
+        "lib/arm64-v8a/libmain_usa.so": {
+          "sha256": "4f32de8f2ff10d4748aa33f208774038ef9bfa402eacc61a49dd7e70f3b1bc83",
+          "size": 41749696,
+          "markers": {}
+        },
+        "lib/arm64-v8a/librexgpu-xenos.so": {
+          "sha256": "967d5b2f3edc5d8d3a99f20f3d3d66bf6d17374ac1fbb61cf40ea698ed4a7f1e",
+          "size": 4651224,
+          "markers": {}
+        },
+        "lib/arm64-v8a/librexruntime.so": {
+          "sha256": "2c24104abde7a2b255cb88550c26c3cf884ebd2cbb4a73ed67f7f2d6ad187611",
+          "size": 9028760,
+          "markers": {
+            "NEED_FOR_SPEED_MOST_WANTED": [
+              "utf8"
+            ],
+            "SETTINGS_ANDROID_HEADER": [
+              "utf8"
+            ],
+            "SAVE_SETTINGS": [
+              "utf8"
+            ]
+          }
+        }
+      },
+      "sha256": "d8aebdaaf75df75739b47148f69ecfcdf1add37422416249375e31eca7812092",
+      "bytes": 47065185,
+      "drive_id": "1HcWA8UFugXNO4IPPH8kgUcX5CwP4UobW"
+    }
+  },
+  "library_changes": {
+    "lib/arm64-v8a/libSDL3.so": "identical",
+    "lib/arm64-v8a/libc++_shared.so": "identical",
+    "lib/arm64-v8a/libfile_redirect_hook.so": "identical",
+    "lib/arm64-v8a/libgsl_alloc_hook.so": "identical",
+    "lib/arm64-v8a/libhook_impl.so": "identical",
+    "lib/arm64-v8a/libmain.so": "identical",
+    "lib/arm64-v8a/libmain_hook.so": "identical",
+    "lib/arm64-v8a/libmain_usa.so": "identical",
+    "lib/arm64-v8a/librexgpu-xenos.so": "identical",
+    "lib/arm64-v8a/librexruntime.so": "changed"
+  },
+  "changed_library_count": 1,
+  "source_code_linkage_proven": false,
+  "settings_overlay_executed_proven": false,
+  "note": "Markers found in an ELF show embedded text, not that code executed. Absent markers can indicate dead-code elimination, alternate formatting or linkage differences.",
+  "timestamp_utc": "2026-11-04T08:56:14.865013+00:00",
+  "run_id": "41803202464",
+  "run_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/41803202464",
+  "workflow_setup_outcome": "success",
+  "workflow_audit_outcome": "success",
+  "report_recorded_utc": "2026-11-04T08:56:14.950758+00:00"
+}
