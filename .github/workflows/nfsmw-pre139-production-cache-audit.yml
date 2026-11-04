@@ -22,12 +22,18 @@ jobs:
           python -m py_compile \
             automation/kaggle/pre138_build_signed_v31_log_pal_usa.py \
             automation/kaggle/pre139_verify_dependency_cache.py \
-            automation/kaggle/pre139_audit_production_cache.py
+            automation/kaggle/pre139_audit_production_cache.py \
+            automation/kaggle/pre142_phase_timing_audit.py
           python automation/kaggle/pre139_audit_production_cache.py \
             > /tmp/pre139-production-cache-policy.json
+          python automation/kaggle/pre142_phase_timing_audit.py \
+            > /tmp/pre142-phase-timing-audit.json
           python -m json.tool /tmp/pre139-production-cache-policy.json
+          python -m json.tool /tmp/pre142-phase-timing-audit.json
       - uses: actions/upload-artifact@v4
         with:
           name: pre139-production-cache-policy-${{ github.run_id }}
-          path: /tmp/pre139-production-cache-policy.json
+          path: |
+            /tmp/pre139-production-cache-policy.json
+            /tmp/pre142-phase-timing-audit.json
           retention-days: 14
