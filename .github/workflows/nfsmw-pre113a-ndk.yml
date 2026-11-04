@@ -1,0 +1,80 @@
+name: NFSMW - PRE113A NDK ARM64 preflight (no game)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/ndk_probe_requests/*.json'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nfsmw-pre113a-ndk-probe
+  cancel-in-progress: false
+
+jobs:
+  ndk-preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout private repo
+        uses: actions/checkout@v4
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify script syntax
+        run: python -m py_compile automation/kaggle/pre113a_ndk_preflight.py
+      - name: Inspect runner Android NDK without downloading project or secrets
+        id: probe
+        continue-on-error: true
+        run: |
+          python automation/kaggle/pre113a_ndk_preflight.py \
+            --run-id "$GITHUB_RUN_ID" \
+            --report /tmp/pre113a-ndk-preflight.json
+      - name: Persist private report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pre113a-ndk-${{ github.run_id }}
+          path: /tmp/pre113a-ndk-preflight.json
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Record NDK preflight result
+        if: always()
+        env:
+          PROBE_OUTCOME: ${{ steps.probe.outcome }}
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          p=Path('/tmp/pre113a-ndk-preflight.json')
+          data=json.loads(p.read_text(encoding='utf-8')) if p.exists() else {'status':'SEM_RELATORIO'}
+          data['run_url']=f"https://github.com/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{os.environ['GITHUB_RUN_ID']}"
+          data['probe_outcome']=os.environ['PROBE_OUTCOME']
+          dst=Path('automation/kaggle/status/pre113a_ndk_preflight.json')
+          dst.parent.mkdir(parents=True,exist_ok=True)
+          dst.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add automation/kaggle/status/pre113a_ndk_preflight.json
+          git commit -m 'Record PRE113A Android NDK runner preflight [skip ci]'
+          git fetch --no-tags --depth=50 origin main
+          git rebase origin/main
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep "$((attempt * 3))"
+            git fetch --no-tags --depth=50 origin main
+            git rebase origin/main
+          done
+          exit 1
+      - name: Require probe to have finished
+        if: always()
+        env:
+          PROBE_OUTCOME: ${{ steps.probe.outcome }}
+        run: test "$PROBE_OUTCOME" = 'success'
