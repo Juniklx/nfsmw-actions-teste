@@ -1,0 +1,19 @@
+{
+  "etapa": "PRE103A_AUDITAR_OUTPUT_KAGGLE_ORIGINAL",
+  "notebook": "juniklx/nfsmw",
+  "timestamp_utc": "2026-11-04T08:42:35.150684+00:00",
+  "status_query_exit_code": 1,
+  "kaggle_worker_status": null,
+  "file_listing_exit_code": 0,
+  "file_listing_first_page_rows": 0,
+  "files_page_size": 200,
+  "all_output_pages_checked": false,
+  "matching_output_files": [],
+  "pre99_in_first_page": false,
+  "original_notebook_modified": false,
+  "downloaded_files": false,
+  "drive_credentials_accessed": false,
+  "run_id": "41801556462",
+  "run_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/41801556462",
+  "recorded_utc": "2026-11-04T08:42:35.191474+00:00"
+}
