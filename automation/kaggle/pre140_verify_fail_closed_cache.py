@@ -35,7 +35,8 @@ def main():
     restore_i,restore=one(lambda s:s.get("id")=="gradle_deps_cache","cache restore")
     build_i,build=one(lambda s:s.get("id")=="release","release step")
     guard_i,guard=one(lambda s:s.get("id")=="deps_policy","cache guard")
-    save_i,save=one(lambda s:s.get("uses")=="actions/cache/save@v4","cache save")
+    save_i,save=one(lambda s:s.get("uses")=="actions/cache/save@v4" and
+        "nfsmw-gradle-home" in str(s.get("with",{}).get("path","")),"Gradle cache save")
     precheck_i,precheck=one(lambda s:s.get("name")=="PRE140 verify restored Gradle cache before build","restored cache precheck")
     need(restore.get("uses")=="actions/cache/restore@v4","restore must never auto-save")
     need(all(s.get("uses")!="actions/cache@v4" for s in steps),"generic cache with uncontrolled post-save forbidden")
@@ -64,6 +65,47 @@ def main():
          "permanent certificate verification missing")
     need("propose_pre133(src.read_bytes())" in source,
          "functional Android touch patch missing")
+    # PRE140: a second cache may persist ONLY the selected SDK compiler results,
+    # never translated game objects; it has its own scan-before-build and seal gates.
+    sdk_restore_i,sdk_restore=one(lambda x:x.get("id")=="sdk_ccache","SDK ccache restore")
+    sdk_check_i,sdk_check=one(lambda x:x.get("name")==
+        "PRE140 inspect restored SDK compiler cache before build","SDK cache precheck")
+    sdk_policy_i,sdk_policy=one(lambda x:x.get("id")=="sdk_ccache_policy","SDK cache policy")
+    sdk_save_i,sdk_save=one(lambda x:x.get("uses")=="actions/cache/save@v4" and
+        "nfsmw-ccache-sdk-only" in str(x.get("with",{}).get("path","")),"SDK cache save")
+    need(sdk_restore_i<sdk_check_i<build_i<sdk_policy_i<sdk_save_i,
+         "SDK-only cache restore/precheck/build/audit/save order invalid")
+    need(sdk_restore.get("uses")=="actions/cache/restore@v4",
+         "SDK cache restore must not auto-save")
+    sdk_path="${{ runner.temp }}/nfsmw-ccache-sdk-only"
+    need(paths(sdk_restore)=={sdk_path} and paths(sdk_save)=={sdk_path},
+         "SDK cache path scope drifted")
+    need(sdk_restore.get("with",{}).get("key")==
+         "nfsmw-pre99-sdkonly-ndk28-clang-ccache4-v1-${{ runner.os }}",
+         "SDK cache version key changed")
+    need(sdk_save.get("with",{}).get("key")==
+         "${{ steps.sdk_ccache.outputs.cache-primary-key }}",
+         "SDK save key mismatch")
+    need(sdk_check.get("if")=="steps.sdk_ccache.outputs.cache-hit == 'true'",
+         "SDK cache hit must trigger early scan")
+    need("pre140_guard_sdk_only_ccache.py" in sdk_check.get("run","") and
+         "--mode check" in sdk_check.get("run",""),"SDK restored cache unverified")
+    need(sdk_policy.get("if")=="steps.release.outcome == 'success'",
+         "SDK cache sealing must follow successful signed build")
+    need("pre140_guard_sdk_only_ccache.py" in sdk_policy.get("run","") and
+         "--mode seal" in sdk_policy.get("run",""),"SDK cache seal missing")
+    for required in ("success()","steps.release.outcome == 'success'",
+                     "steps.sdk_ccache_policy.outcome == 'success'",
+                     "steps.sdk_ccache.outputs.cache-hit != 'true'"):
+        need(required in sdk_save.get("if",""),"SDK cache save guard missing "+required)
+    need(build.get("env",{}).get("NFSMW_PRE140_CCACHE_LAUNCHER")==
+         "${{ github.workspace }}/automation/kaggle/pre140_sdk_only_ccache_launcher.sh",
+         "SDK-only executable launcher missing")
+    need("PRE140_CCACHE_LAUNCHER" in source and
+         "c4949a0adbb788c82b621c7c39fa29baba02b4ae" in source and
+         '"NFSMW_SDK_SOURCE_ROOT":str(root/"nativo/sdk")' in source,
+         "release script did not pin the SDK-only compiler launcher")
+
     report={"stage":"PRE140_CACHE_FAIL_CLOSED_POLICY_AUDIT","status":"PASS",
         "workflow_sha256":hashlib.sha256(workflow.encode()).hexdigest(),
         "source_sha256":hashlib.sha256(source.encode()).hexdigest(),
