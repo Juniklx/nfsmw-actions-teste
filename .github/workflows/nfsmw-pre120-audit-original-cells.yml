@@ -1,0 +1,86 @@
+name: NFSMW - PRE120 auditar celulas Kaggle sem executar
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/notebook_pre120_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre120-original-cells
+  cancel-in-progress: false
+jobs:
+  audit-cells:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      KAGGLE_API_TOKEN: ${{ secrets.KAGGLE_API_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Kaggle and validate Python
+        run: |
+          set -e
+          python -m pip install --disable-pip-version-check kaggle six >/dev/null
+          python -m py_compile automation/kaggle/pre120_audit_original_cells.py
+          test -n "${KAGGLE_API_TOKEN:-}"
+      - name: Pull source privately and inspect only the AST and call names
+        id: audit
+        continue-on-error: true
+        run: |
+          set -e
+          mkdir -p /tmp/nfsmw-pre120-notebook
+          kaggle kernels pull juniklx/nfsmw -m -p /tmp/nfsmw-pre120-notebook > /tmp/nfsmw-pre120-pull.log
+          python automation/kaggle/pre120_audit_original_cells.py \
+            --folder /tmp/nfsmw-pre120-notebook \
+            --run-id "$GITHUB_RUN_ID" \
+            --report /tmp/nfsmw-pre120-cells.json
+      - name: Preserve sanitized audit artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pre120-kaggle-cell-audit-${{ github.run_id }}
+          path: /tmp/nfsmw-pre120-cells.json
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Publish sanitized audit only
+        if: always()
+        env:
+          AUDIT_OUTCOME: ${{ steps.audit.outcome }}
+        run: |
+          set -e
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          src=Path('/tmp/nfsmw-pre120-cells.json')
+          data=json.loads(src.read_text(encoding='utf-8')) if src.is_file() else {'status':'SEM_RELATORIO'}
+          data['workflow_audit_outcome']=os.environ['AUDIT_OUTCOME']
+          data['run_url']=f"https://github.com/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{os.environ['GITHUB_RUN_ID']}"
+          out=Path('automation/kaggle/status/pre120_notebook_cell_audit.json')
+          out.parent.mkdir(parents=True,exist_ok=True)
+          out.write_text(json.dumps(data,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
+          print('PRE120 sanitized status ready; no notebook source, literals or credentials published')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add automation/kaggle/status/pre120_notebook_cell_audit.json
+          git commit -m 'Record PRE120 original Kaggle cell safety inspection [skip ci]'
+          git fetch --no-tags --depth=50 origin main
+          git rebase origin/main
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$((attempt * 3))"
+            git fetch --no-tags --depth=50 origin main
+            git rebase origin/main
+          done
+          exit 1
+      - name: Require safe AST inspection success
+        if: always()
+        env:
+          AUDIT_OUTCOME: ${{ steps.audit.outcome }}
+        run: test "$AUDIT_OUTCOME" = "success"
