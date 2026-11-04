@@ -1,0 +1,12 @@
+{
+  "etapa": "PRE103_GITHUB_DRIVE_PROBE",
+  "autoriza": "acesso_somente_leitura_metadados_manifesto_PRE99",
+  "backup_id": "1qXEY5JXUdvZB4CuqPvXARz8TY-FArdzb",
+  "expected_backup_bytes": 874780689,
+  "checkout": "github_actions",
+  "download_tar": false,
+  "restoration": false,
+  "modify_kaggle_main": false,
+  "modify_apk": false,
+  "access_signing_key": false
+}
