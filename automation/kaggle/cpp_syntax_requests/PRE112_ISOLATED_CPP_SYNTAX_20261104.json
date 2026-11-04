@@ -1,0 +1,17 @@
+{
+  "etapa": "PRE112_TESTE_COMPILABILIDADE_ISOLADO",
+  "base": "PRE99 SHA256 verificado, settings_overlay.cpp PRE92",
+  "proposta": "PRE111 diff sha256 19102b563eb4cdd6c81d4a6bfa5bbc8cadfbb1e030247f535633cbc11524e069",
+  "verificacoes": [
+    "restauracao_efemera",
+    "fragmento_cpp",
+    "sintaxe_fonte_original_host",
+    "sintaxe_fonte_proposta_host"
+  ],
+  "ambiente": "GitHub Actions /tmp, somente temporario",
+  "no_apk": true,
+  "no_release": true,
+  "no_signing": true,
+  "no_drive_write": true,
+  "no_original_workspace_change": true
+}
