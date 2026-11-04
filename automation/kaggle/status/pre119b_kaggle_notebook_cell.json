@@ -1,0 +1,16 @@
+{
+  "etapa": "PRE119B_ANEXAR_CELULA_KAGGLE_SEM_EXECUCAO",
+  "github_run_id": "41829794941",
+  "run_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/41829794941",
+  "workflow_setup": "success",
+  "kaggle_pull": "skipped",
+  "kaggle_push_no_run": "skipped",
+  "kaggle_readback": "skipped",
+  "game_modified": false,
+  "apk_built": false,
+  "kaggle_code_executed": false,
+  "drive_report_generated": false,
+  "active_tree_audited": false,
+  "utc": "2026-11-04T12:30:16.593467+00:00",
+  "status": "PRE119B_NAO_CONFIRMADO"
+}
