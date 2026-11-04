@@ -1,0 +1,10 @@
+{
+  "etapa": "PRE100_KAGGLE_AUTOMACAO_SMOKE",
+  "versao": "relatorio_status_no_github",
+  "objetivo": "validar import kaggle e push CLI sem intervencao do usuario",
+  "destino": "juniklx/nfsmw-automacao-smoke-pre100",
+  "modifica_notebook_original": false,
+  "usa_drive": false,
+  "usa_chave_permanente": false,
+  "compila_apk": false
+}
