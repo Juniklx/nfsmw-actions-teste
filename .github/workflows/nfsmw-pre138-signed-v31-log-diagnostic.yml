@@ -42,7 +42,8 @@ jobs:
             automation/kaggle/pre131_native_touch_and_modern_ui_patch.py \
             automation/kaggle/pre133_mouse_bridge_swipe_patch.py \
             automation/kaggle/pre138_build_signed_v31_log_pal_usa.py \
-            automation/kaggle/pre139_verify_dependency_cache.py
+            automation/kaggle/pre139_verify_dependency_cache.py \
+            automation/kaggle/pre140_guard_sdk_only_ccache.py
           python automation/kaggle/pre139_verify_dependency_cache.py --self-test
       - name: Prepare exact Android NDK CMake and SDK build tools in ephemeral runner
         id: android_tools
@@ -82,6 +83,17 @@ jobs:
           test -f "$SDK/build-tools/36.0.0/aapt"
           echo "PRE138 ephemeral NDK/CMake/build-tools ready"
           df -h "$SDK" | tail -n 1
+      - name: PRE140 locate or install ccache and validate SDK-only launcher
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! command -v ccache >/dev/null; then
+            sudo apt-get update -qq >/dev/null
+            sudo apt-get install -y -qq ccache >/dev/null
+          fi
+          ccache --version | head -1
+          chmod 755 automation/kaggle/pre140_sdk_only_ccache_launcher.sh
+          bash -n automation/kaggle/pre140_sdk_only_ccache_launcher.sh
       - name: PRE139 restore dependency-only Gradle cache
         uses: actions/cache/restore@v4
         id: gradle_deps_cache
@@ -101,6 +113,18 @@ jobs:
         run: |
           echo "Gradle dependency cache hit: ${GRADLE_CACHE_HIT:-false}" >> "$GITHUB_STEP_SUMMARY"
           echo "Only modules-2 and wrapper; no game assets, signing data, native outputs." >> "$GITHUB_STEP_SUMMARY"
+      - name: PRE140 restore pinned SDK-only compiler cache
+        id: sdk_ccache
+        uses: actions/cache/restore@v4
+        with:
+          path: ${{ runner.temp }}/nfsmw-ccache-sdk-only
+          key: nfsmw-pre99-sdkonly-ndk28-clang-ccache4-v1-${{ runner.os }}
+      - name: PRE140 inspect restored SDK compiler cache before build
+        if: steps.sdk_ccache.outputs.cache-hit == 'true'
+        run: |
+          python automation/kaggle/pre140_guard_sdk_only_ccache.py \
+            --mode check \
+            --cache-dir "${{ runner.temp }}/nfsmw-ccache-sdk-only"
       - name: Build V31 release and strictly verify signed APK, preserve locally for private artifact
         id: release
         continue-on-error: true
@@ -109,6 +133,8 @@ jobs:
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
           NFSMW_GRADLE_USER_HOME: ${{ runner.temp }}/nfsmw-gradle-home
+          NFSMW_PRE140_CCACHE_LAUNCHER: ${{ github.workspace }}/automation/kaggle/pre140_sdk_only_ccache_launcher.sh
+          CCACHE_DIR: ${{ runner.temp }}/nfsmw-ccache-sdk-only
         run: |
           set -e
           test "${{ steps.android_tools.outcome }}" = "success"
@@ -132,6 +158,20 @@ jobs:
             ${{ runner.temp }}/nfsmw-gradle-home/caches/modules-2
             ${{ runner.temp }}/nfsmw-gradle-home/wrapper
           key: ${{ steps.gradle_deps_cache.outputs.cache-primary-key }}
+      - name: PRE140 seal SDK-only compiler cache after fully verified release
+        id: sdk_ccache_policy
+        if: steps.release.outcome == 'success'
+        run: |
+          python automation/kaggle/pre140_guard_sdk_only_ccache.py \
+            --mode seal \
+            --cache-dir "${{ runner.temp }}/nfsmw-ccache-sdk-only" \
+            --report /tmp/nfsmw-pre138-out/pre140-safe-sdk-cache.json
+      - name: PRE140 save verified SDK compiler cache only on successful release
+        if: ${{ success() && steps.release.outcome == 'success' && steps.sdk_ccache_policy.outcome == 'success' && steps.sdk_ccache.outputs.cache-hit != 'true' }}
+        uses: actions/cache/save@v4
+        with:
+          path: ${{ runner.temp }}/nfsmw-ccache-sdk-only
+          key: ${{ steps.sdk_ccache.outputs.cache-primary-key }}
       - name: Preserve private report and verified APK if produced
         if: always()
         uses: actions/upload-artifact@v4
