@@ -1,0 +1,7 @@
+{
+  "stage": "PRE140",
+  "goal": "Verify SDK-only compiler ccache restored in separate GitHub runner, same synthetic sources, never game objects or signing data",
+  "attempt": 3,
+  "expected_warm": true,
+  "prior_success_run": "41902309640"
+}
