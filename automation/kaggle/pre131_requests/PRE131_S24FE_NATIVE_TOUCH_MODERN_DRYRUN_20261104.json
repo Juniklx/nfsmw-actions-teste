@@ -1,0 +1,15 @@
+{
+  "stage": "PRE131",
+  "target": "Samsung Galaxy S24 FE",
+  "tested_v28": "Single scroll proven, touch swipe over Settings failed, green cvar labels and retro typography persists",
+  "source_proof": "PRE130 #41865808432 verified PRE99 and imgui_drawer.cpp SHA256 1a62d13e81af3aac4837af06e90281b64bd282c78e6e5ce079d6ca930e8a5c24",
+  "changes": "Native touch-position tracking, modern font from existing app resource, friendly labels, search hint; no APK yet",
+  "immutable": [
+    "PRE117 scroll owner",
+    "V28 original APK",
+    "permanent signing certificate",
+    "PAL+USA files",
+    "full rendering quality"
+  ],
+  "dryrun": true
+}
