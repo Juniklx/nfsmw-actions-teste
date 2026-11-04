@@ -1,0 +1,32 @@
+name: NFSMW PRE152 - Bundle 3 verified files for Drive
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre152_bundle_requests/*.json'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify the three original files
+        run: |
+          printf '%s\n' \
+            '18324df2bfd8cff12e982262a93b294e97e1c0bf91d9f01360e7bdfc00c08ba4  scripts/nfsmw_pre152_v31_surfaceflinger_pareado.sh' \
+            'dbf57fee9458e9ed2cdc9165851bf57e6e63a461dafa412391d7d72f259f8e27  scripts/nfsmw_pre152_analisar_timestats.py' \
+            '4a170ac2409f70decadf7443d8ed414010ecbab1e25161212c80f166395a64e0  reports/RELATORIO_NFSMW_PRE152_AUDITORIA_SF_V31_E_PREPARO_COLETA_20261104.md' \
+            | sha256sum -c -
+      - name: Package source files for Google Drive
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre152-originals
+          path: |
+            scripts/nfsmw_pre152_v31_surfaceflinger_pareado.sh
+            scripts/nfsmw_pre152_analisar_timestats.py
+            reports/RELATORIO_NFSMW_PRE152_AUDITORIA_SF_V31_E_PREPARO_COLETA_20261104.md
+          if-no-files-found: error
+          retention-days: 30
