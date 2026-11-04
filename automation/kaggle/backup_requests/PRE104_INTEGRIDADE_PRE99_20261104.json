@@ -1,0 +1,15 @@
+{
+  "etapa": "PRE104_INTEGRIDADE_TAR_PRE99",
+  "backup_drive_id": "1qXEY5JXUdvZB4CuqPvXARz8TY-FArdzb",
+  "expected_bytes": 874780689,
+  "expected_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "mode": "somente_leitura_runner_efemero",
+  "verify_full_tar_digest": true,
+  "scan_archive_structure": true,
+  "extract": false,
+  "restore": false,
+  "change_notebook": false,
+  "patch": false,
+  "build": false,
+  "sign": false
+}
