@@ -1,0 +1,75 @@
+name: NFSMW - PRE98 auditar APK V25 e V26 (somente leitura)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/apk_audit_requests/*.json'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nfsmw-pre98-apk-audit
+  cancel-in-progress: false
+
+jobs:
+  compare-apks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Instalar Drive SDK e verificar script
+        id: setup
+        run: |
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2
+          python -m py_compile automation/kaggle/pre98_compare_apk_binaries.py
+      - name: Baixar APKs V25/V26 no runner e comparar binarios ARM64
+        id: audit
+        continue-on-error: true
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          python automation/kaggle/pre98_compare_apk_binaries.py \
+            --run-id "$GITHUB_RUN_ID" \
+            --report /tmp/nfsmw-pre98-apk-result.json
+      - name: Registrar relatorio no repositorio privado
+        if: always()
+        env:
+          SETUP_OUTCOME: ${{ steps.setup.outcome }}
+          AUDIT_OUTCOME: ${{ steps.audit.outcome }}
+        run: |
+          python - <<'PY'
+          import os, json
+          from datetime import datetime, timezone
+          from pathlib import Path
+          path = Path('/tmp/nfsmw-pre98-apk-result.json')
+          data = json.loads(path.read_text(encoding='utf-8')) if path.is_file() else {'etapa': 'PRE98_AUDITORIA_BINARIA_APK_V25_V26', 'status': 'SEM_RELATORIO'}
+          data['run_id'] = os.environ['GITHUB_RUN_ID']
+          data['run_url'] = f"https://github.com/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{os.environ['GITHUB_RUN_ID']}"
+          data['workflow_setup_outcome'] = os.environ['SETUP_OUTCOME']
+          data['workflow_audit_outcome'] = os.environ['AUDIT_OUTCOME']
+          data['report_recorded_utc'] = datetime.now(timezone.utc).isoformat()
+          target = Path('automation/kaggle/status/pre98_apk_binary_audit.json')
+          target.parent.mkdir(parents=True, exist_ok=True)
+          target.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          print('Relatorio PRE98 gravado sem os arquivos APK ou credenciais')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add automation/kaggle/status/pre98_apk_binary_audit.json
+          git commit -m 'Record PRE98 Android ARM64 library and UI marker audit [skip ci]'
+          git push
+      - name: Exigir comparacao validada
+        if: always()
+        env:
+          AUDIT_OUTCOME: ${{ steps.audit.outcome }}
+        run: test "$AUDIT_OUTCOME" = 'success'
