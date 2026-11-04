@@ -28,6 +28,7 @@ from pre105_read_settings_source import SOURCE_NAME,SOURCE_SHA256,drive_client,d
 from pre107_restore_isolated import restore
 from pre117_one_scroll_android_dryrun import propose
 from pre118_audit_build_tree import EXPECTED_PRE117_SHA
+from pre127_apk_v2_certificate_audit import apk_v2_cert_sha256
 from pre125_ephemeral_gradle_signing_preflight import (
     P12_DRIVE_ID,PROPERTIES_DRIVE_ID,P12_SHA,CERT_SHA,GRADLE_SHA,
     download_file,digest,parse_properties_safely,certificate_sha256,classify_gradle_error,
@@ -96,6 +97,8 @@ def safe_gradle_error_context(content:str,props:dict)->list[str]:
 def verified_v26(apk:Path)->dict[str,bytes]:
     if apk.stat().st_size!=V26_BYTES or digest(apk)!=V26_SHA:
         raise ValueError("V26 baseline APK changed")
+    if apk_v2_cert_sha256(apk)!=CERT_SHA:
+        raise ValueError("Original V26 has unexpected APK v2 signer certificate")
     result={}
     with zipfile.ZipFile(apk,"r") as z:
         if z.testzip() is not None:raise ValueError("V26 ZIP CRC failed")
@@ -158,8 +161,20 @@ def verify_apk(apk:Path,sdk:Path,v26:dict[str,bytes],progress:dict)->dict:
     if check.returncode!=0:raise ValueError("apksigner verify failed")
     progress["verification_subphase"]="APK_SIGNER_CERTIFICATE_FINGERPRINT"
     fingerprints=re.findall(r"Signer #1 certificate SHA-256 digest:\s*([0-9a-fA-F:]+)",check.stdout)
-    if not fingerprints or fingerprints[0].replace(":","").lower()!=CERT_SHA:
-        raise ValueError("APK permanent signing certificate mismatch")
+    cli_fingerprints=[fp.replace(":","").lower() for fp in fingerprints]
+    progress["apksigner_cli_cert_fingerprints"]=cli_fingerprints
+    progress["apksigner_cli_cert_count"]=len(cli_fingerprints)
+    progress["verification_subphase"]="APK_V2_DER_SIGNER_CERTIFICATE"
+    # Do not rely exclusively on text formatting of apksigner --print-certs.
+    # apksigner verifies the cryptographic signatures above; independently
+    # identify the exact DER certificate used by the v2 signer, minSdk=26.
+    v2_cert_digest=apk_v2_cert_sha256(apk)
+    progress["apk_v2_certificate_sha256"]=v2_cert_digest
+    if v2_cert_digest!=CERT_SHA:
+        raise ValueError("APK v2 permanent signing certificate mismatch")
+    if cli_fingerprints and v2_cert_digest not in cli_fingerprints:
+        raise ValueError("APK signer CLI certificate disagrees with APK v2 DER certificate")
+    progress["verification_subphase"]="APK_SIGNING_CERTIFICATE_APPROVED"
     progress["verification_subphase"]="APK_AAPT_BADGING"
     badge=subprocess.run([str(aapt),"dump","badging",str(apk)],
                          capture_output=True,text=True,timeout=90,check=False)
@@ -383,6 +398,8 @@ def main()->int:
             "APK absent or unexpectedly small",
             "apksigner verify failed",
             "APK permanent signing certificate mismatch",
+            "APK v2 permanent signing certificate mismatch",
+            "APK signer CLI certificate disagrees with APK v2 DER certificate",
             "AAPT could not inspect APK",
             "APK applicationId/versionCode mismatch",
             "Generated APK ZIP CRC failed",
