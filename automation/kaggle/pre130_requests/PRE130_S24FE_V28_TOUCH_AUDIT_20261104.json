@@ -1,0 +1,11 @@
+{
+  "stage": "PRE130",
+  "purpose": "Diagnose user-verified V28 touch drag failure and non-modern UI",
+  "phone": "Samsung Galaxy S24 FE",
+  "build_version": 28,
+  "report": "PRE99 exact verified SDL/ImGui input path only",
+  "user_evidence": "Screenshot V28 shows single scroll, no drag on content, green cvar labels and old-style panel",
+  "no_game_data_upload": true,
+  "no_signing_key": true,
+  "no_build": true
+}
