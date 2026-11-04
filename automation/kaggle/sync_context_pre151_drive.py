@@ -76,19 +76,16 @@ def run():
             return status
         if "PRE150" not in original.decode("utf-8"):
             raise ValueError("missing PRE150 section")
-        status["phase"]="BACKUP"
-        backup_name="CONTEXTO_NFSMW_BACKUP_ANTES_PRE151_20261104_"+run_id+".md"
-        copied=drive.files().copy(
-            fileId=CONTEXT_ID, body={"name":backup_name,"parents":[BACKUP_FOLDER]},
-            supportsAllDrives=True, fields="id,name,size,md5Checksum,parents"
-        ).execute()
-        backup_id=copied.get("id","")
+        status["phase"]="VERIFY_EXISTING_BACKUP"
+        backup_id="19Lvuf7p9i2Du9nS8ioDh0F3OfpF-FLYz"
+        backup_name="CONTEXTO_NFSMW_BACKUP_ANTES_PRE151_20261104.md"
         backup=drive.files().get(fileId=backup_id,fields="id,name,size,md5Checksum,parents",supportsAllDrives=True).execute()
         if (backup.get("name")!=backup_name or BACKUP_FOLDER not in backup.get("parents",[])
             or int(backup.get("size",-1))!=len(original)
             or backup.get("md5Checksum","").lower()!=hashlib.md5(original).hexdigest()):
-            raise ValueError("drive backup not identical")
-        status["created_backup"]=True
+            raise ValueError("existing Drive backup not identical")
+        status["created_backup"]=False
+        status["verified_existing_backup"]=True
         status["backup_drive_id"]=backup_id
         status["phase"]="RECHECK_CANONICAL"
         latest=drive.files().get(fileId=CONTEXT_ID,fields="id,size,md5Checksum",supportsAllDrives=True).execute()
