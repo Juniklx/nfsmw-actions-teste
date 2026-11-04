@@ -1,0 +1,10 @@
+{
+  "etapa": "PRE108_DRYRUN_PALETA_ANDROID",
+  "objetivo": "remover verde das etiquetas CVAR mantendo distincao semantica",
+  "fonte": "PRE99 SHA256 validado",
+  "modo": "SOMENTE_SIMULACAO",
+  "aplicar_patch": false,
+  "compilar": false,
+  "assinar": false,
+  "modificar_notebook": false
+}
