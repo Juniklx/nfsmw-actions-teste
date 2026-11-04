@@ -1,0 +1,10 @@
+{
+  "etapa": "PRE106_PALETA_SETTINGS_STYLE",
+  "motivo": "CVAR labels use explicit colors from SettingsStyle, not ImGuiCol_Text",
+  "origem": "PRE99 SHA256 verificado",
+  "modo": "somente_leitura",
+  "extrair": false,
+  "alterar_fontes": false,
+  "compilar": false,
+  "assinar": false
+}
