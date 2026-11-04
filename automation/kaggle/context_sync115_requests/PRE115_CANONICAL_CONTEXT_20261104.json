@@ -1,0 +1,11 @@
+{
+  "etapa": "PRE115_CONTEXT_CANONICAL_SYNC",
+  "objetivo": "incluir evidencias verificadas PRE98–PRE115 no CONTEXTO_NFSMW.md",
+  "target_drive_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+  "source_appendix": "automation/kaggle/ADENDO_CONTEXTO_PRE115_20261104.md",
+  "policy": "backup copy checksum verification before append, preserve file ID, read-back exact bytes",
+  "modify_apk": false,
+  "modify_game": false,
+  "modify_signing_key": false,
+  "commit_only_sanitized_report": true
+}
