@@ -1,0 +1,45 @@
+name: NFSMW PRE151 - Guarded canonical Drive context sync
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre151_context_requests/*.json'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nfsmw-context-drive-sync
+  cancel-in-progress: false
+
+jobs:
+  append-pre151:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify source and install Google client
+        run: |
+          python -m py_compile automation/kaggle/sync_context_pre151_drive.py
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2
+      - name: Append PRE151 after verified backup
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PRE151_STATUS_PATH: /tmp/pre151-context-status.json
+        run: |
+          python automation/kaggle/sync_context_pre151_drive.py
+      - name: Preserve sanitized result as private artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre151-context-status-${{ github.run_id }}
+          path: /tmp/pre151-context-status.json
+          retention-days: 30
+          if-no-files-found: warn
