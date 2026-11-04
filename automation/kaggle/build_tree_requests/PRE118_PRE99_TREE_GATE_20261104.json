@@ -1,0 +1,10 @@
+{
+  "etapa": "PRE118_AUDIT_PRE99_BUILD_TREE_AND_PRE117",
+  "referencia": "PRE99 backup integral SHA-256 validado; PRE117 proposta hash 8fa1f89c29e59cd96234d1ccaf18d9ff72baab790449b9e84151eac7c64794af",
+  "auditar": "metadados build Android, staging, caminhos Gradle e source; sem expor conteúdo privado",
+  "runtime_kaggle_ativo": "desconhecido; nao inferir do PRE99",
+  "readonly": true,
+  "apk": false,
+  "signing": false,
+  "google_drive_write": false
+}
