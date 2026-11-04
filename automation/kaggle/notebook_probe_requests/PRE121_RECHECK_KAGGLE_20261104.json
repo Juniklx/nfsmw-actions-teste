@@ -1,0 +1,9 @@
+{
+  "etapa": "PRE121_RECHECK_KAGGLE",
+  "notebook": "juniklx/nfsmw",
+  "motivo": "Consultar disponibilidade do Kaggle via GitHub Actions sem iniciar notebook",
+  "permissoes": "read_only",
+  "executar_notebook": false,
+  "aplicar_patch": false,
+  "compilar_apk": false
+}
