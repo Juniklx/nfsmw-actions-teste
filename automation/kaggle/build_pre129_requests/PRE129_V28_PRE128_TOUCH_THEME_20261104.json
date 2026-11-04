@@ -1,0 +1,17 @@
+{
+  "stage": "PRE129_V28_PAL_USA",
+  "requested_after_run": "41856230258",
+  "pre128_preflight_status": "PRE128_ANDROID_ARM64_SYNTAX_PASSED_NOT_APPLIED_TO_RELEASE",
+  "verified_pre128_source_sha256": "cf3cc930904303ec3b4a081f9987a1ced478697678fcab90b056f07ba0b4957d",
+  "baseline_v27_file_id": "1ByL6oJzu1RAcPY7OaeNk99nRq3LtgevZ",
+  "baseline_v27_sha256": "2f9e965c21c6c648f31ffe2e61f26c114546310327c89e6aee17285dd4261e65",
+  "versionCode": 28,
+  "package_id": "io.github.nfsmwrecomp",
+  "apply_pre117_then_pre128": true,
+  "use_existing_permanent_signing_key": true,
+  "scope": "fix Android native single-window touch drag on passive content; remove legacy green titlebar and root scrollbar; preserved desktop",
+  "private_artifact_first": true,
+  "drive_upload_after_connectors_verify": true,
+  "old_v27_apk_persist": true,
+  "device_test_not_yet_completed": true
+}
