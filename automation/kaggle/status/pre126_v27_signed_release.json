@@ -1,6 +1,6 @@
 {
   "etapa": "PRE126_BUILD_V27_PAL_USA_PRE117",
-  "run_id": "41837195269",
+  "run_id": "41841914257",
   "phase": "SELECT_APK_AND_VERIFY",
   "status": "NAO_VALIDADO",
   "target_version_code": 27,
@@ -36,9 +36,13 @@
     "gradle_network_issue": false,
     "gradle_kotlin_script_issue": false
   },
+  "verification_subphase": "APK_SIGNER_CERTIFICATE_FINGERPRINT",
+  "apk_candidate_bytes": 47068029,
+  "apk_candidate_sha256": "acff72fea66a8164dd0a65706efbde5e09dc292a0a1825f06fc4b8b36f6a4225",
   "error_type": "ValueError",
-  "utc": "2026-11-04T13:47:55.754899+00:00",
+  "validation_failure_code": "APK permanent signing certificate mismatch",
+  "utc": "2026-11-04T14:12:52.802904+00:00",
   "tools_outcome": "success",
   "build_outcome": "failure",
-  "run_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/41837195269"
+  "run_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/41841914257"
 }
