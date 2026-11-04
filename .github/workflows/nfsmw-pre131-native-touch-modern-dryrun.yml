@@ -68,7 +68,7 @@ jobs:
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
         run: |
-          python automation/kaggle/pre131_android_arm64_dryrun.py \
+          python automation/kaggle/pre131_dryrun_android_ui.py \
             --run-id "$GITHUB_RUN_ID" \
             --report /tmp/nfsmw-pre131-arm64.json
       - name: Preserve private outcome artifact
