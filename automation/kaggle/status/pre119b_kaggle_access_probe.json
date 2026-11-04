@@ -1,0 +1,24 @@
+{
+  "etapa": "PRE119B_KAGGLE_ORIGINAL_ACESSO",
+  "target": "juniklx/nfsmw",
+  "list_cli_ok": true,
+  "pull_cli_ok": true,
+  "candidate_ref_values": [
+    "juniklx/nfsmw-pre102-drive-probe",
+    "NFSMW PRE102 Drive Probe",
+    "juniklx/nfsmw-automacao-smoke-pre100",
+    "NFSMW Automacao Smoke PRE100",
+    "juniklx/nfsmw",
+    "Nfsmw"
+  ],
+  "metadata_id": "juniklx/nfsmw",
+  "kernel_type": "notebook",
+  "code_file_extension": ".ipynb",
+  "cell_count": 3,
+  "no_push": true,
+  "no_run": true,
+  "no_apk": true,
+  "no_credentials_logged": true,
+  "github_run_id": "41830024991",
+  "run_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/41830024991"
+}
