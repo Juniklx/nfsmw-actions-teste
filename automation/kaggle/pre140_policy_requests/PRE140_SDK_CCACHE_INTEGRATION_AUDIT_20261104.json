@@ -1,0 +1,8 @@
+{
+  "stage": "PRE140",
+  "scope": "SDK-only ccache source guard and signed V31 runner integration",
+  "expected": "static parser checks Python AST, YAML, separate dependency-only and SDK-only caching, pinned launcher SHA, signature and versionCode invariants",
+  "no_apk_build": true,
+  "no_key_access": true,
+  "no_code_patch_to_game": true
+}
