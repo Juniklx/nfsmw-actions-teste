@@ -1,0 +1,7 @@
+{
+  "stage": "PRE140",
+  "goal": "Synthetic isolated SDK-only compiler cache validation before any real build",
+  "notes": "Never include actual game source or private keystore; verify CMake launcher caches SDK source only while bypassing app/game source",
+  "run_index": 1,
+  "cache": "cold"
+}
