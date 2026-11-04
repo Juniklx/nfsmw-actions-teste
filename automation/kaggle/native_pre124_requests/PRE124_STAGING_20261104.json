@@ -1,0 +1,8 @@
+{
+  "etapa": "PRE124",
+  "source": "PRE99",
+  "mode": "read_only",
+  "signing_metadata_only": true,
+  "no_private_credentials": true,
+  "no_game_changes": true
+}
