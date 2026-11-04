@@ -1,0 +1,9 @@
+{
+  "etapa": "PRE112B_CPP23_COMPILER_RETEST",
+  "run_anterior": "41812292925",
+  "correção": "-std=c++23, porque rex/types.h usa std::byteswap",
+  "teste": "mesma fonte original e PRE111 modificada em workspace efemero",
+  "sem_apk": true,
+  "sem_assinatura": true,
+  "sem_mudanca_no_drive": true
+}
