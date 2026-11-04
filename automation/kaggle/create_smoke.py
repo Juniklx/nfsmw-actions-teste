@@ -17,7 +17,7 @@ def main() -> None:
     nb_file = out / "nfsmw_automacao_smoke.ipynb"
     metadata = {
         "id": KERNEL_ID,
-        "title": "NFSMW - Automacao PRE100 - Teste Seguro",
+        "title": "NFSMW Automacao Smoke PRE100",
         "code_file": nb_file.name,
         "language": "python",
         "kernel_type": "notebook",
