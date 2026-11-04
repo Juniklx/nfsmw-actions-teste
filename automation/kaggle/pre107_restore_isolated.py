@@ -89,7 +89,7 @@ def restore(tar_path, dst):
         "bytes_restored": total_bytes,
         "source_sha256_verified": True,
         "top_level_member_counts": dict(tops),
-        "staging_pre13_file_count": len(list(dst.rglob("*ediciones_DIAG40_PRE13*"))),
+        "staging_pre13_path_count": len(list(dst.rglob("*ediciones_DIAG40_PRE13*"))),
         "restored_to_ephemeral_directory": True,
     }
 
