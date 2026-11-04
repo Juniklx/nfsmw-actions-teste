@@ -18,3 +18,12 @@ A PRE118 verificou apenas a **cópia arquivada PRE99** no GitHub runner; não va
 ## Próximo passo
 
 Preparar **PRE119: auditoria somente leitura da árvore ativa Kaggle** para localizar, classificar por SHA-256 e selecionar explicitamente a fonte alvo antes de qualquer aplicação PRE117. Não aplicar PRE115 (rolagem zerada) nem PRE111 (tema) junto à correção de scroll único. Quando árvore ativa, assinatura e staging forem verificados, permitir patch reversível com backup e depois build/teste separado (normal sem DeX e com DeX). O texto canônico no Google Drive ainda não recebeu este adendo por limitação OAuth de escrita HTTP 403; registrar progresso no GitHub sem alegar sincronização canônica.
+
+## PRE119 — sonda da árvore Kaggle preparada, ainda não executada no Kaggle
+
+- Artefato Python disponibilizado nesta conversa: `nfsmw_pre119_auditar_arvore_ativa_kaggle.py`, 4.417 bytes, SHA-256 `8e919442eb5dc074dc3d554150713b197734fa685cad9625fd097502a07bdaff`.
+- `py_compile` passou e uma execução de controle **fora do Kaggle** retornou corretamente `NENHUMA_BASE_UNICA_VALIDADA_NAO_APLICAR`, sem aplicar patch. Isso **não** testa a árvore real do Kaggle.
+- O script procura apenas diretórios de projeto diretos sob `/kaggle/working`, incluindo `NFSMW_V20_BUILD_KAGGLE_ISOLADO` e `NFSMW_V20_RESTAURACAO_ISOLADA`; calcula SHA-256 de `settings_overlay.cpp` e do Gradle público, sem abrir chave privada nem arquivo de credenciais.
+- Identificadores de comparação: PRE92 SHA-256 `5509b4ad8de3f78522e0d5718ab853fbaff79ea4ff9184173a969b63eb3ab034`; PRE117 proposto `8fa1f89c29e59cd96234d1ccaf18d9ff72baab790449b9e84151eac7c64794af`; Gradle PRE99 `ef570ba95703cb54df3c0e503fec6bce11aaa0f640e907208bdfb22bd8711230`.
+- A sonda gera JSON único com horário UTC e só considera candidata a árvore de build nomeada explicitamente e com os hashes PRE92/Gradle PRE99 correspondentes. **Não executa Gradle, CMake, patch, assinatura ou transferência ao Drive**. O usuário deve executar a sonda dentro da sessão Kaggle pertinente e disponibilizar o JSON via fluxo de logs ou anexo, antes da próxima mudança.
+- O código é entregue como anexo de conversa, não publicado aqui como conteúdo do repositório GitHub. O artefato e sua execução no ambiente Kaggle não devem ser confundidos.
