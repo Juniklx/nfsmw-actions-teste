@@ -1,0 +1,11 @@
+{
+  "etapa": "PRE114_HEADER_IMGUI_SCROLL_CLIP_AUDIT",
+  "objetivo": "mapear ordem de cabecalho, busca e categoria e verificar scroll, clipping e escala sem aplicar patch",
+  "origem": "PRE99 hash SHA256 verificado",
+  "referencia": "PRE113B ARM64 C++23 validado",
+  "modo": "somente_leitura",
+  "backup_restoration": false,
+  "patch": false,
+  "apk": false,
+  "signing": false
+}
