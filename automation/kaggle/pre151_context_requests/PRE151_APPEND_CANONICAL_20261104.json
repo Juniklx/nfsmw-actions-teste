@@ -1,0 +1,9 @@
+{
+  "stage": "PRE151_CANONICAL_CONTEXT_SYNC",
+  "date": "2026-11-04",
+  "report_path": "reports/RELATORIO_NFSMW_PRE151_V31_PRE150_CORRELACAO_TERMICA_20261104.md",
+  "report_sha256": "45f3d2d0771205c99408bc5a5cd642abf4fce9f3796f313a90dd51a824d68594",
+  "action": "backup_readback_append",
+  "game_build": false,
+  "signing_key_access": false
+}
