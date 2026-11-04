@@ -17,6 +17,7 @@ import re
 import shutil
 import subprocess
 import tempfile
+import time
 import zipfile
 from datetime import datetime,timezone
 from pathlib import Path
@@ -311,6 +312,23 @@ def main()->int:
         "source_code_published_to_github":False,
         "private_credentials_in_report":False,
     }
+    # PRE142: read-only wall-clock telemetry for this ephemeral build.
+    # Only fixed stage labels, elapsed seconds and counters enter the report;
+    # never record paths to signing files, passwords, game data or environment.
+    pre142_start=time.perf_counter()
+    pre142_stage_started=pre142_start
+    pre142_stage_name=report["phase"]
+    pre142_stage_samples=[]
+    def pre142_advance_stage(next_stage:str)->None:
+        nonlocal pre142_stage_started,pre142_stage_name
+        current=time.perf_counter()
+        pre142_stage_samples.append({
+            "phase":pre142_stage_name,
+            "elapsed_seconds":round(max(0.0,current-pre142_stage_started),3),
+        })
+        report["phase"]=next_stage
+        pre142_stage_name=next_stage
+        pre142_stage_started=current
     try:
         prelim=Path("automation/kaggle/status/pre125_gradle_signing_preflight.json")
         q=json.loads(prelim.read_text(encoding="utf-8"))
@@ -354,7 +372,7 @@ def main()->int:
             signing.mkdir(mode=0o700)
             key=signing/"NFSMW_ASSINATURA_PERMANENTE.p12"
             creds=signing/"NFSMW_ASSINATURA_CREDENCIAIS.properties"
-            report["phase"]="VERIFY_ORIGINAL_PERMANENT_SIGNING"
+            pre142_advance_stage("VERIFY_ORIGINAL_PERMANENT_SIGNING")
             d=drive_client()
             download_file(d,P12_DRIVE_ID,key)
             download_file(d,PROPERTIES_DRIVE_ID,creds)
@@ -365,12 +383,12 @@ def main()->int:
             if certificate_sha256(key,secret_props)!=CERT_SHA:raise ValueError("Signing certificate wrong")
             report["permanent_certificate_verified"]=True
             (signing/"NFSMW_PROXIMO_VERSION_CODE.txt").write_text(str(VERSION_CODE)+"\n")
-            report["phase"]="DOWNLOAD_V30_BASELINE"
+            pre142_advance_stage("DOWNLOAD_V30_BASELINE")
             old=temp/"v30.apk"
             download_file(d,V30_ID,old)
             old_files=verified_v30(old)
             report["v30_baseline_verified"]=True
-            report["phase"]="DOWNLOAD_PRE99_SNAPSHOT"
+            pre142_advance_stage("DOWNLOAD_PRE99_SNAPSHOT")
             tar=temp/"pre99.tar.gz"
             download(d,tar)
             sha,_md5,sz=sha_file(tar)
@@ -378,7 +396,7 @@ def main()->int:
                 raise ValueError("PRE99 SHA mismatch")
             restored=temp/"restored"
             restored.mkdir()
-            report["phase"]="RESTORE_VERIFIED_PRE99"
+            pre142_advance_stage("RESTORE_VERIFIED_PRE99")
             restore(tar,restored)
             tar.unlink(missing_ok=True)
             root=restored/"workspace"
@@ -387,18 +405,18 @@ def main()->int:
             if digest(root/"android/app/build.gradle.kts")!=GRADLE_SHA:
                 raise ValueError("PRE99 Gradle source mismatch")
             report["verified_source_pre99"]=True
-            report["phase"]="APPLY_EXACT_PRE117_EPHEMERAL_ONLY"
+            pre142_advance_stage("APPLY_EXACT_PRE117_EPHEMERAL_ONLY")
             modified,diff=propose(src.read_text(encoding="utf-8"))
             src.write_text(modified,encoding="utf-8")
             if digest(src)!=EXPECTED_PRE117_SHA:raise ValueError("PRE117 patch SHA mismatch")
             report["pre117_exact_patch_applied_in_runner"]=True
-            report["phase"]="APPLY_EXACT_PRE128_EPHEMERAL_ONLY"
+            pre142_advance_stage("APPLY_EXACT_PRE128_EPHEMERAL_ONLY")
             proposed_v31=propose_pre128(modified)
             src.write_text(proposed_v31,encoding="utf-8")
             if digest(src)!=EXPECTED_PRE128_SHA:raise ValueError("PRE128 patched source SHA mismatch")
             report["pre128_exact_patch_applied_in_runner"]=True
             report["source_pre128_sha256"]=EXPECTED_PRE128_SHA
-            report["phase"]="APPLY_EXACT_PRE131_EPHEMERAL_ONLY"
+            pre142_advance_stage("APPLY_EXACT_PRE131_EPHEMERAL_ONLY")
             source_paths={
                 "drawer_cpp":root/"nativo/sdk/src/ui/imgui_drawer.cpp",
                 "drawer_header":root/"nativo/sdk/include/rex/ui/imgui_drawer.h",
@@ -422,7 +440,7 @@ def main()->int:
                     raise ValueError("PRE131 applied bytes mismatch")
             report["pre131_exact_patches_applied_in_runner"]=True
             report["source_pre131_sha256"]=EXPECTED_PRE131_FILES["workspace/nativo/sdk/src/ui/overlay/settings_overlay.cpp"]
-            report["phase"]="APPLY_EXACT_PRE133_SDL_MOUSE_BRIDGE_EPHEMERAL_ONLY"
+            pre142_advance_stage("APPLY_EXACT_PRE133_SDL_MOUSE_BRIDGE_EPHEMERAL_ONLY")
             patched_v31=propose_pre133(src.read_bytes())
             expected_v31_hash=pre133_report["pre133_source_sha256"]
             if (sha_bytes(patched_v31)!=expected_v31_hash or
@@ -433,11 +451,11 @@ def main()->int:
                 raise ValueError("PRE133 patch bytes changed after application")
             report["pre133_exact_patch_applied_in_runner"]=True
             report["source_pre133_sha256"]=expected_v31_hash
-            report["phase"]="STAGE_VERIFIED_USA_FROM_V30"
+            pre142_advance_stage("STAGE_VERIFIED_USA_FROM_V30")
             bundle=temp/"editions"
             bundle.mkdir()
             report["edition_gates"]=prepare_usa_edition(root,bundle,old_files)
-            report["phase"]="ANDROID_SDK_CONFIGURATION"
+            pre142_advance_stage("ANDROID_SDK_CONFIGURATION")
             android=root/"android"
             (android/"local.properties").write_text("sdk.dir="+str(sdk)+"\n",encoding="utf-8")
             child=os.environ.copy()
@@ -515,7 +533,7 @@ def main()->int:
                 "-Pnfsmw.sdk="+str(root/"nativo/sdk"),
                 "-Dorg.gradle.jvmargs=-Xmx3g -XX:MaxMetaspaceSize=768m",
             ]
-            report["phase"]="GRADLE_ASSEMBLE_RELEASE_ARM64"
+            pre142_advance_stage("GRADLE_ASSEMBLE_RELEASE_ARM64")
             log_path=temp/"gradle_private.log"
             try:
                 with log_path.open("w",encoding="utf-8") as log:
@@ -542,7 +560,7 @@ def main()->int:
                 report["status"]="PRE138_GRADLE_BUILD_FALHOU"
                 return 1
             report["gradle_release_succeeded"]=True
-            report["phase"]="SELECT_APK_AND_VERIFY"
+            pre142_advance_stage("SELECT_APK_AND_VERIFY")
             outputs=list((android/"app/build/outputs/apk/release").glob("*.apk"))
             if len(outputs)!=1:raise RuntimeError("Unexpected Gradle APK outputs")
             apk=outputs[0]
@@ -553,11 +571,11 @@ def main()->int:
             if digest(output)!=report["apk_validation"]["apk_sha256"]:
                 raise ValueError("Verified artifact copy digest mismatch")
             if args.upload:
-                report["phase"]="UPLOAD_NEW_APK_TO_PRIVATE_DRIVE"
+                pre142_advance_stage("UPLOAD_NEW_APK_TO_PRIVATE_DRIVE")
                 report["drive_upload"]=upload_verified_apk(d,output)
                 report["drive_upload_success"]=True
             report["status"]="PRE138_V31_PAL_USA_ASSINADA_E_VERIFICADA_EM_ARTIFACT"
-            report["phase"]="COMPLETE"
+            pre142_advance_stage("COMPLETE")
     except Exception as exc:
         report["error_type"]=type(exc).__name__
         safe_messages={
@@ -578,6 +596,19 @@ def main()->int:
         print("PRE138 stopped at",report["phase"],type(exc).__name__,
               "validation subphase",report.get("verification_subphase","UNKNOWN"))
     finally:
+        pre142_end=time.perf_counter()
+        pre142_stage_samples.append({
+            "phase":pre142_stage_name,
+            "elapsed_seconds":round(max(0.0,pre142_end-pre142_stage_started),3),
+        })
+        report["pre142_timing"]={
+            "clock":"time.perf_counter",
+            "elapsed_seconds":round(max(0.0,pre142_end-pre142_start),3),
+            "phases":pre142_stage_samples,
+            "gradle_phase_contains_cmake_ninja_and_packaging":True,
+            "native_compile_exclusive_seconds_measured":False,
+            "timing_proves_cache_speedup":False,
+        }
         report["utc"]=datetime.now(timezone.utc).isoformat()
         report_path.write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
         print("PRE138:",report["status"],"APK verified:",report["signed_apk_verified"],
