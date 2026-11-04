@@ -463,6 +463,50 @@ def main()->int:
             else:
                 child["GRADLE_USER_HOME"]=str(temp/"gradle_cache")
                 report["gradle_dependency_cache_policy"]="EPHEMERAL_FALLBACK_NO_SHARED_CACHE"
+            # PRE140: optional SDK-only CMake compiler launcher. This is
+            # explicitly separate from the PRE139 dependency cache. Game
+            # translation C++ units under nativo/app and app_usa bypass ccache.
+            requested_launcher=os.environ.get("NFSMW_PRE140_CCACHE_LAUNCHER")
+            if requested_launcher:
+                expected_launcher=Path(__file__).resolve().parent/"pre140_sdk_only_ccache_launcher.sh"
+                launcher=Path(requested_launcher)
+                if launcher.resolve()!=expected_launcher.resolve() or not expected_launcher.is_file():
+                    raise ValueError("PRE140 SDK launcher path is not the pinned private script")
+                blob=expected_launcher.read_bytes()
+                git_blob=hashlib.sha1(b"blob "+str(len(blob)).encode()+b"\\0"+blob).hexdigest()
+                if git_blob!="c4949a0adbb788c82b621c7c39fa29baba02b4ae":
+                    raise ValueError("PRE140 SDK-only launcher content changed; rerun policy checks")
+                if not os.access(launcher,os.X_OK):
+                    raise ValueError("PRE140 launcher is not executable")
+                runner_temp=Path(os.environ.get("RUNNER_TEMP","/tmp")).resolve()
+                cache_dir=Path(os.environ.get("CCACHE_DIR","")).absolute()
+                if (cache_dir!=runner_temp/"nfsmw-ccache-sdk-only" or
+                        cache_dir.is_symlink() or
+                        cache_dir==temp or temp in cache_dir.parents):
+                    raise ValueError("PRE140 unsafe persistent SDK ccache directory")
+                ccache_bin=shutil.which("ccache")
+                if not ccache_bin:
+                    raise FileNotFoundError("PRE140 ccache executable unavailable")
+                cache_dir.mkdir(parents=True,exist_ok=True,mode=0o700)
+                child.update({
+                    "NFSMW_SDK_ONLY_CCACHE_ENABLED":"1",
+                    "NFSMW_SDK_SOURCE_ROOT":str(root/"nativo/sdk"),
+                    "NFSMW_CCACHE_BIN":str(Path(ccache_bin).resolve()),
+                    "CMAKE_C_COMPILER_LAUNCHER":str(launcher),
+                    "CMAKE_CXX_COMPILER_LAUNCHER":str(launcher),
+                    "CCACHE_DIR":str(cache_dir),
+                    "CCACHE_BASEDIR":str(root),
+                    "CCACHE_COMPILERCHECK":"content",
+                    "CCACHE_MAXSIZE":"1024M",
+                    "CCACHE_COMPRESS":"1",
+                })
+                report["pre140_sdk_only_ccache_requested"]=True
+                report["pre140_launcher_pinned_blob_sha1"]=git_blob
+                report["pre140_cache_contains_game_translation_objects_expected"]=False
+                subprocess.run([str(ccache_bin),"--zero-stats"],env=child,check=True,
+                               stdout=subprocess.DEVNULL)
+            else:
+                report["pre140_sdk_only_ccache_requested"]=False
             args_gradle=[
                 "bash","gradlew","assembleRelease","--no-daemon","--console=plain","--max-workers=2",
                 "-Pnfsmw.motor=nativo","-Pnfsmw.edicion=pal_es",
