@@ -1,0 +1,17 @@
+{
+  "etapa": "PRE113B_NDK_R28_ANDROID_ARM64_CXX23",
+  "ndk": "28.2.13676358",
+  "min_sdk": 26,
+  "src": "PRE99 SHA256 verified",
+  "patch": "PRE111 dry-run SHA256 19102b563eb4cdd6c81d4a6bfa5bbc8cadfbb1e030247f535633cbc11524e069",
+  "testes": [
+    "CXX23 target predefines",
+    "fragment C++",
+    "original settings_overlay.cpp",
+    "proposta settings_overlay.cpp"
+  ],
+  "somente_runner_efemero": true,
+  "no_gradle": true,
+  "no_apk": true,
+  "no_signing": true
+}
