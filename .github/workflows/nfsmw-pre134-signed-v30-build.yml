@@ -1,0 +1,140 @@
+name: NFSMW - PRE134 build and verify signed V30 PAL USA from PRE99 and PRE117+PRE128+PRE131+PRE133
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/build_pre134_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre134-v30-release-isolated
+  cancel-in-progress: false
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 185
+    steps:
+      - name: Checkout private repository
+        uses: actions/checkout@v4
+      - name: Configure JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Configure Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Python dependencies and validate scripts
+        run: |
+          set -e
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          python -m py_compile \
+            automation/kaggle/pre104_verify_backup_tar.py \
+            automation/kaggle/pre105_read_settings_source.py \
+            automation/kaggle/pre107_restore_isolated.py \
+            automation/kaggle/pre117_one_scroll_android_dryrun.py \
+            automation/kaggle/pre118_audit_build_tree.py \
+            automation/kaggle/pre125_ephemeral_gradle_signing_preflight.py \
+            automation/kaggle/pre127_apk_v2_certificate_audit.py \
+            automation/kaggle/pre128_android_touch_scroll_visual_patch.py \
+            automation/kaggle/pre131_native_touch_and_modern_ui_patch.py \
+            automation/kaggle/pre133_mouse_bridge_swipe_patch.py \
+            automation/kaggle/pre134_build_signed_v30_pal_usa.py
+      - name: Prepare exact Android NDK CMake and SDK build tools in ephemeral runner
+        id: android_tools
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -e
+          SDK="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
+          test -d "$SDK"
+          echo "PRE134 preparing Android SDK tools; no game source or key accessed in this step"
+          SDKMANAGER=""
+          for p in "$SDK"/cmdline-tools/*/bin/sdkmanager "$SDK"/tools/bin/sdkmanager; do
+            if [ -x "$p" ]; then SDKMANAGER="$p"; break; fi
+          done
+          test -n "$SDKMANAGER"
+          for p in "$SDK"/ndk/*; do
+            [ -d "$p" ] || continue
+            if [ "$(basename "$p")" != "28.2.13676358" ]; then
+              rm -rf "$p"
+            fi
+          done
+          set +o pipefail
+          yes | "$SDKMANAGER" --sdk_root="$SDK" --install \
+            "ndk;28.2.13676358" "cmake;3.31.6" "platforms;android-36" "build-tools;36.0.0" \
+            > /tmp/nfsmw-pre134-sdk-install.log 2>&1
+          EXIT="${PIPESTATUS[1]}"
+          set -o pipefail
+          if [ "$EXIT" -ne 0 ]; then echo "PRE134 SDK installer exit code $EXIT"; exit "$EXIT"; fi
+          test -f "$SDK/ndk/28.2.13676358/source.properties"
+          test -d "$SDK/cmake/3.31.6"
+          test -f "$SDK/build-tools/36.0.0/apksigner"
+          test -f "$SDK/build-tools/36.0.0/aapt"
+          echo "PRE134 ephemeral NDK/CMake/build-tools ready"
+          df -h "$SDK" | tail -n 1
+      - name: Build V30 release and strictly verify signed APK, preserve locally for private artifact
+        id: release
+        continue-on-error: true
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -e
+          test "${{ steps.android_tools.outcome }}" = "success"
+          mkdir -p /tmp/nfsmw-pre134-out
+          python automation/kaggle/pre134_build_signed_v30_pal_usa.py \
+            --run-id "$GITHUB_RUN_ID" \
+            --report /tmp/nfsmw-pre134-out/pre134-report.json \
+            --verified-output /tmp/nfsmw-pre134-out/nfsmw-v30-pal-usa-verified.apk
+      - name: Preserve private report and verified APK if produced
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre134-v30-PRE117-PRE128-${{ github.run_id }}
+          path: |
+            /tmp/nfsmw-pre134-out/pre134-report.json
+            /tmp/nfsmw-pre134-out/nfsmw-v30-pal-usa-verified.apk
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Record only sanitized signed APK outcome in private GitHub
+        if: always()
+        env:
+          PRE134_TOOLS: ${{ steps.android_tools.outcome }}
+          PRE134_BUILD: ${{ steps.release.outcome }}
+        run: |
+          set -e
+          python - <<'PY'
+          from pathlib import Path
+          import json,os
+          src=Path('/tmp/nfsmw-pre134-out/pre134-report.json')
+          data=json.loads(src.read_text(encoding='utf-8')) if src.is_file() else {'status':'SEM_RELATORIO'}
+          data['tools_outcome']=os.environ['PRE134_TOOLS']
+          data['build_outcome']=os.environ['PRE134_BUILD']
+          data['run_url']=f"https://github.com/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{os.environ['GITHUB_RUN_ID']}"
+          dst=Path('automation/kaggle/status/pre134_v30_signed_release.json')
+          dst.parent.mkdir(parents=True,exist_ok=True)
+          dst.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print('PRE134 sanitized outcome:',data['status'])
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add automation/kaggle/status/pre134_v30_signed_release.json
+          git commit -m 'Record PRE134 V30 gated private release outcome [skip ci]'
+          git fetch --no-tags --depth=50 origin main
+          git rebase origin/main
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$((attempt * 3))"
+            git fetch --no-tags --depth=50 origin main
+            git rebase origin/main
+          done
+          exit 1
+      - name: Require fully validated and permanently signed V30 private artifact
+        if: always()
+        env:
+          PRE134_BUILD: ${{ steps.release.outcome }}
+        run: test "$PRE134_BUILD" = success
