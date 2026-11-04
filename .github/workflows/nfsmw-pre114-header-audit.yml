@@ -33,7 +33,7 @@ jobs:
             automation/kaggle/pre104_verify_backup_tar.py \
             automation/kaggle/pre105_read_settings_source.py \
             automation/kaggle/pre114_header_scroll_audit.py
-      - name: Inspect ImGui ImGui Settings header scroll/clip code from verified PRE99
+      - name: Inspect Settings header scroll and clip code from verified PRE99
         id: inspect
         continue-on-error: true
         env:
@@ -44,6 +44,14 @@ jobs:
           python automation/kaggle/pre114_header_scroll_audit.py \
             --run-id "$GITHUB_RUN_ID" \
             --report /tmp/nfsmw-pre114-header-audit.json
+      - name: Preserve report as private Actions artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pre114-header-audit-${{ github.run_id }}
+          path: /tmp/nfsmw-pre114-header-audit.json
+          if-no-files-found: warn
+          retention-days: 14
       - name: Record result without game files or credentials
         if: always()
         env:
@@ -72,7 +80,18 @@ jobs:
           git commit -m 'Record PRE114 read-only ImGui header scroll and clip audit [skip ci]'
           git fetch --no-tags --depth=50 origin main
           git rebase origin/main
-          git push origin HEAD:main
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:main; then
+              echo 'PRE114 report published'
+              exit 0
+            fi
+            echo "PRE114 report push retry ${attempt}"
+            sleep "$((attempt * 3))"
+            git fetch --no-tags --depth=50 origin main
+            git rebase origin/main
+          done
+          echo 'PRE114 report publication failed after 5 attempts' >&2
+          exit 1
       - name: Require source audit success
         if: always()
         env:
