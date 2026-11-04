@@ -49,6 +49,7 @@ def main() -> int:
     last_printed = None
     mismatched_output = False
     consecutive_failures = 0
+    terminal_failures = 0
     report: dict = {
         "etapa": "PRE101_KAGGLE_SMOKE_EXECUTION_VERIFY",
         "github_run_id": args.run_id,
@@ -78,10 +79,11 @@ def main() -> int:
 
             if state in TERMINAL_FAILURES:
                 # The CLI may briefly display the previous version; retry to be safe.
-                consecutive_failures += 1
-                if consecutive_failures >= 3:
+                terminal_failures += 1
+                if terminal_failures >= 3:
                     raise RuntimeError(f"Kaggle returned terminal failure: {state}")
             elif state == "COMPLETE":
+                terminal_failures = 0
                 output = cli("output", KERNEL, "-p", str(output_dir), "-o", timeout=120)
                 if output.returncode == 0:
                     candidates = list(output_dir.rglob(MARKER))
