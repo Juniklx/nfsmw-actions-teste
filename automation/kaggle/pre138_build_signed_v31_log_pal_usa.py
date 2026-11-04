@@ -526,6 +526,16 @@ def main()->int:
                 report["status"]="PRE138_GRADLE_TIMEOUT"
                 return 1
             log=log_path.read_text(encoding="utf-8",errors="replace")[-1000000:]
+            if requested_launcher:
+                # PRE140: only numeric cache measurements enter the sanitized report.
+                ccache_stats=subprocess.run([ccache_bin,"--show-stats"],env=child,
+                            capture_output=True,text=True,check=False)
+                raw=ccache_stats.stdout if ccache_stats.returncode==0 else ""
+                numbers={}
+                for name in ("Cacheable calls","Hits","Misses"):
+                    found=re.search(r"^\\s*"+re.escape(name)+r":\\s*(\\d+)",raw,re.MULTILINE)
+                    numbers[name.lower().replace(" ","_")]=int(found.group(1)) if found else None
+                report["pre140_sdk_only_ccache_numeric_stats"]=numbers
             report["gradle_failure_categories"]=classify_gradle_error(log)
             if finished.returncode!=0:
                 report["gradle_failure_context_sanitized"]=safe_gradle_error_context(log,secret_props)
