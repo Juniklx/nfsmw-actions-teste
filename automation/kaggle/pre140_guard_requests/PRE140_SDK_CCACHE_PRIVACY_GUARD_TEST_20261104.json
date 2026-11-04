@@ -1,0 +1,8 @@
+{
+  "stage": "PRE140",
+  "attempt": 1,
+  "purpose": "Run isolated guard test: SDK-only ccache policy seal/readback, signed-key file rejection, symlink rejection, pinned launcher code integrity",
+  "no_game_files": true,
+  "no_signing_keys": true,
+  "no_apk": true
+}
