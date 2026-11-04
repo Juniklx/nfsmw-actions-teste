@@ -1,0 +1,18 @@
+{
+  "stage": "PRE134_V30_PAL_USA",
+  "reason": "Galaxy S24 FE V29 verified modern font and layout but finger swiping over Settings content still fails, while scrollbar works",
+  "approved_arm64_run_id": "41876482785",
+  "approved_arm64_status": "PRE133_ANDROID_ARM64_SYNTAX_PASSED",
+  "approved_settings_sha256": "246d03c7edc31c5906a1c128679d6032c32d4571331d7f12c77f3e0dc6b76599",
+  "reference_apk": "NFSMW_V29_PAL_USA_PRE131_TOUCH_UI_MODERNA_EXPERIMENTAL.apk",
+  "reference_drive_file_id": "1b3aiTOJtjgxlBh56g86r5QfmzS7mMYbm",
+  "reference_sha256": "dd5b85555845e0dd02ebd653f90a6b8232011d73d7bdea801be51e4c12966c13",
+  "changes": "Only replace IsTouchPointerActive gate by primary ImGui io.MouseDown and finite io.MousePos in mobile Settings root swipe logic",
+  "version_code": 30,
+  "package": "io.github.nfsmwrecomp",
+  "certificate_sha256": "1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b",
+  "protect_previous_versions": true,
+  "protect_saves_and_assets": true,
+  "ship_as_private_verified_artifact_first": true,
+  "android_device_test_unproven": true
+}
