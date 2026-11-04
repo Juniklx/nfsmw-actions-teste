@@ -1,0 +1,73 @@
+name: NFSMW - PRE122 verificar patch PRE117 preservado (sem Kaggle)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/patch_validation_requests/*.json'
+permissions:
+  contents: write
+jobs:
+  validate-patch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify preserved PRE117 patch against successful ARM64 evidence
+        run: |
+          set -e
+          python - <<'PY'
+          import hashlib,json,os
+          from pathlib import Path
+          evidence=json.loads(Path('automation/kaggle/status/pre117_single_scroll.json').read_text())
+          patch=Path('automation/kaggle/patches/pre117_single_scroll_android_verified.patch').read_text()
+          assert evidence['status']=='PRE117_SCROLL_UNICO_ARM64_VALIDADO_NAO_APLICADO'
+          assert evidence['original_cpp_arm64_passed'] is True
+          assert evidence['proposed_cpp_arm64_passed'] is True
+          assert evidence['backup_full_sha256_verified'] is True
+          assert evidence['source_sha256_before']=='5509b4ad8de3f78522e0d5718ab853fbaff79ea4ff9184173a969b63eb3ab034'
+          assert evidence['proposed_source_sha256']=='8fa1f89c29e59cd96234d1ccaf18d9ff72baab790449b9e84151eac7c64794af'
+          assert evidence['diff_lines']==30
+          assert patch==evidence['unified_diff']
+          assert patch.count('@@ ') == 2
+          assert 'if (!mobile_layout)' in patch
+          assert evidence['active_workspace_modified'] is False
+          assert evidence['signing_key_accessed'] is False
+          result={
+            'etapa':'PRE122_VERIFICAR_PRE117_PATCH_GITHUB',
+            'status':'PRE122_PATCH_PRE117_RECONFERIDO_SEM_APLICAR',
+            'github_run_id':os.environ['GITHUB_RUN_ID'],
+            'patch_sha256':hashlib.sha256(patch.encode('utf-8')).hexdigest(),
+            'pre92_base_sha256':evidence['source_sha256_before'],
+            'pre117_candidate_sha256':evidence['proposed_source_sha256'],
+            'ndk_arm64_syntax_previously_passed':True,
+            'active_kaggle_tree_verified':False,
+            'original_kaggle_notebook_modified':False,
+            'apk_built':False,
+            'release_signing_validated':False,
+            'patch_applied':False
+          }
+          out=Path('automation/kaggle/status/pre122_patch_validation.json')
+          out.parent.mkdir(parents=True,exist_ok=True)
+          out.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+          print(result['status'])
+          PY
+      - name: Persist sanitized evidence
+        run: |
+          set -e
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add automation/kaggle/status/pre122_patch_validation.json
+          git commit -m 'Record PRE122 verified PRE117 patch [skip ci]'
+          git fetch --no-tags --depth=50 origin main
+          git rebase origin/main
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$((attempt * 3))"
+            git fetch --no-tags --depth=50 origin main
+            git rebase origin/main
+          done
+          exit 1
