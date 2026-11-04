@@ -1,0 +1,10 @@
+{
+  "etapa": "PRE115_CONTEXT_CANONICAL_SYNC",
+  "backup_drive_id": "1fcbDBOvCB4Cxb89yrP26hh6vfz4-by-Q",
+  "backup_provenance": "copia criada por conector do Drive e comparada byte a byte",
+  "expected_old_bytes": 304632,
+  "condition": "só atualizar se MD5/tamanho original e do backup ainda coincidirem; readback integral",
+  "modify_apk": false,
+  "modify_signing_key": false,
+  "restore_game": false
+}
