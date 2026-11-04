@@ -1,0 +1,10 @@
+{
+  "etapa": "PRE114B_HEADER_IMGUI_SCROLL_CLIP_AUDIT",
+  "repetir": "resultado do script PRE114 validado, publicação anterior GitHub HTTP 500",
+  "relatorio_privado": true,
+  "retries_publicacao": true,
+  "readonly": true,
+  "patch": false,
+  "compilar": false,
+  "assinar": false
+}
