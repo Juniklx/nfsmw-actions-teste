@@ -1,0 +1,10 @@
+{
+  "etapa": "PRE109_SETTINGS_RENDER_PATH_AUDIT",
+  "objetivo": "inspecionar ordem dos estilos ImGui, cabeçalho mobile, bordas, separadores e callbacks SettingsDialog",
+  "origem": "backup PRE99 SHA256 verificado",
+  "somente_leitura": true,
+  "restaurar": false,
+  "modificar_fontes": false,
+  "gerar_apk": false,
+  "assinar": false
+}
