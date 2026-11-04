@@ -1,0 +1,54 @@
+name: NFSMW PRE140 SDK compiler-cache guard smoke
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre140_guard_requests/*.json'
+permissions:
+  contents: read
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify pinned launcher, seal/check, rejection of suspicious and symlink entries
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre138_build_signed_v31_log_pal_usa.py \
+            automation/kaggle/pre140_guard_sdk_only_ccache.py
+          python - <<'PY'
+          import hashlib
+          from pathlib import Path
+          p=Path("automation/kaggle/pre140_sdk_only_ccache_launcher.sh")
+          b=p.read_bytes()
+          sha=hashlib.sha1(b"blob "+str(len(b)).encode()+b"\0"+b).hexdigest()
+          if sha!="c4949a0adbb788c82b621c7c39fa29baba02b4ae":
+              raise SystemExit("PRE140 launcher Git blob identity mismatch")
+          print("PRE140_PINNED_LAUNCHER_MATCH")
+          PY
+          CACHE="$RUNNER_TEMP/nfsmw-ccache-sdk-only"
+          mkdir -p "$CACHE"
+          printf 'synthetic-compile-object' > "$CACHE/cached-test.R"
+          python automation/kaggle/pre140_guard_sdk_only_ccache.py --mode seal --cache-dir "$CACHE"
+          python automation/kaggle/pre140_guard_sdk_only_ccache.py --mode check --cache-dir "$CACHE"
+          echo 'fake-not-a-real-key' > "$CACHE/fake-key.p12"
+          if python automation/kaggle/pre140_guard_sdk_only_ccache.py --mode check --cache-dir "$CACHE"; then
+            echo 'PRE140 privacy guard wrongly accepted P12 filename'; exit 1
+          else
+            echo 'PRE140_FORBIDDEN_KEY_REJECTED'
+          fi
+          rm "$CACHE/fake-key.p12"
+          ln -s /tmp "$CACHE/symlink-intrusion"
+          if python automation/kaggle/pre140_guard_sdk_only_ccache.py --mode check --cache-dir "$CACHE"; then
+            echo 'PRE140 privacy guard wrongly accepted symlink'; exit 1
+          else
+            echo 'PRE140_SYMLINK_REJECTED'
+          fi
+          rm "$CACHE/symlink-intrusion"
+          python automation/kaggle/pre140_guard_sdk_only_ccache.py --mode check --cache-dir "$CACHE"
+          echo 'PRE140_SDK_CCACHE_POLICY_SYNTHETIC_PASS'
