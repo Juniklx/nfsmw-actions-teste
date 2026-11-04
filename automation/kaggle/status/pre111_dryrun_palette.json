@@ -1,0 +1,41 @@
+{
+  "etapa": "PRE111_DRYRUN_PALETA_ANDROID_COMPLEMENTAR",
+  "github_run_id": "41809297640",
+  "status": "PRE111_DIFF_VALIDADO_NAO_APLICADO",
+  "phase": "COMPLETE",
+  "backup_full_sha256_verified": true,
+  "source_pre92_sha256_verified": true,
+  "patch_applied": false,
+  "game_workspace_restored": false,
+  "global_imgui_theme_modified": false,
+  "desktop_branch_modified": false,
+  "apk_built": false,
+  "signing_key_accessed": false,
+  "source_sha256_before": "5509b4ad8de3f78522e0d5718ab853fbaff79ea4ff9184173a969b63eb3ab034",
+  "proposed_source_sha256_after": "19102b563eb4cdd6c81d4a6bfa5bbc8cadfbb1e030247f535633cbc11524e069",
+  "unified_diff": "--- settings_overlay.cpp PRE92 (SHA256 verified)\n+++ settings_overlay.cpp PRE111 PROPOSTA NAO APLICADA\n@@ -173,8 +173,21 @@\n       return VK::kNone;\n   }\n }\n \n+// NFSMW PRE108 (proposta, somente dry-run): cores Android sem verde.\n+static ImVec4 MobileLifecycleColor(rex::cvar::Lifecycle lc) {\n+  switch (lc) {\n+    case rex::cvar::Lifecycle::kHotReload:\n+      return ImVec4(0.93f, 0.93f, 0.87f, 1.0f);  // live: branco suave\n+    case rex::cvar::Lifecycle::kRequiresRestart:\n+      return ImVec4(1.00f, 0.82f, 0.08f, 1.0f);  // restart: ouro\n+    case rex::cvar::Lifecycle::kInitOnly:\n+      return ImVec4(1.00f, 0.56f, 0.38f, 1.0f);  // init: coral\n+  }\n+  return ImVec4(0.93f, 0.93f, 0.87f, 1.0f);\n+}\n+\n void SettingsDialog::OnDraw(ImGuiIO& /*io*/) {\n   auto& registry = rex::cvar::GetRegistry();\n   // nfsmw: hidden cvars are not listed, and a category with nothing visible does not show either.\n   std::set<std::string> ocultos;\n@@ -339,8 +352,23 @@\n         ImVec4(0.08f, 0.09f, 0.10f, 1.0f));\n     ImGui::PushStyleColor(\n         ImGuiCol_TitleBgActive,\n         ImVec4(0.14f, 0.14f, 0.12f, 1.0f));\n+    ImGui::PushStyleColor(\n+        ImGuiCol_ScrollbarBg,\n+        ImVec4(0.11f, 0.12f, 0.13f, 0.59f));\n+    ImGui::PushStyleColor(\n+        ImGuiCol_SliderGrabActive,\n+        ImVec4(1.00f, 0.82f, 0.08f, 1.00f));\n+    ImGui::PushStyleColor(\n+        ImGuiCol_TextSelectedBg,\n+        ImVec4(0.95f, 0.73f, 0.05f, 0.28f));\n+    ImGui::PushStyleColor(\n+        ImGuiCol_SeparatorHovered,\n+        ImVec4(0.85f, 0.69f, 0.07f, 1.00f));\n+    ImGui::PushStyleColor(\n+        ImGuiCol_SeparatorActive,\n+        ImVec4(0.95f, 0.78f, 0.08f, 1.00f));\n   }\n \n   if (mobile_layout) {\n     ImGui::PushStyleColor(\n@@ -624,11 +652,12 @@\n       continue;\n     } else {\n       // Non-keybind CVARs: colored label on left, value widget on right\n       ImGui::TextColored(\n-          LifecycleColor(\n-              entry.lifecycle,\n-              imgui_drawer()->style().settings),\n+          mobile_layout\n+              ? MobileLifecycleColor(entry.lifecycle)\n+              : LifecycleColor(entry.lifecycle,\n+                               imgui_drawer()->style().settings),\n           \"%s\",\n           entry.name.c_str());\n       if (ImGui::IsItemHovered()) {\n         const char* lifecycle_label = \"\";\n@@ -756,9 +785,9 @@\n   ImGui::TextDisabled(\n       \"(%s)\",\n       config_path_.filename().string().c_str());\n \n-  ImGui::PopStyleColor(mobile_layout ? 20 : 11);\n+  ImGui::PopStyleColor(mobile_layout ? 25 : 11);\n   ImGui::PopStyleVar(4);\n   ImGui::End();\n }\n \n",
+  "diff_lines": 75,
+  "new_local_imgui_overrides": [
+    "ScrollbarBg",
+    "SliderGrabActive",
+    "TextSelectedBg",
+    "SeparatorHovered",
+    "SeparatorActive"
+  ],
+  "new_local_push_count": 5,
+  "mobile_pop_count_before": 20,
+  "mobile_pop_count_proposed": 25,
+  "desktop_pop_count_unchanged": 11,
+  "lifecycle_colors": {
+    "live": "white, RGBA (0.93, 0.93, 0.87, 1.0)",
+    "restart": "gold, RGBA (1.0, 0.82, 0.08, 1.0)",
+    "init_only": "coral, RGBA (1.0, 0.56, 0.38, 1.0)"
+  },
+  "limitations": "Static dry-run only; does not prove C++ compilation or actual menu rendering. No fix for an absent header is claimed.",
+  "timestamp_utc": "2026-11-04T09:41:45.380117+00:00",
+  "run_id": "41809297640",
+  "run_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/41809297640",
+  "setup_outcome": "success",
+  "inspection_outcome": "success",
+  "recorded_utc": "2026-11-04T09:41:46.604793+00:00"
+}
