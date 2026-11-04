@@ -1,0 +1,38 @@
+{
+  "stage": "PRE128_ARM64_EXPERIMENTAL_TOUCH_AND_THEME",
+  "run_id": "41856230258",
+  "phase": "COMPLETE",
+  "status": "PRE128_ANDROID_ARM64_SYNTAX_PASSED_NOT_APPLIED_TO_RELEASE",
+  "pre99_sha256_verified": true,
+  "pre92_settings_source_sha256_verified": true,
+  "pre117_sha256_verified": true,
+  "pre128_applied_only_ephemerally": true,
+  "arm64_syntax_passed": true,
+  "source_persistent_modified": false,
+  "drive_modified": false,
+  "permanent_signing_key_accessed": false,
+  "apk_built": false,
+  "phone_touch_tested": false,
+  "goals": [
+    "touch drag only on passive content",
+    "root-only scrollbar",
+    "remove legacy titlebar",
+    "yellow scrollbar + dark background",
+    "desktop settings unchanged"
+  ],
+  "members_restored": 28911,
+  "pre128_source_sha256": "cf3cc930904303ec3b4a081f9987a1ced478697678fcab90b056f07ba0b4957d",
+  "clang_android_api": 26,
+  "ndk_revision": "28.2.13676358",
+  "arm64_syntax_result": {
+    "attempted": true,
+    "exit_code": 0,
+    "passed": true,
+    "diagnostic_excerpt": "",
+    "missing_include": false
+  },
+  "recorded_utc": "2026-11-04T15:19:12.896332+00:00",
+  "ndk_setup_outcome": "success",
+  "syntax_step_outcome": "success",
+  "run_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/41856230258"
+}
