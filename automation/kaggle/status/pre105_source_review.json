@@ -1,6 +1,6 @@
 {
   "etapa": "PRE105_SOURCE_REVIEW",
-  "run_id": "41804397305",
+  "run_id": "41804829004",
   "status": "FONTE_VERIFICADA_E_ANALISADA",
   "phase": "COMPLETE",
   "snapshot_sha256_valid": true,
@@ -13,7 +13,7 @@
   "settings_source": {
     "file": "workspace/nativo/sdk/src/ui/overlay/settings_overlay.cpp",
     "line_count": 765,
-    "selection_truncated": true,
+    "selection_truncated": false,
     "match_summary": {
       "imgui_style": {
         "count": 48,
@@ -1204,6 +1204,90 @@
       {
         "line": 737,
         "text": "        ImVec4(0.08f, 0.08f, 0.07f, 1.0f));"
+      },
+      {
+        "line": 738,
+        "text": "  }"
+      },
+      {
+        "line": 739,
+        "text": ""
+      },
+      {
+        "line": 740,
+        "text": "  const bool save_clicked = ImGui::Button("
+      },
+      {
+        "line": 741,
+        "text": "      mobile_layout ? \"SAVE SETTINGS\" : \"Save to config\","
+      },
+      {
+        "line": 742,
+        "text": "      mobile_layout ? ImVec2(240.0f, 52.0f) : ImVec2(0, 0));"
+      },
+      {
+        "line": 743,
+        "text": ""
+      },
+      {
+        "line": 744,
+        "text": "  if (mobile_layout) {"
+      },
+      {
+        "line": 745,
+        "text": "    ImGui::PopStyleColor();"
+      },
+      {
+        "line": 746,
+        "text": "  }"
+      },
+      {
+        "line": 747,
+        "text": ""
+      },
+      {
+        "line": 748,
+        "text": "  if (save_clicked) {"
+      },
+      {
+        "line": 749,
+        "text": "    rex::cvar::SaveConfig(config_path_);"
+      },
+      {
+        "line": 750,
+        "text": "  }"
+      },
+      {
+        "line": 751,
+        "text": ""
+      },
+      {
+        "line": 758,
+        "text": "      config_path_.filename().string().c_str());"
+      },
+      {
+        "line": 759,
+        "text": ""
+      },
+      {
+        "line": 760,
+        "text": "  ImGui::PopStyleColor(mobile_layout ? 20 : 11);"
+      },
+      {
+        "line": 761,
+        "text": "  ImGui::PopStyleVar(4);"
+      },
+      {
+        "line": 762,
+        "text": "  ImGui::End();"
+      },
+      {
+        "line": 763,
+        "text": "}"
+      },
+      {
+        "line": 764,
+        "text": ""
       }
     ]
   },
@@ -1359,9 +1443,9 @@
       ]
     }
   ],
-  "timestamp_utc": "2026-11-04T09:04:57.554011+00:00",
-  "run_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/41804397305",
+  "timestamp_utc": "2026-11-04T09:08:03.847957+00:00",
+  "run_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/41804829004",
   "setup_outcome": "success",
   "inspection_outcome": "success",
-  "recorded_utc": "2026-11-04T09:04:57.645389+00:00"
+  "recorded_utc": "2026-11-04T09:08:03.930577+00:00"
 }
