@@ -1,0 +1,49 @@
+{
+  "stage": "PRE140_SDK_ONLY_CCACHE_INTEGRATED_AND_SYNTHETIC_VALIDATED",
+  "date": "2026-11-04",
+  "repo": "Juniklx/nfsmw-actions-teste",
+  "implementation": {
+    "wrapper": "automation/kaggle/pre140_sdk_only_ccache_launcher.sh",
+    "launcher_git_blob_sha1": "c4949a0adbb788c82b621c7c39fa29baba02b4ae",
+    "scope": "nativo/sdk/src/**/*.c,cc,cpp only",
+    "game_translation_compile_cache_bypassed": [
+      "nativo/app",
+      "nativo/app_usa",
+      "generated game modules"
+    ],
+    "cache_guard": "automation/kaggle/pre140_guard_sdk_only_ccache.py",
+    "production_workflow": ".github/workflows/nfsmw-pre138-signed-v31-log-diagnostic.yml",
+    "production_builder": "automation/kaggle/pre138_build_signed_v31_log_pal_usa.py",
+    "cache_key": "nfsmw-pre99-sdkonly-ndk28-clang-ccache4-v1-${{ runner.os }}",
+    "cache_path": "${{ runner.temp }}/nfsmw-ccache-sdk-only",
+    "cache_guard_conditions": "restore-only; inspect on hit; seal only after successful validated release; save only when release and policy steps succeed; no original game sources or signing keys in target path"
+  },
+  "verified": {
+    "synthetic_compiler_cold_run": 41902309640,
+    "synthetic_compiler_cold_result": "success, SDK 1 hit 1 miss, game synthetic compile bypassed",
+    "synthetic_compiler_warm_run": 41902447261,
+    "synthetic_compiler_warm_result": "success, GitHub cache restored across independent runner; SDK 2 hits 0 misses, game bypassed",
+    "production_split_cache_static_audit_run": 41903370966,
+    "production_split_cache_audit_status": "PASS",
+    "cache_guard_smoke_run": 41903593733,
+    "cache_guard_smoke_status": "PASS: pinned launcher, policy seal/readback, fake key rejection, symlink rejection",
+    "gradle_cache_policy_static_audit_recheck_run": 41903692456,
+    "gradle_cache_policy_status": "PASS",
+    "real_game_apk_built_with_pre140": false,
+    "real_sdk_ccache_hit_rate_measured": false,
+    "real_full_build_time_reduction_measured": false,
+    "v31_original_apk_unchanged": true,
+    "v30_functional_baseline_untouched": true,
+    "permanent_signing_key_untouched": true,
+    "phone_log_generation_tested": false
+  },
+  "reference": {
+    "v31_signed_run": 41896331611,
+    "v31_drive_apk_id": "1rpny5oKDfSmMElsHYGynESFzYMeFeAgc",
+    "v31_apk_sha256": "bf9a01f1c82c06f585385a0e2a547ffed77ce267b56eade1a7b20aa68cc46611",
+    "v31_versionCode": 31,
+    "package": "io.github.nfsmwrecomp",
+    "cert_sha256": "1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b"
+  },
+  "next": "Install and test V31 log on Galaxy S24 FE; on next genuinely required new APK with versionCode>=32 adopt PRE140 and measure Gradle dependency cache, ccache stats, separate restore, native build time and total time; compare cold vs warm runs. Do not create rebuild solely to claim a speedup."
+}
