@@ -1,0 +1,11 @@
+{
+  "etapa": "PRE113A_NDK_ARM64_PREFLIGHT",
+  "ndk_revision": "28.2.13676358",
+  "minSdk": 26,
+  "compiler": "aarch64-linux-android26-clang++",
+  "cpp_standard": "c++23",
+  "read_only": true,
+  "no_backup_download": true,
+  "no_apk": true,
+  "no_signing": true
+}
