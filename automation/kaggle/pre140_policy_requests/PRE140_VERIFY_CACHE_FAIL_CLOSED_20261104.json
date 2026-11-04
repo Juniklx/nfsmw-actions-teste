@@ -1,0 +1,12 @@
+{
+  "stage": "PRE140",
+  "date": "2026-11-04",
+  "purpose": "Independent fail-closed security audit of explicit GitHub Actions Gradle cache restore and save",
+  "no_real_build": true,
+  "no_credential_access": true,
+  "source_base": "V31 PRE138 baseline",
+  "pre139_synthetic_cache_runs": [
+    41899119460,
+    41899259138
+  ]
+}
