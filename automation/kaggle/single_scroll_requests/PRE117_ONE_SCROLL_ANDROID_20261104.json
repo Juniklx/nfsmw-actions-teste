@@ -1,0 +1,14 @@
+{
+  "etapa": "PRE117_DRYRUN_ONE_SCROLL_ANDROID",
+  "base": "PRE99 integral SHA-256 e PRE92 settings_overlay.cpp verificados",
+  "motivo": "captura do S24 FE mostra rolagem dupla e área ##cvars curta fora do DeX",
+  "proposta": "Android: remover BeginChild/EndChild de ##cvars apenas do ramo mobile; usar scroll da janela Settings; desktop sem mudança",
+  "verificacoes": [
+    "hash do backup",
+    "hash da fonte PRE92",
+    "diff exato",
+    "C++ ARM64 API26 C++23 fonte original",
+    "C++ ARM64 API26 C++23 proposta"
+  ],
+  "escopo": "runner GitHub efemero, sem patch ativo, sem APK, sem chave"
+}
