@@ -533,7 +533,7 @@ def main()->int:
                 raw=ccache_stats.stdout if ccache_stats.returncode==0 else ""
                 numbers={}
                 for name in ("Cacheable calls","Hits","Misses"):
-                    found=re.search(r"^\\s*"+re.escape(name)+r":\\s*(\\d+)",raw,re.MULTILINE)
+                    found=re.search(r"^\s*"+re.escape(name)+r":\s*(\d+)",raw,re.MULTILINE)
                     numbers[name.lower().replace(" ","_")]=int(found.group(1)) if found else None
                 report["pre140_sdk_only_ccache_numeric_stats"]=numbers
             report["gradle_failure_categories"]=classify_gradle_error(log)
