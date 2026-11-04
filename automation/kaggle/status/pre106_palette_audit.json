@@ -1,0 +1,317 @@
+{
+  "etapa": "PRE106_PALETA_SETTINGS_STYLE",
+  "run_id": "41805240882",
+  "status": "PALETA_LOCALIZADA",
+  "phase": "COMPLETE",
+  "backup_integrity": true,
+  "settings_source_integrity": true,
+  "sources": [
+    {
+      "path": "workspace/nativo/sdk/include/rex/ui/style.h",
+      "lines_in_file": 85,
+      "matched_line_numbers": [
+        68,
+        82
+      ],
+      "excerpts": [
+        {
+          "line": 64,
+          "text": "struct DebugOverlayStyle {"
+        },
+        {
+          "line": 65,
+          "text": "  ImVec4 muted_text{1.00f, 1.00f, 1.00f, 0.50f};"
+        },
+        {
+          "line": 66,
+          "text": "};"
+        },
+        {
+          "line": 67,
+          "text": ""
+        },
+        {
+          "line": 68,
+          "text": "struct SettingsStyle {"
+        },
+        {
+          "line": 69,
+          "text": "  ImVec4 warning{1.00f, 0.80f, 0.20f, 1.00f};"
+        },
+        {
+          "line": 70,
+          "text": "  /// Cvar lifecycle badges: [live], [restart], [init-only]."
+        },
+        {
+          "line": 71,
+          "text": "  ImVec4 lifecycle_live{0.40f, 1.00f, 0.40f, 1.00f};"
+        },
+        {
+          "line": 72,
+          "text": "  ImVec4 lifecycle_restart{1.00f, 1.00f, 0.40f, 1.00f};"
+        },
+        {
+          "line": 73,
+          "text": "  ImVec4 lifecycle_init_only{1.00f, 0.40f, 0.40f, 1.00f};"
+        },
+        {
+          "line": 78,
+          "text": "  AchievementsStyle achievements;"
+        },
+        {
+          "line": 79,
+          "text": "  ToastStyle toast;"
+        },
+        {
+          "line": 80,
+          "text": "  ConsoleStyle console;"
+        },
+        {
+          "line": 81,
+          "text": "  DebugOverlayStyle debug;"
+        },
+        {
+          "line": 82,
+          "text": "  SettingsStyle settings;"
+        },
+        {
+          "line": 83,
+          "text": "};"
+        },
+        {
+          "line": 84,
+          "text": ""
+        },
+        {
+          "line": 85,
+          "text": "}  // namespace rex::ui"
+        }
+      ]
+    },
+    {
+      "path": "workspace/nativo/sdk/src/ui/overlay/settings_overlay.cpp",
+      "lines_in_file": 765,
+      "matched_line_numbers": [
+        52,
+        62,
+        64,
+        610,
+        628,
+        630,
+        636
+      ],
+      "excerpts": [
+        {
+          "line": 48,
+          "text": "SettingsDialog::~SettingsDialog() {}"
+        },
+        {
+          "line": 49,
+          "text": ""
+        },
+        {
+          "line": 50,
+          "text": "static const char* LifecycleBadge(rex::cvar::Lifecycle lc) {"
+        },
+        {
+          "line": 51,
+          "text": "  switch (lc) {"
+        },
+        {
+          "line": 52,
+          "text": "    case rex::cvar::Lifecycle::kHotReload:"
+        },
+        {
+          "line": 53,
+          "text": "      return \" [live]\";"
+        },
+        {
+          "line": 54,
+          "text": "    case rex::cvar::Lifecycle::kRequiresRestart:"
+        },
+        {
+          "line": 55,
+          "text": "      return \" [restart]\";"
+        },
+        {
+          "line": 56,
+          "text": "    case rex::cvar::Lifecycle::kInitOnly:"
+        },
+        {
+          "line": 57,
+          "text": "      return \" [init-only]\";"
+        },
+        {
+          "line": 58,
+          "text": "  }"
+        },
+        {
+          "line": 59,
+          "text": "  return \"\";"
+        },
+        {
+          "line": 60,
+          "text": "}"
+        },
+        {
+          "line": 61,
+          "text": ""
+        },
+        {
+          "line": 62,
+          "text": "static ImVec4 LifecycleColor(rex::cvar::Lifecycle lc, const SettingsStyle& style) {"
+        },
+        {
+          "line": 63,
+          "text": "  switch (lc) {"
+        },
+        {
+          "line": 64,
+          "text": "    case rex::cvar::Lifecycle::kHotReload:"
+        },
+        {
+          "line": 65,
+          "text": "      return style.lifecycle_live;"
+        },
+        {
+          "line": 66,
+          "text": "    case rex::cvar::Lifecycle::kRequiresRestart:"
+        },
+        {
+          "line": 67,
+          "text": "      return style.lifecycle_restart;"
+        },
+        {
+          "line": 68,
+          "text": "    case rex::cvar::Lifecycle::kInitOnly:"
+        },
+        {
+          "line": 69,
+          "text": "      return style.lifecycle_init_only;"
+        },
+        {
+          "line": 606,
+          "text": "          }"
+        },
+        {
+          "line": 607,
+          "text": "        }"
+        },
+        {
+          "line": 608,
+          "text": "        if (conflict_count > 0) {"
+        },
+        {
+          "line": 609,
+          "text": "          ImGui::SameLine();"
+        },
+        {
+          "line": 610,
+          "text": "          ImGui::TextColored(imgui_drawer()->style().settings.warning, \"(!)\");"
+        },
+        {
+          "line": 611,
+          "text": "          if (ImGui::IsItemHovered()) {"
+        },
+        {
+          "line": 612,
+          "text": "            ImGui::SetTooltip(\"Key '%s' is also bound to %d other action(s)\", current_val.c_str(),"
+        },
+        {
+          "line": 613,
+          "text": "                              conflict_count);"
+        },
+        {
+          "line": 614,
+          "text": "          }"
+        },
+        {
+          "line": 615,
+          "text": "        }"
+        },
+        {
+          "line": 624,
+          "text": "      continue;"
+        },
+        {
+          "line": 625,
+          "text": "    } else {"
+        },
+        {
+          "line": 626,
+          "text": "      // Non-keybind CVARs: colored label on left, value widget on right"
+        },
+        {
+          "line": 627,
+          "text": "      ImGui::TextColored("
+        },
+        {
+          "line": 628,
+          "text": "          LifecycleColor("
+        },
+        {
+          "line": 629,
+          "text": "              entry.lifecycle,"
+        },
+        {
+          "line": 630,
+          "text": "              imgui_drawer()->style().settings),"
+        },
+        {
+          "line": 631,
+          "text": "          \"%s\","
+        },
+        {
+          "line": 632,
+          "text": "          entry.name.c_str());"
+        },
+        {
+          "line": 633,
+          "text": "      if (ImGui::IsItemHovered()) {"
+        },
+        {
+          "line": 634,
+          "text": "        const char* lifecycle_label = \"\";"
+        },
+        {
+          "line": 635,
+          "text": "        switch (entry.lifecycle) {"
+        },
+        {
+          "line": 636,
+          "text": "          case rex::cvar::Lifecycle::kHotReload:"
+        },
+        {
+          "line": 637,
+          "text": "            lifecycle_label = \"Live - changes apply immediately\";"
+        },
+        {
+          "line": 638,
+          "text": "            break;"
+        },
+        {
+          "line": 639,
+          "text": "          case rex::cvar::Lifecycle::kRequiresRestart:"
+        },
+        {
+          "line": 640,
+          "text": "            lifecycle_label = \"Requires restart to take effect\";"
+        },
+        {
+          "line": 641,
+          "text": "            break;"
+        }
+      ]
+    }
+  ],
+  "code_modified": false,
+  "backup_extracted": false,
+  "apk_compiled": false,
+  "signing_key_accessed": false,
+  "found_palette_reference": true,
+  "timestamp_utc": "2026-11-04T09:11:10.306926+00:00",
+  "run_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/41805240882",
+  "setup_outcome": "success",
+  "inspection_outcome": "success",
+  "recorded_utc": "2026-11-04T09:11:10.402445+00:00"
+}
