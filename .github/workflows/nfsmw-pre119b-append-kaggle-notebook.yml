@@ -35,16 +35,26 @@ jobs:
           python -m py_compile automation/kaggle/pre119b_auditar_arvore_autosync.py automation/kaggle/pre119b_append_to_kaggle_notebook.py
           test -n "${KAGGLE_API_TOKEN:-}"
           kaggle kernels push --help | grep -- '--no-run' >/dev/null
-      - name: Guard against overwriting running original notebook
+      - name: Inspect Kaggle session state (404 can mean no saved execution)
         id: status
         run: |
           set -e
-          kaggle kernels status juniklx/nfsmw > /tmp/nfsmw-kernel-state.txt
-          if grep -Eiq '\b(RUNNING|QUEUED|PENDING|STARTING)\b' /tmp/nfsmw-kernel-state.txt; then
-            echo 'PRE119B: Kaggle original notebook is running; do not push even no-run.' >&2
-            exit 1
+          if kaggle kernels status juniklx/nfsmw > /tmp/nfsmw-kernel-state.txt 2>/tmp/nfsmw-kernel-status-error.txt; then
+            if grep -Eiq '\b(RUNNING|QUEUED|PENDING|STARTING)\b' /tmp/nfsmw-kernel-state.txt; then
+              echo 'PRE119B: existing kernel has an active run; skip safe edit.' >&2
+              exit 1
+            fi
+            echo 'PRE119B: no running state reported by Kaggle'
+          else
+            # Notebook existence and identity are separately verified by
+            # read-only kernels pull. A 404 from status is not a pull failure.
+            if grep -q '404 Client Error' /tmp/nfsmw-kernel-status-error.txt; then
+              echo 'PRE119B: session status 404 (not treated as notebook missing)'
+            else
+              echo 'PRE119B: unexpected Kaggle status error; aborting' >&2
+              exit 1
+            fi
           fi
-          echo 'PRE119B: existing notebook not running'
       - name: Pull original Kaggle notebook and metadata into private runner
         id: pull
         run: |
