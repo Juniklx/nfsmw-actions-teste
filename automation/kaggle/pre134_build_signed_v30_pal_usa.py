@@ -415,8 +415,8 @@ def main()->int:
             report["phase"]="APPLY_EXACT_PRE133_SDL_MOUSE_BRIDGE_EPHEMERAL_ONLY"
             patched_v30=propose_pre133(src.read_bytes())
             expected_v30_hash=pre133_report["pre133_source_sha256"]
-            if sha_bytes(patched_v30)!=expected_v30_hash or
-                    pre133_report.get("patch_file_hashes",{}).get("workspace/nativo/sdk/src/ui/overlay/settings_overlay.cpp")!=expected_v30_hash:
+            if (sha_bytes(patched_v30)!=expected_v30_hash or
+                    pre133_report.get("patch_file_hashes",{}).get("workspace/nativo/sdk/src/ui/overlay/settings_overlay.cpp")!=expected_v30_hash):
                 raise ValueError("PRE133 source differs from exact ARM64 validated patch")
             src.write_bytes(patched_v30)
             if digest(src)!=expected_v30_hash:
