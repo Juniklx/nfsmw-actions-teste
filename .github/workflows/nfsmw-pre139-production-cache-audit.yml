@@ -1,0 +1,33 @@
+name: NFSMW PRE139 static production cache policy verification
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre139_policy_requests/*.json'
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Parse optimized V31 build script and production workflow
+        run: |
+          python -m pip install --disable-pip-version-check PyYAML >/dev/null
+          python -m py_compile \
+            automation/kaggle/pre138_build_signed_v31_log_pal_usa.py \
+            automation/kaggle/pre139_verify_dependency_cache.py \
+            automation/kaggle/pre139_audit_production_cache.py
+          python automation/kaggle/pre139_audit_production_cache.py \
+            > /tmp/pre139-production-cache-policy.json
+          python -m json.tool /tmp/pre139-production-cache-policy.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pre139-production-cache-policy-${{ github.run_id }}
+          path: /tmp/pre139-production-cache-policy.json
+          retention-days: 14
