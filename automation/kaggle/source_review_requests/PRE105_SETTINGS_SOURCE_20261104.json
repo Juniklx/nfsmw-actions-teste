@@ -1,0 +1,12 @@
+{
+  "etapa": "PRE105_SOURCE_REVIEW",
+  "backup": "PRE99",
+  "backup_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "source_sha256": "5509b4ad8de3f78522e0d5718ab853fbaff79ea4ff9184173a969b63eb3ab034",
+  "inspecionar": "settings_overlay.cpp e rex_app.cpp",
+  "somente_leitura": true,
+  "restaurar": false,
+  "patch": false,
+  "compilar": false,
+  "assinar": false
+}
