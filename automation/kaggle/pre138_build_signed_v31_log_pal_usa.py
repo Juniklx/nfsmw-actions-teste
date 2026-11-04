@@ -473,7 +473,7 @@ def main()->int:
                 if launcher.resolve()!=expected_launcher.resolve() or not expected_launcher.is_file():
                     raise ValueError("PRE140 SDK launcher path is not the pinned private script")
                 blob=expected_launcher.read_bytes()
-                git_blob=hashlib.sha1(b"blob "+str(len(blob)).encode()+b"\\0"+blob).hexdigest()
+                git_blob=hashlib.sha1(b"blob "+str(len(blob)).encode()+b"\0"+blob).hexdigest()
                 if git_blob!="c4949a0adbb788c82b621c7c39fa29baba02b4ae":
                     raise ValueError("PRE140 SDK-only launcher content changed; rerun policy checks")
                 if not os.access(launcher,os.X_OK):
