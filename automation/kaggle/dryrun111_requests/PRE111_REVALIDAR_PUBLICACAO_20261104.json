@@ -1,0 +1,9 @@
+{
+  "etapa": "PRE111_DRYRUN_PALETA_ANDROID_COMPLEMENTAR",
+  "motivo": "repetir dry-run validado porque anterior falhou exclusivamente ao publicar status (HTTP 500 GitHub)",
+  "version": "com_artifact_privado_e_retries",
+  "resguardo": "somente memoria, sem patch no workspace",
+  "modifica_desktop": false,
+  "compilar": false,
+  "assinar": false
+}
