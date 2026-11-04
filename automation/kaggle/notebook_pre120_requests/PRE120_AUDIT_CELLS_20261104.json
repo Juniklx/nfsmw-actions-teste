@@ -1,0 +1,10 @@
+{
+  "etapa": "PRE120_AUDIT_ORIGINAL_KAGGLE_NOTEBOOK_CELLS",
+  "notebook": "juniklx/nfsmw",
+  "goal": "inspect existing 3 original cells by AST and effects before any execution",
+  "method": "Kaggle kernels pull -m, no run or push",
+  "no_execute": true,
+  "no_modify_notebook": true,
+  "no_apk": true,
+  "no_signing": true
+}
