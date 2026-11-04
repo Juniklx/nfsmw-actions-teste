@@ -1,0 +1,11 @@
+{
+  "etapa": "PRE107_RESTAURACAO_ISOLADA_PRE99",
+  "respaldo": "PRE104 SHA256 integral validado",
+  "operacao": "restauracao_integral_em_diretorio_efemero",
+  "destino": "GitHub Actions runner /tmp",
+  "sobrescrever_kaggle": false,
+  "modificar_google_drive": false,
+  "patch": false,
+  "compilar": false,
+  "assinar": false
+}
