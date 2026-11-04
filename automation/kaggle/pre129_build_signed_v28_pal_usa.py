@@ -199,7 +199,7 @@ def verify_apk(apk:Path,sdk:Path,v27:dict[str,bytes],progress:dict)->dict:
             if name not in present or sha_bytes(z.read(name))!=expected:
                 progress["mismatched_preserved_asset"]=name
                 progress["mismatched_asset_was_present"]=name in present
-                raise ValueError("V27 changed required V27 PAL/USA content")
+                raise ValueError("V28 changed required V27 PAL/USA content")
             kept[name]=True
         progress["verification_subphase"]="APK_RUNTIME_LINKAGE_DIFFERENCE"
         runtime=sha_bytes(z.read("lib/arm64-v8a/librexruntime.so"))
@@ -304,7 +304,7 @@ def main()->int:
         if not (sdk/"cmake/3.31.6").is_dir():
             raise FileNotFoundError("CMake 3.31.6 not installed")
         base=Path(os.environ.get("RUNNER_TEMP","/tmp"))
-        with tempfile.TemporaryDirectory(prefix="nfsmw_pre126_",dir=base) as tmp:
+        with tempfile.TemporaryDirectory(prefix="nfsmw_pre129_",dir=base) as tmp:
             temp=Path(tmp)
             if shutil.disk_usage(temp).free<6*1024**3:
                 raise RuntimeError("Insufficient ephemeral disk for native release")
@@ -422,8 +422,8 @@ def main()->int:
             "APK applicationId/versionCode mismatch",
             "Generated APK ZIP CRC failed",
             "New APK missing required native library",
-            "V27 changed required V27 PAL/USA content",
-            "Rebuilt runtime is identical to V27: PRE117 linkage not proven",
+            "V28 changed required V27 PAL/USA content",
+            "Rebuilt runtime is identical to V27: PRE128 linkage not proven",
         }
         if report.get("phase")=="SELECT_APK_AND_VERIFY" and str(exc) in safe_messages:
             report["validation_failure_code"]=str(exc)
