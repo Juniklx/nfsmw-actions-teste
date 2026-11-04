@@ -1,0 +1,11 @@
+{
+  "etapa": "PRE100_KAGGLE_AUTOMACAO_SMOKE",
+  "solicitado_em": "2026-11-04",
+  "alvo": "juniklx/nfsmw-automacao-smoke-pre100",
+  "tipo": "teste_isolado_sem_modificacoes",
+  "modifica_notebook_principal": false,
+  "acessa_backup_pre99": false,
+  "compila_apk": false,
+  "usa_assinatura": false,
+  "executa_pela_api": true
+}
