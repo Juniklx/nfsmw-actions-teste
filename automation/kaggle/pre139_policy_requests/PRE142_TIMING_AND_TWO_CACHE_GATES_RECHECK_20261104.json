@@ -1,0 +1,12 @@
+{
+  "stage": "PRE142",
+  "attempt": 2,
+  "reason": "Independent SDK-only ccache added in production; static cache policy auditor updated to verify both explicit fail-closed caches separately",
+  "checks": [
+    "Gradle dependency cache separate",
+    "SDK-only compiler cache separate",
+    "pre/post safety scans",
+    "per-phase timer synthetic test"
+  ],
+  "no_real_build": true
+}
