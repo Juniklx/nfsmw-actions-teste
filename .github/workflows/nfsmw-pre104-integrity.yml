@@ -1,0 +1,80 @@
+name: NFSMW - PRE104 validar backup PRE99 (somente leitura)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/backup_requests/*.json'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nfsmw-pre104-backup-integrity
+  cancel-in-progress: false
+
+jobs:
+  verify-pre99:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Instalar Google API e verificar sintaxe
+        id: setup
+        run: |
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2
+          python -m py_compile automation/kaggle/pre104_verify_backup_tar.py
+      - name: Baixar PRE99 no runner e conferir SHA256 e TAR sem extrair
+        id: audit
+        continue-on-error: true
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          python automation/kaggle/pre104_verify_backup_tar.py \
+            --run-id "$GITHUB_RUN_ID" \
+            --report /tmp/nfsmw-pre104-integrity-result.json
+      - name: Publicar resultado sanitizado no GitHub privado
+        if: always()
+        env:
+          AUDIT_OUTCOME: ${{ steps.audit.outcome }}
+          SETUP_OUTCOME: ${{ steps.setup.outcome }}
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          from datetime import datetime, timezone
+          f = Path('/tmp/nfsmw-pre104-integrity-result.json')
+          audit = json.loads(f.read_text(encoding='utf-8')) if f.is_file() else {}
+          audit["run_id"] = os.environ["GITHUB_RUN_ID"]
+          audit["run_url"] = f"https://github.com/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{os.environ['GITHUB_RUN_ID']}"
+          audit["workflow_setup_outcome"] = os.environ["SETUP_OUTCOME"]
+          audit["workflow_audit_outcome"] = os.environ["AUDIT_OUTCOME"]
+          audit["report_recorded_utc"] = datetime.now(timezone.utc).isoformat()
+          audit["backup_extracted"] = False
+          audit["restoration_performed"] = False
+          audit["source_modified"] = False
+          audit["apk_modified"] = False
+          audit["signing_key_accessed"] = False
+          target = Path('automation/kaggle/status/pre104_backup_integrity.json')
+          target.parent.mkdir(parents=True, exist_ok=True)
+          target.write_text(json.dumps(audit, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
+          print("PRE104 status prepared, no credentials or TAR data included.")
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add automation/kaggle/status/pre104_backup_integrity.json
+          git commit -m 'Record PRE104 backup integrity and structural audit [skip ci]'
+          git push
+      - name: Exigir hash correto e auditoria sem riscos
+        if: always()
+        env:
+          AUDIT_OUTCOME: ${{ steps.audit.outcome }}
+        run: test "$AUDIT_OUTCOME" = 'success'
