@@ -1,0 +1,11 @@
+{
+  "etapa": "PRE126B",
+  "base_run": "41837195269",
+  "reason": "Gradle release succeeded but APK validation ValueError had no specific gate; rerun with structured sanitized diagnostics.",
+  "source_snapshot": "PRE99",
+  "version_code": 27,
+  "patch": "PRE117",
+  "signed_with_original_certificate": true,
+  "exact_gates_preserved": true,
+  "upload_only_if_all_validation_checks_pass": true
+}
