@@ -1,0 +1,12 @@
+{
+  "etapa": "PRE98_AUDITORIA_BINARIA_APK_V25_V26",
+  "autorizacao": "somente_leitura",
+  "v25_sha256": "35850d4ac0830d957a7f01e403f905bc8e8a4497904983654d0f608450420610",
+  "v26_sha256": "d8aebdaaf75df75739b47148f69ecfcdf1add37422416249375e31eca7812092",
+  "comparar_arm64": true,
+  "verificar_marcadores_settings": true,
+  "compilar": false,
+  "patch": false,
+  "sign": false,
+  "restaurar": false
+}
