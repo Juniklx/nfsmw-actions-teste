@@ -1,0 +1,153 @@
+name: NFSMW - PRE113B Android ARM64 NDK 28.2 syntax-only
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/ndk_compile_requests/*.json'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nfsmw-pre113b-ndk-arm64
+  cancel-in-progress: false
+
+jobs:
+  android-arm64-syntax:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - name: Checkout private repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Python dependencies and source syntax
+        id: python_setup
+        run: |
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2
+          python -m py_compile \
+            automation/kaggle/pre104_verify_backup_tar.py \
+            automation/kaggle/pre105_read_settings_source.py \
+            automation/kaggle/pre107_restore_isolated.py \
+            automation/kaggle/pre108_dryrun_theme_labels.py \
+            automation/kaggle/pre111_dryrun_local_palette.py \
+            automation/kaggle/pre112_cpp_syntax_isolated.py \
+            automation/kaggle/pre113b_android_arm64_syntax.py
+      - name: Install exact NDK 28.2.13676358 in ephemeral Android SDK
+        id: ndk_setup
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -e
+          SDK=""
+          for candidate in "${ANDROID_HOME:-}" "${ANDROID_SDK_ROOT:-}" /usr/local/lib/android/sdk; do
+            if [ -n "$candidate" ] && [ -d "$candidate/ndk" ]; then
+              SDK="$candidate"
+              break
+            fi
+          done
+          if [ -z "$SDK" ]; then
+            echo "PRE113B: Android SDK not detected"
+            exit 1
+          fi
+          echo "PRE113B: Android SDK found"
+          EXPECTED="$SDK/ndk/28.2.13676358"
+          if [ -f "$EXPECTED/source.properties" ]; then
+            echo "PRE113B: exact NDK already present"
+            exit 0
+          fi
+          SDKMANAGER=""
+          for manager in "$SDK"/cmdline-tools/*/bin/sdkmanager "$SDK"/tools/bin/sdkmanager; do
+            if [ -x "$manager" ]; then
+              SDKMANAGER="$manager"
+              break
+            fi
+          done
+          if [ -z "$SDKMANAGER" ]; then
+            echo "PRE113B: sdkmanager executable unavailable"
+            exit 1
+          fi
+          echo "PRE113B: installing NDK 28.2.13676358, ephemeral runner only"
+          set +o pipefail
+          yes | "$SDKMANAGER" --sdk_root="$SDK" --install "ndk;28.2.13676358"
+          RESULT="${PIPESTATUS[1]}"
+          set -o pipefail
+          if [ "$RESULT" -ne 0 ]; then
+            echo "PRE113B: sdkmanager failed with code $RESULT"
+            exit "$RESULT"
+          fi
+          if [ ! -f "$EXPECTED/source.properties" ]; then
+            echo "PRE113B: expected NDK source.properties missing after install"
+            exit 1
+          fi
+          echo "PRE113B: exact NDK installed"
+      - name: Verify original and PRE111 source using Android ARM64 C++23
+        id: cross_syntax
+        continue-on-error: true
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          NDK_SETUP_OUTCOME: ${{ steps.ndk_setup.outcome }}
+        run: |
+          echo "PRE113B NDK setup outcome: $NDK_SETUP_OUTCOME"
+          python automation/kaggle/pre113b_android_arm64_syntax.py \
+            --run-id "$GITHUB_RUN_ID" \
+            --report /tmp/pre113b-ndk-arm64-syntax.json
+      - name: Retain private PRE113B diagnostic independent of branch update
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pre113b-arm64-syntax-${{ github.run_id }}
+          path: /tmp/pre113b-ndk-arm64-syntax.json
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Record sanitized Android cross-compile results
+        if: always()
+        env:
+          SETUP_OUTCOME: ${{ steps.python_setup.outcome }}
+          NDK_OUTCOME: ${{ steps.ndk_setup.outcome }}
+          COMPILE_OUTCOME: ${{ steps.cross_syntax.outcome }}
+        run: |
+          python - <<'PY'
+          import json, os
+          from datetime import datetime, timezone
+          from pathlib import Path
+          src = Path('/tmp/pre113b-ndk-arm64-syntax.json')
+          result = json.loads(src.read_text(encoding='utf-8')) if src.is_file() else {'status':'SEM_RELATORIO'}
+          result['run_url'] = f"https://github.com/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{os.environ['GITHUB_RUN_ID']}"
+          result['run_id'] = os.environ['GITHUB_RUN_ID']
+          result['python_setup_outcome'] = os.environ['SETUP_OUTCOME']
+          result['ndk_install_outcome'] = os.environ['NDK_OUTCOME']
+          result['cross_syntax_outcome'] = os.environ['COMPILE_OUTCOME']
+          result['saved_utc'] = datetime.now(timezone.utc).isoformat()
+          target = Path('automation/kaggle/status/pre113b_android_arm64.json')
+          target.parent.mkdir(parents=True, exist_ok=True)
+          target.write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          print('PRE113B status saved without credentials, game data or APK')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add automation/kaggle/status/pre113b_android_arm64.json
+          git commit -m 'Record PRE113B Android NDK ARM64 syntax verification [skip ci]'
+          git fetch --no-tags --depth=50 origin main
+          git rebase origin/main
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            echo "PRE113B status publication retry ${attempt}"
+            sleep "$((attempt * 3))"
+            git fetch --no-tags --depth=50 origin main
+            git rebase origin/main
+          done
+          exit 1
+      - name: Require Android target syntax check success
+        if: always()
+        env:
+          CROSS_OUTCOME: ${{ steps.cross_syntax.outcome }}
+        run: test "$CROSS_OUTCOME" = 'success'
