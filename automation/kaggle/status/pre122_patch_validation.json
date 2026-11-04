@@ -1,0 +1,14 @@
+{
+  "etapa": "PRE122_VERIFICAR_PRE117_PATCH_GITHUB",
+  "status": "PRE122_PATCH_PRE117_RECONFERIDO_SEM_APLICAR",
+  "github_run_id": "41833476490",
+  "patch_sha256": "b26db81bd72075561ddcdaddfadc5f3cde66dad788fe610a42c54ad19d2f087b",
+  "pre92_base_sha256": "5509b4ad8de3f78522e0d5718ab853fbaff79ea4ff9184173a969b63eb3ab034",
+  "pre117_candidate_sha256": "8fa1f89c29e59cd96234d1ccaf18d9ff72baab790449b9e84151eac7c64794af",
+  "ndk_arm64_syntax_previously_passed": true,
+  "active_kaggle_tree_verified": false,
+  "original_kaggle_notebook_modified": false,
+  "apk_built": false,
+  "release_signing_validated": false,
+  "patch_applied": false
+}
