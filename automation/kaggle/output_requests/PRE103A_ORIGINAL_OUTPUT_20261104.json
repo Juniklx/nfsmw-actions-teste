@@ -1,0 +1,9 @@
+{
+  "etapa": "PRE103A_AUDITAR_OUTPUT_KAGGLE_ORIGINAL",
+  "modo": "SOMENTE_LEITURA",
+  "alvo": "juniklx/nfsmw",
+  "objetivo": "localizar backup PRE99 em outputs salvos sem usar Google Secrets",
+  "download": false,
+  "modifica_projeto": false,
+  "acessa_assinatura": false
+}
