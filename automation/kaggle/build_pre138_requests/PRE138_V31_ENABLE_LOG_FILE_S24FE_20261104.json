@@ -1,0 +1,32 @@
+{
+  "stage": "PRE138_V31_DIAGNOSTIC_LOGGING",
+  "recorded_on": "2026-11-04",
+  "device": "Samsung Galaxy S24 FE",
+  "current_working_version": "V30",
+  "version_code_target": 31,
+  "user_observation": "nfsmw_v30_baseline_*.txt successfully created by passive V3 monitor, but nfsmw.log absent; Settings Log File automatically resets to /dev/null when edited.",
+  "verified_v30_apk_sha256": "150438943b709f44b55d44a83baea5f239dd55677c3846f3508ee7a4760b2388",
+  "v30_original_drive_file_id": "1Nl3J0gOwGHfV1Yu8FP3Gl5KdzM51gmdi",
+  "change_isolated": "Enable -Pnfsmw.registro=true in Gradle, versionCode31; keep PRE117+PRE128+PRE131+PRE133 exact source patches from PRE99 unchanged.",
+  "required_signer_sha256": "1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b",
+  "required_package": "io.github.nfsmwrecomp",
+  "required_game_editions": [
+    "PAL",
+    "USA"
+  ],
+  "required_apk_gates": [
+    "versionCode31",
+    "same signer",
+    "10 ARM64 libraries",
+    "PAL/USA shader and native game assets preserved",
+    "nfsmw.log and --log_file= present in Android DEX"
+  ],
+  "no_signing_key_recreation": true,
+  "no_assets_modification": true,
+  "no_quality_reduction": true,
+  "no_thermal_bypass": true,
+  "no_claimed_fps_gain": true,
+  "no_publish_before_verified": true,
+  "build_private_artifact_first": true,
+  "log_written_on_device_still_unverified": true
+}
