@@ -1,0 +1,26 @@
+{
+  "etapa": "PRE113A_NDK_ARM64_PREFLIGHT",
+  "run_id": "41813703799",
+  "expected_ndk_revision": "28.2.13676358",
+  "project_min_sdk": 26,
+  "status": "NDK_EXATO_AUSENTE",
+  "ndk_version_found": null,
+  "ndk_exact_version": false,
+  "cpp23_byteswap_compile_ok": false,
+  "android_predefines_ok": false,
+  "ndk_installation_attempted": false,
+  "game_files_read": false,
+  "google_credentials_accessed": false,
+  "apk_compiled": false,
+  "signing_key_accessed": false,
+  "installed_ndk_revisions": [
+    "27.3.13750724",
+    "29.0.14206865",
+    "30.0.16248370"
+  ],
+  "sdkmanager_on_path": false,
+  "sdk_roots_present": 3,
+  "recorded_utc": "2026-11-04T10:22:11.705309+00:00",
+  "run_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/41813703799",
+  "probe_outcome": "success"
+}
