@@ -1,9 +1,9 @@
 {
   "etapa": "PRE115_CONTEXT_CANONICAL_SYNC",
-  "github_run_id": "41821541425",
+  "github_run_id": "41821883741",
   "target_drive_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
   "status": "NAO_VALIDADO",
-  "phase": "BACKUP_EXISTING_CONTEXT",
+  "phase": "APPEND_CANONICAL",
   "original_content_preserved": false,
   "backup_created": false,
   "game_workspace_modified": false,
@@ -12,11 +12,14 @@
   "secrets_logged": false,
   "old_bytes": 304632,
   "old_sha256": "3eac545625a9dce8f08fa62a07dd567ea0fc81a95d043b8fdbbf25253c3bdff0",
+  "backup_drive_id": "1fcbDBOvCB4Cxb89yrP26hh6vfz4-by-Q",
+  "backup_verified": true,
   "error_type": "HttpError",
-  "timestamp_utc": "2026-11-04T11:31:26.839695+00:00",
-  "run_id": "41821541425",
-  "run_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/41821541425",
+  "google_http_status": 403,
+  "timestamp_utc": "2026-11-04T11:33:52.396578+00:00",
+  "run_id": "41821883741",
+  "run_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/41821883741",
   "workflow_setup_outcome": "success",
   "workflow_sync_outcome": "failure",
-  "recorded_utc": "2026-11-04T11:31:28.403559+00:00"
+  "recorded_utc": "2026-11-04T11:33:53.519834+00:00"
 }
