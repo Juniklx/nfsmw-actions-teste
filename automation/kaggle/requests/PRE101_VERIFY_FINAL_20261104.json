@@ -1,0 +1,10 @@
+{
+  "etapa": "PRE101_VERIFICACAO_FINAL_KAGGLE",
+  "notebook": "juniklx/nfsmw-automacao-smoke-pre100",
+  "objetivo": "verificar status COMPLETE e marcador de saida da propria execucao",
+  "acesso_google_drive": false,
+  "restaura_pre99": false,
+  "modifica_notebook_principal": false,
+  "compila_apk": false,
+  "altera_assinatura": false
+}
