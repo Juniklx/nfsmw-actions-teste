@@ -1,23 +1,25 @@
 {
   "etapa": "PRE112_TESTE_COMPILABILIDADE_ISOLADO",
-  "github_run_id": "41812292925",
-  "status": "FRAGMENTO_CPP_VALIDO_FONTE_COMPLETA_INCONCLUSIVA",
+  "github_run_id": "41812605079",
+  "status": "SINTAXE_CPP_FONTE_COMPLETA_VALIDADA_NO_HOST",
   "phase": "COMPLETE",
+  "host_cpp_standard": "c++23",
+  "reason_for_retry": "source uses std::byteswap in rex/types.h, C++23 feature",
   "snapshot_sha256_verified": true,
   "pre92_source_verified": true,
   "pre111_proposal_sha256_verified": true,
   "baseline_host_cpp": {
     "attempted": true,
-    "exit_code": 1,
-    "passed": false,
-    "diagnostic_excerpt": "In file included from <SOURCE>:12:\nIn file included from <INCLUDE_ROOT>/rex/ui/overlay/settings_overlay.h:16:\nIn file included from <INCLUDE_ROOT>/rex/ui/imgui_dialog.h:19:\nIn file included from <INCLUDE_ROOT>/rex/ui/imgui_drawer.h:22:\nIn file included from <INCLUDE_ROOT>/rex/ui/immediate_drawer.h:15:\nIn file included from <INCLUDE_ROOT>/rex/ui/presenter.h:39:\n<INCLUDE_ROOT>/rex/types.h:44:29: error: no member named 'byteswap' in namespace 'std'; did you mean 'byte_swap'?\n   44 |     return std::bit_cast<T>(std::byteswap(std::bit_cast<uint_t>(value)));\n      |                             ^~~~~~~~~~~~~\n      |                             byte_swap\n<INCLUDE_ROOT>/rex/types.h:35:13: note: 'byte_swap' declared here\n   35 | constexpr T byte_swap(T value) noexcept {\n      |             ^\n1 error generated.",
+    "exit_code": 0,
+    "passed": true,
+    "diagnostic_excerpt": "",
     "missing_include": false
   },
   "proposal_host_cpp": {
     "attempted": true,
-    "exit_code": 1,
-    "passed": false,
-    "diagnostic_excerpt": "In file included from <SOURCE>:12:\nIn file included from <INCLUDE_ROOT>/rex/ui/overlay/settings_overlay.h:16:\nIn file included from <INCLUDE_ROOT>/rex/ui/imgui_dialog.h:19:\nIn file included from <INCLUDE_ROOT>/rex/ui/imgui_drawer.h:22:\nIn file included from <INCLUDE_ROOT>/rex/ui/immediate_drawer.h:15:\nIn file included from <INCLUDE_ROOT>/rex/ui/presenter.h:39:\n<INCLUDE_ROOT>/rex/types.h:44:29: error: no member named 'byteswap' in namespace 'std'; did you mean 'byte_swap'?\n   44 |     return std::bit_cast<T>(std::byteswap(std::bit_cast<uint_t>(value)));\n      |                             ^~~~~~~~~~~~~\n      |                             byte_swap\n<INCLUDE_ROOT>/rex/types.h:35:13: note: 'byte_swap' declared here\n   35 | constexpr T byte_swap(T value) noexcept {\n      |             ^\n1 error generated.",
+    "exit_code": 0,
+    "passed": true,
+    "diagnostic_excerpt": "",
     "missing_include": false
   },
   "new_cpp_fragment": {
@@ -53,10 +55,10 @@
   "source_sha256_before": "5509b4ad8de3f78522e0d5718ab853fbaff79ea4ff9184173a969b63eb3ab034",
   "source_sha256_proposed": "19102b563eb4cdd6c81d4a6bfa5bbc8cadfbb1e030247f535633cbc11524e069",
   "host_include_directory_count": 11,
-  "timestamp_utc": "2026-11-04T10:10:57.376515+00:00",
-  "run_id": "41812292925",
-  "run_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/41812292925",
+  "timestamp_utc": "2026-11-04T10:13:17.333681+00:00",
+  "run_id": "41812605079",
+  "run_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/41812605079",
   "workflow_setup_outcome": "success",
   "workflow_syntax_outcome": "success",
-  "recorded_utc": "2026-11-04T10:10:59.061538+00:00"
+  "recorded_utc": "2026-11-04T10:13:18.654352+00:00"
 }
