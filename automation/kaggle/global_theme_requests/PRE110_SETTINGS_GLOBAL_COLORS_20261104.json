@@ -1,0 +1,11 @@
+{
+  "etapa": "PRE110_GLOBAL_SETTINGS_THEME_COVERAGE",
+  "objetivo": "comparar cores verdes globais ImGui e PushStyleColor locais em settings_overlay.cpp",
+  "backup": "PRE99 SHA256 validado",
+  "fonte": "PRE109 três hashes de C++ validados",
+  "somente_leitura": true,
+  "modifica_fontes": false,
+  "restaura_workspace": false,
+  "build": false,
+  "assinatura": false
+}
