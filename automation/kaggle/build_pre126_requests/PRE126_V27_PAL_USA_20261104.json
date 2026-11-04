@@ -1,0 +1,11 @@
+{
+  "etapa": "PRE126",
+  "intent": "V27_PAL_USA_PRE117_SCROLL_UNICO",
+  "versionCode": 27,
+  "mode": "isolated_ephemeral",
+  "signWithOriginalCertificate": true,
+  "validatePackageBeforePrivateUpload": true,
+  "preserveV26": true,
+  "noKaggleChanges": true,
+  "noOriginalSigningChanges": true
+}
