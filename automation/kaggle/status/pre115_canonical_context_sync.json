@@ -1,0 +1,20 @@
+{
+  "etapa": "PRE112_CONTEXT_CANONICAL_SYNC",
+  "github_run_id": "41821409579",
+  "target_drive_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+  "status": "NAO_VALIDADO",
+  "phase": "VERIFY_EVIDENCE",
+  "original_content_preserved": false,
+  "backup_created": false,
+  "game_workspace_modified": false,
+  "apk_built": false,
+  "signing_key_accessed": false,
+  "secrets_logged": false,
+  "error_type": "FileNotFoundError",
+  "timestamp_utc": "2026-11-04T11:30:32.343444+00:00",
+  "run_id": "41821409579",
+  "run_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/41821409579",
+  "workflow_setup_outcome": "success",
+  "workflow_sync_outcome": "failure",
+  "recorded_utc": "2026-11-04T11:30:33.534510+00:00"
+}
