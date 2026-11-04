@@ -1,0 +1,83 @@
+name: NFSMW - PRE124 audited Android native stage and signing metadata from PRE99
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/native_pre124_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre124-native-staging
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout private repo
+        uses: actions/checkout@v4
+      - name: Python runtime
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies and compile Python
+        run: |
+          set -e
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          python -m py_compile automation/kaggle/pre104_verify_backup_tar.py automation/kaggle/pre105_read_settings_source.py automation/kaggle/pre117_one_scroll_android_dryrun.py automation/kaggle/pre118_audit_build_tree.py automation/kaggle/pre124_native_stage_and_signing_metadata.py
+      - name: Verify PRE99 native stage and signing metadata without touching private signing material
+        id: audit
+        continue-on-error: true
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -e
+          python automation/kaggle/pre124_native_stage_and_signing_metadata.py \
+            --run-id "$GITHUB_RUN_ID" --report /tmp/pre124-native-staging.json
+      - name: Preserve private audit artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre124-native-staging-${{ github.run_id }}
+          path: /tmp/pre124-native-staging.json
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Publish sanitized results
+        if: always()
+        env:
+          AUDIT_OUTCOME: ${{ steps.audit.outcome }}
+        run: |
+          set -e
+          python - <<'PY'
+          from pathlib import Path
+          import json,os
+          p=Path('/tmp/pre124-native-staging.json')
+          data=json.loads(p.read_text(encoding='utf-8')) if p.is_file() else {'status':'SEM_RELATORIO'}
+          data['audit_outcome']=os.environ['AUDIT_OUTCOME']
+          data['run_url']=f"https://github.com/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{os.environ['GITHUB_RUN_ID']}"
+          dest=Path('automation/kaggle/status/pre124_native_stage.json')
+          dest.parent.mkdir(parents=True,exist_ok=True)
+          dest.write_text(json.dumps(data,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
+          print('PRE124:',data['status'])
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add automation/kaggle/status/pre124_native_stage.json
+          git commit -m 'Record PRE124 read-only native stage and signing metadata audit [skip ci]'
+          git fetch --no-tags --depth=50 origin main
+          git rebase origin/main
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$((attempt * 3))"
+            git fetch --no-tags --depth=50 origin main
+            git rebase origin/main
+          done
+          exit 1
+      - name: Require PRE124 audit success
+        if: always()
+        env:
+          AUDIT_OUTCOME: ${{ steps.audit.outcome }}
+        run: test "$AUDIT_OUTCOME" = success
