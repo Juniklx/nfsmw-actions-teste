@@ -17,7 +17,7 @@ concurrency:
 jobs:
   submit-smoke:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     env:
       KAGGLE_API_TOKEN: ${{ secrets.KAGGLE_API_TOKEN }}
     steps:
@@ -41,11 +41,21 @@ jobs:
           python -c 'import six; from kaggle.cli import main; print("Kaggle CLI import OK")'
       - name: Criar notebook isolado de teste
         id: generate
-        run: python automation/kaggle/create_smoke.py --output /tmp/nfsmw-smoke-kaggle
+        run: python automation/kaggle/create_smoke.py --output /tmp/nfsmw-smoke-kaggle --run-id "$GITHUB_RUN_ID"
       - name: Publicar e executar notebook de teste no Kaggle
         id: submit
         continue-on-error: true
         run: kaggle kernels push -p /tmp/nfsmw-smoke-kaggle
+      - name: Aguardar execucao Kaggle e conferir arquivo de saida
+        id: poll
+        if: steps.submit.outcome == 'success'
+        continue-on-error: true
+        run: |
+          python automation/kaggle/check_smoke_completion.py \
+            --run-id "$GITHUB_RUN_ID" \
+            --report /tmp/nfsmw-pre101-poll.json \
+            --output-dir /tmp/nfsmw-pre101-output \
+            --timeout-seconds 900
       - name: Registrar resultado consultavel pelo ChatGPT
         if: always()
         env:
@@ -53,6 +63,7 @@ jobs:
           INSTALL_RESULT: ${{ steps.install.outcome }}
           GENERATE_RESULT: ${{ steps.generate.outcome }}
           SUBMIT_RESULT: ${{ steps.submit.outcome }}
+          POLL_RESULT: ${{ steps.poll.outcome }}
         run: |
           python - <<'PY'
           import json, os
@@ -60,6 +71,8 @@ jobs:
           from pathlib import Path
           p = Path('automation/kaggle/status/latest.json')
           p.parent.mkdir(parents=True, exist_ok=True)
+          poll_path = Path('/tmp/nfsmw-pre101-poll.json')
+          poll = json.loads(poll_path.read_text(encoding='utf-8')) if poll_path.is_file() else {}
           data = {
               'etapa': 'PRE100_KAGGLE_AUTOMACAO_SMOKE',
               'run_id': os.environ['GITHUB_RUN_ID'],
@@ -70,7 +83,12 @@ jobs:
               'kaggle_cli_install': os.environ['INSTALL_RESULT'],
               'notebook_generation': os.environ['GENERATE_RESULT'],
               'kaggle_push': os.environ['SUBMIT_RESULT'],
-              'kaggle_execution_completed': False,
+              'kaggle_status_poll': os.environ['POLL_RESULT'],
+              'kaggle_final_status': poll.get('kaggle_final_status', 'NAO_CONFIRMADO'),
+              'kaggle_execution_completed': bool(poll.get('kaggle_execution_completed', False)),
+              'result_marker_confirmed': bool(poll.get('result_marker_confirmed', False)),
+              'execution_verification': poll.get('resultado', 'NAO_VERIFICADO'),
+              'execution_validation_error': poll.get('erro'),
               'notebook_original_modificado': False,
               'smoke_notebook': 'juniklx/nfsmw-automacao-smoke-pre100',
           }
@@ -82,8 +100,11 @@ jobs:
           git add automation/kaggle/status/latest.json
           git commit -m 'Record PRE100 Kaggle smoke execution status [skip ci]'
           git push
-      - name: Falhar se envio ao Kaggle nao foi concluido
+      - name: Falhar se envio ou execucao Kaggle nao foram comprovados
         if: always()
         env:
           SUBMIT_RESULT: ${{ steps.submit.outcome }}
-        run: test "$SUBMIT_RESULT" = 'success'
+          POLL_RESULT: ${{ steps.poll.outcome }}
+        run: |
+          test "$SUBMIT_RESULT" = 'success'
+          test "$POLL_RESULT" = 'success'
