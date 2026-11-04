@@ -30,7 +30,7 @@ def scan(source:str)->dict:
         "list_begin":'ImGui::BeginChild("##cvars", ImVec2(0, -30.0f), false);',
         "save_button":'mobile_layout ? ImVec2(240.0f, 52.0f) : ImVec2(0, 0)',
         "list_end_marker":"  ImGui::EndChild();\n  ImGui::PopID();\n\n  // Bottom bar: Save button.",
-        "root_end":"  ImGui::End();",
+        "root_end":"  ImGui::PopStyleVar(4);\n  ImGui::End();",
     }
     markers={}
     for k,v in expected.items():
