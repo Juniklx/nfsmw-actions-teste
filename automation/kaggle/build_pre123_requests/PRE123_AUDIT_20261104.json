@@ -1,0 +1,9 @@
+{
+  "etapa": "PRE123",
+  "source": "PRE99_SHA_VERIFIED",
+  "mode": "read_only",
+  "build": false,
+  "patch_active": false,
+  "sign": false,
+  "execute_kaggle": false
+}
