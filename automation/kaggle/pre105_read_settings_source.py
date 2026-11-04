@@ -23,7 +23,7 @@ PATTERNS = {
     "colors": r"ImVec4|ImColor|ColorConvert|ColorButton|Separator",
 }
 CTX = 2
-MAX_LINES = 260
+MAX_LINES = 900
 
 def drive_client():
     from google.oauth2.credentials import Credentials
@@ -125,7 +125,7 @@ def main():
                     if stream is None:
                         continue
                     secondary = stream.read()
-                    secondaries.append(source_excerpt(secondary, name, 75))
+                    secondaries.append(source_excerpt(secondary, name, 240))
                 report["other_ui_sources"] = secondaries[:2]
         report["status"] = "FONTE_VERIFICADA_E_ANALISADA"
         report["phase"] = "COMPLETE"
