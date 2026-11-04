@@ -31,7 +31,9 @@ def main():
     cache=[s for s in steps if s.get("id")=="gradle_deps_cache"]
     need(len(cache)==1,"cache action missing")
     c=cache[0]
-    need(c.get("uses")=="actions/cache@v4","cache action version changed")
+    need(c.get("uses")=="actions/cache/restore@v4","cache restore action version changed")
+    need(not any(s.get("uses")=="actions/cache@v4" for s in steps),
+         "combined cache action can save files before our policy gate")
     paths=set(c.get("with",{}).get("path","").splitlines())
     paths={p.strip() for p in paths if p.strip()}
     need(paths=={
@@ -45,10 +47,38 @@ def main():
          "${{ runner.temp }}/nfsmw-gradle-home","reusable Gradle home not passed")
     policy_steps=[x for x in steps if "pre139_verify_dependency_cache.py" in str(x.get("run",""))]
     need(len(policy_steps)>=1,"no production dependency cache content guard")
+    restore_index=steps.index(c)
+    precheck=[x for x in steps if x.get("name")=="PRE140 verify restored Gradle cache before build"]
+    need(len(precheck)==1,"cached dependencies must be inspected before consuming")
+    need(precheck[0].get("if")=="steps.gradle_deps_cache.outputs.cache-hit == 'true'",
+         "restored cache preflight condition missing")
+    need("pre139_verify_dependency_cache.py" in precheck[0].get("run",""),
+         "restored cache not inspected")
     release_index=steps.index(build[0])
+    need(restore_index<steps.index(precheck[0])<release_index,
+         "restore verification must run before build")
+
     guard_index=next(i for i,x in enumerate(steps) if "PRE139 verify dependency-only cache contents" in x.get("name",""))
     need(guard_index>release_index,"guard must run after build and before cache action post")
-    need("steps.release.outcome == 'success'"==steps[guard_index].get("if"),"safety audit execution condition altered")
+    need("steps.release.outcome == 'success'"==steps[guard_index].get("if"),
+         "safety audit execution condition altered")
+    need(steps[guard_index].get("id")=="deps_policy","policy gate must be referenced by save")
+    save=[x for x in steps if x.get("uses")=="actions/cache/save@v4"]
+    need(len(save)==1,"explicit cache save action missing or duplicated")
+    save_step=save[0]
+    save_index=steps.index(save_step)
+    need(save_index>guard_index,"cache save must happen only after policy passes")
+    save_paths={p.strip() for p in save_step.get("with",{}).get("path","").splitlines() if p.strip()}
+    need(save_paths==paths,"save target differs from verified restored paths")
+    need(save_step.get("with",{}).get("key")==
+         "${{ steps.gradle_deps_cache.outputs.cache-primary-key }}",
+         "save key must be derived from the restore cache key")
+    expected_if=("${{ success() && steps.release.outcome == 'success' && "
+                 "steps.deps_policy.outcome == 'success' && "
+                 "steps.gradle_deps_cache.outputs.cache-hit != 'true' }}")
+    need(save_step.get("if")==expected_if,
+         "explicit cache save is not strictly conditional on the safety gate")
+
     need("pre139_verify_dependency_cache.py" in wftext,"safety script not referenced")
     need("MISSING=()" in wftext and 'rm -rf "$p"' not in wftext,
          "SDK installer must be non-destructive and skip installed packages")
@@ -63,7 +93,7 @@ def main():
     need("EXPECTED_PRE131_FILES" in source and "propose_pre133(src.read_bytes())" in source,
          "V30 functional patches missing")
     output={
-        "stage":"PRE139_PRODUCTION_CACHE_POLICY_STATIC_AUDIT",
+        "stage":"PRE140_PRODUCTION_CACHE_EXPLICIT_RESTORE_SAVE_AUDIT",
         "status":"PASS",
         "source_sha256":hashlib.sha256(source.encode()).hexdigest(),
         "workflow_sha256":hashlib.sha256(wftext.encode()).hexdigest(),
@@ -73,6 +103,9 @@ def main():
         "keys_cached":False,
         "real_v31_rebuild_performed":False,
         "real_gradle_dependency_cache_hit_measured":False,
+        "restored_cache_checked_before_build":True,
+        "automatic_cache_post_save_disabled":True,
+        "explicit_save_requires_verified_success":True,
         "gh_actions_synthetic_cache_reuse_passed_in_runs":[41899119460,41899259138],
     }
     print(json.dumps(output,indent=2))
