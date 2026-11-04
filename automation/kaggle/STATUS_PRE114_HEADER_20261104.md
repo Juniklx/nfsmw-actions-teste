@@ -18,3 +18,15 @@ PRE115 foi preparada como alteração **diagnóstica isolada**: no ramo Android 
 Nenhuma V27 foi compilada, nenhuma assinatura acessada ou modificada, nenhum APK alterado. Preservar o certificado permanente e versionCode maior que 26 em qualquer build futura.
 
 O `CONTEXTO_NFSMW.md` canônico do Drive ainda não foi atualizado com esses resultados; este registro deve ser incorporado em adendo posterior sem reescrever o histórico.
+
+## PRE115 — dry-run da rolagem ao abrir Settings (2026-11-04)
+
+- Execução: https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/41818700875 — **workflow global success**.
+- Relatório `automation/kaggle/status/pre115_scroll_dryrun.json`, `status=PRE115_PROPOSTA_SCROLL_ARM64_VALIDADA_NAO_APLICADA`.
+- Backup PRE99 integral e fonte `settings_overlay.cpp` PRE92 verificados novamente por SHA-256. Fonte original SHA-256 `5509b4ad8de3f78522e0d5718ab853fbaff79ea4ff9184173a969b63eb3ab034`; proposta apenas em memória/árvore efêmera com SHA-256 `73b38386c4630fbf108cbe2aaab85919fe3461268173076bea9b545460b4bfd5`.
+- Diff de **17 linhas**: depois de confirmar `settings_visible`, apenas quando `mobile_layout && ImGui::IsWindowAppearing()`, chamar `ImGui::SetScrollY(0.0f)`. Nenhuma cor, desenho, valor de CVAR ou controle alterado.
+- Toolchain usado: NDK **28.2.13676358**, `aarch64-linux-android26-clang++`, `-std=c++23 -fsyntax-only`.
+- **Original e proposta** passaram com exit code 0. Portanto a proposta é sintaticamente compatível com a árvore PRE99 para Android ARM64.
+- **Não foi aplicada ao projeto ativo, não houve linkagem/APK/assinatura, nem teste no Galaxy S24 FE.** Esse resultado não prova que o `GetScrollY()` atual seja diferente de zero nem que zerá-lo resolva o cabeçalho.
+- Próximo teste discriminante sem nova APK: no menu V26, rolar o conteúdo até o início (gesto para baixo sobre a área rolável) e observar se o cabeçalho aparece. Fechar/reabrir o menu e comparar. Se permanecer ausente no topo, investigar clipping, escala e janela alternativa antes de usar o patch PRE115.
+- O adendo do GitHub deve ser incorporado ao `CONTEXTO_NFSMW.md` canônico do Drive, que não foi modificado nesta etapa.
