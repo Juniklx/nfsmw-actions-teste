@@ -74,15 +74,19 @@ jobs:
           cmake --build "$RUNNER_TEMP/pre140-build-b" >/dev/null
           ccache --show-stats > "$RUNNER_TEMP/pre140-final-stats.txt"
           cat "$RUNNER_TEMP/pre140-final-stats.txt"
-          ccache --show-stats --format=json > "$RUNNER_TEMP/pre140-stats.json"
+          # Runner ccache 4.x may emit JSON to stdout differently across
+          # versions. Parse the plain summary that the job just printed.
           python3 - <<'PY'
-          import json,os
+          import json,os,re
           from pathlib import Path
-          path=Path(os.environ["RUNNER_TEMP"])/"pre140-stats.json"
-          d=json.loads(path.read_text())
-          stats=d.get("stats",{})
-          misses=int(stats.get("cache_miss",0))
-          hits=int(stats.get("cache_hit_direct",0))+int(stats.get("cache_hit_preprocessed",0))
+          path=Path(os.environ["RUNNER_TEMP"])/"pre140-final-stats.txt"
+          stats=path.read_text(encoding="utf-8")
+          match_hits=re.search(r"^\s*Hits:\s+(\d+)",stats,re.MULTILINE)
+          match_misses=re.search(r"^\s*Misses:\s+(\d+)",stats,re.MULTILINE)
+          if not match_hits or not match_misses:
+              raise SystemExit("PRE140 ccache summary format unknown; fail closed")
+          misses=int(match_misses.group(1))
+          hits=int(match_hits.group(1))
           if misses<0 or hits<1:
               raise SystemExit(f"PRE140 no SDK cache hit, misses={misses} hits={hits}")
           if misses>1:
