@@ -1,0 +1,13 @@
+{
+  "etapa": "PRE102_KAGGLE_DRIVE_PROBE",
+  "notebook": "juniklx/nfsmw-pre102-drive-probe",
+  "objetivo": "verificar acessibilidade dos Kaggle Secrets e metadados do snapshot PRE99 no Google Drive",
+  "expected_backup_bytes": 874780689,
+  "expected_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "read_only": true,
+  "download_full_backup": false,
+  "restore_workspace": false,
+  "modify_main_notebook": false,
+  "build_apk": false,
+  "sign_apk": false
+}
