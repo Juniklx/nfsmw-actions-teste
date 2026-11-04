@@ -1,0 +1,56 @@
+name: NFSMW PRE152 SurfaceFlinger read-only validation
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre152_requests/*.json'
+
+permissions:
+  contents: read
+
+jobs:
+  pre152-static-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate PRE152 shell, parser and preserved contents
+        shell: bash
+        run: |
+          set -euo pipefail
+          bash -n scripts/nfsmw_pre152_v31_surfaceflinger_pareado.sh
+          python -m py_compile scripts/nfsmw_pre152_analisar_timestats.py
+          python - <<'PY'
+          import hashlib, importlib.util
+          from pathlib import Path
+          expected = {
+              "scripts/nfsmw_pre152_v31_surfaceflinger_pareado.sh": "18324df2bfd8cff12e982262a93b294e97e1c0bf91d9f01360e7bdfc00c08ba4",
+              "scripts/nfsmw_pre152_analisar_timestats.py": "dbf57fee9458e9ed2cdc9165851bf57e6e63a461dafa412391d7d72f259f8e27",
+              "reports/RELATORIO_NFSMW_PRE152_AUDITORIA_SF_V31_E_PREPARO_COLETA_20261104.md": "4a170ac2409f70decadf7443d8ed414010ecbab1e25161212c80f166395a64e0",
+          }
+          for p, expected_sha in expected.items():
+              got = hashlib.sha256(Path(p).read_bytes()).hexdigest()
+              assert got == expected_sha, f"SHA mismatch: {p}"
+          sh = Path("scripts/nfsmw_pre152_v31_surfaceflinger_pareado.sh").read_text(encoding="utf-8")
+          assert "versionCode=" in sh and "--timestats -clear -enable" in sh
+          assert "--timestats -disable" in sh and "ABORTADO_VERSION_DIFERENTE_31" in sh
+          spec = importlib.util.spec_from_file_location("pre152", "scripts/nfsmw_pre152_analisar_timestats.py")
+          module = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(module)
+          layer = "SurfaceView[io.github.nfsmwrecomp/.GameActivity]@0(BLAST)#777"
+          fixture = (
+              "=== SAMPLE 1 ===\nSAMPLE_EPOCH=1000\nlayerName = "+layer+"\n"
+              "totalFrames = 500\naverageFPS = 60.0\nThermal Status: 0\n"
+              "=== SAMPLE 2 ===\nSAMPLE_EPOCH=1020\nlayerName = "+layer+"\n"
+              "totalFrames = 900\naverageFPS = 40.0\nThermal Status: 2\n"
+              "=== SAMPLE 3 ===\nSAMPLE_EPOCH=1040\nlayerName = "+layer+"\n"
+              "totalFrames = 2\naverageFPS = 10.0\nThermal Status: 2\n"
+          )
+          rows = module.analyze(module.read_samples(fixture))
+          assert len(rows)==3
+          assert rows[1]["fps_interval_estimate"]==20.0 and rows[1]["quality"]=="VALID_DIFFERENCE"
+          assert rows[2]["quality"]=="COUNTER_RESET_OR_LAYER_REPLACEMENT"
+          print("PRE152 STATIC AUDIT SUCCESS; no APK, Shizuku, game or signing key used")
+          PY
