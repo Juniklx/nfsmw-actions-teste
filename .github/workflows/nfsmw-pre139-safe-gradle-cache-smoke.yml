@@ -1,0 +1,68 @@
+name: NFSMW PRE139 safe Gradle cache smoke (no game build)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre139_cache_requests/*.json'
+permissions:
+  contents: read
+jobs:
+  cache-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout project scripts only (no game code or keys)
+        uses: actions/checkout@v4
+      - name: Configure Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Restore synthetic-only PRE139 cache
+        id: synthetic_cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ runner.temp }}/nfsmw-gradle-home/caches/modules-2
+          key: nfsmw-pre139-synthetic-safe-v1-${{ runner.os }}
+      - name: Run Gradle cache safety self-test and synthetic cache verification
+        env:
+          CACHE_HIT: ${{ steps.synthetic_cache.outputs.cache-hit }}
+          GITHUB_RUN_ID: ${{ github.run_id }}
+          GRADLE_SAFE_DIR: ${{ runner.temp }}/nfsmw-gradle-home
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre139_verify_dependency_cache.py
+          python automation/kaggle/pre139_verify_dependency_cache.py --self-test
+          mkdir -p "$GRADLE_SAFE_DIR/caches/modules-2"
+          if [ "$CACHE_HIT" = 'true' ]; then
+            test -f "$GRADLE_SAFE_DIR/caches/modules-2/pre139_test_dependency.jar"
+            echo 'PRE139_SAFE_CACHE_HIT_VERIFIED'
+          else
+            echo 'PRE139_SAFE_CACHE_MISS_EXPECTED_ON_FIRST_RUN'
+          fi
+          printf '%s\n' 'non-secret-synthetic-test-data' \
+            > "$GRADLE_SAFE_DIR/caches/modules-2/pre139_test_dependency.jar"
+          python automation/kaggle/pre139_verify_dependency_cache.py \
+            --cache-home "$GRADLE_SAFE_DIR" \
+            --report /tmp/pre139-dependency-cache-audit.json
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          record=json.loads(Path("/tmp/pre139-dependency-cache-audit.json").read_text())
+          record["stage"]="PRE139_GITHUB_CACHE_SYNTHETIC_SMOKE"
+          record["run_id"]=os.environ["GITHUB_RUN_ID"]
+          record["cache_hit"]=os.environ["CACHE_HIT"]=="true"
+          record["no_game_data_used"]=True
+          record["no_signing_data_used"]=True
+          record["no_compilation_performed"]=True
+          Path("/tmp/pre139-dependency-cache-audit.json").write_text(
+              json.dumps(record,indent=2)+"\n")
+          print("PRE139 cache result: hit =",record["cache_hit"],
+                "safe_files =",record["file_count"])
+          PY
+      - name: Upload safe smoke report
+        uses: actions/upload-artifact@v4
+        with:
+          name: pre139-cache-smoke-${{ github.run_id }}
+          path: /tmp/pre139-dependency-cache-audit.json
+          retention-days: 7
