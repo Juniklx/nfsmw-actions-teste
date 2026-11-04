@@ -37,6 +37,7 @@ jobs:
             automation/kaggle/pre117_one_scroll_android_dryrun.py \
             automation/kaggle/pre118_audit_build_tree.py \
             automation/kaggle/pre125_ephemeral_gradle_signing_preflight.py \
+            automation/kaggle/pre127_apk_v2_certificate_audit.py \
             automation/kaggle/pre126_build_signed_v27_pal_usa.py
       - name: Prepare exact Android NDK CMake and SDK build tools in ephemeral runner
         id: android_tools
