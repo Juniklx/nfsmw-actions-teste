@@ -1,0 +1,119 @@
+name: NFSMW - PRE131 Android touch scroll and theme ARM64 dry-run
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre131_requests/*.json'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nfsmw-pre131-touch-and-theme-syntax
+  cancel-in-progress: false
+
+jobs:
+  android-arm64-syntax:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - name: Checkout private repository
+        uses: actions/checkout@v4
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Python deps and check exact patch scripts
+        run: |
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2
+          python -m py_compile \
+            automation/kaggle/pre104_verify_backup_tar.py \
+            automation/kaggle/pre105_read_settings_source.py \
+            automation/kaggle/pre107_restore_isolated.py \
+            automation/kaggle/pre112_cpp_syntax_isolated.py \
+            automation/kaggle/pre113b_android_arm64_syntax.py \
+            automation/kaggle/pre117_one_scroll_android_dryrun.py \
+            automation/kaggle/pre128_android_touch_scroll_visual_patch.py \
+            automation/kaggle/pre131_native_touch_and_modern_ui_patch.py \
+            automation/kaggle/pre131_dryrun_android_ui.py
+      - name: Install exact NDK on isolated runner
+        id: ndk
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -e
+          SDK="$ANDROID_HOME"
+          if [ -z "$SDK" ]; then SDK="$ANDROID_SDK_ROOT"; fi
+          if [ -z "$SDK" ]; then SDK=/usr/local/lib/android/sdk; fi
+          EXPECTED="$SDK/ndk/28.2.13676358"
+          if [ -f "$EXPECTED/source.properties" ]; then echo 'Required NDK present'; exit 0; fi
+          SDKMANAGER=""
+          for exe in "$SDK"/cmdline-tools/*/bin/sdkmanager "$SDK"/tools/bin/sdkmanager; do
+            if [ -x "$exe" ]; then SDKMANAGER="$exe"; break; fi
+          done
+          [ -n "$SDKMANAGER" ]
+          set +o pipefail
+          yes | "$SDKMANAGER" --sdk_root="$SDK" --install "ndk;28.2.13676358" > /tmp/pre131-ndk-setup.log 2>&1
+          CODE="$?"
+          set -o pipefail
+          [ "$CODE" = 0 ] && [ -f "$EXPECTED/source.properties" ]
+          echo 'Required NDK ready'
+      - name: Verify PRE131 source patch with Android ARM64 C++23
+        id: syntax
+        continue-on-error: true
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          python automation/kaggle/pre131_android_arm64_dryrun.py \
+            --run-id "$GITHUB_RUN_ID" \
+            --report /tmp/nfsmw-pre131-arm64.json
+      - name: Preserve private outcome artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre131-arm64-${{ github.run_id }}
+          path: /tmp/nfsmw-pre131-arm64.json
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Record sanitized PRE131 dry-run outcome
+        if: always()
+        env:
+          NDK_OUTCOME: ${{ steps.ndk.outcome }}
+          SYNTAX_OUTCOME: ${{ steps.syntax.outcome }}
+        run: |
+          python - <<'PY'
+          import os,json
+          from pathlib import Path
+          p=Path("/tmp/nfsmw-pre131-arm64.json")
+          d=json.loads(p.read_text()) if p.is_file() else {"status":"NO_REPORT"}
+          d["ndk_setup_outcome"]=os.environ["NDK_OUTCOME"]
+          d["syntax_step_outcome"]=os.environ["SYNTAX_OUTCOME"]
+          d["run_id"]=os.environ["GITHUB_RUN_ID"]
+          d["run_url"]=f"https://github.com/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{os.environ['GITHUB_RUN_ID']}"
+          dst=Path("automation/kaggle/status/pre131_touch_theme_arm64.json")
+          dst.parent.mkdir(parents=True,exist_ok=True)
+          dst.write_text(json.dumps(d,ensure_ascii=False,indent=2)+"\n")
+          print("PRE131 sanitized report:",d.get("status"))
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add automation/kaggle/status/pre131_touch_theme_arm64.json
+          git commit -m 'Record PRE131 Android touch and theme isolated ARM64 outcome [skip ci]'
+          git fetch --no-tags --depth=50 origin main
+          git rebase origin/main
+          for retry in 1 2 3 4 5; do
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$((retry*3))"
+            git fetch --no-tags --depth=50 origin main
+            git rebase origin/main
+          done
+          exit 1
+      - name: Require precise PRE131 patch and ARM64 syntax success
+        if: always()
+        env:
+          OUTCOME: ${{ steps.syntax.outcome }}
+        run: test "$OUTCOME" = success
