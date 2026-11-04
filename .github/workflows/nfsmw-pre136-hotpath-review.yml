@@ -1,0 +1,84 @@
+name: NFSMW - PRE136 review V30 SDL and Vulkan hotpaths
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre136_requests/*.json'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nfsmw-pre136-ui-input-audit
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - name: Checkout private repository
+        uses: actions/checkout@v4
+      - name: Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate scripts and dependencies
+        run: |
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          python -m py_compile automation/kaggle/pre136_review_perf_hotpaths.py
+      - name: Audit CPU GPU and SDL source paths read-only
+        id: inspect
+        continue-on-error: true
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          python automation/kaggle/pre136_review_perf_hotpaths.py \
+            --run-id "$GITHUB_RUN_ID" --report /tmp/pre136-perf-source.json
+      - name: Preserve private audit results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pre136-perf-source-audit-${{ github.run_id }}
+          path: /tmp/pre136-perf-source.json
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Record private sanitized report
+        if: always()
+        env:
+          INSPECT_OUTCOME: ${{ steps.inspect.outcome }}
+        run: |
+          python - <<'PY'
+          import os,json
+          from pathlib import Path
+          p=Path("/tmp/pre136-perf-source.json")
+          d=json.loads(p.read_text()) if p.is_file() else {"status":"NO_REPORT"}
+          d["step_outcome"]=os.environ["INSPECT_OUTCOME"]
+          d["run_url"]="https://github.com/"+os.environ["GITHUB_REPOSITORY"]+"/actions/runs/"+os.environ["GITHUB_RUN_ID"]
+          q=Path("automation/kaggle/status/pre136_hotpath_review.json")
+          q.parent.mkdir(parents=True,exist_ok=True)
+          q.write_text(json.dumps(d,ensure_ascii=False,indent=2)+"\n")
+          print("PRE136:",d.get("status"),"files",len(d.get("target_sources",[])))
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add automation/kaggle/status/pre136_hotpath_review.json
+          git commit -m 'Record PRE136 private V30 performance hot path audit [skip ci]'
+          git fetch --no-tags --depth=50 origin main
+          git rebase origin/main
+          for retry in 1 2 3 4 5; do
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$((retry * 3))"
+            git fetch --no-tags --depth=50 origin main
+            git rebase origin/main
+          done
+          exit 1
+      - name: Require successful source inspection
+        if: always()
+        env:
+          RESULT: ${{ steps.inspect.outcome }}
+        run: test "$RESULT" = success
