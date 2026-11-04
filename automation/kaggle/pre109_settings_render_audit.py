@@ -47,7 +47,7 @@ SEARCH_TERMS = (
 MAX_MEMBER_SIZE = 850_000
 MAX_MATCHED_FILES = 22
 MAX_SELECTED_LINES_PER_FILE = 125
-MAX_TARGET_EXCERPT_LINES = 240
+MAX_TARGET_EXCERPT_LINES = 520
 
 def source_preview(blob: bytes, name: str, maxlines: int):
     lines = blob.decode("utf-8", errors="replace").splitlines()
@@ -147,8 +147,8 @@ def main():
                             raise ValueError("Settings source hash diverges from PRE92")
                         report["settings_source_sha256_valid"] = True
                     hits = sum(blob.count(t.encode("utf-8")) for t in SEARCH_TERMS)
-                    if (name.endswith(TARGET_SUFFIXES)
-                            or hits >= 2 or name == SOURCE_NAME):
+                    is_target = name.endswith(TARGET_SUFFIXES) or name == SOURCE_NAME
+                    if is_target or (hits >= 2 and len(report["sources"]) < MAX_MATCHED_FILES):
                         preview = source_preview(
                             blob, name,
                             MAX_TARGET_EXCERPT_LINES if
@@ -156,9 +156,8 @@ def main():
                             else MAX_SELECTED_LINES_PER_FILE,
                         )
                         preview["term_occurrences"] = hits
-                        report["sources"].append(preview)
-                        if len(report["sources"]) >= MAX_MATCHED_FILES:
-                            break
+                        if is_target or len(report["sources"]) < MAX_MATCHED_FILES:
+                            report["sources"].append(preview)
             if not primary_found or not report["settings_source_sha256_valid"]:
                 raise ValueError("Required original settings source was not read")
 
