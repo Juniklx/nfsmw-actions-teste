@@ -1,0 +1,10 @@
+{
+  "etapa": "PRE125",
+  "source": "PRE99",
+  "targetVersionCode": 27,
+  "mode": "isolated_ephemeral",
+  "no_apk": true,
+  "do_not_modify_kaggle": true,
+  "no_backup_overwrite": true,
+  "signing_material": "ephemeral_only"
+}
