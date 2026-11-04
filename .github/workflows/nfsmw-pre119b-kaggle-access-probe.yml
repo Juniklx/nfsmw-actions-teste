@@ -1,0 +1,108 @@
+name: NFSMW - Diagnosticar acesso notebook Kaggle (somente leitura)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/notebook_probe_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-kaggle-original-probe
+  cancel-in-progress: false
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      KAGGLE_API_TOKEN: ${{ secrets.KAGGLE_API_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Kaggle API and safe read-only notebook pull
+        id: probe
+        continue-on-error: true
+        run: |
+          set -e
+          python -m pip install --disable-pip-version-check kaggle six > /tmp/nfsmw-kaggle-install.log
+          test -n "${KAGGLE_API_TOKEN:-}"
+          mkdir -p /tmp/pre119b-probe
+          set +e
+          kaggle kernels list -m -v --page-size 100 > /tmp/pre119b-mine.csv 2>/tmp/pre119b-list.err
+          LIST_RC=$?
+          kaggle kernels pull juniklx/nfsmw -m -p /tmp/pre119b-probe > /tmp/pre119b-pull.log 2>/tmp/pre119b-pull.err
+          PULL_RC=$?
+          set -e
+          PRE119B_LIST_RC="$LIST_RC" PRE119B_PULL_RC="$PULL_RC" python - <<'PY'
+          import csv,json,os,pathlib
+          dst=pathlib.Path('/tmp/pre119b-probe.json')
+          csv_path=pathlib.Path('/tmp/pre119b-mine.csv')
+          candidates=[]
+          if csv_path.exists() and csv_path.stat().st_size<2_000_000:
+              with csv_path.open(encoding='utf-8',errors='replace',newline='') as f:
+                  for row in csv.DictReader(f):
+                      for key,val in row.items():
+                          if not val: continue
+                          if val.lower().startswith('juniklx/nfsmw') or val.lower().startswith('nfsmw'):
+                              if val not in candidates: candidates.append(val[:160])
+          mfile=pathlib.Path('/tmp/pre119b-probe/kernel-metadata.json')
+          metadata={}
+          nbcount=None
+          if mfile.is_file():
+              metadata=json.loads(mfile.read_text(encoding='utf-8'))
+              path=pathlib.Path('/tmp/pre119b-probe')/str(metadata.get('code_file',''))
+              if path.suffix=='.ipynb' and path.is_file():
+                  notebook=json.loads(path.read_text(encoding='utf-8'))
+                  nbcount=len(notebook.get('cells',[]))
+          result={
+              'etapa':'PRE119B_KAGGLE_ORIGINAL_ACESSO',
+              'target':'juniklx/nfsmw',
+              'list_cli_ok':os.environ['PRE119B_LIST_RC']=='0',
+              'pull_cli_ok':os.environ['PRE119B_PULL_RC']=='0',
+              'candidate_ref_values':candidates[:12],
+              'metadata_id':metadata.get('id'),
+              'kernel_type':metadata.get('kernel_type'),
+              'code_file_extension':pathlib.Path(str(metadata.get('code_file',''))).suffix,
+              'cell_count':nbcount,
+              'no_push':True,'no_run':True,'no_apk':True,'no_credentials_logged':True,
+          }
+          dst.write_text(json.dumps(result,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
+          print('PRE119B read-only:',{k:v for k,v in result.items() if k not in ('candidate_ref_values',)})
+          PY
+      - name: Save sanitized report as private artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pre119b-kaggle-probe-${{ github.run_id }}
+          path: /tmp/pre119b-probe.json
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Publish sanitized report
+        if: always()
+        run: |
+          set -e
+          python - <<'PY'
+          import json,os,pathlib
+          p=pathlib.Path('/tmp/pre119b-probe.json')
+          r=json.loads(p.read_text(encoding='utf-8')) if p.is_file() else {'etapa':'PRE119B_KAGGLE_ORIGINAL_ACESSO','status':'SEM_RELATORIO'}
+          r['github_run_id']=os.environ['GITHUB_RUN_ID']
+          r['run_url']=f"https://github.com/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{os.environ['GITHUB_RUN_ID']}"
+          out=pathlib.Path('automation/kaggle/status/pre119b_kaggle_access_probe.json')
+          out.parent.mkdir(parents=True,exist_ok=True)
+          out.write_text(json.dumps(r,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add automation/kaggle/status/pre119b_kaggle_access_probe.json
+          git commit -m 'Record PRE119B Kaggle notebook read-only discovery [skip ci]'
+          git fetch --no-tags --depth=50 origin main
+          git rebase origin/main
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$((attempt*3))"
+            git fetch --no-tags --depth=50 origin main
+            git rebase origin/main
+          done
+          exit 1
