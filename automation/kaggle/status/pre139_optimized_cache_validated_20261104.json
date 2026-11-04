@@ -1,0 +1,61 @@
+{
+  "stage": "PRE139_GITHUB_ACTIONS_BUILD_DEPENDENCY_CACHE",
+  "date": "2026-11-04",
+  "status": "SAFE_CACHE_IMPLEMENTED_SYNTHETIC_TESTS_PASSED",
+  "source_commit_gates": "PRIOR_V31_RUNTIME_STAYS_UNCHANGED",
+  "target_workflow": ".github/workflows/nfsmw-pre138-signed-v31-log-diagnostic.yml",
+  "target_build_script": "automation/kaggle/pre138_build_signed_v31_log_pal_usa.py",
+  "changes": [
+    "persist downloaded Gradle dependencies modules-2 and Gradle wrapper only",
+    "use separate GRADLE_USER_HOME under RUNNER_TEMP",
+    "skip SDK installation if exact required revision already installed",
+    "do not delete other NDKs on hosted runner",
+    "verify cache excludes binaries/game data/keys before post-action save"
+  ],
+  "cached_paths": [
+    "${{ runner.temp }}/nfsmw-gradle-home/caches/modules-2",
+    "${{ runner.temp }}/nfsmw-gradle-home/wrapper"
+  ],
+  "native_compilation_cache_enabled": false,
+  "gradle_build_output_cache_enabled": false,
+  "game_sources_cached": false,
+  "private_signing_files_cached": false,
+  "first_synthetic_run": {
+    "id": 41899119460,
+    "conclusion": "success",
+    "cache_hit": false,
+    "cache_saved": true
+  },
+  "second_synthetic_run": {
+    "id": 41899259138,
+    "conclusion": "success",
+    "cache_hit": true,
+    "cache_restored": true
+  },
+  "production_static_audit": {
+    "id": 41899801928,
+    "conclusion": "success",
+    "status": "PASS"
+  },
+  "initial_static_audit_failure": {
+    "id": 41899684246,
+    "reason": "Checker name-match too strict, corrected in checker, no production build affected"
+  },
+  "current_v31_run": {
+    "id": 41896331611,
+    "started_before_cache_commits": true,
+    "will_not_use_pre139_changes": true,
+    "conclusion_as_of_record": "in_progress"
+  },
+  "not_proven": [
+    "real_gradle_dependency_hit",
+    "real_native_build_speedup",
+    "end_to_end_build_time_savings",
+    "mobile_FPS_gain"
+  ],
+  "main_context_drive_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+  "main_context_sha256": "6855e028d980a4fdc251b4cf161c78fd439c9024059f83058ea8a98f355cf960",
+  "drive_addendum_id": "1jr7KNCVM2v_D8RxYXavU3kKY2dcuNTNv",
+  "drive_backup_before_edit_id": "1C7g5_iwbLDOANjS7iUuwV4xw4HLQrblY",
+  "next_step": "Adapt cache step to next version workflow and measure first miss / second hit on real build; native ccache off until safe policy and source segmentation"
+}
