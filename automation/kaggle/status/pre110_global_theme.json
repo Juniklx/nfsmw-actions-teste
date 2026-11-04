@@ -1,0 +1,1409 @@
+{
+  "etapa": "PRE110_GLOBAL_SETTINGS_THEME_COVERAGE",
+  "github_run_id": "41808392487",
+  "status": "COBERTURA_DE_CORES_ANALISADA",
+  "phase": "COMPLETE",
+  "backup_sha256_verified": true,
+  "source_hashes_verified": true,
+  "workspace_restored": false,
+  "source_modified": false,
+  "apk_compiled": false,
+  "signing_key_accessed": false,
+  "audit": {
+    "global_imgui_colors_parsed": 39,
+    "settings_local_push_names": {
+      "WindowBg": [
+        255
+      ],
+      "Border": [
+        258,
+        311
+      ],
+      "ChildBg": [
+        291,
+        346
+      ],
+      "FrameBg": [
+        293
+      ],
+      "FrameBgHovered": [
+        295
+      ],
+      "Button": [
+        297
+      ],
+      "ButtonHovered": [
+        299
+      ],
+      "ButtonActive": [
+        301
+      ],
+      "Header": [
+        303
+      ],
+      "HeaderHovered": [
+        305
+      ],
+      "HeaderActive": [
+        307
+      ],
+      "CheckMark": [
+        309
+      ],
+      "PopupBg": [
+        316
+      ],
+      "Separator": [
+        319
+      ],
+      "ScrollbarGrab": [
+        322
+      ],
+      "ScrollbarGrabHovered": [
+        325
+      ],
+      "ScrollbarGrabActive": [
+        328
+      ],
+      "Text": [
+        331,
+        735
+      ],
+      "TextDisabled": [
+        334
+      ],
+      "TitleBg": [
+        337
+      ],
+      "TitleBgActive": [
+        340
+      ]
+    },
+    "global_green_tinted_colors": {
+      "Border": {
+        "rgba": [
+          0.0,
+          0.35,
+          0.0,
+          1.0
+        ],
+        "line": 67,
+        "settings_local_override_declared": true,
+        "override_lines": [
+          258,
+          311
+        ],
+        "might_be_inherited_by_settings": false
+      },
+      "TitleBg": {
+        "rgba": [
+          0.0,
+          0.4,
+          0.0,
+          1.0
+        ],
+        "line": 72,
+        "settings_local_override_declared": true,
+        "override_lines": [
+          337
+        ],
+        "might_be_inherited_by_settings": false
+      },
+      "TitleBgCollapsed": {
+        "rgba": [
+          0.0,
+          0.33,
+          0.0,
+          1.0
+        ],
+        "line": 73,
+        "settings_local_override_declared": false,
+        "override_lines": [],
+        "might_be_inherited_by_settings": true
+      },
+      "TitleBgActive": {
+        "rgba": [
+          0.16,
+          0.65,
+          0.0,
+          1.0
+        ],
+        "line": 74,
+        "settings_local_override_declared": true,
+        "override_lines": [
+          340
+        ],
+        "might_be_inherited_by_settings": false
+      },
+      "MenuBarBg": {
+        "rgba": [
+          0.0,
+          0.35,
+          0.0,
+          1.0
+        ],
+        "line": 75,
+        "settings_local_override_declared": false,
+        "override_lines": [],
+        "might_be_inherited_by_settings": true
+      },
+      "ScrollbarBg": {
+        "rgba": [
+          0.0,
+          0.4,
+          0.11,
+          0.59
+        ],
+        "line": 76,
+        "settings_local_override_declared": false,
+        "override_lines": [],
+        "might_be_inherited_by_settings": true
+      },
+      "ScrollbarGrab": {
+        "rgba": [
+          0.0,
+          0.68,
+          0.0,
+          0.68
+        ],
+        "line": 77,
+        "settings_local_override_declared": true,
+        "override_lines": [
+          322
+        ],
+        "might_be_inherited_by_settings": false
+      },
+      "ScrollbarGrabHovered": {
+        "rgba": [
+          0.0,
+          1.0,
+          0.15,
+          0.62
+        ],
+        "line": 78,
+        "settings_local_override_declared": true,
+        "override_lines": [
+          325
+        ],
+        "might_be_inherited_by_settings": false
+      },
+      "ScrollbarGrabActive": {
+        "rgba": [
+          0.0,
+          0.91,
+          0.09,
+          0.4
+        ],
+        "line": 79,
+        "settings_local_override_declared": true,
+        "override_lines": [
+          328
+        ],
+        "might_be_inherited_by_settings": false
+      },
+      "SliderGrabActive": {
+        "rgba": [
+          0.34,
+          0.75,
+          0.11,
+          1.0
+        ],
+        "line": 83,
+        "settings_local_override_declared": false,
+        "override_lines": [],
+        "might_be_inherited_by_settings": true
+      },
+      "Button": {
+        "rgba": [
+          0.15,
+          0.56,
+          0.11,
+          0.6
+        ],
+        "line": 84,
+        "settings_local_override_declared": true,
+        "override_lines": [
+          297
+        ],
+        "might_be_inherited_by_settings": false
+      },
+      "ButtonHovered": {
+        "rgba": [
+          0.19,
+          0.72,
+          0.09,
+          1.0
+        ],
+        "line": 85,
+        "settings_local_override_declared": true,
+        "override_lines": [
+          299
+        ],
+        "might_be_inherited_by_settings": false
+      },
+      "ButtonActive": {
+        "rgba": [
+          0.19,
+          0.6,
+          0.09,
+          1.0
+        ],
+        "line": 86,
+        "settings_local_override_declared": true,
+        "override_lines": [
+          301
+        ],
+        "might_be_inherited_by_settings": false
+      },
+      "Header": {
+        "rgba": [
+          0.0,
+          0.4,
+          0.0,
+          0.71
+        ],
+        "line": 87,
+        "settings_local_override_declared": true,
+        "override_lines": [
+          303
+        ],
+        "might_be_inherited_by_settings": false
+      },
+      "HeaderHovered": {
+        "rgba": [
+          0.0,
+          0.6,
+          0.26,
+          0.8
+        ],
+        "line": 88,
+        "settings_local_override_declared": true,
+        "override_lines": [
+          305
+        ],
+        "might_be_inherited_by_settings": false
+      },
+      "HeaderActive": {
+        "rgba": [
+          0.0,
+          0.75,
+          0.0,
+          0.8
+        ],
+        "line": 89,
+        "settings_local_override_declared": true,
+        "override_lines": [
+          307
+        ],
+        "might_be_inherited_by_settings": false
+      },
+      "Separator": {
+        "rgba": [
+          0.0,
+          0.35,
+          0.0,
+          1.0
+        ],
+        "line": 90,
+        "settings_local_override_declared": true,
+        "override_lines": [
+          319
+        ],
+        "might_be_inherited_by_settings": false
+      },
+      "SeparatorHovered": {
+        "rgba": [
+          0.36,
+          0.89,
+          0.38,
+          1.0
+        ],
+        "line": 91,
+        "settings_local_override_declared": false,
+        "override_lines": [],
+        "might_be_inherited_by_settings": true
+      },
+      "SeparatorActive": {
+        "rgba": [
+          0.13,
+          0.5,
+          0.11,
+          1.0
+        ],
+        "line": 92,
+        "settings_local_override_declared": false,
+        "override_lines": [],
+        "might_be_inherited_by_settings": true
+      },
+      "TextSelectedBg": {
+        "rgba": [
+          0.0,
+          1.0,
+          0.0,
+          0.21
+        ],
+        "line": 105,
+        "settings_local_override_declared": false,
+        "override_lines": [],
+        "might_be_inherited_by_settings": true
+      }
+    },
+    "green_colors_with_no_settings_local_push": [
+      "MenuBarBg",
+      "ScrollbarBg",
+      "SeparatorActive",
+      "SeparatorHovered",
+      "SliderGrabActive",
+      "TextSelectedBg",
+      "TitleBgCollapsed"
+    ],
+    "settings_lifecycle_palette": {
+      "warning": {
+        "rgba": [
+          1.0,
+          0.8,
+          0.2,
+          1.0
+        ],
+        "line": 69
+      },
+      "lifecycle_live": {
+        "rgba": [
+          0.4,
+          1.0,
+          0.4,
+          1.0
+        ],
+        "line": 71
+      },
+      "lifecycle_restart": {
+        "rgba": [
+          1.0,
+          1.0,
+          0.4,
+          1.0
+        ],
+        "line": 72
+      },
+      "lifecycle_init_only": {
+        "rgba": [
+          1.0,
+          0.4,
+          0.4,
+          1.0
+        ],
+        "line": 73
+      },
+      "lifecycle_unknown": {
+        "rgba": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "line": 74
+      }
+    },
+    "global_style_function_excerpt": {
+      "source": "workspace/nativo/sdk/src/ui/imgui_drawer.cpp",
+      "excerpt_start": 35,
+      "excerpt_end": 135,
+      "lines": [
+        {
+          "line": 35,
+          "text": "// Exported using binary_to_compressed_c.cpp"
+        },
+        {
+          "line": 36,
+          "text": "const char kProggyTinyCompressedDataBase85[10950 + 1] ="
+        },
+        {
+          "line": 37,
+          "text": "    R\"(7])#######LJg=:'/###[),##/l:$#Q6>##5[n42<Vh8H4,>>#/e>11NNV=Bv(*:.F?uu#(gRU.o0XGH`$vhLG1hxt9?W`#,5LsCm<]vf.r$<$u7k;hb';9C'mm?]XmKVeU2cD4Eo3R/[WB]b(MC;$jPfY.;h^`ItLw6Lh2TlS+f-s$o6Q<BaRTQrU.xfLq$N;$0iR/G0VCf_cW2p/W*q?-qmnUCLYgR`*1mTi+7.nT@C=GH?a9wps_2IH,.TQg1)Q-GL(lf(T(ofL:%SS%MS=C#jfQ$X7V$t'X#(v#Y9w0#2D$CI]V3N0PRAV3#&5>#X14"
+        },
+        {
+          "line": 38,
+          "text": ""
+        },
+        {
+          "line": 39,
+          "text": "static_assert(sizeof(ImmediateVertex) == sizeof(ImDrawVert), \"Vertex types must match\");"
+        },
+        {
+          "line": 40,
+          "text": ""
+        },
+        {
+          "line": 41,
+          "text": "namespace {"
+        },
+        {
+          "line": 42,
+          "text": ""
+        },
+        {
+          "line": 43,
+          "text": "// Scale of the menus. On the Switch the window is 1280x720 in handheld mode and 1920x1080 docked (and with"
+        },
+        {
+          "line": 44,
+          "text": "// Reverse-NX's Fake Docked), with the medium DPI in both cases: at 1080p the menus had the same pixels and took"
+        },
+        {
+          "line": 45,
+          "text": "// up a third less of the screen. Here they are always drawn on a logical canvas of 720 lines, which the immediate"
+        },
+        {
+          "line": 46,
+          "text": "// drawer stretches to the window (the coordinate space of ImmediateDrawer::Begin, scissors included): they take up"
+        },
+        {
+          "line": 47,
+          "text": "// the same part of the screen in both modes. The window DPI is left alone because the application uses it too"
+        },
+        {
+          "line": 48,
+          "text": "// (rex_app.cpp: OnWindowResized and OnDpiScaleChanged)."
+        },
+        {
+          "line": 49,
+          "text": "float FisicoALogico(const Window* window) {"
+        },
+        {
+          "line": 50,
+          "text": "#if REX_PLATFORM_SWITCH"
+        },
+        {
+          "line": 51,
+          "text": "  const uint32_t alto = window->GetActualPhysicalHeight();"
+        },
+        {
+          "line": 52,
+          "text": "  if (alto) {"
+        },
+        {
+          "line": 53,
+          "text": "    return 720.0f / float(alto);"
+        },
+        {
+          "line": 54,
+          "text": "  }"
+        },
+        {
+          "line": 55,
+          "text": "#endif"
+        },
+        {
+          "line": 56,
+          "text": "  return float(window->GetMediumDpi()) / float(window->GetDpi());"
+        },
+        {
+          "line": 57,
+          "text": "}"
+        },
+        {
+          "line": 58,
+          "text": ""
+        },
+        {
+          "line": 59,
+          "text": "void ApplyDefaultStyle(ImGuiStyle& style) {"
+        },
+        {
+          "line": 60,
+          "text": "  style.ScrollbarRounding = 0;"
+        },
+        {
+          "line": 61,
+          "text": "  style.WindowRounding = 0;"
+        },
+        {
+          "line": 62,
+          "text": "  style.TabRounding = 0;"
+        },
+        {
+          "line": 63,
+          "text": "  style.Colors[ImGuiCol_Text] = ImVec4(0.89f, 0.90f, 0.90f, 1.00f);"
+        },
+        {
+          "line": 64,
+          "text": "  style.Colors[ImGuiCol_TextDisabled] = ImVec4(0.60f, 0.60f, 0.60f, 1.00f);"
+        },
+        {
+          "line": 65,
+          "text": "  style.Colors[ImGuiCol_WindowBg] = ImVec4(0.00f, 0.06f, 0.00f, 1.00f);"
+        },
+        {
+          "line": 66,
+          "text": "  style.Colors[ImGuiCol_ChildBg] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);"
+        },
+        {
+          "line": 67,
+          "text": "  style.Colors[ImGuiCol_Border] = ImVec4(0.00f, 0.35f, 0.00f, 1.00f);"
+        },
+        {
+          "line": 68,
+          "text": "  style.Colors[ImGuiCol_BorderShadow] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);"
+        },
+        {
+          "line": 69,
+          "text": "  style.Colors[ImGuiCol_FrameBg] = ImVec4(0.80f, 0.80f, 0.80f, 0.30f);"
+        },
+        {
+          "line": 70,
+          "text": "  style.Colors[ImGuiCol_FrameBgHovered] = ImVec4(0.90f, 0.80f, 0.80f, 0.40f);"
+        },
+        {
+          "line": 71,
+          "text": "  style.Colors[ImGuiCol_FrameBgActive] = ImVec4(0.90f, 0.65f, 0.65f, 0.45f);"
+        },
+        {
+          "line": 72,
+          "text": "  style.Colors[ImGuiCol_TitleBg] = ImVec4(0.00f, 0.40f, 0.00f, 1.00f);"
+        },
+        {
+          "line": 73,
+          "text": "  style.Colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.00f, 0.33f, 0.00f, 1.00f);"
+        },
+        {
+          "line": 74,
+          "text": "  style.Colors[ImGuiCol_TitleBgActive] = ImVec4(0.16f, 0.65f, 0.00f, 1.00f);"
+        },
+        {
+          "line": 75,
+          "text": "  style.Colors[ImGuiCol_MenuBarBg] = ImVec4(0.00f, 0.35f, 0.00f, 1.00f);"
+        },
+        {
+          "line": 76,
+          "text": "  style.Colors[ImGuiCol_ScrollbarBg] = ImVec4(0.00f, 0.40f, 0.11f, 0.59f);"
+        },
+        {
+          "line": 77,
+          "text": "  style.Colors[ImGuiCol_ScrollbarGrab] = ImVec4(0.00f, 0.68f, 0.00f, 0.68f);"
+        },
+        {
+          "line": 78,
+          "text": "  style.Colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4(0.00f, 1.00f, 0.15f, 0.62f);"
+        },
+        {
+          "line": 79,
+          "text": "  style.Colors[ImGuiCol_ScrollbarGrabActive] = ImVec4(0.00f, 0.91f, 0.09f, 0.40f);"
+        },
+        {
+          "line": 80,
+          "text": "  style.Colors[ImGuiCol_PopupBg] = ImVec4(0.20f, 0.20f, 0.20f, 0.99f);"
+        },
+        {
+          "line": 81,
+          "text": "  style.Colors[ImGuiCol_CheckMark] = ImVec4(0.74f, 0.90f, 0.72f, 0.50f);"
+        },
+        {
+          "line": 82,
+          "text": "  style.Colors[ImGuiCol_SliderGrab] = ImVec4(1.00f, 1.00f, 1.00f, 0.30f);"
+        },
+        {
+          "line": 83,
+          "text": "  style.Colors[ImGuiCol_SliderGrabActive] = ImVec4(0.34f, 0.75f, 0.11f, 1.00f);"
+        },
+        {
+          "line": 84,
+          "text": "  style.Colors[ImGuiCol_Button] = ImVec4(0.15f, 0.56f, 0.11f, 0.60f);"
+        },
+        {
+          "line": 85,
+          "text": "  style.Colors[ImGuiCol_ButtonHovered] = ImVec4(0.19f, 0.72f, 0.09f, 1.00f);"
+        },
+        {
+          "line": 86,
+          "text": "  style.Colors[ImGuiCol_ButtonActive] = ImVec4(0.19f, 0.60f, 0.09f, 1.00f);"
+        },
+        {
+          "line": 87,
+          "text": "  style.Colors[ImGuiCol_Header] = ImVec4(0.00f, 0.40f, 0.00f, 0.71f);"
+        },
+        {
+          "line": 88,
+          "text": "  style.Colors[ImGuiCol_HeaderHovered] = ImVec4(0.00f, 0.60f, 0.26f, 0.80f);"
+        },
+        {
+          "line": 89,
+          "text": "  style.Colors[ImGuiCol_HeaderActive] = ImVec4(0.00f, 0.75f, 0.00f, 0.80f);"
+        },
+        {
+          "line": 90,
+          "text": "  style.Colors[ImGuiCol_Separator] = ImVec4(0.00f, 0.35f, 0.00f, 1.00f);"
+        },
+        {
+          "line": 91,
+          "text": "  style.Colors[ImGuiCol_SeparatorHovered] = ImVec4(0.36f, 0.89f, 0.38f, 1.00f);"
+        },
+        {
+          "line": 92,
+          "text": "  style.Colors[ImGuiCol_SeparatorActive] = ImVec4(0.13f, 0.50f, 0.11f, 1.00f);"
+        },
+        {
+          "line": 93,
+          "text": "  style.Colors[ImGuiCol_ResizeGrip] = ImVec4(1.00f, 1.00f, 1.00f, 0.30f);"
+        },
+        {
+          "line": 94,
+          "text": "  style.Colors[ImGuiCol_ResizeGripHovered] = ImVec4(1.00f, 1.00f, 1.00f, 0.60f);"
+        },
+        {
+          "line": 95,
+          "text": "  style.Colors[ImGuiCol_ResizeGripActive] = ImVec4(1.00f, 1.00f, 1.00f, 0.90f);"
+        },
+        {
+          "line": 96,
+          "text": "  style.Colors[ImGuiCol_Tab] = style.Colors[ImGuiCol_Button];"
+        },
+        {
+          "line": 97,
+          "text": "  style.Colors[ImGuiCol_TabHovered] = style.Colors[ImGuiCol_ButtonHovered];"
+        },
+        {
+          "line": 98,
+          "text": "  style.Colors[ImGuiCol_TabActive] = style.Colors[ImGuiCol_ButtonActive];"
+        },
+        {
+          "line": 99,
+          "text": "  style.Colors[ImGuiCol_TabUnfocused] = style.Colors[ImGuiCol_FrameBg];"
+        },
+        {
+          "line": 100,
+          "text": "  style.Colors[ImGuiCol_TabUnfocusedActive] = style.Colors[ImGuiCol_FrameBgHovered];"
+        },
+        {
+          "line": 101,
+          "text": "  style.Colors[ImGuiCol_PlotLines] = ImVec4(1.00f, 1.00f, 1.00f, 1.00f);"
+        },
+        {
+          "line": 102,
+          "text": "  style.Colors[ImGuiCol_PlotLinesHovered] = ImVec4(0.90f, 0.70f, 0.00f, 1.00f);"
+        },
+        {
+          "line": 103,
+          "text": "  style.Colors[ImGuiCol_PlotHistogram] = ImVec4(0.90f, 0.70f, 0.00f, 1.00f);"
+        },
+        {
+          "line": 104,
+          "text": "  style.Colors[ImGuiCol_PlotHistogramHovered] = ImVec4(1.00f, 0.60f, 0.00f, 1.00f);"
+        },
+        {
+          "line": 105,
+          "text": "  style.Colors[ImGuiCol_TextSelectedBg] = ImVec4(0.00f, 1.00f, 0.00f, 0.21f);"
+        },
+        {
+          "line": 106,
+          "text": "  style.Colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.20f, 0.20f, 0.20f, 0.35f);"
+        },
+        {
+          "line": 107,
+          "text": "}"
+        },
+        {
+          "line": 108,
+          "text": ""
+        },
+        {
+          "line": 109,
+          "text": "}  // namespace"
+        },
+        {
+          "line": 110,
+          "text": ""
+        },
+        {
+          "line": 111,
+          "text": "ImGuiDrawer::ImGuiDrawer(rex::ui::Window* window, size_t z_order, FontSetupCallback font_setup,"
+        },
+        {
+          "line": 112,
+          "text": "                         StyleSetupCallback style_setup)"
+        },
+        {
+          "line": 113,
+          "text": "    : window_(window),"
+        },
+        {
+          "line": 114,
+          "text": "      z_order_(z_order),"
+        },
+        {
+          "line": 115,
+          "text": "      font_setup_(std::move(font_setup)),"
+        },
+        {
+          "line": 116,
+          "text": "      style_setup_(std::move(style_setup)) {"
+        },
+        {
+          "line": 117,
+          "text": "  Initialize();"
+        },
+        {
+          "line": 118,
+          "text": "}"
+        },
+        {
+          "line": 119,
+          "text": ""
+        },
+        {
+          "line": 120,
+          "text": "ImGuiDrawer::~ImGuiDrawer() {"
+        },
+        {
+          "line": 121,
+          "text": "  SetPresenter(nullptr);"
+        },
+        {
+          "line": 122,
+          "text": "  SetWindowTextInputActive(false);"
+        },
+        {
+          "line": 123,
+          "text": "  if (!dialogs_.empty()) {"
+        },
+        {
+          "line": 124,
+          "text": "    window_->RemoveInputListener(this);"
+        },
+        {
+          "line": 125,
+          "text": "    if (internal_state_) {"
+        },
+        {
+          "line": 126,
+          "text": "      ImGui::SetCurrentContext(internal_state_);"
+        },
+        {
+          "line": 127,
+          "text": "      if (touch_pointer_id_ == TouchEvent::kPointerIDNone && ImGui::IsAnyMouseDown()) {"
+        },
+        {
+          "line": 128,
+          "text": "        window_->ReleaseMouse();"
+        },
+        {
+          "line": 129,
+          "text": "      }"
+        },
+        {
+          "line": 130,
+          "text": "    }"
+        },
+        {
+          "line": 131,
+          "text": "  }"
+        },
+        {
+          "line": 132,
+          "text": "  if (internal_state_) {"
+        },
+        {
+          "line": 133,
+          "text": "    ImGui::DestroyContext(internal_state_);"
+        },
+        {
+          "line": 134,
+          "text": "    internal_state_ = nullptr;"
+        },
+        {
+          "line": 135,
+          "text": "  }"
+        }
+      ]
+    },
+    "settings_window_and_header_excerpt": {
+      "source": "workspace/nativo/sdk/src/ui/overlay/settings_overlay.cpp",
+      "excerpt_start": 245,
+      "excerpt_end": 365,
+      "lines": [
+        {
+          "line": 245,
+          "text": "      std::max(1.0f, std::min("
+        },
+        {
+          "line": 246,
+          "text": "          mobile_layout ? 900.0f : 480.0f,"
+        },
+        {
+          "line": 247,
+          "text": "          display_size.y - 2.0f * margin)));"
+        },
+        {
+          "line": 248,
+          "text": "  ImGui::SetNextWindowPos(ImVec2(display_size.x * 0.5f, display_size.y * 0.5f),"
+        },
+        {
+          "line": 249,
+          "text": "                          ImGuiCond_Always, ImVec2(0.5f, 0.5f));"
+        },
+        {
+          "line": 250,
+          "text": "  ImGui::SetNextWindowSize(settings_size, ImGuiCond_Always);"
+        },
+        {
+          "line": 251,
+          "text": "  ImGui::SetNextWindowBgAlpha(mobile_layout ? 0.98f : 0.85f);"
+        },
+        {
+          "line": 252,
+          "text": "  // NFSMW PRE92: full yellow settings window."
+        },
+        {
+          "line": 253,
+          "text": "  // A cor e os cantos da janela devem ser definidos antes de Begin()."
+        },
+        {
+          "line": 254,
+          "text": "  if (mobile_layout) {"
+        },
+        {
+          "line": 255,
+          "text": "    ImGui::PushStyleColor("
+        },
+        {
+          "line": 256,
+          "text": "        ImGuiCol_WindowBg,"
+        },
+        {
+          "line": 257,
+          "text": "        ImVec4(0.055f, 0.065f, 0.075f, 0.99f));"
+        },
+        {
+          "line": 258,
+          "text": "    ImGui::PushStyleColor("
+        },
+        {
+          "line": 259,
+          "text": "        ImGuiCol_Border,"
+        },
+        {
+          "line": 260,
+          "text": "        ImVec4(0.40f, 0.34f, 0.12f, 1.0f));"
+        },
+        {
+          "line": 261,
+          "text": "    ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 16.0f);"
+        },
+        {
+          "line": 262,
+          "text": "  }"
+        },
+        {
+          "line": 263,
+          "text": ""
+        },
+        {
+          "line": 264,
+          "text": "  const bool settings_visible = ImGui::Begin("
+        },
+        {
+          "line": 265,
+          "text": "      \"Settings##rex\", nullptr,"
+        },
+        {
+          "line": 266,
+          "text": "      ImGuiWindowFlags_NoCollapse |"
+        },
+        {
+          "line": 267,
+          "text": "      ImGuiWindowFlags_NoMove |"
+        },
+        {
+          "line": 268,
+          "text": "      ImGuiWindowFlags_NoResize);"
+        },
+        {
+          "line": 269,
+          "text": ""
+        },
+        {
+          "line": 270,
+          "text": "  if (mobile_layout) {"
+        },
+        {
+          "line": 271,
+          "text": "    ImGui::PopStyleVar();"
+        },
+        {
+          "line": 272,
+          "text": "    ImGui::PopStyleColor(2);"
+        },
+        {
+          "line": 273,
+          "text": "  }"
+        },
+        {
+          "line": 274,
+          "text": ""
+        },
+        {
+          "line": 275,
+          "text": "  if (!settings_visible) {"
+        },
+        {
+          "line": 276,
+          "text": "    ImGui::End();"
+        },
+        {
+          "line": 277,
+          "text": "    return;"
+        },
+        {
+          "line": 278,
+          "text": "  }"
+        },
+        {
+          "line": 279,
+          "text": ""
+        },
+        {
+          "line": 280,
+          "text": "  // NFSMW PRE86: most wanted yellow mobile theme"
+        },
+        {
+          "line": 281,
+          "text": "  // NFSMW PRE61: estilo visual local do Settings."
+        },
+        {
+          "line": 282,
+          "text": "  ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, mobile_layout ? 14.0f : 8.0f);"
+        },
+        {
+          "line": 283,
+          "text": "  ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, mobile_layout ? 10.0f : 6.0f);"
+        },
+        {
+          "line": 284,
+          "text": "  ImGui::PushStyleVar("
+        },
+        {
+          "line": 285,
+          "text": "      ImGuiStyleVar_ItemSpacing,"
+        },
+        {
+          "line": 286,
+          "text": "      mobile_layout ? ImVec2(12.0f, 12.0f) : ImVec2(9.0f, 8.0f));"
+        },
+        {
+          "line": 287,
+          "text": "  ImGui::PushStyleVar("
+        },
+        {
+          "line": 288,
+          "text": "      ImGuiStyleVar_FramePadding,"
+        },
+        {
+          "line": 289,
+          "text": "      mobile_layout ? ImVec2(14.0f, 12.0f) : ImVec2(9.0f, 7.0f));"
+        },
+        {
+          "line": 290,
+          "text": ""
+        },
+        {
+          "line": 291,
+          "text": "  ImGui::PushStyleColor(ImGuiCol_ChildBg,"
+        },
+        {
+          "line": 292,
+          "text": "      mobile_layout ? ImVec4(0.105f, 0.115f, 0.125f, 0.980f) : ImVec4(0.065f, 0.075f, 0.095f, 0.94f));"
+        },
+        {
+          "line": 293,
+          "text": "  ImGui::PushStyleColor(ImGuiCol_FrameBg,"
+        },
+        {
+          "line": 294,
+          "text": "      mobile_layout ? ImVec4(0.165f, 0.175f, 0.185f, 1.000f) : ImVec4(0.12f, 0.14f, 0.17f, 1.0f));"
+        },
+        {
+          "line": 295,
+          "text": "  ImGui::PushStyleColor(ImGuiCol_FrameBgHovered,"
+        },
+        {
+          "line": 296,
+          "text": "      mobile_layout ? ImVec4(0.235f, 0.235f, 0.210f, 1.000f) : ImVec4(0.17f, 0.19f, 0.22f, 1.0f));"
+        },
+        {
+          "line": 297,
+          "text": "  ImGui::PushStyleColor(ImGuiCol_Button,"
+        },
+        {
+          "line": 298,
+          "text": "      mobile_layout ? ImVec4(0.940f, 0.730f, 0.030f, 1.000f) : ImVec4(0.22f, 0.23f, 0.25f, 1.0f));"
+        },
+        {
+          "line": 299,
+          "text": "  ImGui::PushStyleColor(ImGuiCol_ButtonHovered,"
+        },
+        {
+          "line": 300,
+          "text": "      mobile_layout ? ImVec4(1.000f, 0.840f, 0.100f, 1.000f) : ImVec4(0.35f, 0.30f, 0.14f, 1.0f));"
+        },
+        {
+          "line": 301,
+          "text": "  ImGui::PushStyleColor(ImGuiCol_ButtonActive,"
+        },
+        {
+          "line": 302,
+          "text": "      mobile_layout ? ImVec4(0.790f, 0.590f, 0.020f, 1.000f) : ImVec4(0.52f, 0.42f, 0.10f, 1.0f));"
+        },
+        {
+          "line": 303,
+          "text": "  ImGui::PushStyleColor(ImGuiCol_Header,"
+        },
+        {
+          "line": 304,
+          "text": "      mobile_layout ? ImVec4(0.580f, 0.430f, 0.020f, 0.850f) : ImVec4(0.40f, 0.33f, 0.10f, 0.75f));"
+        },
+        {
+          "line": 305,
+          "text": "  ImGui::PushStyleColor(ImGuiCol_HeaderHovered,"
+        },
+        {
+          "line": 306,
+          "text": "      mobile_layout ? ImVec4(0.780f, 0.600f, 0.030f, 0.950f) : ImVec4(0.48f, 0.39f, 0.12f, 0.85f));"
+        },
+        {
+          "line": 307,
+          "text": "  ImGui::PushStyleColor(ImGuiCol_HeaderActive,"
+        },
+        {
+          "line": 308,
+          "text": "      mobile_layout ? ImVec4(0.950f, 0.750f, 0.050f, 1.000f) : ImVec4(0.55f, 0.44f, 0.10f, 1.0f));"
+        },
+        {
+          "line": 309,
+          "text": "  ImGui::PushStyleColor(ImGuiCol_CheckMark,"
+        },
+        {
+          "line": 310,
+          "text": "      mobile_layout ? ImVec4(1.000f, 0.820f, 0.080f, 1.000f) : ImVec4(1.0f, 0.79f, 0.16f, 1.0f));"
+        },
+        {
+          "line": 311,
+          "text": "  ImGui::PushStyleColor(ImGuiCol_Border,"
+        },
+        {
+          "line": 312,
+          "text": "      mobile_layout ? ImVec4(0.290f, 0.290f, 0.255f, 0.900f) : ImVec4(0.27f, 0.28f, 0.31f, 0.85f));"
+        },
+        {
+          "line": 313,
+          "text": ""
+        },
+        {
+          "line": 314,
+          "text": "  // Cores adicionais: painéis, listas, textos e barras."
+        },
+        {
+          "line": 315,
+          "text": "  if (mobile_layout) {"
+        },
+        {
+          "line": 316,
+          "text": "    ImGui::PushStyleColor("
+        },
+        {
+          "line": 317,
+          "text": "        ImGuiCol_PopupBg,"
+        },
+        {
+          "line": 318,
+          "text": "        ImVec4(0.11f, 0.12f, 0.13f, 1.0f));"
+        },
+        {
+          "line": 319,
+          "text": "    ImGui::PushStyleColor("
+        },
+        {
+          "line": 320,
+          "text": "        ImGuiCol_Separator,"
+        },
+        {
+          "line": 321,
+          "text": "        ImVec4(0.34f, 0.32f, 0.22f, 0.85f));"
+        },
+        {
+          "line": 322,
+          "text": "    ImGui::PushStyleColor("
+        },
+        {
+          "line": 323,
+          "text": "        ImGuiCol_ScrollbarGrab,"
+        },
+        {
+          "line": 324,
+          "text": "        ImVec4(0.55f, 0.46f, 0.12f, 1.0f));"
+        },
+        {
+          "line": 325,
+          "text": "    ImGui::PushStyleColor("
+        },
+        {
+          "line": 326,
+          "text": "        ImGuiCol_ScrollbarGrabHovered,"
+        },
+        {
+          "line": 327,
+          "text": "        ImVec4(0.85f, 0.69f, 0.07f, 1.0f));"
+        },
+        {
+          "line": 328,
+          "text": "    ImGui::PushStyleColor("
+        },
+        {
+          "line": 329,
+          "text": "        ImGuiCol_ScrollbarGrabActive,"
+        },
+        {
+          "line": 330,
+          "text": "        ImVec4(1.0f, 0.82f, 0.05f, 1.0f));"
+        },
+        {
+          "line": 331,
+          "text": "    ImGui::PushStyleColor("
+        },
+        {
+          "line": 332,
+          "text": "        ImGuiCol_Text,"
+        },
+        {
+          "line": 333,
+          "text": "        ImVec4(0.95f, 0.95f, 0.93f, 1.0f));"
+        },
+        {
+          "line": 334,
+          "text": "    ImGui::PushStyleColor("
+        },
+        {
+          "line": 335,
+          "text": "        ImGuiCol_TextDisabled,"
+        },
+        {
+          "line": 336,
+          "text": "        ImVec4(0.67f, 0.68f, 0.65f, 1.0f));"
+        },
+        {
+          "line": 337,
+          "text": "    ImGui::PushStyleColor("
+        },
+        {
+          "line": 338,
+          "text": "        ImGuiCol_TitleBg,"
+        },
+        {
+          "line": 339,
+          "text": "        ImVec4(0.08f, 0.09f, 0.10f, 1.0f));"
+        },
+        {
+          "line": 340,
+          "text": "    ImGui::PushStyleColor("
+        },
+        {
+          "line": 341,
+          "text": "        ImGuiCol_TitleBgActive,"
+        },
+        {
+          "line": 342,
+          "text": "        ImVec4(0.14f, 0.14f, 0.12f, 1.0f));"
+        },
+        {
+          "line": 343,
+          "text": "  }"
+        },
+        {
+          "line": 344,
+          "text": ""
+        },
+        {
+          "line": 345,
+          "text": "  if (mobile_layout) {"
+        },
+        {
+          "line": 346,
+          "text": "    ImGui::PushStyleColor("
+        },
+        {
+          "line": 347,
+          "text": "        ImGuiCol_ChildBg,"
+        },
+        {
+          "line": 348,
+          "text": "        ImVec4(0.14f, 0.15f, 0.15f, 1.0f));"
+        },
+        {
+          "line": 349,
+          "text": ""
+        },
+        {
+          "line": 350,
+          "text": "    ImGui::BeginChild("
+        },
+        {
+          "line": 351,
+          "text": "        \"##mw_header\", ImVec2(0.0f, 70.0f),"
+        },
+        {
+          "line": 352,
+          "text": "        true, ImGuiWindowFlags_NoScrollbar);"
+        },
+        {
+          "line": 353,
+          "text": ""
+        },
+        {
+          "line": 354,
+          "text": "    ImGui::TextColored("
+        },
+        {
+          "line": 355,
+          "text": "        ImVec4(1.0f, 0.82f, 0.05f, 1.0f),"
+        },
+        {
+          "line": 356,
+          "text": "        \"NEED FOR SPEED / MOST WANTED\");"
+        },
+        {
+          "line": 357,
+          "text": "    ImGui::TextDisabled(\"SETTINGS  /  ANDROID\");"
+        },
+        {
+          "line": 358,
+          "text": ""
+        },
+        {
+          "line": 359,
+          "text": "    ImGui::EndChild();"
+        },
+        {
+          "line": 360,
+          "text": "    ImGui::PopStyleColor();"
+        },
+        {
+          "line": 361,
+          "text": "  } else {"
+        },
+        {
+          "line": 362,
+          "text": "    ImGui::TextColored("
+        },
+        {
+          "line": 363,
+          "text": "        ImVec4(1.0f, 0.79f, 0.16f, 1.0f), \"NFSMW\");"
+        },
+        {
+          "line": 364,
+          "text": "    ImGui::SameLine();"
+        },
+        {
+          "line": 365,
+          "text": "    ImGui::TextDisabled(\" / SETTINGS\");"
+        }
+      ]
+    },
+    "lifecycle_definition_excerpt": {
+      "source": "workspace/nativo/sdk/include/rex/ui/style.h",
+      "excerpt_start": 65,
+      "excerpt_end": 84,
+      "lines": [
+        {
+          "line": 65,
+          "text": "  ImVec4 muted_text{1.00f, 1.00f, 1.00f, 0.50f};"
+        },
+        {
+          "line": 66,
+          "text": "};"
+        },
+        {
+          "line": 67,
+          "text": ""
+        },
+        {
+          "line": 68,
+          "text": "struct SettingsStyle {"
+        },
+        {
+          "line": 69,
+          "text": "  ImVec4 warning{1.00f, 0.80f, 0.20f, 1.00f};"
+        },
+        {
+          "line": 70,
+          "text": "  /// Cvar lifecycle badges: [live], [restart], [init-only]."
+        },
+        {
+          "line": 71,
+          "text": "  ImVec4 lifecycle_live{0.40f, 1.00f, 0.40f, 1.00f};"
+        },
+        {
+          "line": 72,
+          "text": "  ImVec4 lifecycle_restart{1.00f, 1.00f, 0.40f, 1.00f};"
+        },
+        {
+          "line": 73,
+          "text": "  ImVec4 lifecycle_init_only{1.00f, 0.40f, 0.40f, 1.00f};"
+        },
+        {
+          "line": 74,
+          "text": "  ImVec4 lifecycle_unknown{1.00f, 1.00f, 1.00f, 1.00f};"
+        },
+        {
+          "line": 75,
+          "text": "};"
+        },
+        {
+          "line": 76,
+          "text": ""
+        },
+        {
+          "line": 77,
+          "text": "struct Style {"
+        },
+        {
+          "line": 78,
+          "text": "  AchievementsStyle achievements;"
+        },
+        {
+          "line": 79,
+          "text": "  ToastStyle toast;"
+        },
+        {
+          "line": 80,
+          "text": "  ConsoleStyle console;"
+        },
+        {
+          "line": 81,
+          "text": "  DebugOverlayStyle debug;"
+        },
+        {
+          "line": 82,
+          "text": "  SettingsStyle settings;"
+        },
+        {
+          "line": 83,
+          "text": "};"
+        },
+        {
+          "line": 84,
+          "text": ""
+        }
+      ]
+    },
+    "notes": [
+      "Static analysis; does not prove these UI colors were visible on the device.",
+      "A local push appearing in source may apply only to part of the render flow.",
+      "Do not modify global palette without analyzing other overlays.",
+      "This report never applies a patch or compiles an APK."
+    ]
+  },
+  "timestamp_utc": "2026-11-04T09:33:36.219019+00:00",
+  "run_id": "41808392487",
+  "run_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/41808392487",
+  "workflow_setup_outcome": "success",
+  "workflow_inspection_outcome": "success",
+  "recorded_utc": "2026-11-04T09:33:36.303665+00:00"
+}
