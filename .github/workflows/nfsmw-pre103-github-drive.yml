@@ -1,0 +1,89 @@
+name: NFSMW - PRE103 GitHub Drive (somente leitura)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/github_drive_requests/*.json'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nfsmw-github-drive-probe
+  cancel-in-progress: false
+
+jobs:
+  pre103-drive-metadata:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validar script e instalar bibliotecas Google
+        id: setup
+        run: |
+          python -m py_compile automation/kaggle/probe_drive_from_github.py
+          python -m pip install --disable-pip-version-check \
+            google-api-python-client google-auth google-auth-httplib2
+      - name: Conferir PRE99 no Drive sem baixar TAR
+        id: probe
+        continue-on-error: true
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          python automation/kaggle/probe_drive_from_github.py \
+            --run-id "$GITHUB_RUN_ID" \
+            --report /tmp/nfsmw-pre103-probe.json
+      - name: Registrar resultado sanitizado no GitHub
+        if: always()
+        env:
+          PROBE_OUTCOME: ${{ steps.probe.outcome }}
+          SETUP_OUTCOME: ${{ steps.setup.outcome }}
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json, os
+          from datetime import datetime, timezone
+          src = Path('/tmp/nfsmw-pre103-probe.json')
+          probe = json.loads(src.read_text(encoding='utf-8')) if src.is_file() else {}
+          data = {
+              'etapa': 'PRE103_GITHUB_DRIVE_PROBE',
+              'run_id': os.environ['GITHUB_RUN_ID'],
+              'run_url': f"https://github.com/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{os.environ['GITHUB_RUN_ID']}",
+              'timestamp_utc': datetime.now(timezone.utc).isoformat(),
+              'setup_outcome': os.environ['SETUP_OUTCOME'],
+              'probe_outcome': os.environ['PROBE_OUTCOME'],
+              'drive_status': probe.get('status', 'NAO_VALIDADO'),
+              'checks': probe.get('checks', {}),
+              'fase_falha': probe.get('fase_falha'),
+              'erro_tipo': probe.get('erro_tipo'),
+              'secrets_ausentes': probe.get('secrets_ausentes', []),
+              'backup_restaurado': False,
+              'notebook_principal_modificado': False,
+              'compilacao': False,
+              'chave_permanente_acessada': False,
+          }
+          target = Path('automation/kaggle/status/pre103_github_drive.json')
+          target.parent.mkdir(parents=True, exist_ok=True)
+          target.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n',
+                            encoding='utf-8')
+          print('PRE103 relatorio sanitizado preparado')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add automation/kaggle/status/pre103_github_drive.json
+          git commit -m 'Record PRE103 read-only Google Drive probe [skip ci]'
+          git push
+      - name: Exigir validacao dos metadados do backup
+        if: always()
+        env:
+          PROBE_OUTCOME: ${{ steps.probe.outcome }}
+        run: test "$PROBE_OUTCOME" = 'success'
