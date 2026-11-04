@@ -1,0 +1,15 @@
+{
+  "etapa": "PRE126C",
+  "previous_run": "41841914257",
+  "previous_failure_subphase": "APK_SIGNER_CERTIFICATE_FINGERPRINT",
+  "previous_failure_code": "APK permanent signing certificate mismatch",
+  "change": "Independent APK v2 DER certificate extraction, original V26 known-good fixture, apksigner cryptographic verification retained",
+  "source": "PRE99_SHA_VERIFIED",
+  "patch": "PRE117_EXACT",
+  "versionCode": 27,
+  "sign_with_existing_permanent_certificate": true,
+  "do_not_modify_kaggle": true,
+  "do_not_modify_v26": true,
+  "do_not_modify_original_keystore": true,
+  "drive_upload_only_after_all_gates": true
+}
