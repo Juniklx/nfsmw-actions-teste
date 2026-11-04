@@ -1,0 +1,7 @@
+{
+  "stage": "PRE140",
+  "objective": "Audit explicit GitHub Actions cache restore/save gates and permanent-signing invariants",
+  "reason": "PRE139 synthetic cache-hit proved; prevent post-job auto-saving dependencies if safety scan fails",
+  "does_not_build_apk": true,
+  "does_not_read_keys": true
+}
