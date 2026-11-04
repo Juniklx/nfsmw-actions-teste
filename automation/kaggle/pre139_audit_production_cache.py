@@ -63,8 +63,10 @@ def main():
     need("steps.release.outcome == 'success'"==steps[guard_index].get("if"),
          "safety audit execution condition altered")
     need(steps[guard_index].get("id")=="deps_policy","policy gate must be referenced by save")
-    save=[x for x in steps if x.get("uses")=="actions/cache/save@v4"]
-    need(len(save)==1,"explicit cache save action missing or duplicated")
+    all_saves=[x for x in steps if x.get("uses")=="actions/cache/save@v4"]
+    save=[x for x in all_saves
+          if x.get("name")=="PRE140 persist audited Gradle dependency cache only after successful gate"]
+    need(len(save)==1,"explicit Gradle cache save action missing or duplicated")
     save_step=save[0]
     save_index=steps.index(save_step)
     need(save_index>guard_index,"cache save must happen only after policy passes")
@@ -78,6 +80,45 @@ def main():
                  "steps.gradle_deps_cache.outputs.cache-hit != 'true' }}")
     need(save_step.get("if")==expected_if,
          "explicit cache save is not strictly conditional on the safety gate")
+
+    # PRE142: a second, explicitly guarded compiler cache is permitted ONLY
+    # for the redistributable SDK. It must never be mistaken for Gradle cache.
+    sdk_restore=[x for x in steps if x.get("id")=="sdk_ccache"]
+    sdk_saves=[x for x in all_saves if x is not save_step]
+    need(len(sdk_restore)==len(sdk_saves)==1,
+         "exactly one separate SDK cache restore/save required")
+    sr=sdk_restore[0]
+    ss=sdk_saves[0]
+    need(sr.get("uses")=="actions/cache/restore@v4",
+         "SDK cache must be restore-only before safety audit")
+    sdk_path="${{ runner.temp }}/nfsmw-ccache-sdk-only"
+    need(sr.get("with",{}).get("path")==sdk_path and
+         ss.get("with",{}).get("path")==sdk_path,
+         "SDK cache must have its own isolated dedicated path")
+    need(sr.get("with",{}).get("key")==
+         "nfsmw-pre99-sdkonly-ndk28-clang-ccache4-v1-${{ runner.os }}",
+         "SDK ccache cache key changed")
+    need(ss.get("with",{}).get("key")==
+         "${{ steps.sdk_ccache.outputs.cache-primary-key }}",
+         "SDK ccache save key not derived from restore")
+    expected_sdk_save_if=(
+         "${{ success() && steps.release.outcome == 'success' && "
+         "steps.sdk_ccache_policy.outcome == 'success' && "
+         "steps.sdk_ccache.outputs.cache-hit != 'true' }}")
+    need(ss.get("if")==expected_sdk_save_if,
+         "SDK ccache save condition does not require passed safety gate")
+    restored_check=[x for x in steps
+                    if x.get("name")=="PRE140 inspect restored SDK compiler cache before build"]
+    sealed_check=[x for x in steps if x.get("id")=="sdk_ccache_policy"]
+    need(len(restored_check)==len(sealed_check)==1,
+         "SDK ccache restore scan or post-build scan missing")
+    need("pre140_guard_sdk_only_ccache.py" in restored_check[0].get("run","") and
+         "pre140_guard_sdk_only_ccache.py" in sealed_check[0].get("run",""),
+         "SDK ccache both preflight and postflight guards required")
+    need(steps.index(sr)<steps.index(restored_check[0])<release_index<
+         steps.index(sealed_check[0])<steps.index(ss),
+         "SDK ccache guard/save ordering unsafe")
+    need(len(all_saves)==2,"unapproved cache save action present")
 
     need("pre139_verify_dependency_cache.py" in wftext,"safety script not referenced")
     need("MISSING=()" in wftext and 'rm -rf "$p"' not in wftext,
@@ -106,6 +147,8 @@ def main():
         "restored_cache_checked_before_build":True,
         "automatic_cache_post_save_disabled":True,
         "explicit_save_requires_verified_success":True,
+        "sdk_compiler_cache_separate_and_safely_guarded":True,
+        "unapproved_cache_saves":0,
         "gh_actions_synthetic_cache_reuse_passed_in_runs":[41899119460,41899259138],
     }
     print(json.dumps(output,indent=2))
