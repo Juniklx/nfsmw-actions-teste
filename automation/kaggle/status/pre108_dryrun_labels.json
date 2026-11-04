@@ -1,0 +1,27 @@
+{
+  "etapa": "PRE108_DRYRUN_PALETA_ANDROID",
+  "run_id": "41806637951",
+  "status": "DRYRUN_GERADO_SEM_APLICAR",
+  "phase": "COMPLETE",
+  "changes_applied_to_project": false,
+  "changes_applied_to_backup": false,
+  "apk_compiled": false,
+  "new_release": false,
+  "permanent_key_accessed": false,
+  "touches_desktop_logic": false,
+  "source_sha256_before": "5509b4ad8de3f78522e0d5718ab853fbaff79ea4ff9184173a969b63eb3ab034",
+  "source_sha256_proposed_after": "4ce019f42b76c91bd547222baf541d80e99eac0f32f8d74250c2ad3b42094c1a",
+  "unified_diff": "--- settings_overlay.cpp (PRE92 source verified)\n+++ settings_overlay.cpp (PRE108 proposal NOT APPLIED)\n@@ -173,8 +173,21 @@\n       return VK::kNone;\n   }\n }\n \n+// NFSMW PRE108 (proposta, somente dry-run): cores Android sem verde.\n+static ImVec4 MobileLifecycleColor(rex::cvar::Lifecycle lc) {\n+  switch (lc) {\n+    case rex::cvar::Lifecycle::kHotReload:\n+      return ImVec4(0.93f, 0.93f, 0.87f, 1.0f);  // live: branco suave\n+    case rex::cvar::Lifecycle::kRequiresRestart:\n+      return ImVec4(1.00f, 0.82f, 0.08f, 1.0f);  // restart: ouro\n+    case rex::cvar::Lifecycle::kInitOnly:\n+      return ImVec4(1.00f, 0.56f, 0.38f, 1.0f);  // init: coral\n+  }\n+  return ImVec4(0.93f, 0.93f, 0.87f, 1.0f);\n+}\n+\n void SettingsDialog::OnDraw(ImGuiIO& /*io*/) {\n   auto& registry = rex::cvar::GetRegistry();\n   // nfsmw: hidden cvars are not listed, and a category with nothing visible does not show either.\n   std::set<std::string> ocultos;\n@@ -624,11 +637,12 @@\n       continue;\n     } else {\n       // Non-keybind CVARs: colored label on left, value widget on right\n       ImGui::TextColored(\n-          LifecycleColor(\n-              entry.lifecycle,\n-              imgui_drawer()->style().settings),\n+          mobile_layout\n+              ? MobileLifecycleColor(entry.lifecycle)\n+              : LifecycleColor(entry.lifecycle,\n+                               imgui_drawer()->style().settings),\n           \"%s\",\n           entry.name.c_str());\n       if (ImGui::IsItemHovered()) {\n         const char* lifecycle_label = \"\";\n",
+  "patch_line_count": 40,
+  "android_palette": {
+    "live": "off-white (0.93, 0.93, 0.87)",
+    "restart": "Most Wanted gold (1.00, 0.82, 0.08)",
+    "init_only": "warm coral (1.00, 0.56, 0.38)"
+  },
+  "notes": "Only CVAR label colors are proposed, not the missing header, window borders or a general UI redesign. Not C++ compiled.",
+  "timestamp_utc": "2026-11-04T09:21:11.465494+00:00",
+  "run_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/41806637951",
+  "setup_outcome": "success",
+  "inspection_outcome": "success",
+  "recorded_utc": "2026-11-04T09:21:11.547236+00:00"
+}
