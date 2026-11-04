@@ -1,0 +1,8 @@
+{
+  "etapa": "PRE122",
+  "verificar": "pre117_single_scroll_android_verified.patch",
+  "auditoria": "somente leitura",
+  "executar_kaggle": false,
+  "compilar_apk": false,
+  "aplicar_patch": false
+}
