@@ -1,0 +1,10 @@
+{
+  "etapa": "PRE105B_SOURCE_REVIEW_DETALHADA",
+  "objetivo": "inspecionar ordem do estilo ImGui e fluxo da janela Settings em settings_overlay.cpp e rex_app.cpp",
+  "origem": "PRE99 verificado por SHA256",
+  "somente_leitura": true,
+  "restaura": false,
+  "patch": false,
+  "compila": false,
+  "assina": false
+}
