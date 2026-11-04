@@ -1,0 +1,17 @@
+{
+  "stage": "PRE136",
+  "purpose": "Read-only exact code review for V30 performance and stability next experiment",
+  "pre135_run": "41885829381",
+  "source": "PRE99 SHA verified",
+  "targets": [
+    "SDL event loop and experimental 1ms wake delay",
+    "input poll/queue callback and UI wake producer",
+    "Vulkan presenter and RefreshGuestOutput"
+  ],
+  "no_patch": true,
+  "no_build": true,
+  "no_signing_keys": true,
+  "no_drive_file_mutation": true,
+  "do_not_reduce_graphics": true,
+  "wait_for_v30_real_world_telemetry_before_perf_claim": true
+}
