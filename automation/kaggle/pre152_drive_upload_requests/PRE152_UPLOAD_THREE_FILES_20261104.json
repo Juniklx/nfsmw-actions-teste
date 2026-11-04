@@ -1,0 +1,8 @@
+{
+  "stage": "PRE152_DRIVE_UPLOAD",
+  "target_folder": "03_Scripts_e_Patches",
+  "expected_files": 3,
+  "verify_sha256": true,
+  "overwrite": false,
+  "date": "2026-11-04"
+}
