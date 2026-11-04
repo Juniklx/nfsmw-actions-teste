@@ -1,0 +1,6 @@
+{
+  "stage": "PRE139",
+  "test": "production static cache policy",
+  "no_apk_build": true,
+  "no_key_access": true
+}
