@@ -1,0 +1,1064 @@
+{
+  "etapa": "PRE116_MOBILE_NESTED_SCROLL_ROOT_CAUSE",
+  "run_id": "41825528723",
+  "status": "PRE116_NESTED_SCROLL_ESTATICO_CONFIRMADO",
+  "phase": "COMPLETE",
+  "pre99_archive_sha256_verified": true,
+  "pre92_source_sha256_verified": true,
+  "workspace_modified": false,
+  "drive_modified": false,
+  "apk_compiled": false,
+  "signing_key_accessed": false,
+  "findings": {
+    "anchor_lines": {
+      "root_begin": {
+        "line": 264
+      },
+      "root_flags": {
+        "line": 268
+      },
+      "mobile_branch": {
+        "line": 235
+      },
+      "category_mobile": {
+        "line": 379
+      },
+      "desktop_cats": {
+        "line": 422
+      },
+      "list_begin": {
+        "line": 503
+      },
+      "save_button": {
+        "line": 742
+      },
+      "list_end_marker": {
+        "line": 729
+      },
+      "root_end": {
+        "line": 761
+      }
+    },
+    "root_window_has_explicit_NoScrollbar": false,
+    "root_window_has_explicit_NoScrollWithMouse": false,
+    "mobile_also_enters_cvars_begin_child": true,
+    "cvars_child_negative_height_pixels_logical": -30,
+    "android_save_button_logical_height": 52,
+    "negative_30_reserve_smaller_than_save_button": true,
+    "other_layout_overhead_measured": false,
+    "nested_scroll_observed_by_user": true,
+    "root_window_excerpt": [
+      {
+        "line": 225,
+        "text": ""
+      },
+      {
+        "line": 226,
+        "text": "  const std::string search(search_buf_);"
+      },
+      {
+        "line": 227,
+        "text": "  const bool searching = !search.empty();"
+      },
+      {
+        "line": 228,
+        "text": ""
+      },
+      {
+        "line": 229,
+        "text": "  const ImVec2 display_size = ImGui::GetIO().DisplaySize;"
+      },
+      {
+        "line": 230,
+        "text": "  if (display_size.x <= 0.0f || display_size.y <= 0.0f) {"
+      },
+      {
+        "line": 231,
+        "text": "    return;"
+      },
+      {
+        "line": 232,
+        "text": "  }"
+      },
+      {
+        "line": 233,
+        "text": "  // NFSMW PRE80: Android touch settings layout."
+      },
+      {
+        "line": 234,
+        "text": "#if defined(__ANDROID__)"
+      },
+      {
+        "line": 235,
+        "text": "  const bool mobile_layout = true;"
+      },
+      {
+        "line": 236,
+        "text": "#else"
+      },
+      {
+        "line": 237,
+        "text": "  const bool mobile_layout = false;"
+      },
+      {
+        "line": 238,
+        "text": "#endif"
+      },
+      {
+        "line": 239,
+        "text": ""
+      },
+      {
+        "line": 240,
+        "text": "  const float margin = mobile_layout ? 16.0f : 12.0f;"
+      },
+      {
+        "line": 241,
+        "text": "  const ImVec2 settings_size("
+      },
+      {
+        "line": 242,
+        "text": "      std::max(1.0f, std::min("
+      },
+      {
+        "line": 243,
+        "text": "          mobile_layout ? 1400.0f : 620.0f,"
+      },
+      {
+        "line": 244,
+        "text": "          display_size.x - 2.0f * margin)),"
+      },
+      {
+        "line": 245,
+        "text": "      std::max(1.0f, std::min("
+      },
+      {
+        "line": 246,
+        "text": "          mobile_layout ? 900.0f : 480.0f,"
+      },
+      {
+        "line": 247,
+        "text": "          display_size.y - 2.0f * margin)));"
+      },
+      {
+        "line": 248,
+        "text": "  ImGui::SetNextWindowPos(ImVec2(display_size.x * 0.5f, display_size.y * 0.5f),"
+      },
+      {
+        "line": 249,
+        "text": "                          ImGuiCond_Always, ImVec2(0.5f, 0.5f));"
+      },
+      {
+        "line": 250,
+        "text": "  ImGui::SetNextWindowSize(settings_size, ImGuiCond_Always);"
+      },
+      {
+        "line": 251,
+        "text": "  ImGui::SetNextWindowBgAlpha(mobile_layout ? 0.98f : 0.85f);"
+      },
+      {
+        "line": 252,
+        "text": "  // NFSMW PRE92: full yellow settings window."
+      },
+      {
+        "line": 253,
+        "text": "  // A cor e os cantos da janela devem ser definidos antes de Begin()."
+      },
+      {
+        "line": 254,
+        "text": "  if (mobile_layout) {"
+      },
+      {
+        "line": 255,
+        "text": "    ImGui::PushStyleColor("
+      },
+      {
+        "line": 256,
+        "text": "        ImGuiCol_WindowBg,"
+      },
+      {
+        "line": 257,
+        "text": "        ImVec4(0.055f, 0.065f, 0.075f, 0.99f));"
+      },
+      {
+        "line": 258,
+        "text": "    ImGui::PushStyleColor("
+      },
+      {
+        "line": 259,
+        "text": "        ImGuiCol_Border,"
+      },
+      {
+        "line": 260,
+        "text": "        ImVec4(0.40f, 0.34f, 0.12f, 1.0f));"
+      },
+      {
+        "line": 261,
+        "text": "    ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 16.0f);"
+      },
+      {
+        "line": 262,
+        "text": "  }"
+      },
+      {
+        "line": 263,
+        "text": ""
+      },
+      {
+        "line": 264,
+        "text": "  const bool settings_visible = ImGui::Begin("
+      },
+      {
+        "line": 265,
+        "text": "      \"Settings##rex\", nullptr,"
+      },
+      {
+        "line": 266,
+        "text": "      ImGuiWindowFlags_NoCollapse |"
+      },
+      {
+        "line": 267,
+        "text": "      ImGuiWindowFlags_NoMove |"
+      },
+      {
+        "line": 268,
+        "text": "      ImGuiWindowFlags_NoResize);"
+      },
+      {
+        "line": 269,
+        "text": ""
+      },
+      {
+        "line": 270,
+        "text": "  if (mobile_layout) {"
+      },
+      {
+        "line": 271,
+        "text": "    ImGui::PopStyleVar();"
+      },
+      {
+        "line": 272,
+        "text": "    ImGui::PopStyleColor(2);"
+      },
+      {
+        "line": 273,
+        "text": "  }"
+      },
+      {
+        "line": 274,
+        "text": ""
+      },
+      {
+        "line": 275,
+        "text": "  if (!settings_visible) {"
+      },
+      {
+        "line": 276,
+        "text": "    ImGui::End();"
+      },
+      {
+        "line": 277,
+        "text": "    return;"
+      },
+      {
+        "line": 278,
+        "text": "  }"
+      },
+      {
+        "line": 279,
+        "text": ""
+      },
+      {
+        "line": 280,
+        "text": "  // NFSMW PRE86: most wanted yellow mobile theme"
+      }
+    ],
+    "category_and_child_excerpt": [
+      {
+        "line": 375,
+        "text": ""
+      },
+      {
+        "line": 376,
+        "text": "  ImGui::Separator();"
+      },
+      {
+        "line": 377,
+        "text": ""
+      },
+      {
+        "line": 378,
+        "text": "  if (mobile_layout) {"
+      },
+      {
+        "line": 379,
+        "text": "    ImGui::TextDisabled(\"CATEGORY\");"
+      },
+      {
+        "line": 380,
+        "text": ""
+      },
+      {
+        "line": 381,
+        "text": "    std::string selected_label ="
+      },
+      {
+        "line": 382,
+        "text": "        selected_category_.empty()"
+      },
+      {
+        "line": 383,
+        "text": "            ? std::string(\"All settings\")"
+      },
+      {
+        "line": 384,
+        "text": "            : selected_category_;"
+      },
+      {
+        "line": 385,
+        "text": ""
+      },
+      {
+        "line": 386,
+        "text": "    ImGui::SetNextItemWidth(-1.0f);"
+      },
+      {
+        "line": 387,
+        "text": ""
+      },
+      {
+        "line": 388,
+        "text": "    if (ImGui::BeginCombo("
+      },
+      {
+        "line": 389,
+        "text": "            \"##nfsmw_mobile_category\","
+      },
+      {
+        "line": 390,
+        "text": "            selected_label.c_str())) {"
+      },
+      {
+        "line": 391,
+        "text": ""
+      },
+      {
+        "line": 392,
+        "text": "      const bool all_selected = selected_category_.empty();"
+      },
+      {
+        "line": 393,
+        "text": ""
+      },
+      {
+        "line": 394,
+        "text": "      if (ImGui::Selectable(\"All settings\", all_selected)) {"
+      },
+      {
+        "line": 395,
+        "text": "        selected_category_.clear();"
+      },
+      {
+        "line": 396,
+        "text": "      }"
+      },
+      {
+        "line": 397,
+        "text": ""
+      },
+      {
+        "line": 398,
+        "text": "      if (all_selected) {"
+      },
+      {
+        "line": 399,
+        "text": "        ImGui::SetItemDefaultFocus();"
+      },
+      {
+        "line": 400,
+        "text": "      }"
+      },
+      {
+        "line": 401,
+        "text": ""
+      },
+      {
+        "line": 402,
+        "text": "      for (const auto& category : category_set) {"
+      },
+      {
+        "line": 403,
+        "text": "        const bool selected ="
+      },
+      {
+        "line": 404,
+        "text": "            selected_category_ == category;"
+      },
+      {
+        "line": 405,
+        "text": ""
+      },
+      {
+        "line": 406,
+        "text": "        if (ImGui::Selectable("
+      },
+      {
+        "line": 407,
+        "text": "                category.c_str(), selected)) {"
+      },
+      {
+        "line": 408,
+        "text": "          selected_category_ = category;"
+      },
+      {
+        "line": 409,
+        "text": "        }"
+      },
+      {
+        "line": 410,
+        "text": ""
+      },
+      {
+        "line": 411,
+        "text": "        if (selected) {"
+      },
+      {
+        "line": 412,
+        "text": "          ImGui::SetItemDefaultFocus();"
+      },
+      {
+        "line": 413,
+        "text": "        }"
+      },
+      {
+        "line": 414,
+        "text": "      }"
+      },
+      {
+        "line": 415,
+        "text": ""
+      },
+      {
+        "line": 416,
+        "text": "      ImGui::EndCombo();"
+      },
+      {
+        "line": 417,
+        "text": "    }"
+      },
+      {
+        "line": 418,
+        "text": ""
+      },
+      {
+        "line": 419,
+        "text": "    ImGui::Separator();"
+      },
+      {
+        "line": 420,
+        "text": "  } else {"
+      },
+      {
+        "line": 421,
+        "text": "  const float panel_width = 160.0f;"
+      },
+      {
+        "line": 422,
+        "text": "  ImGui::BeginChild(\"##cats\", ImVec2(panel_width, -30.0f), true);"
+      },
+      {
+        "line": 423,
+        "text": ""
+      },
+      {
+        "line": 424,
+        "text": "  // Recursive lambda to draw the category tree."
+      },
+      {
+        "line": 425,
+        "text": "  std::function<void(const std::map<std::string, CatNode>&, int)> draw_tree;"
+      },
+      {
+        "line": 426,
+        "text": "  draw_tree = [&](const std::map<std::string, CatNode>& nodes, int depth) {"
+      },
+      {
+        "line": 427,
+        "text": "    for (auto& [key, node] : nodes) {"
+      },
+      {
+        "line": 428,
+        "text": "      if (node.children.empty()) {"
+      },
+      {
+        "line": 429,
+        "text": "        // Leaf node - selectable"
+      },
+      {
+        "line": 430,
+        "text": "        bool selected = (selected_category_ == node.full_path);"
+      },
+      {
+        "line": 431,
+        "text": "        if (depth > 0)"
+      },
+      {
+        "line": 432,
+        "text": "          ImGui::Indent(8.0f);"
+      },
+      {
+        "line": 433,
+        "text": "        if (ImGui::Selectable(node.label.c_str(), selected)) {"
+      },
+      {
+        "line": 434,
+        "text": "          selected_category_ = node.full_path;"
+      },
+      {
+        "line": 435,
+        "text": "        }"
+      },
+      {
+        "line": 436,
+        "text": "        if (depth > 0)"
+      },
+      {
+        "line": 437,
+        "text": "          ImGui::Unindent(8.0f);"
+      },
+      {
+        "line": 438,
+        "text": "      } else {"
+      },
+      {
+        "line": 439,
+        "text": "        // Parent node with children - use tree node"
+      },
+      {
+        "line": 440,
+        "text": "        ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_OpenOnArrow;"
+      },
+      {
+        "line": 441,
+        "text": "        if (node.has_direct_entries) {"
+      },
+      {
+        "line": 442,
+        "text": "          // Can be selected as well as expanded"
+      },
+      {
+        "line": 443,
+        "text": "          if (selected_category_ == node.full_path)"
+      },
+      {
+        "line": 444,
+        "text": "            flags |= ImGuiTreeNodeFlags_Selected;"
+      },
+      {
+        "line": 445,
+        "text": "        }"
+      },
+      {
+        "line": 446,
+        "text": "        bool open = ImGui::TreeNodeEx(node.label.c_str(), flags);"
+      },
+      {
+        "line": 447,
+        "text": "        // IsItemActivated also covers confirming with the controller; IsItemClicked,"
+      },
+      {
+        "line": 448,
+        "text": "        // only the mouse."
+      },
+      {
+        "line": 449,
+        "text": "        if ((ImGui::IsItemClicked() || ImGui::IsItemActivated()) && node.has_direct_entries) {"
+      },
+      {
+        "line": 450,
+        "text": "          selected_category_ = node.full_path;"
+      },
+      {
+        "line": 451,
+        "text": "        }"
+      },
+      {
+        "line": 452,
+        "text": "        if (open) {"
+      },
+      {
+        "line": 453,
+        "text": "          draw_tree(node.children, depth + 1);"
+      },
+      {
+        "line": 454,
+        "text": "          ImGui::TreePop();"
+      },
+      {
+        "line": 455,
+        "text": "        }"
+      },
+      {
+        "line": 456,
+        "text": "      }"
+      },
+      {
+        "line": 457,
+        "text": "    }"
+      },
+      {
+        "line": 458,
+        "text": "  };"
+      },
+      {
+        "line": 459,
+        "text": "  // Root node named after the config file"
+      },
+      {
+        "line": 460,
+        "text": "  std::string root_label = config_path_.stem().string();"
+      },
+      {
+        "line": 461,
+        "text": "  ImGuiTreeNodeFlags root_flags = ImGuiTreeNodeFlags_DefaultOpen;"
+      },
+      {
+        "line": 462,
+        "text": "  if (selected_category_.empty())"
+      },
+      {
+        "line": 463,
+        "text": "    root_flags |= ImGuiTreeNodeFlags_Selected;"
+      },
+      {
+        "line": 464,
+        "text": "  bool root_open = ImGui::TreeNodeEx(root_label.c_str(), root_flags);"
+      },
+      {
+        "line": 465,
+        "text": "  if (ImGui::IsItemClicked() || ImGui::IsItemActivated()) {"
+      },
+      {
+        "line": 466,
+        "text": "    selected_category_.clear();"
+      },
+      {
+        "line": 467,
+        "text": "  }"
+      },
+      {
+        "line": 468,
+        "text": "  if (root_open) {"
+      },
+      {
+        "line": 469,
+        "text": "    draw_tree(tree, 1);"
+      },
+      {
+        "line": 470,
+        "text": "    ImGui::TreePop();"
+      },
+      {
+        "line": 471,
+        "text": "  }"
+      },
+      {
+        "line": 472,
+        "text": ""
+      },
+      {
+        "line": 473,
+        "text": "  ImGui::EndChild();"
+      },
+      {
+        "line": 474,
+        "text": ""
+      },
+      {
+        "line": 475,
+        "text": "  ImGui::SameLine();"
+      },
+      {
+        "line": 476,
+        "text": ""
+      },
+      {
+        "line": 477,
+        "text": "  }"
+      },
+      {
+        "line": 478,
+        "text": ""
+      },
+      {
+        "line": 479,
+        "text": "  // Helper: check if a CVAR's category matches the selected category."
+      },
+      {
+        "line": 480,
+        "text": "  // Exact match or prefix match (e.g. selecting \"Input\" shows all \"Input/*\")."
+      },
+      {
+        "line": 481,
+        "text": "  auto category_matches = [&](const std::string& cat) -> bool {"
+      },
+      {
+        "line": 482,
+        "text": "    if (selected_category_.empty())"
+      },
+      {
+        "line": 483,
+        "text": "      return true;  // Root selected - show all"
+      },
+      {
+        "line": 484,
+        "text": "    if (cat == selected_category_)"
+      },
+      {
+        "line": 485,
+        "text": "      return true;"
+      },
+      {
+        "line": 486,
+        "text": "    if (cat.size() > selected_category_.size() &&"
+      },
+      {
+        "line": 487,
+        "text": "        cat.compare(0, selected_category_.size(), selected_category_) == 0 &&"
+      },
+      {
+        "line": 488,
+        "text": "        cat[selected_category_.size()] == '/') {"
+      },
+      {
+        "line": 489,
+        "text": "      return true;"
+      },
+      {
+        "line": 490,
+        "text": "    }"
+      },
+      {
+        "line": 491,
+        "text": "    return false;"
+      },
+      {
+        "line": 492,
+        "text": "  };"
+      },
+      {
+        "line": 493,
+        "text": ""
+      },
+      {
+        "line": 494,
+        "text": "  // Helper: check if a category is a keybind category."
+      },
+      {
+        "line": 495,
+        "text": "  auto is_keybind_category = [](const std::string& cat) -> bool {"
+      },
+      {
+        "line": 496,
+        "text": "    return cat == \"Input/Keybinds\" ||"
+      },
+      {
+        "line": 497,
+        "text": "           (cat.size() > 15 && cat.compare(0, 15, \"Input/Keybinds/\") == 0);"
+      },
+      {
+        "line": 498,
+        "text": "  };"
+      },
+      {
+        "line": 499,
+        "text": ""
+      },
+      {
+        "line": 500,
+        "text": "  // One value panel per category: when the category changes, the controller"
+      },
+      {
+        "line": 501,
+        "text": "  // enters at its first value and not at a remembered one that is no longer shown."
+      },
+      {
+        "line": 502,
+        "text": "  ImGui::PushID(selected_category_.c_str());"
+      },
+      {
+        "line": 503,
+        "text": "  ImGui::BeginChild(\"##cvars\", ImVec2(0, -30.0f), false);"
+      },
+      {
+        "line": 504,
+        "text": "  for (auto& entry : registry) {"
+      },
+      {
+        "line": 505,
+        "text": "    if (ocultos.count(entry.name)) {"
+      },
+      {
+        "line": 506,
+        "text": "      continue;  // nfsmw: OcultarAjustesEnMenu"
+      },
+      {
+        "line": 507,
+        "text": "    }"
+      },
+      {
+        "line": 508,
+        "text": "    // Filter by category (unless searching)."
+      },
+      {
+        "line": 509,
+        "text": "    if (!searching) {"
+      },
+      {
+        "line": 510,
+        "text": "      if (!category_matches(entry.category)) {"
+      },
+      {
+        "line": 511,
+        "text": "        continue;"
+      },
+      {
+        "line": 512,
+        "text": "      }"
+      },
+      {
+        "line": 513,
+        "text": "    } else {"
+      },
+      {
+        "line": 514,
+        "text": "      // Search matches name or description (case-insensitive substring)."
+      },
+      {
+        "line": 515,
+        "text": "      std::string name_lower = entry.name;"
+      }
+    ],
+    "footer_and_end_excerpt": [
+      {
+        "line": 715,
+        "text": "        }"
+      },
+      {
+        "line": 716,
+        "text": "      }"
+      },
+      {
+        "line": 717,
+        "text": "    }"
+      },
+      {
+        "line": 718,
+        "text": ""
+      },
+      {
+        "line": 719,
+        "text": "    if (read_only)"
+      },
+      {
+        "line": 720,
+        "text": "      ImGui::EndDisabled();"
+      },
+      {
+        "line": 721,
+        "text": ""
+      },
+      {
+        "line": 722,
+        "text": "    ImGui::PopID();"
+      },
+      {
+        "line": 723,
+        "text": ""
+      },
+      {
+        "line": 724,
+        "text": "    if (mobile_layout) {"
+      },
+      {
+        "line": 725,
+        "text": "      ImGui::Spacing();"
+      },
+      {
+        "line": 726,
+        "text": "      ImGui::Separator();"
+      },
+      {
+        "line": 727,
+        "text": "    }"
+      },
+      {
+        "line": 728,
+        "text": "  }"
+      },
+      {
+        "line": 729,
+        "text": "  ImGui::EndChild();"
+      },
+      {
+        "line": 730,
+        "text": "  ImGui::PopID();"
+      },
+      {
+        "line": 731,
+        "text": ""
+      },
+      {
+        "line": 732,
+        "text": "  // Bottom bar: Save button."
+      },
+      {
+        "line": 733,
+        "text": "  ImGui::Separator();"
+      },
+      {
+        "line": 734,
+        "text": "  if (mobile_layout) {"
+      },
+      {
+        "line": 735,
+        "text": "    ImGui::PushStyleColor("
+      },
+      {
+        "line": 736,
+        "text": "        ImGuiCol_Text,"
+      },
+      {
+        "line": 737,
+        "text": "        ImVec4(0.08f, 0.08f, 0.07f, 1.0f));"
+      },
+      {
+        "line": 738,
+        "text": "  }"
+      },
+      {
+        "line": 739,
+        "text": ""
+      },
+      {
+        "line": 740,
+        "text": "  const bool save_clicked = ImGui::Button("
+      },
+      {
+        "line": 741,
+        "text": "      mobile_layout ? \"SAVE SETTINGS\" : \"Save to config\","
+      },
+      {
+        "line": 742,
+        "text": "      mobile_layout ? ImVec2(240.0f, 52.0f) : ImVec2(0, 0));"
+      },
+      {
+        "line": 743,
+        "text": ""
+      },
+      {
+        "line": 744,
+        "text": "  if (mobile_layout) {"
+      },
+      {
+        "line": 745,
+        "text": "    ImGui::PopStyleColor();"
+      },
+      {
+        "line": 746,
+        "text": "  }"
+      },
+      {
+        "line": 747,
+        "text": ""
+      },
+      {
+        "line": 748,
+        "text": "  if (save_clicked) {"
+      },
+      {
+        "line": 749,
+        "text": "    rex::cvar::SaveConfig(config_path_);"
+      },
+      {
+        "line": 750,
+        "text": "  }"
+      },
+      {
+        "line": 751,
+        "text": ""
+      },
+      {
+        "line": 752,
+        "text": "  if (!mobile_layout) {"
+      },
+      {
+        "line": 753,
+        "text": "    ImGui::SameLine();"
+      },
+      {
+        "line": 754,
+        "text": "  }"
+      },
+      {
+        "line": 755,
+        "text": ""
+      },
+      {
+        "line": 756,
+        "text": "  ImGui::TextDisabled("
+      },
+      {
+        "line": 757,
+        "text": "      \"(%s)\","
+      },
+      {
+        "line": 758,
+        "text": "      config_path_.filename().string().c_str());"
+      },
+      {
+        "line": 759,
+        "text": ""
+      },
+      {
+        "line": 760,
+        "text": "  ImGui::PopStyleColor(mobile_layout ? 20 : 11);"
+      },
+      {
+        "line": 761,
+        "text": "  ImGui::PopStyleVar(4);"
+      },
+      {
+        "line": 762,
+        "text": "  ImGui::End();"
+      },
+      {
+        "line": 763,
+        "text": "}"
+      },
+      {
+        "line": 764,
+        "text": ""
+      },
+      {
+        "line": 765,
+        "text": "}  // namespace rex::ui"
+      }
+    ],
+    "interpretation": [
+      "PRE92 root window does not disable its own scrolling.",
+      "PRE92 contains a CVar child with negative trailing reserve of 30 logical ImGui units.",
+      "Android save button is 52 logical units high, with additional footer content.",
+      "This is consistent with user-observed double scrolling in regular phone mode.",
+      "Actual runtime scrolling, geometry and DeX-dependent ImGui display scaling were not measured.",
+      "Suggested safest first change: one scroll owner on Android root and no CVar nested child; desktop preserved."
+    ],
+    "patch_applied": false,
+    "apk_built": false
+  },
+  "timestamp_utc": "2026-11-04T12:01:09.955931+00:00",
+  "run_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/41825528723",
+  "workflow_setup_outcome": "success",
+  "workflow_inspection_outcome": "success",
+  "recorded_utc": "2026-11-04T12:01:11.110403+00:00"
+}
