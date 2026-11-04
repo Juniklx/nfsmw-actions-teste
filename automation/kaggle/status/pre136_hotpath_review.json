@@ -1,0 +1,3171 @@
+{
+  "stage": "PRE136_V30_PRE99_EXACT_SDL_GPU_PATH_REVIEW",
+  "run_id": "41886263819",
+  "status": "PRE136_PRE99_SDL_GPU_SOURCE_REVIEW_COMPLETE",
+  "phase": "COMPLETE",
+  "pre99_verified": true,
+  "source_only": true,
+  "apk_built": false,
+  "source_modified": false,
+  "signing_key_accessed": false,
+  "google_drive_modified": false,
+  "phone_performance_measured": false,
+  "target_sources": [
+    {
+      "path": "workspace/nativo/sdk/src/ui/windowed_app_context_sdl.cpp",
+      "sha256": "f4ae379985adc2343fabde1e2eeebf048997482a8cfe17ef5839e69f8e66ffdc",
+      "line_count": 381,
+      "code_windows": [
+        {
+          "first_line": 75,
+          "last_line": 255,
+          "lines": [
+            {
+              "line": 75,
+              "text": "  }"
+            },
+            {
+              "line": 76,
+              "text": "  wakeup_event_type_ = first;"
+            },
+            {
+              "line": 77,
+              "text": "  paint_event_type_ = first + 1;"
+            },
+            {
+              "line": 78,
+              "text": "  if (!SDL_AddEventWatch(WatchEvent, this)) {"
+            },
+            {
+              "line": 79,
+              "text": "    REXLOG_ERROR(\"SDL_AddEventWatch failed: {}\", SDL_GetError());"
+            },
+            {
+              "line": 80,
+              "text": "    return false;"
+            },
+            {
+              "line": 81,
+              "text": "  }"
+            },
+            {
+              "line": 82,
+              "text": "  event_watch_registered_ = true;"
+            },
+            {
+              "line": 83,
+              "text": "  return true;"
+            },
+            {
+              "line": 84,
+              "text": "}"
+            },
+            {
+              "line": 85,
+              "text": ""
+            },
+            {
+              "line": 86,
+              "text": "void SDLWindowedAppContext::NotifyUILoopOfPendingFunctions() {"
+            },
+            {
+              "line": 87,
+              "text": "  // SDL_PushEvent is thread-safe by SDL contract."
+            },
+            {
+              "line": 88,
+              "text": "  SDL_Event event{};"
+            },
+            {
+              "line": 89,
+              "text": "  event.type = wakeup_event_type_;"
+            },
+            {
+              "line": 90,
+              "text": "#if REX_PLATFORM_ANDROID"
+            },
+            {
+              "line": 91,
+              "text": "  // NFSMW_DIAG39: contagem do resultado REAL de SDL_PushEvent."
+            },
+            {
+              "line": 92,
+              "text": "  auto& diag = rex::ui::diag39::counters;"
+            },
+            {
+              "line": 93,
+              "text": "  diag.push_attempted.fetch_add(1, std::memory_order_relaxed);"
+            },
+            {
+              "line": 94,
+              "text": "  if (rex::ui::diag39::FromInput()) {"
+            },
+            {
+              "line": 95,
+              "text": "    diag.push_from_input.fetch_add(1, std::memory_order_relaxed);"
+            },
+            {
+              "line": 96,
+              "text": "  }"
+            },
+            {
+              "line": 97,
+              "text": "  const bool pushed = SDL_PushEvent(&event);"
+            },
+            {
+              "line": 98,
+              "text": "  (pushed ? diag.push_success : diag.push_failed)"
+            },
+            {
+              "line": 99,
+              "text": "      .fetch_add(1, std::memory_order_relaxed);"
+            },
+            {
+              "line": 100,
+              "text": "#else"
+            },
+            {
+              "line": 101,
+              "text": "  SDL_PushEvent(&event);"
+            },
+            {
+              "line": 102,
+              "text": "#endif"
+            },
+            {
+              "line": 103,
+              "text": "}"
+            },
+            {
+              "line": 104,
+              "text": ""
+            },
+            {
+              "line": 105,
+              "text": "void SDLWindowedAppContext::PlatformQuitFromUIThread() {"
+            },
+            {
+              "line": 106,
+              "text": "  // RunMainMessageLoop re-checks HasQuitFromUIThread after every event; a"
+            },
+            {
+              "line": 107,
+              "text": "  // wakeup guarantees SDL_WaitEvent returns promptly if the queue is empty."
+            },
+            {
+              "line": 108,
+              "text": "#if REX_PLATFORM_ANDROID"
+            },
+            {
+              "line": 109,
+              "text": "  rex::ui::diag39::counters.push_from_shutdown.fetch_add("
+            },
+            {
+              "line": 110,
+              "text": "      1, std::memory_order_relaxed);  // NFSMW_DIAG39"
+            },
+            {
+              "line": 111,
+              "text": "#endif"
+            },
+            {
+              "line": 112,
+              "text": "  NotifyUILoopOfPendingFunctions();"
+            },
+            {
+              "line": 113,
+              "text": "}"
+            },
+            {
+              "line": 114,
+              "text": ""
+            },
+            {
+              "line": 115,
+              "text": "int SDLWindowedAppContext::RunMainMessageLoop() {"
+            },
+            {
+              "line": 116,
+              "text": "#if REX_PLATFORM_ANDROID"
+            },
+            {
+              "line": 117,
+              "text": "  // NFSMW_DIAG36: wall e CPU da propria SDLThread. Somente build diagnostica."
+            },
+            {
+              "line": 118,
+              "text": "  struct Diag36Medida {"
+            },
+            {
+              "line": 119,
+              "text": "    uint64_t eventos = 0, parede_ns = 0, cpu_ns = 0, max_parede_ns = 0;"
+            },
+            {
+              "line": 120,
+              "text": "    void Adicionar(uint64_t parede, uint64_t cpu) {"
+            },
+            {
+              "line": 121,
+              "text": "      ++eventos;"
+            },
+            {
+              "line": 122,
+              "text": "      parede_ns += parede;"
+            },
+            {
+              "line": 123,
+              "text": "      cpu_ns += cpu;"
+            },
+            {
+              "line": 124,
+              "text": "      if (parede > max_parede_ns) max_parede_ns = parede;"
+            },
+            {
+              "line": 125,
+              "text": "    }"
+            },
+            {
+              "line": 126,
+              "text": "  };"
+            },
+            {
+              "line": 127,
+              "text": "  auto Diag36CpuNs = []() -> uint64_t {"
+            },
+            {
+              "line": 128,
+              "text": "    timespec instante{};"
+            },
+            {
+              "line": 129,
+              "text": "    if (clock_gettime(CLOCK_THREAD_CPUTIME_ID, &instante) != 0) return 0;"
+            },
+            {
+              "line": 130,
+              "text": "    return uint64_t(instante.tv_sec) * 1000000000ULL + uint64_t(instante.tv_nsec);"
+            },
+            {
+              "line": 131,
+              "text": "  };"
+            },
+            {
+              "line": 132,
+              "text": "  auto Diag36WallNs = []() -> uint64_t {"
+            },
+            {
+              "line": 133,
+              "text": "    return uint64_t(std::chrono::duration_cast<std::chrono::nanoseconds>("
+            },
+            {
+              "line": 134,
+              "text": "        std::chrono::steady_clock::now().time_since_epoch()).count());"
+            },
+            {
+              "line": 135,
+              "text": "  };"
+            },
+            {
+              "line": 136,
+              "text": "  Diag36Medida espera{}, pintura{}, despertar{}, outros{};"
+            },
+            {
+              "line": 137,
+              "text": "  // NFSMW_DIAG37: contadores isolados; sleep NAO entra em ProcessEvent."
+            },
+            {
+              "line": 138,
+              "text": "  uint64_t diag37_sleeps = 0, diag37_sleep_wall_ns = 0, diag37_sleep_cpu_ns = 0;"
+            },
+            {
+              "line": 139,
+              "text": "  REXLOG_INFO(\"[NFSMW_DIAG37] ativo: atraso experimental de 1 ms APOS eventos wakeup SDL\");"
+            },
+            {
+              "line": 140,
+              "text": "  uint64_t inicio_periodo = Diag36WallNs();"
+            },
+            {
+              "line": 141,
+              "text": "  constexpr uint64_t kPeriodo = 10000000000ULL;  // 10 segundos"
+            },
+            {
+              "line": 142,
+              "text": "#endif"
+            },
+            {
+              "line": 143,
+              "text": "  while (!HasQuitFromUIThread()) {"
+            },
+            {
+              "line": 144,
+              "text": "    SDL_Event event;"
+            },
+            {
+              "line": 145,
+              "text": "#if REX_PLATFORM_ANDROID"
+            },
+            {
+              "line": 146,
+              "text": "    const uint64_t w0 = Diag36WallNs(), c0 = Diag36CpuNs();"
+            },
+            {
+              "line": 147,
+              "text": "#endif"
+            },
+            {
+              "line": 148,
+              "text": "    if (!SDL_WaitEvent(&event)) {"
+            },
+            {
+              "line": 149,
+              "text": "      REXLOG_ERROR(\"SDL_WaitEvent failed: {}\", SDL_GetError());"
+            },
+            {
+              "line": 150,
+              "text": "      return EXIT_FAILURE;"
+            },
+            {
+              "line": 151,
+              "text": "    }"
+            },
+            {
+              "line": 152,
+              "text": "#if REX_PLATFORM_ANDROID"
+            },
+            {
+              "line": 153,
+              "text": "    const uint64_t w1 = Diag36WallNs(), c1 = Diag36CpuNs();"
+            },
+            {
+              "line": 154,
+              "text": "    const bool es_pintura = event.type == paint_event_type_;"
+            },
+            {
+              "line": 155,
+              "text": "    const bool es_despertar = event.type == wakeup_event_type_;"
+            },
+            {
+              "line": 156,
+              "text": "#endif"
+            },
+            {
+              "line": 157,
+              "text": "    ProcessEvent(event);"
+            },
+            {
+              "line": 158,
+              "text": "#if REX_PLATFORM_ANDROID"
+            },
+            {
+              "line": 159,
+              "text": "    const uint64_t w2 = Diag36WallNs(), c2 = Diag36CpuNs();"
+            },
+            {
+              "line": 160,
+              "text": "    espera.Adicionar(w1 >= w0 ? w1 - w0 : 0, c1 >= c0 ? c1 - c0 : 0);"
+            },
+            {
+              "line": 161,
+              "text": "    Diag36Medida& tipo = es_pintura ? pintura : es_despertar ? despertar : outros;"
+            },
+            {
+              "line": 162,
+              "text": "    tipo.Adicionar(w2 >= w1 ? w2 - w1 : 0, c2 >= c1 ? c2 - c1 : 0);"
+            },
+            {
+              "line": 163,
+              "text": "    if (w2 >= inicio_periodo && w2 - inicio_periodo >= kPeriodo) {"
+            },
+            {
+              "line": 164,
+              "text": "      constexpr double kMs = 1.0 / 1000000.0;"
+            },
+            {
+              "line": 165,
+              "text": "      REXLOG_INFO("
+            },
+            {
+              "line": 166,
+              "text": "          \"[NFSMW_DIAG36] SDL10s periodo_ms={:.1f} n={} paint={} wake={} other={} \""
+            },
+            {
+              "line": 167,
+              "text": "          \"wait_wall_ms={:.2f} wait_cpu_ms={:.2f} \""
+            },
+            {
+              "line": 168,
+              "text": "          \"paint_wall_ms={:.2f} paint_cpu_ms={:.2f} paint_max_ms={:.2f} \""
+            },
+            {
+              "line": 169,
+              "text": "          \"wake_wall_ms={:.2f} wake_cpu_ms={:.2f} \""
+            },
+            {
+              "line": 170,
+              "text": "          \"other_wall_ms={:.2f} other_cpu_ms={:.2f}\","
+            },
+            {
+              "line": 171,
+              "text": "          double(w2 - inicio_periodo) * kMs,"
+            },
+            {
+              "line": 172,
+              "text": "          espera.eventos, pintura.eventos, despertar.eventos, outros.eventos,"
+            },
+            {
+              "line": 173,
+              "text": "          double(espera.parede_ns) * kMs, double(espera.cpu_ns) * kMs,"
+            },
+            {
+              "line": 174,
+              "text": "          double(pintura.parede_ns) * kMs, double(pintura.cpu_ns) * kMs,"
+            },
+            {
+              "line": 175,
+              "text": "          double(pintura.max_parede_ns) * kMs,"
+            },
+            {
+              "line": 176,
+              "text": "          double(despertar.parede_ns) * kMs, double(despertar.cpu_ns) * kMs,"
+            },
+            {
+              "line": 177,
+              "text": "          double(outros.parede_ns) * kMs, double(outros.cpu_ns) * kMs);"
+            },
+            {
+              "line": 178,
+              "text": "      // NFSMW_DIAG37: tempo da pausa separado dos tempos SDL10s."
+            },
+            {
+              "line": 179,
+              "text": "      REXLOG_INFO("
+            },
+            {
+              "line": 180,
+              "text": "          \"[NFSMW_DIAG37] SDL10s sleeps={} sleep_wall_ms={:.2f} sleep_cpu_ms={:.2f}\","
+            },
+            {
+              "line": 181,
+              "text": "          diag37_sleeps, double(diag37_sleep_wall_ns) * kMs,"
+            },
+            {
+              "line": 182,
+              "text": "          double(diag37_sleep_cpu_ns) * kMs);"
+            },
+            {
+              "line": 183,
+              "text": "      inicio_periodo = w2;"
+            },
+            {
+              "line": 184,
+              "text": "      espera = {}; pintura = {}; despertar = {}; outros = {};"
+            },
+            {
+              "line": 185,
+              "text": "      diag37_sleeps = 0;"
+            },
+            {
+              "line": 186,
+              "text": "      diag37_sleep_wall_ns = 0;"
+            },
+            {
+              "line": 187,
+              "text": "      diag37_sleep_cpu_ns = 0;"
+            },
+            {
+              "line": 188,
+              "text": "    }"
+            },
+            {
+              "line": 189,
+              "text": "    // Nao descartar wakeup: ProcessEvent ja executou funcoes pendentes."
+            },
+            {
+              "line": 190,
+              "text": "    // Nao adormecer apos um evento de quit nem nos outros tipos (input/pintura)."
+            },
+            {
+              "line": 191,
+              "text": "    if (es_despertar && !HasQuitFromUIThread()) {"
+            },
+            {
+              "line": 192,
+              "text": "      const uint64_t sw0 = Diag36WallNs(), sc0 = Diag36CpuNs();"
+            },
+            {
+              "line": 193,
+              "text": "      SDL_Delay(1);  // NFSMW_DIAG37: hipotese, nao otimizacao comprovada."
+            },
+            {
+              "line": 194,
+              "text": "      const uint64_t sw1 = Diag36WallNs(), sc1 = Diag36CpuNs();"
+            },
+            {
+              "line": 195,
+              "text": "      ++diag37_sleeps;"
+            },
+            {
+              "line": 196,
+              "text": "      diag37_sleep_wall_ns += sw1 >= sw0 ? sw1 - sw0 : 0;"
+            },
+            {
+              "line": 197,
+              "text": "      diag37_sleep_cpu_ns += sc1 >= sc0 ? sc1 - sc0 : 0;"
+            },
+            {
+              "line": 198,
+              "text": "    }"
+            },
+            {
+              "line": 199,
+              "text": "#endif"
+            },
+            {
+              "line": 200,
+              "text": "  }"
+            },
+            {
+              "line": 201,
+              "text": "  return EXIT_SUCCESS;"
+            },
+            {
+              "line": 202,
+              "text": "}"
+            },
+            {
+              "line": 203,
+              "text": ""
+            },
+            {
+              "line": 204,
+              "text": "void SDLWindowedAppContext::ProcessEvent(SDL_Event& event) {"
+            },
+            {
+              "line": 205,
+              "text": "  if (event.type == wakeup_event_type_) {"
+            },
+            {
+              "line": 206,
+              "text": "    ExecutePendingFunctionsFromUIThread();"
+            },
+            {
+              "line": 207,
+              "text": "#if REX_PLATFORM_ANDROID"
+            },
+            {
+              "line": 208,
+              "text": "    // NFSMW_DIAG39: relatorio agregado, maximo ~1x por 10 segundos."
+            },
+            {
+              "line": 209,
+              "text": "    // Threads e janelas DIAG36/38 nao estao perfeitamente sincronizadas."
+            },
+            {
+              "line": 210,
+              "text": "    auto& c = rex::ui::diag39::counters;"
+            },
+            {
+              "line": 211,
+              "text": "    c.wake_processed.fetch_add(1, std::memory_order_relaxed);"
+            },
+            {
+              "line": 212,
+              "text": "    using DClock = std::chrono::steady_clock;"
+            },
+            {
+              "line": 213,
+              "text": "    static auto previous = DClock::now();"
+            },
+            {
+              "line": 214,
+              "text": "    const auto now = DClock::now();"
+            },
+            {
+              "line": 215,
+              "text": "    const auto elapsed_ms ="
+            },
+            {
+              "line": 216,
+              "text": "        std::chrono::duration_cast<std::chrono::milliseconds>(now - previous).count();"
+            },
+            {
+              "line": 217,
+              "text": "    if (elapsed_ms >= 10000) {"
+            },
+            {
+              "line": 218,
+              "text": "      previous = now;"
+            },
+            {
+              "line": 219,
+              "text": "      const auto scopes = rex::ui::diag39::Reset(c.input_scope_calls);"
+            },
+            {
+              "line": 220,
+              "text": "      const auto enqueued = rex::ui::diag39::Reset(c.deferred_enqueued);"
+            },
+            {
+              "line": 221,
+              "text": "      const auto enqueued_input = rex::ui::diag39::Reset(c.deferred_input);"
+            },
+            {
+              "line": 222,
+              "text": "      const auto rejected = rex::ui::diag39::Reset(c.deferred_rejected);"
+            },
+            {
+              "line": 223,
+              "text": "      const auto immediate = rex::ui::diag39::Reset(c.direct_ui);"
+            },
+            {
+              "line": 224,
+              "text": "      const auto immediate_input = rex::ui::diag39::Reset(c.direct_ui_input);"
+            },
+            {
+              "line": 225,
+              "text": "      const auto attempts = rex::ui::diag39::Reset(c.push_attempted);"
+            },
+            {
+              "line": 226,
+              "text": "      const auto from_input = rex::ui::diag39::Reset(c.push_from_input);"
+            },
+            {
+              "line": 227,
+              "text": "      const auto from_shutdown = rex::ui::diag39::Reset(c.push_from_shutdown);"
+            },
+            {
+              "line": 228,
+              "text": "      const auto ok = rex::ui::diag39::Reset(c.push_success);"
+            },
+            {
+              "line": 229,
+              "text": "      const auto fail = rex::ui::diag39::Reset(c.push_failed);"
+            },
+            {
+              "line": 230,
+              "text": "      const auto wake = rex::ui::diag39::Reset(c.wake_processed);"
+            },
+            {
+              "line": 231,
+              "text": "      const auto callbacks = rex::ui::diag39::Reset(c.callback_executed);"
+            },
+            {
+              "line": 232,
+              "text": "      const auto callback_ns = rex::ui::diag39::Reset(c.callback_wall_ns);"
+            },
+            {
+              "line": 233,
+              "text": "      const auto queue_peak = rex::ui::diag39::Reset(c.queue_high_water);"
+            },
+            {
+              "line": 234,
+              "text": "      REXLOG_INFO("
+            },
+            {
+              "line": 235,
+              "text": "          \"[NFSMW_DIAG39] WAKE10s periodo_ms={} scope_input={} \""
+            },
+            {
+              "line": 236,
+              "text": "          \"enqueue={} enqueue_input={} enqueue_rejected={} direct_ui={} \""
+            },
+            {
+              "line": 237,
+              "text": "          \"direct_ui_input={} push_attempts={} push_input={} push_shutdown={} \""
+            },
+            {
+              "line": 238,
+              "text": "          \"push_ok={} push_fail={} wake={}\","
+            },
+            {
+              "line": 239,
+              "text": "          elapsed_ms, scopes, enqueued, enqueued_input, rejected, immediate,"
+            },
+            {
+              "line": 240,
+              "text": "          immediate_input, attempts, from_input, from_shutdown, ok, fail, wake);"
+            },
+            {
+              "line": 241,
+              "text": "      REXLOG_INFO("
+            },
+            {
+              "line": 242,
+              "text": "          \"[NFSMW_DIAG39] QUEUE10s callbacks={} callback_wall_ms={:.3f} \""
+            },
+            {
+              "line": 243,
+              "text": "          \"queue_peak={}\", callbacks, double(callback_ns) / 1.0e6, queue_peak);"
+            },
+            {
+              "line": 244,
+              "text": "    }"
+            },
+            {
+              "line": 245,
+              "text": "#endif"
+            },
+            {
+              "line": 246,
+              "text": "    return;"
+            },
+            {
+              "line": 247,
+              "text": "  }"
+            },
+            {
+              "line": 248,
+              "text": "  if (event.type == paint_event_type_) {"
+            },
+            {
+              "line": 249,
+              "text": "    // Cocoa may enqueue its quit request behind an already queued paint. Once"
+            },
+            {
+              "line": 250,
+              "text": "    // termination has been requested, CAMetalLayer may stop supplying"
+            },
+            {
+              "line": 251,
+              "text": "    // drawables, so entering the paint first can block forever in"
+            },
+            {
+              "line": 252,
+              "text": "    // -[CAMetalLayer nextDrawable] and prevent the quit event from being"
+            },
+            {
+              "line": 253,
+              "text": "    // processed. Give an already queued quit request priority over rendering."
+            },
+            {
+              "line": 254,
+              "text": "    // Pump explicitly because a continuous stream of custom paint events can"
+            },
+            {
+              "line": 255,
+              "text": "    // otherwise keep SDL_WaitEvent from returning to Cocoa to collect the"
+            }
+          ]
+        },
+        {
+          "first_line": 255,
+          "last_line": 335,
+          "lines": [
+            {
+              "line": 255,
+              "text": "    // otherwise keep SDL_WaitEvent from returning to Cocoa to collect the"
+            },
+            {
+              "line": 256,
+              "text": "    // application-menu quit request."
+            },
+            {
+              "line": 257,
+              "text": "    SDL_PumpEvents();"
+            },
+            {
+              "line": 258,
+              "text": "    SDL_Event quit_event{};"
+            },
+            {
+              "line": 259,
+              "text": "    if (SDL_PeepEvents(&quit_event, 1, SDL_GETEVENT, SDL_EVENT_QUIT, SDL_EVENT_QUIT) > 0) {"
+            },
+            {
+              "line": 260,
+              "text": "      ProcessEvent(quit_event);"
+            },
+            {
+              "line": 261,
+              "text": "      if (HasQuitFromUIThread()) {"
+            },
+            {
+              "line": 262,
+              "text": "        return;"
+            },
+            {
+              "line": 263,
+              "text": "      }"
+            },
+            {
+              "line": 264,
+              "text": "    }"
+            },
+            {
+              "line": 265,
+              "text": "    if (WindowSDL* window = GetWindow(event.user.windowID)) {"
+            },
+            {
+              "line": 266,
+              "text": "      window->HandlePaintEvent();"
+            },
+            {
+              "line": 267,
+              "text": "    }"
+            },
+            {
+              "line": 268,
+              "text": "    return;"
+            },
+            {
+              "line": 269,
+              "text": "  }"
+            },
+            {
+              "line": 270,
+              "text": "  if (event.type >= SDL_EVENT_WINDOW_FIRST && event.type <= SDL_EVENT_WINDOW_LAST) {"
+            },
+            {
+              "line": 271,
+              "text": "    if (WindowSDL* window = GetWindow(event.window.windowID)) {"
+            },
+            {
+              "line": 272,
+              "text": "      window->HandleWindowEvent(event);"
+            },
+            {
+              "line": 273,
+              "text": "    }"
+            },
+            {
+              "line": 274,
+              "text": "    return;"
+            },
+            {
+              "line": 275,
+              "text": "  }"
+            },
+            {
+              "line": 276,
+              "text": "  switch (event.type) {"
+            },
+            {
+              "line": 277,
+              "text": "    // PARCHE LOCAL - pausa"
+            },
+            {
+              "line": 278,
+              "text": "    //"
+            },
+            {
+              "line": 279,
+              "text": "    // Estos son eventos de APLICACION, sin ventana asociada, asi que no entran"
+            },
+            {
+              "line": 280,
+              "text": "    // por el reparto de eventos de ventana de mas arriba. En Android marcan el"
+            },
+            {
+              "line": 281,
+              "text": "    // momento en que la superficie se destruye y se vuelve a crear."
+            },
+            {
+              "line": 282,
+              "text": "    //"
+            },
+            {
+              "line": 283,
+              "text": "    // WILL_ y no DID_ al irse: la superficie tiene que soltarse ANTES de que"
+            },
+            {
+              "line": 284,
+              "text": "    // desaparezca. Al volver es al reves, DID_, porque hasta entonces todavia"
+            },
+            {
+              "line": 285,
+              "text": "    // no hay superficie que coger."
+            },
+            {
+              "line": 286,
+              "text": "    case SDL_EVENT_WILL_ENTER_BACKGROUND:"
+            },
+            {
+              "line": 287,
+              "text": "    case SDL_EVENT_DID_ENTER_FOREGROUND: {"
+            },
+            {
+              "line": 288,
+              "text": "      const bool disponible = event.type == SDL_EVENT_DID_ENTER_FOREGROUND;"
+            },
+            {
+              "line": 289,
+              "text": "#if REX_PLATFORM_ANDROID"
+            },
+            {
+              "line": 290,
+              "text": "      if (disponible) break;"
+            },
+            {
+              "line": 291,
+              "text": "#endif"
+            },
+            {
+              "line": 292,
+              "text": "      for (const auto& [id, window] : windows_) {"
+            },
+            {
+              "line": 293,
+              "text": "        if (window) {"
+            },
+            {
+              "line": 294,
+              "text": "          window->HandleSurfaceAvailability(disponible);"
+            },
+            {
+              "line": 295,
+              "text": "        }"
+            },
+            {
+              "line": 296,
+              "text": "      }"
+            },
+            {
+              "line": 297,
+              "text": "      break;"
+            },
+            {
+              "line": 298,
+              "text": "    }"
+            },
+            {
+              "line": 299,
+              "text": "    case SDL_EVENT_QUIT:"
+            },
+            {
+              "line": 300,
+              "text": "      if (synchronously_handled_quit_events_ != 0) {"
+            },
+            {
+              "line": 301,
+              "text": "        --synchronously_handled_quit_events_;"
+            },
+            {
+              "line": 302,
+              "text": "      } else {"
+            },
+            {
+              "line": 303,
+              "text": "        ProcessQuitRequest();"
+            },
+            {
+              "line": 304,
+              "text": "      }"
+            },
+            {
+              "line": 305,
+              "text": "      break;"
+            },
+            {
+              "line": 306,
+              "text": "    case SDL_EVENT_KEY_DOWN:"
+            },
+            {
+              "line": 307,
+              "text": "    case SDL_EVENT_KEY_UP: {"
+            },
+            {
+              "line": 308,
+              "text": "      if (WindowSDL* window = GetWindow(event.key.windowID)) {"
+            },
+            {
+              "line": 309,
+              "text": "        window->HandleKeyEvent(event);"
+            },
+            {
+              "line": 310,
+              "text": "      }"
+            },
+            {
+              "line": 311,
+              "text": "      break;"
+            },
+            {
+              "line": 312,
+              "text": "    }"
+            },
+            {
+              "line": 313,
+              "text": "    case SDL_EVENT_TEXT_INPUT: {"
+            },
+            {
+              "line": 314,
+              "text": "      if (WindowSDL* window = GetWindow(event.text.windowID)) {"
+            },
+            {
+              "line": 315,
+              "text": "        window->HandleTextInputEvent(event);"
+            },
+            {
+              "line": 316,
+              "text": "      }"
+            },
+            {
+              "line": 317,
+              "text": "      break;"
+            },
+            {
+              "line": 318,
+              "text": "    }"
+            },
+            {
+              "line": 319,
+              "text": "    case SDL_EVENT_MOUSE_MOTION: {"
+            },
+            {
+              "line": 320,
+              "text": "      if (WindowSDL* window = GetWindow(event.motion.windowID)) {"
+            },
+            {
+              "line": 321,
+              "text": "        window->HandleMouseEvent(event);"
+            },
+            {
+              "line": 322,
+              "text": "      }"
+            },
+            {
+              "line": 323,
+              "text": "      break;"
+            },
+            {
+              "line": 324,
+              "text": "    }"
+            },
+            {
+              "line": 325,
+              "text": "    case SDL_EVENT_MOUSE_BUTTON_DOWN:"
+            },
+            {
+              "line": 326,
+              "text": "    case SDL_EVENT_MOUSE_BUTTON_UP: {"
+            },
+            {
+              "line": 327,
+              "text": "      if (WindowSDL* window = GetWindow(event.button.windowID)) {"
+            },
+            {
+              "line": 328,
+              "text": "        window->HandleMouseEvent(event);"
+            },
+            {
+              "line": 329,
+              "text": "      }"
+            },
+            {
+              "line": 330,
+              "text": "      break;"
+            },
+            {
+              "line": 331,
+              "text": "    }"
+            },
+            {
+              "line": 332,
+              "text": "    case SDL_EVENT_MOUSE_WHEEL: {"
+            },
+            {
+              "line": 333,
+              "text": "      if (WindowSDL* window = GetWindow(event.wheel.windowID)) {"
+            },
+            {
+              "line": 334,
+              "text": "        window->HandleMouseEvent(event);"
+            },
+            {
+              "line": 335,
+              "text": "      }"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "workspace/nativo/sdk/src/ui/windowed_app_context.cpp",
+      "sha256": "5fcc1b8bccf18082f323ccc6d55a98419b5a5bb34618dd2d36516f0bc8d15a10",
+      "line_count": 178,
+      "code_windows": [
+        {
+          "first_line": 25,
+          "last_line": 120,
+          "lines": [
+            {
+              "line": 25,
+              "text": "  // It's okay to destroy the context from a platform's internal UI loop"
+            },
+            {
+              "line": 26,
+              "text": "  // callback, primarily on platforms where the loop is run by the OS itself,"
+            },
+            {
+              "line": 27,
+              "text": "  // and the context can't be created and destroyed in a RAII way, rather, it's"
+            },
+            {
+              "line": 28,
+              "text": "  // created in an initialization handler and destroyed in a shutdown handler"
+            },
+            {
+              "line": 29,
+              "text": "  // called by the OS. However, destruction must not be done from within the"
+            },
+            {
+              "line": 30,
+              "text": "  // queued functions - as in this case, the pending function container, the"
+            },
+            {
+              "line": 31,
+              "text": "  // mutex, will be accessed after having been destroyed already."
+            },
+            {
+              "line": 32,
+              "text": ""
+            },
+            {
+              "line": 33,
+              "text": "  // Make sure CallInUIThreadDeferred doesn't call"
+            },
+            {
+              "line": 34,
+              "text": "  // NotifyUILoopOfPendingFunctions, which is virtual."
+            },
+            {
+              "line": 35,
+              "text": "  is_in_destructor_ = true;"
+            },
+            {
+              "line": 36,
+              "text": "  // Make sure the final ExecutePendingFunctionsFromUIThread doesn't call"
+            },
+            {
+              "line": 37,
+              "text": "  // PlatformQuitFromUIThread, which is virtual."
+            },
+            {
+              "line": 38,
+              "text": "  has_quit_ = true;"
+            },
+            {
+              "line": 39,
+              "text": ""
+            },
+            {
+              "line": 40,
+              "text": "  // Platform-specific quit is expected to be performed by the subclass (the"
+            },
+            {
+              "line": 41,
+              "text": "  // order of it vs. the final ExecutePendingFunctionsFromUIThread shouldn't"
+            },
+            {
+              "line": 42,
+              "text": "  // matter anymore, the implementation may assume that no pending functions"
+            },
+            {
+              "line": 43,
+              "text": "  // will be requested for execution specifically via the platform-specific"
+            },
+            {
+              "line": 44,
+              "text": "  // loop, as there should be no more references to the context in other"
+            },
+            {
+              "line": 45,
+              "text": "  // threads), can't call the virtual PlatformQuitFromUIThread anymore."
+            },
+            {
+              "line": 46,
+              "text": "  ExecutePendingFunctionsFromUIThread(true);"
+            },
+            {
+              "line": 47,
+              "text": "}"
+            },
+            {
+              "line": 48,
+              "text": ""
+            },
+            {
+              "line": 49,
+              "text": "bool WindowedAppContext::CallInUIThreadDeferred(std::function<void()> function) {"
+            },
+            {
+              "line": 50,
+              "text": "  {"
+            },
+            {
+              "line": 51,
+              "text": "    std::unique_lock<std::mutex> pending_functions_lock(pending_functions_mutex_);"
+            },
+            {
+              "line": 52,
+              "text": "    if (!pending_functions_accepted_) {"
+            },
+            {
+              "line": 53,
+              "text": "      // Will not be called as the loop will not be executed anymore."
+            },
+            {
+              "line": 54,
+              "text": "      return false;"
+            },
+            {
+              "line": 55,
+              "text": "    }"
+            },
+            {
+              "line": 56,
+              "text": "    pending_functions_.emplace_back(std::move(function));"
+            },
+            {
+              "line": 57,
+              "text": "  }"
+            },
+            {
+              "line": 58,
+              "text": "  // Notify unconditionally, even if currently running pending functions. It's"
+            },
+            {
+              "line": 59,
+              "text": "  // possible for pending functions themselves to run inner platform message"
+            },
+            {
+              "line": 60,
+              "text": "  // loops, such as when displaying dialogs - in this case, the notification is"
+            },
+            {
+              "line": 61,
+              "text": "  // needed to run the new function from such an inner loop. A modal loop can be"
+            },
+            {
+              "line": 62,
+              "text": "  // started even in leftovers happening during the quit, where there's still"
+            },
+            {
+              "line": 63,
+              "text": "  // opportunity for enqueueing and executing new pending functions - so only"
+            },
+            {
+              "line": 64,
+              "text": "  // checking if called in the destructor (it's safe to check this without"
+            },
+            {
+              "line": 65,
+              "text": "  // locking a mutex as it's assumed that if the object is already being"
+            },
+            {
+              "line": 66,
+              "text": "  // destroyed, no other threads can have references to it - any access would"
+            },
+            {
+              "line": 67,
+              "text": "  // result in a race condition anyway) as the subclass has already been"
+            },
+            {
+              "line": 68,
+              "text": "  // destroyed. Having pending_functions_mutex_ unlocked also means that"
+            },
+            {
+              "line": 69,
+              "text": "  // NotifyUILoopOfPendingFunctions may be done while the UI thread is calling"
+            },
+            {
+              "line": 70,
+              "text": "  // or has already called PlatformQuitFromUIThread - but it's better than"
+            },
+            {
+              "line": 71,
+              "text": "  // keeping pending_functions_mutex_ locked as NotifyUILoopOfPendingFunctions"
+            },
+            {
+              "line": 72,
+              "text": "  // may be implemented as pushing to a fixed-size pipe, in which case it will"
+            },
+            {
+              "line": 73,
+              "text": "  // have to wait until free space is available, but if the UI thread tries to"
+            },
+            {
+              "line": 74,
+              "text": "  // lock the mutex afterwards to execute pending functions (and encouters"
+            },
+            {
+              "line": 75,
+              "text": "  // contention), nothing will be able to receive from the pipe anymore and thus"
+            },
+            {
+              "line": 76,
+              "text": "  // free the space, causing a deadlock."
+            },
+            {
+              "line": 77,
+              "text": "  if (!is_in_destructor_) {"
+            },
+            {
+              "line": 78,
+              "text": "    NotifyUILoopOfPendingFunctions();"
+            },
+            {
+              "line": 79,
+              "text": "  }"
+            },
+            {
+              "line": 80,
+              "text": "  return true;"
+            },
+            {
+              "line": 81,
+              "text": "}"
+            },
+            {
+              "line": 82,
+              "text": ""
+            },
+            {
+              "line": 83,
+              "text": "bool WindowedAppContext::CallInUIThread(std::function<void()> function) {"
+            },
+            {
+              "line": 84,
+              "text": "  if (IsInUIThread()) {"
+            },
+            {
+              "line": 85,
+              "text": "    // The intention is just to make sure the code is executed in the UI thread,"
+            },
+            {
+              "line": 86,
+              "text": "    // don't defer execution if no need to."
+            },
+            {
+              "line": 87,
+              "text": "    function();"
+            },
+            {
+              "line": 88,
+              "text": "    return true;"
+            },
+            {
+              "line": 89,
+              "text": "  }"
+            },
+            {
+              "line": 90,
+              "text": "  return CallInUIThreadDeferred(std::move(function));"
+            },
+            {
+              "line": 91,
+              "text": "}"
+            },
+            {
+              "line": 92,
+              "text": ""
+            },
+            {
+              "line": 93,
+              "text": "bool WindowedAppContext::CallInUIThreadSynchronous(std::function<void()> function) {"
+            },
+            {
+              "line": 94,
+              "text": "  if (IsInUIThread()) {"
+            },
+            {
+              "line": 95,
+              "text": "    // Prevent deadlock if called from the UI thread."
+            },
+            {
+              "line": 96,
+              "text": "    function();"
+            },
+            {
+              "line": 97,
+              "text": "    return true;"
+            },
+            {
+              "line": 98,
+              "text": "  }"
+            },
+            {
+              "line": 99,
+              "text": "  rex::thread::Fence fence;"
+            },
+            {
+              "line": 100,
+              "text": "  if (!CallInUIThreadDeferred([&function, &fence]() {"
+            },
+            {
+              "line": 101,
+              "text": "        function();"
+            },
+            {
+              "line": 102,
+              "text": "        fence.Signal();"
+            },
+            {
+              "line": 103,
+              "text": "      })) {"
+            },
+            {
+              "line": 104,
+              "text": "    return false;"
+            },
+            {
+              "line": 105,
+              "text": "  }"
+            },
+            {
+              "line": 106,
+              "text": "  fence.Wait();"
+            },
+            {
+              "line": 107,
+              "text": "  return true;"
+            },
+            {
+              "line": 108,
+              "text": "}"
+            },
+            {
+              "line": 109,
+              "text": ""
+            },
+            {
+              "line": 110,
+              "text": "void WindowedAppContext::QuitFromUIThread() {"
+            },
+            {
+              "line": 111,
+              "text": "  assert_true(IsInUIThread());"
+            },
+            {
+              "line": 112,
+              "text": "  bool has_quit_previously = has_quit_;"
+            },
+            {
+              "line": 113,
+              "text": "  // Make sure PlatformQuitFromUIThread is called only once, not from nested"
+            },
+            {
+              "line": 114,
+              "text": "  // pending function execution during the quit - otherwise it will be called"
+            },
+            {
+              "line": 115,
+              "text": "  // when it's still possible to add new pending functions. This isn't as wrong"
+            },
+            {
+              "line": 116,
+              "text": "  // as calling PlatformQuitFromUIThread from the destructor, but still a part"
+            },
+            {
+              "line": 117,
+              "text": "  // of the contract for simplicity."
+            },
+            {
+              "line": 118,
+              "text": "  has_quit_ = true;"
+            },
+            {
+              "line": 119,
+              "text": "  // Executing pending function unconditionally because it's the contract of"
+            },
+            {
+              "line": 120,
+              "text": "  // this method that functions are executed immediately."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "workspace/nativo/sdk/src/input/sdl/sdl_input_driver.cpp",
+      "sha256": "be93c7ae7297489d369abff7c86becf29373c127fa7e6dbbc802dd7a09452728",
+      "line_count": 886,
+      "code_windows": [
+        {
+          "first_line": 810,
+          "last_line": 880,
+          "lines": [
+            {
+              "line": 810,
+              "text": "  for (auto it = nav_buttons.begin(); it < nav_buttons.end(); it++) {"
+            },
+            {
+              "line": 811,
+              "text": "    if (!SDL_GamepadHasButton(state.sdl, *it)) {"
+            },
+            {
+              "line": 812,
+              "text": "      cap_flags |= X_INPUT_CAPS_NO_NAVIGATION;"
+            },
+            {
+              "line": 813,
+              "text": "      break;"
+            },
+            {
+              "line": 814,
+              "text": "    }"
+            },
+            {
+              "line": 815,
+              "text": "  }"
+            },
+            {
+              "line": 816,
+              "text": ""
+            },
+            {
+              "line": 817,
+              "text": "  auto& c = state.caps;"
+            },
+            {
+              "line": 818,
+              "text": "  c.type = 0x01;      // XINPUT_DEVTYPE_GAMEPAD"
+            },
+            {
+              "line": 819,
+              "text": "  c.sub_type = 0x01;  // XINPUT_DEVSUBTYPE_GAMEPAD"
+            },
+            {
+              "line": 820,
+              "text": "  c.flags = cap_flags;"
+            },
+            {
+              "line": 821,
+              "text": "  c.gamepad.buttons = 0xF3FF | (REXCVAR_GET(guide_button) ? X_INPUT_GAMEPAD_GUIDE : 0x0);"
+            },
+            {
+              "line": 822,
+              "text": "  c.gamepad.left_trigger = 0xFF;"
+            },
+            {
+              "line": 823,
+              "text": "  c.gamepad.right_trigger = 0xFF;"
+            },
+            {
+              "line": 824,
+              "text": "  c.gamepad.thumb_lx = static_cast<int16_t>(0xFFFFu);"
+            },
+            {
+              "line": 825,
+              "text": "  c.gamepad.thumb_ly = static_cast<int16_t>(0xFFFFu);"
+            },
+            {
+              "line": 826,
+              "text": "  c.gamepad.thumb_rx = static_cast<int16_t>(0xFFFFu);"
+            },
+            {
+              "line": 827,
+              "text": "  c.gamepad.thumb_ry = static_cast<int16_t>(0xFFFFu);"
+            },
+            {
+              "line": 828,
+              "text": "  c.vibration.left_motor_speed = 0xFFFFu;"
+            },
+            {
+              "line": 829,
+              "text": "  c.vibration.right_motor_speed = 0xFFFFu;"
+            },
+            {
+              "line": 830,
+              "text": "}"
+            },
+            {
+              "line": 831,
+              "text": ""
+            },
+            {
+              "line": 832,
+              "text": "void SDLInputDriver::QueueControllerUpdate() {"
+            },
+            {
+              "line": 833,
+              "text": "  // Pump SDL events to ensure controller state is up to date."
+            },
+            {
+              "line": 834,
+              "text": "  bool is_queued = false;"
+            },
+            {
+              "line": 835,
+              "text": "  sdl_pumpevents_queued_.compare_exchange_strong(is_queued, true);"
+            },
+            {
+              "line": 836,
+              "text": "  if (!is_queued) {"
+            },
+            {
+              "line": 837,
+              "text": "    attached_window_->app_context().CallInUIThread([this]() {"
+            },
+            {
+              "line": 838,
+              "text": "      SDL_PumpEvents();"
+            },
+            {
+              "line": 839,
+              "text": "      sdl_pumpevents_queued_ = false;"
+            },
+            {
+              "line": 840,
+              "text": "    });"
+            },
+            {
+              "line": 841,
+              "text": "  }"
+            },
+            {
+              "line": 842,
+              "text": "}"
+            },
+            {
+              "line": 843,
+              "text": ""
+            },
+            {
+              "line": 844,
+              "text": "// Check if the analog inputs exceed their thresholds to become a button press"
+            },
+            {
+              "line": 845,
+              "text": "// and build the bitfield."
+            },
+            {
+              "line": 846,
+              "text": "inline uint64_t SDLInputDriver::AnalogToKeyfield(const X_INPUT_GAMEPAD& gamepad) const {"
+            },
+            {
+              "line": 847,
+              "text": "  uint64_t f = 0;"
+            },
+            {
+              "line": 848,
+              "text": ""
+            },
+            {
+              "line": 849,
+              "text": "  f |= static_cast<uint64_t>(gamepad.left_trigger > HID_SDL_TRIGG_THRES) << 16;"
+            },
+            {
+              "line": 850,
+              "text": "  f |= static_cast<uint64_t>(gamepad.right_trigger > HID_SDL_TRIGG_THRES) << 17;"
+            },
+            {
+              "line": 851,
+              "text": ""
+            },
+            {
+              "line": 852,
+              "text": "  auto thumb_x = static_cast<int16_t>(gamepad.thumb_lx);"
+            },
+            {
+              "line": 853,
+              "text": "  auto thumb_y = static_cast<int16_t>(gamepad.thumb_ly);"
+            },
+            {
+              "line": 854,
+              "text": "  for (size_t i = 0; i <= 8; i = i + 8) {"
+            },
+            {
+              "line": 855,
+              "text": "    uint64_t u = thumb_y > HID_SDL_THUMB_THRES;"
+            },
+            {
+              "line": 856,
+              "text": "    uint64_t d = thumb_y < ~HID_SDL_THUMB_THRES;"
+            },
+            {
+              "line": 857,
+              "text": "    uint64_t r = thumb_x > HID_SDL_THUMB_THRES;"
+            },
+            {
+              "line": 858,
+              "text": "    uint64_t l = thumb_x < ~HID_SDL_THUMB_THRES;"
+            },
+            {
+              "line": 859,
+              "text": "    if (u && l) {"
+            },
+            {
+              "line": 860,
+              "text": "      u = l = 0;"
+            },
+            {
+              "line": 861,
+              "text": "      f |= uint64_t(1) << (22 + i);"
+            },
+            {
+              "line": 862,
+              "text": "    }"
+            },
+            {
+              "line": 863,
+              "text": "    if (u && r) {"
+            },
+            {
+              "line": 864,
+              "text": "      u = r = 0;"
+            },
+            {
+              "line": 865,
+              "text": "      f |= uint64_t(1) << (23 + i);"
+            },
+            {
+              "line": 866,
+              "text": "    }"
+            },
+            {
+              "line": 867,
+              "text": "    if (d && r) {"
+            },
+            {
+              "line": 868,
+              "text": "      d = r = 0;"
+            },
+            {
+              "line": 869,
+              "text": "      f |= uint64_t(1) << (24 + i);"
+            },
+            {
+              "line": 870,
+              "text": "    }"
+            },
+            {
+              "line": 871,
+              "text": "    if (d && l) {"
+            },
+            {
+              "line": 872,
+              "text": "      d = l = 0;"
+            },
+            {
+              "line": 873,
+              "text": "      f |= uint64_t(1) << (25 + i);"
+            },
+            {
+              "line": 874,
+              "text": "    }"
+            },
+            {
+              "line": 875,
+              "text": "    f |= u << (18 + i);"
+            },
+            {
+              "line": 876,
+              "text": "    f |= d << (19 + i);"
+            },
+            {
+              "line": 877,
+              "text": "    f |= r << (20 + i);"
+            },
+            {
+              "line": 878,
+              "text": "    f |= l << (21 + i);"
+            },
+            {
+              "line": 879,
+              "text": ""
+            },
+            {
+              "line": 880,
+              "text": "    thumb_x = static_cast<int16_t>(gamepad.thumb_rx);"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "workspace/nativo/sdk/src/ui/window_sdl.cpp",
+      "sha256": "2cc038b06ebeac187064da0784dbf40d54caaf4d9221caa65e53a9966964c8c8",
+      "line_count": 625,
+      "code_windows": [
+        {
+          "first_line": 410,
+          "last_line": 465,
+          "lines": [
+            {
+              "line": 410,
+              "text": "        SDL_GetPointerProperty(props, SDL_PROP_WINDOW_ANDROID_WINDOW_POINTER, nullptr));"
+            },
+            {
+              "line": 411,
+              "text": "    if (window) {"
+            },
+            {
+              "line": 412,
+              "text": "      return std::make_unique<AndroidNativeWindowSurface>(window, sdl_window_);"
+            },
+            {
+              "line": 413,
+              "text": "    }"
+            },
+            {
+              "line": 414,
+              "text": "  }"
+            },
+            {
+              "line": 415,
+              "text": "#else"
+            },
+            {
+              "line": 416,
+              "text": "  SDL_PropertiesID props = SDL_GetWindowProperties(sdl_window_);"
+            },
+            {
+              "line": 417,
+              "text": "  if (allowed_types & Surface::kTypeFlag_WaylandSurface) {"
+            },
+            {
+              "line": 418,
+              "text": "    auto* wl_display_ptr = static_cast<struct wl_display*>("
+            },
+            {
+              "line": 419,
+              "text": "        SDL_GetPointerProperty(props, SDL_PROP_WINDOW_WAYLAND_DISPLAY_POINTER, nullptr));"
+            },
+            {
+              "line": 420,
+              "text": "    auto* wl_surface_ptr = static_cast<struct wl_surface*>("
+            },
+            {
+              "line": 421,
+              "text": "        SDL_GetPointerProperty(props, SDL_PROP_WINDOW_WAYLAND_SURFACE_POINTER, nullptr));"
+            },
+            {
+              "line": 422,
+              "text": "    if (wl_display_ptr && wl_surface_ptr) {"
+            },
+            {
+              "line": 423,
+              "text": "      return std::make_unique<WaylandSurface>(wl_display_ptr, wl_surface_ptr, sdl_window_);"
+            },
+            {
+              "line": 424,
+              "text": "    }"
+            },
+            {
+              "line": 425,
+              "text": "  }"
+            },
+            {
+              "line": 426,
+              "text": "  if (allowed_types & Surface::kTypeFlag_XcbWindow) {"
+            },
+            {
+              "line": 427,
+              "text": "    auto* display = static_cast<Display*>("
+            },
+            {
+              "line": 428,
+              "text": "        SDL_GetPointerProperty(props, SDL_PROP_WINDOW_X11_DISPLAY_POINTER, nullptr));"
+            },
+            {
+              "line": 429,
+              "text": "    auto x11_window = static_cast<xcb_window_t>("
+            },
+            {
+              "line": 430,
+              "text": "        SDL_GetNumberProperty(props, SDL_PROP_WINDOW_X11_WINDOW_NUMBER, 0));"
+            },
+            {
+              "line": 431,
+              "text": "    if (display && x11_window) {"
+            },
+            {
+              "line": 432,
+              "text": "      return std::make_unique<XcbWindowSurface>(XGetXCBConnection(display), x11_window);"
+            },
+            {
+              "line": 433,
+              "text": "    }"
+            },
+            {
+              "line": 434,
+              "text": "  }"
+            },
+            {
+              "line": 435,
+              "text": "#endif"
+            },
+            {
+              "line": 436,
+              "text": "  return nullptr;"
+            },
+            {
+              "line": 437,
+              "text": "}"
+            },
+            {
+              "line": 438,
+              "text": ""
+            },
+            {
+              "line": 439,
+              "text": "void WindowSDL::RequestPaintImpl() {"
+            },
+            {
+              "line": 440,
+              "text": "  // Coalesce: at most one queued paint event at a time. Callable from non-UI"
+            },
+            {
+              "line": 441,
+              "text": "  // threads; SDL_PushEvent is thread-safe."
+            },
+            {
+              "line": 442,
+              "text": "  if (paint_pending_.exchange(true, std::memory_order_acq_rel)) {"
+            },
+            {
+              "line": 443,
+              "text": "    return;"
+            },
+            {
+              "line": 444,
+              "text": "  }"
+            },
+            {
+              "line": 445,
+              "text": "  SDL_Event event{};"
+            },
+            {
+              "line": 446,
+              "text": "  event.type = sdl_app_context().paint_event_type();"
+            },
+            {
+              "line": 447,
+              "text": "  event.user.windowID = sdl_window_id_;"
+            },
+            {
+              "line": 448,
+              "text": "  SDL_PushEvent(&event);"
+            },
+            {
+              "line": 449,
+              "text": "}"
+            },
+            {
+              "line": 450,
+              "text": ""
+            },
+            {
+              "line": 451,
+              "text": "// PARCHE LOCAL - pausa"
+            },
+            {
+              "line": 452,
+              "text": "//"
+            },
+            {
+              "line": 453,
+              "text": "// Android destruye la superficie de la ventana al mandar la app a segundo"
+            },
+            {
+              "line": 454,
+              "text": "// plano. OnSurfaceChanged(false) suelta al presentador de ella y deja de"
+            },
+            {
+              "line": 455,
+              "text": "// pintar; sin eso, cada envio a la cola falla, el presentador recrea el"
+            },
+            {
+              "line": 456,
+              "text": "// swapchain una y otra vez y el driver acaba dando el dispositivo por perdido"
+            },
+            {
+              "line": 457,
+              "text": "// (VK_ERROR_DEVICE_LOST) y abortando."
+            },
+            {
+              "line": 458,
+              "text": "void WindowSDL::HandleSurfaceAvailability(bool available) {"
+            },
+            {
+              "line": 459,
+              "text": "  REXLOG_INFO(\"WindowSDL: la superficie {}\", available ? \"vuelve\" : \"se va\");"
+            },
+            {
+              "line": 460,
+              "text": "  OnSurfaceChanged(available);"
+            },
+            {
+              "line": 461,
+              "text": "}"
+            },
+            {
+              "line": 462,
+              "text": ""
+            },
+            {
+              "line": 463,
+              "text": "void WindowSDL::HandlePaintEvent() {"
+            },
+            {
+              "line": 464,
+              "text": "  paint_pending_.store(false, std::memory_order_release);"
+            },
+            {
+              "line": 465,
+              "text": "  OnPaint();"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "workspace/nativo/sdk/src/ui/vulkan/vulkan_presenter.cpp",
+      "sha256": "68998a1db81e9743197e446a5f8dacbf8d3dbcc2a51e4a7e6dac476b87d88c48",
+      "line_count": 3275,
+      "code_windows": [
+        {
+          "first_line": 95,
+          "last_line": 330,
+          "lines": [
+            {
+              "line": 95,
+              "text": " *   - GPU work 32.62 ms real = 1.96 vblanks of 16.67: it fits in 33.3."
+            },
+            {
+              "line": 96,
+              "text": " *   - gap (GPU idle) 7.81 ms = 0.47 vblanks. Total 2.43 -> 39.08 ms -> 25.6 FPS."
+            },
+            {
+              "line": 97,
+              "text": " *   - measured vblanks/swaps: 2.45. It matches."
+            },
+            {
+              "line": 98,
+              "text": " * With FIFO a frame lasts 33.3 or 50.0 or 66.7, there is nothing in between, and with the mean at"
+            },
+            {
+              "line": 99,
+              "text": " * 38.8 we are just above the step: any variation jumps and shows as a stutter (8.20 % of frames"
+            },
+            {
+              "line": 100,
+              "text": " * above 50 ms). Worse, the quantization feeds back into the producer: the thread stays 5.54-6.82 ms"
+            },
+            {
+              "line": 101,
+              "text": " * inside presentation (measured as \"RefreshGuestOutput despues\") and is not recording meanwhile, so"
+            },
+            {
+              "line": 102,
+              "text": " * the GPU runs dry. That is the gap."
+            },
+            {
+              "line": 103,
+              "text": " *"
+            },
+            {
+              "line": 104,
+              "text": " * With interval 0 the producer does not block: the frame lasts as long as the work and the gap"
+            },
+            {
+              "line": 105,
+              "text": " * closes. The panel stays at 60 Hz, but it no longer drags us along."
+            },
+            {
+              "line": 106,
+              "text": " *"
+            },
+            {
+              "line": 107,
+              "text": " * (The default value comes from a macro instead of an #if inside the arguments of"
+            },
+            {
+              "line": 108,
+              "text": " *  REXCVAR_DEFINE_BOOL. The value is the same, true on the Switch, but preprocessor directives inside"
+            },
+            {
+              "line": 109,
+              "text": " *  the invocation of a function-like macro are undefined behavior according to the standard; GCC"
+            },
+            {
+              "line": 110,
+              "text": " *  accepts it, but there is no reason to gamble with the switch all of this depends on.)"
+            },
+            {
+              "line": 111,
+              "text": " */"
+            },
+            {
+              "line": 112,
+              "text": "REXCVAR_DEFINE_BOOL(vulkan_allow_present_mode_immediate,"
+            },
+            {
+              "line": 113,
+              "text": "                    REX_VULKAN_ALLOW_PRESENT_MODE_IMMEDIATE_DEFAULT, \"UI/Vulkan\","
+            },
+            {
+              "line": 114,
+              "text": "                    \"Allow immediate present mode (no vsync)\");"
+            },
+            {
+              "line": 115,
+              "text": ""
+            },
+            {
+              "line": 116,
+              "text": "REXCVAR_DEFINE_BOOL(vulkan_allow_present_mode_mailbox, REX_VULKAN_ALLOW_UNSYNCED_PRESENT_DEFAULT,"
+            },
+            {
+              "line": 117,
+              "text": "                    \"UI/Vulkan\", \"Allow mailbox present mode (triple buffering)\");"
+            },
+            {
+              "line": 118,
+              "text": ""
+            },
+            {
+              "line": 119,
+              "text": "REXCVAR_DEFINE_BOOL(vulkan_allow_present_mode_fifo_relaxed, true, \"UI/Vulkan\","
+            },
+            {
+              "line": 120,
+              "text": "                    \"Allow FIFO relaxed present mode\");"
+            },
+            {
+              "line": 121,
+              "text": ""
+            },
+            {
+              "line": 122,
+              "text": "#if REX_PLATFORM_SWITCH || REX_PLATFORM_ANDROID  // NFSMW_DIAG36"
+            },
+            {
+              "line": 123,
+              "text": "#define REX_PRESENT_PERFIL_PINTADO_DEFAULT true"
+            },
+            {
+              "line": 124,
+              "text": "#else"
+            },
+            {
+              "line": 125,
+              "text": "#define REX_PRESENT_PERFIL_PINTADO_DEFAULT false"
+            },
+            {
+              "line": 126,
+              "text": "#endif"
+            },
+            {
+              "line": 127,
+              "text": ""
+            },
+            {
+              "line": 128,
+              "text": "/*"
+            },
+            {
+              "line": 129,
+              "text": " * Fine-grained breakdown of PaintAndPresent, piece by piece."
+            },
+            {
+              "line": 130,
+              "text": " *"
+            },
+            {
+              "line": 131,
+              "text": " * What is known (measured in a race). The game profile measures the time the thread that feeds the"
+            },
+            {
+              "line": 132,
+              "text": " * GPU spends inside Presenter::RefreshGuestOutput after the refresh call returns (the \"despues\""
+            },
+            {
+              "line": 133,
+              "text": " * column): 5.13 / 6.80 / 7.59 / 13.15 / 12.61 / 12.19 / 12.93 / 13.92 / 9.31 / ... / 5.54 / 6.82 ms"
+            },
+            {
+              "line": 134,
+              "text": " * in the reports over ten minutes of racing; mean ~8.6 ms. While the thread is there it is not"
+            },
+            {
+              "line": 135,
+              "text": " * recording the next frame, and that is why the GPU sits idle for 7.81 ms (measured gap) even though"
+            },
+            {
+              "line": 136,
+              "text": " * its work (32.62 ms real) does fit in 33.3."
+            },
+            {
+              "line": 137,
+              "text": " *"
+            },
+            {
+              "line": 138,
+              "text": " * That \"despues\" is almost entirely PaintAndPresentImpl, and which piece takes the time was unknown."
+            },
+            {
+              "line": 139,
+              "text": " * The only thing ruled out is acquisition: the anticipated one succeeds 5999 times out of 6000, so"
+            },
+            {
+              "line": 140,
+              "text": " * vkAcquireNextImageKHR with a wait is practically never called, and even so the frame did not"
+            },
+            {
+              "line": 141,
+              "text": " * improve (38.78 -> 39.08) and the gap grew (6.73 -> 7.81)."
+            },
+            {
+              "line": 142,
+              "text": " *"
+            },
+            {
+              "line": 143,
+              "text": " * Suspects, in order of cost according to the code:"
+            },
+            {
+              "line": 144,
+              "text": " *   1. vkQueuePresentKHR. Mesa's common WSI opens the present with a throttle: WaitForFences (fence"
+            },
+            {
+              "line": 145,
+              "text": " *      of the last present of that image, infinite wait) and then ResetFences (Mesa"
+            },
+            {
+              "line": 146,
+              "text": " *      src/vulkan/wsi/wsi_common.c, wsi_common_queue_present). With three images that waits for the"
+            },
+            {
+              "line": 147,
+              "text": " *      frame from three frames ago. Besides, the Horizon backend (wsi_common_switch.c,"
+            },
+            {
+              "line": 148,
+              "text": " *      wsi_switch_swapchain_queue_present) blocks on the CPU with another WaitForFences if it cannot"
+            },
+            {
+              "line": 149,
+              "text": " *      get a native NvMultiFence out of the kickoff."
+            },
+            {
+              "line": 150,
+              "text": " *   2. AwaitSubmissionCompletion(current - kSubmissionCount) on entry. Tried with 4 instead of 3:"
+            },
+            {
+              "line": 151,
+              "text": " *      the gap got worse (5.65 -> 5.85), so it does not look like the bulk."
+            },
+            {
+              "line": 152,
+              "text": " *   3. vkResetCommandPool, the recording and the vkQueueSubmit of the paint: microseconds in theory."
+            },
+            {
+              "line": 153,
+              "text": " *"
+            },
+            {
+              "line": 154,
+              "text": " * How it is measured. The pieces are chained: the end mark of one is the start mark of the next,"
+            },
+            {
+              "line": 155,
+              "text": " * from the first line of the function to the last. So the sum of the pieces is exactly the total and"
+            },
+            {
+              "line": 156,
+              "text": " * no time can escape through an unmeasured gap. It is dumped every 600 frames, like the anticipated"
+            },
+            {
+              "line": 157,
+              "text": " * acquisition, with the mean and the worst of each piece."
+            },
+            {
+              "line": 158,
+              "text": " *"
+            },
+            {
+              "line": 159,
+              "text": " * Cost when not in use: none. The switch is read only once and, when off, the clock is not read even"
+            },
+            {
+              "line": 160,
+              "text": " * once. When on it is 13 steady_clock reads per frame; on Horizon that is the system counter"
+            },
+            {
+              "line": 161,
+              "text": " * (armGetSystemTick, no syscall): on the order of 1 us out of 39,000."
+            },
+            {
+              "line": 162,
+              "text": " */"
+            },
+            {
+              "line": 163,
+              "text": "REXCVAR_DEFINE_BOOL(present_perfil_pintado, REX_PRESENT_PERFIL_PINTADO_DEFAULT, \"UI/Presenter\","
+            },
+            {
+              "line": 164,
+              "text": "                    \"Medir trozo a trozo el tiempo que el hilo que pinta pasa dentro de \""
+            },
+            {
+              "line": 165,
+              "text": "                    \"PaintAndPresent (espera al envio antiguo, reset del pool, adquisicion, buzon, \""
+            },
+            {
+              "line": 166,
+              "text": "                    \"grabacion, candados de la cola, vkQueueSubmit y vkQueuePresentKHR) y volcarlo \""
+            },
+            {
+              "line": 167,
+              "text": "                    \"cada 600 fotogramas. Apagado no cuesta nada\")"
+            },
+            {
+              "line": 168,
+              "text": "    .lifecycle(rex::cvar::Lifecycle::kRequiresRestart);"
+            },
+            {
+              "line": 169,
+              "text": ""
+            },
+            {
+              "line": 170,
+              "text": "/*"
+            },
+            {
+              "line": 171,
+              "text": " * Dropping the empty submission of every frame (present_refresco_sellado_perezoso)."
+            },
+            {
+              "line": 172,
+              "text": " *"
+            },
+            {
+              "line": 173,
+              "text": " * What there was. At the end of every RefreshGuestOutputImpl a vkQueueSubmit without a single command"
+            },
+            {
+              "line": 174,
+              "text": " * (0 command buffers, only a fence) sealed the refresh work: that way it was known at which point of"
+            },
+            {
+              "line": 175,
+              "text": " * the queue the game's output image had been left. That is a whole submission per frame, on a single"
+            },
+            {
+              "line": 176,
+              "text": " * queue (Maxwell: NVK only exposes one graphics queue), and on this machine every submission costs:"
+            },
+            {
+              "line": 177,
+              "text": " * splitting the scene into two submissions made the gap 3.61 ms worse. On top of that it paid for the"
+            },
+            {
+              "line": 178,
+              "text": " * queue lock (kTrozoRefrescoCandado) and a vkResetFences per frame inside"
+            },
+            {
+              "line": 179,
+              "text": " * AcquireFenceToAdvanceSubmission, all of it inside the \"despues\" the game profile measures, with"
+            },
+            {
+              "line": 180,
+              "text": " * the ring thread stopped instead of recording the next frame."
+            },
+            {
+              "line": 181,
+              "text": " *"
+            },
+            {
+              "line": 182,
+              "text": " * What it was for. A single thing: not destroying the guest image while the GPU is still using it."
+            },
+            {
+              "line": 183,
+              "text": " * The index it produced is only read in two places, both of them destruction:"
+            },
+            {
+              "line": 184,
+              "text": " *   1. RefreshGuestOutputImpl itself, when the frontbuffer size changes and the image has to be"
+            },
+            {
+              "line": 185,
+              "text": " *      dropped (never during a race; only when the video mode changes);"
+            },
+            {
+              "line": 186,
+              "text": " *   2. the tracker's Shutdown in ~VulkanPresenter."
+            },
+            {
+              "line": 187,
+              "text": " * That is: one submission per frame, forever, for a case that almost never happens."
+            },
+            {
+              "line": 188,
+              "text": " *"
+            },
+            {
+              "line": 189,
+              "text": " * What is done with the switch on. Nothing per frame, only a mark that there are unsealed refreshes."
+            },
+            {
+              "line": 190,
+              "text": " * The seal (the same empty submission as before, plus the wait on its fence) is done lazily, in those"
+            },
+            {
+              "line": 191,
+              "text": " * two destruction places, right before releasing the image. Since the queue is unique, that seal"
+            },
+            {
+              "line": 192,
+              "text": " * covers everything submitted up to that point, so it is more conservative than the per-image fence"
+            },
+            {
+              "line": 193,
+              "text": " * (it honors the case in the comment above: even if the refresh returns false, it may have submitted"
+            },
+            {
+              "line": 194,
+              "text": " * commands that touch the image)."
+            },
+            {
+              "line": 195,
+              "text": " *"
+            },
+            {
+              "line": 196,
+              "text": " * Off, it behaves exactly as before, per-image fence included."
+            },
+            {
+              "line": 197,
+              "text": " */"
+            },
+            {
+              "line": 198,
+              "text": "// Off as a precaution. A build that broke the image also carried this change; the culprit identified"
+            },
+            {
+              "line": 199,
+              "text": "// was the sky deferral, but this one touches output synchronization, so it was turned off to return"
+            },
+            {
+              "line": 200,
+              "text": "// to known ground."
+            },
+            {
+              "line": 201,
+              "text": "REXCVAR_DEFINE_BOOL(present_refresco_sellado_perezoso, false, \"UI/Presenter\","
+            },
+            {
+              "line": 202,
+              "text": "                    \"Quitar el vkQueueSubmit vacio que se hacia en cada refresco de la salida del \""
+            },
+            {
+              "line": 203,
+              "text": "                    \"juego y sellar solo cuando hay que destruir esa imagen (cambio de tamano o \""
+            },
+            {
+              "line": 204,
+              "text": "                    \"apagado). Apagado vuelve al envio por fotograma\")"
+            },
+            {
+              "line": 205,
+              "text": "    .lifecycle(rex::cvar::Lifecycle::kRequiresRestart);"
+            },
+            {
+              "line": 206,
+              "text": ""
+            },
+            {
+              "line": 207,
+              "text": "namespace rex {"
+            },
+            {
+              "line": 208,
+              "text": "namespace ui {"
+            },
+            {
+              "line": 209,
+              "text": "namespace vulkan {"
+            },
+            {
+              "line": 210,
+              "text": ""
+            },
+            {
+              "line": 211,
+              "text": "#if defined(REX_HAS_FIDELITYFX_RUNTIME) && REX_HAS_FIDELITYFX_RUNTIME"
+            },
+            {
+              "line": 212,
+              "text": "namespace {"
+            },
+            {
+              "line": 213,
+              "text": ""
+            },
+            {
+              "line": 214,
+              "text": "std::atomic<PFN_vkGetDeviceProcAddr> g_ffx_vk_get_device_proc_addr{nullptr};"
+            },
+            {
+              "line": 215,
+              "text": ""
+            },
+            {
+              "line": 216,
+              "text": "VKAPI_ATTR PFN_vkVoidFunction VKAPI_CALL FfxVkGetDeviceProcAddrCompat(VkDevice device,"
+            },
+            {
+              "line": 217,
+              "text": "                                                                      const char* p_name) {"
+            },
+            {
+              "line": 218,
+              "text": "  if (!p_name) {"
+            },
+            {
+              "line": 219,
+              "text": "    return nullptr;"
+            },
+            {
+              "line": 220,
+              "text": "  }"
+            },
+            {
+              "line": 221,
+              "text": ""
+            },
+            {
+              "line": 222,
+              "text": "  PFN_vkGetDeviceProcAddr get_device_proc_addr ="
+            },
+            {
+              "line": 223,
+              "text": "      g_ffx_vk_get_device_proc_addr.load(std::memory_order_relaxed);"
+            },
+            {
+              "line": 224,
+              "text": "  if (!get_device_proc_addr) {"
+            },
+            {
+              "line": 225,
+              "text": "    return nullptr;"
+            },
+            {
+              "line": 226,
+              "text": "  }"
+            },
+            {
+              "line": 227,
+              "text": ""
+            },
+            {
+              "line": 228,
+              "text": "  PFN_vkVoidFunction proc = get_device_proc_addr(device, p_name);"
+            },
+            {
+              "line": 229,
+              "text": "  if (proc) {"
+            },
+            {
+              "line": 230,
+              "text": "    return proc;"
+            },
+            {
+              "line": 231,
+              "text": "  }"
+            },
+            {
+              "line": 232,
+              "text": ""
+            },
+            {
+              "line": 233,
+              "text": "  // Some drivers expose Vulkan 1.1+ core entry points, but not the legacy KHR"
+            },
+            {
+              "line": 234,
+              "text": "  // aliases expected by parts of FidelityFX VK backend initialization."
+            },
+            {
+              "line": 235,
+              "text": "  if (!std::strcmp(p_name, \"vkGetBufferMemoryRequirements2KHR\")) {"
+            },
+            {
+              "line": 236,
+              "text": "    return get_device_proc_addr(device, \"vkGetBufferMemoryRequirements2\");"
+            },
+            {
+              "line": 237,
+              "text": "  }"
+            },
+            {
+              "line": 238,
+              "text": "  if (!std::strcmp(p_name, \"vkGetImageMemoryRequirements2KHR\")) {"
+            },
+            {
+              "line": 239,
+              "text": "    return get_device_proc_addr(device, \"vkGetImageMemoryRequirements2\");"
+            },
+            {
+              "line": 240,
+              "text": "  }"
+            },
+            {
+              "line": 241,
+              "text": "  if (!std::strcmp(p_name, \"vkBindBufferMemory2KHR\")) {"
+            },
+            {
+              "line": 242,
+              "text": "    return get_device_proc_addr(device, \"vkBindBufferMemory2\");"
+            },
+            {
+              "line": 243,
+              "text": "  }"
+            },
+            {
+              "line": 244,
+              "text": "  if (!std::strcmp(p_name, \"vkBindImageMemory2KHR\")) {"
+            },
+            {
+              "line": 245,
+              "text": "    return get_device_proc_addr(device, \"vkBindImageMemory2\");"
+            },
+            {
+              "line": 246,
+              "text": "  }"
+            },
+            {
+              "line": 247,
+              "text": ""
+            },
+            {
+              "line": 248,
+              "text": "  return nullptr;"
+            },
+            {
+              "line": 249,
+              "text": "}"
+            },
+            {
+              "line": 250,
+              "text": ""
+            },
+            {
+              "line": 251,
+              "text": "}  // namespace"
+            },
+            {
+              "line": 252,
+              "text": "#endif  // defined(REX_HAS_FIDELITYFX_RUNTIME) && REX_HAS_FIDELITYFX_RUNTIME"
+            },
+            {
+              "line": 253,
+              "text": ""
+            },
+            {
+              "line": 254,
+              "text": "// Generated with `xb buildshaders`."
+            },
+            {
+              "line": 255,
+              "text": "namespace shaders {"
+            },
+            {
+              "line": 256,
+              "text": "#include \"../shaders/vulkan_spirv/guest_output_bilinear_dither_ps.h\""
+            },
+            {
+              "line": 257,
+              "text": "#include \"../shaders/vulkan_spirv/guest_output_bilinear_ps.h\""
+            },
+            {
+              "line": 258,
+              "text": "#if defined(REX_HAS_FIDELITYFX_SDK)"
+            },
+            {
+              "line": 259,
+              "text": "#include \"../shaders/vulkan_spirv/guest_output_ffx_cas_resample_dither_ps.h\""
+            },
+            {
+              "line": 260,
+              "text": "#include \"../shaders/vulkan_spirv/guest_output_ffx_cas_resample_ps.h\""
+            },
+            {
+              "line": 261,
+              "text": "#include \"../shaders/vulkan_spirv/guest_output_ffx_cas_sharpen_dither_ps.h\""
+            },
+            {
+              "line": 262,
+              "text": "#include \"../shaders/vulkan_spirv/guest_output_ffx_cas_sharpen_ps.h\""
+            },
+            {
+              "line": 263,
+              "text": "#include \"../shaders/vulkan_spirv/guest_output_ffx_fsr_easu_ps.h\""
+            },
+            {
+              "line": 264,
+              "text": "#include \"../shaders/vulkan_spirv/guest_output_ffx_fsr_rcas_dither_ps.h\""
+            },
+            {
+              "line": 265,
+              "text": "#include \"../shaders/vulkan_spirv/guest_output_ffx_fsr_rcas_ps.h\""
+            },
+            {
+              "line": 266,
+              "text": "#endif"
+            },
+            {
+              "line": 267,
+              "text": "#include \"../shaders/vulkan_spirv/guest_output_triangle_strip_rect_vs.h\""
+            },
+            {
+              "line": 268,
+              "text": "}  // namespace shaders"
+            },
+            {
+              "line": 269,
+              "text": ""
+            },
+            {
+              "line": 270,
+              "text": "namespace {"
+            },
+            {
+              "line": 271,
+              "text": ""
+            },
+            {
+              "line": 272,
+              "text": "// Fine-grained breakdown of PaintAndPresentImpl. See the present_perfil_pintado comment."
+            },
+            {
+              "line": 273,
+              "text": "// The pieces are in execution order and chained, so their sum is the total."
+            },
+            {
+              "line": 274,
+              "text": "enum TrozoPintado : size_t {"
+            },
+            {
+              "line": 275,
+              "text": "  kTrozoEsperaEnvioAntiguo,  // AwaitSubmissionCompletion(actual - kSubmissionCount)"
+            },
+            {
+              "line": 276,
+              "text": "  kTrozoResetPool,           // vkResetCommandPool + vkBeginCommandBuffer"
+            },
+            {
+              "line": 277,
+              "text": "  kTrozoAdquirir,            // the image: the anticipated one (free) or vkAcquireNextImageKHR with a wait"
+            },
+            {
+              "line": 278,
+              "text": "  kTrozoBuzon,               // ConsumeGuestOutput: the lock of the game output mailbox"
+            },
+            {
+              "line": 279,
+              "text": "  /*"
+            },
+            {
+              "line": 280,
+              "text": "   * `grabar` takes 12.24 ms on average on the ring thread, which has CPU to spare, with peaks"
+            },
+            {
+              "line": 281,
+              "text": "   * of 78.67. It is about twenty Vulkan calls: they should take microseconds. Since it is not"
+            },
+            {
+              "line": 282,
+              "text": "   * preemption, there is a wait in there, and to find which one the stretch is split into four."
+            },
+            {
+              "line": 283,
+              "text": "   */"
+            },
+            {
+              "line": 284,
+              "text": "  kTrozoGrabarDescriptor,    // the vkUpdateDescriptorSets of the game image"
+            },
+            {
+              "line": 285,
+              "text": "  kTrozoGrabarIntermedias,   // crear/recrear imagenes intermedias y sus framebuffers"
+            },
+            {
+              "line": 286,
+              "text": "  /*"
+            },
+            {
+              "line": 287,
+              "text": "   * And `efectos` takes all of `grabar` (mean 5.9-38.5 ms, peaks of 103). It is split in two:"
+            },
+            {
+              "line": 288,
+              "text": "   * the composition pipeline (check / wait / destroy / create) and the actual recording. The"
+            },
+            {
+              "line": 289,
+              "text": "   * first should be zero except when the chain format changes."
+            },
+            {
+              "line": 290,
+              "text": "   */"
+            },
+            {
+              "line": 291,
+              "text": "  kTrozoGrabarTuberia,       // the final effect pipeline: wait + vkCreateGraphicsPipelines"
+            },
+            {
+              "line": 292,
+              "text": "  kTrozoGrabarEfectos,       // the effect passes and the composition quad"
+            },
+            {
+              "line": 293,
+              "text": "  kTrozoGrabar,              // the rest until vkEndCommandBuffer"
+            },
+            {
+              "line": 294,
+              "text": "  kTrozoPrepararEnvio,       // closing the UI setup buffer and AcquireFenceToAdvance..."
+            },
+            {
+              "line": 295,
+              "text": "  kTrozoCandadoEnvio,        // AcquireQueue before the paint vkQueueSubmit"
+            },
+            {
+              "line": 296,
+              "text": "  kTrozoEnviar,              // the paint vkQueueSubmit calls and closing their fences"
+            },
+            {
+              "line": 297,
+              "text": "  kTrozoCandadoPresentar,    // AcquireQueue before vkQueuePresentKHR"
+            },
+            {
+              "line": 298,
+              "text": "  kTrozoPresentar,           // vkQueuePresentKHR"
+            },
+            {
+              "line": 299,
+              "text": "  kTrozoAnticipar,           // vkAcquireNextImageKHR with timeout 0 for the next frame"
+            },
+            {
+              "line": 300,
+              "text": "  kTrozoCierre,              // the rest until the function returns"
+            },
+            {
+              "line": 301,
+              "text": "  kTrozosDePintar,           // up to here, and only up to here, they add up to the PaintAndPresent total"
+            },
+            {
+              "line": 302,
+              "text": ""
+            },
+            {
+              "line": 303,
+              "text": "  // And these two belong to RefreshGuestOutputImpl, which runs right before on the same thread and"
+            },
+            {
+              "line": 304,
+              "text": "  // also falls inside the \"despues\" the game profile measures. Nothing else measures them."
+            },
+            {
+              "line": 305,
+              "text": "  // With present_refresco_sellado_perezoso on, these two must read 0.00 in the report (the empty"
+            },
+            {
+              "line": 306,
+              "text": "  // submission is no longer made per frame, only when the image is destroyed). If they show a value,"
+            },
+            {
+              "line": 307,
+              "text": "  // lazy sealing is off or something is dropping images every frame."
+            },
+            {
+              "line": 308,
+              "text": "  kTrozoRefrescoCandado = kTrozosDePintar,  // AcquireQueue for the refresh fence"
+            },
+            {
+              "line": 309,
+              "text": "  kTrozoRefrescoEnviar,                     // empty vkQueueSubmit that signals that fence"
+            },
+            {
+              "line": 310,
+              "text": "  kTrozosPintado,"
+            },
+            {
+              "line": 311,
+              "text": "};"
+            },
+            {
+              "line": 312,
+              "text": ""
+            },
+            {
+              "line": 313,
+              "text": "// Only the painting thread touches these, and there are never two at once (paint_mode_mutex_"
+            },
+            {
+              "line": 314,
+              "text": "// guarantees it), so no atomics or locks are needed."
+            },
+            {
+              "line": 315,
+              "text": "uint64_t g_pintado_ns[kTrozosPintado] = {};"
+            },
+            {
+              "line": 316,
+              "text": "uint64_t g_pintado_ns_peor[kTrozosPintado] = {};"
+            },
+            {
+              "line": 317,
+              "text": "uint64_t g_pintado_fotogramas = 0;"
+            },
+            {
+              "line": 318,
+              "text": "/*"
+            },
+            {
+              "line": 319,
+              "text": " * Times the final effect pipeline was created in these 600 frames. It must be 1 in the first"
+            },
+            {
+              "line": 320,
+              "text": " * report and 0 in all the others. If it says 600, the swapchain_format bug is back."
+            },
+            {
+              "line": 321,
+              "text": " */"
+            },
+            {
+              "line": 322,
+              "text": "uint64_t g_pintado_tuberias_rehechas = 0;"
+            },
+            {
+              "line": 323,
+              "text": ""
+            },
+            {
+              "line": 324,
+              "text": "// The switch is read only once, on the first painted frame (with the configuration already"
+            },
+            {
+              "line": 325,
+              "text": "// loaded). When off, not a single clock read."
+            },
+            {
+              "line": 326,
+              "text": "bool PerfilPintadoActivo() {"
+            },
+            {
+              "line": 327,
+              "text": "  static const bool activo = REXCVAR_GET(present_perfil_pintado);"
+            },
+            {
+              "line": 328,
+              "text": "  return activo;"
+            },
+            {
+              "line": 329,
+              "text": "}"
+            },
+            {
+              "line": 330,
+              "text": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "workspace/nativo/sdk/src/graphics/vulkan/command_processor.cpp",
+      "sha256": "b723f9480c3f4909dcc469d74ad42b154e1c700597cae4050504770700bf0058",
+      "line_count": 6906,
+      "code_windows": [
+        {
+          "first_line": 2415,
+          "last_line": 2460,
+          "lines": [
+            {
+              "line": 2415,
+              "text": "          guest_output_width, guest_output_height);"
+            },
+            {
+              "line": 2416,
+              "text": "    }"
+            },
+            {
+              "line": 2417,
+              "text": "  }"
+            },
+            {
+              "line": 2418,
+              "text": "  if (texture_cache_->IsDrawResolutionScaled() && !swap_source_scaled) {"
+            },
+            {
+              "line": 2419,
+              "text": "    static bool draw_scale_swap_unscaled_logged = false;"
+            },
+            {
+              "line": 2420,
+              "text": "    if (!draw_scale_swap_unscaled_logged) {"
+            },
+            {
+              "line": 2421,
+              "text": "      draw_scale_swap_unscaled_logged = true;"
+            },
+            {
+              "line": 2422,
+              "text": "      REXGPU_WARN("
+            },
+            {
+              "line": 2423,
+              "text": "          \"Vulkan draw resolution scaling is enabled, but the swap source is \""
+            },
+            {
+              "line": 2424,
+              "text": "          \"unscaled ({}x{}). This title may be presenting from an unscaled \""
+            },
+            {
+              "line": 2425,
+              "text": "          \"resolve path.\","
+            },
+            {
+              "line": 2426,
+              "text": "          frontbuffer_width_scaled, frontbuffer_height_scaled);"
+            },
+            {
+              "line": 2427,
+              "text": "    }"
+            },
+            {
+              "line": 2428,
+              "text": "  }"
+            },
+            {
+              "line": 2429,
+              "text": "  REXGPU_DEBUG("
+            },
+            {
+              "line": 2430,
+              "text": "      \"XELOG_GPU PRESENT: swap_texture_view={:p} packet_size={}x{} src_size={}x{} \""
+            },
+            {
+              "line": 2431,
+              "text": "      \"src_unscaled={}x{} guest_output_size={}x{} format={}\","
+            },
+            {
+              "line": 2432,
+              "text": "      static_cast<void*>(swap_texture_view), frontbuffer_width, frontbuffer_height,"
+            },
+            {
+              "line": 2433,
+              "text": "      frontbuffer_width_scaled, frontbuffer_height_scaled, frontbuffer_width_unscaled,"
+            },
+            {
+              "line": 2434,
+              "text": "      frontbuffer_height_unscaled, guest_output_width, guest_output_height,"
+            },
+            {
+              "line": 2435,
+              "text": "      static_cast<uint32_t>(frontbuffer_format));"
+            },
+            {
+              "line": 2436,
+              "text": ""
+            },
+            {
+              "line": 2437,
+              "text": "  system::X_VIDEO_MODE video_mode;"
+            },
+            {
+              "line": 2438,
+              "text": "  kernel::xboxkrnl::VdQueryVideoMode(&video_mode);"
+            },
+            {
+              "line": 2439,
+              "text": "  uint32_t display_width = std::max(uint32_t(1), uint32_t(video_mode.display_width));"
+            },
+            {
+              "line": 2440,
+              "text": "  uint32_t display_height = std::max(uint32_t(1), uint32_t(video_mode.display_height));"
+            },
+            {
+              "line": 2441,
+              "text": ""
+            },
+            {
+              "line": 2442,
+              "text": "  presenter->RefreshGuestOutput("
+            },
+            {
+              "line": 2443,
+              "text": "      guest_output_width, guest_output_height, display_width, display_height,"
+            },
+            {
+              "line": 2444,
+              "text": "      [this, guest_output_width, guest_output_height, frontbuffer_format, swap_texture_view,"
+            },
+            {
+              "line": 2445,
+              "text": "       swap_post_effect,"
+            },
+            {
+              "line": 2446,
+              "text": "       swap_source_needs_rb_swap](ui::Presenter::GuestOutputRefreshContext& context) -> bool {"
+            },
+            {
+              "line": 2447,
+              "text": "        // In case the swap command is the only one in the frame."
+            },
+            {
+              "line": 2448,
+              "text": "        if (!BeginSubmission(true)) {"
+            },
+            {
+              "line": 2449,
+              "text": "          return false;"
+            },
+            {
+              "line": 2450,
+              "text": "        }"
+            },
+            {
+              "line": 2451,
+              "text": ""
+            },
+            {
+              "line": 2452,
+              "text": "        auto& vulkan_context ="
+            },
+            {
+              "line": 2453,
+              "text": "            static_cast<ui::vulkan::VulkanPresenter::VulkanGuestOutputRefreshContext&>(context);"
+            },
+            {
+              "line": 2454,
+              "text": "        uint64_t guest_output_image_version = vulkan_context.image_version();"
+            },
+            {
+              "line": 2455,
+              "text": ""
+            },
+            {
+              "line": 2456,
+              "text": "        const ui::vulkan::VulkanDevice* const vulkan_device = GetVulkanDevice();"
+            },
+            {
+              "line": 2457,
+              "text": "        const ui::vulkan::VulkanDevice::Functions& dfn = vulkan_device->functions();"
+            },
+            {
+              "line": 2458,
+              "text": "        const VkDevice device = vulkan_device->device();"
+            },
+            {
+              "line": 2459,
+              "text": ""
+            },
+            {
+              "line": 2460,
+              "text": "        uint32_t swap_frame_index = uint32_t(frame_current_ % kMaxFramesInFlight);"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "target_count": 6,
+  "utc": "2026-11-04T18:21:42.304652+00:00",
+  "step_outcome": "success",
+  "run_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/41886263819"
+}
