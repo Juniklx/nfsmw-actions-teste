@@ -1,0 +1,99 @@
+name: NFSMW - PRE116 Android Settings nested scrolling and footer analysis (read-only)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/nested_scroll_requests/*.json'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nfsmw-pre116-nested-scroll
+  cancel-in-progress: false
+
+jobs:
+  audit-render-path:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Google API and validate scripts
+        id: setup
+        run: |
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2
+          python -m py_compile \
+            automation/kaggle/pre104_verify_backup_tar.py \
+            automation/kaggle/pre105_read_settings_source.py \
+            automation/kaggle/pre116_nested_scroll_audit.py
+      - name: Inspect Settings nested scroll and footer layout from verified PRE99
+        id: inspect
+        continue-on-error: true
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          python automation/kaggle/pre116_nested_scroll_audit.py \
+            --run-id "$GITHUB_RUN_ID" \
+            --report /tmp/nfsmw-pre116-nested-scroll.json
+      - name: Preserve report as private Actions artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pre116-nested-scroll-${{ github.run_id }}
+          path: /tmp/nfsmw-pre116-nested-scroll.json
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Record result without game files or credentials
+        if: always()
+        env:
+          SETUP_OUTCOME: ${{ steps.setup.outcome }}
+          INSPECT_OUTCOME: ${{ steps.inspect.outcome }}
+        run: |
+          python - <<'PY'
+          import json, os
+          from datetime import datetime, timezone
+          from pathlib import Path
+          src = Path('/tmp/nfsmw-pre116-nested-scroll.json')
+          data = json.loads(src.read_text(encoding='utf-8')) if src.is_file() else {'status': 'SEM_RELATORIO'}
+          data['run_id'] = os.environ['GITHUB_RUN_ID']
+          data['run_url'] = f"https://github.com/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{os.environ['GITHUB_RUN_ID']}"
+          data['workflow_setup_outcome'] = os.environ['SETUP_OUTCOME']
+          data['workflow_inspection_outcome'] = os.environ['INSPECT_OUTCOME']
+          data['recorded_utc'] = datetime.now(timezone.utc).isoformat()
+          target = Path('automation/kaggle/status/pre116_nested_scroll.json')
+          target.parent.mkdir(parents=True, exist_ok=True)
+          target.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          print('PRE116 report prepared with no OAuth values, APKs or TAR contents')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add automation/kaggle/status/pre116_nested_scroll.json
+          git commit -m 'Record PRE116 read-only Android Settings nested scrolling and footer analysis [skip ci]'
+          git fetch --no-tags --depth=50 origin main
+          git rebase origin/main
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:main; then
+              echo 'PRE116 report published'
+              exit 0
+            fi
+            echo "PRE116 report push retry ${attempt}"
+            sleep "$((attempt * 3))"
+            git fetch --no-tags --depth=50 origin main
+            git rebase origin/main
+          done
+          echo 'PRE116 report publication failed after 5 attempts' >&2
+          exit 1
+      - name: Require source audit success
+        if: always()
+        env:
+          INSPECT_OUTCOME: ${{ steps.inspect.outcome }}
+        run: test "$INSPECT_OUTCOME" = 'success'
