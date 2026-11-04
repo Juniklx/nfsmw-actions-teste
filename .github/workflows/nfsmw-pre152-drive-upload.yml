@@ -1,0 +1,37 @@
+name: NFSMW PRE152 - Upload scripts to Google Drive
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre152_drive_upload_requests/*.json'
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Google SDK
+        run: |
+          python -m py_compile automation/kaggle/upload_pre152_drive.py
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2
+      - name: Upload exact PRE152 bytes and verify Drive readback
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: python automation/kaggle/upload_pre152_drive.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nfsmw-pre152-drive-upload-${{ github.run_id }}
+          path: /tmp/nfsmw_pre152_drive_upload.json
+          if-no-files-found: warn
+          retention-days: 30
