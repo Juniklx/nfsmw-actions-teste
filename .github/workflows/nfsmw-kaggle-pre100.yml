@@ -33,8 +33,10 @@ jobs:
             echo 'KAGGLE_API_TOKEN nao configurado nos Secrets do repositorio.' >&2
             exit 1
           fi
-      - name: Instalar CLI oficial Kaggle
-        run: python -m pip install --disable-pip-version-check kaggle
+      - name: Instalar CLI oficial Kaggle e dependência ausente
+        run: |
+          python -m pip install --disable-pip-version-check kaggle six
+          python -c 'import six; from kaggle.cli import main; print("Kaggle CLI import OK")'
       - name: Criar notebook isolado de teste
         run: python automation/kaggle/create_smoke.py --output /tmp/nfsmw-smoke-kaggle
       - name: Publicar e executar notebook de teste no Kaggle
