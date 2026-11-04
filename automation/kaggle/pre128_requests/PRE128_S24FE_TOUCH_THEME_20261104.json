@@ -1,0 +1,14 @@
+{
+  "stage": "PRE128",
+  "date": "2026-11-04",
+  "device_feedback": "V27 installed: single root scroll verified; drag by touch works only on scrollbar; root window still shows legacy green",
+  "source_baseline": "PRE99 exact SHA and PRE117 exact SHA",
+  "experiment": "ephemeral Android-only UI colors/touch gesture; no APK or signing",
+  "requirements": [
+    "preserve PRE117 root-only scroll",
+    "preserve controls and save",
+    "desktop unchanged",
+    "do not touch game rendering",
+    "ARM64 syntax gating"
+  ]
+}
