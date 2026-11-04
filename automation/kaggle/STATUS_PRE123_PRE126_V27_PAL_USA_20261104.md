@@ -62,3 +62,14 @@
 ## Fonte de verdade e preservação
 
 Este adendo privado documenta o trabalho em GitHub. O `CONTEXTO_NFSMW.md` original do Drive NÃO foi sobrescrito; a escrita OAuth anterior retornou 403. Backup do contexto e imagens antigas devem ser preservados. Relatórios GitHub e APKs anteriores permanecem a base de evidência.
+
+
+## PRE126 result and PRE126B recovery — 2026-11-04 ~13:48 UTC
+
+- Initial [PRE126 run #41837195269](https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/41837195269) finished **failure** after the full native Gradle `assembleRelease` passed (`gradle_release_exit_code=0`).
+- The failure happened strictly in `SELECT_APK_AND_VERIFY`, exception type `ValueError`. The original script recorded no specific validation subcheck. Report: `automation/kaggle/status/pre126_v27_signed_release.json`, `run_id=41837195269`, `signed_apk_verified=false`, `drive_upload_success=false`. Do not claim that V27 is signed/approved/published.
+- Verified PRE99 snapshot, exact PRE117 ephemeral patch, permanent certificate and V26 reference integrity all **passed** before validation. Original Kaggle session, V26 Drive APK, signing backups and original version counter were not modified.
+- **PRE126B** is a new build retry [run #41841914257](https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/41841914257). It uses an updated `automation/kaggle/pre126_build_signed_v27_pal_usa.py` with the same acceptance gates and a new sanitized `verification_subphase`, `validation_failure_code`, `missing_required_arm64_libraries` or `mismatched_preserved_asset` in failure reports.
+- Request commit `76506b317fae50d046ea6855e29cb6e0dcadd8af`; triggered by `automation/kaggle/build_pre126_requests/PRE126B_VALIDATION_DIAGNOSTIC_20261104.json`.
+- **No current PRE126B success is claimed** until its own `run_id` is found in `automation/kaggle/status/pre126_v27_signed_release.json`, APK is signed/cert verified, package and versionCode are valid, all PAL+USA assets match V26 and the Drive upload readback succeeds.
+- Monitoring automation was updated from the failed initial run to PRE126B. The user has no action pending before a valid APK requires device testing or a demonstrable human-only blocker.
