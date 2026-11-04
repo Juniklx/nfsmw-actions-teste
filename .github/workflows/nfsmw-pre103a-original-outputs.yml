@@ -1,0 +1,60 @@
+name: NFSMW - PRE103A Kaggle outputs originais (leitura)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/output_requests/*.json'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nfsmw-kaggle-output-audit
+  cancel-in-progress: false
+
+jobs:
+  audit-original-output:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      KAGGLE_API_TOKEN: ${{ secrets.KAGGLE_API_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verificar token Kaggle
+        run: test -n "${KAGGLE_API_TOKEN:-}"
+      - name: Instalar Kaggle e conferir sintaxe
+        run: |
+          python -m pip install --disable-pip-version-check kaggle six
+          python -m py_compile automation/kaggle/audit_original_kernel_outputs.py
+      - name: Consultar saídas salvas do notebook original
+        run: |
+          python automation/kaggle/audit_original_kernel_outputs.py \
+            --report /tmp/nfsmw-pre103a-original-output.json
+      - name: Registrar resultado da auditoria no GitHub
+        if: always()
+        run: |
+          python - <<'PY'
+          import os, json
+          from pathlib import Path
+          from datetime import datetime, timezone
+          f = Path('/tmp/nfsmw-pre103a-original-output.json')
+          data = json.loads(f.read_text(encoding='utf-8')) if f.is_file() else {'etapa': 'PRE103A_AUDITAR_OUTPUT_KAGGLE_ORIGINAL','status': 'NAO_EXECUTADO'}
+          data['run_id'] = os.environ['GITHUB_RUN_ID']
+          data['run_url'] = f"https://github.com/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{os.environ['GITHUB_RUN_ID']}"
+          data['recorded_utc'] = datetime.now(timezone.utc).isoformat()
+          target = Path('automation/kaggle/status/pre103a_original_outputs.json')
+          target.parent.mkdir(parents=True, exist_ok=True)
+          target.write_text(json.dumps(data, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add automation/kaggle/status/pre103a_original_outputs.json
+          git commit -m 'Record PRE103A original Kaggle outputs audit [skip ci]'
+          git push
