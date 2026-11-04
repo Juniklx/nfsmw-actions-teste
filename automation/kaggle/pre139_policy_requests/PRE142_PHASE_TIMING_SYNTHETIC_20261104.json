@@ -1,0 +1,9 @@
+{
+  "stage": "PRE142",
+  "date": "2026-11-04",
+  "goal": "Static and synthetic checks of monotonic per-phase timings plus fail-closed cache gating",
+  "no_game_data_read": true,
+  "no_release_apk_rebuilt": true,
+  "no_signing_credentials_loaded": true,
+  "release_base": 31
+}
