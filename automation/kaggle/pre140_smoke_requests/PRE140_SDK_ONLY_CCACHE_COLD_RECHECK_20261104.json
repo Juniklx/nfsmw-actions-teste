@@ -1,0 +1,5 @@
+{
+  "stage": "PRE140",
+  "goal": "Retry synthetic CMake+ccache smoke with portable plain ccache output parser; first test proved 1 SDK hit, 1 miss, no game source cached; failed only decoding JSON command output",
+  "attempt": 2
+}
