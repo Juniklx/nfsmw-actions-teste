@@ -127,20 +127,22 @@ def main():
 
         report["old_bytes"] = len(content)
         report["old_sha256"] = sha256(content)
-        report["phase"] = "BACKUP_EXISTING_CONTEXT"
-        backup_name = ("CONTEXTO_NFSMW_BACKUP_ANTES_PRE115_"
-                       + datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%SZ") + ".md")
-        backup = drive.files().copy(
-            fileId=CONTEXT_ID,
-            body={"name": backup_name, "parents": [PARENT_ID]},
-            fields="id,name,size,md5Checksum",
+        # Prior copy was independently made through the connected Drive app and
+        # compared byte-for-byte. Verify it again before any in-place update.
+        report["phase"] = "VERIFY_EXISTING_DRIVE_BACKUP"
+        verified_backup_id = "1fcbDBOvCB4Cxb89yrP26hh6vfz4-by-Q"
+        backup = drive.files().get(
+            fileId=verified_backup_id,
+            fields="id,name,size,md5Checksum,parents",
             supportsAllDrives=True,
         ).execute()
-        report["backup_created"] = True
-        report["backup_drive_id"] = backup["id"]
-        if (int(backup.get("size", -1)) != len(content)
+        report["backup_drive_id"] = verified_backup_id
+        if (backup.get("name") != "CONTEXTO_NFSMW_BACKUP_ANTES_PRE115_20261104_1132UTC.md"
+            or PARENT_ID not in backup.get("parents", [])
+            or int(backup.get("size", -1)) != len(content)
             or backup.get("md5Checksum", "").lower() != md5):
-            raise ValueError("Drive backup verification failed")
+            raise ValueError("Verified Drive backup differs from original")
+        report["backup_verified"] = True
 
         report["phase"] = "VERIFY_NO_CONCURRENT_EDITS"
         latest = drive.files().get(
@@ -179,6 +181,10 @@ def main():
         report["phase"] = "COMPLETE"
     except Exception as exc:
         report["error_type"] = type(exc).__name__
+        resp = getattr(exc, "resp", None)
+        if resp is not None:
+            # Numeric status only; never print URLs, headers or token-bearing errors.
+            report["google_http_status"] = getattr(resp, "status", None)
         print("PRE115 context sync not confirmed, phase:", report["phase"],
               "error type:", type(exc).__name__)
     finally:
