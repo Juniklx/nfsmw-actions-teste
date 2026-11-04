@@ -1,0 +1,19 @@
+{
+  "stage": "PRE132_V29_PAL_USA",
+  "date": "2026-11-04",
+  "pre131_run": "41868450408",
+  "source_hashes_strict": true,
+  "pre131_settings_sha256": "9e95ab6637ec742be5d2f0d9aca94c8ce4f5f4f19f93ec94700183699b23ece7",
+  "baseline_v28_file_id": "1OZngOrQNc5l8bqU1QOdNJf1JTk7n6x0f",
+  "baseline_v28_sha256": "6a06bb0ae4f310f5d93b6f1e4e4ae05763f3b83ee3de6a42b9f55eea02079caa",
+  "version_code": 29,
+  "package_id": "io.github.nfsmwrecomp",
+  "certificate_sha256": "1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b",
+  "changes": "OnTouchEvent tracked finger drag, modern bundled Michroma font, human readable CVar labels, search hint",
+  "use_original_permanent_keystore": true,
+  "keep_pal_and_usa": true,
+  "protect_v28": true,
+  "build_to_private_github_artifact_first": true,
+  "do_not_publish_until_signed_and_verified": true,
+  "touch_runtime_not_yet_verified": true
+}
