@@ -1,0 +1,25 @@
+{
+  "stage": "PRE138_V31_DIAGNOSTIC_LOGGING_REQUESTED",
+  "date": "2026-11-04",
+  "run_id": "41896331611",
+  "run_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/41896331611",
+  "phase": "RUNNING",
+  "signed_apk_verified": false,
+  "apk_published": false,
+  "phone_installation_tested": false,
+  "game_log_file_created_on_device": false,
+  "user_feedback": "V30 Settings Log File resets automatically to /dev/null; v3 single-Shizuku monitoring successfully created thermal TXT",
+  "baseline_v30": {
+    "versionCode": 30,
+    "package": "io.github.nfsmwrecomp",
+    "apk_drive_id": "1Nl3J0gOwGHfV1Yu8FP3Gl5KdzM51gmdi",
+    "sha256": "150438943b709f44b55d44a83baea5f239dd55677c3846f3508ee7a4760b2388"
+  },
+  "diagnostic_v31": {
+    "versionCode": 31,
+    "change": "Gradle -Pnfsmw.registro=true only; preserve exact PRE117 PRE128 PRE131 PRE133 sources",
+    "certificate_sha256": "1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b",
+    "safety_checks": "DEX must include nfsmw.log and --log_file=; signer and PAL/USA asset SHA gates; do not publish failed artifact"
+  },
+  "next_step": "Review PRE138 run and report. Publish new signed APK to Drive only after all verification gates, then test nfsmw.log path; do not claim log until generated on device."
+}
