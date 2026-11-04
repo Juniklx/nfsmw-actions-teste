@@ -1,0 +1,155 @@
+name: NFSMW - Inserir PRE119B no notebook Kaggle sem executar
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/notebook_cell_requests/*.json'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nfsmw-pre119b-original-notebook-safe-edit
+  cancel-in-progress: false
+
+jobs:
+  add-audit-cell-no-run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    env:
+      KAGGLE_API_TOKEN: ${{ secrets.KAGGLE_API_TOKEN }}
+    steps:
+      - name: Checkout private project automation
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install official Kaggle CLI and lint both audit scripts
+        id: setup
+        run: |
+          set -e
+          python -m pip install --disable-pip-version-check kaggle six
+          python -m py_compile automation/kaggle/pre119b_auditar_arvore_autosync.py automation/kaggle/pre119b_append_to_kaggle_notebook.py
+          test -n "${KAGGLE_API_TOKEN:-}"
+          kaggle kernels push --help | grep -- '--no-run' >/dev/null
+      - name: Guard against overwriting running original notebook
+        id: status
+        run: |
+          set -e
+          kaggle kernels status juniklx/nfsmw > /tmp/nfsmw-kernel-state.txt
+          if grep -Eiq '\b(RUNNING|QUEUED|PENDING|STARTING)\b' /tmp/nfsmw-kernel-state.txt; then
+            echo 'PRE119B: Kaggle original notebook is running; do not push even no-run.' >&2
+            exit 1
+          fi
+          echo 'PRE119B: existing notebook not running'
+      - name: Pull original Kaggle notebook and metadata into private runner
+        id: pull
+        run: |
+          set -e
+          mkdir -p /tmp/nfsmw-pre119b-before
+          kaggle kernels pull juniklx/nfsmw -p /tmp/nfsmw-pre119b-before -m > /tmp/nfsmw-pre119b-pull.log
+          echo 'PRE119B: pulled source and metadata to ephemeral runner; source not logged'
+      - name: Preserve original by versioning and prepare exactly one new cell
+        id: prepare
+        run: |
+          set -e
+          python automation/kaggle/pre119b_append_to_kaggle_notebook.py \
+            --phase prepare \
+            --folder /tmp/nfsmw-pre119b-before \
+            --report /tmp/nfsmw-pre119b-notebook-report.json
+      - name: Save Kaggle notebook new version with NO EXECUTION
+        id: push
+        continue-on-error: true
+        run: |
+          set -e
+          PRE119B_STATUS="$(python -c "import json;print(json.load(open('/tmp/nfsmw-pre119b-notebook-report.json'))['update_type'])")"
+          if [ "$PRE119B_STATUS" = 'ALREADY_PRESENT_IDENTICAL' ]; then
+            echo 'PRE119B: requested cell already present and identical; skip update'
+          elif [ "$PRE119B_STATUS" = 'APPENDED_ONE_READONLY_CELL' ]; then
+            kaggle kernels push -p /tmp/nfsmw-pre119b-before --no-run > /tmp/nfsmw-pre119b-push.log
+            echo 'PRE119B: Kaggle Quick Saved notebook without running any cells'
+          else
+            echo 'PRE119B: invalid preparation state' >&2
+            exit 1
+          fi
+      - name: Read notebook version back from Kaggle and verify appended cell
+        id: readback
+        if: steps.push.outcome == 'success'
+        continue-on-error: true
+        run: |
+          set -e
+          mkdir -p /tmp/nfsmw-pre119b-after
+          kaggle kernels pull juniklx/nfsmw -p /tmp/nfsmw-pre119b-after -m > /tmp/nfsmw-pre119b-verify-pull.log
+          python automation/kaggle/pre119b_append_to_kaggle_notebook.py \
+            --phase check \
+            --folder /tmp/nfsmw-pre119b-after \
+            --report /tmp/nfsmw-pre119b-notebook-report.json
+      - name: Save sanitized evidence as private GitHub artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pre119b-kaggle-notebook-cell-${{ github.run_id }}
+          path: /tmp/nfsmw-pre119b-notebook-report.json
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Publish readback status and no-run provenance (without notebook or credentials)
+        if: always()
+        env:
+          SETUP_RESULT: ${{ steps.setup.outcome }}
+          PULL_RESULT: ${{ steps.pull.outcome }}
+          PUSH_RESULT: ${{ steps.push.outcome }}
+          READBACK_RESULT: ${{ steps.readback.outcome }}
+        run: |
+          set -e
+          python - <<'PY'
+          from pathlib import Path
+          import json, os
+          from datetime import datetime,timezone
+          f=Path('/tmp/nfsmw-pre119b-notebook-report.json')
+          doc=json.loads(f.read_text(encoding='utf-8')) if f.is_file() else {}
+          doc.update({
+            'etapa':'PRE119B_ANEXAR_CELULA_KAGGLE_SEM_EXECUCAO',
+            'github_run_id':os.environ['GITHUB_RUN_ID'],
+            'run_url':f"https://github.com/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{os.environ['GITHUB_RUN_ID']}",
+            'workflow_setup':os.environ['SETUP_RESULT'],
+            'kaggle_pull':os.environ['PULL_RESULT'],
+            'kaggle_push_no_run':os.environ['PUSH_RESULT'],
+            'kaggle_readback':os.environ['READBACK_RESULT'],
+            'game_modified':False,'apk_built':False,'kaggle_code_executed':False,
+            'drive_report_generated':False,'active_tree_audited':False,
+            'utc':datetime.now(timezone.utc).isoformat(),
+          })
+          doc['status']='PRE119B_CELULA_INSERIDA_E_CONFERIDA_SEM_EXECUTAR' if (
+            doc.get('kaggle_pull_readback_confirmed') is True
+            and os.environ['PUSH_RESULT']=='success'
+            and os.environ['READBACK_RESULT']=='success'
+          ) else 'PRE119B_NAO_CONFIRMADO'
+          target=Path('automation/kaggle/status/pre119b_kaggle_notebook_cell.json')
+          target.parent.mkdir(parents=True,exist_ok=True)
+          target.write_text(json.dumps(doc,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print('PRE119B:',doc['status'])
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add automation/kaggle/status/pre119b_kaggle_notebook_cell.json
+          git commit -m 'Record PRE119B original Kaggle notebook cell no-run status [skip ci]'
+          git fetch --no-tags --depth=50 origin main
+          git rebase origin/main
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$((attempt * 3))"
+            git fetch --no-tags --depth=50 origin main
+            git rebase origin/main
+          done
+          exit 1
+      - name: Require Kaggle pull, no-run save and readback success
+        if: always()
+        env:
+          PUSH_RESULT: ${{ steps.push.outcome }}
+          READBACK_RESULT: ${{ steps.readback.outcome }}
+        run: |
+          test "$PUSH_RESULT" = success
+          test "$READBACK_RESULT" = success
