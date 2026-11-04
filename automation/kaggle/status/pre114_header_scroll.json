@@ -1,0 +1,1035 @@
+{
+  "etapa": "PRE114_HEADER_IMGUI_SCROLL_CLIP_AUDIT",
+  "run_id": "41818329320",
+  "status": "HEADER_SCROLL_CLIP_ESTATICO_AUDITADO",
+  "phase": "COMPLETE",
+  "pre99_sha256_confirmed": true,
+  "all_source_sha256_confirmed": true,
+  "original_workspace_modified": false,
+  "google_drive_modified": false,
+  "apk_built": false,
+  "signing_key_accessed": false,
+  "audit": {
+    "source_item_order": {
+      "root_window_begin": {
+        "byte_offset": 8024,
+        "line": 264
+      },
+      "root_window_early_return": {
+        "byte_offset": 8258,
+        "line": 275
+      },
+      "header_child": {
+        "byte_offset": 11566,
+        "line": 351
+      },
+      "header_title": {
+        "byte_offset": 11722,
+        "line": 356
+      },
+      "header_subtitle": {
+        "byte_offset": 11779,
+        "line": 357
+      },
+      "header_end": {
+        "byte_offset": 11809,
+        "line": 359
+      },
+      "search_input": {
+        "byte_offset": 12111,
+        "line": 372
+      },
+      "category_label": {
+        "byte_offset": 12281,
+        "line": 379
+      }
+    },
+    "header_comes_before_search": true,
+    "root_settings_scroll_reset_calls_found": 0,
+    "root_scroll_current_value_known": false,
+    "device_actual_imgui_scroll_value_known": false,
+    "device_actual_clip_rectangle_known": false,
+    "device_font_scale_known": false,
+    "source_patterns": {
+      "workspace/nativo/sdk/src/ui/imgui_dialog.cpp": {
+        "line_count": 91,
+        "patterns": {
+          "scroll_reads": {
+            "count": 0,
+            "lines": []
+          },
+          "scroll_writes": {
+            "count": 0,
+            "lines": []
+          },
+          "clip": {
+            "count": 0,
+            "lines": []
+          },
+          "font_scale": {
+            "count": 0,
+            "lines": []
+          },
+          "draw_frame": {
+            "count": 3,
+            "lines": [
+              44,
+              46,
+              60
+            ]
+          },
+          "window": {
+            "count": 0,
+            "lines": []
+          }
+        },
+        "source_sha256": "9dcc8cb03768bbabf20ac925363017cd56aa6221d501c2554db2b98246690ef3"
+      },
+      "workspace/nativo/sdk/src/ui/imgui_drawer.cpp": {
+        "line_count": 748,
+        "patterns": {
+          "scroll_reads": {
+            "count": 0,
+            "lines": []
+          },
+          "scroll_writes": {
+            "count": 0,
+            "lines": []
+          },
+          "clip": {
+            "count": 4,
+            "lines": [
+              513,
+              514,
+              515,
+              516
+            ]
+          },
+          "font_scale": {
+            "count": 6,
+            "lines": [
+              206,
+              219,
+              220,
+              364,
+              367,
+              392
+            ]
+          },
+          "draw_frame": {
+            "count": 3,
+            "lines": [
+              456,
+              465,
+              466
+            ]
+          },
+          "window": {
+            "count": 3,
+            "lines": [
+              46,
+              492,
+              523
+            ]
+          }
+        },
+        "source_sha256": "1a62d13e81af3aac4837af06e90281b64bd282c78e6e5ce079d6ca930e8a5c24"
+      },
+      "workspace/nativo/sdk/src/ui/overlay/settings_overlay.cpp": {
+        "line_count": 765,
+        "patterns": {
+          "scroll_reads": {
+            "count": 0,
+            "lines": []
+          },
+          "scroll_writes": {
+            "count": 0,
+            "lines": []
+          },
+          "clip": {
+            "count": 0,
+            "lines": []
+          },
+          "font_scale": {
+            "count": 0,
+            "lines": []
+          },
+          "draw_frame": {
+            "count": 1,
+            "lines": [
+              177
+            ]
+          },
+          "window": {
+            "count": 12,
+            "lines": [
+              248,
+              250,
+              253,
+              264,
+              276,
+              350,
+              359,
+              422,
+              473,
+              503,
+              729,
+              762
+            ]
+          }
+        },
+        "source_sha256": "5509b4ad8de3f78522e0d5718ab853fbaff79ea4ff9184173a969b63eb3ab034"
+      }
+    },
+    "settings_window_and_header_lines": [
+      {
+        "line": 222,
+        "text": "      start = (slash == std::string::npos) ? cat.size() : slash + 1;"
+      },
+      {
+        "line": 223,
+        "text": "    }"
+      },
+      {
+        "line": 224,
+        "text": "  }"
+      },
+      {
+        "line": 225,
+        "text": ""
+      },
+      {
+        "line": 226,
+        "text": "  const std::string search(search_buf_);"
+      },
+      {
+        "line": 227,
+        "text": "  const bool searching = !search.empty();"
+      },
+      {
+        "line": 228,
+        "text": ""
+      },
+      {
+        "line": 229,
+        "text": "  const ImVec2 display_size = ImGui::GetIO().DisplaySize;"
+      },
+      {
+        "line": 230,
+        "text": "  if (display_size.x <= 0.0f || display_size.y <= 0.0f) {"
+      },
+      {
+        "line": 231,
+        "text": "    return;"
+      },
+      {
+        "line": 232,
+        "text": "  }"
+      },
+      {
+        "line": 233,
+        "text": "  // NFSMW PRE80: Android touch settings layout."
+      },
+      {
+        "line": 234,
+        "text": "#if defined(__ANDROID__)"
+      },
+      {
+        "line": 235,
+        "text": "  const bool mobile_layout = true;"
+      },
+      {
+        "line": 236,
+        "text": "#else"
+      },
+      {
+        "line": 237,
+        "text": "  const bool mobile_layout = false;"
+      },
+      {
+        "line": 238,
+        "text": "#endif"
+      },
+      {
+        "line": 239,
+        "text": ""
+      },
+      {
+        "line": 240,
+        "text": "  const float margin = mobile_layout ? 16.0f : 12.0f;"
+      },
+      {
+        "line": 241,
+        "text": "  const ImVec2 settings_size("
+      },
+      {
+        "line": 242,
+        "text": "      std::max(1.0f, std::min("
+      },
+      {
+        "line": 243,
+        "text": "          mobile_layout ? 1400.0f : 620.0f,"
+      },
+      {
+        "line": 244,
+        "text": "          display_size.x - 2.0f * margin)),"
+      },
+      {
+        "line": 245,
+        "text": "      std::max(1.0f, std::min("
+      },
+      {
+        "line": 246,
+        "text": "          mobile_layout ? 900.0f : 480.0f,"
+      },
+      {
+        "line": 247,
+        "text": "          display_size.y - 2.0f * margin)));"
+      },
+      {
+        "line": 248,
+        "text": "  ImGui::SetNextWindowPos(ImVec2(display_size.x * 0.5f, display_size.y * 0.5f),"
+      },
+      {
+        "line": 249,
+        "text": "                          ImGuiCond_Always, ImVec2(0.5f, 0.5f));"
+      },
+      {
+        "line": 250,
+        "text": "  ImGui::SetNextWindowSize(settings_size, ImGuiCond_Always);"
+      },
+      {
+        "line": 251,
+        "text": "  ImGui::SetNextWindowBgAlpha(mobile_layout ? 0.98f : 0.85f);"
+      },
+      {
+        "line": 252,
+        "text": "  // NFSMW PRE92: full yellow settings window."
+      },
+      {
+        "line": 253,
+        "text": "  // A cor e os cantos da janela devem ser definidos antes de Begin()."
+      },
+      {
+        "line": 254,
+        "text": "  if (mobile_layout) {"
+      },
+      {
+        "line": 255,
+        "text": "    ImGui::PushStyleColor("
+      },
+      {
+        "line": 256,
+        "text": "        ImGuiCol_WindowBg,"
+      },
+      {
+        "line": 257,
+        "text": "        ImVec4(0.055f, 0.065f, 0.075f, 0.99f));"
+      },
+      {
+        "line": 258,
+        "text": "    ImGui::PushStyleColor("
+      },
+      {
+        "line": 259,
+        "text": "        ImGuiCol_Border,"
+      },
+      {
+        "line": 260,
+        "text": "        ImVec4(0.40f, 0.34f, 0.12f, 1.0f));"
+      },
+      {
+        "line": 261,
+        "text": "    ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 16.0f);"
+      },
+      {
+        "line": 262,
+        "text": "  }"
+      },
+      {
+        "line": 263,
+        "text": ""
+      },
+      {
+        "line": 264,
+        "text": "  const bool settings_visible = ImGui::Begin("
+      },
+      {
+        "line": 265,
+        "text": "      \"Settings##rex\", nullptr,"
+      },
+      {
+        "line": 266,
+        "text": "      ImGuiWindowFlags_NoCollapse |"
+      },
+      {
+        "line": 267,
+        "text": "      ImGuiWindowFlags_NoMove |"
+      },
+      {
+        "line": 268,
+        "text": "      ImGuiWindowFlags_NoResize);"
+      },
+      {
+        "line": 269,
+        "text": ""
+      },
+      {
+        "line": 270,
+        "text": "  if (mobile_layout) {"
+      },
+      {
+        "line": 271,
+        "text": "    ImGui::PopStyleVar();"
+      },
+      {
+        "line": 272,
+        "text": "    ImGui::PopStyleColor(2);"
+      },
+      {
+        "line": 273,
+        "text": "  }"
+      },
+      {
+        "line": 274,
+        "text": ""
+      },
+      {
+        "line": 275,
+        "text": "  if (!settings_visible) {"
+      },
+      {
+        "line": 276,
+        "text": "    ImGui::End();"
+      },
+      {
+        "line": 277,
+        "text": "    return;"
+      },
+      {
+        "line": 278,
+        "text": "  }"
+      },
+      {
+        "line": 279,
+        "text": ""
+      },
+      {
+        "line": 280,
+        "text": "  // NFSMW PRE86: most wanted yellow mobile theme"
+      },
+      {
+        "line": 336,
+        "text": "        ImVec4(0.67f, 0.68f, 0.65f, 1.0f));"
+      },
+      {
+        "line": 337,
+        "text": "    ImGui::PushStyleColor("
+      },
+      {
+        "line": 338,
+        "text": "        ImGuiCol_TitleBg,"
+      },
+      {
+        "line": 339,
+        "text": "        ImVec4(0.08f, 0.09f, 0.10f, 1.0f));"
+      },
+      {
+        "line": 340,
+        "text": "    ImGui::PushStyleColor("
+      },
+      {
+        "line": 341,
+        "text": "        ImGuiCol_TitleBgActive,"
+      },
+      {
+        "line": 342,
+        "text": "        ImVec4(0.14f, 0.14f, 0.12f, 1.0f));"
+      },
+      {
+        "line": 343,
+        "text": "  }"
+      },
+      {
+        "line": 344,
+        "text": ""
+      },
+      {
+        "line": 345,
+        "text": "  if (mobile_layout) {"
+      },
+      {
+        "line": 346,
+        "text": "    ImGui::PushStyleColor("
+      },
+      {
+        "line": 347,
+        "text": "        ImGuiCol_ChildBg,"
+      },
+      {
+        "line": 348,
+        "text": "        ImVec4(0.14f, 0.15f, 0.15f, 1.0f));"
+      },
+      {
+        "line": 349,
+        "text": ""
+      },
+      {
+        "line": 350,
+        "text": "    ImGui::BeginChild("
+      },
+      {
+        "line": 351,
+        "text": "        \"##mw_header\", ImVec2(0.0f, 70.0f),"
+      },
+      {
+        "line": 352,
+        "text": "        true, ImGuiWindowFlags_NoScrollbar);"
+      },
+      {
+        "line": 353,
+        "text": ""
+      },
+      {
+        "line": 354,
+        "text": "    ImGui::TextColored("
+      },
+      {
+        "line": 355,
+        "text": "        ImVec4(1.0f, 0.82f, 0.05f, 1.0f),"
+      },
+      {
+        "line": 356,
+        "text": "        \"NEED FOR SPEED / MOST WANTED\");"
+      },
+      {
+        "line": 357,
+        "text": "    ImGui::TextDisabled(\"SETTINGS  /  ANDROID\");"
+      },
+      {
+        "line": 358,
+        "text": ""
+      },
+      {
+        "line": 359,
+        "text": "    ImGui::EndChild();"
+      },
+      {
+        "line": 360,
+        "text": "    ImGui::PopStyleColor();"
+      },
+      {
+        "line": 361,
+        "text": "  } else {"
+      },
+      {
+        "line": 362,
+        "text": "    ImGui::TextColored("
+      },
+      {
+        "line": 363,
+        "text": "        ImVec4(1.0f, 0.79f, 0.16f, 1.0f), \"NFSMW\");"
+      },
+      {
+        "line": 364,
+        "text": "    ImGui::SameLine();"
+      },
+      {
+        "line": 365,
+        "text": "    ImGui::TextDisabled(\" / SETTINGS\");"
+      },
+      {
+        "line": 366,
+        "text": "  }"
+      },
+      {
+        "line": 367,
+        "text": ""
+      },
+      {
+        "line": 368,
+        "text": "  ImGui::Separator();"
+      },
+      {
+        "line": 369,
+        "text": ""
+      },
+      {
+        "line": 370,
+        "text": "  // Search bar at the top (full width)."
+      },
+      {
+        "line": 371,
+        "text": "  ImGui::SetNextItemWidth(-1.0f);"
+      },
+      {
+        "line": 372,
+        "text": "  ImGui::InputText(\"##search\", search_buf_, sizeof(search_buf_));"
+      },
+      {
+        "line": 373,
+        "text": "  ImGui::SameLine(0, 0);"
+      },
+      {
+        "line": 374,
+        "text": "  ImGui::Dummy(ImVec2(0, 0));"
+      },
+      {
+        "line": 375,
+        "text": ""
+      },
+      {
+        "line": 376,
+        "text": "  ImGui::Separator();"
+      },
+      {
+        "line": 377,
+        "text": ""
+      },
+      {
+        "line": 378,
+        "text": "  if (mobile_layout) {"
+      },
+      {
+        "line": 379,
+        "text": "    ImGui::TextDisabled(\"CATEGORY\");"
+      },
+      {
+        "line": 380,
+        "text": ""
+      },
+      {
+        "line": 381,
+        "text": "    std::string selected_label ="
+      },
+      {
+        "line": 382,
+        "text": "        selected_category_.empty()"
+      },
+      {
+        "line": 383,
+        "text": "            ? std::string(\"All settings\")"
+      },
+      {
+        "line": 384,
+        "text": "            : selected_category_;"
+      },
+      {
+        "line": 385,
+        "text": ""
+      },
+      {
+        "line": 386,
+        "text": "    ImGui::SetNextItemWidth(-1.0f);"
+      },
+      {
+        "line": 748,
+        "text": "  if (save_clicked) {"
+      },
+      {
+        "line": 749,
+        "text": "    rex::cvar::SaveConfig(config_path_);"
+      },
+      {
+        "line": 750,
+        "text": "  }"
+      },
+      {
+        "line": 751,
+        "text": ""
+      },
+      {
+        "line": 752,
+        "text": "  if (!mobile_layout) {"
+      },
+      {
+        "line": 753,
+        "text": "    ImGui::SameLine();"
+      },
+      {
+        "line": 754,
+        "text": "  }"
+      },
+      {
+        "line": 755,
+        "text": ""
+      },
+      {
+        "line": 756,
+        "text": "  ImGui::TextDisabled("
+      },
+      {
+        "line": 757,
+        "text": "      \"(%s)\","
+      },
+      {
+        "line": 758,
+        "text": "      config_path_.filename().string().c_str());"
+      },
+      {
+        "line": 759,
+        "text": ""
+      },
+      {
+        "line": 760,
+        "text": "  ImGui::PopStyleColor(mobile_layout ? 20 : 11);"
+      },
+      {
+        "line": 761,
+        "text": "  ImGui::PopStyleVar(4);"
+      },
+      {
+        "line": 762,
+        "text": "  ImGui::End();"
+      },
+      {
+        "line": 763,
+        "text": "}"
+      },
+      {
+        "line": 764,
+        "text": ""
+      },
+      {
+        "line": 765,
+        "text": "}  // namespace rex::ui"
+      }
+    ],
+    "drawer_render_frame_lines": [
+      {
+        "line": 429,
+        "text": "      float(double(current_frame_time_ticks - last_frame_time_ticks_) / frame_time_tick_frequency_);"
+      },
+      {
+        "line": 430,
+        "text": "  if (!(io.DeltaTime > 0.0f) || current_frame_time_ticks < last_frame_time_ticks_) {"
+      },
+      {
+        "line": 431,
+        "text": "    // For safety as Dear ImGui doesn't allow non-positive DeltaTime. Using the"
+      },
+      {
+        "line": 432,
+        "text": "    // same default value as in the official samples."
+      },
+      {
+        "line": 433,
+        "text": "    io.DeltaTime = 1.0f / 60.0f;"
+      },
+      {
+        "line": 434,
+        "text": "  }"
+      },
+      {
+        "line": 435,
+        "text": "  last_frame_time_ticks_ = current_frame_time_ticks;"
+      },
+      {
+        "line": 436,
+        "text": ""
+      },
+      {
+        "line": 437,
+        "text": "  const float physical_to_logical = FisicoALogico(window_);"
+      },
+      {
+        "line": 438,
+        "text": "  io.DisplaySize.x = window_->GetActualPhysicalWidth() * physical_to_logical;"
+      },
+      {
+        "line": 439,
+        "text": "  io.DisplaySize.y = window_->GetActualPhysicalHeight() * physical_to_logical;"
+      },
+      {
+        "line": 440,
+        "text": ""
+      },
+      {
+        "line": 441,
+        "text": "#if REX_PLATFORM_SWITCH"
+      },
+      {
+        "line": 442,
+        "text": "  {"
+      },
+      {
+        "line": 443,
+        "text": "    // On Switch there is no mouse or keyboard and the window generates no input"
+      },
+      {
+        "line": 444,
+        "text": "    // events: HID is read here, on the UI thread and before NewFrame. While a menu"
+      },
+      {
+        "line": 445,
+        "text": "    // is open, Draw repeats continuously (see the end). There is a single"
+      },
+      {
+        "line": 446,
+        "text": "    // ImGuiDrawer per process. The touch panel always measures 1280x720."
+      },
+      {
+        "line": 447,
+        "text": "    static nx::EstadoEntradaUi estado_entrada;"
+      },
+      {
+        "line": 448,
+        "text": "    nx::EntradaUi entrada;"
+      },
+      {
+        "line": 449,
+        "text": "    nx::LeerEntradaUi(entrada,"
+      },
+      {
+        "line": 450,
+        "text": "                      float(window_->GetActualPhysicalWidth()) / 1280.0f * physical_to_logical,"
+      },
+      {
+        "line": 451,
+        "text": "                      float(window_->GetActualPhysicalHeight()) / 720.0f * physical_to_logical);"
+      },
+      {
+        "line": 452,
+        "text": "    nx::AplicarEntrada(io, entrada, estado_entrada);"
+      },
+      {
+        "line": 453,
+        "text": "  }"
+      },
+      {
+        "line": 454,
+        "text": "#endif"
+      },
+      {
+        "line": 455,
+        "text": ""
+      },
+      {
+        "line": 456,
+        "text": "  ImGui::NewFrame();"
+      },
+      {
+        "line": 457,
+        "text": ""
+      },
+      {
+        "line": 458,
+        "text": "  assert_true(!IsDrawingDialogs());"
+      },
+      {
+        "line": 459,
+        "text": "  dialog_loop_next_index_ = 0;"
+      },
+      {
+        "line": 460,
+        "text": "  while (dialog_loop_next_index_ < dialogs_.size()) {"
+      },
+      {
+        "line": 461,
+        "text": "    dialogs_[dialog_loop_next_index_++]->Draw();"
+      },
+      {
+        "line": 462,
+        "text": "  }"
+      },
+      {
+        "line": 463,
+        "text": "  dialog_loop_next_index_ = SIZE_MAX;"
+      },
+      {
+        "line": 464,
+        "text": ""
+      },
+      {
+        "line": 465,
+        "text": "  ImGui::Render();"
+      },
+      {
+        "line": 466,
+        "text": "  ImDrawData* draw_data = ImGui::GetDrawData();"
+      },
+      {
+        "line": 467,
+        "text": "  if (draw_data) {"
+      },
+      {
+        "line": 468,
+        "text": "    RenderDrawLists(draw_data, ui_draw_context);"
+      },
+      {
+        "line": 469,
+        "text": "  }"
+      },
+      {
+        "line": 470,
+        "text": ""
+      },
+      {
+        "line": 471,
+        "text": "  if (reset_mouse_position_after_next_frame_) {"
+      },
+      {
+        "line": 472,
+        "text": "    reset_mouse_position_after_next_frame_ = false;"
+      },
+      {
+        "line": 473,
+        "text": "    io.MousePos = ImVec2(-FLT_MAX, -FLT_MAX);"
+      },
+      {
+        "line": 474,
+        "text": "  }"
+      },
+      {
+        "line": 475,
+        "text": ""
+      },
+      {
+        "line": 476,
+        "text": "  // Detaching is deferred if the last dialog is removed during drawing, perform"
+      },
+      {
+        "line": 477,
+        "text": "  // it now if needed."
+      },
+      {
+        "line": 478,
+        "text": "  DetachIfLastDialogRemoved();"
+      },
+      {
+        "line": 479,
+        "text": ""
+      },
+      {
+        "line": 480,
+        "text": "  if (!dialogs_.empty()) {"
+      },
+      {
+        "line": 481,
+        "text": "    // Repaint (and handle input) continuously if still active. In detached mode"
+      },
+      {
+        "line": 482,
+        "text": "    // there is no presenter; the app drives repaint via its own present loop."
+      },
+      {
+        "line": 483,
+        "text": "    if (presenter_) {"
+      },
+      {
+        "line": 484,
+        "text": "      presenter_->RequestUIPaintFromUIThread();"
+      },
+      {
+        "line": 485,
+        "text": "    }"
+      }
+    ],
+    "dialog_draw_lines": [
+      {
+        "line": 31,
+        "text": ""
+      },
+      {
+        "line": 32,
+        "text": "void ImGuiDialog::Then(rex::thread::Fence* fence) {"
+      },
+      {
+        "line": 33,
+        "text": "  waiting_fences_.push_back(fence);"
+      },
+      {
+        "line": 34,
+        "text": "}"
+      },
+      {
+        "line": 35,
+        "text": ""
+      },
+      {
+        "line": 36,
+        "text": "void ImGuiDialog::Close() {"
+      },
+      {
+        "line": 37,
+        "text": "  has_close_pending_ = true;"
+      },
+      {
+        "line": 38,
+        "text": "}"
+      },
+      {
+        "line": 39,
+        "text": ""
+      },
+      {
+        "line": 40,
+        "text": "ImGuiIO& ImGuiDialog::GetIO() {"
+      },
+      {
+        "line": 41,
+        "text": "  return imgui_drawer()->GetIO();"
+      },
+      {
+        "line": 42,
+        "text": "}"
+      },
+      {
+        "line": 43,
+        "text": ""
+      },
+      {
+        "line": 44,
+        "text": "void ImGuiDialog::Draw() {"
+      },
+      {
+        "line": 45,
+        "text": "  // Draw UI."
+      },
+      {
+        "line": 46,
+        "text": "  OnDraw(GetIO());"
+      },
+      {
+        "line": 47,
+        "text": ""
+      },
+      {
+        "line": 48,
+        "text": "  // Check to see if the UI closed itself and needs to be deleted."
+      },
+      {
+        "line": 49,
+        "text": "  if (has_close_pending_) {"
+      },
+      {
+        "line": 50,
+        "text": "    OnClose();"
+      },
+      {
+        "line": 51,
+        "text": "    delete this;"
+      },
+      {
+        "line": 52,
+        "text": "  }"
+      },
+      {
+        "line": 53,
+        "text": "}"
+      }
+    ],
+    "interpretation": [
+      "The verified C++ draws the mobile header before the search input.",
+      "An absent scroll reset is only a possible explanation of a missing header, not proof that the window was scrolled.",
+      "No Android runtime scroll, clip rectangle, font size or framebuffer scaling were measured in this source audit.",
+      "The next diagnostic should record GetScrollY, GetScrollMaxY, ImGui::GetWindowPos and the header child rect in a controlled device test."
+    ],
+    "patch_applied": false,
+    "apk_built": false
+  },
+  "recorded_utc": "2026-11-04T11:04:38.405501+00:00",
+  "run_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/41818329320",
+  "workflow_setup_outcome": "success",
+  "workflow_inspection_outcome": "success"
+}
