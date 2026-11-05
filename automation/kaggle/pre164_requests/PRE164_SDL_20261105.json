@@ -1,0 +1,6 @@
+{
+  "stage": "PRE164",
+  "intent": "audit authenticated PRE99 SDL event wakeups before patch",
+  "apk_build": false,
+  "uses_secure_cache_on_future_build": true
+}

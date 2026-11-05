@@ -1,0 +1,37 @@
+name: NFSMW PRE164 - Audit verified SDL wake path (read-only)
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre164_requests/*.json'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare verified source audit
+        run: |
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2
+          python -m py_compile automation/kaggle/pre164_audit_sdl_wake.py
+      - name: Read exact PRE99 SDL wake/producer source only
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: python automation/kaggle/pre164_audit_sdl_wake.py
+      - name: Store private source review report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre164-sdl-audit-${{ github.run_id }}
+          path: /tmp/nfsmw-pre164-source-audit/PRE164_SDL_WAKE_AUDIT.json
+          retention-days: 14
+          if-no-files-found: warn
