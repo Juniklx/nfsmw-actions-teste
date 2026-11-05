@@ -1,0 +1,8 @@
+{
+  "stage": "PRE154",
+  "task": "compare exact PRE99 renderer sources with prior PRE136 hashes using the PRE138 V31 source chain",
+  "mode": "read_only",
+  "modify_apk": false,
+  "modify_signing": false,
+  "modify_drive": false
+}
