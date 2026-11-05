@@ -1,0 +1,8 @@
+{
+  "stage": "PRE169_INPUT_AUDIT",
+  "source": "PRE99 SHA-256 verified from private Drive",
+  "action": "read-only input poll path audit",
+  "no_game_patches": true,
+  "no_build": true,
+  "signing_keys_unread": true
+}

@@ -1,0 +1,37 @@
+name: NFSMW PRE169 - Authenticated input hotpath source review
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre169_requests/*.json'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check source audit syntax
+        run: |
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2
+          python -m py_compile automation/kaggle/pre169_review_input_source.py
+      - name: Read SHA256-verified private PRE99 code
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: python automation/kaggle/pre169_review_input_source.py
+      - name: Store verified private input source subset for review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre169-source-${{ github.run_id }}
+          path: /tmp/nfsmw-pre169-input-audit/PRE169_PRE99_SOURCE_REVIEW.zip
+          if-no-files-found: warn
+          retention-days: 7
