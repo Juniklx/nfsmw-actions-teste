@@ -1,0 +1,12 @@
+{
+  "stage": "PRE170",
+  "goal": "Reduce redundant Android SDL PumpEvents requests",
+  "pre170_pump_min_interval_ms": 8,
+  "target_version_code": 34,
+  "version33_patches_preserved": true,
+  "permanent_signer_cert_sha256": "1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b",
+  "warm_caches": "PRE139 Gradle; PRE140 SDK ccache",
+  "drive_upload_during_build": false,
+  "phone_performance_tested": false,
+  "phone_controls_tested": false
+}
