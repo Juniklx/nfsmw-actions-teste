@@ -1,0 +1,16 @@
+{
+  "stage": "PRE185",
+  "requested_after": "PRE184 V35 SDL WaitEvent CPU reduced ~99%; C3 texture in-flight index incoherent persists",
+  "baseline": "PRE99 authenticated source",
+  "operation": "read-only C3 source localization",
+  "do_not_change": [
+    "APK",
+    "signing",
+    "controls",
+    "GPU limits",
+    "thermal protection",
+    "game quality",
+    "versionCode"
+  ],
+  "future_patch_requires": "V35 exact-source verification and user control test"
+}
