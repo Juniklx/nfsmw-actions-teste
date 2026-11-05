@@ -1,0 +1,34 @@
+name: NFSMW PRE157 - extract verified source for code optimization
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre157_source_requests/*.json'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Google Drive client
+        run: pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2
+      - name: Extract only verified PRE99 Vulkan sources
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: python automation/kaggle/pre157_extract_candidate_source.py
+      - name: Store exact sources for private code review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre157-verified-source-${{ github.run_id }}
+          path: /tmp/nfsmw_pre157_verified_source
+          if-no-files-found: warn
+          retention-days: 10

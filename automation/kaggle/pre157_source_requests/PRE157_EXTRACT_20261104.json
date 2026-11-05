@@ -1,0 +1,7 @@
+{
+  "stage": "PRE157",
+  "intent": "prepare safe code optimization V32",
+  "source": "verified PRE99 from PRE138",
+  "apk_modified": false,
+  "signing_modified": false
+}
