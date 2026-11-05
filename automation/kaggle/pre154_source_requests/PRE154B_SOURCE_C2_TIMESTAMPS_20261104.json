@@ -1,0 +1,7 @@
+{
+  "stage": "PRE154B",
+  "task": "verify exact C2 GPU scaled timestamp reporting in PRE99 used by V31",
+  "read_only": true,
+  "release_modified": false,
+  "apk_built": false
+}

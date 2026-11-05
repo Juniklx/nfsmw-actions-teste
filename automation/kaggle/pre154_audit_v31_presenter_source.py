@@ -20,6 +20,9 @@ FILES = [
  "workspace/nativo/sdk/src/ui/windowed_app_context_sdl.cpp",
  "workspace/nativo/sdk/include/rex/ui/vulkan/presenter.h",
  "workspace/nativo/sdk/include/rex/ui/presenter.h",
+ "workspace/nativo/app/src/nfsmw_nativo_sistema.cpp",
+ "workspace/nativo/app/src/nfsmw_nativo_destinos.cpp",
+ "workspace/nativo/app/src/nfsmw_nativo_destinos.h",
 ]
 PRE136_KNOWN = {
  "workspace/nativo/sdk/src/ui/vulkan/vulkan_presenter.cpp":"68998a1db81e9743197e446a5f8dacbf8d3dbcc2a51e4a7e6dac476b87d88c48",
@@ -45,6 +48,12 @@ PATTERNS = {
    r"RefreshGuestOutput",r"Swap",r"frame_current",r"Present",r"guest_output"],
  "workspace/nativo/sdk/src/ui/vulkan/vulkan_submission_tracker.cpp":[
    r"AwaitSubmissionCompletion",r"AcquireFenceToAdvanceSubmission",r"WaitForFences"],
+ "workspace/nativo/app/src/nfsmw_nativo_sistema.cpp":[
+   r"TiempoGpu\(",r"GPU real por Swap",r"presentados_intervalo",r"MarcaGpuFinalNs",
+   r"escala_real_ns_",r"escala_marcas_ns_",r"CostePresentar\(",r"NFSMW_INFORME_SEGUN",r"void Presentar\("],
+ "workspace/nativo/app/src/nfsmw_nativo_destinos.cpp":[
+   r"TiempoGpu\(",r"MarcaGpuFinalNs",r"VkQueryPool",r"vkGetQueryPoolResults",
+   r"timestampPeriod",r"CostePresentar\(",r"Gpu"],
 }
 REPORT=Path("/tmp/nfsmw-pre154-source-audit.json")
 R={"stage":"PRE154_V31_EXACT_SOURCE_PROVENANCE","status":"NOT_VALIDATED",
