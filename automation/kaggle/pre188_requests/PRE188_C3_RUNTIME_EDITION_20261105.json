@@ -1,0 +1,11 @@
+{
+  "stage": "PRE188",
+  "request": "READONLY_C3_RUNTIME_EDITION_AUDIT",
+  "date": "2026-11-05",
+  "target": "V35_PRE180",
+  "allow_build": false,
+  "allow_patch": false,
+  "allow_signing": false,
+  "read_pre99_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "v35_apk_sha256": "e3b5699e017cb6c8b21baebfa00ea4bb33c731c1f63fff39ee01ef7192a09a13"
+}
