@@ -1,0 +1,11 @@
+{
+  "stage": "PRE165_V33_RETRY",
+  "prior_run": 42064494220,
+  "reason": "workflow typo: python tried pre157_build_signed_v33_callback_move.py, never touched PRE99 code, no APK produced",
+  "new_build_script": "automation/kaggle/pre165_build_signed_v33_sdl_sleep2.py",
+  "pre139_gradle_cache": true,
+  "pre140_sdk_ccache": true,
+  "drive_upload_during_build": false,
+  "source_patch_unchanged": true,
+  "signing_unchanged": true
+}

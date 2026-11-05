@@ -72,7 +72,7 @@ jobs:
             echo "PRE139 SDK packages missing: ${#MISSING[@]}"
             set +o pipefail
             yes | "$SDKMANAGER" --sdk_root="$SDK" --install "${MISSING[@]}" \
-              > /tmp/nfsmw-pre157-sdk-install.log 2>&1
+              > /tmp/nfsmw-pre165-sdk-install.log 2>&1
             EXIT="${PIPESTATUS[1]}"
             set -o pipefail
             if [ "$EXIT" -ne 0 ]; then echo "PRE139 SDK install failed, exit=$EXIT"; exit "$EXIT"; fi
@@ -141,10 +141,10 @@ jobs:
           set -e
           test "${{ steps.android_tools.outcome }}" = "success"
           mkdir -p /tmp/nfsmw-pre165-out
-          python automation/kaggle/pre157_build_signed_v33_callback_move.py \
+          python automation/kaggle/pre165_build_signed_v33_sdl_sleep2.py \
             --run-id "$GITHUB_RUN_ID" \
             --report /tmp/nfsmw-pre165-out/pre165-report.json \
-            --verified-output /tmp/nfsmw-pre165-out/nfsmw-v33-pal-usa-verified.apk \
+            --verified-output /tmp/nfsmw-pre165-out/nfsmw-v33-pal-usa-verified.apk
       - name: PRE139 verify dependency-only cache contents before GitHub cache save
         id: deps_policy
         if: steps.release.outcome == 'success'
@@ -178,7 +178,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: nfsmw-pre157-v33-PRE117-PRE128-${{ github.run_id }}
+          name: nfsmw-pre165-v33-PRE117-PRE128-${{ github.run_id }}
           path: |
             /tmp/nfsmw-pre165-out/pre165-report.json
             /tmp/nfsmw-pre165-out/nfsmw-v33-pal-usa-verified.apk
