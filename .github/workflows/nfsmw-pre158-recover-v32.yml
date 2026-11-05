@@ -1,0 +1,49 @@
+name: NFSMW PRE158 - Restore verified V32 APK to Drive, no rebuild
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre158_requests/*.json'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  recovery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Google client and validate script syntax
+        run: |
+          pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2
+          python -m py_compile automation/kaggle/pre158_recover_v32_drive.py
+      - name: Download exact previously signed V32 APK from successful build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: nfsmw-pre157-v32-PRE117-PRE128-41954648085
+          run-id: 41954648085
+          github-token: ${{ github.token }}
+          path: /tmp/nfsmw-pre158-source
+      - name: Independently verify signer, package, assets, bytes and publish to Drive
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: |
+          python automation/kaggle/pre158_recover_v32_drive.py \
+            --apk /tmp/nfsmw-pre158-source/nfsmw-v32-pal-usa-verified.apk \
+            --original-report /tmp/nfsmw-pre158-source/pre157-report.json \
+            --report /tmp/nfsmw-pre158-result.json
+      - name: Preserve independent verification report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre158-v32-publish-${{ github.run_id }}
+          path: /tmp/nfsmw-pre158-result.json
+          if-no-files-found: warn
+          retention-days: 30
