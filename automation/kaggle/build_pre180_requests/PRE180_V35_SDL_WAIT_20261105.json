@@ -1,0 +1,12 @@
+{
+  "stage": "PRE180",
+  "release": "V35 EXPERIMENTAL",
+  "base": "V34 PRE170",
+  "patch": "Exact SHA-gated vendored SDL3 WaitEvent Android polling correction",
+  "source_sha256": "7e05fa10e57246a7c32f9cb4e27d3faa06bbaea8a8aa603e9ce11fbc75ffc516",
+  "patched_sha256": "bdd3200a44e055168e5092cec7f5adbf5f24cabe7af0b629fceec866f567cb33",
+  "versionCode": 35,
+  "cert_sha256": "1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b",
+  "do_not_modify": "controls,graphics,shaders,thermal_limits,keys,existing APKs",
+  "not_yet_device_tested": true
+}
