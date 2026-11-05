@@ -1,0 +1,9 @@
+{
+  "stage": "PRE179",
+  "triggered_by": "PRE177 observed 74% SDLThread and GitHub libsdl-org/SDL issue 16601",
+  "purpose": "Verify presence and exact bytes of vendored SDL WaitEvent implementation in authenticated private PRE99 archive",
+  "no_code_patches": true,
+  "no_apk_build": true,
+  "no_signing_access": true,
+  "APK_VERSION_UNCHANGED": 34
+}
