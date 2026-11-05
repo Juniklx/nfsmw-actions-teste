@@ -1,0 +1,11 @@
+{
+  "stage": "PRE157_V32",
+  "change": "one guarded std::function move, no Vulkan queue alteration",
+  "source_sha256": "e4db870dbeae984f9ef28957dafff6c4758471780fe1ac108b5501ebd341c208",
+  "version_code": 32,
+  "base_version": 31,
+  "release_signing": "existing permanent certificate only",
+  "visual_changes": false,
+  "thermal_changes": false,
+  "expected_gain": "unknown"
+}
