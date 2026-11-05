@@ -1,0 +1,20 @@
+{
+  "stage": "PRE158",
+  "source_run": 41954648085,
+  "recovery_run": 41957802293,
+  "original_build_success": true,
+  "source_patch_applied": true,
+  "apk_signature_valid": true,
+  "google_actions_upload_error": "HTTP 403 insufficientPermissions",
+  "apk_sha256": "47e983b7bd96308716d817dee555af787048932642f616ae237e746bc6cdb47b",
+  "apk_bytes": 47101249,
+  "versionCode": 32,
+  "certificate_sha256": "1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b",
+  "published_by": "connected Google Drive plugin",
+  "drive_file_id": "1tZX8aE0RJe6dXWLcZZ1BmAGguBoZN-GZ",
+  "zip_backup_file_id": "1PdIRWEoB-FTb3ns1qRHjdlaPSBrj7Pby",
+  "drive_readback_sha_verified": true,
+  "drive_crc_verified": true,
+  "phone_tested": false,
+  "fps_gain_verified": false
+}
