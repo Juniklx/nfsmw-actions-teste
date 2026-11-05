@@ -1,0 +1,12 @@
+{
+  "stage": "PRE165",
+  "base_apk_version": 32,
+  "new_version_code": 33,
+  "patch": "SDL wake-only post-event SDL_Delay 1ms->2ms",
+  "source_sha256": "f4ae379985adc2343fabde1e2eeebf048997482a8cfe17ef5839e69f8e66ffdc",
+  "signer_sha256": "1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b",
+  "cache_strategy": "PRE139 Gradle modules+wrapper; PRE140 SDK only ccache; verified restore/save after signed build; not game sources or signing keys",
+  "drive_upload_in_build": false,
+  "expected_fps_gain": "unknown",
+  "phone_testing_required": true
+}
