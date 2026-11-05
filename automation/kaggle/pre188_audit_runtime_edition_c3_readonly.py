@@ -136,12 +136,18 @@ def inspect_pre99(tar_path: Path) -> dict:
             if matches:
                 hits.append({"path": name, "sha256": sha(blob),
                              "match_lines_capped": matches})
-            if len(hits) >= 120:
-                raise ValueError("PRE188: too many matching source files; refine audit")
     if set(source_hashes) != set(C3_SOURCES):
         raise ValueError("PRE188: incomplete C3 source coverage")
+    def priority(item: dict) -> tuple[int, str]:
+        found = " ".join(x["text"].lower() for x in item["match_lines_capped"])
+        score = sum(6 for k in ("libmain_usa", "libmain.so", "ediciones.json",
+                               "nfsmw.edicion", "pal_es") if k in found)
+        return (-score, item["path"])
+    ranked = sorted(hits, key=priority)
     return {"pre99_sha256_valid": True, "source_files_scanned": scanned,
-            "matching_files": hits, "c3_source_hashes": source_hashes}
+            "total_matching_files": len(hits), "reported_files_capped": 120,
+            "matching_files": ranked[:120], "omitted_low_priority_files": max(0, len(hits)-120),
+            "c3_source_hashes": source_hashes}
 
 def inspect_builder() -> dict:
     path = Path("automation/kaggle/pre180_build_signed_v35_sdl_wait_fix.py")
