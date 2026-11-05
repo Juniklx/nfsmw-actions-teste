@@ -1,0 +1,46 @@
+name: NFSMW PRE188 - C3 runtime edition reachability read-only
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre188_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre188-c3-readonly
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Checkout existing private build automation
+        uses: actions/checkout@v4
+      - name: Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Drive reader and syntax-check audit
+        run: |
+          set -e
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          python -m py_compile automation/kaggle/pre188_audit_runtime_edition_c3_readonly.py
+          echo "PRE188 read-only Python audit syntax OK"
+      - name: Inspect authenticated PRE99 source and V35 package only
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: |
+          set -e
+          python automation/kaggle/pre188_audit_runtime_edition_c3_readonly.py
+      - name: Preserve private source-location and APK packaging report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre188-c3-edition-readonly-${{ github.run_id }}
+          path: /tmp/nfsmw-pre188-edition-audit/PRE188_RUNTIME_EDITION_C3_READONLY.json
+          if-no-files-found: warn
+          retention-days: 14
