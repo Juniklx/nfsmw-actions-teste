@@ -22,16 +22,16 @@ jobs:
           python -m py_compile automation/kaggle/pre185_audit_c3_texture_source.py
       - name: Audit PRE99 texture C3 source read only
         env:
-          GOOGLE_REFRESH_TOKEN: \${{ secrets.GOOGLE_REFRESH_TOKEN }}
-          GOOGLE_CLIENT_ID: \${{ secrets.GOOGLE_CLIENT_ID }}
-          GOOGLE_CLIENT_SECRET: \${{ secrets.GOOGLE_CLIENT_SECRET }}
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
           PYTHONPATH: automation/kaggle
         run: python automation/kaggle/pre185_audit_c3_texture_source.py
       - name: Store read-only source evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: nfsmw-pre185-c3-texture-source-\${{ github.run_id }}
+          name: nfsmw-pre185-c3-texture-source-${{ github.run_id }}
           path: /tmp/nfsmw-pre185-texture-c3-audit/PRE185_C3_TEXTURE_READONLY_AUDIT.zip
           if-no-files-found: warn
           retention-days: 14

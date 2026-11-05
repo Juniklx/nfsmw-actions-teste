@@ -1,0 +1,13 @@
+{
+  "stage": "PRE185_RETRY1",
+  "reason": "Correct workflow interpolation: remove unintended literal backslashes before GitHub Actions expression secrets and run_id; do not rotate or expose credentials",
+  "previous_run": 42102125589,
+  "no_changes_to": [
+    "APK",
+    "signing",
+    "GPU",
+    "thermal",
+    "controls"
+  ],
+  "read_only": true
+}
