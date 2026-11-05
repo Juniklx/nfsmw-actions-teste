@@ -1,0 +1,11 @@
+{
+  "stage": "PRE188",
+  "request": "READONLY_C3_RUNTIME_EDITION_AUDIT_RETRY_MATCH_CAP",
+  "date": "2026-11-05",
+  "attempt": 2,
+  "reason": "Source match count exceeded display limit; preserve full scan, rank and cap report",
+  "allow_build": false,
+  "allow_patch": false,
+  "allow_signing": false,
+  "expected_v35_apk_sha256": "e3b5699e017cb6c8b21baebfa00ea4bb33c731c1f63fff39ee01ef7192a09a13"
+}
