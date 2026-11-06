@@ -1,0 +1,77 @@
+name: NFSMW PRE228 TeamXPG Max Money/Bounty handler read-only
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre228_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre228-max-money-readonly
+  cancel-in-progress: false
+jobs:
+  trainer-static-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install bounded read-only analysis dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq libarchive-tools >/dev/null
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests capstone cryptography >/dev/null
+      - name: Retrieve four pinned trainer analysis scripts from Drive
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import os,io,hashlib
+          from pathlib import Path
+          from google.oauth2.credentials import Credentials
+          from google.auth.transport.requests import Request
+          from googleapiclient.discovery import build
+          from googleapiclient.http import MediaIoBaseDownload
+          c=Credentials(token=None,refresh_token=os.environ["GOOGLE_REFRESH_TOKEN"],
+             token_uri="https://oauth2.googleapis.com/token",
+             client_id=os.environ["GOOGLE_CLIENT_ID"],
+             client_secret=os.environ["GOOGLE_CLIENT_SECRET"])
+          c.refresh(Request())
+          svc=build("drive","v3",credentials=c,cache_discovery=False)
+          pinned=[
+            ("15FQFLM018-mHsoYxuuvMn7mZp35ojvmS","nfsmw_pre208_teamxpg_decoder_audit.py","000a6db5cffb6a046a99af4da71c8911a846a5da3d3d7dfaa7fecf7ca37f98e9"),
+            ("1Tdgh-y5gCpa07aG8vGw8GZ4k0jmG-j7I","nfsmw_pre222_teamxpg_payload_toggle_readonly.py","da24dcfba6cb9c5d5ac6560726fe6c6b3080d531264bd3b4e3f6ad77fb4e90c8"),
+            ("1eOY-DwqL1o5HMRcITZVTNwKsuoLcwQ6V","nfsmw_pre224_teamxpg_feature_group_map_readonly.py","c36ab231a923a9927a8e8a1951fa012ed49928fe6171e65899e8a4a7d5b2cb27"),
+            ("172Ebip3PMOuJCvytxjVsSqc4W0l1SVG3","nfsmw_pre228_teamxpg_maxmoney_bounty_readonly.py","28bd15a43dfdae6dc729f91a59300a115d52eeb222e2fbf30bcd883876961eb8"),
+          ]
+          for fid,name,sha in pinned:
+            buf=io.BytesIO(); dl=MediaIoBaseDownload(buf,svc.files().get_media(fileId=fid))
+            done=False
+            while not done: _,done=dl.next_chunk()
+            if hashlib.sha256(buf.getvalue()).hexdigest()!=sha:raise ValueError("Pinned SHA differs: "+name)
+            Path("/tmp",name).write_bytes(buf.getvalue())
+            print("PRE228_SCRIPT_SHA_OK",name)
+          PY
+          python -m py_compile /tmp/nfsmw_pre208_teamxpg_decoder_audit.py /tmp/nfsmw_pre222_teamxpg_payload_toggle_readonly.py
+      - name: Inspect one-shot Max Money and Max Bounty control handlers statically
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=/tmp:automation/kaggle python /tmp/nfsmw_pre228_teamxpg_maxmoney_bounty_readonly.py
+      - name: Upload JSON evidence only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre228-max-money-${{ github.run_id }}
+          path: /tmp/nfsmw-pre228/NFSMW_PRE228_MAX_MONEY_BOUNTY_ONE_SHOT.json
+          if-no-files-found: warn
+          retention-days: 14
