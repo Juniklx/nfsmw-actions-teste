@@ -1,0 +1,115 @@
+name: NFSMW PRE199 - Kaggle cheats source audit read-only
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre199_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre199-kaggle-cheats-audit
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 85
+    env:
+      KAGGLE_API_TOKEN: ${{ secrets.KAGGLE_API_TOKEN }}
+    steps:
+      - name: Checkout private automation only
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Kaggle CLI and check generator
+        run: |
+          set -euo pipefail
+          test -n "$KAGGLE_API_TOKEN"
+          python -m pip install --disable-pip-version-check kaggle six >/dev/null
+          python -m py_compile automation/kaggle/pre199_generate_kaggle_cheats_readonly.py
+      - name: Generate separate private Kaggle notebook
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre199_generate_kaggle_cheats_readonly.py \
+            --run-id "$GITHUB_RUN_ID" --output /tmp/nfsmw-pre199-kernel
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("/tmp/nfsmw-pre199-kernel")
+          m=json.loads((p/"kernel-metadata.json").read_text())
+          assert m["id"]=="juniklx/nfsmw-pre199-cheats-readonly"
+          assert m["is_private"] is True
+          assert m["enable_gpu"] is False
+          nb=json.loads((p/m["code_file"]).read_text())
+          assert len(nb["cells"])==2
+          source="".join(nb["cells"][1]["source"])
+          compile(source,"<PRE199 read-only code>","exec")
+          for forbidden in ("subprocess.run", "gradlew", "apksigner", "keytool", "build.gradle"):
+              assert forbidden not in source, forbidden
+          print("PRE199 Kaggle private notebook syntax and basic safety checks OK")
+          PY
+      - name: Push and start private Kaggle PRE199 kernel
+        run: |
+          set -euo pipefail
+          kaggle kernels push -p /tmp/nfsmw-pre199-kernel
+      - name: Poll Kaggle and validate remote report
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json,os,re,subprocess,time
+          from pathlib import Path
+          k="juniklx/nfsmw-pre199-cheats-readonly"
+          marker="NFSMW_PRE199_CHEATS_READONLY.json"
+          dest=Path("/tmp/nfsmw-pre199-result")
+          dest.mkdir(parents=True,exist_ok=True)
+          started=time.monotonic()
+          last=None
+          while time.monotonic()-started<4200:
+              cmd=subprocess.run(["kaggle","kernels","status",k],
+                  text=True,capture_output=True,timeout=70)
+              match=re.search(r"KernelWorkerStatus\.([A-Z_]+)",cmd.stdout+" "+cmd.stderr)
+              state=match.group(1) if match else "UNKNOWN"
+              if state!=last:
+                  print("PRE199 Kaggle state:",state,flush=True)
+                  last=state
+              if state in ("ERROR","FAILED","CANCELLED","CANCELED"):
+                  raise RuntimeError("PRE199 Kaggle job failed, check private Kaggle output")
+              if state=="COMPLETE":
+                  output=subprocess.run(["kaggle","kernels","output",k,"-p",str(dest),"-o"],
+                      text=True,capture_output=True,timeout=150)
+                  if output.returncode==0:
+                      candidates=list(dest.rglob(marker))
+                      for p in candidates:
+                          data=json.loads(p.read_text(encoding="utf-8"))
+                          if str(data.get("github_run_id"))!=os.environ["GITHUB_RUN_ID"]:
+                              continue
+                          assert data.get("stage")=="PRE199_CHEATS_KAGGLE_READONLY"
+                          assert data.get("mode")=="READ_ONLY"
+                          assert data.get("no_build") is True
+                          assert data.get("no_source_patch") is True
+                          assert data.get("no_signing_credentials_accessed") is True
+                          assert data.get("v36_unchanged") is True
+                          if data.get("status")!="AUDIT_OK":
+                              print("PRE199 audit failed in phase:",data.get("failure_phase"),
+                                    "type:",data.get("failure_type"))
+                              raise RuntimeError("Remote audit report not validated")
+                          assert data.get("backup_sha256_valid") is True
+                          assert data.get("source_hashes_valid") is True
+                          print("PRE199_KAGGLE_AUDIT_SUCCESS",flush=True)
+                          print("PRE199_FILE_COUNT",data.get("source_files_scanned"),flush=True)
+                          print("PRE199_COUNTS",data.get("occurrences_by_category"),flush=True)
+                          print("PRE199_DRIVE_REPORT_ID",data.get("new_drive_report_id","NOT_UPLOADED"),flush=True)
+                          raise SystemExit(0)
+              time.sleep(15)
+          raise TimeoutError("PRE199 Kaggle completion not verified")
+          PY
+      - name: Upload sanitized Kaggle report as private GitHub artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre199-kaggle-cheats-readonly-${{ github.run_id }}
+          path: /tmp/nfsmw-pre199-result/NFSMW_PRE199_CHEATS_READONLY.json
+          if-no-files-found: warn
+          retention-days: 14
