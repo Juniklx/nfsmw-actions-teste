@@ -1,0 +1,5 @@
+{
+  "stage": "PRE246B",
+  "purpose": "Report precise bounded explicit source-validation failure; still disposable/readonly",
+  "constraint": "No APK, signer, saves, keys, source persistence"
+}
