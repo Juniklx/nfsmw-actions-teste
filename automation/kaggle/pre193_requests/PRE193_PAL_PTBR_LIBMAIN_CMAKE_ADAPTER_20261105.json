@@ -1,0 +1,9 @@
+{
+  "stage": "PRE193",
+  "attempt": 3,
+  "reason": "Read intermediate Android nativo.cmake to verify full source-to-libmain build chain",
+  "read_only": true,
+  "no_patch": true,
+  "no_build": true,
+  "no_signing": true
+}
