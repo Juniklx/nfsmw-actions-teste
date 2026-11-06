@@ -123,7 +123,7 @@ def apply(root: Path) -> dict:
         if FUNC in src:
             raise ValueError("PRE246: callback appears in original source")
         source_new, details = splice_function(src,name,spec, 1 if name=="sub_8256BFC8" else 4)
-        first_def = re.search(r"(?m)^DEFINE_REX_FUNC\\(sub_[0-9A-Fa-f]{8}\\)", source_new)
+        first_def = re.search(r"(?m)^DEFINE_REX_FUNC\(sub_[0-9A-Fa-f]{8}\)", source_new)
         if first_def is None:
             raise ValueError("PRE246: top-level function definition anchor missing " + name)
         source_new = source_new[:first_def.start()] + DECL + source_new[first_def.start():]
