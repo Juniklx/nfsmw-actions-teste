@@ -1,0 +1,9 @@
+{
+  "stage": "PRE205",
+  "from_run": 42242514505,
+  "goal": "Trace direct caller chain of verified XamInputGetState wrappers per edition",
+  "build": false,
+  "modify_source": false,
+  "sign": false,
+  "saves": false
+}
