@@ -1,0 +1,10 @@
+{
+  "stage": "PRE220",
+  "task": "Compare guest PPC instruction bytes at C++ generated explicit LR callsite addresses with SHA-verified USA/PAL XEX PE raw pointer and RVA mapping",
+  "read_only": true,
+  "pre99_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "apk_unchanged": true,
+  "saves_untouched": true,
+  "signer_not_accessed": true,
+  "raw_game_binary_not_published": true
+}
