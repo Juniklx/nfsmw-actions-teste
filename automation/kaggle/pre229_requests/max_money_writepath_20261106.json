@@ -1,0 +1,8 @@
+{
+  "stage": "PRE229",
+  "read_only": true,
+  "task": "Audit Max Money one-shot bytes and source/destination dataflow in archived TeamXPG trainer",
+  "trainer_unexecuted": true,
+  "apk_untouched": true,
+  "saves_untouched": true
+}
