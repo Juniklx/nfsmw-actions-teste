@@ -1,0 +1,65 @@
+name: NFSMW PRE210 - TeamXPG addresses to PRE99 code crosswalk
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre210_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre210-teamxpg-crosswalk
+  cancel-in-progress: false
+jobs:
+  read_only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare Drive reader for authenticated PRE99
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+      - name: SHA-check audit script from Drive
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib,io
+          from pathlib import Path
+          from googleapiclient.http import MediaIoBaseDownload
+          from pre105_read_settings_source import drive_client
+          source=io.BytesIO()
+          downloader=MediaIoBaseDownload(source,drive_client().files().get_media(fileId='1fSGow-MIrHsDXO7Nqq_u8U0NWf3vxX7d'))
+          done=False
+          while not done:_,done=downloader.next_chunk()
+          content=source.getvalue()
+          assert hashlib.sha256(content).hexdigest()=='f0f96eaa53581ef7eed69f20c94bb5e18a79db77c7a7f9cfe09bc5502d845b0d'
+          Path('/tmp/nfsmw_pre210_teamxpg_guest_crosswalk_readonly.py').write_bytes(content)
+          print('PRE210_SCRIPT_PIN_OK')
+          PY
+          python -m py_compile /tmp/nfsmw_pre210_teamxpg_guest_crosswalk_readonly.py
+      - name: Verify PRE99 and map six addresses to native generated code proximity
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: |
+          set -euo pipefail
+          python /tmp/nfsmw_pre210_teamxpg_guest_crosswalk_readonly.py
+      - name: Preserve only JSON source crosswalk, no build, binary or patches
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre210-game-source-crosswalk-${{ github.run_id }}
+          path: /tmp/nfsmw-pre210/NFSMW_PRE210_TEAMXPG_GUEST_CROSSWALK.json
+          retention-days: 14
+          if-no-files-found: warn
