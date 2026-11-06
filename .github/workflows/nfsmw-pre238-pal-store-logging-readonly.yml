@@ -1,0 +1,43 @@
+name: NFSMW PRE238 PAL money store and logging read-only audit
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre238_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre238-readonly
+  cancel-in-progress: false
+jobs:
+  store-logging-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install authenticated read-only Drive client
+        run: |
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+      - name: Validate audit script syntax
+        run: |
+          python -m py_compile automation/kaggle/pre238_store_logging_probe_readonly.py
+      - name: Audit PAL store candidates and logging interfaces, no source modifications
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre238_store_logging_probe_readonly.py
+      - name: Preserve small private JSON report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre238-pal-store-logging-${{ github.run_id }}
+          path: /tmp/nfsmw-pre238/NFSMW_PRE238_STORE_LOGGING_PROBE_AUDIT.json
+          if-no-files-found: warn
+          retention-days: 14
