@@ -1,0 +1,42 @@
+name: NFSMW PRE201 - generated game code inventory read-only
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre201_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre201-game-inventory
+  cancel-in-progress: false
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare read-only backup reader
+        run: |
+          set -e
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          python -m py_compile automation/kaggle/pre201_generated_source_inventory_readonly.py
+      - name: Authenticate PRE99 and inventory generated game code only
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: |
+          python automation/kaggle/pre201_generated_source_inventory_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Keep report as private GitHub artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre201-generated-code-readonly-${{ github.run_id }}
+          path: /tmp/nfsmw-pre201/PRE201_GENERATED_SOURCES_READONLY.json
+          retention-days: 14
+          if-no-files-found: warn
