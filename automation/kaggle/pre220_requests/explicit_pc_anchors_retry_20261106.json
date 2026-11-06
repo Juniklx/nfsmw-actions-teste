@@ -1,0 +1,7 @@
+{
+  "stage": "PRE220",
+  "retry_after": "Workflow script pin list punctuation fix",
+  "read_only": true,
+  "pre99_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "apk_unchanged": true
+}
