@@ -1,0 +1,10 @@
+{
+  "stage": "PRE193",
+  "attempt": 2,
+  "date": "2026-11-05",
+  "reason": "Replace Git blob SHA-1 with PRE188-verified builder content SHA-256, no builder changes",
+  "read_only": true,
+  "no_build": true,
+  "no_patch": true,
+  "no_signing": true
+}
