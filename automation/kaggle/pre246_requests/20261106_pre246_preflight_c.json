@@ -1,0 +1,11 @@
+{
+  "stage": "PRE246C",
+  "previous": "42295633709 failed on absent generated PCH include",
+  "change": "Use first generated function as declaration anchor",
+  "constraints": {
+    "disposable": true,
+    "no_APK": true,
+    "no_signer": true,
+    "no_saves": true
+  }
+}
