@@ -1,0 +1,21 @@
+{
+  "stage": "PRE247_V37_SIGNED_PASSIVE_ALL_THREE",
+  "authorization": "User explicitly approved compile and sign V37 diagnostic on 2026-11-06",
+  "baseline": "Authenticated PRE99 + PRE194 preserved C3 + PRE246 money trace + PRE247 float meter trace",
+  "expected_package": "io.github.nfsmwrecomp",
+  "versionCode": 37,
+  "original_certificate_sha256": "1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b",
+  "expected_passive_sites": 16,
+  "enforced_constraints": {
+    "cheats_activated": false,
+    "money_guest_stores_changed": false,
+    "extra_guest_memory_reads": 0,
+    "preserve_pal_usa_assets": true,
+    "preserve_1920x1080_and_60fps_cap": true,
+    "preserve_graphics_physics_input_thermal": true,
+    "leave_v35_v36_and_saves_untouched": true,
+    "no_new_signing_key": true,
+    "no_credentials_in_reports": true,
+    "save_new_apk_under_unique_versioned_name": true
+  }
+}
