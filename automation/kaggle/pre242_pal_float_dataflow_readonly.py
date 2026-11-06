@@ -35,8 +35,11 @@ def scan(txt,spec):
     for i,line in enumerate(lines):
         m=FLOAT.match(line)
         if not m or int(m.group(1))!=spec["offset"]:continue
-        if i+1>=len(lines) or not HOST.match(lines[i+1]):
-            raise ValueError("Guest float store not followed by expected host write")
+        # Generated PPC store expands into a temp.f32 conversion followed by REX_STORE_U32.
+        next_lines=lines[i+1:min(len(lines),i+5)]
+        host_writes=[v for v in next_lines if HOST.match(v)]
+        if len(host_writes)!=1 or not any("temp.f32 = float(" in v for v in next_lines):
+            raise ValueError("Guest float store has unexpected generated conversion/write sequence")
         # Gather existing guest loads; DO NOT insert any load.
         previous=lines[max(0,i-100):i]
         exact_loads=[{"line_relative":i-100+k if i>=100 else k,
@@ -46,7 +49,7 @@ def scan(txt,spec):
             "ordinal":len(matches)+1,
             "comment_line":i+1,
             "opcode":line.strip()[:120],
-            "original_host_store":lines[i+1].strip()[:180],
+            "original_host_store":host_writes[0].strip()[:180],
             "preexisting_same_field_loads":exact_loads[-12:],
             "temp_neighborhood":[{"relative_line":k+1,"text":v.strip()[:220]}
                 for k,v in enumerate(lines[max(0,i-16):min(len(lines),i+5)],
