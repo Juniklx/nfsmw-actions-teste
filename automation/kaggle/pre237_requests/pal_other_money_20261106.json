@@ -1,0 +1,8 @@
+{
+  "stage": "PRE237",
+  "read_only": true,
+  "purpose": "Find PAL analog to USA second money adjustment path by guest PPC store/global pattern",
+  "apk_untouched": true,
+  "saves_untouched": true,
+  "signing_not_accessed": true
+}
