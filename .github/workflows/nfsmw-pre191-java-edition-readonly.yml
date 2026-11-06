@@ -1,0 +1,45 @@
+name: NFSMW PRE191 - Android Java edition selection read-only
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre191_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre191-java-readonly
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Checkout existing audit automation
+        uses: actions/checkout@v4
+      - name: Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install authenticated Drive reader
+        run: |
+          set -e
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          python -m py_compile automation/kaggle/pre191_audit_android_edition_java_readonly.py
+      - name: Inspect PRE99 Java edition selection without mutation
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: |
+          set -e
+          python automation/kaggle/pre191_audit_android_edition_java_readonly.py
+      - name: Preserve private Java selection evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre191-java-edition-audit-${{ github.run_id }}
+          path: /tmp/nfsmw-pre191-java-edition-readonly/NFSMW_PRE191_JAVA_EDITION_AUDIT.json
+          if-no-files-found: warn
+          retention-days: 14
