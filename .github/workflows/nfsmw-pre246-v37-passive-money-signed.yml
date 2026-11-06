@@ -1,4 +1,4 @@
-name: NFSMW PRE246 - signed V37 PAL passive money trace diagnostic
+name: NFSMW PRE247 - signed V37 PAL passive 16-site resource diagnostics
 on:
   workflow_dispatch:
   push:
@@ -8,7 +8,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: nfsmw-pre246-v37-passive-money-isolated
+  group: nfsmw-pre247-v37-passive-all-three-isolated
   cancel-in-progress: false
 jobs:
   release:
@@ -50,6 +50,7 @@ jobs:
             automation/kaggle/pre139_verify_dependency_cache.py \
             automation/kaggle/pre140_guard_sdk_only_ccache.py \
             automation/kaggle/pre246_passive_money_probe_patch.py \
+            automation/kaggle/pre247_pal_meter_passive_probe_patch.py \
             automation/kaggle/pre246_build_signed_v37_passive_money_trace.py
           python automation/kaggle/pre139_verify_dependency_cache.py --self-test
       - name: Prepare exact Android NDK CMake and SDK build tools in ephemeral runner
@@ -132,7 +133,7 @@ jobs:
           python automation/kaggle/pre140_guard_sdk_only_ccache.py \
             --mode check \
             --cache-dir "${{ runner.temp }}/nfsmw-ccache-sdk-only"
-      - name: Build V37 signed passive money trace and verify permanent certificate and PAL C3 marker
+      - name: Build V37 signed passive 16-site trace and verify original certificate and ELF markers
         id: release
         continue-on-error: true
         env:
@@ -149,7 +150,7 @@ jobs:
           python automation/kaggle/pre246_build_signed_v37_passive_money_trace.py \
             --run-id "$GITHUB_RUN_ID" \
             --report /tmp/nfsmw-pre246-out/pre246-v37-report.json \
-            --verified-output /tmp/nfsmw-pre246-out/nfsmw-v37-passive-money-verified.apk \
+            --verified-output /tmp/nfsmw-pre246-out/nfsmw-v37-passive-all-three-verified.apk \
             --upload
       - name: PRE139 verify dependency-only cache contents before GitHub cache save
         id: deps_policy
@@ -184,10 +185,10 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: nfsmw-pre246-v37-passive-money-${{ github.run_id }}
+          name: nfsmw-pre247-v37-passive-all-three-${{ github.run_id }}
           path: |
             /tmp/nfsmw-pre246-out/pre246-v37-report.json
-            /tmp/nfsmw-pre246-out/nfsmw-v37-passive-money-verified.apk
+            /tmp/nfsmw-pre246-out/nfsmw-v37-passive-all-three-verified.apk
           if-no-files-found: warn
           retention-days: 14
       - name: Require fully validated and permanently signed V37 passive diagnostic
