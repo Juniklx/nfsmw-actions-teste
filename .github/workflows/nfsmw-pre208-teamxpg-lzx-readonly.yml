@@ -1,0 +1,71 @@
+name: NFSMW PRE208 - TeamXPG isolated XEX LZX audit
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre208_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre208-teamxpg
+  cancel-in-progress: false
+jobs:
+  static_analysis:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare isolated static analysis dependencies
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq libarchive-tools
+          python -m pip install --disable-pip-version-check cryptography google-api-python-client google-auth google-auth-httplib2 >/dev/null
+      - name: Download SHA-pinned script from project Drive without modifying game
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib
+          import io
+          from pathlib import Path
+          from googleapiclient.http import MediaIoBaseDownload
+          from pre105_read_settings_source import drive_client
+          id='15FQFLM018-mHsoYxuuvMn7mZp35ojvmS'
+          buf=io.BytesIO()
+          dl=MediaIoBaseDownload(buf,drive_client().files().get_media(fileId=id))
+          done=False
+          while not done:
+              _,done=dl.next_chunk()
+          data=buf.getvalue()
+          expected='000a6db5cffb6a046a99af4da71c8911a846a5da3d3d7dfaa7fecf7ca37f98e9'
+          assert hashlib.sha256(data).hexdigest()==expected, 'PRE208 script pin mismatch'
+          Path('/tmp/nfsmw_pre208_teamxpg_decoder_audit.py').write_bytes(data)
+          print('PRE208_SCRIPT_PIN_OK')
+          PY
+          python -m py_compile /tmp/nfsmw_pre208_teamxpg_decoder_audit.py
+      - name: Analyze the user-provided Xbox 360 XEX files without launching them
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: |
+          set -euo pipefail
+          python /tmp/nfsmw_pre208_teamxpg_decoder_audit.py
+      - name: Keep private evidence (JSON only; not extracted binaries)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre208-teamxpg-decompress-${{ github.run_id }}
+          path: /tmp/nfsmw-pre208/NFSMW_PRE208_TEAMXPG_LZX_READONLY.json
+          retention-days: 14
+          if-no-files-found: warn
