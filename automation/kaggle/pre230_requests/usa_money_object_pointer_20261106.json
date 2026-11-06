@@ -1,0 +1,10 @@
+{
+  "stage": "PRE230",
+  "purpose": "Audit pointer origins and arithmetic for all 8 money-related stores in two SHA-authenticated USA codegen functions",
+  "read_only": true,
+  "source_modified": false,
+  "apk_modified": false,
+  "trainer_not_executed": true,
+  "saves_unmodified": true,
+  "signer_not_accessed": true
+}
