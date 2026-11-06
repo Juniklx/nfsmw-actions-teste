@@ -1,0 +1,69 @@
+name: NFSMW PRE237 PAL other money account path read-only
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre237_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre237-pal-money-other-path
+  cancel-in-progress: false
+jobs:
+  codegen-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install read-only Google Drive client
+        run: |
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+      - name: Retrieve SHA-pinned PRE237 PAL other-account path auditor from Drive
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import os,io,hashlib
+          from pathlib import Path
+          from google.oauth2.credentials import Credentials
+          from google.auth.transport.requests import Request
+          from googleapiclient.discovery import build
+          from googleapiclient.http import MediaIoBaseDownload
+          c=Credentials(token=None,refresh_token=os.environ["GOOGLE_REFRESH_TOKEN"],
+            token_uri="https://oauth2.googleapis.com/token",
+            client_id=os.environ["GOOGLE_CLIENT_ID"],client_secret=os.environ["GOOGLE_CLIENT_SECRET"])
+          c.refresh(Request())
+          svc=build("drive","v3",credentials=c,cache_discovery=False)
+          buf=io.BytesIO();dl=MediaIoBaseDownload(buf,svc.files().get_media(fileId="1sdnA63u3_M18zLOYNq5P2wkNcedkl3Q-"))
+          done=False
+          while not done:_,done=dl.next_chunk()
+          data=buf.getvalue()
+          if hashlib.sha256(data).hexdigest()!="036f41b0b2c0f485978ce291d0862f7b21fb7ed8bec295a4fa92e785979b5e94":
+            raise ValueError("Pinned PRE237 script digest mismatch")
+          Path("/tmp/nfsmw_pre237_pal_money_other_path_readonly.py").write_bytes(data)
+          print("PRE237_SCRIPT_SHA_OK")
+          PY
+          python -m py_compile /tmp/nfsmw_pre237_pal_money_other_path_readonly.py
+      - name: Scan authenticated PAL money counterpart function paths, read-only
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=/tmp:automation/kaggle python /tmp/nfsmw_pre237_pal_money_other_path_readonly.py
+      - name: Upload JSON evidence only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre237-pal-money-other-path-${{ github.run_id }}
+          path: /tmp/nfsmw-pre237/NFSMW_PRE237_PAL_OTHER_ACCOUNT_PATH.json
+          if-no-files-found: warn
+          retention-days: 14
