@@ -1,0 +1,8 @@
+{
+  "stage": "PRE236",
+  "read_only": true,
+  "purpose": "Check PAL counterpart generated C++ money stores and object pointer chain, preserving USA edition and V36",
+  "apk_untouched": true,
+  "saves_untouched": true,
+  "signer_not_accessed": true
+}
