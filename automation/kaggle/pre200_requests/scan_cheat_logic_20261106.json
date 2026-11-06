@@ -1,0 +1,15 @@
+{
+  "stage": "PRE200",
+  "predecessor_success_run": 42232418825,
+  "policy": "read only",
+  "priorities": [
+    "nitro",
+    "money",
+    "speedbreaker"
+  ],
+  "build": false,
+  "patch": false,
+  "sign": false,
+  "target": "authenticated PRE99 source snapshot",
+  "note": "Do not modify V36 or saves"
+}
