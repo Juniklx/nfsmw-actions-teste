@@ -1,0 +1,9 @@
+{
+  "stage": "PRE209",
+  "previous_run": 42248026978,
+  "read_only": true,
+  "trainer_executed": false,
+  "compile_apk": false,
+  "patch_game": false,
+  "goal": "Identify concrete embedded TitleID/MediaID values and candidate PPC memory addresses in verified main trainer PE"
+}
