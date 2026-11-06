@@ -44,7 +44,7 @@ jobs:
           service=build("drive","v3",credentials=c,cache_discovery=False)
           for file_id,path,expected in [
             ("1aCH8blJIr6B0ih2rsfYS8VbFesUSQ1Pn","nfsmw_pre212_drive_zip_central_directory_readonly.py","d3efcd6258ecee92449e48238e79c10eed1cabe6844eabdaa3da0718a1a0539c"),
-            ("1GgjMLCcgLaZzgufx0toliMWZtc9SUOWM","nfsmw_pre213_pal_xex_header_range_readonly.py","2b13663621158dc4deebfc324e6a7aa4018aa90d9546b2658374393f4b2292bf")
+            ("1GgjMLCcgLaZzgufx0toliMWZtc9SUOWM","nfsmw_pre213_pal_xex_header_range_readonly.py","2b13663621158dc4deebfc324e6a7aa4018aa90d9546b2658374393f4b2292bf"),
             ("15FQFLM018-mHsoYxuuvMn7mZp35ojvmS","nfsmw_pre208_teamxpg_decoder_audit.py","000a6db5cffb6a046a99af4da71c8911a846a5da3d3d7dfaa7fecf7ca37f98e9"),
             ("1EIvd2m465jv6Yn_ErEsWdal63kEU8fme","nfsmw_pre214_pal_original_ppc_readonly.py","21fa34b42a8b23482254ddafc65c2a2d054c27d3bad567d29f1c9ab5273792ec")
           ]:
