@@ -1,0 +1,11 @@
+{
+  "stage": "PRE255_JUNKMAN_SLOT_POLICY_SYNTHETIC",
+  "goal": "Verify pure nonmutating per-type quantity updates before developing edition-specific save adapter",
+  "read_only": true,
+  "android_build": false,
+  "signer_access": false,
+  "saves_touched": false,
+  "verified_guest_slot_layout": false,
+  "seed": 255,
+  "cases": 20000
+}
