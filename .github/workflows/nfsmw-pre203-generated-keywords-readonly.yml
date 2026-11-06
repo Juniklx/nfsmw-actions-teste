@@ -1,0 +1,42 @@
+name: NFSMW PRE203 - exhaustive generated game source keywords read-only
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre203_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre203-keywords
+  cancel-in-progress: false
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install authenticated Drive read dependencies
+        run: |
+          set -e
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          python -m py_compile automation/kaggle/pre203_generated_game_keywords_readonly.py
+      - name: Scan authenticated PRE99 generated C++ and headers without source writes
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: |
+          python automation/kaggle/pre203_generated_game_keywords_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Save full private audit summary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre203-generated-keywords-${{ github.run_id }}
+          path: /tmp/nfsmw-pre203/PRE203_GENERATED_KEYWORDS_READONLY.json
+          if-no-files-found: warn
+          retention-days: 14
