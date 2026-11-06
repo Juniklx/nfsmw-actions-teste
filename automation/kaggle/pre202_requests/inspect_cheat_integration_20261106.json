@@ -1,0 +1,9 @@
+{
+  "stage": "PRE202",
+  "previous_success": 42238708690,
+  "goal": "Audit hook, configuration, UI integration points without compiling",
+  "read_only": true,
+  "sign": false,
+  "build": false,
+  "source_patch": false
+}
