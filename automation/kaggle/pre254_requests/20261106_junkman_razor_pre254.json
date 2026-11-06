@@ -1,0 +1,10 @@
+{
+  "stage": "PRE254_JUNKMAN_INVENTORY_RAZOR_STATIC_DISCOVERY",
+  "read_only": true,
+  "authorized_by": "user requested continue and modifying Junkman quantities; no game modification",
+  "source_snapshot": "PRE99 authenticated SHA256 af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "no_signer": true,
+  "no_apk_build": true,
+  "no_save_mutation": true,
+  "question": "Identify static evidence for Junkman inventory quantities, Razor initial race outcomes, and the known money debit store, report limitations"
+}
