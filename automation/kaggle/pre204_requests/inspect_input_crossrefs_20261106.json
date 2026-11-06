@@ -1,0 +1,9 @@
+{
+  "stage": "PRE204",
+  "predecessor": 42240869445,
+  "goal": "Verified cross references for game guest input/import and hook functions",
+  "read_only": true,
+  "no_build": true,
+  "no_signing": true,
+  "preserve": "V36"
+}
