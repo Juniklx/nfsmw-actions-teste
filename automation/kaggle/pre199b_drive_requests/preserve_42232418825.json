@@ -1,0 +1,8 @@
+{
+  "stage": "PRE199B_DRIVE_PERSIST",
+  "source_success_run": 42232418825,
+  "artifact_id": 13511166118,
+  "purpose": "Append only sanitized audit report to Drive log folder",
+  "no_build": true,
+  "no_game_write": true
+}
