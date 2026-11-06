@@ -1,0 +1,9 @@
+{
+  "stage": "PRE219",
+  "purpose": "Read codegen.log, stamp, manifest, dependency and partition files from authenticated PRE99 for exact XEX provenance",
+  "pre99_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "read_only": true,
+  "apk_unchanged": true,
+  "no_signing_data": true,
+  "raw_xex_not_published": true
+}
