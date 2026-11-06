@@ -1,0 +1,10 @@
+{
+  "stage": "PRE199B",
+  "origin_failed_run": 42231000758,
+  "cause": "Kaggle isolated kernel Google Secrets ConnectionError",
+  "goal": "Read-only audit of PRE99 for nitro, money, speedbreaker",
+  "execution": "GitHub Actions fallback, as earlier verified source audits",
+  "build": false,
+  "patch": false,
+  "sign": false
+}
