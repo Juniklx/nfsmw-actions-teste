@@ -1,0 +1,8 @@
+{
+  "stage": "PRE220B",
+  "change_from_pre220": "Create isolated temporary folders for PAL/USA static decoding; no code/game/APK patches",
+  "pre99_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "read_only": true,
+  "signer_untouched": true,
+  "saves_untouched": true
+}
