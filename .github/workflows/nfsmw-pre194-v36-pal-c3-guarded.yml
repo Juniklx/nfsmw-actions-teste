@@ -1,0 +1,198 @@
+name: NFSMW PRE194 - signed V36 PAL PTBR C3 diagnostic guarded
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/build_pre194_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre194-v36-c3-pal-isolated
+  cancel-in-progress: false
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 185
+    steps:
+      - name: Checkout private repository
+        uses: actions/checkout@v4
+      - name: Configure JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Configure Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Python dependencies and validate scripts
+        run: |
+          set -e
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          python -m py_compile \
+            automation/kaggle/pre104_verify_backup_tar.py \
+            automation/kaggle/pre105_read_settings_source.py \
+            automation/kaggle/pre107_restore_isolated.py \
+            automation/kaggle/pre117_one_scroll_android_dryrun.py \
+            automation/kaggle/pre118_audit_build_tree.py \
+            automation/kaggle/pre125_ephemeral_gradle_signing_preflight.py \
+            automation/kaggle/pre127_apk_v2_certificate_audit.py \
+            automation/kaggle/pre128_android_touch_scroll_visual_patch.py \
+            automation/kaggle/pre131_native_touch_and_modern_ui_patch.py \
+            automation/kaggle/pre133_mouse_bridge_swipe_patch.py \
+            automation/kaggle/pre157_otimizar_refresh_callback.py \
+            automation/kaggle/pre165_sdl_wake_sleep2.py \
+            automation/kaggle/pre170_input_pump_8ms_patch.py \
+            automation/kaggle/pre180_android_sdl_wait_block_patch.py \
+            automation/kaggle/pre194_build_signed_v36_c3_pal_diag.py \
+            automation/kaggle/pre194_c3_guard_pal_diagnostic_patch.py \
+            automation/kaggle/pre194_build_signed_v36_c3_pal_diag.py \
+            automation/kaggle/pre139_verify_dependency_cache.py \
+            automation/kaggle/pre140_guard_sdk_only_ccache.py
+          python automation/kaggle/pre139_verify_dependency_cache.py --self-test
+      - name: Prepare exact Android NDK CMake and SDK build tools in ephemeral runner
+        id: android_tools
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -e
+          SDK="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
+          test -d "$SDK"
+          echo "PRE194 preparing Android SDK tools; no game source or key accessed in this step"
+          SDKMANAGER=""
+          for p in "$SDK"/cmdline-tools/*/bin/sdkmanager "$SDK"/tools/bin/sdkmanager; do
+            if [ -x "$p" ]; then SDKMANAGER="$p"; break; fi
+          done
+          test -n "$SDKMANAGER"
+          # PRE139: check pinned versions and install ONLY genuinely missing tools.
+          # Do not delete other NDKs. Each hosted runner is ephemeral anyway.
+          MISSING=()
+          [ -f "$SDK/ndk/28.2.13676358/source.properties" ] || MISSING+=("ndk;28.2.13676358")
+          [ -d "$SDK/cmake/3.31.6" ] || MISSING+=("cmake;3.31.6")
+          [ -f "$SDK/platforms/android-36/android.jar" ] || MISSING+=("platforms;android-36")
+          [ -f "$SDK/build-tools/36.0.0/apksigner" ] || MISSING+=("build-tools;36.0.0")
+          if [ "${#MISSING[@]}" -gt 0 ]; then
+            echo "PRE139 SDK packages missing: ${#MISSING[@]}"
+            set +o pipefail
+            yes | "$SDKMANAGER" --sdk_root="$SDK" --install "${MISSING[@]}" \
+              > /tmp/nfsmw-pre180-sdk-install.log 2>&1
+            EXIT="${PIPESTATUS[1]}"
+            set -o pipefail
+            if [ "$EXIT" -ne 0 ]; then echo "PRE139 SDK install failed, exit=$EXIT"; exit "$EXIT"; fi
+          else
+            echo "PRE139 all pinned SDK tools already present; skipping SDK installer"
+          fi
+          test -f "$SDK/ndk/28.2.13676358/source.properties"
+          test -d "$SDK/cmake/3.31.6"
+          test -f "$SDK/build-tools/36.0.0/apksigner"
+          test -f "$SDK/build-tools/36.0.0/aapt"
+          echo "PRE194 ephemeral NDK/CMake/build-tools ready"
+          df -h "$SDK" | tail -n 1
+      - name: PRE140 locate or install ccache and validate SDK-only launcher
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! command -v ccache >/dev/null; then
+            sudo apt-get update -qq >/dev/null
+            sudo apt-get install -y -qq ccache >/dev/null
+          fi
+          ccache --version | head -1
+          chmod 755 automation/kaggle/pre140_sdk_only_ccache_launcher.sh
+          bash -n automation/kaggle/pre140_sdk_only_ccache_launcher.sh
+      - name: PRE139 restore dependency-only Gradle cache
+        uses: actions/cache/restore@v4
+        id: gradle_deps_cache
+        with:
+          path: |
+            ${{ runner.temp }}/nfsmw-gradle-home/caches/modules-2
+            ${{ runner.temp }}/nfsmw-gradle-home/wrapper
+          key: nfsmw-pre99-gradle-ef570ba95703-jdk21-v1-${{ runner.os }}
+      - name: PRE140 verify restored Gradle cache before build
+        if: steps.gradle_deps_cache.outputs.cache-hit == 'true'
+        run: |
+          python automation/kaggle/pre139_verify_dependency_cache.py \
+            --cache-home "${{ runner.temp }}/nfsmw-gradle-home"
+      - name: PRE140 report cache restore status
+        env:
+          GRADLE_CACHE_HIT: ${{ steps.gradle_deps_cache.outputs.cache-hit }}
+        run: |
+          echo "Gradle dependency cache hit: ${GRADLE_CACHE_HIT:-false}" >> "$GITHUB_STEP_SUMMARY"
+          echo "Only modules-2 and wrapper; no game assets, signing data, native outputs." >> "$GITHUB_STEP_SUMMARY"
+      - name: PRE140 restore pinned SDK-only compiler cache
+        id: sdk_ccache
+        uses: actions/cache/restore@v4
+        with:
+          path: ${{ runner.temp }}/nfsmw-ccache-sdk-only
+          key: nfsmw-pre99-sdkonly-ndk28-clang-ccache4-v1-${{ runner.os }}
+      - name: PRE140 inspect restored SDK compiler cache before build
+        if: steps.sdk_ccache.outputs.cache-hit == 'true'
+        run: |
+          python automation/kaggle/pre140_guard_sdk_only_ccache.py \
+            --mode check \
+            --cache-dir "${{ runner.temp }}/nfsmw-ccache-sdk-only"
+      - name: Build V36 release and strictly verify signed APK including PAL C3 marker
+        id: release
+        continue-on-error: true
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          NFSMW_GRADLE_USER_HOME: ${{ runner.temp }}/nfsmw-gradle-home
+          NFSMW_PRE140_CCACHE_LAUNCHER: ${{ github.workspace }}/automation/kaggle/pre140_sdk_only_ccache_launcher.sh
+          CCACHE_DIR: ${{ runner.temp }}/nfsmw-ccache-sdk-only
+        run: |
+          set -e
+          test "${{ steps.android_tools.outcome }}" = "success"
+          mkdir -p /tmp/nfsmw-pre194-out
+          python automation/kaggle/pre194_build_signed_v36_c3_pal_diag.py \
+            automation/kaggle/pre194_c3_guard_pal_diagnostic_patch.py \
+            automation/kaggle/pre194_build_signed_v36_c3_pal_diag.py \
+            --run-id "$GITHUB_RUN_ID" \
+            --report /tmp/nfsmw-pre194-out/pre194-v36-report.json \
+            --verified-output /tmp/nfsmw-pre194-out/nfsmw-v36-pal-c3-verified.apk \
+            --upload
+      - name: PRE139 verify dependency-only cache contents before GitHub cache save
+        id: deps_policy
+        if: steps.release.outcome == 'success'
+        run: |
+          python automation/kaggle/pre139_verify_dependency_cache.py \
+            --cache-home "${{ runner.temp }}/nfsmw-gradle-home" \
+            --report /tmp/nfsmw-pre194-out/pre139-safe-cache-report.json
+      - name: PRE140 persist audited Gradle dependency cache only after successful gate
+        if: ${{ success() && steps.release.outcome == 'success' && steps.deps_policy.outcome == 'success' && steps.gradle_deps_cache.outputs.cache-hit != 'true' }}
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            ${{ runner.temp }}/nfsmw-gradle-home/caches/modules-2
+            ${{ runner.temp }}/nfsmw-gradle-home/wrapper
+          key: ${{ steps.gradle_deps_cache.outputs.cache-primary-key }}
+      - name: PRE140 seal SDK-only compiler cache after fully verified release
+        id: sdk_ccache_policy
+        if: steps.release.outcome == 'success'
+        run: |
+          python automation/kaggle/pre140_guard_sdk_only_ccache.py \
+            --mode seal \
+            --cache-dir "${{ runner.temp }}/nfsmw-ccache-sdk-only" \
+            --report /tmp/nfsmw-pre194-out/pre140-safe-sdk-cache.json
+      - name: PRE140 save verified SDK compiler cache only on successful release
+        if: ${{ success() && steps.release.outcome == 'success' && steps.sdk_ccache_policy.outcome == 'success' && steps.sdk_ccache.outputs.cache-hit != 'true' }}
+        uses: actions/cache/save@v4
+        with:
+          path: ${{ runner.temp }}/nfsmw-ccache-sdk-only
+          key: ${{ steps.sdk_ccache.outputs.cache-primary-key }}
+      - name: Preserve private report and verified APK if produced
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre194-v36-PAL-C3-${{ github.run_id }}
+          path: |
+            /tmp/nfsmw-pre194-out/pre194-v36-report.json
+            /tmp/nfsmw-pre194-out/nfsmw-v36-pal-c3-verified.apk
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Require fully validated and permanently signed V36 private artifact
+        if: always()
+        env:
+          PRE194_BUILD: ${{ steps.release.outcome }}
+        run: test "$PRE194_BUILD" = success
