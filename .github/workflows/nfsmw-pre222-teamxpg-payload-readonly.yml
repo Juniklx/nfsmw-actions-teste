@@ -21,6 +21,8 @@ jobs:
           python-version: '3.11'
       - name: Install bounded read-only analysis dependencies
         run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq libarchive-tools >/dev/null
           python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests capstone cryptography >/dev/null
       - name: Retrieve SHA-pinned PRE208 and PRE222 scripts from authenticated Drive
         env:
