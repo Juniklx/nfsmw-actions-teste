@@ -1,0 +1,13 @@
+{
+  "stage": "PRE247",
+  "date": "2026-11-06",
+  "mode": "disposable authenticated pre99 read-only external state",
+  "targets": [
+    "PAL_money_8",
+    "PAL_nitro_candidate_5",
+    "PAL_speedbreaker_candidate_3"
+  ],
+  "apk_build": false,
+  "signing": false,
+  "guest_additional_loads": false
+}
