@@ -1,0 +1,9 @@
+{
+  "stage": "PRE203",
+  "prior_success": 42239422645,
+  "goal": "Exhaustive keyword scan of authenticated PRE99 generated PAL and USA sources",
+  "read_only": true,
+  "build": false,
+  "sign": false,
+  "patch": false
+}
