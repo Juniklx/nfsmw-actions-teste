@@ -101,7 +101,7 @@ def apply(root: Path) -> dict:
     if (root / FILE_CPP).exists():
         raise ValueError("PRE246: trace module already exists, refusing double patch")
     cmake_text = original_cmake.decode("utf-8")
-    needle = "add_library(nfsmw SHARED \${NFSMW_SOURCES})"
+    needle = "add_library(nfsmw SHARED ${NFSMW_SOURCES})"
     if cmake_text.count(needle) != 1:
         raise ValueError("PRE246: native library CMake anchor missing")
     cmake_new = cmake_text.replace(needle,needle + "\n    target_sources(nfsmw PRIVATE src/nfsmw_cheats_trace_pre246.cpp)",1)
