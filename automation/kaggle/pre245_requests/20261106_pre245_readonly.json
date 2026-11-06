@@ -1,0 +1,13 @@
+{
+  "stage": "PRE245",
+  "basis": "PRE240 8 old values stable",
+  "scope": "PAL money only",
+  "goal": "In-memory guard transform, source unchanged",
+  "guards": {
+    "no_game_file_write": true,
+    "no_APK": true,
+    "no_signer": true,
+    "no_saves": true,
+    "no_extra_guest_reads": true
+  }
+}
