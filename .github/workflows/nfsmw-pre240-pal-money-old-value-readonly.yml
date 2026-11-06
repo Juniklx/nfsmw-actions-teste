@@ -1,0 +1,41 @@
+name: NFSMW PRE240 PAL old money value and synthetic policy read-only
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre240_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre240-readonly
+  cancel-in-progress: false
+jobs:
+  old-value-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install read-only Google Drive client
+        run: python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+      - name: Check audit script syntax
+        run: python -m py_compile automation/kaggle/pre240_pal_money_old_value_readonly.py
+      - name: Authenticate sources and run eight old-value checks
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre240_pal_money_old_value_readonly.py
+      - name: Preserve private JSON evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre240-pal-money-old-value-${{ github.run_id }}
+          path: /tmp/nfsmw-pre240/NFSMW_PRE240_PAL_OLD_VALUE_AND_LOGGER_AUDIT.json
+          if-no-files-found: warn
+          retention-days: 14
