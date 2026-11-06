@@ -45,7 +45,6 @@ jobs:
             automation/kaggle/pre165_sdl_wake_sleep2.py \
             automation/kaggle/pre170_input_pump_8ms_patch.py \
             automation/kaggle/pre180_android_sdl_wait_block_patch.py \
-            automation/kaggle/pre194_build_signed_v36_c3_pal_diag.py \
             automation/kaggle/pre194_c3_guard_pal_diagnostic_patch.py \
             automation/kaggle/pre194_build_signed_v36_c3_pal_diag.py \
             automation/kaggle/pre139_verify_dependency_cache.py \
@@ -146,8 +145,6 @@ jobs:
           test "${{ steps.android_tools.outcome }}" = "success"
           mkdir -p /tmp/nfsmw-pre194-out
           python automation/kaggle/pre194_build_signed_v36_c3_pal_diag.py \
-            automation/kaggle/pre194_c3_guard_pal_diagnostic_patch.py \
-            automation/kaggle/pre194_build_signed_v36_c3_pal_diag.py \
             --run-id "$GITHUB_RUN_ID" \
             --report /tmp/nfsmw-pre194-out/pre194-v36-report.json \
             --verified-output /tmp/nfsmw-pre194-out/nfsmw-v36-pal-c3-verified.apk \
