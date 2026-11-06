@@ -19,7 +19,7 @@ USA_SOURCE="workspace/nativo/app_usa/src/nfsmw_nativo_dibujos.cpp"
 USA_SOURCE_SHA="92e0a15836217a535c6f81e2461381616f46c331c83201cabd14a71c2d8c2342"
 MAIN_SHA="ce33b914b113531d888010368d8570205e4acf54542e659e36963790a4dc5a7c"
 USA_MAIN_SHA="4f32de8f2ff10d4748aa33f208774038ef9bfa402eacc61a49dd7e70f3b1bc83"
-BUILDER_SHA="e8978f323441ca857b23af79debd4927b6fe6916"
+BUILDER_SHA="ff490bd4d1025f06cc3470af030b7f881a618c34e3046acada4b06123edd54f2"
 TARGETS=[
  "workspace/android/app/build.gradle.kts",
  "workspace/android/app/src/main/cpp/CMakeLists.txt",
