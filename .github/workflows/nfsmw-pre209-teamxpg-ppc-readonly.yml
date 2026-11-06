@@ -1,0 +1,73 @@
+name: NFSMW PRE209 - TeamXPG PPC addresses read-only
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre209_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre209-teamxpg-ppc
+  cancel-in-progress: false
+jobs:
+  static_ppc:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare isolated, read-only PPC scanning dependencies
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq libarchive-tools
+          python -m pip install --disable-pip-version-check capstone cryptography google-api-python-client google-auth google-auth-httplib2 >/dev/null
+      - name: Retrieve SHA-pinned scripts without updating game source
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib,io
+          from pathlib import Path
+          from googleapiclient.http import MediaIoBaseDownload
+          from pre105_read_settings_source import drive_client
+          scripts=[
+           ('15FQFLM018-mHsoYxuuvMn7mZp35ojvmS','nfsmw_pre208_teamxpg_decoder_audit.py','000a6db5cffb6a046a99af4da71c8911a846a5da3d3d7dfaa7fecf7ca37f98e9'),
+           ('1SltpmGXrweUBOJAAG6_tozP3JXnPW4in','nfsmw_pre209_teamxpg_ppc_address_audit.py','0af0e18a50c3c4bbe4e2369e33fc5af0ba3863c24382a7bc2def08618059edd4')
+          ]
+          service=drive_client()
+          for file_id,name,sha in scripts:
+              dst=io.BytesIO()
+              dl=MediaIoBaseDownload(dst,service.files().get_media(fileId=file_id))
+              done=False
+              while not done:_,done=dl.next_chunk()
+              content=dst.getvalue()
+              assert hashlib.sha256(content).hexdigest()==sha, 'Read-only script SHA pin mismatch'
+              Path('/tmp',name).write_bytes(content)
+              print('PRE209_PIN_OK',name)
+          PY
+          python -m py_compile /tmp/nfsmw_pre209_teamxpg_ppc_address_audit.py
+      - name: Inspect PPC instructions and embedded game IDs without executing trainer
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle:/tmp
+        run: |
+          set -euo pipefail
+          python /tmp/nfsmw_pre209_teamxpg_ppc_address_audit.py
+      - name: Preserve only candidate metadata, not executable binary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre209-ppc-candidates-${{ github.run_id }}
+          path: /tmp/nfsmw-pre209/NFSMW_PRE209_TEAMXPG_PPC_CANDIDATES.json
+          retention-days: 14
+          if-no-files-found: warn
