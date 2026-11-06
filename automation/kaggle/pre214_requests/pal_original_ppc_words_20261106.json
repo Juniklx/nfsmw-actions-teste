@@ -1,0 +1,18 @@
+{
+  "stage": "PRE214",
+  "source_pal_zip": "1sF5irZpUNfN5Z2p4L53eMVISBeh8MfRz",
+  "default_xex_SHA256": "aad15fc218d034de3131f746e0b763dd8049a40dd676efc87667fcaf4fc72694",
+  "targets": [
+    "82424BE4",
+    "82424C18",
+    "8246C240",
+    "8246C284",
+    "8256BECC",
+    "8256585C"
+  ],
+  "scope": "Readonly archive range, verified AES/LZX decrypt and disassembly for six 32-bit words; no XEX payload artifact",
+  "source_modified": false,
+  "apk_built": false,
+  "saves_accessed": false,
+  "signer_accessed": false
+}
