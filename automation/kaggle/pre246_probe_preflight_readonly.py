@@ -32,6 +32,8 @@ def main():
  except Exception as e:
   out["error_type"]=type(e).__name__
   out["failed_phase"]=out["phase"]
+  if isinstance(e, ValueError) and str(e).startswith("PRE246:"):
+   out["safe_pre246_error"]=str(e)[:180]
   print("PRE246_PREFLIGHT_ERROR",type(e).__name__,out["phase"])
  OUT.write_text(json.dumps(out,indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
  print("PRE246_PREFLIGHT_STATUS",out["status"])
