@@ -1,0 +1,10 @@
+{
+  "stage": "PRE249C",
+  "host_dependencies": [
+    "libspdlog-dev",
+    "libfmt-dev"
+  ],
+  "purpose": "Real Rex logging header host C++ syntax only",
+  "android_build": false,
+  "signing": false
+}
