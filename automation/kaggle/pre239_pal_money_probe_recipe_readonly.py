@@ -50,10 +50,10 @@ LOG_SOURCES = {
     "workspace/nativo/app/src/nfsmw_nativo_dibujos.cpp",
     "workspace/nativo/app/src/nfsmw_recortes_carrera.cpp",
 }
-DEF = re.compile(r"\\bDEFINE_REX_FUNC\\((sub_[0-9A-Fa-f]{8})\\)")
-COMMENT = re.compile(r"^\\s*//\\s*stw\\s+(r\\d+,\\s*12\\(r\\d+\\))\\s*$", re.I)
-STORE = re.compile(r"^\\s*REX_STORE_U32\\(([^,;]+),\\s*([^;]+)\\);\\s*$")
-LOG_REGEX = re.compile(r"\\b(?:rex::logging|rex::Log|REX_LOG|LOG_[A-Z_]+|spdlog::|#include <rex/logging.h>)")
+DEF = re.compile(r"\bDEFINE_REX_FUNC\((sub_[0-9A-Fa-f]{8})\)")
+COMMENT = re.compile(r"^\s*//\s*stw\s+(r\d+,\s*12\(r\d+\))\s*$", re.I)
+STORE = re.compile(r"^\s*REX_STORE_U32\(([^,;]+),\s*([^;]+)\);\s*$")
+LOG_REGEX = re.compile(r"\b(?:rex::logging|rex::Log|REX_LOG|LOG_[A-Z_]+|spdlog::|#include <rex/logging.h>)")
 
 def body_for_function(src, target):
     all_defs = list(DEF.finditer(src))
@@ -88,10 +88,10 @@ def validate_one(src, spec, target):
         # uses already-calculated register expressions; no memory read.
         marker = f"NFSMW_PRE239_MONEY_PROBE_{target}_{ix+1}"
         probe = (
-            f"#if defined(NFSMW_MONEY_STORE_TRACE_ENABLED)\\n"
+            f"#if defined(NFSMW_MONEY_STORE_TRACE_ENABLED)\n"
             f"  NFSMW_MONEY_STORE_TRACE({ix+1}, "
-            f"static_cast<uint32_t>({addr}), static_cast<uint32_t>({value}));\\n"
-            f"#endif // {marker}\\n"
+            f"static_cast<uint32_t>({addr}), static_cast<uint32_t>({value}));\n"
+            f"#endif // {marker}\n"
         )
         # Not integrating marker into generated source in this stage.
         replacement[line_index + 1] += probe
@@ -190,7 +190,7 @@ def main():
         report["error_type"] = type(exc).__name__
         report["failed_phase"] = report["phase"]
         print("PRE239_FAILURE", type(exc).__name__, report["phase"])
-    OUT.write_text(json.dumps(report, ensure_ascii=False, indent=2)+"\\n", encoding="utf-8")
+    OUT.write_text(json.dumps(report, ensure_ascii=False, indent=2)+"\n", encoding="utf-8")
     print("PRE239_STATUS", report["status"])
     print("PRE239_SITES", report.get("observed_sites", 0))
     return 0 if report["status"]=="AUDIT_OK" else 1
