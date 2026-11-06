@@ -1,0 +1,9 @@
+{
+  "stage": "PRE244",
+  "goal": "Isolated C++ default-off money/nitro/Speedbreaker policy tests",
+  "no_game": true,
+  "no_apk": true,
+  "no_signer": true,
+  "no_saves": true,
+  "synthetic_cases": 100000
+}
