@@ -1,0 +1,13 @@
+{
+  "stage": "PRE246",
+  "mode": "disposable_preflight_only",
+  "basis": "PRE245 42294333835 AUDIT_OK",
+  "rules": {
+    "no_APK": true,
+    "no_signer_access": true,
+    "no_save_changes": true,
+    "source_ephemeral": true,
+    "backup_hash_pinned": true,
+    "cheats_disabled": true
+  }
+}
