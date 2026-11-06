@@ -1,0 +1,13 @@
+{
+  "stage": "PRE239",
+  "predecessor": "PRE238 run 42290762994 AUDIT_OK",
+  "backup_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "restrictions": {
+    "readonly": true,
+    "no_guest_extra_reads": true,
+    "no_game_edits": true,
+    "no_APK_build": true,
+    "no_signing_access": true,
+    "no_saves_changes": true
+  }
+}
