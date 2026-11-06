@@ -1,0 +1,83 @@
+name: NFSMW PRE221 six original PPC opcodes by verified RVA PAL and USA
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre221_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre221-six-opcodes-rva-readonly
+  cancel-in-progress: false
+jobs:
+  range-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install private Drive reader dependencies
+        run: |
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests capstone cryptography >/dev/null
+      - name: Retrieve nine SHA-pinned readonly source and XEX tools
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import os,io,hashlib
+          from pathlib import Path
+          from google.oauth2.credentials import Credentials
+          from google.auth.transport.requests import Request
+          from googleapiclient.discovery import build
+          from googleapiclient.http import MediaIoBaseDownload
+          c=Credentials(token=None,refresh_token=os.environ["GOOGLE_REFRESH_TOKEN"],
+            token_uri="https://oauth2.googleapis.com/token",
+            client_id=os.environ["GOOGLE_CLIENT_ID"],
+            client_secret=os.environ["GOOGLE_CLIENT_SECRET"])
+          c.refresh(Request())
+          service=build("drive","v3",credentials=c,cache_discovery=False)
+          for file_id,path,expected in [
+            ("1aCH8blJIr6B0ih2rsfYS8VbFesUSQ1Pn","nfsmw_pre212_drive_zip_central_directory_readonly.py","d3efcd6258ecee92449e48238e79c10eed1cabe6844eabdaa3da0718a1a0539c"),
+            ("1GgjMLCcgLaZzgufx0toliMWZtc9SUOWM","nfsmw_pre213_pal_xex_header_range_readonly.py","2b13663621158dc4deebfc324e6a7aa4018aa90d9546b2658374393f4b2292bf"),
+            ("15FQFLM018-mHsoYxuuvMn7mZp35ojvmS","nfsmw_pre208_teamxpg_decoder_audit.py","000a6db5cffb6a046a99af4da71c8911a846a5da3d3d7dfaa7fecf7ca37f98e9"),
+            ("1EIvd2m465jv6Yn_ErEsWdal63kEU8fme","nfsmw_pre214_pal_original_ppc_readonly.py","21fa34b42a8b23482254ddafc65c2a2d054c27d3bad567d29f1c9ab5273792ec"),
+            ("1WHGlcdUCAtSqXoiej5d05Gj-NMIp7KUv","nfsmw_pre215_pal_source_equivalence_readonly.py","b8b1eb9e80375b14db12675a92d1152563033e74b03211eede4f210aec05fe43"),
+            ("1xvWDwH-U_71nGzL_Y6DNSfLYaJu6y-Gh","nfsmw_pre216_usa_iso_xdvdfs_probe_readonly.py","7280d4685d1afcfea2f58ac0522149f326dff6d145e6ae0663f1bdaa8edeade2"),
+            ("1675iQsrqiX5yYLEkmHRY41BkIli1M8R6","nfsmw_pre217_usa_source_equivalence_readonly.py","5c4ee2f856dcbc11b32debd40a38dd2a6d7fdda01e4e9d2f171a09cf2986e41b"),
+            ("14-G5o854THXTFE1rMArFunAO5BE_nBFB","nfsmw_pre220b_explicit_pc_anchors_readonly.py","2adde4dc2db44a5c3f8de4068ece436073fc848229b94551763400596b876875"),
+            ("1Krmkasa5yTPAU45jvksg8uo0hnSeHR_6","nfsmw_pre221_original_opcode_rva_readonly.py","2bf7afac2e9907dce3290b474758f2590928eaed3c6a77b2b231e7ffcb86b197"),
+          ]:
+            buf=io.BytesIO()
+            dl=MediaIoBaseDownload(buf,service.files().get_media(fileId=file_id))
+            done=False
+            while not done:
+              _,done=dl.next_chunk()
+            data=buf.getvalue()
+            actual=hashlib.sha256(data).hexdigest()
+            if actual!=expected:raise ValueError("Pinned script SHA mismatch: "+path)
+            Path("/tmp",path).write_bytes(data)
+            print("PRE221_SCRIPT_SHA_OK",path)
+          PY
+          python -m py_compile /tmp/nfsmw_pre221_original_opcode_rva_readonly.py /tmp/nfsmw_pre212_drive_zip_central_directory_readonly.py /tmp/nfsmw_pre213_pal_xex_header_range_readonly.py /tmp/nfsmw_pre208_teamxpg_decoder_audit.py /tmp/nfsmw_pre214_pal_original_ppc_readonly.py /tmp/nfsmw_pre215_pal_source_equivalence_readonly.py /tmp/nfsmw_pre216_usa_iso_xdvdfs_probe_readonly.py /tmp/nfsmw_pre217_usa_source_equivalence_readonly.py /tmp/nfsmw_pre220b_explicit_pc_anchors_readonly.py
+      - name: Reextract 6 opcode targets PAL USA using confirmed RVA
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=/tmp:automation/kaggle python /tmp/nfsmw_pre221_original_opcode_rva_readonly.py
+      - name: Upload JSON report only (no game data)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre221-six-opcodes-rva-${{ github.run_id }}
+          path: /tmp/nfsmw-pre221/NFSMW_PRE221_CORRECT_RVA_TEAMXPG_SIX_TARGETS.json
+          if-no-files-found: warn
+          retention-days: 14
