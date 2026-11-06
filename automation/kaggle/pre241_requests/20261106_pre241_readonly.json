@@ -1,0 +1,15 @@
+{
+  "stage": "PRE241",
+  "goal": "Find PAL nitro / Speedbreaker float write sites",
+  "source": "PRE99",
+  "previous": "PRE240 run 42292029125 AUDIT_OK",
+  "rules": {
+    "readonly": true,
+    "no_memory_dereference": true,
+    "no_build": true,
+    "no_APK": true,
+    "no_signing": true,
+    "no_saves": true,
+    "no_graphics_changes": true
+  }
+}
