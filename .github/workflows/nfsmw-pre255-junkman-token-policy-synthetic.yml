@@ -1,0 +1,22 @@
+name: NFSMW PRE255 Junkman inventory quantity policy isolated synthetic tests
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/cheats/pre255_requests/*.json'
+permissions:
+  contents: read
+jobs:
+  junkman-policy-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Syntax check
+        run: python -m py_compile automation/cheats/pre255_junkman_slot_policy.py automation/cheats/pre255_junkman_slot_policy_test.py
+      - name: Verify per-type inventory plans using synthetic data only
+        run: PYTHONPATH=automation/cheats python automation/cheats/pre255_junkman_slot_policy_test.py
