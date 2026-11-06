@@ -1,0 +1,42 @@
+name: NFSMW PRE246 passive money-store trace disposable preflight
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre246_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre246-passive-trace-preflight
+  cancel-in-progress: false
+jobs:
+  disposable-patch-preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install authenticated readonly Drive client
+        run: python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+      - name: Validate scripts
+        run: |
+          python -m py_compile automation/kaggle/pre246_passive_money_probe_patch.py automation/kaggle/pre246_probe_preflight_readonly.py
+      - name: Authenticated SHA-pinned PRE99 restore and disposable trace integration preflight
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre246_probe_preflight_readonly.py
+      - name: Upload private JSON report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre246-passive-trace-preflight-${{ github.run_id }}
+          path: /tmp/nfsmw-pre246-preflight/NFSMW_PRE246_PASSIVE_MONEY_TRACE_PREFLIGHT.json
+          if-no-files-found: warn
+          retention-days: 14
