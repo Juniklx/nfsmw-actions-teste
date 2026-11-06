@@ -1,0 +1,10 @@
+{
+  "stage": "PRE191",
+  "purpose": "Audit authenticated PRE99 Java logic for PAL/USA edition selection after PRE190 could not read proc maps",
+  "device_collection": "PRE190 2026-11-05T21:53:40-0300",
+  "no_patch": true,
+  "no_build": true,
+  "no_signing": true,
+  "no_thermal_override": true,
+  "runtime_library_not_yet_proven": true
+}
