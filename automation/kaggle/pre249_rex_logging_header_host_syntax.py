@@ -69,6 +69,7 @@ def main()->int:
             report["host_compiler_rc"]=res.returncode
             if res.returncode:
                 report["safe_compiler_error_tail"]=(res.stderr or "")[-1300:]
+                print("PRE249_HOST_COMPILER_DIAGNOSTICS", report["safe_compiler_error_tail"].replace("\\n", " ")[:1300])
                 report["status"]="NEEDS_TOOLCHAIN_OR_LOGGING_REVIEW"
             else:
                 report["status"]="AUDIT_OK"
