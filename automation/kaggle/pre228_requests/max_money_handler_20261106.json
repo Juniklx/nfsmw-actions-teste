@@ -1,0 +1,9 @@
+{
+  "stage": "PRE228",
+  "purpose": "Statically identify Max Money and Max Bounty one-shot handler code and guest memory targets in authenticated TeamXPG trainer",
+  "read_only": true,
+  "trainer_not_executed": true,
+  "game_untouched": true,
+  "saves_unchanged": true,
+  "apk_unchanged": true
+}
