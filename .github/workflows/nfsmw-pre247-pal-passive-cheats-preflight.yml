@@ -1,0 +1,42 @@
+name: NFSMW PRE247 PAL passive money nitro Speedbreaker disposable preflight
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre247_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre247-pal-passive-cheats-preflight
+  cancel-in-progress: false
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install authenticated read-only snapshot client
+        run: python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+      - name: Validate non-APK Python scripts
+        run: |
+          python -m py_compile automation/kaggle/pre246_passive_money_probe_patch.py automation/kaggle/pre247_pal_meter_passive_probe_patch.py automation/kaggle/pre247_disposable_preflight.py
+      - name: SHA pinned PRE99 disposable PAL money and meter integration preflight
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre247_disposable_preflight.py
+      - name: Upload bounded private integration report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre247-disposable-passive-cheats-${{ github.run_id }}
+          path: /tmp/nfsmw-pre247/NFSMW_PRE247_PAL_CHEATS_PASSIVE_INTEGRATION_PREFLIGHT.json
+          if-no-files-found: warn
+          retention-days: 14
