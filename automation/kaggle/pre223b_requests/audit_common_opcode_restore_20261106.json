@@ -1,0 +1,10 @@
+{
+  "stage": "PRE223B",
+  "intent": "Verify shared patch word at r28 and restore candidates; cross-link nitro/speedbreaker/money labels to 3 control blocks",
+  "parent_success_run": 42274435616,
+  "read_only": true,
+  "apk_unchanged": true,
+  "saves_untouched": true,
+  "secret_material_untouched": true,
+  "trainer_not_executed": true
+}
