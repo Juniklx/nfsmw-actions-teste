@@ -1,0 +1,9 @@
+{
+  "stage": "PRE214",
+  "retry_of_run": 42256790450,
+  "fix": "one missing comma in workflow pinned script list",
+  "source_pal_zip": "1sF5irZpUNfN5Z2p4L53eMVISBeh8MfRz",
+  "read_only": true,
+  "apk_unchanged": true,
+  "game_data_not_published": true
+}
