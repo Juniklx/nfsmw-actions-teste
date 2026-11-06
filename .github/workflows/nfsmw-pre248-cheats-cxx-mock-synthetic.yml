@@ -1,0 +1,33 @@
+name: NFSMW PRE248 synthetic C++ callbacks no Android build
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre248_requests/*.json'
+permissions:
+  contents: read
+jobs:
+  mock-compile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate Python scripts
+        run: |
+          python -m py_compile automation/kaggle/pre246_passive_money_probe_patch.py automation/kaggle/pre247_pal_meter_passive_probe_patch.py automation/kaggle/pre248_cheat_callbacks_mock_cpp_test.py
+      - name: Compile and execute only synthetic C++ logger callback test
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre248_cheat_callbacks_mock_cpp_test.py
+      - name: Preserve bounded synthetic report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre248-synthetic-cxx-${{ github.run_id }}
+          path: /tmp/nfsmw-pre248/NFSMW_PRE248_CXX_CALLBACK_ISOLATED_MOCK.json
+          if-no-files-found: warn
+          retention-days: 14
