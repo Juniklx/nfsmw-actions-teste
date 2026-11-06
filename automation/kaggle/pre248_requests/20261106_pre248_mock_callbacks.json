@@ -1,0 +1,9 @@
+{
+  "phase": "PRE248",
+  "mode": "host C++ synthetic mock logger only",
+  "money_sites": 8,
+  "meter_sites": 8,
+  "android_game_build": false,
+  "signing": false,
+  "cheats_enabled": false
+}
