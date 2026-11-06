@@ -25,14 +25,14 @@ PATTERNS={
     "junk_parts": r"junk[ _-]*part|junk[ _-]*upgrade",
     "unique_performance": r"unique[ _-]*(?:performance|upgrade|part|engine|transmission|suspension|brakes|tires|turbo|nitrous)",
     "inventory": r"(?:inventory|inventario|stock|parts[ _-]*count|upgrade[ _-]*count)",
-    "razor": r"\\brazor\\b",
+    "razor": r"\brazor\b",
     "bmw_m3": r"bmw[ _-]*m3|m3[ _-]*gtr",
     "prologue": r"prologue|prologo|intro[ _-]*race|starter[ _-]*car",
     "career_reward": r"career[ _-]*reward|race[ _-]*reward|pink[ _-]*slip",
 }
 # Escape-safe byte regex, with optional NULs between ASCII characters for UTF-16LE/BE.
 def patterns_for(value: str):
-    base=value.replace("\\\\b",r"\\b")
+    base=value
     result=[re.compile(base.encode("ascii"),re.I)]
     return result
 SEARCH={k:patterns_for(v) for k,v in PATTERNS.items()}
@@ -100,7 +100,7 @@ def audit():
                                                      "samples":excerpts})
         if target is None:raise ValueError("Pinned PAL generated source not present")
         text=target.decode("utf-8","replace")
-        definitions=list(re.finditer(r"(?m)^DEFINE_REX_FUNC\\(sub_[0-9A-Fa-f]{8}\\)",text))
+        definitions=list(re.finditer(r"(?m)^DEFINE_REX_FUNC\(sub_[0-9A-Fa-f]{8}\)",text))
         body=None
         for i,m in enumerate(definitions):
             if m.group(1)=="sub_82564D80":
@@ -108,7 +108,7 @@ def audit():
                 break
         if body is None:raise ValueError("PAL account write function missing")
         lines=body.splitlines()
-        idx=[i for i,line in enumerate(lines) if re.search(r"//\\s*stw\\s+r\\d+,\\s*12\\(r11\\)",line)]
+        idx=[i for i,line in enumerate(lines) if re.search(r"//\s*stw\s+r\d+,\s*12\(r11\)",line)]
         if len(idx)!=5:raise ValueError("Expected exactly five PAL account stores")
         fifth=idx[4]
         ctx=[{"ordinal":i-fifth,"text":line.strip()[:180]}
