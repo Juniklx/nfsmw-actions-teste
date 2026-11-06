@@ -1,0 +1,11 @@
+{
+  "stage": "PRE199",
+  "purpose": "readonly audit of nitro, speedbreaker, money source identifiers",
+  "requested_on": "2026-11-06",
+  "execution": "GitHub Actions -> isolated private Kaggle kernel",
+  "no_build": true,
+  "no_patch": true,
+  "no_signing": true,
+  "preserve_apk": "V36 PRE194",
+  "backup": "authenticated PRE99"
+}
