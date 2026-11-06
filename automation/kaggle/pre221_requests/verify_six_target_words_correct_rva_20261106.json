@@ -1,0 +1,9 @@
+{
+  "stage": "PRE221",
+  "intent": "Read-only exact original PPC words at six TeamXPG numeric addresses via validated PE RVA, compare PAL and USA and ReXGlue-generated source",
+  "PRE99_expected_SHA256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "read_only": true,
+  "apk_built": false,
+  "signature_untouched": true,
+  "game_binary_not_published": true
+}
