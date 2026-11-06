@@ -1,0 +1,17 @@
+{
+  "stage": "PRE210",
+  "predecessor_run": 42248703213,
+  "source": "Authenticated PRE99 snapshot (PAL+USA)",
+  "six_guest_addresses": [
+    "0x82424BE4",
+    "0x82424C18",
+    "0x8246C240",
+    "0x8246C284",
+    "0x8256BECC",
+    "0x8256585C"
+  ],
+  "read_only": true,
+  "execute_trainer": false,
+  "compile_apk": false,
+  "change_saves": false
+}
