@@ -1,0 +1,10 @@
+{
+  "stage": "PRE218",
+  "subject": "Authenticate PRE99 archive and inspect codegen origin/recompilation maps and scripts for PAL and USA",
+  "pre99_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "read_only": true,
+  "no_binary_publish": true,
+  "apk_unchanged": true,
+  "saves_unchanged": true,
+  "signing_material_not_accessed": true
+}
