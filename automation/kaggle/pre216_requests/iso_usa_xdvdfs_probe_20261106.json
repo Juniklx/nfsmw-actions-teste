@@ -1,0 +1,11 @@
+{
+  "stage": "PRE216",
+  "source_iso_id": "1eDWuZTPrtfzk-2qD1l1YgN6GYg-_9mfr",
+  "iso_size_bytes": 7834892288,
+  "scope": "Only XDVDFS volume descriptor, root table and one default.xex under strict HTTP 206, publish hashes and XEX2 identity only",
+  "iso_downloaded": false,
+  "apk_built": false,
+  "trainer_executed": false,
+  "saves_modified": false,
+  "signing_key_accessed": false
+}
