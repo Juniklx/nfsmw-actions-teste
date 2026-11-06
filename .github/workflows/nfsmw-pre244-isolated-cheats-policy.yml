@@ -1,0 +1,26 @@
+name: NFSMW PRE244 isolated C++ cheat policy synthetic tests
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/cheats/pre244_requests/*.json'
+permissions:
+  contents: read
+jobs:
+  isolated-synthetic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile C++17 policy only
+        run: |
+          set -euo pipefail
+          g++ -std=c++17 -O2 -Wall -Wextra -Werror \
+             automation/cheats/pre244_nfsmw_resource_policy_test.cpp \
+             -o /tmp/pre244_synthetic_test
+      - name: Run 100000-case synthetic tests (no Android game)
+        run: |
+          set -euo pipefail
+          /tmp/pre244_synthetic_test
+          echo "PRE244_STATUS SYNTHETIC_AUDIT_OK"
