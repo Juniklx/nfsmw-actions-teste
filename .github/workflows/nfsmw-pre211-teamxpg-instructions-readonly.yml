@@ -1,0 +1,75 @@
+name: NFSMW PRE211 - TeamXPG write instructions and recompilation excerpts
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre211_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre211-teamxpg-readonly
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install reader and isolated public decoder dependencies
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq libarchive-tools gcc
+          python -m pip install --disable-pip-version-check capstone cryptography google-api-python-client google-auth google-auth-httplib2 >/dev/null
+      - name: Retrieve SHA-pinned PRE208/PRE211 scripts from Drive
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib,io
+          from pathlib import Path
+          from googleapiclient.http import MediaIoBaseDownload
+          from pre105_read_settings_source import drive_client
+          scripts=[
+            ('15FQFLM018-mHsoYxuuvMn7mZp35ojvmS','nfsmw_pre208_teamxpg_decoder_audit.py','000a6db5cffb6a046a99af4da71c8911a846a5da3d3d7dfaa7fecf7ca37f98e9'),
+            ('1tZA-1YYL15rYuo1UWhI-hd5XvAd2EKBs','nfsmw_pre211_teamxpg_instructions_readonly.py','1e4ca87a30847c285c504b676dc54a8f095b45e7486d084e1a7490b500af5205')
+          ]
+          drive=drive_client()
+          for file_id,filename,expected_sha in scripts:
+              buf=io.BytesIO()
+              dl=MediaIoBaseDownload(buf,drive.files().get_media(fileId=file_id))
+              done=False
+              while not done:
+                  _,done=dl.next_chunk()
+              b=buf.getvalue()
+              actual=hashlib.sha256(b).hexdigest()
+              if actual!=expected_sha:raise ValueError('Pinned script digest mismatch: '+filename)
+              Path('/tmp',filename).write_bytes(b)
+              print('PRE211_SCRIPT_SHA_OK',filename)
+          PY
+          python -m py_compile /tmp/nfsmw_pre211_teamxpg_instructions_readonly.py
+      - name: Verify PRE99 SHA then inspect source and TeamXPG PPC writes
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle:/tmp
+        run: |
+          set -euo pipefail
+          python /tmp/nfsmw_pre211_teamxpg_instructions_readonly.py
+      - name: Save bounded JSON evidence, never XEX or APK
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre211-teamxpg-instructions-${{ github.run_id }}
+          path: /tmp/nfsmw-pre211/NFSMW_PRE211_TEAMXPG_WRITES_AND_SOURCE.json
+          retention-days: 14
+          if-no-files-found: warn
