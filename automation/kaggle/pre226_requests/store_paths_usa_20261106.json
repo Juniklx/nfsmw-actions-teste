@@ -1,0 +1,8 @@
+{
+  "stage": "PRE226",
+  "purpose": "Find all resource writes related to nitro, Speedbreaker, and money in authenticated USA codegen; determine whether a selective reversible patch could avoid blocking gains",
+  "read_only": true,
+  "source_modified": false,
+  "apk_modified": false,
+  "signing_untouched": true
+}
