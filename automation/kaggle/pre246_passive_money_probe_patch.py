@@ -19,7 +19,7 @@ CMAKE_SHA256 = "4ba69347dbf5106d42c8df470e6e5e690c7785b0d31cd336a1b536d904877e26
 FILE_CPP = "nativo/app/src/nfsmw_cheats_trace_pre246.cpp"
 CPP_TEXT = r'''#include <atomic>
 #include <cstdint>
-#include <rex/logging.h>
+#include <rex/logging/macros.h>
 
 // Passive bounded trace only. No guest pointer dereference.
 static std::atomic<std::uint32_t> g_money_trace_counts_pre246[8]{};
