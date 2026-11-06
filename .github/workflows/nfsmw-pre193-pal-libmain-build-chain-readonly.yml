@@ -1,0 +1,45 @@
+name: NFSMW PRE193 - PAL PTBR libmain build-chain read-only
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre193_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre193-pal-libmain-readonly
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Checkout audit automation
+        uses: actions/checkout@v4
+      - name: Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Drive reader and check script syntax
+        run: |
+          set -e
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          python -m py_compile automation/kaggle/pre193_audit_pal_libmain_build_chain_readonly.py
+      - name: Authenticate PRE99 sources and V35 APK without mutation
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: |
+          set -e
+          python automation/kaggle/pre193_audit_pal_libmain_build_chain_readonly.py
+      - name: Preserve audit JSON only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre193-pal-libmain-readonly-${{ github.run_id }}
+          path: /tmp/nfsmw-pre193-pal-libmain-readonly/NFSMW_PRE193_PAL_BUILD_CHAIN_AUDIT.json
+          if-no-files-found: warn
+          retention-days: 14
