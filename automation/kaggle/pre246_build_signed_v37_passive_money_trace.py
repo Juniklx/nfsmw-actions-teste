@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """PRE246: V37 PAL/PTBR-only passive money trace, preserving PRE194 C3 and V35 input.
 
-Preserve V35 SDL/input patches and logging; versionCode 36 with same permanent signer.
+Preserve V35 SDL/input patches and logging; versionCode 37 with the same permanent signer.
 source patches remain PRE117+PRE128+PRE131+PRE133 from exact PRE99.
 Preserve the permanent original signing certificate, PAL/USA shaders/assets,
 and prior V30 APK. Enforce log-file code in DEX before publication.
@@ -35,6 +35,7 @@ from pre170_input_pump_8ms_patch import patch_verified as propose_pre170, INPUT_
 from pre180_android_sdl_wait_block_patch import patch_verified as propose_pre180, SOURCE_SHA as PRE180_SDL_BASE_SHA
 from pre194_c3_guard_pal_diagnostic_patch import patch_verified as propose_pre194, BASE_SHA as PRE194_PAL_BASE_SHA, PATCHED_SHA as PRE194_PAL_PATCHED_SHA, MARKER as PRE194_C3_MARKER
 from pre246_passive_money_probe_patch import apply as apply_pre246
+from pre247_pal_meter_passive_probe_patch import apply as apply_pre247
 from pre127_apk_v2_certificate_audit import apk_v2_cert_sha256
 from pre125_ephemeral_gradle_signing_preflight import (
     P12_DRIVE_ID,PROPERTIES_DRIVE_ID,P12_SHA,CERT_SHA,GRADLE_SHA,
@@ -57,7 +58,7 @@ EXPECTED_PRE131_FILES={
 
 EXPECTED_PACKAGE="io.github.nfsmwrecomp"
 DEST_FOLDER="1ac3fI_ahnp3yp7kU4JvsgDdsKkpy5tBh"
-APK_NAME="NFSMW_V37_PRE246_PASSIVE_MONEY_TRACE_DIAGNOSTIC.apk"
+APK_NAME="NFSMW_V37_PRE247_PASSIVE_MONEY_NITRO_SPEEDBREAKER_DIAGNOSTIC.apk"
 REQUIRED_LIBS=(
     "libSDL3.so", "libc++_shared.so", "libfile_redirect_hook.so",
     "libgsl_alloc_hook.so", "libhook_impl.so", "libmain.so",
@@ -236,6 +237,9 @@ def verify_apk(apk:Path,sdk:Path,v30:dict[str,bytes],progress:dict)->dict:
         if b"NFSMW_PRE246_CHEATS_DIAG" not in main_binary:
             raise ValueError("PRE246 passive money trace marker missing from PAL libmain")
         progress["pre246_passive_money_trace_marker_verified"]=True
+        if b"NFSMW_PRE247_CHEATS_DIAG" not in main_binary:
+            raise ValueError("PRE247 passive float meter trace marker missing from PAL libmain")
+        progress["pre247_passive_meter_trace_marker_verified"]=True
         progress["pre194_c3_pal_libmain_sha256"]=pal_main_sha
         progress["pre194_c3_marker_verified_in_pal_libmain"]=True
         progress["verification_subphase"]="APK_PRE180_ANDROID_SDL3_LINKAGE"
@@ -324,13 +328,14 @@ def main()->int:
     report_path.parent.mkdir(parents=True,exist_ok=True)
     output=Path(args.verified_output)
     report={
-        "etapa":"PRE246_BUILD_V37_PASSIVE_MONEY_TRACE_PAL_PTBR_PRESERVE_PRE194_C3",
+        "etapa":"PRE247_BUILD_V37_PASSIVE_16_SITE_TRACE_PAL_PTBR_PRESERVE_PRE194_C3",
         "run_id":args.run_id,
         "phase":"INITIAL","status":"NAO_VALIDADO",
         "target_version_code":VERSION_CODE,
         "pre194_c3_pal_patch_applied":False,
         "pre194_c3_marker_in_libmain_verified":False,
          "pre246_passive_money_trace_marker_verified":False,
+        "pre247_passive_meter_trace_marker_verified":False,
         "verified_source_pre99":False,
         "pre117_exact_patch_applied_in_runner":False,
         "pre128_exact_patch_applied_in_runner":False,
@@ -551,6 +556,10 @@ def main()->int:
             report["pre246_passive_trace"]=apply_pre246(root)
             if report["pre246_passive_trace"].get("money_traces")!=8:
                 raise ValueError("PRE246 expected eight passive money sites")
+            report["phase"]="PRE247_APPLY_PASSIVE_FLOAT_METER_TRACES_PAL_ONLY"
+            report["pre247_passive_meters"]=apply_pre247(root)
+            if report["pre247_passive_meters"].get("combined_money_and_meter_probe_sites") != 16:
+                raise ValueError("PRE247 expected sixteen passive money/nitro/speedbreaker sites")
             report["phase"]="STAGE_VERIFIED_USA_FROM_V30"
             bundle=temp/"editions"
             bundle.mkdir()
