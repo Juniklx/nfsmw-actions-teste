@@ -100,7 +100,7 @@ def audit():
                                                      "samples":excerpts})
         if target is None:raise ValueError("Pinned PAL generated source not present")
         text=target.decode("utf-8","replace")
-        definitions=list(re.finditer(r"(?m)^DEFINE_REX_FUNC\(sub_[0-9A-Fa-f]{8}\)",text))
+        definitions=list(re.finditer(r"(?m)^DEFINE_REX_FUNC\((sub_[0-9A-Fa-f]{8})\)",text))
         body=None
         for i,m in enumerate(definitions):
             if m.group(1)=="sub_82564D80":
