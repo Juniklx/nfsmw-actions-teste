@@ -1,0 +1,45 @@
+name: NFSMW PRE200 - targeted cheats source read-only
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre200_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre200-cheats-readonly
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - name: Checkout private source-audit automation
+        uses: actions/checkout@v4
+      - name: Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install authenticated Drive reader and syntax-check
+        run: |
+          set -e
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          python -m py_compile automation/kaggle/pre200_cheats_targeted_source_readonly.py
+      - name: Read PRE99 and inspect relevant game source excerpts
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: |
+          set -e
+          python automation/kaggle/pre200_cheats_targeted_source_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Preserve private audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre200-cheats-source-readonly-${{ github.run_id }}
+          path: /tmp/nfsmw-pre200-audit/PRE200_CHEATS_TARGETED_READONLY.json
+          if-no-files-found: warn
+          retention-days: 14
