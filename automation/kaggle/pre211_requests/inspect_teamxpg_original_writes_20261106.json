@@ -1,0 +1,12 @@
+{
+  "stage": "PRE211",
+  "source_backup_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "trainer_archive_sha256": "3919272505cbef3934ade98c60229241d73b123f02fd093d90863d12131710a2",
+  "goal": "Cross-link actual trainer PPC writing instructions to bounded PAL/USA generated source excerpts. Never assert original-byte compatibility without matching default.xex.",
+  "read_only": true,
+  "source_modified": false,
+  "apk_built": false,
+  "trainer_executed": false,
+  "saves_accessed": false,
+  "signer_accessed": false
+}
