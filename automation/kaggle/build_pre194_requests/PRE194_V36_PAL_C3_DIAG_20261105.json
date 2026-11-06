@@ -1,0 +1,13 @@
+{
+  "stage": "PRE194",
+  "edition": "ptbr→libmain.so",
+  "version_code": 36,
+  "task": "Build and sign isolated PAL/PTBR C3 diagnostic while preserving V35",
+  "patch_source_sha256": "046ea454634d84169ccda0237c347d17020a63da027878d4fd21f7a3520251e2",
+  "patch_output_sha256": "a01f25e531af783d37f70a3c3caa0f3e7a979d2bdbdd923abf7b2c6062d29d1e",
+  "patch_only_pal": true,
+  "preserve_usa_libmain_v30": true,
+  "do_not_change_signer": true,
+  "preserve_previous_apks": true,
+  "notes": "No graphics/fps/power/thermal changes. No claimed performance gain."
+}
