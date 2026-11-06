@@ -1,0 +1,10 @@
+{
+  "stage": "PRE217",
+  "usa_iso_id": "1eDWuZTPrtfzk-2qD1l1YgN6GYg-_9mfr",
+  "usa_xex_sha256": "aebdf3c14d1e4e4ed2c130d94bc1a0e97bd6d5bf39bdfdef33c3909c9cc4ba4c",
+  "pre99_backup_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "read_only": true,
+  "publish_xex": false,
+  "apk_built": false,
+  "signer_accessed": false
+}
