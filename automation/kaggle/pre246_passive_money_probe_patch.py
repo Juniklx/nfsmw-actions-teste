@@ -118,21 +118,15 @@ def apply(root: Path) -> dict:
     total_sites = 0
     for name, spec, path, raw in generated:
         src = raw.decode("utf-8")
-        first_lines = src.splitlines()
-        # Inject extern declaration at file scope; cstdint comes from nfsmw_pch.h.
-        include_pattern = re.compile(r'^#include\s+["<][^">]*nfsmw_pch\.h[">].*$',re.M)
-        m = include_pattern.search(src)
-        if m is None:
-            raise ValueError("PRE246: generated PCH include anchor missing " + name)
+        # The generated shards use their own preamble; do not require an nfsmw_pch.h include.
+        # Insert one extern at the first *top-level* function macro, after the preamble.
         if FUNC in src:
             raise ValueError("PRE246: callback appears in original source")
         source_new, details = splice_function(src,name,spec, 1 if name=="sub_8256BFC8" else 4)
-        # Guarantee include position retained after function transformation.
-        m2 = include_pattern.search(source_new)
-        if m2 is None:raise ValueError("PRE246: mutated PCH include")
-        insert_at = source_new.find("\n",m2.end())
-        if insert_at < 0:insert_at = m2.end()
-        source_new = source_new[:insert_at] + DECL + source_new[insert_at:]
+        first_def = re.search(r"(?m)^DEFINE_REX_FUNC\\(sub_[0-9A-Fa-f]{8}\\)", source_new)
+        if first_def is None:
+            raise ValueError("PRE246: top-level function definition anchor missing " + name)
+        source_new = source_new[:first_def.start()] + DECL + source_new[first_def.start():]
         if source_new.count(DECL) != 1:
             raise ValueError("PRE246: declaration count mismatch")
         total_sites += len(details["sites"])
