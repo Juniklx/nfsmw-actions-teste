@@ -1,0 +1,8 @@
+{
+  "stage": "PRE254B_JUNKMAN_RAZOR_SOURCE_DISCOVERY",
+  "purpose": "rerun read-only auditor after fixing function capture IndexError",
+  "pre99_pin": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "no_android_build": true,
+  "no_save_access": true,
+  "no_signing_access": true
+}
