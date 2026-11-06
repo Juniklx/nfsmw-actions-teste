@@ -1,0 +1,8 @@
+{
+  "stage": "PRE235",
+  "read_only": true,
+  "purpose": "Find guest address committed page and safe pointer validation APIs in authenticated ReXGlue runtime",
+  "source_unchanged": true,
+  "apk_unchanged": true,
+  "game_saves_untouched": true
+}
