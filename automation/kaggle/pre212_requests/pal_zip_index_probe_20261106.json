@@ -1,0 +1,10 @@
+{
+  "stage": "PRE212",
+  "objective": "Inspect PAL ZIP central directory only via RFC7233 Range and HTTP 206 fail closed",
+  "pal_zip_drive_id": "1sF5irZpUNfN5Z2p4L53eMVISBeh8MfRz",
+  "expected_file_size_bytes": 5567403879,
+  "execute_trainer": false,
+  "modify_game": false,
+  "extract_game_assets": false,
+  "modify_saves": false
+}
