@@ -1,0 +1,41 @@
+name: NFSMW PRE199B - readonly cheats audit fallback
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre199b_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre199b-audit
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare readonly PRE99 audit
+        run: |
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          python -m py_compile automation/kaggle/pre199b_cheats_readonly.py
+      - name: Read authenticated PRE99 sources and audit cheat identifiers
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: |
+          python automation/kaggle/pre199b_cheats_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Archive report without touching game assets
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre199b-cheats-readonly-${{ github.run_id }}
+          path: /tmp/nfsmw-pre199b/PRE199B_REPORT.json
+          if-no-files-found: warn
+          retention-days: 14
