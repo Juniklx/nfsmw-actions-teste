@@ -1,0 +1,8 @@
+{
+  "stage": "PRE232",
+  "read_only": true,
+  "purpose": "Identify source definitions of guest memory translation API and safe pointer validation before Android runtime diagnostic",
+  "saves_untouched": true,
+  "trainer_not_executed": true,
+  "apk_untouched": true
+}
