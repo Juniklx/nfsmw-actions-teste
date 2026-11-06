@@ -1,0 +1,8 @@
+{
+  "stage": "PRE222",
+  "retry_reason": "Runner did not provide bsdtar; install libarchive-tools only",
+  "original_failed_run": 42271969769,
+  "read_only": true,
+  "game_unchanged": true,
+  "trainer_not_executed": true
+}
