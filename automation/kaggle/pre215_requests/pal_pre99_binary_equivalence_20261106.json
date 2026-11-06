@@ -1,0 +1,10 @@
+{
+  "stage": "PRE215",
+  "purpose": "Read only verified PRE99 tar generated PAL source vs game XEX in PAL ZIP; enumerate any XEX in PRE99, compare source comments to real PPC including local shifts",
+  "original_xex_sha256": "aad15fc218d034de3131f746e0b763dd8049a40dd676efc87667fcaf4fc72694",
+  "source_backup_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "apk_built": false,
+  "signer_accessed": false,
+  "saves_accessed": false,
+  "modify_source": false
+}
