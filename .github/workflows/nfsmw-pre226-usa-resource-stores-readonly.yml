@@ -1,0 +1,73 @@
+name: NFSMW PRE226 USA resource store path static audit read-only
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre226_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre226-usa-resource-stores
+  cancel-in-progress: false
+jobs:
+  codegen-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install read-only Google Drive client
+        run: |
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+      - name: Retrieve pinned PRE225 and PRE226 store-analysis auditors from Drive
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import os,io,hashlib
+          from pathlib import Path
+          from google.oauth2.credentials import Credentials
+          from google.auth.transport.requests import Request
+          from googleapiclient.discovery import build
+          from googleapiclient.http import MediaIoBaseDownload
+          c=Credentials(token=None,refresh_token=os.environ["GOOGLE_REFRESH_TOKEN"],
+            token_uri="https://oauth2.googleapis.com/token",
+            client_id=os.environ["GOOGLE_CLIENT_ID"],client_secret=os.environ["GOOGLE_CLIENT_SECRET"])
+          c.refresh(Request())
+          svc=build("drive","v3",credentials=c,cache_discovery=False)
+          pinned=[
+            ("1noPN05ZPJMFJ-R4Zr1nZjCPp0e8PD9_J","nfsmw_pre225_usa_codegen_six_site_context_readonly.py","27fce2d8fddf63001e2d730d15bdf06a6cc5ff739ce42c3c8cf0d711d12ccf8c"),
+            ("13z_VY3lNU_RPuquoI1nVrnCfnp8eTS40","nfsmw_pre226_usa_resource_store_paths_readonly.py","63d54823d0c0849aab50f3ae62890406dda2074f9d704eec92d8a5bf42abd4bf")
+          ]
+          for fid,name,sha in pinned:
+            buf=io.BytesIO();dl=MediaIoBaseDownload(buf,svc.files().get_media(fileId=fid))
+            done=False
+            while not done:_,done=dl.next_chunk()
+            data=buf.getvalue()
+            if hashlib.sha256(data).hexdigest()!=sha:raise ValueError("Pinned script SHA mismatch: "+name)
+            Path("/tmp",name).write_bytes(data)
+            print("PRE226_SCRIPT_SHA_OK",name)
+          PY
+          python -m py_compile /tmp/nfsmw_pre225_usa_codegen_six_site_context_readonly.py /tmp/nfsmw_pre226_usa_resource_store_paths_readonly.py
+      - name: Analyze all resource writes in verified USA codegen functions
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=/tmp:automation/kaggle python /tmp/nfsmw_pre226_usa_resource_store_paths_readonly.py
+      - name: Upload JSON evidence only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre226-usa-resource-stores-${{ github.run_id }}
+          path: /tmp/nfsmw-pre226/NFSMW_PRE226_USA_RESOURCE_STORE_PATHS.json
+          if-no-files-found: warn
+          retention-days: 14
