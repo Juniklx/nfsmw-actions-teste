@@ -1,0 +1,14 @@
+{
+  "stage": "PRE238",
+  "purpose": "Read-only PAL money store and logging audit; synthetic C++ syntax only",
+  "source": "PRE99_SHA256_af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "predecessor": "PRE237 run 42283766706 AUDIT_OK",
+  "constraints": {
+    "readonly": true,
+    "modify_game": false,
+    "build_apk": false,
+    "modify_saves": false,
+    "read_arbitrary_guest_memory": false,
+    "access_signing_material": false
+  }
+}
