@@ -1,0 +1,9 @@
+{
+  "stage": "PRE201",
+  "predecessor": 42238150805,
+  "goal": "Find guest logic compilation, hooks and symbol manifests",
+  "read_only": true,
+  "build": false,
+  "sign": false,
+  "modify_game": false
+}
