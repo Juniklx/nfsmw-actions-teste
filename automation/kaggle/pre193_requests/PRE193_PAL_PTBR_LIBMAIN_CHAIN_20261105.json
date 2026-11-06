@@ -1,0 +1,10 @@
+{
+  "stage": "PRE193",
+  "date": "2026-11-05",
+  "goal": "verify PAL/PT-BR nfsmw_nativo_dibujos.cpp link path to V35 libmain.so",
+  "read_only": true,
+  "no_build": true,
+  "no_patch": true,
+  "no_signing": true,
+  "no_root": true
+}
