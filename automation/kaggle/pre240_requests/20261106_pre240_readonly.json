@@ -1,0 +1,13 @@
+{
+  "stage": "PRE240",
+  "predecessor": "PRE239 42291569689 AUDIT_OK",
+  "purpose": "Check PAL prior register values, logger API, synthetic no-decrease policy",
+  "constraints": {
+    "readonly": true,
+    "do_not_modify_generated_files": true,
+    "do_not_build_apk": true,
+    "do_not_read_extra_guest_memory": true,
+    "do_not_modify_saves": true,
+    "do_not_touch_signing": true
+  }
+}
