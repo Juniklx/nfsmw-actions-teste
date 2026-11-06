@@ -23,6 +23,7 @@ BUILDER_SHA="ff490bd4d1025f06cc3470af030b7f881a618c34e3046acada4b06123edd54f2"
 TARGETS=[
  "workspace/android/app/build.gradle.kts",
  "workspace/android/app/src/main/cpp/CMakeLists.txt",
+ "workspace/android/app/src/main/cpp/nativo/nativo.cmake",
  "workspace/nativo/app/CMakeLists.txt",
  "workspace/nativo/app/generated/default/sources.cmake",
  "workspace/nativo/app_usa/CMakeLists.txt",
