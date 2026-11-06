@@ -1,0 +1,14 @@
+{
+  "stage": "PRE242",
+  "predecessor": "PRE241 42292405774 AUDIT_OK",
+  "purpose": "Float register dataflow windows for PAL nitro and Speedbreaker",
+  "constraints": {
+    "readonly": true,
+    "no_patch": true,
+    "no_build": true,
+    "no_APK": true,
+    "no_signer": true,
+    "no_saves": true,
+    "no_extra_guest_reads": true
+  }
+}
