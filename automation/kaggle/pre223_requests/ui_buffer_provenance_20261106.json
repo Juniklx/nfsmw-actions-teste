@@ -1,0 +1,10 @@
+{
+  "stage": "PRE223",
+  "read_only": true,
+  "previous_stage": "PRE222",
+  "purpose": "Trace r28 and r30 buffer provenance, original/restoration code and UI feature text from authenticated TeamXPG binary",
+  "trainer_not_executed": true,
+  "apk_unchanged": true,
+  "source_unchanged": true,
+  "signing_untouched": true
+}
