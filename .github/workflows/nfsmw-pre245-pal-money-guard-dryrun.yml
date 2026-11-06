@@ -1,0 +1,41 @@
+name: NFSMW PRE245 PAL money guard in-memory dry run
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre245_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre245-readonly
+  cancel-in-progress: false
+jobs:
+  money-guard-dryrun:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install authenticated read-only Drive client
+        run: python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+      - name: Syntax check script
+        run: python -m py_compile automation/kaggle/pre245_pal_money_guard_dryrun.py
+      - name: Validate default-off source guard transformation only in memory
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre245_pal_money_guard_dryrun.py
+      - name: Save private JSON evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre245-money-guard-dryrun-${{ github.run_id }}
+          path: /tmp/nfsmw-pre245/NFSMW_PRE245_PAL_MONEY_GUARD_DRYRUN.json
+          if-no-files-found: warn
+          retention-days: 14
