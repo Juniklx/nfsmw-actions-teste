@@ -1,0 +1,10 @@
+{
+  "stage": "PRE211B",
+  "predecessor_run": 42251941595,
+  "issue": "Whole-section Capstone disassembly stops on unsupported PowerPC instructions",
+  "fix": "Always examine PPC code word by word, preserving invalid 4-byte slots",
+  "read_only": true,
+  "execution_of_trainer": false,
+  "modify_game": false,
+  "sign": false
+}
