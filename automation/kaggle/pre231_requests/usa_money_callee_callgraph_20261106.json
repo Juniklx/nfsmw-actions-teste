@@ -1,0 +1,8 @@
+{
+  "stage": "PRE231",
+  "read_only": true,
+  "purpose": "Compare USA money functions base-register initialization, follow named callees and inspect limited PPC excerpts",
+  "apk_modified": false,
+  "signing_untouched": true,
+  "saves_untouched": true
+}
