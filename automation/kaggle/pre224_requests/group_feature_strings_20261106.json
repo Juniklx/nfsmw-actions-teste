@@ -1,0 +1,8 @@
+{
+  "stage": "PRE224",
+  "read_only": true,
+  "report": "Confirm A/B/C patch groups have the actual menu-message addresses for Nitro, SpeedBreaker, Money; distinguish UI attribution from actual TU1 compatibility",
+  "game_untouched": true,
+  "apk_unchanged": true,
+  "trainer_not_executed": true
+}
