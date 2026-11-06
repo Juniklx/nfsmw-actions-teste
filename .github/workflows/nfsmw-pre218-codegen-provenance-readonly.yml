@@ -1,0 +1,75 @@
+name: NFSMW PRE218 PRE99 generator provenance read-only
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre218_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre218-codegen-provenance-readonly
+  cancel-in-progress: false
+jobs:
+  range-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install private Drive reader dependencies
+        run: |
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+      - name: Retrieve pinned PRE218 provenance audit from Drive
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import os,io,hashlib
+          from pathlib import Path
+          from google.oauth2.credentials import Credentials
+          from google.auth.transport.requests import Request
+          from googleapiclient.discovery import build
+          from googleapiclient.http import MediaIoBaseDownload
+          c=Credentials(token=None,refresh_token=os.environ["GOOGLE_REFRESH_TOKEN"],
+            token_uri="https://oauth2.googleapis.com/token",
+            client_id=os.environ["GOOGLE_CLIENT_ID"],
+            client_secret=os.environ["GOOGLE_CLIENT_SECRET"])
+          c.refresh(Request())
+          service=build("drive","v3",credentials=c,cache_discovery=False)
+          for file_id,path,expected in [
+            ("1LONYqxKIMEF6Y__1mpFdWbyZB9SPQoO-","nfsmw_pre218_generator_provenance_readonly_v2.py","3e36a83859c64d94f63955e87525e9deeed9dd06133c2e1918d84a21eaae31a1"),
+          ]:
+            buf=io.BytesIO()
+            dl=MediaIoBaseDownload(buf,service.files().get_media(fileId=file_id))
+            done=False
+            while not done:
+              _,done=dl.next_chunk()
+            data=buf.getvalue()
+            actual=hashlib.sha256(data).hexdigest()
+            if actual!=expected:raise ValueError("Pinned script SHA mismatch: "+path)
+            Path("/tmp",path).write_bytes(data)
+            print("PRE218_SCRIPT_SHA_OK",path)
+          PY
+          python -m py_compile /tmp/nfsmw_pre218_generator_provenance_readonly_v2.py
+      - name: Audit original code-generation paths, symbols, map provenance in PRE99
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=/tmp:automation/kaggle python /tmp/nfsmw_pre218_generator_provenance_readonly_v2.py
+      - name: Upload JSON report only (no game data)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre218-codegen-provenance-${{ github.run_id }}
+          path: /tmp/nfsmw-pre218/NFSMW_PRE218_GENERATOR_PROVENANCE.json
+          if-no-files-found: warn
+          retention-days: 14
