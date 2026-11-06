@@ -1,0 +1,9 @@
+{
+  "stage": "PRE213",
+  "source_drive_file_id": "1sF5irZpUNfN5Z2p4L53eMVISBeh8MfRz",
+  "member": "default.xex",
+  "purpose": "Extract only XEX to ephemeral memory, verify CRC and hash, read XEX2 identity metadata. Do not publish raw XEX.",
+  "modify_game": false,
+  "create_apk": false,
+  "execute_xex": false
+}
