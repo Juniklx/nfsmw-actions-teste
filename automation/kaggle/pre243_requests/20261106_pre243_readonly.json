@@ -1,0 +1,12 @@
+{
+  "stage": "PRE243",
+  "purpose": "Verify maintainable integration APIs for cheat module",
+  "previous": "PRE242B 42292918983 AUDIT_OK",
+  "rules": {
+    "read_only": true,
+    "no_generated_edits": true,
+    "no_apk": true,
+    "no_keys": true,
+    "no_guest_extra_reads": true
+  }
+}
