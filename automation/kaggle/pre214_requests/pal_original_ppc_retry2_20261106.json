@@ -1,0 +1,8 @@
+{
+  "stage": "PRE214",
+  "retry_of": 42257173828,
+  "fix": "Add automation/kaggle to PYTHONPATH for pinned reader dependencies",
+  "source_pal_xex_sha256": "aad15fc218d034de3131f746e0b763dd8049a40dd676efc87667fcaf4fc72694",
+  "read_only": true,
+  "game_modified": false
+}
