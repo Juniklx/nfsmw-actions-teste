@@ -25,6 +25,14 @@
 - Sem texto `SIGSEGV` ou `[fatal]` nesta sessão. O log termina às 20:33:25 sem evento de encerramento fatal detectado; não comprova ausência de falhas fora do registro.
 - Touch/PG9076, resolução 1920×1080, cap atual 60 FPS, gráficos, shaders, física, saves e limites térmicos não foram modificados pela análise.
 
+## Confirmação adicional do usuário — PRE253B
+
+- O usuário confirmou explicitamente que **o carro inicial custou 27.000 e o saldo remanescente foi 3.000**, coincidindo com a gravação instrumentada às 20:33:15.910: `site=8, previous=30000, written=3000, addr=0xAD68F09C`.
+- **Conclusão fortalecida:** o `site=8` da função PAL `sub_82564D80` observou, neste teste, a gravação efetiva do saldo após a compra. Corresponde à redução de 27.000 vista na interface, sem precisar inferir o preço do veículo pelo código.
+- **Limites:** este evento não demonstra que os outros sete sites sejam usados para todas as outras transações, que `0xAD68F09C` seja estável em outras sessões, ou que interceptar a gravação mantenha íntegra a compra e o save.
+- **Próxima auditoria indicada, sem modificar build:** estudar a origem do valor novo e o fluxo de validação/compra no site 8 e correlatos, além de possíveis caminhos de crédito. Prototipar a política de cheat apenas de forma isolada, reversível e desativada por padrão, depois de demonstrar que não desorganiza saves.
+- **Versões:** V37 é diagnóstica com execução real comprovada; eventual V38 somente com controles explícitos, versionCode crescente e mesmo certificado permanente.
+
 ## Implicação para os cheats e próximo passo
 1. **Foi encontrado ao menos um caminho real de redução do saldo** na compra. Isso permite direcionar auditoria de semântica para o PC e o store 8 PAL sem leituras guest adicionais.
 2. Não aplicar automaticamente política `max(previous, written)` nem NOP do store 8 em release: impedir o débito pode interferir no estado da compra, no save ou no resultado da transação. Analisar ramos de débito, crédito, outras operações e rollback.
