@@ -1,0 +1,8 @@
+{
+  "stage": "PRE234",
+  "read_only": true,
+  "purpose": "Confirm exact REX_LOAD/STORE macros from PAL/USA generated pch headers and virtual memory guards",
+  "apk_unmodified": true,
+  "saves_unmodified": true,
+  "signing_not_accessed": true
+}
