@@ -1,0 +1,11 @@
+{
+  "stage": "PRE222",
+  "intent": "Read-only static analysis of TeamXPG trainer replacement/restoration bytes and toggle branch behavior relative to PRE221 corrected original PPC words",
+  "original_trainer_sha256": "3919272505cbef3934ade98c60229241d73b123f02fd093d90863d12131710a2",
+  "pre221_json_sha256": "fb8cc6c42911c76bb3cd710b6f0dda6b18e9f7116e1f38a18acb599d13b1e25f",
+  "no_game_binary_released": true,
+  "no_trainer_execution": true,
+  "apk_unchanged": true,
+  "save_untouched": true,
+  "signing_untouched": true
+}
