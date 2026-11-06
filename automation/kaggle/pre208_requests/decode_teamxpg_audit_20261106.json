@@ -1,0 +1,11 @@
+{
+  "stage": "PRE208",
+  "input_drive_id": "1T59UcqB4fi0X5HvZrdO9CWPkQ3OuD85k",
+  "input_sha256": "3919272505cbef3934ade98c60229241d73b123f02fd093d90863d12131710a2",
+  "xenia_decoder_commit": "95a5c3ee250f80c3b9d139658649d9ffb6db3eec",
+  "requested": "LZX decompress in sandbox; read-only metadata+possible guest-address patterns; compare PRE99 snapshot if available",
+  "execute_trainer": false,
+  "compile_apk": false,
+  "patch_game": false,
+  "sign": false
+}
