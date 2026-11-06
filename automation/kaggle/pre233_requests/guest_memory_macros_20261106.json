@@ -1,0 +1,8 @@
+{
+  "stage": "PRE233",
+  "purpose": "Read authenticated PRE99 nfsmw_pch.h and memory translation macros for safe future runtime money pointer probe",
+  "read_only": true,
+  "apk_untouched": true,
+  "saves_untouched": true,
+  "signing_not_accessed": true
+}
