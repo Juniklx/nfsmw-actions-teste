@@ -1,0 +1,9 @@
+{
+  "stage": "PRE223",
+  "goal": "Bounded static read-only audit of TeamXPG trainer register r28 and menu string xrefs to separate nitro/speedbreaker/money hypotheses",
+  "source_pre222_sha256": "430daa03477b3463db1b68446cdb59a2ee681a76a2b4efb0784dd6567cb3b6d0",
+  "trainer_pe_sha256": "c010f7e8d9a0a07a78720beaa896fba4e8bc3b8c4b3cc020108e534648285b5d",
+  "apk_modified": false,
+  "save_modified": false,
+  "no_trainer_execution": true
+}
