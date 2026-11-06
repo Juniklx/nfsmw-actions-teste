@@ -1,0 +1,12 @@
+{
+  "stage": "PRE242B",
+  "revision": "fixed float conversion parsing",
+  "previous_run": "42292703896 failure caused by immediate REX_STORE assumption",
+  "constraints": {
+    "readonly": true,
+    "no_patch": true,
+    "no_APK": true,
+    "no_saves": true,
+    "no_signing": true
+  }
+}
