@@ -1,0 +1,9 @@
+{
+  "stage": "PRE309",
+  "goal": "Prepare fail-closed opt-in runtime cheat policies for nitro, speedbreaker and money",
+  "no_game_build": true,
+  "no_apk": true,
+  "no_signer": true,
+  "no_save": true,
+  "do_not_activate_before_runtime_validation": true
+}
