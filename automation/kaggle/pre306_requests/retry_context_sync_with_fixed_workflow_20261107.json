@@ -1,0 +1,7 @@
+{
+  "stage": "PRE306",
+  "fixed": "workflow action now invokes pre306_sync_bmw_gate_to_context.py",
+  "previous_failed_run": 42390644436,
+  "canonical_backup_id": "1dGu3cJ_GoVcddHUawwV7eKK1-QHm_TPh",
+  "no_game_build": true
+}
