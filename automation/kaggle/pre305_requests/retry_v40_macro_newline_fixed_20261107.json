@@ -1,0 +1,12 @@
+{
+  "stage": "PRE305_V40_RETRY",
+  "prior_run": 42390457193,
+  "failed_cause": "Generated C++ #define used literal \\\\n, clang invalid preprocessor",
+  "fix_commit": "c1f6ddbbefa45496d7e7bae5c8780780d00f1865",
+  "synthetic_canary_success_run": 42392338077,
+  "version_code": 40,
+  "permanent_signing_certificate_sha256": "1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b",
+  "preserve_v39": true,
+  "preserve_save_MARCEK": true,
+  "do_not_repatch_workspace": true
+}
