@@ -1,0 +1,12 @@
+{
+  "stage": "PRE281_BMW_SELECTED_PART_NULL_GUARD_SOURCE_ONLY",
+  "pre280_run": 42328348316,
+  "candidate": "sub_82582A40",
+  "feature_flag": "NFSMW_PRE281_BMW_EMPTY_HEADER_GUARD_ENABLE",
+  "enabled_by_default": false,
+  "source": "authenticated PRE99",
+  "scope": "in-memory reversible preview, no guest calls added",
+  "apk_build": false,
+  "save_modification": false,
+  "signer_access": false
+}
