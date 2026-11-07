@@ -1,0 +1,8 @@
+{
+  "stage": "PRE292",
+  "fix": "Pass repo root to PRE288 reusable native audit (PRE133 report exists)",
+  "prior_run": 42376558775,
+  "apk": false,
+  "signing": false,
+  "save": false
+}
