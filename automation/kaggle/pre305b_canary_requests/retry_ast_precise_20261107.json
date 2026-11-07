@@ -1,0 +1,6 @@
+{
+  "stage": "PRE305B",
+  "fix": "exclude const only prefix from macro literal list",
+  "previous_run": 42392276733,
+  "apk": false
+}
