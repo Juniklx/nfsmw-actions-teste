@@ -1,0 +1,16 @@
+{
+  "stage": "PRE286_RETRY1_PAL_NATIVE_CMAKE_TARGET",
+  "previous_run": 42332256954,
+  "previous_status": "BLOCKED_PRODUCTION_CMAKE_CONFIGURE",
+  "verified_mismatch": "Default xenos requires missing external rexglue-sdk-android",
+  "fix": [
+    "NFSMW_MOTOR=nativo",
+    "NFSMW_NATIVO_APP=app",
+    "NFSMW_NATIVO=/workspace/nativo",
+    "NFSMW_REPO=/workspace"
+  ],
+  "expected_target": "nfsmw producing libmain.so",
+  "no_apk": true,
+  "no_signing": true,
+  "no_save_access": true
+}
