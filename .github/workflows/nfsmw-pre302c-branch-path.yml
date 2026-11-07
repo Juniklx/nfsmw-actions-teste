@@ -1,0 +1,35 @@
+name: NFSMW PRE302C main menu branch path review (no rebuild)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre302c_requests/*.json'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Read authenticated PRE302 artifact branch path
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh api /repos/${{ github.repository }}/actions/artifacts/13581111281/zip > /tmp/m.zip
+          unzip -p /tmp/m.zip PRE302_PAL_MAIN_MENU_BRANCH_CALL_SITES.json > /tmp/m.json
+          python - <<'PY'
+          import json,re
+          x=json.load(open('/tmp/m.json'))
+          d={}
+          for section in ['compare_context','conditional_branch_context','branch_target_context']:
+              for z in x.get(section,[]):d[z['rel_line']]=z['line']
+          for o in x.get('option_calls',[]):
+              for z in o['window']:d[z['rel_line']]=z['line']
+          for k in sorted(d):
+              if 26<=k<=161:
+                  if any(x in d[k] for x in ('// b','if (','goto ','loc_','ctx.r10','cr6.compare','// li r7','ctx.r7.','__imp__sub_82575370','// mr r','ctx.r3.u64','ctx.r11.u64 = REX_LOAD_U8')):
+                      print('PRE302C_BRANCH',k,d[k])
+          PY
