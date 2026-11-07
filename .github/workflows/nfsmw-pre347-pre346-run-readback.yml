@@ -1,0 +1,23 @@
+name: NFSMW PRE347 PRE346 source audit run readback
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre347_requests/*.json'
+permissions:
+  actions: read
+  contents: write
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish non-secret PRE346 audit job metadata
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre347_lookup_pre346_run_metadata.py
+          python automation/kaggle/pre347_lookup_pre346_run_metadata.py
