@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""PRE325B: offline unit checks for PRE325 search predicates. No Drive, game, APK or secrets."""
+"""PRE325B: offline regression of PRE325 search predicates. No Drive, game, APK or secrets."""
 import re
 from pathlib import Path
 from importlib.util import spec_from_file_location,module_from_spec
