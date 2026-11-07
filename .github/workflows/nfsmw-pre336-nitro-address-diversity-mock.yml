@@ -1,0 +1,21 @@
+name: NFSMW PRE336 passive Nitro object diversity C++ regression
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre336_nitro_address_diversity.hpp'
+      - 'automation/kaggle/pre336_nitro_address_diversity_mock.cpp'
+permissions:
+  contents: read
+jobs:
+  mock:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile and exercise bounded passive observer
+        run: |
+          set -euo pipefail
+          g++ -std=c++17 -O2 -Wall -Wextra -Werror -pthread -Iautomation/kaggle automation/kaggle/pre336_nitro_address_diversity_mock.cpp -o /tmp/pre336_nitro_diversity_mock
+          /tmp/pre336_nitro_diversity_mock
