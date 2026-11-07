@@ -1,0 +1,8 @@
+{
+  "stage": "PRE291",
+  "operation": "sha_pinned_source_only_passive_main_menu_trace_dryrun",
+  "apk": false,
+  "save_modified": false,
+  "signing": false,
+  "legacy_snapshot_verified": true
+}
