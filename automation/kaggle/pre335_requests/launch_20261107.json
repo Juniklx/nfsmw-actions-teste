@@ -1,0 +1,8 @@
+{
+  "stage": "PRE335",
+  "scope": "Drive canonical context only",
+  "require_backup_readback": true,
+  "verified_evidence": "PRE329-PRE334",
+  "apk": false,
+  "guest_mutation": false
+}
