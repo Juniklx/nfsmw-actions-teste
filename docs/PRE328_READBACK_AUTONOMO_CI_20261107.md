@@ -23,3 +23,9 @@ Sem tokens OAuth, certificados, senhas, nomes dos arquivos escaneados, trechos d
 - PRE327 pode terminar `AUDIT_OK` mesmo se nenhum arquivo binário candidato estiver no snapshot; checar `files_inspected` e `bytes_inspected` antes de qualquer conclusão.
 - A V41 no Galaxy S24 FE segue como referência de runtime do ciclo Nitro. Nitro infinito permanece desativado; nenhuma V42 foi criada.
 - Próximo gate: ler os arquivos de status quando aparecerem. Se permanecerem ausentes, verificar a execução e o erro real no GitHub Actions antes de adicionar novos scans.
+
+## Readback efetivamente validado no mesmo dia
+- PRE327 status `docs/generated/PRE328_PRE327_SANITIZED_STATUS.json`: run `42407723203`, job `128508938300`, `completed/success`, `AUDIT_OK`, 1 arquivo de 56.320 bytes; log mostra zero matches. O artefato real confirmou que o único arquivo era `sdk/thirdparty/sdl3/test/moose.dat`, tornando a busca inconclusiva para vtables de jogo.
+- PRE325 status `docs/generated/PRE328_PRE325_SANITIZED_STATUS.json`: run `42407721044`, job `128508932656`, `completed/success`, `AUDIT_OK`, 129 shards PAL + 11.126 outros arquivos; log mostra 5 matches. Artefato inspecionado: declaração, tabela init, definição, registro runtime e uma instrução de link na edição USA. **Nenhum named direct caller PAL e owner não identificado**.
+- A publicação allowlisted do PRE328 foi concluída nos dois jobs e os dois arquivos de status foram lidos posteriormente pelo conector GitHub. Este é o desbloqueio operacional confirmado: agora existe status recuperável mesmo sem listagem inicial de runs.
+- Não há patch Nitro, APK V42, alteração de save, certificado ou ajustes gráficos nesta etapa.
