@@ -57,6 +57,11 @@ jobs:
             automation/kaggle/pre292_bmw_main_menu_native_link_nosign.py \
             automation/kaggle/pre305_build_signed_v40_bmw_menu_gate_experimental.py
           python automation/kaggle/pre139_verify_dependency_cache.py --self-test
+      - name: PRE305B fail-closed BMW C++ macro synthetic regression gate
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre305b_gate_macro_preflight.py
+          python automation/kaggle/pre305b_gate_macro_preflight.py
       - name: Prepare exact Android NDK CMake and SDK build tools in ephemeral runner
         id: android_tools
         continue-on-error: true
