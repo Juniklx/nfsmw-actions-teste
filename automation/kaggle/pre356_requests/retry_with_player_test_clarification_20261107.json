@@ -1,0 +1,7 @@
+{
+  "stage": "PRE356",
+  "reason": "corrected workflow path and player testimony about depleting Nitro and full recharge",
+  "context_only": true,
+  "backup_first": true,
+  "idempotent": true
+}
