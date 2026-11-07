@@ -106,7 +106,7 @@ def main():
         native.FEATURE=TRACE_FLAG
         native.CALLBACK=TRACE_CALLBACK
         native.PAL_FILENAME=Path(SOURCE).name
-        result=native.audit(Path(__file__).resolve().parent)
+        result=native.audit(Path(__file__).resolve().parents[2])
         result["stage"]="PRE292_BMW_MENU_FEATURE_ON_REAL_PAL_NATIVE_LINK"
         result["pre292_trace_site"]="main-menu candidate sub_82578988"
         result["pre292_runtime_proven"]=False
