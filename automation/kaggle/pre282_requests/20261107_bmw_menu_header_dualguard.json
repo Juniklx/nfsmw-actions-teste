@@ -1,0 +1,17 @@
+{
+  "stage": "PRE282_BMW_V37_DISPOSABLE_DUAL_GUARD",
+  "previous_runs": [
+    42321383887,
+    42328564650,
+    42322263103
+  ],
+  "authenticated_source": "PRE99_SHA256_af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "features": {
+    "menu": "NFSMW_PRE264_BMW_MENU_ENABLE",
+    "header": "NFSMW_PRE281_BMW_EMPTY_HEADER_GUARD_ENABLE",
+    "both_default_off": true
+  },
+  "scope": "temporary restore, source-only SHA+reversibility+negative checks; no guest compiler, no APK",
+  "save_modified": false,
+  "signer_access": false
+}
