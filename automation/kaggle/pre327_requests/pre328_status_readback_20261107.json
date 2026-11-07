@@ -1,0 +1,7 @@
+{
+  "stage": "PRE327",
+  "mode": "read_only",
+  "status_publisher": "PRE328",
+  "reason": "Expose allowlisted run summary via GitHub contents API",
+  "requested_on": "2026-11-07"
+}
