@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""PRE337 mock: PRE317 -> PRE337 reversible staging with zero guest access delta."""
+"""PRE337 reviewed mock: PRE317 -> PRE337 reversible staging with zero guest access delta."""
 from pre247_pal_meter_passive_probe_patch import CPP_TEXT
 from pre317_nitro_cycle_staging import inject as inject_pre317
 from pre337_nitro_diversity_staging import inject, reverse
