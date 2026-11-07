@@ -14,3 +14,7 @@
 - PRE338 compilação C++ nativa (runner Linux com stub logger): run `42412580592` AUDIT_OK.
 - **Nenhum desses testes prova ARM64/Android ou owner exclusivo do jogador**. Nenhuma V42 foi produzida. Nitro infinito não está implementado funcionalmente.
 - Próximo gate: integração e link ARM64 isolados, com controle das operações guest inalteradas; posteriormente APK passiva diagnóstica testada na S24 FE apenas quando a build estiver verificada.
+
+## Metadado de status corrigido
+- O script PRE328 inicialmente mostrava `read_only=true` até em workflows que **escrevem o contexto do Drive**; isso era uma descrição incorreta da operação PRE335/PRE339, apesar de não terem modificado o jogo.
+- Alterado para `read_only=false` para PRE335/PRE339. Verificação idempotente PRE339 run `42412908549`: `ALREADY_PRESENT`, `readback=true`, `context_bytes=641744`, `read_only=false` e seção não duplicada. O conteúdo do jogo segue intocado.
