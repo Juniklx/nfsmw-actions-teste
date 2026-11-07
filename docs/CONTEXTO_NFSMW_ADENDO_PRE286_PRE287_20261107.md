@@ -46,3 +46,13 @@
 - PRE288 recompila o motor PAL com `-DNFSMW_PRE283_VTABLE_TARGET_TRACE_ENABLE=1` exclusivamente em workspace descartável. Verifica a presença da definição no compile_commands.json do shard `nfsmw_recomp.11.cpp` e exige libmain ARM64 vinculada com callback único. Não compila APK, não assina, não modifica save e não habilita patches de menu.
 - Objetivo ativo: BMW M3 GTR já presente no MARCEK, oficina mostra apenas Visual; Peças e Desempenho ausentes. Junkman informado como resolvido; descartar metas anteriores sobre manter BMW inicial/vencer Razor.
 - Se PRE288 passar, próxima etapa deve ser uma APK diagnóstica versionCode superior ao da V37, com certificado permanente original, mediante validação de assinatura e teste no Galaxy S24 FE. Nenhuma V38 produzida nesta atualização.
+
+
+## Atualização PRE288 aprovada / PRE289 iniciada — 2026-11-07
+- PRE288 GitHub Actions run 42352633132 completed/success, log interno PRE288_STATUS AUDIT_OK; CMake True; target nfsmw; libmain linked True; callback definitions 1; APK built False.
+- PRE289 é nova tentativa de APK diagnóstica V38 a partir da cadeia de build/assinatura usada pela V37. Script automation/kaggle/pre289_build_signed_v38_bmw_passive.py, workflow .github/workflows/nfsmw-pre289-v38-bmw-passive-signed.yml.
+- Run PRE289 https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42354940551: queued na última consulta. Não declarar APK compilada/assinada/publicada antes do relatório de verificação, leitura de assinatura e readback no Drive.
+- versionCode 38 e pacote io.github.nfsmwrecomp. Manter certificado original SHA256 1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b; não recriar chave nem expor segredos.
+- Objetivo único: sonda passiva de vtable da BMW M3 GTR na oficina (Peças/Desempenho ausentes; Visual presente). Feature habilitada somente para diagnóstico na recompilação PAL. Patches PRE264/PRE281 de alteração no menu não habilitados.
+- O script exige marcador BMW na libmain.so do APK assinada, além dos checks da V37 para shaders, dependências, pacote, versão e certificado. Instalação e efeito no aparelho NÃO comprovados. MARCEK não deve ser modificado pelo build.
+- Próxima ação: consultar log da run 42354940551 e respectivo relatório/artefato. Se falhar, corrigir apenas o erro demonstrado; se passar, conferir artefato e orientar teste da oficina sem inferir sucesso do menu.
