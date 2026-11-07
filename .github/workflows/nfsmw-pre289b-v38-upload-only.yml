@@ -1,0 +1,70 @@
+name: NFSMW PRE289B V38 upload-only recovery (no rebuild/signing)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre289b_requests/*.json'
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: nfsmw-pre289b-v38-upload-only
+  cancel-in-progress: false
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install authenticated upload dependencies and check syntax
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 cryptography >/dev/null
+          python -m py_compile automation/kaggle/pre289b_upload_verified_v38_only.py
+      - name: Restore exact PRE289 verified artifact (no game rebuild)
+        uses: actions/download-artifact@v4
+        with:
+          name: nfsmw-pre289-v38-bmw-passive-42354940551
+          run-id: 42354940551
+          github-token: ${{ github.token }}
+          path: /tmp/nfsmw-pre289b-input
+      - name: Ensure pinned Android build-tools for independent APK verification
+        shell: bash
+        run: |
+          set -euo pipefail
+          SDK="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
+          test -d "$SDK"
+          if [ ! -f "$SDK/build-tools/36.0.0/apksigner" ] || [ ! -f "$SDK/build-tools/36.0.0/aapt" ]; then
+            SDKMANAGER=""
+            for p in "$SDK"/cmdline-tools/*/bin/sdkmanager "$SDK"/tools/bin/sdkmanager; do
+              if [ -x "$p" ]; then SDKMANAGER="$p"; break; fi
+            done
+            test -n "$SDKMANAGER"
+            set +o pipefail
+            yes | "$SDKMANAGER" --sdk_root="$SDK" --install "build-tools;36.0.0" > /tmp/nfsmw-pre289b-sdk.log 2>&1
+            RESULT="${PIPESTATUS[1]}"
+            set -o pipefail
+            test "$RESULT" -eq 0
+          fi
+      - name: Verify original V38 APK and retry upload to private Drive only
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre289b_upload_verified_v38_only.py \
+            --apk /tmp/nfsmw-pre289b-input/nfsmw-v38-bmw-passive-verified.apk \
+            --report /tmp/nfsmw-pre289b-input/pre289-v38-report.json
+      - name: Preserve sanitized upload report only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre289b-v38-upload-only-${{ github.run_id }}
+          path: /tmp/nfsmw-pre289b/PRE289B_V38_UPLOAD_ONLY_RECOVERY.json
+          retention-days: 14
+          if-no-files-found: warn
