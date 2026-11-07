@@ -1,0 +1,7 @@
+{
+  "stage": "PRE295_PRE297",
+  "purpose": "diagnose synthetic-only audit fail stage without changing active cache policy",
+  "previous_run": 42381840055,
+  "apk": false,
+  "signing": false
+}
