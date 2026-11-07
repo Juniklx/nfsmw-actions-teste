@@ -228,3 +228,12 @@
 - PRE309 https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42396555371 `AUDIT_OK`: novo cabeçalho C++ `automation/kaggle/pre309_cheats_optin_policy.hpp` e mock de testes. Os três toggles são inicializados desligados, política de medidores só autoriza valores em domínio finito após gates de identidade/posse/sessão/ativação explícita. A política de dinheiro permanece somente pass-through; não há valor arbitrário ou patch no saldo.
 - Nenhum hook PRE309 está conectado ao Android e nenhum cheat funcional foi compilado/testado. Relatório detalhado `docs/PRE308_PRE309_CHEATS_SPEEDBREAKER_RUNTIME_E_POLITICA_20261107.md`.
 - Próximo teste: evidência passiva de consumo/recarga Nitro (+252, sites 1–5) e Speedbreaker (+132, sites 6–8) em condução controlada; dinheiro precisa de prova de proprietários/gravações antes de ativar. Manter V40 e save MARCEK, assinatura permanente e tudo mais.
+
+
+## PRE311/312 — Log real de consumo Nitro e Speedbreaker — 2026-11-07
+- Novo `nfsmw.log` 1.168.427 bytes, 5.019 linhas, SHA-256 `d0f9bd0344399f38fcaac110a6a4328e32efe6ccf58dc1cd242ed8f8efbbc386`. **Contém sessões anteriores (11:27 e 14:14) e uma sessão nova (14:53): separar os dados por sessão.**
+- Sessão 14:53: Nitro PAL candidato `sub_82424AF0` field+252: site 1 e 2, 12 amostras por site, endereço guest `0xBFA9E7FC` no processo, queda monotônica 0,9933333 → 0,9200001 às 14:53:07.907–08.088; site 3 e 4, 12 amostras/site mesmo endereço, subida 0,3470036 → 0,3507603 às 14:53:24.172–24.355. Site 5 sem registro no log.
+- Speedbreaker PAL candidato `sub_8246C2F0` field+132: sites 6 e 8, 12 amostras cada, endereço guest `0xBFAAD1E4`, queda 0,9983333 → 0,9792224 às 14:53:17.941–18.124. Site 7 sem evento novo, mas visto em sessões anteriores como valor levemente acima de 1,0 antes do clamp em site 8. **Não presumir que os endereços guest se mantêm estáveis.**
+- Sem marcadores PRE246 dinheiro no novo log. Nitro e Speedbreaker indicados por PPC fonte PRE247/242, mas o logger não registrou botão/estado de entrada simultâneo; não tratar mapeamento como teste causal conclusivo.
+- Evidência PRE311: `docs/PRE311_LOG_CONSUMO_NITRO_SPEEDBREAKER_20261107.md`. **Nenhuma APK/cheat ativado ou save alterado por esta auditoria.**
+- PRE312 fonte Nitro PRE99 autenticada iniciou novo workflow https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42398849592 para auditar cinco stores e fluxos por ramo antes de ligar política PRE309. Não afirmar `AUDIT_OK` até verificar final.
