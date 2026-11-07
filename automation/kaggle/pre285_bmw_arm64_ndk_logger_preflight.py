@@ -168,7 +168,9 @@ def guest_macro_syntax_attempt(root:Path,tool:dict):
     src=root/PAL_SOURCE.removeprefix("workspace/")
     if sha(src.read_bytes())!=EXPECTED_PAL_CANDIDATE:
         raise ValueError("Guest source PRE283 SHA changed")
-    flags=[tool["compiler"],"-std=c++20","-DANDROID=1",
+    # Generated PAL uses std::byteswap from <bit> (requires C++23);
+    # the standalone logger module remains independently C++20-compatible.
+    flags=[tool["compiler"],"-std=c++23","-DANDROID=1",
            "-D"+PAL_FEATURE+"=1","-fsyntax-only","-Wno-unused-parameter"]
     for inc in get_include_paths(root):flags+=["-I",inc]
     flags.append(src)
