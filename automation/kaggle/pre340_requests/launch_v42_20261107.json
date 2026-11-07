@@ -1,0 +1,12 @@
+{
+  "stage": "PRE340",
+  "target_version_code": 42,
+  "build": "Android signed PAL passive Nitro diversity",
+  "source": "PRE318 V41 validated builder + PRE337 reversible passive instrumentation",
+  "same_permanent_signer": true,
+  "package": "io.github.nfsmwrecomp",
+  "cheats_enabled": false,
+  "guest_stores_modified": false,
+  "save_modified": false,
+  "require": "APK signer + versionCode + PRE316/PRE336 markers + Drive readback"
+}
