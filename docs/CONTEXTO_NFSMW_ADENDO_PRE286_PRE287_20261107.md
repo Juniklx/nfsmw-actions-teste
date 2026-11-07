@@ -37,3 +37,12 @@
 - Certificado permanente SHA-256: 1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b.
 - Nenhuma senha/chave foi acessada na PRE287.
 - Adendo no repositório GitHub. O arquivo bruto CONTEXTO_NFSMW.md no Drive não foi substituído por este commit.
+
+
+## Atualização — PRE287 aprovada e PRE288 iniciada (2026-11-07)
+- PRE287 run 42335391592: completed/success; log PRE287_STATUS AUDIT_OK; 13/13 verificações true, incluindo link real PAL ARM64, callback uma vez, default OFF, reversibilidade e ausência de APK, assinatura e acesso ao save.
+- PRE288 adicionada em `automation/kaggle/pre288_bmw_feature_on_pal_native_preflight.py`, workflow `.github/workflows/nfsmw-pre288-bmw-pal-feature-on-native.yml`, trigger `automation/kaggle/pre288_requests/launch_20261107.json`.
+- Run PRE288: https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42352633132 (queued na última consulta). Ainda não há resultado.
+- PRE288 recompila o motor PAL com `-DNFSMW_PRE283_VTABLE_TARGET_TRACE_ENABLE=1` exclusivamente em workspace descartável. Verifica a presença da definição no compile_commands.json do shard `nfsmw_recomp.11.cpp` e exige libmain ARM64 vinculada com callback único. Não compila APK, não assina, não modifica save e não habilita patches de menu.
+- Objetivo ativo: BMW M3 GTR já presente no MARCEK, oficina mostra apenas Visual; Peças e Desempenho ausentes. Junkman informado como resolvido; descartar metas anteriores sobre manter BMW inicial/vencer Razor.
+- Se PRE288 passar, próxima etapa deve ser uma APK diagnóstica versionCode superior ao da V37, com certificado permanente original, mediante validação de assinatura e teste no Galaxy S24 FE. Nenhuma V38 produzida nesta atualização.
