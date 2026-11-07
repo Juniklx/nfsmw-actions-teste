@@ -71,9 +71,9 @@ def symbol_visible(obj:Path,ndk:Path):
     nm=ndk/"toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-nm"
     if not nm.is_file():nm=Path(shutil.which("nm") or "")
     if not nm.is_file():raise FileNotFoundError("No nm available")
-    p=run_checked([nm,"-g",obj],timeout=30)
-    if not p["ok"]:return {"ok":False,"reason":"nm could not read ARM64 object"}
-    lines=[x for x in p["stdout_tail"].splitlines() if CALLBACK in x]
+    p=subprocess.run([str(nm),"-g",str(obj)],capture_output=True,text=True,timeout=30)
+    if p.returncode!=0:return {"ok":False,"reason":"nm could not read ARM64 object"}
+    lines=[x for x in p.stdout.splitlines() if CALLBACK in x]
     # GNU/LLVM nm: '0000... T NFSMW...' or 'T NFSMW...'
     good=[x for x in lines if re.search(r"\bT\s+"+CALLBACK+r"$",x)]
     return {"ok":len(good)==1,"unmangled_defined_symbol_count":len(good),
@@ -144,8 +144,8 @@ def cmake_archive(root:Path,tool:dict,tmp:Path):
     if arch.read_bytes()[:8]!=b"!<arch>\n":raise ValueError("Invalid native static archive magic")
     nm=tool["ndk"]/"toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-nm"
     if not nm.exists():raise FileNotFoundError("NDK llvm-nm unavailable")
-    s=run_checked([nm,"-g",arch],timeout=45)
-    if not s["ok"] or len(re.findall(r"\bT\s+"+CALLBACK+r"\b",s["stdout_tail"]))!=1:
+    nm_result=subprocess.run([str(nm),"-g",str(arch)],capture_output=True,text=True,timeout=45)
+    if nm_result.returncode!=0 or len(re.findall(r"\bT\s+"+CALLBACK+r"\b",nm_result.stdout))!=1:
         raise ValueError("AArch64 archive does not expose required native symbol exactly once")
     return {
       "configured":True,"built":True,"ndk_target":"nfsmw_pre285_logger",
