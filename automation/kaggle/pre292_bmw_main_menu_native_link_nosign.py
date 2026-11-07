@@ -53,7 +53,7 @@ def stage_trace(root:Path):
     check(body.find("ctx.lr = 0x825789B0;")<body.find(MODEL_CMP),"type call ordering differs")
     newer=body.replace(MODEL_CMP,MODEL_CMP+INJECTION,1)
     modified=text.replace(body,newer,1)
-    anchor=re.search(r"(?m)^DEFINE_REX_FUNC\\(sub_[0-9A-Fa-f]{8}\\)",modified)
+    anchor=re.search(r"(?m)^DEFINE_REX_FUNC\(sub_[0-9A-Fa-f]{8}\)",modified)
     check(anchor is not None,"No generated function declaration")
     modified=modified[:anchor.start()]+PROTOTYPE+modified[anchor.start():]
     check(modified.count(TRACE_CALLBACK+"(")==2,"Callback call/prototype not unique")
@@ -72,8 +72,8 @@ def stage_trace(root:Path):
     cmake=cfile.read_text(encoding="utf8")
     check(cmake.count(PRE284_TARGET)==1 and REGISTER not in cmake,
           "Expected previous logger CMake line once")
-    patched=cmake.replace(PRE284_TARGET,PRE284_TARGET+"\\n    "+REGISTER,1)
-    check(patched.replace("\\n    "+REGISTER,"",1)==cmake,"CMake patch not reversible")
+    patched=cmake.replace(PRE284_TARGET,PRE284_TARGET+"\n    "+REGISTER,1)
+    check(patched.replace("\n    "+REGISTER,"",1)==cmake,"CMake patch not reversible")
     cfile.write_text(patched,encoding="utf8")
     check(cfile.read_text(encoding="utf8").count(REGISTER)==1,"CMake registration not unique")
     CURRENT_STAGE="STAGE_PRE292_DONE"
