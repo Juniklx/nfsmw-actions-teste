@@ -1,0 +1,8 @@
+{
+  "stage": "PRE298",
+  "scope": "Two authentic PRE99 PAL native ARM64 builds, cold and warm ccache within one disposable runner only",
+  "preserve": "V39 release+permanent signer+MARCEK",
+  "no_apk": true,
+  "no_signing": true,
+  "no_persisted_game_cache": true
+}
