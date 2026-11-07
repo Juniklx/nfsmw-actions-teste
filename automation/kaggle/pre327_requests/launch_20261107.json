@@ -1,0 +1,6 @@
+{
+  "stage": "PRE327",
+  "mode": "read_only",
+  "purpose": "bounded binary references for PAL Nitro sub_82424AF0; do not infer owner",
+  "apk": false
+}
