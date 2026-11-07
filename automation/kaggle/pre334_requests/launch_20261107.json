@@ -1,0 +1,7 @@
+{
+  "stage": "PRE334",
+  "mode": "read_only",
+  "goal": "qualify six PAL Nitro field-layout candidates without owner attribution",
+  "guest_mutation": false,
+  "apk": false
+}
