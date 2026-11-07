@@ -1,0 +1,7 @@
+{
+  "stage": "PRE305B",
+  "cause": "C++ preprocessing literal backslash-n in #define",
+  "prior_failed_run": 42390457193,
+  "test": "synthetic Clang compile and AST literal verification only",
+  "apk": false
+}
