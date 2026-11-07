@@ -1,0 +1,41 @@
+name: NFSMW PRE310 sync cheats progress to canonical Drive context
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre310_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre310-context-drive-writer
+  cancel-in-progress: false
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install and verify Drive updater
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+          python -m py_compile automation/kaggle/pre310_sync_cheats_to_main_context.py
+      - name: Append runtime trace with unchanged primary ID
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre310_sync_cheats_to_main_context.py
+      - name: Upload sanitized readback only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre310-context-readback-${{ github.run_id }}
+          path: /tmp/nfsmw-pre310/context_sync.json
+          if-no-files-found: warn
