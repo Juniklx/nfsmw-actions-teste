@@ -59,10 +59,10 @@ def main():
             src=d/"toy.cpp"
             src.write_text("#include <cstdint>\nextern \"C\" std::uint64_t synth(std::uint64_t n){return n*n+7;}\n")
             env=dict(os.environ,CCACHE_DIR=str(cache),CCACHE_BASEDIR=str(d),
-                     CCACHE_COMPILERCHECK="content",CCACHE_NODIRECT="false",
+                     CCACHE_COMPILERCHECK="content",
                      CCACHE_MAXSIZE="64M")
             current_stage="CCACHE_ZERO_STATS"
-            run([ccache,"--zero-stats"],env)
+            run([ccache,"-z"],env)
             objs=[];dur=[]
             for i in range(2):
                 current_stage="COMPILE_SYNTH_"+str(i)
