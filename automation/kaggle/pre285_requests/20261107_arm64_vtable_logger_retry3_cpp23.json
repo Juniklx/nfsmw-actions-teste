@@ -1,0 +1,12 @@
+{
+  "stage": "PRE285_NDK_CPP23_PAL_SYNTAX_RETRY3",
+  "previous_run": 42331146370,
+  "verified_arm64_module": true,
+  "verified_cmake_archive": true,
+  "simde_includes_resolved": true,
+  "compiler_issue": "std::byteswap introduced in C++23",
+  "new_syntax_standard": "c++23",
+  "changes_to_apk": false,
+  "signer_access": false,
+  "game_save_edit": false
+}
