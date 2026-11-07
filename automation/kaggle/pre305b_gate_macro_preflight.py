@@ -24,7 +24,7 @@ def main():
     recipe=RECIPE.read_text(encoding="utf8")
     tree=ast.parse(data,filename=str(BUILDER))
     rt=ast.parse(recipe,filename=str(RECIPE))
-    macros=[x for x in constants_from(tree) if x.startswith(DIRECTIVE)]
+    macros=[x for x in constants_from(tree) if x.startswith(DIRECTIVE) and x!=DIRECTIVE]
     if len(macros)!=2 or any(x!=DIRECTIVE+"\n" for x in macros):
         raise ValueError("bad literal line ending in Python macro")
     inject=recipe_constant(rt,"INJECTION")
@@ -56,5 +56,5 @@ void menu(Ctx ctx) {
 if __name__=="__main__":
     try:main()
     except Exception as e:
-        print("PRE305B_PREFLIGHT_FAILED",type(e).__name__)
+        print("PRE305B_PREFLIGHT_FAILED",type(e).__name__,str(e) if str(e) in ("bad literal line ending in Python macro","pre264 constant missing","unexpected recipe injection","malformed generated C++ macro","no C++ compiler","synthetic compiler rejected macro or guarded C++") else "UNKNOWN")
         raise SystemExit(1)
