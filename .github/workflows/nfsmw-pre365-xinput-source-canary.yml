@@ -1,0 +1,43 @@
+name: NFSMW PRE365 passive XInput source canary
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre365_requests/*.json'
+permissions:
+  contents: read
+jobs:
+  canary:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check PRE364 injection syntax and reversal mock
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre364_xinput_user0_passive_staging.py automation/kaggle/pre364_xinput_user0_passive_mock.py automation/kaggle/pre365_xinput_host_source_canary.py
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre364_xinput_user0_passive_mock.py
+      - name: Install authenticated Drive read client
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+      - name: Verify PRE364 canary against SHA-pinned original host input source
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre365_xinput_host_source_canary.py
+      - name: Preserve bounded proof
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre365-xinput-canary-${{ github.run_id }}
+          path: /tmp/nfsmw-pre365/PRE365_XINPUT_NATIVE_SOURCE_CANARY.json
+          if-no-files-found: warn
+          retention-days: 30
