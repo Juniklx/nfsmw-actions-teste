@@ -1,0 +1,8 @@
+{
+  "stage": "PRE324",
+  "target": "sub_82424AF0 PAL",
+  "goal": "Find original caller(s) to authenticate player vehicle ownership before cheat",
+  "readonly": true,
+  "noGuestWrites": true,
+  "noApk": true
+}
