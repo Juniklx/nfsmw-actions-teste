@@ -1,0 +1,8 @@
+{
+  "stage": "PRE300",
+  "operation": "recursive Drive inventory with verified MD5/size metadata and canonical report",
+  "rootId": "1Waam42x_suvBS18b4360HOaBqKxAncvy",
+  "backupId": "10FjeG9Uu6s7yaa-x14BG7qMTbFTiCnHV",
+  "permanentDeletionsByWorkflow": 0,
+  "permanentDeletionsAlreadyVerified": 2
+}
