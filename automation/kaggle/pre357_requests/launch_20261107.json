@@ -1,0 +1,8 @@
+{
+  "stage": "PRE357",
+  "source": "authenticated PRE99",
+  "scope": "player input ingress and Nitro button candidate paths",
+  "read_only": true,
+  "no_apk": true,
+  "owner_claim": false
+}
