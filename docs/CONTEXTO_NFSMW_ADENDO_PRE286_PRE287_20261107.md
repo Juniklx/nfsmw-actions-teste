@@ -72,3 +72,12 @@
 - Inspeção estática do script de recuperação encontrou parâmetro inválido `page_size=100` em `googleapiclient.files().list`; corrigido para `pageSize=100` no commit `2c90c0189da309ea09381abf7ab2f5c492088e49`. É a causa técnica identificada, mas o traceback original não foi capturado integralmente.
 - Novo disparo sem rebuild/reassinatura: PRE289B run https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42368174035 (queued na última consulta). Reusa exatamente a APK assinada da PRE289.
 - Próximo passo: examinar `PRE289B_STATUS`, MD5 e ID confirmado por readback na pasta Drive; não declarar sucesso até a aprovação.
+
+
+## PRE289B segunda falha — Google Drive HTTP 403 (2026-11-07)
+- Run https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42368174035: completed/failure.
+- Log interno: PRE289B_APK_VERIFIED True; PRE289B_ERROR_TYPE ResumableUploadError; PRE289B_HTTP_STATUS 403; PRE289B_DRIVE_FILE_ID None.
+- A correção do argumento pageSize resolveu o TypeError, mas o Drive recusou a criação do arquivo. O log sanitizado não contém o reason do 403; não afirmar ser quota/permissão específica sem confirmar.
+- Metadados consultados pela conexão Drive: pasta 02_APKs ID 1ac3fI_ahnp3yp7kU4JvsgDdsKkpy5tBh existe no My Drive e consta permissão owner. Essa conexão não necessariamente utiliza o mesmo OAuth do GitHub Actions.
+- Não disparar upload idêntico sem diagnosticar razão 403 e a identidade/scopes da credencial do workflow (nunca imprimir tokens ou credenciais).
+- APK V38 e relatório continuam disponíveis no artifact GitHub da run 42354940551 (artifact 13567394025); sem recompilação ou reassinatura; instalação e correção da tunagem não testadas.
