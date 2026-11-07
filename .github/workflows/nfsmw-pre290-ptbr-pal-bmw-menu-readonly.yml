@@ -1,0 +1,31 @@
+name: NFSMW PRE290 PTBR PAL BMW menu audit (no APK)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre290_requests/*.json'
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Analyze pinned source recipes; no token, source game or build required
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre290_ptbr_pal_bmw_menu_readonly.py
+          python automation/kaggle/pre290_ptbr_pal_bmw_menu_readonly.py
+      - name: Save sanitized PRE290 report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre290-ptbr-pal-bmw-menu-readonly-${{ github.run_id }}
+          path: /tmp/nfsmw-pre290/PRE290_PTBR_PAL_BMW_MENU_READONLY.json
+          retention-days: 30
+          if-no-files-found: warn
