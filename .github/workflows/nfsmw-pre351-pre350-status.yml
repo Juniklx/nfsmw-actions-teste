@@ -1,0 +1,23 @@
+name: NFSMW PRE351 PRE350 Nitro native mock run readback
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre351_requests/*.json'
+permissions:
+  actions: read
+  contents: write
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish non-secret PRE350 workflow metadata
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre351_lookup_pre350_run_metadata.py
+          python automation/kaggle/pre351_lookup_pre350_run_metadata.py
