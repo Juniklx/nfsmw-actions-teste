@@ -66,7 +66,7 @@ def find_existing(d,md5:str,size:int):
     # Search only the verified destination folder, and never replace files.
     query="name = '"+APK_NAME.replace("'","\\'")+"' and '"+DEST_FOLDER+"' in parents and trashed = false"
     found=d.files().list(q=query,fields="nextPageToken,files(id,name,size,md5Checksum,webViewLink,parents)",
-          page_size=100,supportsAllDrives=True,includeItemsFromAllDrives=True).execute().get("files",[])
+          pageSize=100,supportsAllDrives=True,includeItemsFromAllDrives=True).execute().get("files",[])
     if len(found)>1:raise ValueError("Multiple destination files share name; stop")
     if not found:return None
     f=found[0]
