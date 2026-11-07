@@ -1,0 +1,8 @@
+{
+  "stage": "PRE295_PRE296_PRE297",
+  "goal": "Validate immutable rotating SDK ccache, isolated game-object cache default-off, synthetic cold and warm reproducibility",
+  "read_only_real_game": true,
+  "apk": false,
+  "signing": false,
+  "save": false
+}
