@@ -34,6 +34,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: nfsmw-pre312-nitro-flow-${{ github.run_id }}
-          path: /tmp/nfsmw-pre312/PRE312_SPEEDBREAKER_CANDIDATE_7_8_CONTEXT.json
+          path: /tmp/nfsmw-pre312/PRE312_NITRO_SITES_1_5_CONTEXT.json
           retention-days: 30
           if-no-files-found: warn
