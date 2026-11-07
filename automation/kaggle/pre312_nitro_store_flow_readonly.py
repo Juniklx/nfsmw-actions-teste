@@ -12,7 +12,7 @@ from pre105_read_settings_source import drive_client,download
 from pre239_pal_money_probe_recipe_readonly import body_for_function
 from pre242_pal_float_dataflow_readonly import TARGETS,FLOAT,HOST
 
-OUT=Path("/tmp/nfsmw-pre312/PRE312_NITRO_CANDIDATE_7_8_CONTEXT.json")
+OUT=Path("/tmp/nfsmw-pre312/PRE312_NITRO_SITES_1_5_CONTEXT.json")
 def must(ok,what):
     if not ok:raise ValueError(what)
 def sha(b):return hashlib.sha256(b).hexdigest()
@@ -52,7 +52,7 @@ def audit(root):
         results.append({"site":j+1,"relative_store_line":ix+1,
                         "matched_opcode":lines[ix].strip()[:120],
                         "context":section[-75:]})
-    result={"stage":"PRE312_PRE99_PAL_NITRO_SITES_6_8",
+    result={"stage":"PRE312_PRE99_PAL_NITRO_SITES_1_5",
       "status":"AUDIT_OK","source_file":spec["file"],
       "source_sha256":sha(raw),"function":spec["function"],
       "field_offset":252,"store_sites":results,
@@ -68,7 +68,7 @@ def audit(root):
     return result
 def main():
     OUT.parent.mkdir(parents=True,exist_ok=True)
-    r={"status":"FAILED","stage":"PRE312_PRE99_PAL_NITRO_SITES_6_8"}
+    r={"status":"FAILED","stage":"PRE312_PRE99_PAL_NITRO_SITES_1_5"}
     try:
         with tempfile.TemporaryDirectory(prefix="pre312_") as p:r=audit(Path(p))
     except Exception as e:r["error_type"]=type(e).__name__
