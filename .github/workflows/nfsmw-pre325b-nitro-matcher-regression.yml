@@ -1,0 +1,24 @@
+name: NFSMW PRE325B offline Nitro matcher regression
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre325b_nitro_matcher_unit.py'
+      - 'automation/kaggle/pre325_nitro_dispatch_extended_readonly.py'
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check PRE325 matcher using offline fixtures
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre325_nitro_dispatch_extended_readonly.py automation/kaggle/pre325b_nitro_matcher_unit.py
+          python automation/kaggle/pre325b_nitro_matcher_unit.py
