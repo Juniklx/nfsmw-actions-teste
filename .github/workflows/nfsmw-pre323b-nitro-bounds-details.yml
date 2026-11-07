@@ -1,0 +1,36 @@
+name: NFSMW PRE323B display bounded Nitro bounds/owner original PPC
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre323b_requests/*.json'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Inspect verified PRE323 JSON no build
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh api /repos/${{ github.repository }}/actions/artifacts/13585828988/zip > /tmp/pre323.zip
+          unzip -p /tmp/pre323.zip NFSMW_PRE323_NITRO_OWNER_BOUNDS.json > /tmp/m.json
+          python - <<'PY'
+          import json
+          d=json.load(open('/tmp/m.json'));assert d['status']=='AUDIT_OK'
+          q=d['evidence']
+          for typ in ('r31_writes','f30_writes','f28_writes'):
+            for item in q[typ]:
+              print('PRE323B_SITE',typ,'line',item['line'])
+              for row in item['window']:
+                print('PRE323B_CONTEXT',typ,row['line'],row['text'])
+          print('PRE323B_ENTRY')
+          for row in q['function_entry'][:105]:
+            if row['line']<=42 or 85<=row['line']<=105:
+              print('PRE323B_ENTRY_LINE',row['line'],row['text'])
+          PY
