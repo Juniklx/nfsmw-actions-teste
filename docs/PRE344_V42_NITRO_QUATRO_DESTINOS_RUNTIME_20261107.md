@@ -39,3 +39,14 @@
 - **Não verificado:** quatro carros distintos, slots identificados jogador/IA, qual slot pertence ao jogador, ou que a função só roda em corrida.
 - Próximo gate: estabelecer referência **independente** ao carro do jogador. Em instrumentação futura, comparar `ctx.r3` à referência independente (sem hardcode de endereços), com estado `desconhecido` por padrão e teste negativo IA. Não gerar cheat global.
 - V42 continua diagnóstica com Nitro infinito desativado. V41 backup, `MARCEK`, controles, gráficos, assinatura permanente e proteções térmicas preservadas.
+
+## Confirmação posterior do cenário pelo usuário — 2026-11-07
+
+O usuário confirmou explicitamente: **o novo teste PRE344 foi realizado em uma corrida com quatro carros ao todo, incluindo o veículo do jogador (três adversários da IA)**. Essa descrição provém do usuário, não de identificação semântica feita pelo logger.
+
+- Cenário PRE343: exploração livre, apenas o carro do jogador, **um destino Nitro** observado.
+- Cenário PRE344: corrida de quatro carros no total, **quatro destinos Nitro** observados.
+
+**Inferência forte, mas ainda não prova individual:** a concordância de cardinalidade entre veículos presentes e endereços distintos é consistente com um medidor por veículo naquela corrida, inclusive os três da IA. Como o logger não associa endereço a veículo, **não atribuir** slot 1 ao jogador nem slots 2–4 aos rivais por ordem de aparecimento. A rotina `sub_82424AF0` atende a múltiplas instâncias; um cheat global pode dar Nitro infinito também aos rivais.
+
+Próximo requisito antes de modificar Nitro: identificar o ponteiro/ID do carro do jogador por fonte independente verificada e correlacionar com a base `ctx.r3` da rotina Nitro. Sem essa prova, comportamento fail-closed e nenhuma alteração de valores guest. V42 diagnóstica permanece válida.
