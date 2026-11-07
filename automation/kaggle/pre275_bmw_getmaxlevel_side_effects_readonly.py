@@ -32,7 +32,8 @@ def inspect_function(body:str,func:str,path:str,digest:str):
             expr=w.group(1).split(",")[0].strip()
             # Only 'ctx.r1' is syntactically direct guest-stack addressing.
             # 'ea' or another PPC register is unknown without dataflow.
-            writes.append({"line":i+1,"addr":expr[:130],
+            writes.append({"line":i+1,"op":re.search(r"REX_STORE_U(?:8|16|32|64)",row).group(0),
+                "addr":expr[:130],
                 "direct_stack_address":"ctx.r1." in expr,
                 "preceding_asm":[x.strip()[:120] for x in
                     lines[max(0,i-2):i] if x.strip().startswith("//")]})
@@ -89,9 +90,25 @@ def audit():
                     found[func]=inspect_function(body,func,name,filehash)
         if set(found)!=set(TARGET):
             raise ValueError("Some direct helper functions were not found")
+        # PRE270 shows two U16 writes at ctx.r11+18 on distinct paths.
+        # They touch a non-stack guest object; no extra calls are approved.
+        owner=found["sub_823E5988"]
+        u16=[store for store in owner["stores"]
+             if store["op"]=="REX_STORE_U16"
+             and store["addr"]=="ctx.r11.u32 + 18"
+             and not store["direct_stack_address"]]
+        if len(u16)!=2:
+            raise ValueError("PRE275 expected two external U16 guest writes")
+        calls=[x["callee"] for x in owner["direct_callees"]]
+        if calls.count("sub_8214B858")!=1 or calls.count("sub_8214EDA8")!=1:
+            raise ValueError("PRE275 attribute call chain changed")
         # Inspect no deeper than direct callees; each must be checked if executing
         # GetMaxLevel outside the original game pathway is ever contemplated.
         return {
+            "nonstack_u16_18_writes_confirmed":len(u16),
+            "nonstack_u16_18_context":u16,
+            "reference_count_decrement_is_hypothesis_not_proof":True,
+            "decision":"DO_NOT_ADD_SEVEN_EXTRA_GETMAXLEVEL_CALLS",
             "stage":"PRE275_BMW_GETMAXLEVEL_CALLEE_SIDE_EFFECTS_READONLY",
             "status":"AUDIT_OK" if nfiles>=125 else "NEEDS_REVIEW",
             "pre99_sha256_authenticated":digest,
