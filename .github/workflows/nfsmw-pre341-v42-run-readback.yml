@@ -1,0 +1,26 @@
+name: NFSMW PRE341 V42 run metadata readback
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre341_requests/*.json'
+permissions:
+  actions: read
+  contents: write
+concurrency:
+  group: nfsmw-pre341-v42-status
+  cancel-in-progress: false
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Query status of launched PRE340 V42 build and publish non-secret metadata
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre341_lookup_pre340_run_metadata.py
+          python automation/kaggle/pre341_lookup_pre340_run_metadata.py
