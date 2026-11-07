@@ -73,12 +73,10 @@ def main():
                 dur.append(round((time.monotonic()-t)*1000,2))
                 objs.append(sha(obj.read_bytes()))
             current_stage="CCACHE_SHOW_JSON_STATS"
-            raw=run([ccache,"--show-stats","--format=json"],env).stdout
-            stats=json.loads(raw)
-            sums=stats.get("stats",{})
-            direct=sums.get("direct_cache_hit",0)
-            pre=sums.get("preprocessed_cache_hit",0)
-            hits=int(direct)+int(pre)
+            raw=run([ccache,"--show-stats"],env).stdout
+            hit_match=re.search(r"(?m)^\\s*Hits:\\s*(\\d+)",raw)
+            check(hit_match is not None,"ccache numeric hit count unavailable")
+            hits=int(hit_match.group(1))
             current_stage="VERIFY_CACHE_HIT_AND_HASH"
             check(objs[0]==objs[1],"synthetic object changed with warm cache")
             check(hits>=1,"no actual warm compile cache hit")
@@ -98,7 +96,7 @@ def main():
     except Exception as exc:
         result["failed_stage"]=current_stage
         result["failure_type"]=type(exc).__name__
-        if str(exc) in ("PRE140 scope changed","PRE140 SDK wrapper changed","game cache enabled by default","cache namespace missing","safety guard missing","g++/clang++ or ccache absent","no actual warm compile cache hit","synthetic object changed with warm cache"):
+        if str(exc) in ("PRE140 scope changed","PRE140 SDK wrapper changed","game cache enabled by default","cache namespace missing","safety guard missing","g++/clang++ or ccache absent","no actual warm compile cache hit","synthetic object changed with warm cache","ccache numeric hit count unavailable"):
             result["failure_reason"]=str(exc)
         result["status"]="AUDIT_FAILED"
     result["run_id"]=a.run_id
