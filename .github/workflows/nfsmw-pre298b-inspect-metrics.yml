@@ -1,0 +1,36 @@
+name: NFSMW PRE298B inspect finalized PRE298 metrics (no rebuild)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre298b_requests/*.json'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download PRE298 metadata only
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh api -H 'Accept: application/vnd.github+json' /repos/${{ github.repository }}/actions/artifacts/13578999775/zip > /tmp/nfsmw-pre298-metadata.zip
+          unzip -p /tmp/nfsmw-pre298-metadata.zip PRE298_REAL_PAL_COLD_WARM_NO_PERSISTENCE.json > /tmp/nfsmw-pre298-metadata.json
+          python - <<'PY'
+          import json
+          x=json.load(open('/tmp/nfsmw-pre298-metadata.json'))
+          print('PRE298B_STATUS',x.get('status'))
+          print('PRE298B_HASH_EQUAL',x.get('libmain_hashes_identical'))
+          print('PRE298B_PERSISTED',x.get('game_object_cache_persisted'))
+          for i,z in enumerate(x.get('iterations',[]),1):
+              print('PRE298B_ITERATION',i,'elapsed_seconds',z.get('elapsed_wall_seconds'),
+                    'libmain_sha256',z.get('libmain_sha256'),
+                    'linked_size',z.get('linked_size'),
+                    'target',z.get('native_target'),
+                    'compiler_cache',json.dumps(z.get('compiler_cache',{}),sort_keys=True))
+          PY
