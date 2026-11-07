@@ -1,0 +1,13 @@
+{
+  "stage": "PRE264_BMW_MENU_ONLY_PATCH_DRYRUN",
+  "verified_pre262_run": 42320678150,
+  "verified_pre263_run": 42320956876,
+  "guest_function": "sub_82578988",
+  "country_edition": "PAL",
+  "dryrun_only": true,
+  "modify_persistent_source": false,
+  "patch_default_off": true,
+  "build": false,
+  "sign": false,
+  "edit_saves": false
+}
