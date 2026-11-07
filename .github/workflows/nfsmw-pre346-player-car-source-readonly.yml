@@ -1,0 +1,46 @@
+name: NFSMW PRE346 player vehicle named source references
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre346_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre346-player-car-source
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Python syntax and synthetic lexical fixture
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre346_player_car_named_source_readonly.py automation/kaggle/pre346_player_car_named_source_mock.py
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre346_player_car_named_source_mock.py
+      - name: Install Google Drive read dependencies
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+      - name: Read authenticated PRE99 and scan native source identifiers
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre346_player_car_named_source_readonly.py
+      - name: Preserve bounded source-reference report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre346-player-car-xrefs-${{ github.run_id }}
+          path: /tmp/nfsmw-pre346/PRE346_PLAYER_CAR_SOURCE_REFERENCES.json
+          if-no-files-found: warn
+          retention-days: 30
