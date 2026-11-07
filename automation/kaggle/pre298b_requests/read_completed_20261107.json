@@ -1,0 +1,9 @@
+{
+  "stage": "PRE298B",
+  "purpose": "Inspect exact PRE298 final JSON report before deciding reproducibility of real-game cache",
+  "run": 42383054863,
+  "artifact": 13578999775,
+  "no_build": true,
+  "no_signing": true,
+  "no_changes_to_game": true
+}
