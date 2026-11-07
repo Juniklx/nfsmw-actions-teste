@@ -97,3 +97,12 @@
 - **Causa operacional agora demonstrada:** o token OAuth vigente usado em GitHub Secrets tem SOMENTE escopo de leitura `https://www.googleapis.com/auth/drive.readonly`; não autoriza criar APK no Drive. O 403 das PRE289/PRE289B é consistente com isso, ainda que `reason` original não esteja capturado.
 - Solução: refazer consentimento OAuth no MESMO cliente Web e conta testadora, solicitando pelo menos escopo de escrita autorizado adequado à pasta (escopo drive completo, caso necessário, sujeito às restrições do Google). Obter NOVO refresh token e atualizar exclusivamente o Secret `GOOGLE_REFRESH_TOKEN` de modo seguro pelo usuário; não compartilhar com chat, não trocar client_id/secret ou chave de assinatura. Avaliar migrar para `drive.file` + seleção via Google Picker para menor privilégio quando possível.
 - IMPORTANTE: Modo Testando + escopos de Drive pode limitar duração do refresh token; não colocar app em produção nem alterar escopos sem considerar requisitos OAuth. Repetir PRE289D até flag correta antes de PRE289B upload-only; preservar artefato V38 13567394025.
+
+
+## Atualização — OAuth atualizado pelo usuário; erro unauthorized_client (2026-11-07)
+- Usuário relata ter atualizado autorização/Secret do token após ativar escopo `drive` no Console; cliente tipo Web, app externo em Testando, a mesma conta do Drive cadastrada como usuário de teste.
+- PRE289D run 42372774798: workflow success mas auditoria INTERNA `OAUTH_REFRESH_OR_CLIENT_FAILED`, sem tokeninfo e sem upload.
+- PRE289D run 42372864087: também `OAUTH_REFRESH_OR_CLIENT_FAILED`; diagnóstico sanitizado: `RefreshError`, código `unauthorized_client` (confirmado), sem status HTTP explícito. `PRE289D_UPLOAD_ATTEMPTED False`.
+- Antes da troca do token, PRE289D run 42372037871 conseguia autenticar e provou token antigo somente `drive.readonly`.
+- Interpretação: a nova combinação client_id/client_secret/refresh_token ou configuração de fluxo OAuth não está aceita no endpoint de refresh. Não afirmar ainda qual componente é inválido; confirmar que novo refresh token veio do EXATO cliente Web existente do GitHub, `Use your own OAuth credentials` ligado no Playground, redirect URI autorizada, access_type offline, escopo drive, e que foi copiado o refresh token (não authorization code nem access token). Não expor credenciais. Só atualizar `GOOGLE_REFRESH_TOKEN` após confirmação; não recriar cliente/chave.
+- Não disparar upload PRE289B enquanto PRE289D não confirmar `drive_full=true`. APK V38 original preservada no artifact 13567394025.
