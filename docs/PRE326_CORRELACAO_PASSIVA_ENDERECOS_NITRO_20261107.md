@@ -23,3 +23,11 @@ O analisador é somente leitura do arquivo de entrada e produz JSON agregado, se
 1. Conferir os artefatos e logs dos workflows PRE325/PRE325B/PRE326.
 2. Recuperar o log bruto V41 previamente analisado, verificar o SHA-256 e executar PRE326 em cópia local.
 3. Se houver dados suficientes, comparar destinos de store na sessão controlada; se não, preparar instrumentação adicional com identificação contextual do carro do jogador, ainda passiva, limitada e reversível.
+
+## PRE329 — execução real da correlação desbloqueada (2026-11-07)
+- O usuário reenviou o `nfsmw.log` original da V41. Conferidos SHA-256 `ac17e87607723c6f98b5a553b4e7c4c99ad8a0b968eea8c6af0bb1f235b4c9bc`, 2.409.694 bytes e 10.373 linhas.
+- Na janela 15:47:58–15:48:47 da V41, a PRE247 registrou 48 linhas Nitro: 12 para cada site 1, 2, 3 e 4. **Todos registraram destino `0xBFA9E7FC`.**
+- Os valores de escrita são bit a bit idênticos nos 12 pares de site 1/2 e nos 12 pares de site 3/4. Os sites Speedbreaker 7/8, separados, registraram `0xBFA7CD34` (12 linhas cada). O site 5 Nitro não foi observado.
+- A função PAL usa `r31 = ctx.r3` e escreve `r31 + 252`; logo o endereço de base **implícito nesta janela** é `0xBFA9E700`, sem leitura nova da memória.
+- Conclusão **limitada:** sites 1–4 compartilharam destino nos eventos registrados na sessão. PRE247 está limitado a 12 logs/site; owner do jogador e identidade de eventos posteriores continuam não comprovados. Nitro infinito ainda não funcional, nenhuma APK nova.
+- Relatório completo de evidências e limitações: `docs/PRE329_V41_CORRELACAO_RUNTIME_ENDERECOS_NITRO_20261107.md`.
