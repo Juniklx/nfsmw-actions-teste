@@ -22,7 +22,7 @@ def compiler_stats(ccache,env):
     verify(p.returncode==0,"ccache stats unavailable")
     vals={}
     for name in ["Cacheable calls","Hits","Misses"]:
-        m=re.search(r"(?mi)^\\s*"+re.escape(name)+r"\\s*:?\\s+(\\d+)\\b",p.stdout)
+        m=re.search(r"(?mi)^\s*"+re.escape(name)+r"\s*:?\s+(\d+)\b",p.stdout)
         vals[name.lower().replace(" ","_")]=int(m.group(1)) if m else None
     return vals
 def main():
