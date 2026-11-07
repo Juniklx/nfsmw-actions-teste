@@ -1,0 +1,8 @@
+{
+  "stage": "PRE312",
+  "goal": "Map Nitro five sites in authenticated PAL after V40 14:53 consumption/recharge log",
+  "source_sha256_expected": "eec9b82e51bbfcb573cd0f965e3ed7639bbbd291b285f9fc6d5a7d1e77cd735f",
+  "no_game_change": true,
+  "no_signing": true,
+  "no_apk": true
+}
