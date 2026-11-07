@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""PRE338: native-only compile test of composed PRE317+PRE337 passive logger.
+"""PRE338: native-only composite compile test of composed PRE317+PRE337 passive logger.
 
 No PRE99 download, no game binaries or guest memory, no APK/signing/save.
 An isolated temporary stub supplies only rex/logging/macros.h.
