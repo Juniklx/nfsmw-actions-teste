@@ -1,0 +1,24 @@
+name: NFSMW PRE326 passive Nitro address correlation mock
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre326_nitro_address_correlation_readonly.py'
+      - 'automation/kaggle/pre326_nitro_address_correlation_mock.py'
+permissions:
+  contents: read
+jobs:
+  mock:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Audit address grouping with synthetic PRE247 traces
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre326_nitro_address_correlation_readonly.py automation/kaggle/pre326_nitro_address_correlation_mock.py
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre326_nitro_address_correlation_mock.py
