@@ -1,0 +1,9 @@
+{
+  "stage": "PRE292",
+  "goal": "Validate passive main-menu BMW trace with real Android NDK ARM64 CMake libmain.so linker",
+  "read_only_source_snapshot": true,
+  "no_apk": true,
+  "no_signing": true,
+  "no_save_changes": true,
+  "prior": "PRE291 run 42375930691"
+}
