@@ -1,0 +1,29 @@
+name: NFSMW PRE350 passive per-slot Nitro value integration regression
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre350_requests/*.json'
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check python staging mocks
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre349_nitro_slot_value_staging.py automation/kaggle/pre349_nitro_slot_value_staging_mock.py automation/kaggle/pre350_nitro_slot_values_composite_compile_mock.py
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre349_nitro_slot_value_staging_mock.py
+      - name: Compile C++ per-slot value observer mock
+        run: |
+          set -euo pipefail
+          g++ -std=c++17 -O2 -Wall -Wextra -Werror -pthread -Iautomation/kaggle automation/kaggle/pre348_nitro_slot_values_mock.cpp -o /tmp/nfsmw-pre348-mock
+          /tmp/nfsmw-pre348-mock
+      - name: Compose PRE317 PRE337 PRE349 callback and compile syntax
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre350_nitro_slot_values_composite_compile_mock.py
