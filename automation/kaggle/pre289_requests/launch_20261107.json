@@ -1,0 +1,11 @@
+{
+  "stage": "PRE289",
+  "previous_run": 42352633132,
+  "versionCode": 38,
+  "package": "io.github.nfsmwrecomp",
+  "mode": "signed_diagnostic",
+  "feature": "NFSMW_PRE283_VTABLE_TARGET_TRACE_ENABLE",
+  "menu_unlock_patches": false,
+  "save_edit": false,
+  "permanent_certificate_sha256": "1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b"
+}
