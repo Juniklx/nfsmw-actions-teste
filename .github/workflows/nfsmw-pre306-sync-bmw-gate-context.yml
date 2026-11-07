@@ -31,7 +31,7 @@ jobs:
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
         run: |
           set -euo pipefail
-          python automation/kaggle/pre306_sync_runtime_log_to_context.py
+          python automation/kaggle/pre306_sync_bmw_gate_to_context.py
       - name: Upload sanitized readback only
         if: always()
         uses: actions/upload-artifact@v4
