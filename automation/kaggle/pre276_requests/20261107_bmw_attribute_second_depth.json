@@ -1,0 +1,15 @@
+{
+  "stage": "PRE276_BMW_ATTRIBUTES_SECOND_DEPTH_SIDE_EFFECT_AUDIT",
+  "previous_run": 42326048799,
+  "source": "PRE99 SHA-256 af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "targets": [
+    "sub_82148718",
+    "sub_8214E9E0",
+    "sub_82145428",
+    "sub_82145C50"
+  ],
+  "purpose": "Inspect PPC guest stores and nested calls before any artificial BMW GetMaxLevel invocation",
+  "no_apk_build": true,
+  "no_save_edit": true,
+  "no_signing_access": true
+}
