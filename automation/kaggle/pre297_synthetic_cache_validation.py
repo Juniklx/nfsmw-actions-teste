@@ -28,7 +28,9 @@ def main():
             "status":"FAILED","apk_built":False,"real_game_cached":False,
             "signer_accessed":False,"save_modified":False}
     OUT.parent.mkdir(parents=True,exist_ok=True)
+    current_stage="BEGIN"
     try:
+        current_stage="CHECK_REPO_POLICY"
         sdk=repo/"automation/kaggle/pre140_sdk_only_ccache_launcher.sh"
         content=sdk.read_text()
         check("nativo/app and nativo/app_usa bypass ccache" in content,"PRE140 scope changed")
@@ -40,10 +42,12 @@ def main():
         check("NFSMW_CACHE_GAME_OPT_IN" in wrapper.read_text(),"game cache enabled by default")
         check("nfsmw-game-objects" in ptext,"cache namespace missing")
         check("forbidden" in ptext.lower(),"safety guard missing")
+        current_stage="CHECK_IMMUTABLE_KEYS"
         # Simulate GitHub cache restore prefix matching and unique immutable writes.
         keys=[f"{PREFIX}-sha-abc-{100+i}" for i in range(3)]
         check(len(set(keys))==3,"immutable keys duplicate")
         check(all(k.startswith(PREFIX+"-") for k in keys),"restore prefix mismatch")
+        current_stage="CHECK_CCACHE_COMPILER"
         # Synthetic C++ test uses actual ccache and compiler; avoid game assets.
         compiler=shutil.which("g++") or shutil.which("clang++")
         ccache=shutil.which("ccache")
@@ -57,21 +61,25 @@ def main():
             env=dict(os.environ,CCACHE_DIR=str(cache),CCACHE_BASEDIR=str(d),
                      CCACHE_COMPILERCHECK="content",CCACHE_NODIRECT="false",
                      CCACHE_MAXSIZE="64M")
+            current_stage="CCACHE_ZERO_STATS"
             run([ccache,"--zero-stats"],env)
             objs=[];dur=[]
             for i in range(2):
+                current_stage="COMPILE_SYNTH_"+str(i)
                 obj=d/f"sample_{i}.o"
                 t=time.monotonic()
                 run([ccache,compiler,"-c","-std=c++17","-O2","-fno-ident",
                      str(src),"-o",str(obj)],env)
                 dur.append(round((time.monotonic()-t)*1000,2))
                 objs.append(sha(obj.read_bytes()))
+            current_stage="CCACHE_SHOW_JSON_STATS"
             raw=run([ccache,"--show-stats","--format=json"],env).stdout
             stats=json.loads(raw)
             sums=stats.get("stats",{})
             direct=sums.get("direct_cache_hit",0)
             pre=sums.get("preprocessed_cache_hit",0)
             hits=int(direct)+int(pre)
+            current_stage="VERIFY_CACHE_HIT_AND_HASH"
             check(objs[0]==objs[1],"synthetic object changed with warm cache")
             check(hits>=1,"no actual warm compile cache hit")
             check(pol.stat().st_size<25000,"policy unexpectedly large")
@@ -88,10 +96,15 @@ def main():
               "real_game_cache_validated":False,
               "performance_gain_for_real_game_proven":False})
     except Exception as exc:
+        result["failed_stage"]=current_stage
         result["failure_type"]=type(exc).__name__
+        if str(exc) in ("PRE140 scope changed","PRE140 SDK wrapper changed","game cache enabled by default","cache namespace missing","safety guard missing","g++/clang++ or ccache absent","no actual warm compile cache hit","synthetic object changed with warm cache"):
+            result["failure_reason"]=str(exc)
         result["status"]="AUDIT_FAILED"
     result["run_id"]=a.run_id
     OUT.write_text(json.dumps(result,indent=2)+"\n")
+    print("PRE297_FAILED_STAGE",result.get("failed_stage"))
+    print("PRE297_FAILURE_REASON",result.get("failure_reason"))
     for key in ("status","pre295_rolling_immutable_keys_verified",
                 "pre296_game_cache_default_off","pre297_synthetic_object_hash_equal",
                 "pre297_synthetic_ccache_hits","real_game_cache_validated"):
