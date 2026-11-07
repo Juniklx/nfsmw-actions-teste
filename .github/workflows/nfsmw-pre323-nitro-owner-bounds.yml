@@ -1,0 +1,39 @@
+name: NFSMW PRE323 Nitro owner and bounds PAL source audit (read-only)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre323_requests/*.json'
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install minimal Drive client and check
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+          python -m py_compile automation/kaggle/pre323_nitro_owner_bounds_readonly.py
+      - name: Inspect authenticated original Nitro source and boundaries
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre323_nitro_owner_bounds_readonly.py
+      - name: Preserve bounded authenticated source context
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre323-nitro-owner-bounds-${{ github.run_id }}
+          path: /tmp/nfsmw-pre323/NFSMW_PRE323_NITRO_OWNER_BOUNDS.json
+          retention-days: 30
+          if-no-files-found: warn
