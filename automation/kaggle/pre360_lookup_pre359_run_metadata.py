@@ -10,7 +10,7 @@ from pathlib import Path
 REPO=os.environ["GITHUB_REPOSITORY"]
 TOKEN=os.environ["GITHUB_TOKEN"]
 WORKFLOW="nfsmw-pre359-xinput-player-signal-readonly.yml"
-TARGET="b200a41302a3254a60db901107b819608704fefc"
+TARGET="8f762e67d94293e9bfab1578b45ff478d01ec057"
 HEADERS={"Authorization":f"Bearer {TOKEN}",
          "Accept":"application/vnd.github+json",
          "X-GitHub-Api-Version":"2022-11-28",
