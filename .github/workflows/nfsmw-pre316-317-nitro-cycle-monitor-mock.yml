@@ -1,0 +1,32 @@
+name: NFSMW PRE316-317 Nitro passive cycle monitor C++ regression
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre317_requests/*.json'
+permissions:
+  contents: read
+jobs:
+  mock:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify Nitro min/max monitor and reversible PRE247 staging
+        run: |
+          set -euo pipefail
+          export PYTHONPATH=automation/kaggle
+          python -m py_compile automation/kaggle/pre317_nitro_cycle_staging.py automation/kaggle/pre317_nitro_cycle_staging_mock.py automation/kaggle/pre316_nitro_cycle_monitor_mock.py
+          python automation/kaggle/pre316_nitro_cycle_monitor_mock.py
+          python automation/kaggle/pre317_nitro_cycle_staging_mock.py
+      - name: Upload sanitized synthetic reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre316-317-passive-nitro-monitor-${{ github.run_id }}
+          path: |
+            /tmp/nfsmw-pre316/NITRO_CYCLE_MONITOR_TEST.json
+            /tmp/nfsmw-pre317/PRE317_NITRO_CYCLE_STAGING_MOCK.json
+          if-no-files-found: warn
+          retention-days: 30
