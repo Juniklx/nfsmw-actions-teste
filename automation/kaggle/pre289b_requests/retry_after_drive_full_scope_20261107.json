@@ -1,0 +1,10 @@
+{
+  "stage": "PRE289B",
+  "reason": "PRE289D verified full Drive OAuth scope",
+  "oauth_audit_run": 42373143816,
+  "source_apk_run": 42354940551,
+  "operation": "verified_artifact_upload_only",
+  "no_rebuild": true,
+  "no_resign": true,
+  "no_save_change": true
+}
