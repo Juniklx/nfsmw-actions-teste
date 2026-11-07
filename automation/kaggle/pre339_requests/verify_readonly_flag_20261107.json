@@ -1,0 +1,5 @@
+{
+  "stage": "PRE339",
+  "reason": "verify existing context and correct status metadata; no reappend",
+  "idempotent": true
+}
