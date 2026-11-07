@@ -10,7 +10,7 @@ TARGET="sub_82424AF0"
 PATTERNS=(
     ("symbol",re.compile(r"sub_82424AF0",re.I)),
     ("hex_address",re.compile(r"(?<![0-9a-f])(?:0x)?82424af0(?![0-9a-f])",re.I)),
-    ("decimal_address",re.compile(r"(?<!\d)2183289584(?!\d)")),
+    ("decimal_address",re.compile(r"(?<!\d)2185382640(?!\d)")),
 )
 CXX=re.compile(r"^workspace/nativo/app/generated/default/nfsmw_recomp\.\d+\.cpp$")
 def main():
