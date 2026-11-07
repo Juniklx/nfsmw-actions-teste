@@ -17,6 +17,7 @@ int main() {
   assert(out.object_slot==2 && out.unique_objects==2);
   assert(d.observe(4,0xA00000FCu,out));
   assert(out.object_slot==2 && out.site_mask==9);
+  // Verify the 16-slot fail-closed bound; no object is classified as the player.
   // Populate all 16 slots; attempt a 17th different address, fail closed.
   for(std::uint32_t k=2;k<16;++k) {
     assert(d.observe(1,0x90000000u+k*256u,out));
