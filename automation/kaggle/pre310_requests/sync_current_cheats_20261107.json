@@ -1,0 +1,13 @@
+{
+  "stage": "PRE310",
+  "source_runs": [
+    42396222544,
+    42396360249,
+    42396555371
+  ],
+  "canonical_file_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+  "backup_id": "1BBSD57fmgYevBDEc_boWct3oBU07Sl3S",
+  "cheats_active": false,
+  "signing_untouched": true,
+  "save_untouched_by_patches": true
+}
