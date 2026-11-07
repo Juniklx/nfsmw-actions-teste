@@ -8,7 +8,7 @@ from pre105_read_settings_source import drive_client,download
 OUT=Path("/tmp/nfsmw-pre325/NFSMW_PRE325_NITRO_DISPATCH.json")
 TARGET="sub_82424AF0"
 PATTERNS=(
-    ("symbol",re.compile(r"sub_82424AF0",re.I)),
+    ("symbol",re.compile(r"\bsub_82424AF0\b",re.I)),
     ("hex_address",re.compile(r"(?<![0-9a-f])(?:0x)?82424af0(?![0-9a-f])",re.I)),
     ("decimal_address",re.compile(r"(?<!\d)2185382640(?!\d)")),
 )
