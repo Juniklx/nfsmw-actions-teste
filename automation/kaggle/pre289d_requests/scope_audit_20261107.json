@@ -1,0 +1,8 @@
+{
+  "stage": "PRE289D",
+  "purpose": "Effective Google Drive OAuth scopes used by existing GitHub Actions secrets",
+  "read_only": true,
+  "refresh_token_rotation": false,
+  "uploads": false,
+  "source_error_run": 42368174035
+}
