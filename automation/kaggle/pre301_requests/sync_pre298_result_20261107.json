@@ -1,0 +1,9 @@
+{
+  "stage": "PRE301",
+  "source": "PRE298 42383054863; PRE298B 42387021709",
+  "canonical_file_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+  "backup_id": "15F3uyo2NdwX_wVp5mO4oiNsD7mh6litZ",
+  "finding": "0 cache hits, unequal libmain SHA256; no release",
+  "no_apk": true,
+  "no_signing": true
+}
