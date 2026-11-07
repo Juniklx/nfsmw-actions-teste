@@ -1,0 +1,73 @@
+name: NFSMW PRE286 PAL libmain ARM64 CMake link preflight (no APK/signing)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre286_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre286-real-pal-libmain
+  cancel-in-progress: false
+jobs:
+  native_link_preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 70
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install authenticated source audit dependencies
+        run: python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests cryptography >/dev/null
+      - name: Syntax-check PRE286 CMake linking audit
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre286_bmw_real_pal_libmain_cmake_nosign.py
+          python -m py_compile automation/kaggle/pre284_v37_full_passive_vtable_link_preflight.py
+          python -m py_compile automation/kaggle/pre285_bmw_arm64_ndk_logger_preflight.py
+      - name: Prepare pinned Android NDK and CMake only
+        shell: bash
+        run: |
+          set -euo pipefail
+          SDK="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
+          test -d "$SDK"
+          NEED=()
+          [ -f "$SDK/ndk/28.2.13676358/source.properties" ] || NEED+=("ndk;28.2.13676358")
+          [ -x "$SDK/cmake/3.31.6/bin/cmake" ] || NEED+=("cmake;3.31.6")
+          if [ "${#NEED[@]}" -gt 0 ]; then
+            SDKMANAGER=""
+            for q in "$SDK"/cmdline-tools/*/bin/sdkmanager "$SDK"/tools/bin/sdkmanager; do
+              if [ -x "$q" ]; then SDKMANAGER="$q"; break; fi
+            done
+            test -n "$SDKMANAGER"
+            set +o pipefail
+            yes | "$SDKMANAGER" --sdk_root="$SDK" --install "${NEED[@]}" > /tmp/nfsmw-pre286-sdk-install.log 2>&1
+            STATUS="${PIPESTATUS[1]}"
+            set -o pipefail
+            if [ "$STATUS" -ne 0 ]; then
+              echo "PRE286 tool installation error status=$STATUS"
+              tail -15 /tmp/nfsmw-pre286-sdk-install.log || true
+              exit "$STATUS"
+            fi
+          fi
+          test -x "$SDK/ndk/28.2.13676358/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android26-clang++"
+          test -x "$SDK/cmake/3.31.6/bin/cmake"
+          echo "PRE286 PINNED NDK AND CMAKE READY"
+      - name: Restore V37 in ephemeral tree; configure/link original PAL native target only
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre286_bmw_real_pal_libmain_cmake_nosign.py --run-id "$GITHUB_RUN_ID"
+      - name: Preserve diagnostic metadata without binaries or private material
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre286-bmw-pal-libmain-cmake-preflight-${{ github.run_id }}
+          path: /tmp/nfsmw-pre286/PRE286_BMW_REAL_LIBMAIN_PAL_CMAKE_LINK.json
+          retention-days: 14
+          if-no-files-found: warn
