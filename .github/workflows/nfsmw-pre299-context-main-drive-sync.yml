@@ -1,0 +1,42 @@
+name: NFSMW PRE299 consolidate canonical CONTEXTO_NFSMW.md Drive (verified backup)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre299_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre299-canonical-context-drive-singlewriter
+  cancel-in-progress: false
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install minimal Drive client and check script
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+          python -m py_compile automation/kaggle/pre299_sync_context_main_drive.py
+      - name: Verify full backup, consolidate latest addenda and update same Drive file in place
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre299_sync_context_main_drive.py --run-id "$GITHUB_RUN_ID"
+      - name: Preserve only sanitized Drive readback summary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre299-context-main-drive-audit-${{ github.run_id }}
+          path: /tmp/nfsmw-pre299/PRE299_CONTEXT_PRIMARY_DRIVE_SYNC.json
+          if-no-files-found: warn
+          retention-days: 30
