@@ -1,0 +1,42 @@
+name: NFSMW PRE302 authenticated PAL BMW menu branch audit (read-only)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre302_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre302-bmw-menu-source
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Drive authentication client and syntax check
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+          python -m py_compile automation/kaggle/pre302_pal_bmw_menu_control_flow_readonly.py
+      - name: Read authenticated PRE99 PAL function and report branch evidence
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre302_pal_bmw_menu_control_flow_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Upload only scoped control-flow metadata
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre302-bmw-menu-call-sites-${{ github.run_id }}
+          path: /tmp/nfsmw-pre302/PRE302_PAL_MAIN_MENU_BRANCH_CALL_SITES.json
+          retention-days: 30
+          if-no-files-found: warn
