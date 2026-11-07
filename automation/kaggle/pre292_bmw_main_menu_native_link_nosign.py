@@ -18,6 +18,7 @@ OUT=Path("/tmp/nfsmw-pre292/PRE292_BMW_MENU_REAL_PAL_NATIVE_LINK.json")
 MODULE_REL="nativo/app/src/nfsmw_bmw_menu_trace_pre292.cpp"
 REGISTER="target_sources(nfsmw PRIVATE src/nfsmw_bmw_menu_trace_pre292.cpp)"
 MARKER_NATIVE="NFSMW_PRE292_BMW_MENU"
+CURRENT_STAGE="START"
 # Maximum 16 total events across all car types, without reading any game memory.
 LOGGER=r'''#include <atomic>
 #include <cstdint>
@@ -36,7 +37,10 @@ def check(ok,message):
     if not ok:raise ValueError(message)
 
 def stage_trace(root:Path):
+    global CURRENT_STAGE
+    CURRENT_STAGE="STAGE_PRE283_BASE"
     prior=stage_pre283(root)
+    CURRENT_STAGE="STAGE_PRE292_MENU_SOURCE"
     path=root/SOURCE.removeprefix("workspace/")
     old=path.read_bytes()
     check(sha(old)==SOURCE_SHA,"PAL menu generated file SHA mismatch after V37 replay")
@@ -59,9 +63,11 @@ def stage_trace(root:Path):
         check(modified.count(needle)==text.count(needle),"Original guest operation changed")
     path.write_text(modified,encoding="utf8")
     check(path.read_text(encoding="utf8")==modified,"Generated source staging mismatch")
+    CURRENT_STAGE="STAGE_PRE292_LOGGER_MODULE"
     module=root/MODULE_REL
     check(not module.exists(),"Native menu logger exists unexpectedly")
     module.write_text(LOGGER,encoding="utf8")
+    CURRENT_STAGE="STAGE_PRE292_CMAKE_REGISTER"
     cfile=root/CMAKE_REL
     cmake=cfile.read_text(encoding="utf8")
     check(cmake.count(PRE284_TARGET)==1 and REGISTER not in cmake,
@@ -70,6 +76,7 @@ def stage_trace(root:Path):
     check(patched.replace("\\n    "+REGISTER,"",1)==cmake,"CMake patch not reversible")
     cfile.write_text(patched,encoding="utf8")
     check(cfile.read_text(encoding="utf8").count(REGISTER)==1,"CMake registration not unique")
+    CURRENT_STAGE="STAGE_PRE292_DONE"
     return {"pre283_logger_preserved":prior,
        "menu_source_sha256_before":sha(old),
        "menu_source_sha256_after":sha(path.read_bytes()),
@@ -93,6 +100,8 @@ def main():
             "save_modified":False,"signing_material_accessed":False}
     orig=(native.stage_logger,native.FEATURE,native.CALLBACK,native.PAL_FILENAME)
     try:
+        global CURRENT_STAGE
+        CURRENT_STAGE="NATIVE_AUDIT_STARTED"
         native.stage_logger=stage_trace
         native.FEATURE=TRACE_FLAG
         native.CALLBACK=TRACE_CALLBACK
@@ -107,6 +116,10 @@ def main():
         result["pre292_signer_accessed"]=False
     except Exception as exc:
         result["error_type"]=type(exc).__name__
+        result["failed_safe_stage"]=CURRENT_STAGE
+        if isinstance(exc,FileNotFoundError):
+            # Only reveal a bounded file basename, never account paths or error strings.
+            result["missing_basename"]=Path(exc.filename).name[:90] if exc.filename else None
     finally:
         native.stage_logger,native.FEATURE,native.CALLBACK,native.PAL_FILENAME=orig
     result["run_id"]=a.run_id
@@ -123,5 +136,7 @@ def main():
     if result["status"]!="AUDIT_OK":
         print("PRE292_BLOCKED_PHASE",result.get("status"))
         print("PRE292_ERROR_TYPE",result.get("error_type"))
+        print("PRE292_SAFE_STAGE",result.get("failed_safe_stage"))
+        print("PRE292_MISSING_BASENAME",result.get("missing_basename"))
     return 0 if result["status"]=="AUDIT_OK" else 1
 if __name__=="__main__":sys.exit(main())
