@@ -1,0 +1,8 @@
+{
+  "stage": "PRE317",
+  "kind": "synthetic host C++ gated telemetry",
+  "new_module": "pre316_nitro_cycle_monitor.hpp",
+  "staging": "pre317_nitro_cycle_staging.py",
+  "apks_modified": false,
+  "cheats_enabled": false
+}
