@@ -52,21 +52,45 @@ def main():
             if sha!=EXPECTED_SHA256 or size!=EXPECTED_BYTES:
                 raise ValueError("PRE99 mismatch")
             spec=TARGETS["nitro"]
+            matched={}
+            scanned=0
+            shard_name=re.compile(r"^workspace/nativo/app/generated/default/nfsmw_recomp\.\d+\.cpp$")
             with tarfile.open(arc,"r:gz") as tf:
-                member=next((m for m in tf if m.isfile() and m.name.lstrip("./")==spec["file"]),None)
-                if member is None or member.size>8_000_000: raise ValueError("PAL CXX missing or oversized")
-                raw=tf.extractfile(member).read()
-            if hashlib.sha256(raw).hexdigest()!=spec["sha256"]:
-                raise ValueError("PAL source SHA mismatch")
-            info=inspect(raw.decode("utf-8",errors="replace"))
-            if not info["nitro_present"]:raise ValueError("Nitro target function missing")
+                for member in tf:
+                    name=member.name.lstrip("./")
+                    if not member.isfile() or not shard_name.fullmatch(name):
+                        continue
+                    scanned+=1
+                    if member.size>8_000_000:
+                        raise ValueError("unexpected PAL shard size")
+                    fp=tf.extractfile(member)
+                    if fp is None: raise ValueError("unreadable PAL shard")
+                    raw=fp.read()
+                    if len(raw)!=member.size:raise ValueError("incomplete PAL shard")
+                    if name==spec["file"] and hashlib.sha256(raw).hexdigest()!=spec["sha256"]:
+                        raise ValueError("original Nitro PAL source SHA mismatch")
+                    if not any(n.encode() in raw for n in NEIGHBORS):
+                        continue
+                    decoded=raw.decode("utf-8",errors="replace")
+                    detail=inspect(decoded)
+                    for method in detail["methods"]:
+                        if not method["present"]:continue
+                        symbol=method["symbol"]
+                        if symbol in matched:raise ValueError("duplicate PAL function definition")
+                        matched[symbol]={**method,"shard":name}
+            if scanned<100:raise ValueError("incomplete PAL shard search")
+            if "sub_82424AF0" not in matched:raise ValueError("Nitro function missing")
             result.update({"status":"AUDIT_OK","pre99_sha256":sha,
-                "source_sha256":spec["sha256"],**info,
-                "meaning":"Only nearby symbols and structural counts. Address proximity does not establish class, vtable, player owner or caller."})
+                "original_nitro_source_sha256":spec["sha256"],
+                "pal_shards_scanned":scanned,"methods_found":len(matched),
+                "nitro_present":True,"methods":[matched[n] if n in matched else
+                   {"symbol":n,"present":False} for n in NEIGHBORS],
+                "meaning":"Across all PAL shards, code-address neighbors are not automatically same class or vtable. Owner unproven."})
     except Exception as exc:
         result["error_type"]=type(exc).__name__
     OUT.write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n")
     print("PRE332_STATUS",result["status"])
+    print("PRE332_PAL_SHARDS",result.get("pal_shards_scanned",0))
     print("PRE332_METHODS_FOUND",result.get("methods_found",0))
     print("PRE332_OWNER_VERIFIED",result["owner_verified"])
     print("PRE332_ERROR_TYPE",result.get("error_type"))
