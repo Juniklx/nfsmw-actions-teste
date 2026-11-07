@@ -1,0 +1,16 @@
+{
+  "stage": "PRE263_BMW_HEROCAR_MENU_BRANCH_CONTEXT",
+  "pre262_run_id": 42320678150,
+  "pre262_candidate_pal": "sub_8256FD30",
+  "probe_functions": [
+    "sub_82578670",
+    "sub_82578988",
+    "sub_82582F70"
+  ],
+  "read_only": true,
+  "requires_manual_mapping_review": true,
+  "build_game": false,
+  "change_game": false,
+  "access_saves": false,
+  "signing_access": false
+}
