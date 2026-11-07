@@ -74,7 +74,7 @@ def main():
                 objs.append(sha(obj.read_bytes()))
             current_stage="CCACHE_SHOW_JSON_STATS"
             raw=run([ccache,"--show-stats"],env).stdout
-            hit_match=re.search(r"(?mi)^\\s*Hits\\s*:?\\s+(\\d+)\\b",raw)
+            hit_match=re.search(r"(?mi)^\s*Hits\s*:?\s+(\d+)\b",raw)
             if hit_match is None:
                 # Only emit ccache synthetic statistics, without paths/other data.
                 result["ccache_stat_lines"]=[line.strip()[:120] for line in raw.splitlines() if re.search(r"hit|miss|cacheable",line,re.I)][:12]
