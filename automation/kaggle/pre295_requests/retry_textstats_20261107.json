@@ -1,0 +1,7 @@
+{
+  "stage": "PRE295-297",
+  "fix": "Use numeric Hits textual ccache stats consistent with PRE293",
+  "prior_run": 42382006470,
+  "apk": false,
+  "save": false
+}
