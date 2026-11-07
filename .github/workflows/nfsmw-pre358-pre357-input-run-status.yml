@@ -1,0 +1,23 @@
+name: NFSMW PRE358 PRE357 input source audit readback
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre358_requests/*.json'
+permissions:
+  actions: read
+  contents: write
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish nonsecret PRE357 run status
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre358_lookup_pre357_run_metadata.py
+          python automation/kaggle/pre358_lookup_pre357_run_metadata.py
