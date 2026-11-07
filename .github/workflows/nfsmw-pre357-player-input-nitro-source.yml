@@ -1,0 +1,46 @@
+name: NFSMW PRE357 player input Nitro source audit
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre357_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre357-player-input-source-audit
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate PRE357 source filter against mocked SDL event lines
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre357_player_input_nitro_source_audit.py automation/kaggle/pre357_player_input_nitro_source_mock.py
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre357_player_input_nitro_source_mock.py
+      - name: Install Drive read-only client
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+      - name: Audit actual native input sources in verified PRE99
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre357_player_input_nitro_source_audit.py
+      - name: Preserve bounded source audit artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre357-input-nitro-source-${{ github.run_id }}
+          path: /tmp/nfsmw-pre357/PRE357_PLAYER_INPUT_INGRESS.json
+          if-no-files-found: warn
+          retention-days: 30
