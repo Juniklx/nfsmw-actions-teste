@@ -1,0 +1,12 @@
+{
+  "stage": "PRE367",
+  "targetVersionCode": 44,
+  "package": "io.github.nfsmwrecomp",
+  "apkName": "NFSMW_V44_PRE367_NITRO_INPUT_CORRELATION_PASSIVE.apk",
+  "source": "PRE352 V43 verified builder plus PRE364 XInput native merged user0 transitions",
+  "samePermanentCertificate": true,
+  "cheatsEnabled": false,
+  "guestNitroStoresChanged": false,
+  "saveModified": false,
+  "require": "PRE316 PRE336 PRE348 PRE364 ELF markers and verified signer"
+}
