@@ -47,7 +47,8 @@ def find_ndk():
 def run_checked(args,timeout=120,cwd=None):
     p=subprocess.run([str(v) for v in args],cwd=cwd,capture_output=True,text=True,timeout=timeout)
     return {"ok":p.returncode==0,"returncode":p.returncode,
-            "stdout_tail":p.stdout[-600:],"stderr_tail":p.stderr[-1000:]}
+            "stdout_tail":p.stdout[-600:],
+            "stderr_head":p.stderr[:1600],"stderr_tail":p.stderr[-1000:]}
 
 def arm64_elf(path:Path):
     if not path.is_file():return False
@@ -60,11 +61,20 @@ def get_include_paths(root:Path):
       root/"nativo/sdk/thirdparty/fmt/include",
       root/"nativo/sdk/thirdparty/spdlog/include",
       root/"nativo/sdk/thirdparty",
+      root/"nativo/sdk/thirdparty/simde",
       root/"nativo/app/include",
       root/"nativo/app/src",
       root/"nativo/app/generated/default",
       root/"nativo/sdk/src",
     ]
+    # Resolve SIMDe as a vendored dependency by its actual header path:
+    # the include must be the directory containing the 'simde/' folder.
+    vendor=root/"nativo/sdk/thirdparty"
+    if vendor.is_dir():
+        for header in vendor.glob("**/simde/x86/sse.h"):
+            parent=header.parents[2]
+            if parent.is_dir() and parent not in options:
+                options.append(parent)
     return [p for p in options if p.is_dir()]
 
 def symbol_visible(obj:Path,ndk:Path):
@@ -168,7 +178,7 @@ def guest_macro_syntax_attempt(root:Path,tool:dict):
        "guest_file":"nfsmw_recomp.11.cpp","feature_enabled_for_syntax_test":True,
        "feature_enabled_in_APK":False,
        "full_build_flags_or_precompiled_header_available":False,
-       "diagnostic_if_failed":result["stderr_tail"] if not result["ok"] else None
+       "diagnostic_if_failed":(result["stderr_head"]+"\n...\n"+result["stderr_tail"]) if not result["ok"] else None
     }
 
 def audit(repo_root:Path):
