@@ -1,0 +1,11 @@
+{
+  "stage": "PRE352",
+  "versionCode": 43,
+  "apk": "NFSMW_V43_PRE352_NITRO_SLOT_VALUES_PASSIVE.apk",
+  "source": "V42 PRE340 signed builder + PRE349 reversible passive per-slot values",
+  "package": "io.github.nfsmwrecomp",
+  "same_permanent_certificate": true,
+  "cheats_enabled": false,
+  "guest_stores_modified": false,
+  "require": "signed APK certificate versionCode 43 and PRE316 PRE336 PRE348 markers"
+}
