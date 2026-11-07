@@ -56,11 +56,15 @@ def main():
             d=Path(tmp)
             cache=d/"nfsmw-game-objects"
             cache.mkdir()
-            src=d/"toy.cpp"
+            src=d/"nativo/app/generated/default/toy.cpp"
+            src.parent.mkdir(parents=True)
             src.write_text("#include <cstdint>\nextern \"C\" std::uint64_t synth(std::uint64_t n){return n*n+7;}\n")
             env=dict(os.environ,CCACHE_DIR=str(cache),CCACHE_BASEDIR=str(d),
-                     CCACHE_COMPILERCHECK="content",
-                     CCACHE_MAXSIZE="64M")
+                     CCACHE_COMPILERCHECK="content",CCACHE_MAXSIZE="64M",
+                     RUNNER_TEMP=str(d),NFSMW_CACHE_GAME_OPT_IN="1",
+                     NFSMW_GAME_CACHE_SOURCE_ROOT=str(d),
+                     NFSMW_GAME_CCACHE_BIN=str(ccache),
+                     NFSMW_GAME_CCACHE_DIR=str(cache))
             current_stage="CCACHE_ZERO_STATS"
             run([ccache,"-z"],env)
             objs=[];dur=[]
@@ -68,7 +72,7 @@ def main():
                 current_stage="COMPILE_SYNTH_"+str(i)
                 obj=d/f"sample_{i}.o"
                 t=time.monotonic()
-                run([ccache,compiler,"-c","-std=c++17","-O2","-fno-ident",
+                run(["bash",str(wrapper),compiler,"-c","-std=c++17","-O2","-fno-ident",
                      str(src),"-o",str(obj)],env)
                 dur.append(round((time.monotonic()-t)*1000,2))
                 objs.append(sha(obj.read_bytes()))
@@ -84,10 +88,16 @@ def main():
             check(objs[0]==objs[1],"synthetic object changed with warm cache")
             check(hits>=1,"no actual warm compile cache hit")
             check(pol.stat().st_size<25000,"policy unexpectedly large")
+            current_stage="CHECK_PRE296_REAL_POLICY_WITH_SYNTHETIC_OBJECT"
+            verified=run([shutil.which("python3") or "python3",str(pol),
+                          "--path",str(cache),"--mode","seal"],env)
+            check("PRE296_CACHE_POLICY POLICY_OK" in verified.stdout,
+                  "isolated cache policy did not validate synthetic objects")
             result.update({"status":"AUDIT_OK",
               "pre295_rolling_immutable_keys_verified":True,
               "pre295_legacy_sdk_cache_unmodified":True,
               "pre296_game_cache_default_off":True,
+              "pre296_synthetic_launcher_and_policy_pass":True,
               "pre296_policy_sha256":sha(pol.read_bytes()),
               "pre297_synthetic_compiler":Path(compiler).name,
               "pre297_synthetic_cold_ms":dur[0],
