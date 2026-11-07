@@ -1,0 +1,9 @@
+{
+  "stage": "PRE288",
+  "pre287_success_run": 42335391592,
+  "feature": "NFSMW_PRE283_VTABLE_TARGET_TRACE_ENABLE",
+  "feature_enabled_only_in_disposable_native_build": true,
+  "apk_built": false,
+  "saves_modified": false,
+  "signing": false
+}
