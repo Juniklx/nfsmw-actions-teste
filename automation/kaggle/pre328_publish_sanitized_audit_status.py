@@ -20,6 +20,7 @@ SCHEMA = {
         "status", "pal_shards_scanned", "other_source_files_scanned",
         "matches_truncated", "owner_verified", "indirect_dispatch_verified",
     },
+    "PRE332": {"status", "methods_found", "nitro_present", "owner_verified"},
     "PRE327": {
         "status", "files_inspected", "bytes_inspected",
         "oversize_or_budget_skips", "matches_truncated",
@@ -27,9 +28,9 @@ SCHEMA = {
     },
 }
 NUMBERS = {"pal_shards_scanned", "other_source_files_scanned", "files_inspected",
-           "bytes_inspected", "oversize_or_budget_skips"}
+           "bytes_inspected", "oversize_or_budget_skips", "methods_found"}
 BOOLEANS = {"matches_truncated", "owner_verified", "indirect_dispatch_verified",
-            "dispatch_verified"}
+            "dispatch_verified", "nitro_present"}
 VALID_STATUSES = {"AUDIT_OK", "FAILED"}
 
 
