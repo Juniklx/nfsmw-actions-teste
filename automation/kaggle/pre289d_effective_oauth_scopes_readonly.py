@@ -25,7 +25,15 @@ def get_credential():
     return creds
 
 def safe_error(exc):
+    # Report only allow-listed OAuth error identifiers, not response bodies
+    # (which can contain account identifiers and sensitive request details).
+    message=str(exc).lower()
+    codes=("invalid_grant","invalid_client","unauthorized_client",
+           "invalid_scope","access_denied","interaction_required",
+           "temporarily_unavailable","invalid_request")
+    matches=[code for code in codes if code in message]
     return {"error_type":type(exc).__name__,
+            "oauth_error_code":matches[0] if len(matches)==1 else "UNCLASSIFIED",
             "http_status":getattr(getattr(exc,"resp",None),"status",None)}
 
 def main():
@@ -86,6 +94,7 @@ def main():
     print("PRE289D_DRIVE_SCOPES",json.dumps(record.get("drive_scopes",{})))
     print("PRE289D_FOLDER",json.dumps(record.get("folder",{})))
     print("PRE289D_UPLOAD_ATTEMPTED",False)
+    print("PRE289D_AUTH_ERROR",json.dumps(record.get("error",{})))
     return 0
 
 if __name__=="__main__":sys.exit(main())
