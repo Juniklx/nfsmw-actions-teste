@@ -1,0 +1,7 @@
+{
+  "stage": "PRE333",
+  "purpose": "PAL same-register multi-offset structural candidates",
+  "read_only": true,
+  "owner_claim": false,
+  "apk": false
+}
