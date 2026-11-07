@@ -1,0 +1,42 @@
+name: NFSMW PRE301 sync PRE298 final into canonical Drive context
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre301_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre301-context-drive-singlewriter
+  cancel-in-progress: false
+jobs:
+  update-context:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare authenticated Drive updater
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+          python -m py_compile automation/kaggle/pre301_sync_pre298_final_to_main_context.py
+      - name: Append verified cache findings with original Drive ID and backup
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre301_sync_pre298_final_to_main_context.py
+      - name: Upload sanitized readback metadata
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre301-context-evidence-${{ github.run_id }}
+          path: /tmp/nfsmw-pre301/drive_context_append.json
+          retention-days: 30
+          if-no-files-found: warn
