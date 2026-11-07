@@ -602,12 +602,18 @@ def main()->int:
             if preview.count(MENU_DECL)!=1:
                 raise ValueError("PRE305 missing exact menu callback declaration")
             preview=preview.replace(MENU_DECL,
-                "#define NFSMW_PRE264_BMW_MENU_ENABLE 1\\n"+MENU_DECL,1)
+                "#define NFSMW_PRE264_BMW_MENU_ENABLE 1\n"+MENU_DECL,1)
+            # PRE305B prevents literal backslash-n in preprocessor directives.
+            directive="#define NFSMW_PRE264_BMW_MENU_ENABLE 1"
+            if (preview.count(directive+"\\n")!=1 or
+                    directive+r"\\n" in preview or
+                    preview.splitlines().count(directive)!=1):
+                raise ValueError("PRE305B preprocessor directive must end at a real newline")
             if (preview.count("NFSMW_PRE264_BMW_MENU_LOCAL")!=1 or
                     preview.count("#define NFSMW_PRE264_BMW_MENU_ENABLE 1")!=1 or
                     preview.count("__imp__sub_82575370(ctx, base);")!=menu_before.count("__imp__sub_82575370(ctx, base);")):
                 raise ValueError("PRE305 scoped gate instrumentation invariant failed")
-            if preview.replace("#define NFSMW_PRE264_BMW_MENU_ENABLE 1\\n","",1).replace(HERO_MODEL_CMP+HERO_MENU_INJECTION,HERO_MODEL_CMP,1)!=menu_before:
+            if preview.replace("#define NFSMW_PRE264_BMW_MENU_ENABLE 1\n","",1).replace(HERO_MODEL_CMP+HERO_MENU_INJECTION,HERO_MODEL_CMP,1)!=menu_before:
                 raise ValueError("PRE305 source gate change not reversible")
             menu_shard.write_text(preview,encoding="utf-8")
             report["pre305_menu_gate_original_sha256"]=pre289_sha(menu_before.encode("utf-8"))
