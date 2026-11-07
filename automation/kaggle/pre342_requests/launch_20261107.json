@@ -1,0 +1,7 @@
+{
+  "stage": "PRE342",
+  "context_only": true,
+  "verify_backup_before_write": true,
+  "source": "PRE340 signed V42 report verified",
+  "apk_changes": false
+}
