@@ -1,0 +1,7 @@
+{
+  "stage": "PRE296_PRE297",
+  "purpose": "Execute real opt-in game-cache launcher and policy using synthetic toy cpp only, measure cold warm hash/hits",
+  "apk": false,
+  "signing": false,
+  "real_game": false
+}
