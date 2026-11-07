@@ -569,7 +569,7 @@ def main()->int:
             patched=pal_shard.read_text(encoding="utf-8")
             if patched.count(PAL_DECL)!=1 or ("#define "+PAL_FEATURE) in patched:
                 raise ValueError("PRE289 unexpected feature declaration state")
-            patched=patched.replace(PAL_DECL,"#define "+PAL_FEATURE+" 1\\n"+PAL_DECL,1)
+            patched=patched.replace(PAL_DECL,"#define "+PAL_FEATURE+" 1\n"+PAL_DECL,1)
             pal_shard.write_text(patched,encoding="utf-8")
             report["pre289_bmw_diagnostic_source_sha256"]=pre289_sha(pal_shard.read_bytes())
             report["pre289_bmw_logger_enabled"]=True
