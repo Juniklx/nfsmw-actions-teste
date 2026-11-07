@@ -1,0 +1,7 @@
+{
+  "stage": "PRE312_REVALIDATION",
+  "reason": "Original source audit AUDIT_OK but artifact upload path mismatch; fixed output names",
+  "original_run": 42398849592,
+  "verified_shard": "nfsmw_recomp.66.cpp",
+  "readonly": true
+}
