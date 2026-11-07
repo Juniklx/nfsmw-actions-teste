@@ -1,0 +1,13 @@
+{
+  "stage": "PRE306",
+  "source_runs": [
+    42389794686,
+    42389945142,
+    42390047927,
+    42390247261
+  ],
+  "pending_experiment_run": 42390457193,
+  "canonical_file_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+  "backup_id": "1dGu3cJ_GoVcddHUawwV7eKK1-QHm_TPh",
+  "no_game_change": true
+}
