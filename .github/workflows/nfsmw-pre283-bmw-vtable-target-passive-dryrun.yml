@@ -1,0 +1,41 @@
+name: NFSMW PRE283 BMW vtable target passive recipe (read-only)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre283_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre283-bmw-vtable-target
+  cancel-in-progress: false
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install read-only authenticated PRE99 reader
+        run: python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+      - name: Syntax-check passive target logger recipe
+        run: python -m py_compile automation/kaggle/pre283_bmw_vtable_target_passive_dryrun.py
+      - name: Test default-OFF vtable target trace recipe without APK build
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre283_bmw_vtable_target_passive_dryrun.py --run-id "$GITHUB_RUN_ID"
+      - name: Preserve bounded audit metadata
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre283-bmw-vtable-target-recipe-${{ github.run_id }}
+          path: /tmp/nfsmw-pre283/PRE283_BMW_VTABLE_TARGET_PASSIVE_DRYRUN.json
+          retention-days: 14
+          if-no-files-found: warn
