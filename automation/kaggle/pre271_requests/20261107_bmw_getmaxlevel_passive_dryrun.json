@@ -1,0 +1,13 @@
+{
+  "stage": "PRE271_BMW_PAL_GETMAXLEVEL_BOUNDED_LOGGER_RECIPE",
+  "verified_pre270_run": 42324094963,
+  "source": "PRE99",
+  "function": "sub_823E5988",
+  "feature_default": false,
+  "max_log_messages": 56,
+  "no_new_guest_memory_loads": true,
+  "read_only": true,
+  "apk_built": false,
+  "save_modified": false,
+  "signer_accessed": false
+}
