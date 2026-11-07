@@ -1,0 +1,31 @@
+name: NFSMW PRE304 validate BMW model-41 menu branch truth table (no build)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre304_requests/*.json'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  model:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download verified PRE302 scoped menu control flow and analyze branches
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh api /repos/${{ github.repository }}/actions/artifacts/13581111281/zip > /tmp/pre302.zip
+          unzip -p /tmp/pre302.zip PRE302_PAL_MAIN_MENU_BRANCH_CALL_SITES.json > /tmp/pre302.json
+          python automation/kaggle/pre304_bmw_menu_gate_truth_table.py --input /tmp/pre302.json
+      - name: Upload gated truth-table metadata
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre304-bmw-menu-gate-${{ github.run_id }}
+          path: /tmp/nfsmw-pre304/PRE304_BMW_MENU_GATE_TRUTH_TABLE.json
+          retention-days: 30
