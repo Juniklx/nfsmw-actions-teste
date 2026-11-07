@@ -13,6 +13,15 @@
 - Formato já investigado PRE256: MC02 console original, array de 63 marcadores de 12 bytes a partir de 0x5739, cada um incluindo tipo/parâmetro/estado (big-endian). Os IDs e categorias vieram de referência externa com adaptador Xbox360 `sprintstate/nfs-mw-save-editor`, e foram conferidos contra a estrutura do save exportado do usuário.
 - **Confirmação funcional limitada:** sucesso relatado na importação/uso. O formato do save e a edição offline funcionaram nessa sessão; não extrapolar que outros perfis, outras versões, outros mods e alterações sem limite sejam seguros ou comprovados.
 
+## PRE257B — confirmação de persistência após reabrir o jogo
+
+- Após a orientação para fechar completamente o jogo, reabrir o perfil **MARCEK** e verificar se as fichas continuavam disponíveis, o usuário respondeu explicitamente **"Sim, continuou"**.
+- **Resultado confirmado por observação do usuário:** as quantidades Junkman editadas permaneceram disponíveis após fechar e abrir novamente o jogo no Galaxy S24 FE. A importação não foi apenas um efeito temporário da sessão original.
+- O pacote experimental continha 8 fichas por categoria de performance (7 tipos, 56 no total), preservando outras três fichas e o saldo do perfil MARCEK. A confirmação de persistência refere-se a esse teste específico, não estabelece validação de qualquer quantidade nem garante ausência de problemas em outras partidas.
+- Ainda não existe reexportação pós-reinicialização analisada byte a byte; separar **persistência confirmada visualmente/por relato** de **auditoria binária reexportada**.
+- Próximo passo de engenharia: interface opcional de ajuste por perfil e categoria, com limite de 63 slots, backup obrigatório, validadores MC02 (MD5/EA CRC32) e operação sobre uma cópia. Não é necessário novo teste apenas para repetir o sucesso da PRE257B.
+- O projeto segue na V37; nenhum novo APK ou patch Razor/BMW foi compilado. Manter chave permanente e saves históricos intactos.
+
 ## Próximos passos
 1. Opcionalmente confirmar que as **8 fichas por categoria permanecem após fechar e abrir o jogo**, e/ou reexportar o save para comprovar persistência. Não exigir novo teste para reconhecer o resultado já relatado.
 2. Manter o backup ZIP original e o ZIP modificado, com hashes, sem sobrescrever save ativo por patches diretos.
