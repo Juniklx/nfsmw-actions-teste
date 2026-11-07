@@ -1,0 +1,14 @@
+{
+  "apk_built": false,
+  "functions_qualified": 6,
+  "github_run_id": "42411632872",
+  "nitro_shaped_candidates": 1,
+  "owner_proven": false,
+  "owner_verified": false,
+  "pal_shards_scanned": 129,
+  "read_only": true,
+  "result_is_not_player_owner_proof": true,
+  "source_commit": "83236cc61aefa14bf22337c8c7294619bab155b7",
+  "stage": "PRE334",
+  "status": "AUDIT_OK"
+}
