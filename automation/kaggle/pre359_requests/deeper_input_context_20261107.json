@@ -1,0 +1,6 @@
+{
+  "stage": "PRE361",
+  "workflow": "PRE359",
+  "reason": "full Xam GetState and SDL touch/gamepad button source bodies",
+  "read_only": true
+}
