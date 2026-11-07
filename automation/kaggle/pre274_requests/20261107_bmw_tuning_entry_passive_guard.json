@@ -1,0 +1,16 @@
+{
+  "stage": "PRE274_BMW_TUNING_ENTRY_PASSIVE_IN_MEMORY",
+  "pre273_run": 42325209725,
+  "entry_function": "sub_8256B440",
+  "level_function": "sub_823E5988",
+  "feature_flags_default_off": true,
+  "checks": [
+    "source_hashes",
+    "memory_ops",
+    "reversibility",
+    "correlation_mock"
+  ],
+  "apk_built": false,
+  "save_modified": false,
+  "signer_accessed": false
+}
