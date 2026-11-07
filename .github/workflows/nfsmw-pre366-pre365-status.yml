@@ -1,0 +1,23 @@
+name: NFSMW PRE366 PRE365 source canary status readback
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre366_requests/*.json'
+permissions:
+  actions: read
+  contents: write
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish nonsecret PRE365 workflow run metadata
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre366_lookup_pre365_run_metadata.py
+          python automation/kaggle/pre366_lookup_pre365_run_metadata.py
