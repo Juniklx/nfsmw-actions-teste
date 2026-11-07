@@ -1,0 +1,14 @@
+{
+  "stage": "PRE308",
+  "source": "PRE99 PAL SHA authenticated",
+  "log": "uploaded nfsmw.log 2026-11-07",
+  "candidate_sites": [
+    7,
+    8
+  ],
+  "known_shard": "nfsmw_recomp.24.cpp",
+  "goal": "Establish exact PPC host stores before enabling any cheat",
+  "no_apk": true,
+  "no_save": true,
+  "no_signer": true
+}
