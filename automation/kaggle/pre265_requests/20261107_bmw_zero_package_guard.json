@@ -1,0 +1,9 @@
+{
+  "stage": "PRE265_BMW_PERFORMANCE_CAPABILITY_READONLY",
+  "purpose": "Audit pinned PAL UI helper paths and prevent enabling BMW menu with unvalidated zero upgrade package counts",
+  "source": "PRE99 SHA256 af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "no_apk_build": true,
+  "no_user_save_write": true,
+  "no_signer_access": true,
+  "policy": "fail closed on unknown GetMaxLevel until runtime/attribute data"
+}
