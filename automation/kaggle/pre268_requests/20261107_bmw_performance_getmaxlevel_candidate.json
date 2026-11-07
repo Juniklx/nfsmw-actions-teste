@@ -1,0 +1,16 @@
+{
+  "stage": "PRE268_BMW_PAL_PERFORMANCE_GUEST_CALL_GRAPH",
+  "audit_only": true,
+  "source": "PRE99 pinned",
+  "scope": [
+    "sub_825767F0",
+    "sub_8256D2B8",
+    "sub_8256F9D8",
+    "sub_8256F818"
+  ],
+  "intent": "identify whether helper could safely expose BMW GetMaxLevel inputs, without claiming actual package counts",
+  "build_apk": false,
+  "modify_game": false,
+  "modify_save": false,
+  "signer_access": false
+}
