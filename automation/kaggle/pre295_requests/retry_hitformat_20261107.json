@@ -1,0 +1,7 @@
+{
+  "stage": "PRE295-297",
+  "fix": "Accept textual ccache hit counters with or without colon",
+  "prior_run": 42382086247,
+  "apk": false,
+  "save": false
+}
