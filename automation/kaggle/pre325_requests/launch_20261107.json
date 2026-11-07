@@ -1,0 +1,7 @@
+{
+  "stage": "PRE325",
+  "purpose": "extended read-only PAL Nitro dispatch xref",
+  "target": "sub_82424AF0",
+  "apk": false,
+  "patch": false
+}
