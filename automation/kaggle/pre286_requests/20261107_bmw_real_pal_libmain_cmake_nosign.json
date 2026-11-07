@@ -1,0 +1,14 @@
+{
+  "stage": "PRE286_BMW_ACTUAL_PAL_LIBMAIN_NDK_LINK",
+  "after": "PRE285_AUDIT_OK_42331362650",
+  "source": "PRE99 authenticated",
+  "patch_chain": "V37 PRE117-PRE247",
+  "feature": "PRE283 default OFF",
+  "goal": "Configure original Android PAL native CMake and build verified libmain.so ARM64 target when present",
+  "android_ndk": "28.2.13676358",
+  "cmake": "3.31.6",
+  "no_gradle": true,
+  "no_apk": true,
+  "no_signing_material": true,
+  "no_saves": true
+}
