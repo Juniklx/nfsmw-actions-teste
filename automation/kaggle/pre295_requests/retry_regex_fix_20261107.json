@@ -1,0 +1,7 @@
+{
+  "stage": "PRE295-297",
+  "fix": "Regex correctly matches ccache Hits: 1 / 2",
+  "prior_run": 42382176252,
+  "apk": false,
+  "signing": false
+}
