@@ -1,0 +1,7 @@
+{
+  "stage": "PRE350",
+  "mode": "offline_synthetic_host_regression",
+  "no_apk": true,
+  "guest_mutation": false,
+  "owner_verified": false
+}
