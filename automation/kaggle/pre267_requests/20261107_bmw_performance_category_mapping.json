@@ -1,0 +1,9 @@
+{
+  "stage": "PRE267_FIND_SETUPPERFORMANCE_PAL",
+  "scope": "READ_ONLY",
+  "source": "PRE99 authenticated SHA256 af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "expected_high_level": "CustomizeSub::SetupPerformance: seven options per front/backroom",
+  "apk_build": false,
+  "signer": false,
+  "save_write": false
+}
