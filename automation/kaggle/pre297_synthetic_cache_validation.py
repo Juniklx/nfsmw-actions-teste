@@ -72,8 +72,8 @@ def main():
                 current_stage="COMPILE_SYNTH_"+str(i)
                 obj=d/f"sample_{i}.o"
                 t=time.monotonic()
-                run(["bash",str(wrapper),compiler,"-c","-std=c++17","-O2","-fno-ident",
-                     str(src),"-o",str(obj)],env)
+                run(["bash",str(wrapper),compiler,"-std=c++17","-O2","-fno-ident",
+                     "-c",str(src),"-o",str(obj)],env)
                 dur.append(round((time.monotonic()-t)*1000,2))
                 objs.append(sha(obj.read_bytes()))
             current_stage="CCACHE_SHOW_JSON_STATS"
