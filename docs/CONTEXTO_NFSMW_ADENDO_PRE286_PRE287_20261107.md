@@ -245,3 +245,11 @@
 - Mesmo **sem usar Speedbreaker**, sites 7/8 do candidato +132 foram registrados às 14:57:50.432–50.615 em `0xBFA7CD34`; site 7 antes do clamp 1,00133336→1,00066662; site 8 mantém 1,0. Isso evidencia atualização automática/limitação de medidor e evita inferir uso do botão só pelo marcador.
 - PRE312 original run `42398849592` completou `AUDIT_OK`, 5 stores de Nitro PAL em linhas relativas 377,411,508,518,525; artefato ausente por nome divergente no workflow, corrigido em script/workflow. Revalidação somente leitura acionada. Relatório `docs/PRE313_TESTE_CONTROLADO_NITRO_CONSUMO_RECARGA_20261107.md`.
 - **Ainda não ativar Nitro infinito:** PRE309 é somente política C++ host; necessita validar o último store por caminho, registrar limiares/min/max do ciclo com diagnóstico de baixo volume e preservar o save MARCEK; dinheiro não alterado, V40 mantida.
+
+
+## PRE316–PRE318 Nitro full-cycle monitor, 2026-11-07
+- PRE313 isolated Nitro test confirmed first logged samples for drain/recharge, not final zero/one due 12-log cap. PRE312 authenticated 5 PAL stores unchanged.
+- PRE316 header `automation/kaggle/pre316_nitro_cycle_monitor.hpp` implements passive per-site [1..5] min/max, sample counters, threshold bands and sparse power-of-2 checkpoints, with no extra guest loads or writes; no cheats enabled. PRE317 stages only the existing PRE247 logger module in an isolated build and is reversible.
+- Host-C++ regression https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42399887087 success: `PRE316_STATUS AUDIT_OK` (4 assertions), `PRE317_STATUS AUDIT_OK` (`PRE317_SYNTHETIC_LOG_CAP_OK 57`). Not an Android validation.
+- PRE318 signed V41 passive diagnostic builder/workflow created, versionCode=41, same package/certificate, V40 BMW gate retained, old diagnostics retained, marker `NFSMW_PRE316_NITRO_CYCLE` required in PAL ELF. Workflow triggered https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42400074496 (initially queued). DO NOT report APK compiled/uploaded until confirmed by actual logs/Drive. No Nitro/Speedbreaker/money cheat activated, no save changes.
+- Report: `docs/PRE316_PRE318_NITRO_MONITOR_CICLO_COMPLETO_V41_20261107.md`. Next: check PRE318, then device log observing complete Nitro depletion/refill and min/max; preserve V39/V40, MARCEK backup, controls, graphics and thermal limits.
