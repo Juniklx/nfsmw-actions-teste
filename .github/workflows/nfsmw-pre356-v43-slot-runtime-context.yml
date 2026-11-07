@@ -1,4 +1,4 @@
-name: NFSMW PRE356 verified PRE346 PRE350 V43 pending context sync
+name: NFSMW PRE356 verified PRE355 V43 Nitro slot runtime context sync
 on:
   workflow_dispatch:
   push:
@@ -24,14 +24,14 @@ jobs:
           set -euo pipefail
           python -m py_compile automation/kaggle/pre356_sync_v43_slot_runtime_context.py
           python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
-      - name: Backup, append verified PRE344 findings and read back context
+      - name: Backup, append verified PRE355 findings and read back context
         env:
           GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
         run: |
           set -euo pipefail
-          python automation/kaggle/pre356_sync_player_owner_v43_progress_context.py
+          python automation/kaggle/pre356_sync_v43_slot_runtime_context.py
       - name: Preserve bounded context sync status
         if: always()
         uses: actions/upload-artifact@v4
