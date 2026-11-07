@@ -1,0 +1,7 @@
+{
+  "stage": "PRE296_PRE297",
+  "fix": "Place -c immediately before synthetic source as CMake/Ninja does",
+  "prior_run": 42382387736,
+  "real_game": false,
+  "apk": false
+}
