@@ -1,0 +1,15 @@
+{
+  "stage": "PRE275_BMW_GETMAXLEVEL_SIDE_EFFECTS_PAL",
+  "pre274_run": 42325527254,
+  "authenticated_snapshot": "PRE99",
+  "targets": [
+    "sub_823E5988",
+    "sub_8214B858",
+    "sub_8214EDA8"
+  ],
+  "critical_check": "Two nonstack guest U16 stores at r11+18 prevent extra GetMaxLevel calls",
+  "read_only": true,
+  "apk_built": false,
+  "signer_accessed": false,
+  "save_modified": false
+}
