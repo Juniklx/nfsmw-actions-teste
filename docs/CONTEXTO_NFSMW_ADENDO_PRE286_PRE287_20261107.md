@@ -81,3 +81,11 @@
 - Metadados consultados pela conexão Drive: pasta 02_APKs ID 1ac3fI_ahnp3yp7kU4JvsgDdsKkpy5tBh existe no My Drive e consta permissão owner. Essa conexão não necessariamente utiliza o mesmo OAuth do GitHub Actions.
 - Não disparar upload idêntico sem diagnosticar razão 403 e a identidade/scopes da credencial do workflow (nunca imprimir tokens ou credenciais).
 - APK V38 e relatório continuam disponíveis no artifact GitHub da run 42354940551 (artifact 13567394025); sem recompilação ou reassinatura; instalação e correção da tunagem não testadas.
+
+
+## PRE289C — diagnóstico SOMENTE LEITURA do Google Drive 403 (2026-11-07)
+- Run GitHub Actions 42369148031; job completed/success. Sem tentativas de upload e sem acesso à APK nem às credenciais de assinatura.
+- Resultados logados: `PRE289C_STATUS APP_ACCESS_NOT_AUTHORIZED`; pasta `02_APKs` encontrada; `can_add_children=true`; `can_list_children=true`; `is_app_authorized=false`; `is_shared_drive=false`. Quota lida: `enough_for_v38=true`, `quota_at_or_above_limit=false`.
+- **Interpretação com ressalva:** a identidade autenticada pelo workflow consegue localizar a pasta e tem capacidade de adicionar filhos, mas o app OAuth usado pelo GitHub NÃO está autorizado para essa pasta segundo `isAppAuthorized`. Isso é compatível com restrição `drive.file` de acesso por arquivo/app e com HTTP 403 de upload, mas a resposta original do erro não capturou o campo `reason`, portanto a causa exata da API ainda precisa de confirmação.
+- **Correção segura recomendada:** conceder à MESMA aplicação OAuth do workflow autorização à pasta pelo Google Picker (quando a app suporta) ou reautorizar o cliente OAuth com o escopo adequado, usando consentimento explícito; comparar o token efetivo com os escopos aceitos, sem expor, apagar ou recriar segredos nos logs. `drive.file` tem acesso por arquivo/app; `drive` é escopo restrito e só deve ser considerado se necessário.
+- Não repetir upload enquanto `is_app_authorized=false`. Continuar usando artifact Github 13567394025 para V38; nenhum efeito no jogo ou correção de tuning foi comprovado.
