@@ -1,0 +1,53 @@
+name: NFSMW PRE334 PAL Nitro candidate qualification
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre334_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre334-pal-nitro
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify syntax and synthetic qualification fixtures
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre334_pal_nitro_layout_qualification_readonly.py automation/kaggle/pre334_pal_nitro_layout_qualification_mock.py
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre334_pal_nitro_layout_qualification_mock.py
+      - name: Install authenticated Drive dependencies
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+      - name: Qualify six candidates from authenticated PRE99 PAL
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre334_pal_nitro_layout_qualification_readonly.py
+      - name: Archive bounded qualification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre334-pal-nitro-qualification-${{ github.run_id }}
+          path: /tmp/nfsmw-pre334/PRE334_NITRO_LAYOUT_QUALIFICATION.json
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Publish allowlisted status
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre328_publish_sanitized_audit_status.py --stage PRE334 --report /tmp/nfsmw-pre334/PRE334_NITRO_LAYOUT_QUALIFICATION.json
