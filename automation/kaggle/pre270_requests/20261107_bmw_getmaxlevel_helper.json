@@ -1,0 +1,11 @@
+{
+  "stage": "PRE270_GUEST_PHYSICS_GETMAXLEVEL_MAP",
+  "previous_run": 42323844085,
+  "source": "PRE99 authenticated",
+  "owner": "sub_8256F818",
+  "candidate": "sub_823E5988",
+  "research_only": true,
+  "build_apk": false,
+  "change_save": false,
+  "access_signer": false
+}
