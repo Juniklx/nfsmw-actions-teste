@@ -1,0 +1,13 @@
+{
+  "stage": "PRE293",
+  "target": "V39 signed diagnostic",
+  "preceding_pass_run": 42376933757,
+  "expected_version_code": 39,
+  "same_package": true,
+  "permanent_certificate_sha256": "1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b",
+  "goal": "Passive BMW main-menu trace, retain PRE283/V38 and unchanged menu behavior",
+  "source_readonly_restore": true,
+  "release_key_not_regenerated": true,
+  "save_untouched": true,
+  "upload_to_private_drive": true
+}
