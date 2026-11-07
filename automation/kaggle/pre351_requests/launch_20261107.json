@@ -1,0 +1,5 @@
+{
+  "stage": "PRE351",
+  "target": "PRE350 native mock",
+  "data": "workflow run metadata only"
+}
