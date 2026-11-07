@@ -26,3 +26,10 @@
 
 ## Arquivo de auditoria local
 `PRE343_V42_NITRO_RUNTIME_AUDITORIA.json` gerado nesta conversa com contagens, checkpoints por site, fingerprint e ressalvas; não inclui dados de assinatura privados.
+
+## Adendo de contexto do teste informado pelo usuário — 2026-11-07
+O usuário esclareceu após a análise: **a coleta PRE343 da V42 foi realizada fora de corrida, em exploração livre, com apenas o próprio carro no mapa, sem adversários presentes**. Esta informação não foi deduzida do log; é descrição fornecida pelo responsável pelo teste.
+
+Interpretação revisada: `distinct=1` e `slot=1` são consistentes com o único carro presente, reforçando a hipótese de que o objeto pertence ao jogador **naquela situação**. Porém, um objeto Nitro registrado não garante que a rotina não processaria veículos de IA em corridas, não identifica owner semanticamente e não demonstra ausência de outros objetos que não passaram pela função.
+
+**Próximo experimento controlado com a mesma APK V42:** entrar numa corrida com veículos adversários, consumir e recarregar Nitro, coletar novo `nfsmw.log` e comparar diversidade PRE336, sem alterar jogo ou save. Se continuar um slot, ainda será necessário distinguir se a função é exclusiva do jogador ou se a IA não usa esse caminho. Não criar cheat com base somente nesses contadores.
