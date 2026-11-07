@@ -1,0 +1,9 @@
+{
+  "stage": "PRE323",
+  "source": "Authenticated PRE99 PAL",
+  "question": "Trace f28/f30 bounds and r31/owner in sub_82424AF0 before any opt-in infinite nitro patch",
+  "noGameChanges": true,
+  "noApk": true,
+  "noSigner": true,
+  "noSave": true
+}
