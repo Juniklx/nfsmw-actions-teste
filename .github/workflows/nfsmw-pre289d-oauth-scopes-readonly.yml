@@ -1,0 +1,42 @@
+name: NFSMW PRE289D effective OAuth Drive scopes read-only (no upload)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre289d_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre289d-oauth-scopes
+  cancel-in-progress: false
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Google OAuth client and check scope audit syntax
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+          python -m py_compile automation/kaggle/pre289d_effective_oauth_scopes_readonly.py
+      - name: Inspect OAuth access token scope flags without revealing credentials
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre289d_effective_oauth_scopes_readonly.py
+      - name: Preserve flags-only metadata
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre289d-effective-drive-scopes-${{ github.run_id }}
+          path: /tmp/nfsmw-pre289d/PRE289D_EFFECTIVE_DRIVE_OAUTH_SCOPES.json
+          retention-days: 14
+          if-no-files-found: warn
