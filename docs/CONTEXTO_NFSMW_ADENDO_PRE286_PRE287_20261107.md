@@ -65,3 +65,10 @@
 - PRE289B prepara recuperação de upload apenas, sem recompilar ou assinar, reaproveitando artifact da run 42354940551. O script valida hash SHA256 e tamanho contra relatório PRE289, marcador BMW, hash libmain PAL, assinatura v2 com certificado permanente, pacote e versionCode 38, faz lookup idempotente por nome+MD5 no Drive e só então tenta upload; não toca no save.
 - Workflow `.github/workflows/nfsmw-pre289b-v38-upload-only.yml`; script `automation/kaggle/pre289b_upload_verified_v38_only.py`.
 - Run PRE289B 42367222713: queued na última consulta. Só declarar upload/publicação após `PRE289B_STATUS AUDIT_OK` e readback do Drive. Falha do Drive anterior pode ocorrer novamente; não alterar assinatura.
+
+
+## PRE289B falha verificada e correção pontual — 2026-11-07
+- Run 42367222713, completed/failure: artifact PRE289 V38 recuperado com sucesso; log `PRE289B_APK_VERIFIED True`, `PRE289B_ERROR_TYPE TypeError`, `PRE289B_DRIVE_FILE_ID None`; portanto nenhuma publicação ao Drive comprovada.
+- Inspeção estática do script de recuperação encontrou parâmetro inválido `page_size=100` em `googleapiclient.files().list`; corrigido para `pageSize=100` no commit `2c90c0189da309ea09381abf7ab2f5c492088e49`. É a causa técnica identificada, mas o traceback original não foi capturado integralmente.
+- Novo disparo sem rebuild/reassinatura: PRE289B run https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42368174035 (queued na última consulta). Reusa exatamente a APK assinada da PRE289.
+- Próximo passo: examinar `PRE289B_STATUS`, MD5 e ID confirmado por readback na pasta Drive; não declarar sucesso até a aprovação.
