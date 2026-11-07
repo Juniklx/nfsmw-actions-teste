@@ -1,0 +1,11 @@
+{
+  "stage": "PRE284_FULL_V37_PATCH_CHAIN_AND_PRE283_NATIVE_LOGGER_PREFLIGHT",
+  "source": "Authenticated PRE99",
+  "pre283_run": 42329366778,
+  "prior_v37_build": "V37 PRE247",
+  "scope": "Temporary full V37 source patch replay, CMake logger registration, host C++ link and real SDK header syntax; no ARM64/Gradle build",
+  "feature_enabled": false,
+  "no_user_save_reads": true,
+  "no_signing_material": true,
+  "no_apk_build": true
+}
