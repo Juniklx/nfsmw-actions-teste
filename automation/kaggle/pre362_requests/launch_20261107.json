@@ -1,0 +1,6 @@
+{
+  "stage": "PRE362",
+  "scope": "authenticated SDK native InputSystem state implementation and host XInput dataflow",
+  "noGuestReads": true,
+  "noAPK": true
+}
