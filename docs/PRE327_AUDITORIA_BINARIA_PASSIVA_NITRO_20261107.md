@@ -25,3 +25,12 @@
 
 ## Próxima ação
 Conferir logs/artifacts das runs PRE325/PRE325B/PRE326/PRE327. Se existir hit binário, primeiro verificar o formato da seção e a origem do ponteiro antes de atribuir semântica. Para validar owner ainda será necessária evidência runtime de qual carro controla o medidor; não habilitar cheat sem essa prova.
+
+## Resultado verificado — PRE327 GitHub Actions run 42407723203
+- URL da execução: https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42407723203
+- Job `audit` ID `128508938300`: `completed/success`; etapas de teste, leitura, artifact e publicação PRE328 concluídas com sucesso.
+- Log interno: `PRE327_MOCK_STATUS AUDIT_OK`, `PRE327_MOCK_ASSERTIONS 7`; `PRE327_STATUS AUDIT_OK`, `PRE327_FILES 1`, `PRE327_MATCHING_FILES 0`, `PRE327_OWNER_VERIFIED False`.
+- Relatório sanitizado lido de `docs/generated/PRE328_PRE327_SANITIZED_STATUS.json`: `files_inspected=1`, `bytes_inspected=56320`, `oversize_or_budget_skips=0`, `dispatch_verified=false`, `owner_verified=false`.
+- Artefato GitHub `13588361242`, nome `nfsmw-pre327-nitro-binary-xrefs-42407723203`, disponibilizado pelo Actions. Não foi necessário divulgar nomes brutos dos membros, offsets ou dados de credenciais.
+- **Conclusão restrita:** nenhuma correspondência de bytes big/little-endian para o endereço Nitro no único arquivo binário candidato de 56.320 bytes. O `AUDIT_OK` descreve sucesso da varredura, NÃO prova a ausência geral de tabela de despacho nem o owner do jogador.
+- Próxima decisão: não repetir PRE327 sem hipótese nova; esperar relatório PRE325 e priorizar análise do log V41 já existente via PRE326 ou instrumentação runtime de owner devidamente validada.
