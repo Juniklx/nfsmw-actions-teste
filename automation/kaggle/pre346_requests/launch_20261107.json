@@ -1,0 +1,7 @@
+{
+  "stage": "PRE346",
+  "goal": "find independently named player vehicle source references in authenticated PRE99",
+  "read_only": true,
+  "owner_claim": false,
+  "apk": false
+}
