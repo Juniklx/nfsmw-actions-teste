@@ -1,0 +1,11 @@
+{
+  "stage": "PRE285_NDK_SYMBOL_PARSER_RETRY1",
+  "previous_run": 42330683152,
+  "previous_failure": "The object was compiled but verifier read truncated llvm-nm output",
+  "change": "Read full llvm-nm output for callback symbols on object and archive",
+  "read_only_source": true,
+  "ndk": "28.2.13676358",
+  "build_apk": false,
+  "access_signer": false,
+  "save_edits": false
+}
