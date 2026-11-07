@@ -227,7 +227,7 @@ int main() {
         if compiler is None:raise ValueError("C++ compiler not found on runner")
         output=tmp/"mock"
         cmd=[compiler,"-std=c++20","-O1","-Wall","-Wextra","-Werror",
-             "-pthread","-I",str(tmp),str(root/MODULE_REL),str(harness),
+             "-pthread","-Wno-unused-parameter","-I",str(tmp),str(root/MODULE_REL),str(harness),
              "-o",str(output)]
         c=subprocess.run(cmd,capture_output=True,text=True,timeout=90)
         if c.returncode!=0:raise ValueError("Native host logger shim compile/link failed: "+c.stderr[-400:])
