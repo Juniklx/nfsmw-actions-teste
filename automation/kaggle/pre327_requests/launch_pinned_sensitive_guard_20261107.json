@@ -1,0 +1,6 @@
+{
+  "stage": "PRE327",
+  "revision": "sensitive names excluded",
+  "purpose": "read-only bounded byte search",
+  "writes_guest": false
+}
