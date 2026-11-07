@@ -106,3 +106,12 @@
 - Antes da troca do token, PRE289D run 42372037871 conseguia autenticar e provou token antigo somente `drive.readonly`.
 - Interpretação: a nova combinação client_id/client_secret/refresh_token ou configuração de fluxo OAuth não está aceita no endpoint de refresh. Não afirmar ainda qual componente é inválido; confirmar que novo refresh token veio do EXATO cliente Web existente do GitHub, `Use your own OAuth credentials` ligado no Playground, redirect URI autorizada, access_type offline, escopo drive, e que foi copiado o refresh token (não authorization code nem access token). Não expor credenciais. Só atualizar `GOOGLE_REFRESH_TOKEN` após confirmação; não recriar cliente/chave.
 - Não disparar upload PRE289B enquanto PRE289D não confirmar `drive_full=true`. APK V38 original preservada no artifact 13567394025.
+
+
+## PRE289D OAuth corrigido e PRE289B V38 publicada — 2026-11-07
+- Usuário informou nova tentativa de autorização OAuth. PRE289D run https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42373143816: `FULL_DRIVE_SCOPE_PRESENT`, tokeninfo verificou `drive_full=true`; nenhuma tentativa de upload nesta auditoria.
+- PRE289B run https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42373209767: completed/success; log `PRE289B_STATUS AUDIT_OK`, `PRE289B_APK_VERIFIED True`, `PRE289B_DRIVE_FILE_ID 1V0AnQnsUpDOwRo2b208uRkg3yFWXwy0W`, `PRE289B_ERROR_TYPE None`.
+- Arquivo validado pelo processo de recuperação: `NFSMW_V38_PRE289_BMW_PASSIVE_VTABLE_DIAGNOSTIC.apk`, 47.102.221 bytes, pacote `io.github.nfsmwrecomp`, versionCode 38; assinatura permanente revalidada no PRE289B e SHA/MD5 comparados com relatório original e readback do Drive.
+- Consulta independente via conector Drive: ID `1V0AnQnsUpDOwRo2b208uRkg3yFWXwy0W`, pasta `02_APKs` ID `1ac3fI_ahnp3yp7kU4JvsgDdsKkpy5tBh`, tamanho 47.102.221, MIME APK. Link: https://drive.google.com/file/d/1V0AnQnsUpDOwRo2b208uRkg3yFWXwy0W/view .
+- Nenhuma recompilação/reassinatura/alteração do save MARCEK na recuperação. V38 ainda NÃO instalada/testada no Galaxy S24 FE; o diagnóstico da BMW não demonstra correção das categorias Peças e Desempenho.
+- Próximo passo: guardar backup do save, instalar V38 por cima sem desinstalar para preservar dados (se Android aceitar a assinatura e a versão); selecionar a edição PAL/PT-BR, abrir oficina com a BMW M3 GTR e obter `nfsmw.log` com marcador `NFSMW_PRE283_BMW_VTABLE`. Se o marcador não aparecer, auditar caminho da interface e edição ativa antes de novos patches.
