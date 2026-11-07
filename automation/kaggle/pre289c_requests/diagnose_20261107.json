@@ -1,0 +1,8 @@
+{
+  "stage": "PRE289C",
+  "prior_failed_run": 42368174035,
+  "http_status": 403,
+  "operation": "read_only_oauth_folder_quota",
+  "upload": false,
+  "save_modified": false
+}
