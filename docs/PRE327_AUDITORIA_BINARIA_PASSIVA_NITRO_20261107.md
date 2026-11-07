@@ -34,3 +34,9 @@ Conferir logs/artifacts das runs PRE325/PRE325B/PRE326/PRE327. Se existir hit bi
 - Artefato GitHub `13588361242`, nome `nfsmw-pre327-nitro-binary-xrefs-42407723203`, disponibilizado pelo Actions. Não foi necessário divulgar nomes brutos dos membros, offsets ou dados de credenciais.
 - **Conclusão restrita:** nenhuma correspondência de bytes big/little-endian para o endereço Nitro no único arquivo binário candidato de 56.320 bytes. O `AUDIT_OK` descreve sucesso da varredura, NÃO prova a ausência geral de tabela de despacho nem o owner do jogador.
 - Próxima decisão: não repetir PRE327 sem hipótese nova; esperar relatório PRE325 e priorizar análise do log V41 já existente via PRE326 ou instrumentação runtime de owner devidamente validada.
+
+## Correção de escopo após abrir artefato completo (2026-11-07)
+- Artefato PRE327 `13588361242` foi aberto e o JSON examinado, não apenas o resumo.
+- O **único** arquivo examinado foi `workspace/nativo/sdk/thirdparty/sdl3/test/moose.dat` (56.320 bytes), fixture/teste do SDL3 e não imagem de código/dados do NFSMW.
+- Portanto, zero correspondências **não fornece informação útil sobre a existência de vtables do jogo**. PRE327 é apenas prova de que o workflow executou sua busca limitada e publicou relatório, e deve ser marcada **INCONCLUSIVA PARA O OBJETIVO DO OWNER**.
+- Não repetir extensão de varredura binária indiscriminadamente. Dados/rotinas gerados do jogo são representados predominantemente em `nfsmw_recomp.*.cpp` e eventual imagem guest; o backup PRE99 verificado não mostrou arquivo binário de jogo entre as extensões propostas.
