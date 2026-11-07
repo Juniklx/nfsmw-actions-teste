@@ -1,13 +1,13 @@
 {
   "apk_built": false,
-  "github_run_id": "42410914389",
-  "methods_found": 1,
+  "github_run_id": "42411097708",
+  "methods_found": 7,
   "nitro_present": true,
   "owner_proven": false,
   "owner_verified": false,
   "read_only": true,
   "result_is_not_player_owner_proof": true,
-  "source_commit": "f0499203342b2ea7d5e92322545905f399e2bdd5",
+  "source_commit": "6f34cc79719a241e1ec4288758fe247a55ab773c",
   "stage": "PRE332",
   "status": "AUDIT_OK"
 }
