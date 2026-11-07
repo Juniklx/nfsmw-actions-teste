@@ -12,7 +12,7 @@ import sys
 import tarfile
 import tempfile
 
-from pre104_verify_backup_tar import EXPECTED_BYTES, EXPECTED_SHA256, sha_file
+from pre104_verify_backup_tar import EXPECTED_BYTES, EXPECTED_SHA256, looks_sensitive, sha_file
 from pre105_read_settings_source import drive_client, download
 
 OUT = Path("/tmp/nfsmw-pre327/NFSMW_PRE327_NITRO_BINARY_XREFS.json")
@@ -70,7 +70,7 @@ def main():
                         continue
                     name = member.name.lstrip("./")
                     lower = name.lower()
-                    if not lower.startswith("workspace/") or not lower.endswith(EXTENSIONS):
+                    if not lower.startswith("workspace/") or not lower.endswith(EXTENSIONS) or looks_sensitive(name):
                         continue
                     if member.size > MAX_MEMBER_BYTES or total + member.size > MAX_TOTAL_BYTES:
                         skipped_oversize += 1
