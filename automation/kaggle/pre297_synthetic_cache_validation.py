@@ -74,7 +74,10 @@ def main():
                 objs.append(sha(obj.read_bytes()))
             current_stage="CCACHE_SHOW_JSON_STATS"
             raw=run([ccache,"--show-stats"],env).stdout
-            hit_match=re.search(r"(?m)^\\s*Hits:\\s*(\\d+)",raw)
+            hit_match=re.search(r"(?mi)^\\s*Hits\\s*:?\\s+(\\d+)\\b",raw)
+            if hit_match is None:
+                # Only emit ccache synthetic statistics, without paths/other data.
+                result["ccache_stat_lines"]=[line.strip()[:120] for line in raw.splitlines() if re.search(r"hit|miss|cacheable",line,re.I)][:12]
             check(hit_match is not None,"ccache numeric hit count unavailable")
             hits=int(hit_match.group(1))
             current_stage="VERIFY_CACHE_HIT_AND_HASH"
@@ -103,6 +106,8 @@ def main():
     OUT.write_text(json.dumps(result,indent=2)+"\n")
     print("PRE297_FAILED_STAGE",result.get("failed_stage"))
     print("PRE297_FAILURE_REASON",result.get("failure_reason"))
+    if result.get("ccache_stat_lines"):
+        print("PRE297_CCACHE_STATS",result["ccache_stat_lines"])
     for key in ("status","pre295_rolling_immutable_keys_verified",
                 "pre296_game_cache_default_off","pre297_synthetic_object_hash_equal",
                 "pre297_synthetic_ccache_hits","real_game_cache_validated"):
