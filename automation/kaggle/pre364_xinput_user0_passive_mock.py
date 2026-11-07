@@ -17,7 +17,7 @@ assert patched.count("*out_state = merged;")==1
 assert "user_index == 0u" in patched
 assert "seq <= 256u" in patched
 assert "lt >= 32u" in patched and "rt >= 32u" in patched
-for bad in (patched, SRC.replace("GetDeviceState(","OtherDeviceState("), SRC.replace("  return X_ERROR_SUCCESS;","  return X_ERROR_SUCCESS;\n  return 0;")):
+for bad in (patched, SRC.replace("GetDeviceState(","OtherDeviceState("), SRC.replace("*out_state = merged;","*out_state = unexpected;")):
     try:inject(bad)
     except ValueError:pass
     else:raise AssertionError("PRE364 fail-closed expected")
