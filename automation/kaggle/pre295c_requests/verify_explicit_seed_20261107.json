@@ -1,0 +1,7 @@
+{
+  "stage": "PRE295C",
+  "source_exact_rolling_cache_key": "nfsmw-sdk-rolling-v2-Linux-42382717266",
+  "goal": "Prefer exact validated rolling SDK cache to legacy fallback, then save fresh run key",
+  "apk": false,
+  "real_game": false
+}
