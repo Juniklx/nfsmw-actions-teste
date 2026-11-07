@@ -237,3 +237,11 @@
 - Sem marcadores PRE246 dinheiro no novo log. Nitro e Speedbreaker indicados por PPC fonte PRE247/242, mas o logger não registrou botão/estado de entrada simultâneo; não tratar mapeamento como teste causal conclusivo.
 - Evidência PRE311: `docs/PRE311_LOG_CONSUMO_NITRO_SPEEDBREAKER_20261107.md`. **Nenhuma APK/cheat ativado ou save alterado por esta auditoria.**
 - PRE312 fonte Nitro PRE99 autenticada iniciou novo workflow https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42398849592 para auditar cinco stores e fluxos por ramo antes de ligar política PRE309. Não afirmar `AUDIT_OK` até verificar final.
+
+
+## PRE313 — Nitro até zero e recuperação completa (observação do usuário), 2026-11-07
+- Novo `nfsmw.log` 1.609.683 bytes, 6.880 linhas, SHA-256 `2032fe0ac3fcc7e558ec1985e828eaa7482ddc9ea9cc87c926548d568ae00eb2`. Contém outras sessões; trecho **novo** às 14:57.
+- Usuário realizou teste com **apenas Nitro**, drenando até o fim e aguardando recarga visual completa. PRE247 capturou só as **primeiras 12 amostras por site** (cota intencional), não os instantes finais de zero/um: Nitro sites 1/2, 14:57:49.329–49.512, 0,99333334→0,92000008; Nitro sites 3/4, 14:57:53.864–54.048, 0,00055555557→0,00666666590; todos endereço guest `0xBFA9E7FC` na sessão. Site 5 não logado.
+- Mesmo **sem usar Speedbreaker**, sites 7/8 do candidato +132 foram registrados às 14:57:50.432–50.615 em `0xBFA7CD34`; site 7 antes do clamp 1,00133336→1,00066662; site 8 mantém 1,0. Isso evidencia atualização automática/limitação de medidor e evita inferir uso do botão só pelo marcador.
+- PRE312 original run `42398849592` completou `AUDIT_OK`, 5 stores de Nitro PAL em linhas relativas 377,411,508,518,525; artefato ausente por nome divergente no workflow, corrigido em script/workflow. Revalidação somente leitura acionada. Relatório `docs/PRE313_TESTE_CONTROLADO_NITRO_CONSUMO_RECARGA_20261107.md`.
+- **Ainda não ativar Nitro infinito:** PRE309 é somente política C++ host; necessita validar o último store por caminho, registrar limiares/min/max do ciclo com diagnóstico de baixo volume e preservar o save MARCEK; dinheiro não alterado, V40 mantida.
