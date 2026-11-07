@@ -1,12 +1,12 @@
 {
   "apk_built": false,
   "context_bytes": 641744,
-  "github_run_id": "42412811107",
+  "github_run_id": "42412908549",
   "owner_proven": false,
-  "read_only": true,
+  "read_only": false,
   "readback": true,
   "result_is_not_player_owner_proof": true,
-  "source_commit": "182cbba26bf44f99522521baab0f1db674a65685",
+  "source_commit": "c87402ccdf2a9623807e2091961a99ebea864935",
   "stage": "PRE339",
   "status": "ALREADY_PRESENT"
 }
