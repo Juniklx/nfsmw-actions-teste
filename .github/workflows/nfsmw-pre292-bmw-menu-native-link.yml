@@ -19,13 +19,40 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Setup pinned Android NDK and prerequisites
+      - name: Install authenticated source audit dependencies and syntax-check
         run: |
           set -euo pipefail
-          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests cryptography >/dev/null
           python -m py_compile automation/kaggle/pre292_bmw_main_menu_native_link_nosign.py
           python -m py_compile automation/kaggle/pre291_bmw_main_menu_passive_trace_dryrun.py
-          echo "y" | sudo ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager --install "ndk;28.2.13676358" >/dev/null 2>&1 || test -x "${ANDROID_HOME}/ndk/28.2.13676358/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android26-clang++"
+      - name: Prepare pinned Android NDK and CMake only
+        shell: bash
+        run: |
+          set -euo pipefail
+          SDK="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
+          test -d "$SDK"
+          NEED=()
+          [ -f "$SDK/ndk/28.2.13676358/source.properties" ] || NEED+=("ndk;28.2.13676358")
+          [ -x "$SDK/cmake/3.31.6/bin/cmake" ] || NEED+=("cmake;3.31.6")
+          if [ "${#NEED[@]}" -gt 0 ]; then
+            SDKMANAGER=""
+            for q in "$SDK"/cmdline-tools/*/bin/sdkmanager "$SDK"/tools/bin/sdkmanager; do
+              if [ -x "$q" ]; then SDKMANAGER="$q"; break; fi
+            done
+            test -n "$SDKMANAGER"
+            set +o pipefail
+            yes | "$SDKMANAGER" --sdk_root="$SDK" --install "${NEED[@]}" > /tmp/nfsmw-pre292-sdk-install.log 2>&1
+            STATUS="${PIPESTATUS[1]}"
+            set -o pipefail
+            if [ "$STATUS" -ne 0 ]; then
+              echo "PRE292 tool install status=$STATUS"
+              tail -12 /tmp/nfsmw-pre292-sdk-install.log || true
+              exit "$STATUS"
+            fi
+          fi
+          test -x "$SDK/ndk/28.2.13676358/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android26-clang++"
+          test -x "$SDK/cmake/3.31.6/bin/cmake"
+          echo "PRE292 PINNED NDK AND CMAKE READY"
       - name: Compile and link original PAL ARM64 target in disposable workspace
         env:
           GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
