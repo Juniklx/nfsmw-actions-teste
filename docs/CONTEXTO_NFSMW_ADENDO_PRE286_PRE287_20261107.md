@@ -261,3 +261,10 @@
 - Consuming interval 15:47:58.877–15:48:01.363; recovery interval 15:48:03.410–15:48:45.270. Equivalent values for pairs 1/2 and 3/4. PRE316 sparse checkpoints mean don't assume final 0 or 1 was captured; exact final guest store authority remains unverified.
 - `PRE247` count 336 is the **full appended file** including older sessions, not 336 new-session calls. `PRE246_CHEATS_DIAG` absent. No literal fatal/SIGSEGV marker found; this is not a full stability proof.
 - Report `docs/PRE321_V41_NITRO_CICLO_RUNTIME_20261107.md`. Next: inspect PRE312 bounded original PPC/host-store contexts to determine authoritative final store and evaluate opt-in-only Nitro patch on isolated tree with OFF=original invariants. No functional Nitro/Speedbreaker/Money cheat enabled yet, no user save mutated by audit. Preserve permanently signed V41 and MARCEK.
+
+
+## PRE322 — Nitro +252 pre-clamp / post-clamp PPC flow, 2026-11-07
+- PRE322 read-only run https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42403504371 **success**, used PRE312 authenticated artifact and no build/patch. Report `docs/PRE322_NITRO_PPC_STORES_AUTORITATIVOS_20261107.md`.
+- Nitro candidate `sub_82424AF0`, field+252: site 1 (line 377) subtracts delta and pre-writes; site 2 (line 411) compares with `f30` and clamps lower bound before post-write. Site 3 (line 508) adds delta and pre-writes; site 4 (line 518) compares with `f28` and clamps upper bound before post-write. Site 5 (line 525) is alternative path writing `f30`; absent in V41 log. Values of `f28`/`f30` and owner/vehicle context still need proof.
+- PRE321 canonical Drive main context synced via run https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42403427617 `SYNC_OK` `READBACK True`. Verified V41 PRE316 58 events and near-complete cycle, no exact 0/1 confirmed.
+- **Do not activate Nitro infinite yet:** if trial is prepared later, only after owner/vehicle/context validation and fail-closed OFF=unaltered source, explicit user opt-in and versionCode 42 with permanent signing. PRE309 remains host mock; V41 is passive diagnostics only.
