@@ -1,0 +1,13 @@
+{
+  "stage": "PRE283_BMW_VTABLE_TARGET_GUEST_TRACE_RECIPE",
+  "pre282_run": 42329075877,
+  "guest_function": "sub_82582F70",
+  "callsite": "0x825837D4",
+  "vtable_offset_bytes": 12,
+  "feature_enabled_by_default": false,
+  "max_logs": 12,
+  "purpose": "Determine real target of existing CustomizePerformance virtual call in future diagnostic without opening BMW performance",
+  "no_build": true,
+  "no_signer_access": true,
+  "no_user_save_changes": true
+}
