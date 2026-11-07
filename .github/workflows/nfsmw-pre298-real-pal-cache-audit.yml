@@ -1,0 +1,71 @@
+name: NFSMW PRE298 real PAL ARM64 cold-warm cache audit (no APK or persisted objects)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre298_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre298-real-pal-native-cache-no-persist
+  cancel-in-progress: false
+jobs:
+  native-twice:
+    runs-on: ubuntu-latest
+    timeout-minutes: 85
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install authenticated code audit dependencies and ccache
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests cryptography >/dev/null
+          python -m py_compile automation/kaggle/pre298_real_pal_cold_warm_nocachepersist.py
+          bash -n automation/kaggle/pre296_game_objects_cache_launcher.sh
+          if ! command -v ccache >/dev/null; then
+            sudo apt-get update -qq >/dev/null
+            sudo apt-get install -y -qq ccache >/dev/null
+          fi
+      - name: Install pinned NDK and CMake without touching game or signer
+        shell: bash
+        run: |
+          set -euo pipefail
+          SDK="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
+          test -d "$SDK"
+          MISSING=()
+          [ -f "$SDK/ndk/28.2.13676358/source.properties" ] || MISSING+=("ndk;28.2.13676358")
+          [ -x "$SDK/cmake/3.31.6/bin/cmake" ] || MISSING+=("cmake;3.31.6")
+          if [ "${#MISSING[@]}" -gt 0 ]; then
+            MANAGER=""
+            for q in "$SDK"/cmdline-tools/*/bin/sdkmanager "$SDK"/tools/bin/sdkmanager; do
+              if [ -x "$q" ]; then MANAGER="$q"; break; fi
+            done
+            test -n "$MANAGER"
+            set +o pipefail
+            yes | "$MANAGER" --sdk_root="$SDK" --install "${MISSING[@]}" >/tmp/nfsmw-pre298-sdk.log 2>&1
+            RESULT="${PIPESTATUS[1]}"
+            set -o pipefail
+            test "$RESULT" -eq 0
+          fi
+          test -x "$SDK/ndk/28.2.13676358/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android26-clang++"
+          test -x "$SDK/cmake/3.31.6/bin/cmake"
+          echo "PRE298 NDK CMAKE READY"
+      - name: Two authenticated isolated production PAL native links with ephemeral game-object cache
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre298_real_pal_cold_warm_nocachepersist.py --run-id "$GITHUB_RUN_ID"
+      - name: Upload metadata only; NEVER cache or publish game C++ objects
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre298-real-pal-cache-metadata-${{ github.run_id }}
+          path: /tmp/nfsmw-pre298/PRE298_REAL_PAL_COLD_WARM_NO_PERSISTENCE.json
+          retention-days: 30
+          if-no-files-found: warn
