@@ -1,0 +1,10 @@
+{
+  "stage": "PRE321",
+  "primaryContextFileId": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+  "backupFileId": "1wBZYQYykg9oKxmbLfS-T-gJLvWC3Ew8p",
+  "logSha256": "ac17e87607723c6f98b5a553b4e7c4c99ad8a0b968eea8c6af0bb1f235b4c9bc",
+  "runtimeMarker": "NFSMW_PRE316_NITRO_CYCLE",
+  "events": 58,
+  "cheatsFunctional": false,
+  "noGameBuild": true
+}
