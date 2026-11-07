@@ -1,0 +1,41 @@
+name: NFSMW PRE275 BMW GetMaxLevel helper side effects audit (read-only)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre275_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre275-bmw-getmaxlevel
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install authenticated PRE99 reader
+        run: python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+      - name: Validate Python syntax
+        run: python -m py_compile automation/kaggle/pre275_bmw_getmaxlevel_side_effects_readonly.py
+      - name: Audit PAL helper and direct callee guest side effects
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre275_bmw_getmaxlevel_side_effects_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Archive read-only report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre275-bmw-getmaxlevel-side-effects-${{ github.run_id }}
+          path: /tmp/nfsmw-pre275/PRE275_BMW_GETMAXLEVEL_CALLEE_SIDE_EFFECTS.json
+          retention-days: 14
+          if-no-files-found: warn
