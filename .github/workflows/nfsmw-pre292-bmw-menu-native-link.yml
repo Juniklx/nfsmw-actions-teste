@@ -1,0 +1,44 @@
+name: NFSMW PRE292 BMW main-menu PAL native link (no APK)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre292_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre292-bmw-menu-arm64
+  cancel-in-progress: false
+jobs:
+  native-link:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Setup pinned Android NDK and prerequisites
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+          python -m py_compile automation/kaggle/pre292_bmw_main_menu_native_link_nosign.py
+          python -m py_compile automation/kaggle/pre291_bmw_main_menu_passive_trace_dryrun.py
+          echo "y" | sudo ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager --install "ndk;28.2.13676358" >/dev/null 2>&1 || test -x "${ANDROID_HOME}/ndk/28.2.13676358/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android26-clang++"
+      - name: Compile and link original PAL ARM64 target in disposable workspace
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre292_bmw_main_menu_native_link_nosign.py --run-id "$GITHUB_RUN_ID"
+      - name: Save sanitized diagnostics only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre292-bmw-menu-arm64-link-${{ github.run_id }}
+          path: /tmp/nfsmw-pre292/PRE292_BMW_MENU_REAL_PAL_NATIVE_LINK.json
+          retention-days: 30
+          if-no-files-found: warn
