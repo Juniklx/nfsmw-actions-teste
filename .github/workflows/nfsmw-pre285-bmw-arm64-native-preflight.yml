@@ -1,0 +1,73 @@
+name: NFSMW PRE285 Android ARM64 NDK vtable logger CMake preflight (no APK)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre285_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre285-bmw-arm64-no-apk
+  cancel-in-progress: false
+jobs:
+  aarch64_preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 80
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install authenticated Drive source reader
+        run: python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests cryptography >/dev/null
+      - name: Check Python scripts and CMake/Ninja
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre284_v37_full_passive_vtable_link_preflight.py
+          python -m py_compile automation/kaggle/pre285_bmw_arm64_ndk_logger_preflight.py
+          cmake --version | head -1
+          ninja --version
+      - name: Prepare Android NDK r28.2 only (no signing or Gradle)
+        shell: bash
+        run: |
+          set -euo pipefail
+          SDK="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
+          test -d "$SDK"
+          if [ ! -f "$SDK/ndk/28.2.13676358/source.properties" ]; then
+            SDKMANAGER=""
+            for p in "$SDK"/cmdline-tools/*/bin/sdkmanager "$SDK"/tools/bin/sdkmanager; do
+              if [ -x "$p" ]; then SDKMANAGER="$p"; break; fi
+            done
+            test -n "$SDKMANAGER"
+            echo "Installing pinned NDK for isolated ARM64 compile only"
+            set +o pipefail
+            yes | "$SDKMANAGER" --sdk_root="$SDK" --install "ndk;28.2.13676358" > /tmp/nfsmw-pre285-ndk-install.log 2>&1
+            STATUS="${PIPESTATUS[1]}"
+            set -o pipefail
+            if [ "$STATUS" -ne 0 ]; then
+              echo "NDK installation failed, status=$STATUS"
+              tail -15 /tmp/nfsmw-pre285-ndk-install.log || true
+              exit "$STATUS"
+            fi
+          fi
+          NDK="$SDK/ndk/28.2.13676358"
+          test -x "$NDK/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android26-clang++"
+          echo "PRE285 pinned Android NDK compiler available"
+          df -h "$SDK" | tail -1
+      - name: Rebuild temporary V37 sources and compile/link ARM64 PRE283 diagnostic
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre285_bmw_arm64_ndk_logger_preflight.py --run-id "$GITHUB_RUN_ID"
+      - name: Archive source-only sanitized native report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre285-bmw-arm64-native-preflight-${{ github.run_id }}
+          path: /tmp/nfsmw-pre285/PRE285_AARCH64_NDK_PASSIVE_VTABLE_COMPILE.json
+          retention-days: 14
+          if-no-files-found: warn
