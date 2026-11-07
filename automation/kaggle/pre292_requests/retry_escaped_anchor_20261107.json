@@ -1,0 +1,7 @@
+{
+  "stage": "PRE292",
+  "fix": "Correct regex escape before generated function and CMake newline",
+  "prior_run": 42376726666,
+  "apk": false,
+  "signing": false
+}
