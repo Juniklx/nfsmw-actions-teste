@@ -1,0 +1,7 @@
+{
+  "stage": "PRE295",
+  "purpose": "Verify prioritized rotating prefix now sees existing cache, after PRE295B exact readback passed",
+  "expected_seed": "nfsmw-sdk-rolling-v2-Linux-42382484905",
+  "no_game": true,
+  "no_apk": true
+}
