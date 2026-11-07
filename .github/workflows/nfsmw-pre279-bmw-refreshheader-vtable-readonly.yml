@@ -1,0 +1,41 @@
+name: NFSMW PRE279 BMW RefreshHeader vtable target audit (read-only)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre279_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre279-bmw-vtable
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install authenticated PRE99 reader
+        run: python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+      - name: Syntax validation
+        run: python -m py_compile automation/kaggle/pre279_bmw_refreshheader_vtable_readonly.py
+      - name: Audit PAL Setup vtable dispatch and nearby method candidates
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre279_bmw_refreshheader_vtable_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Archive sanitized read-only report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre279-bmw-refreshheader-vtable-${{ github.run_id }}
+          path: /tmp/nfsmw-pre279/PRE279_BMW_REFRESHHEADER_VTABLE_CANDIDATES.json
+          retention-days: 14
+          if-no-files-found: warn
