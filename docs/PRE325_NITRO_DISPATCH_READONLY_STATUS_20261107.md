@@ -36,3 +36,16 @@
 - Arquivo de novo disparo: `automation/kaggle/pre325_requests/launch_corrected_regex_20261107.json`, commit `f0476b80e9f6b09e518d5a43e865b6863f6bfeb0`.
 - O workflow PRE325B foi configurado para reexecutar quando o script PRE325 muda; **execução/resultados do GitHub Actions ainda não verificados**.
 - Resultado de auditoria do PRE99, localização de caller/owner, consumo em player vs AI e V42 continuam **pendentes**. Nenhum patch Nitro, assinatura ou APK nesta correção.
+
+## Resultado confirmado por log e artefato GitHub — PRE325 revisada
+- Run `42407721044` / job `128508932656`: `completed/success`; log `PRE325_STATUS AUDIT_OK`, `PRE325_PAL_SHARDS 129`, `PRE325_MATCHES 5`, `PRE325_OWNER_VERIFIED False`.
+- PRE99 SHA-256 autenticado; 129 shards PAL gerados e 11.126 outros arquivos-fonte examinados. Artefato `13588336479` baixado e JSON aberto.
+- As **cinco** referências textuais são: 
+  1. `workspace/nativo/app/generated/default/nfsmw_funcs.h:30869` — `DECLARE_REX_FUNC(sub_82424AF0);` (declaração);
+  2. `workspace/nativo/app/generated/default/nfsmw_init.cpp:30887` — `{ 0x82424AF0, sub_82424AF0 },` (tabela de inicialização);
+  3. `workspace/nativo/app/generated/default/nfsmw_recomp.66.cpp:16124` — `DEFINE_REX_FUNC(sub_82424AF0) {` (definição PAL);
+  4. `workspace/nativo/app/generated/default/nfsmw_register.cpp:30869` — `registrar->SetFunction(0x82424AF0, sub_82424AF0);` (registro runtime);
+  5. `workspace/nativo/app_usa/generated/default/nfsmw_recomp.66.cpp:16351` — `ctx.lr = 0x82424AF0;` numa sequência `REX_CALL_INDIRECT_FUNC(ctr.u32)` **da edição USA**, contexto `sub_82424988`. O endereço é valor de link/retorno do callsite USA, não prova de invocação da rotina PAL.
+- Nenhuma referência constitui **named direct caller PAL**. A tabela `nfsmw_init.cpp` é mecanismo de registro, não objeto do jogador. O alvo permanece `sub_82424AF0`; owner permanece desconhecido.
+- PRE327 run `42407723203` também terminou com AUDIT_OK, mas seu único binário candidato foi `sdk/thirdparty/sdl3/test/moose.dat`, tornando-o inconclusivo para dados de vtable do jogo. Não insistir em varredura binária indiscriminada.
+- Mantenha a PRE321 V41 como evidência runtime dos stores +252. Próximo trabalho justificável: acessar `nfsmw.log` V41 original para correlacionar endereços PRE247 e definir instrumentação passiva contextual de owner, sem habilitar cheat antes da validação.
