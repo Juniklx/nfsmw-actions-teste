@@ -1,0 +1,39 @@
+name: NFSMW PRE308 inspect authenticated PAL Speedbreaker store flow (read only)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre308_requests/*.json'
+permissions:
+  contents: read
+jobs:
+  source-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install minimal Drive client and validate scripts
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+          python -m py_compile automation/kaggle/pre308_speedbreaker_store_flow_readonly.py
+      - name: Extract exact verified PRE99 PAL PPC store flow without patch
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre308_speedbreaker_store_flow_readonly.py
+      - name: Preserve bounded source metadata for review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre308-speedbreaker-flow-${{ github.run_id }}
+          path: /tmp/nfsmw-pre308/PRE308_SPEEDBREAKER_CANDIDATE_7_8_CONTEXT.json
+          retention-days: 30
+          if-no-files-found: warn
