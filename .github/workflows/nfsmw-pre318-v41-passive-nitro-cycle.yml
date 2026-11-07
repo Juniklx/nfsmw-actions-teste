@@ -60,11 +60,11 @@ jobs:
             automation/kaggle/pre292_bmw_main_menu_native_link_nosign.py \
             automation/kaggle/pre318_build_signed_v41_nitro_cycle_passive.py
           python automation/kaggle/pre139_verify_dependency_cache.py --self-test
-      - name: PRE318B fail-closed BMW C++ macro synthetic regression gate
+      - name: PRE305B fail-closed BMW C++ macro synthetic regression gate
         run: |
           set -euo pipefail
-          python -m py_compile automation/kaggle/pre318b_gate_macro_preflight.py
-          python automation/kaggle/pre318b_gate_macro_preflight.py
+          python -m py_compile automation/kaggle/pre305b_gate_macro_preflight.py
+          python automation/kaggle/pre305b_gate_macro_preflight.py
       - name: PRE318 fail-closed passive Nitro cycle C++ canary
         run: |
           set -euo pipefail
@@ -166,7 +166,7 @@ jobs:
           mkdir -p /tmp/nfsmw-pre318-out
           python automation/kaggle/pre318_build_signed_v41_nitro_cycle_passive.py \
             --run-id "$GITHUB_RUN_ID" \
-            --report /tmp/nfsmw-pre318-out/pre318-v40-report.json \
+            --report /tmp/nfsmw-pre318-out/pre318-v41-report.json \
             --verified-output /tmp/nfsmw-pre318-out/nfsmw-v41-nitro-cycle-verified.apk \
             --upload
       - name: PRE139 verify dependency-only cache contents before GitHub cache save
@@ -202,13 +202,13 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: nfsmw-pre318-v40-bmw-menu-${{ github.run_id }}
+          name: nfsmw-pre318-v41-nitro-cycle-${{ github.run_id }}
           path: |
-            /tmp/nfsmw-pre318-out/pre318-v40-report.json
+            /tmp/nfsmw-pre318-out/pre318-v41-report.json
             /tmp/nfsmw-pre318-out/nfsmw-v41-nitro-cycle-verified.apk
           if-no-files-found: warn
           retention-days: 14
-      - name: Require fully validated and permanently signed V40 BMW diagnostic
+      - name: Require fully validated and permanently signed V41 Nitro cycle diagnostic
         if: always()
         env:
           PRE194_BUILD: ${{ steps.release.outcome }}
