@@ -1,0 +1,43 @@
+name: NFSMW PRE327 read-only PAL Nitro binary xrefs
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre327_requests/*.json'
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify static syntax and synthetic byte-scan cases
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre327_nitro_binary_xrefs_readonly.py automation/kaggle/pre327_nitro_binary_xrefs_mock.py
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre327_nitro_binary_xrefs_mock.py
+      - name: Install verified Drive read dependencies
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+      - name: Scan authenticated PRE99 binary candidates without extraction
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre327_nitro_binary_xrefs_readonly.py
+      - name: Archive bounded sanitized report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre327-nitro-binary-xrefs-${{ github.run_id }}
+          path: /tmp/nfsmw-pre327/NFSMW_PRE327_NITRO_BINARY_XREFS.json
+          if-no-files-found: warn
+          retention-days: 30
