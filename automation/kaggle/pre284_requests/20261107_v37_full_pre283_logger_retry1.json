@@ -1,0 +1,9 @@
+{
+  "stage": "PRE284_RETRY1",
+  "previous_run": 42329949083,
+  "purpose": "Revalidate PRE131 generated file handling and expose safe error reason if still failed",
+  "source_readonly": true,
+  "apk_build": false,
+  "access_signer": false,
+  "save_edit": false
+}
