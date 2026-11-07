@@ -1,0 +1,12 @@
+{
+  "stage": "PRE280_BMW_REFRESHHEADER_NULL_SELECTION_STATIC",
+  "pre279_run": 42328099622,
+  "source": "PRE99 authenticated",
+  "candidate": "sub_82582A40",
+  "source_sha256": "21e561eeae953888b7d645719dc6bd7077dfa040f3f06896b7bbe3ba3e7774d4",
+  "goal": "Inspect first selected-part access before PreviewPerfPkg and zero guards; no modifications",
+  "read_only": true,
+  "apk_build": false,
+  "save_mutation": false,
+  "signer_access": false
+}
