@@ -1,0 +1,23 @@
+name: NFSMW PRE363 PRE362 XInput host audit readback
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre363_requests/*.json'
+permissions:
+  actions: read
+  contents: write
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish PRE362 run metadata only
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre363_lookup_pre362_run_metadata.py
+          python automation/kaggle/pre363_lookup_pre362_run_metadata.py
