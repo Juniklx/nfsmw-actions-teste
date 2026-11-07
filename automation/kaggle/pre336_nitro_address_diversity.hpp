@@ -18,6 +18,15 @@ struct Diversity {
   std::atomic<std::uint32_t> events[5]{};
   std::atomic<std::uint32_t> unique{0};
   std::atomic<bool> exceeded{false};
+  // PRE348: a lookup of an already recorded identity; no allocation or guest access.
+  // Returns 0 for unknown/overflow addresses. This is NOT a player classification.
+  std::uint32_t lookup_slot(std::uint32_t address) const noexcept {
+    if (!address || address == 0xffffffffu) return 0;
+    for(std::uint32_t i=0;i<kSlots;++i) {
+      if(addresses[i].load(std::memory_order_acquire)==address) return i+1;
+    }
+    return 0;
+  }
   bool observe(std::uint32_t site, std::uint32_t guest_address, Snapshot& out) noexcept {
     if(site < 1 || site > 5 || !guest_address || guest_address == 0xffffffffu)
       return false;
