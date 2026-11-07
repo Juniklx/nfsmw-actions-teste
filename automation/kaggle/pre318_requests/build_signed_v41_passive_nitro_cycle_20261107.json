@@ -1,0 +1,16 @@
+{
+  "stage": "PRE318",
+  "purpose": "Build signed V41 with Nitro telemetry only (NOT a working cheat)",
+  "versionCode": 41,
+  "package": "io.github.nfsmwrecomp",
+  "certificateSha256": "1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b",
+  "parentVersion": "V40 PRE305",
+  "changes": "PRE317 passive-only Nitro cycle logger in PAL PRE247 module; model-41 BMW gate retained",
+  "prohibited": [
+    "alter saves",
+    "change original meter stores",
+    "enable cheat",
+    "reduce graphics or bypass thermal limits"
+  ],
+  "backup": "Preserve V39/V40 and MARCEK"
+}
