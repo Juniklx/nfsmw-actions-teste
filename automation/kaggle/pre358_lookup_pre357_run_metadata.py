@@ -9,7 +9,7 @@ from pathlib import Path
 
 REPO=os.environ["GITHUB_REPOSITORY"]
 TOKEN=os.environ["GITHUB_TOKEN"]
-WORKFLOW="nfsmw-pre357-v43-nitro-slot-values-passive.yml"
+WORKFLOW="nfsmw-pre357-player-input-nitro-source.yml"
 TARGET="8d1a4a0a1f3423db3891b6d4e7b9a5171b546cfa"
 HEADERS={"Authorization":f"Bearer {TOKEN}",
          "Accept":"application/vnd.github+json",
