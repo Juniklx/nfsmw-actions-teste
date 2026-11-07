@@ -1,0 +1,9 @@
+{
+  "stage": "PRE302",
+  "source": "Verified PRE99 PAL C++",
+  "confirmed_runtime_marker": "NFSMW_PRE292_BMW_MENU callsite=0x82578988 type=41 event=1",
+  "goal": "Audit five menu option creation calls and compare type 41 branch without patching",
+  "no_apk": true,
+  "no_signer": true,
+  "no_save": true
+}
