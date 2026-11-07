@@ -1,0 +1,16 @@
+{
+  "apk_built": false,
+  "bytes_inspected": 56320,
+  "dispatch_verified": false,
+  "files_inspected": 1,
+  "github_run_id": "42407723203",
+  "matches_truncated": false,
+  "oversize_or_budget_skips": 0,
+  "owner_proven": false,
+  "owner_verified": false,
+  "read_only": true,
+  "result_is_not_player_owner_proof": true,
+  "source_commit": "525684c190821e514e79b731fe78a40c332cabb4",
+  "stage": "PRE327",
+  "status": "AUDIT_OK"
+}
