@@ -28,3 +28,11 @@
 2. Se auditoria falhar, corrigir erro demonstrado sem repetir patch no código do jogo.
 3. Se passar, interpretar matches e verificar se há prova suficiente de owner. Caso contrário, preparar rastreamento runtime limitado e reversível do objeto e comparação com carro do jogador.
 4. Preservar V41 assinada e certificado permanente. Nenhuma V42 nesta etapa.
+
+## PRE325C — Correção verificada do predicado textual (2026-11-07)
+- Foi identificado falso positivo reproduzível na expressão `sub_82424AF0`: ela também encontrava o identificador mais longo `sub_82424AF01`.
+- Correção mínima: `\\bsub_82424AF0\\b`, sem alterar o jogo. Verificação local com sete casos de teste (7/7 aprovados), incluindo correspondência positiva ao endereço hex/decimal e rejeição de identificador maior.
+- Commit da correção: `db72732d4554ee60ad55982221fbeeb6bacdbdfc`.
+- Arquivo de novo disparo: `automation/kaggle/pre325_requests/launch_corrected_regex_20261107.json`, commit `f0476b80e9f6b09e518d5a43e865b6863f6bfeb0`.
+- O workflow PRE325B foi configurado para reexecutar quando o script PRE325 muda; **execução/resultados do GitHub Actions ainda não verificados**.
+- Resultado de auditoria do PRE99, localização de caller/owner, consumo em player vs AI e V42 continuam **pendentes**. Nenhum patch Nitro, assinatura ou APK nesta correção.
