@@ -43,3 +43,10 @@ São **48** logs PRE247 dos sites Nitro 1–4 e **24** de Speedbreaker 7–8 nes
 
 ## Integridade do projeto
 Sem nova APK, assinatura, patch de Nitro, mudança do save MARCEK, controles, resolução, shaders ou limites térmicos. Manter V41 assinada como referência, pacote `io.github.nfsmwrecomp` e certificado permanente SHA256 `1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b`.
+
+## Continuação PRE330 — quatro grupos temporais autenticados no mesmo log
+- Auditor Python local reprodutível: `automation/kaggle/pre330_nitro_multigroup_readonly.py`; resultado SHA-256 do log mantido `ac17e87607723c6f98b5a553b4e7c4c99ad8a0b968eea8c6af0bb1f235b4c9bc`.
+- Resultado efetivo `AUDIT_OK`: 4 grupos começando 14:53:07.907, 14:57:49.329, 15:05:09.827 e 15:47:58.877. Cada grupo 12 registros para cada site Nitro 1/2/3/4, nenhum site 5; total 192 registros Nitro entre 336 marcadores PRE247 do arquivo.
+- Endereço Nitro único em todos os eventos PRE247 extraídos: `0xBFA9E7FC`. Limite por site/processo e falta de identificação de owner continuam.
+- A separação é por lacuna de 90 segundos entre grupos de site 1, sem comprovar PID/sessão Android diferente. **Não inferir owner a partir da estabilidade do endereço**.
+- Relatório detalhado: `docs/PRE330_V41_QUATRO_GRUPOS_NITRO_ENDERECO_20261107.md`; próximo critério de evidência: `docs/PRE331_PLANO_PROVA_OWNER_NITRO_20261107.md`.
