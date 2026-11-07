@@ -1,0 +1,6 @@
+{
+  "stage": "PRE339",
+  "purpose": "idempotent readback after fixing report output path",
+  "reappend": false,
+  "apk": false
+}
