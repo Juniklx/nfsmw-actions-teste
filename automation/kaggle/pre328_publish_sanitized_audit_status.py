@@ -20,6 +20,7 @@ SCHEMA = {
         "status", "pal_shards_scanned", "other_source_files_scanned",
         "matches_truncated", "owner_verified", "indirect_dispatch_verified",
     },
+    "PRE339": {"status", "readback", "backup_created", "backup_unchanged", "context_bytes"},
     "PRE338": {"status", "owner_verified"},
     "PRE337": {"status", "owner_verified"},
     "PRE336": {"status", "owner_verified"},
