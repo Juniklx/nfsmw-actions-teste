@@ -1,0 +1,38 @@
+name: NFSMW PRE338 passive composite C++ syntax check
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre338_nitro_composite_native_compile_mock.py'
+permissions:
+  contents: write
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Compose PRE317 and PRE337 and compile native callback with g++
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre338_nitro_composite_native_compile_mock.py
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre338_nitro_composite_native_compile_mock.py
+      - name: Preserve bounded compile result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre338-composite-native-compile-${{ github.run_id }}
+          path: /tmp/nfsmw-pre338/PRE338_REPORT.json
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Publish sanitized PRE338 status
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre328_publish_sanitized_audit_status.py --stage PRE338 --report /tmp/nfsmw-pre338/PRE338_REPORT.json
