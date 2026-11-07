@@ -1,0 +1,12 @@
+{
+  "stage": "PRE266_V38_BMW_MENU_GUARD_DISPOSABLE_INTEGRATION",
+  "original_snapshot": "PRE99 authenticated",
+  "applies_v37_passive_money_and_meters": true,
+  "guard_default": false,
+  "patch_function": "sub_82578988",
+  "source_path": "workspace/nativo/app/generated/default/nfsmw_recomp.5.cpp",
+  "read_only_ephemeral": true,
+  "apk_built": false,
+  "signer_access": false,
+  "saves_modified": false
+}
