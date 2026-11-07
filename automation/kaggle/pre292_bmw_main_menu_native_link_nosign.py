@@ -117,6 +117,24 @@ def main():
     except Exception as exc:
         result["error_type"]=type(exc).__name__
         result["failed_safe_stage"]=CURRENT_STAGE
+        known_failures=(
+          "PAL menu generated file SHA mismatch after V37 replay",
+          "PRE292 already present",
+          "No unique model41 compare",
+          "PPC anchors differ",
+          "Unexpected menu option calls",
+          "type call ordering differs",
+          "No generated function declaration",
+          "Callback call/prototype not unique",
+          "Trace changes are not exactly reversible",
+          "Original guest operation changed",
+          "Generated source staging mismatch",
+          "Native menu logger exists unexpectedly",
+          "Expected previous logger CMake line once",
+          "CMake patch not reversible",
+          "CMake registration not unique"
+        )
+        result["known_failure_reason"]=str(exc) if str(exc) in known_failures else None
         if isinstance(exc,FileNotFoundError):
             # Only reveal a bounded file basename, never account paths or error strings.
             result["missing_basename"]=Path(exc.filename).name[:90] if exc.filename else None
@@ -138,5 +156,6 @@ def main():
         print("PRE292_ERROR_TYPE",result.get("error_type"))
         print("PRE292_SAFE_STAGE",result.get("failed_safe_stage"))
         print("PRE292_MISSING_BASENAME",result.get("missing_basename"))
+        print("PRE292_KNOWN_REASON",result.get("known_failure_reason"))
     return 0 if result["status"]=="AUDIT_OK" else 1
 if __name__=="__main__":sys.exit(main())
