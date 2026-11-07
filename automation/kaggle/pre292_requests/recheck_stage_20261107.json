@@ -1,0 +1,7 @@
+{
+  "stage": "PRE292",
+  "purpose": "Identify safe failure phase of previous FileNotFoundError",
+  "prior_run": 42376367276,
+  "no_apk": true,
+  "no_signing": true
+}
