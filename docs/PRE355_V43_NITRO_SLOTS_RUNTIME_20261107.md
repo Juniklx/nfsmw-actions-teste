@@ -35,3 +35,14 @@ A PRE336 registrou `distinct=3`, `overflow=false`; PRE348 registrou checkpoints 
 - **V43 PRE352 efetivamente executou** o callback PRE348 no Android; build e assinatura validadas anteriormente no GitHub. Nitro infinito, Speedbreaker infinito e dinheiro ilimitado continuam desligados.
 - Antes de fazer qualquer mudança de consumo, obter confirmação do usuário sobre quantidade de carros no teste da V43 e horários de uso deliberado do Nitro; preferir teste de controle com input conhecido e, finalmente, uma referência player-car independente no código.
 - Nenhuma APK/guest/save foi modificada nesta auditoria. Preservar `MARCEK`, V41, V42, V43, controle PG-9076, 1920×1080, shaders e certificado permanente SHA-256 `1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b`.
+
+## Adendo: relato do usuário após o teste — 2026-11-07
+
+O usuário esclareceu **que pressionou o Nitro até esgotá-lo completamente, depois esperou o medidor recarregar até 100% e só então fechou o jogo**. A análise anterior tratou os últimos checkpoints como se fossem necessariamente os valores finais, mas a PRE348 registra somente eventos de ordinal 1, 2, 4, 8, ..., 8192; não registra continuamente cada atualização.
+
+- **Não interpretar** os últimos checkpoints de slot 1 (14,67% no consumo e 54,78% na recarga) como valores do medidor no momento em que o jogo foi fechado. São somente os últimos checkpoints **registrados** pelo mecanismo de amostragem.
+- O relato de esgotamento e recarga integral está **compatível** com o slot 1: último checkpoint de recarga amostrado inicia perto de zero e aumenta, enquanto o log não exibe valores posteriores porque o contador não atingiu outro limiar antes do arquivo terminar.
+- Os slots 2 e 3 podem pertencer a adversários; não houve comprovação individual nem foi fornecida uma contagem explícita de adversários para **esta** coleta V43. Os três slots **não devem ser identificados como três adversários** apenas por haver três registros: a execução mostra também atividade Nitro compatível com o carro do usuário.
+- **Inferência atual:** slot 1 é o melhor candidato ao jogador **nesta sessão**, mas não é owner confirmado. A ordem de atribuição dos slots é efêmera; não usar `slot==1` em cheat.
+- O log termina truncado; ainda que tenha sido encerrado normalmente pelo usuário, a captura não prova que os últimos eventos foram preservados.
+- Próximo passo técnico: correlacionar um sinal independente do input do jogador ou identificador de player car com os destinos, fazer teste negativo de IA e manter qualquer mudança de Nitro desativada até prova da identidade. Não é necessário repetir o teste de consumo até zero por causa destes checkpoints.
