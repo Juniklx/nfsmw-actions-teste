@@ -1,0 +1,15 @@
+{
+  "stage": "PRE269_BMW_PAL_PERFORMANCE_PACKAGE_COUNT_DATAFLOW",
+  "source": "PRE99 pinned authenticated",
+  "scope": "read-only",
+  "targets": [
+    "sub_82582F70",
+    "sub_8256D2B8",
+    "sub_8256F9D8",
+    "sub_8256F818"
+  ],
+  "goal": "Identify candidate GetMaxLevel input and returned count without changing existing BMW save or game code",
+  "build_apk": false,
+  "modify_save": false,
+  "access_signer": false
+}
