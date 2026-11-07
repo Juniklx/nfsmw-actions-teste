@@ -7,7 +7,7 @@ on:
       - 'automation/kaggle/pre336_nitro_address_diversity.hpp'
       - 'automation/kaggle/pre336_nitro_address_diversity_mock.cpp'
 permissions:
-  contents: read
+  contents: write
 jobs:
   mock:
     runs-on: ubuntu-latest
@@ -19,3 +19,12 @@ jobs:
           set -euo pipefail
           g++ -std=c++17 -O2 -Wall -Wextra -Werror -pthread -Iautomation/kaggle automation/kaggle/pre336_nitro_address_diversity_mock.cpp -o /tmp/pre336_nitro_diversity_mock
           /tmp/pre336_nitro_diversity_mock
+          mkdir -p /tmp/nfsmw-pre336
+          printf '%s\n' '{"status":"AUDIT_OK","owner_verified":false}' > /tmp/nfsmw-pre336/status.json
+      - name: Publish sanitized PRE336 test result
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre328_publish_sanitized_audit_status.py --stage PRE336 --report /tmp/nfsmw-pre336/status.json
