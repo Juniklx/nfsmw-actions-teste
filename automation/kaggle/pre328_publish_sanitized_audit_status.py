@@ -20,6 +20,7 @@ SCHEMA = {
         "status", "pal_shards_scanned", "other_source_files_scanned",
         "matches_truncated", "owner_verified", "indirect_dispatch_verified",
     },
+    "PRE335": {"status", "readback", "backup_created", "backup_unchanged", "context_bytes"},
     "PRE334": {"status", "pal_shards_scanned", "functions_qualified", "nitro_shaped_candidates", "owner_verified"},
     "PRE333": {"status", "pal_shards_scanned", "candidate_count", "candidate_functions", "candidates_truncated", "owner_verified"},
     "PRE332": {"status", "methods_found", "nitro_present", "owner_verified"},
@@ -30,10 +31,10 @@ SCHEMA = {
     },
 }
 NUMBERS = {"pal_shards_scanned", "other_source_files_scanned", "files_inspected",
-           "bytes_inspected", "oversize_or_budget_skips", "methods_found", "candidate_count", "candidate_functions", "functions_qualified", "nitro_shaped_candidates"}
+           "bytes_inspected", "oversize_or_budget_skips", "methods_found", "candidate_count", "candidate_functions", "functions_qualified", "nitro_shaped_candidates", "context_bytes"}
 BOOLEANS = {"matches_truncated", "owner_verified", "indirect_dispatch_verified",
-            "dispatch_verified", "nitro_present", "candidates_truncated"}
-VALID_STATUSES = {"AUDIT_OK", "FAILED"}
+            "dispatch_verified", "nitro_present", "candidates_truncated", "readback", "backup_created", "backup_unchanged"}
+VALID_STATUSES = {"AUDIT_OK", "FAILED", "SYNC_OK", "ALREADY_PRESENT"}
 
 
 def sanitized_report(stage: str, source: object, run_id: str, commit: str) -> dict:
