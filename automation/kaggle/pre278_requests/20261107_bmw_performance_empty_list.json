@@ -1,0 +1,11 @@
+{
+  "stage": "PRE278_BMW_PERFORMANCE_EMPTY_SELECTION",
+  "pre277_run": 42326983611,
+  "guest_candidate": "sub_82582F70",
+  "source_file": "nfsmw_recomp.11.cpp",
+  "purpose": "Find guest performance screen setup and safe null-selected-part handling; do not enable BMW menu",
+  "only_static_read": true,
+  "apk_built": false,
+  "save_modified": false,
+  "signer_accessed": false
+}
