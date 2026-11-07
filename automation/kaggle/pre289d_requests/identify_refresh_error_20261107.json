@@ -1,0 +1,7 @@
+{
+  "stage": "PRE289D",
+  "task": "Safely classify OAuth refresh failure after user changed refresh token",
+  "read_only": true,
+  "secrets_exposed": false,
+  "upload": false
+}
