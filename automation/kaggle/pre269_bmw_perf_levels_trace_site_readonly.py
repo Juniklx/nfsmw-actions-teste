@@ -20,7 +20,7 @@ PIN={
   "workspace/nativo/app/generated/default/nfsmw_recomp.90.cpp":
     "4c4be4548441acc9cd703917a71db84e230d522acf164450fc87e9f74fe36a01",
   "workspace/nativo/app/generated/default/nfsmw_recomp.57.cpp":
-    "a74e2314e878a88d197d2d8774254bf8c7c47fbc0e835f84a6c048f0ec86d9f455c",
+    "a74e2314e878a88d197d2d8774254bf8c7fbc0e835f84a6c048f0ec86d9f455c",
 }
 TARGETS={
   "sub_82582F70":"workspace/nativo/app/generated/default/nfsmw_recomp.11.cpp",
@@ -28,9 +28,9 @@ TARGETS={
   "sub_8256F9D8":"workspace/nativo/app/generated/default/nfsmw_recomp.90.cpp",
   "sub_8256F818":"workspace/nativo/app/generated/default/nfsmw_recomp.57.cpp",
 }
-CALL_RE=re.compile(r"(?m)^\\s*(?:__imp__)?(sub_[A-Fa-f0-9]{8})\\(ctx,\\s*base\\);")
-GUEST_CALL=re.compile(r"(?m)^\\s*//\\s*(?:bl|bctrl)\\b")
-COMP=re.compile(r"(?m)^\\s*//\\s*(?:cmpwi|cmplwi|cmpw|cmplw)\\b")
+CALL_RE=re.compile(r"(?m)^\s*(?:__imp__)?(sub_[A-Fa-f0-9]{8})\(ctx,\s*base\);")
+GUEST_CALL=re.compile(r"(?m)^\s*//\s*(?:bl|bctrl)\b")
+COMP=re.compile(r"(?m)^\s*//\s*(?:cmpwi|cmplwi|cmpw|cmplw)\b")
 LINE_MAX=420
 
 def short_context(lines, center, before=16, after=24):
@@ -120,7 +120,7 @@ def main():
         out["phase"]="AUTHENTICATED_SOURCE_READ_OR_SCAN"
     out["run_id"]=a.run_id
     out["utc"]=datetime.now(timezone.utc).isoformat()
-    OUT.write_text(json.dumps(out,ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
+    OUT.write_text(json.dumps(out,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print("PRE269_STATUS",out["status"])
     print("PRE269_D2B8_CALLS",out.get("caller_to_candidate_hints"))
     print("PRE269_GETMAXLEVEL_PROVEN",out.get("mapped_exact_getmaxlevel_function"))
