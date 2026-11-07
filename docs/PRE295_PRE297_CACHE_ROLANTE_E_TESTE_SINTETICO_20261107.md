@@ -32,3 +32,9 @@
 5. Só então integrar opção específica em **uma futura release** (versionCode >39). Nenhum patch da BMW/desbloqueio, assinatura ou save modificado.
 
 **Status consolidado:** PRE295 canário de gravação de nova chave SDK aprovado; PRE296 launcher/política criados e validados com arquivo sintético, persistência real desabilitada; PRE297 cold/warm sintético aprovado, cold/warm real ainda pendente.
+
+
+## Complemento PRE295B (readback independente)
+- O canário [42382664244](https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42382664244) obteve **cache hit por chave exata** `nfsmw-sdk-rolling-v2-Linux-42382484905` e passou `PRE140_SDK_CCACHE_POLICY_PASS`; isso valida que a entrada foi persistida e pode ser relida.
+- O canário [42382717266](https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42382717266) repetiu a restauração com `restore-keys` por prefixo, **selecionou novamente o cache legado** mesmo com chave rotativa gravada, executou teste sintético com 1 hit, e salvou chave `nfsmw-sdk-rolling-v2-Linux-42382717266`. Necessário corrigir/entender a prioridade do prefixo antes de promover à release.
+- **Decisão de segurança:** PRE295 evoluiu para solução de canário verificável, não alteração de release; a versão V39 publicada não foi refeita. PRE296 não armazena objetos reais de jogos nos caches Actions.
