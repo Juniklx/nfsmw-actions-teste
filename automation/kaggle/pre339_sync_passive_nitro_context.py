@@ -14,7 +14,7 @@ from googleapiclient.http import MediaIoBaseDownload,MediaIoBaseUpload
 MAIN="1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB"
 BACKUP_PARENT="1xYgkEI7T6xQ_UZIaq_Ota2SQbOCo_Q78"
 MARKER="PRE339_NITRO_DIVERSIDADE_PASSIVA_PRE336_338_20261107"
-OUT=Path("/tmp/nfsmw-pre335/CONTEXT_SYNC_STATUS.json")
+OUT=Path("/tmp/nfsmw-pre339/CONTEXT_SYNC_STATUS.json")
 ENTRY="""
 
 ## PRE339_NITRO_DIVERSIDADE_PASSIVA_PRE336_338_20261107 — Novas verificações CI
