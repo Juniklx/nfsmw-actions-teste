@@ -605,8 +605,8 @@ def main()->int:
                 "#define NFSMW_PRE264_BMW_MENU_ENABLE 1\n"+MENU_DECL,1)
             # PRE305B prevents literal backslash-n in preprocessor directives.
             directive="#define NFSMW_PRE264_BMW_MENU_ENABLE 1"
-            if (preview.count(directive+"\\n")!=1 or
-                    directive+r"\\n" in preview or
+            if (preview.count(directive+"\n")!=1 or
+                    directive+r"\n" in preview or
                     preview.splitlines().count(directive)!=1):
                 raise ValueError("PRE305B preprocessor directive must end at a real newline")
             if (preview.count("NFSMW_PRE264_BMW_MENU_LOCAL")!=1 or
