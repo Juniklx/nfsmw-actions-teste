@@ -1,0 +1,36 @@
+name: NFSMW PRE305B inspect failed V40 Gradle report (read only)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre305b_requests/*.json'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Inspect sanitized failure report only
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh api /repos/${{ github.repository }}/actions/artifacts/13582290556/zip > /tmp/pre305.zip
+          unzip -l /tmp/pre305.zip
+          unzip -p /tmp/pre305.zip pre305-v40-report.json > /tmp/pre305-report.json
+          python - <<'PY'
+          import json
+          x=json.load(open("/tmp/pre305-report.json"))
+          show=["status","phase","gradle_release_exit_code","gradle_failure_categories",
+                "gradle_failure_context_sanitized","error_type",
+                "pre305_model41_gate_experiment_enabled","pre305_scope",
+                "pre305_menu_gate_original_sha256","pre305_menu_gate_experimental_sha256",
+                "pre305_both_trace_markers_verified_in_signed_apk",
+                "pre140_sdk_only_ccache_numeric_stats","signed_apk_verified",
+                "drive_upload_success"]
+          for key in show:
+              print("PRE305B",key,json.dumps(x.get(key),ensure_ascii=False))
+          PY
