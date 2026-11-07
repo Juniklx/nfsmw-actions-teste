@@ -1,0 +1,7 @@
+{
+  "stage": "PRE297",
+  "fix": "Remove unsupported ccache boolean environment setting; use -z for stats reset",
+  "prior_run": 42381927863,
+  "no_game": true,
+  "no_signing": true
+}
