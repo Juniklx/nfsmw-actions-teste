@@ -1,0 +1,43 @@
+name: NFSMW PRE274 BMW tuning entry plus levels passive dry-run
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre274_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre274-bmw-entry-levels
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install read-only PRE99 authenticated reader
+        run: python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+      - name: Verify source and dependency syntax
+        run: |
+          python -m py_compile automation/kaggle/pre271_bmw_getmaxlevel_passive_logger_dryrun.py
+          python -m py_compile automation/kaggle/pre274_bmw_tuning_entry_passive_combined_dryrun.py
+      - name: Test BMW tuning-entry probe and PRE271 coexistence in memory
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre274_bmw_tuning_entry_passive_combined_dryrun.py --run-id "$GITHUB_RUN_ID"
+      - name: Archive sanitized preview metadata
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre274-bmw-entry-levels-passive-${{ github.run_id }}
+          path: /tmp/nfsmw-pre274/PRE274_BMW_TUNING_ENTRY_PASSIVE_DRYRUN.json
+          retention-days: 14
+          if-no-files-found: warn
