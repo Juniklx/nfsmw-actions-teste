@@ -29,5 +29,5 @@ int main() {
   assert(!d.observe(2,0xffffffffu,out));
   std::cout<<"PRE336_MOCK_STATUS AUDIT_OK\n";
   std::cout<<"PRE336_SLOTS 16\n";
-  std::cout<<"PRE336_NO_OWNER_CLAIM true\n";
+  std::cout<<"PRE336_OWNER_UNVERIFIED true\n";
 }
