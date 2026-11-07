@@ -1,0 +1,37 @@
+name: NFSMW PRE302B inspect exact PAL menu branches (no rebuild)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre302b_requests/*.json'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - name: Read PRE302 JSON and print scoped source evidence
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh api -H 'Accept: application/vnd.github+json' /repos/${{ github.repository }}/actions/artifacts/13581111281/zip > /tmp/pre302.zip
+          unzip -p /tmp/pre302.zip PRE302_PAL_MAIN_MENU_BRANCH_CALL_SITES.json > /tmp/pre302.json
+          python - <<'PY'
+          import json
+          x=json.load(open('/tmp/pre302.json'))
+          print('PRE302B_STATUS',x.get('status'),'sha',x.get('source_sha256'))
+          print('PRE302B_COMP_BRANCH',x.get('comparison_at_line'),x.get('conditional_branch_at_line'),x.get('branch_target_line'))
+          for v in x.get('compare_context',[]):
+              print('PRE302B_COMPARE',v['rel_line'],v['line'][:150])
+          for c in x.get('option_calls',[]):
+              print('PRE302B_OPTION',c['index'],'line',c['rel_line'])
+              for q in c.get('window',[]):
+                  if q['rel_line']>=c['rel_line']-13 and q['rel_line']<=c['rel_line']+4:
+                      print('PRE302B_SITE',c['index'],q['rel_line'],q['line'][:170])
+          print('PRE302B_LIMITATIONS',json.dumps(x.get('limitations',[]),ensure_ascii=False))
+          PY
