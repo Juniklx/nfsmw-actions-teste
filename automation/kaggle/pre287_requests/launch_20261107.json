@@ -1,0 +1,8 @@
+{
+  "stage": "PRE287",
+  "purpose": "BMW PAL native diagnostic fail-closed gate",
+  "pre286_verified_run": 42332473337,
+  "feature_default_off": true,
+  "apk": false,
+  "save_modified": false
+}
