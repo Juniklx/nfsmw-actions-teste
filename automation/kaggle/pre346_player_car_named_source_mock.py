@@ -6,7 +6,7 @@ int playerVehicle = 3;
 bool other_flag = true;
 // get_player_car should be ignored in comment
 void hello() {}
-auto pickup_player_vehicle = 1;
+bool is_player_vehicle = true;
 '''
 a=select_lines(s)
 assert len(a)==3,a
