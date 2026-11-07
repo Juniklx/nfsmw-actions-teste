@@ -1,0 +1,41 @@
+name: NFSMW PRE291 passive BMW main-menu trace dry-run (no APK)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre291_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre291-menu-trace-readonly
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Drive read-only snapshot client
+        run: python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+      - name: Check Python code syntax
+        run: python -m py_compile automation/kaggle/pre291_bmw_main_menu_passive_trace_dryrun.py
+      - name: Audit verified generated PAL main-menu in memory
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre291_bmw_main_menu_passive_trace_dryrun.py --run-id "$GITHUB_RUN_ID"
+      - name: Preserve only metadata and decisions
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre291-bmw-menu-passive-trace-${{ github.run_id }}
+          path: /tmp/nfsmw-pre291/PRE291_BMW_MAIN_MENU_PASSIVE_TRACE_DRYRUN.json
+          if-no-files-found: warn
+          retention-days: 30
