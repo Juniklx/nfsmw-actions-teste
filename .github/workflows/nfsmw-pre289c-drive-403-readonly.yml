@@ -1,0 +1,42 @@
+name: NFSMW PRE289C read-only Google Drive 403 diagnosis (no upload)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre289c_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre289c-drive-403-readonly
+  cancel-in-progress: false
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Drive client and validate read-only script
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 cryptography >/dev/null
+          python -m py_compile automation/kaggle/pre289c_drive_403_readonly_diagnostic.py
+      - name: Diagnose exact GitHub OAuth user folder rights and storage without writing
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre289c_drive_403_readonly_diagnostic.py
+      - name: Preserve sanitized diagnostic
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre289c-drive-403-readonly-${{ github.run_id }}
+          path: /tmp/nfsmw-pre289c/PRE289C_DRIVE_403_READONLY.json
+          retention-days: 14
+          if-no-files-found: warn
