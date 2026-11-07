@@ -1,0 +1,39 @@
+name: NFSMW PRE322 read-only Nitro store authority branch review
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre322_requests/*.json'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - name: Read authenticated PRE312 Nitro PPC source evidence only
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh api /repos/${{ github.repository }}/actions/artifacts/13584608070/zip > /tmp/pre312-nitro.zip
+          unzip -p /tmp/pre312-nitro.zip PRE312_NITRO_SITES_1_5_CONTEXT.json > /tmp/nitro.json
+          python - <<'PY'
+          import json
+          x=json.load(open('/tmp/nitro.json'))
+          assert x.get('status')=='AUDIT_OK'
+          assert x.get('source_sha256')=='eec9b82e51bbfcb573cd0f965e3ed7639bbbd291b285f9fc6d5a7d1e77cd735f'
+          stores=x.get('store_sites',[])
+          assert len(stores)==5
+          print('PRE322_AUTHENTICATED_NITRO_STORES',len(stores))
+          for z in stores:
+              site=z['site'];base=z['relative_store_line']
+              print('PRE322_SITE',site,'relative',base,z['matched_opcode'])
+              for row in z['context']:
+                  n=row['rel_line']
+                  if base-22<=n<=base+14:
+                      print('PRE322_PPC',site,n,row['text'][:170])
+          print('PRE322_NO_GUEST_WRITE True')
+          PY
