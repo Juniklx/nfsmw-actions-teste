@@ -1,0 +1,9 @@
+{
+  "stage": "PRE299",
+  "purpose": "Make Drive CONTEXTO_NFSMW.md authoritative in place, preserving full historical content",
+  "drive_file_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+  "verified_backup_id": "1p39ZaVJgIFGyluT-08knNaaGzViZc9IA",
+  "copy_old_history": true,
+  "no_game_build": true,
+  "no_signer": true
+}
