@@ -1,0 +1,9 @@
+{
+  "stage": "PRE322",
+  "sourceArtifactId": 13584608070,
+  "sourceRun": 42399195782,
+  "reason": "Determine ordering and branch after paired stores Nitro sites 1/2 and 3/4",
+  "readOnly": true,
+  "noGameBuild": true,
+  "noSigning": true
+}
