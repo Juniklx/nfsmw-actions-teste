@@ -11,7 +11,7 @@ from google.auth.transport.requests import Request
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseDownload,MediaIoBaseUpload
 MAIN="1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB"
-BACKUP="15F3uyo2NdwX_wVp5mO4oiNsD7mh6litZ"
+BACKUP="1vSslqcCX2v4G6WOPETUyfSE86HNAYW2m"
 MARKER="PRE303_V39_RUNTIME_BMW_MENU_LOG_20261107"
 REPORT=Path("/tmp/nfsmw-pre303/context_sync.json")
 ENTRY="""
@@ -39,7 +39,7 @@ def main():
   d=build("drive","v3",credentials=c,cache_discovery=False)
   phase="CHECK"
   a=read(d,MAIN);b=read(d,BACKUP)
-  if len(a)<600000 or len(b)<600000 or b"PRE300_AUDITORIA_DRIVE_20261107" not in a:raise ValueError("unexpected context")
+  if a!=b or len(a)<600000 or b"PRE300_AUDITORIA_DRIVE_20261107" not in a or b"PRE301_PRE298_FINAL_CACHE_REPRODUCIBILITY" not in a:raise ValueError("canonical backup mismatch or unexpected context")
   if MARKER.encode() in a:raise ValueError("duplicate marker")
   phase="APPEND"
   raw=a+ENTRY.encode("utf8")
