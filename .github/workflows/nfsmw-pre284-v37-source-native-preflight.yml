@@ -1,0 +1,44 @@
+name: NFSMW PRE284 V37 full source replay + PRE283 native logger link preflight (no APK)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre284_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre284-v37-native-preflight
+  cancel-in-progress: false
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install authenticated Drive source reader and verification dependencies
+        run: python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests cryptography >/dev/null
+      - name: Syntax check PRE284 preflight and existing V37 source patches
+        run: |
+          python -m py_compile automation/kaggle/pre284_v37_full_passive_vtable_link_preflight.py
+          python -m py_compile automation/kaggle/pre283_bmw_vtable_target_passive_dryrun.py
+          python -m py_compile automation/kaggle/pre246_build_signed_v37_passive_money_trace.py
+      - name: Replay V37 source patches and compile/link PRE283 native logger in isolated temp
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre284_v37_full_passive_vtable_link_preflight.py --run-id "$GITHUB_RUN_ID"
+      - name: Archive bounded preflight report only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre284-v37-source-native-preflight-${{ github.run_id }}
+          path: /tmp/nfsmw-pre284/PRE284_FULL_V37_SOURCE_PASSIVE_VTABLE_NATIVE_PREFLIGHT.json
+          retention-days: 14
+          if-no-files-found: warn
