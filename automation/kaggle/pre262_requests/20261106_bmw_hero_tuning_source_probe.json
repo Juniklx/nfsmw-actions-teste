@@ -1,0 +1,10 @@
+{
+  "stage": "PRE262_BMW_HEROCAR_GUEST_BRANCH_AUDIT",
+  "source": "PRE99 pinned Google Drive backup",
+  "read_only": true,
+  "build_game": false,
+  "change_save": false,
+  "access_signing": false,
+  "location_target": "BMW M3 GTR HeroCar gate used by CustomizeMain::BuildOptionsList",
+  "intended_action": "search comparisons for model_type=41, no patch unless unique anchored guest function proven"
+}
