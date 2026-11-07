@@ -92,7 +92,9 @@ def replay_v37(root:Path,repo_root:Path):
         raise ValueError("PRE131 patch set changed")
     for relative,blob in mods.items():
         dst=root.parent/relative
-        if not dst.is_file():raise ValueError("PRE131 target missing")
+        # PRE131 creates the modern-font header, missing in original PRE99.
+        # The proposed contents must still match the pinned SHA256.
+        dst.parent.mkdir(parents=True,exist_ok=True)
         write_exact(dst,blob,EXPECTED_PRE131_FILES[relative])
     log["PRE131_files"]=len(mods)
 
@@ -311,7 +313,9 @@ def main():
     report={"stage":"PRE284_V37_FULL_PATCH_CHAIN_PRE283_NATIVE_LINK_PREFLIGHT",
            "status":"FAILED","phase":"START","apk_built":False,"signer_accessed":False}
     try:report=audit(Path(__file__).resolve().parents[2])
-    except Exception as err:report["error_type"]=type(err).__name__
+    except Exception as err:
+        report["error_type"]=type(err).__name__
+        report["error_message"]=str(err)[:400]
     report["run_id"]=opt.run_id
     report["utc"]=datetime.now(timezone.utc).isoformat()
     OUT.write_text(json.dumps(report,indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
