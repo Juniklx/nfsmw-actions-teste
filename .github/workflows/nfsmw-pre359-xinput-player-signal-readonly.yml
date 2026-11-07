@@ -1,0 +1,45 @@
+name: NFSMW PRE359 XInput player state source audit
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre359_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre359-source-audit
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate PRE359 extraction
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre359_xinput_player_signal_readonly.py
+      - name: Install Drive read client
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+      - name: Extract bounded verified original XInput and SDL paths
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre359_xinput_player_signal_readonly.py
+      - name: Publish bounded source excerpts as private artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre359-xinput-source-${{ github.run_id }}
+          path: /tmp/nfsmw-pre359/PRE359_XINPUT_STATE_BRIDGE.json
+          if-no-files-found: warn
+          retention-days: 30
