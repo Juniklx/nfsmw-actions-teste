@@ -14,7 +14,7 @@ SKIP_SEGMENTS=("/generated/","/thirdparty/","/third_party/","/external/",
                "/build/","/vendor/","/test/","/tests/","/examples/")
 ROOTS=("workspace/nativo/app/","workspace/nativo/sdk/","workspace/android/app/src/main/cpp/",
        "workspace/nativo/app_usa/")
-EXPLICIT=re.compile(r"(?i)\b(?:get_?player_?(?:car|vehicle|ride)|player_?(?:car|vehicle|ride)(?:_?(?:ptr|pointer|id))?|"
+EXPLICIT=re.compile(r"(?i)\b(?:get_?player_?(?:car|vehicle|ride)(?:_?(?:ptr|pointer|id))?|player_?(?:car|vehicle|ride)(?:_?(?:ptr|pointer|id))?|"
                     r"(?:local|human|controlled)_?player_?(?:car|vehicle)|"
                     r"(?:local|human|controlled)_?(?:car|vehicle)|"
                     r"(?:car|vehicle)_?controlled_?by_?player|is_?player_?(?:car|vehicle)|"
