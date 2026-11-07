@@ -1,0 +1,11 @@
+{
+  "stage": "PRE273_BMW_CUSTOMIZATION_TAKECONTROL_CROSSCHECK",
+  "source": "PRE99 SHA256 af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "candidate": "sub_8256B440",
+  "secondary": "sub_8256B5F8",
+  "purpose": "Verify PPC customization initialization before trying to query BMW performance levels",
+  "read_only": true,
+  "build_apk": false,
+  "modify_save": false,
+  "signer_access": false
+}
