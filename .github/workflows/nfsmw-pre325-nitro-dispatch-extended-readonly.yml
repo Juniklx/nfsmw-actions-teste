@@ -1,0 +1,39 @@
+name: NFSMW PRE325 read-only Nitro dispatch extended scan
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre325_requests/*.json'
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare read-only authenticated audit
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+          python -m py_compile automation/kaggle/pre325_nitro_dispatch_extended_readonly.py
+      - name: Scan PRE99 PAL Nitro references without modifying game
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre325_nitro_dispatch_extended_readonly.py
+      - name: Archive bounded audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre325-nitro-dispatch-${{ github.run_id }}
+          path: /tmp/nfsmw-pre325/NFSMW_PRE325_NITRO_DISPATCH.json
+          retention-days: 30
+          if-no-files-found: warn
