@@ -1,0 +1,16 @@
+{
+  "stage": "PRE285_RETRY2_GUEST_SIMDE_FLAGS",
+  "previous_run": 42330897631,
+  "known_verified": [
+    "NDK ARM64 compiled native module",
+    "ELF AArch64 SHA",
+    "CMake static archive linked",
+    "C ABI symbol present"
+  ],
+  "remaining": "Guest PAL NDK syntax blocked by missing simde header and unidentified error",
+  "change": "Discover vendored SIMDe include and preserve compiler first/last diagnostics",
+  "no_game_dso_link": true,
+  "apk_build": false,
+  "signer_access": false,
+  "save_edit": false
+}
