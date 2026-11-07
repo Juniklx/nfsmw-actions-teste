@@ -1,0 +1,28 @@
+name: NFSMW PRE309 opt-in cheat gate C++ mock (no APK)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre309_requests/*.json'
+permissions:
+  contents: read
+jobs:
+  mock:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile and execute guarded Nitro Speedbreaker Money policy C++ mock
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre309_cheats_optin_policy_mock.py
+          python automation/kaggle/pre309_cheats_optin_policy_mock.py
+      - name: Preserve sanitized assertion report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre309-cheat-policy-mock-${{ github.run_id }}
+          path: /tmp/nfsmw-pre309/PRE309_OPTIN_CHEAT_POLICY_MOCK.json
+          if-no-files-found: warn
+          retention-days: 30
