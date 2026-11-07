@@ -1,0 +1,12 @@
+{
+  "stage": "PRE279_BMW_PERFORMANCE_REFRESHHEADER_VTABLE",
+  "pre278_run": 42327319397,
+  "source": "PRE99 SHA256 af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "target_guest_setup": "sub_82582F70",
+  "target_vtable_offset": 12,
+  "purpose": "Identify virtual RefreshHeader dispatch and rank candidates without patching",
+  "read_only": true,
+  "apk_build": false,
+  "save_edit": false,
+  "signing_access": false
+}
