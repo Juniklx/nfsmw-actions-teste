@@ -1,0 +1,32 @@
+name: NFSMW PRE308B inspect Speedbreaker dataflow decision from verified artifact
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre308b_requests/*.json'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - name: Retrieve original PRE308 source evidence and display exact context
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh api /repos/${{ github.repository }}/actions/artifacts/13582584184/zip > /tmp/pre308.zip
+          unzip -p /tmp/pre308.zip PRE308_SPEEDBREAKER_CANDIDATE_7_8_CONTEXT.json > /tmp/pre308.json
+          python - <<'PY'
+          import json
+          x=json.load(open('/tmp/pre308.json'))
+          print('PRE308B_STATUS',x.get('status'))
+          for site in x.get('store_sites',[]):
+              print('PRE308B_SITE',site['site'],'line',site['relative_store_line'],site['matched_opcode'])
+              for line in site['context']:
+                  if line['rel_line']>=site['relative_store_line']-18 and line['rel_line']<=site['relative_store_line']+9:
+                      print('PRE308B_CONTEXT',site['site'],line['rel_line'],line['text'])
+          PY
