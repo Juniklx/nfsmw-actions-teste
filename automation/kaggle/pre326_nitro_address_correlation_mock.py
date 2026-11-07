@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""PRE326 synthetic-only regression: address identity, site overlap and malformed logs."""
+"""PRE326 synthetic-only offline regression: address identity, site overlap and malformed logs."""
 from pre326_nitro_address_correlation_readonly import audit_lines
 
 def event(site,addr,bits="3F800000"):
