@@ -1,0 +1,8 @@
+{
+  "stage": "PRE332",
+  "mode": "authenticated_read_only",
+  "target": "sub_82424AF0",
+  "intent": "inspect neighboring PAL functions, do not infer player identity",
+  "apk": false,
+  "guest_writes": false
+}
