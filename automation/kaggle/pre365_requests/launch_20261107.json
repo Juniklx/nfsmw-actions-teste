@@ -1,0 +1,8 @@
+{
+  "stage": "PRE365",
+  "source": "authenticated PRE99 InputSystem::GetState",
+  "mode": "dry_run_exact_reversible",
+  "noGuestReads": true,
+  "noAPK": true,
+  "owner_verified": false
+}
