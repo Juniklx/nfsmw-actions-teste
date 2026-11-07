@@ -1,0 +1,10 @@
+{
+  "stage": "PRE272_BMW_PAL_TUNING_TAKECONTROL_LOCATOR",
+  "previous_run": 42324435134,
+  "source": "authenticated PRE99",
+  "goal": "Find safe after-vehicle-initialization path for reading BMW upgrade counts without entering blocked menu",
+  "read_only": true,
+  "build_apk": false,
+  "change_save": false,
+  "signer_access": false
+}
