@@ -1,0 +1,15 @@
+{
+  "stage": "PRE277_BMW_PAL_ATTRIBUTE_REFERENCE_LIFETIME",
+  "pre276_run": 42326530780,
+  "source": "PRE99 authenticated",
+  "functions": [
+    "sub_821485E8",
+    "sub_8214E928"
+  ],
+  "parent": "sub_82148718",
+  "goal": "Audit guest stores, +18 reference updates and helper calls before any BMW GetMaxLevel extra invocation",
+  "read_only": true,
+  "build_apk": false,
+  "save_change": false,
+  "signer_access": false
+}
