@@ -1,0 +1,41 @@
+name: NFSMW PRE280 BMW RefreshHeader null-selection audit (read-only)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre280_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre280-bmw-null
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install authenticated PRE99 reader
+        run: python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+      - name: Syntax gate
+        run: python -m py_compile automation/kaggle/pre280_bmw_refreshheader_null_readonly.py
+      - name: Verify PAL RefreshHeader candidate ordering and null-pointer guards
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre280_bmw_refreshheader_null_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Preserve bounded audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre280-bmw-refreshheader-null-${{ github.run_id }}
+          path: /tmp/nfsmw-pre280/PRE280_BMW_REFRESHHEADER_CANDIDATE_NULL_AUDIT.json
+          retention-days: 14
+          if-no-files-found: warn
