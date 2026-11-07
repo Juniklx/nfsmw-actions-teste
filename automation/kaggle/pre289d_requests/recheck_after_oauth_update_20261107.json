@@ -1,0 +1,8 @@
+{
+  "stage": "PRE289D",
+  "purpose": "Verify effective Drive scopes after user updated OAuth token",
+  "read_only": true,
+  "upload": false,
+  "signing": false,
+  "credential_exposure": false
+}
