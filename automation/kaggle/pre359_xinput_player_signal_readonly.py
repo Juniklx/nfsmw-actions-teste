@@ -21,7 +21,7 @@ SOURCES={
 }
 PATTERNS={p:[re.compile(x) for x in regexes] for p,regexes in SOURCES.items()}
 WINDOW=12
-MAX_CONTEXTS=18
+MAX_CONTEXTS=80
 def contexts(lines,pats):
     ixs=[]
     for i,line in enumerate(lines):
