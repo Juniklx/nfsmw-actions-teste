@@ -1,0 +1,8 @@
+{
+  "stage": "PRE289D",
+  "mode": "read_only",
+  "purpose": "Verify OAuth scope after user requested another attempt",
+  "upload": false,
+  "rebuild": false,
+  "signing": false
+}
