@@ -1,0 +1,42 @@
+name: NFSMW PRE300 full Drive recursive audit and canonical context record
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre300_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre300-drive-audit-canonical-single-writer
+  cancel-in-progress: false
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Drive dependencies and syntax-check
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+          python -m py_compile automation/kaggle/pre300_drive_recursion_audit_context.py
+      - name: Audit actual project tree, verify previous context backup, publish report and append context
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre300_drive_recursion_audit_context.py --run-id "$GITHUB_RUN_ID"
+      - name: Save sanitized audit summary only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre300-drive-audit-summary-${{ github.run_id }}
+          path: /tmp/nfsmw-pre300/REPORT.json
+          if-no-files-found: warn
+          retention-days: 30
