@@ -56,3 +56,12 @@
 - Objetivo único: sonda passiva de vtable da BMW M3 GTR na oficina (Peças/Desempenho ausentes; Visual presente). Feature habilitada somente para diagnóstico na recompilação PAL. Patches PRE264/PRE281 de alteração no menu não habilitados.
 - O script exige marcador BMW na libmain.so do APK assinada, além dos checks da V37 para shaders, dependências, pacote, versão e certificado. Instalação e efeito no aparelho NÃO comprovados. MARCEK não deve ser modificado pelo build.
 - Próxima ação: consultar log da run 42354940551 e respectivo relatório/artefato. Se falhar, corrigir apenas o erro demonstrado; se passar, conferir artefato e orientar teste da oficina sem inferir sucesso do menu.
+
+
+## Atualização PRE289 falha de upload / PRE289B recovery — 2026-11-07
+- PRE289 run 42354940551 completed/failure; log interno: `PRE170 stopped at UPLOAD_NEW_APK_TO_PRIVATE_DRIVE ResumableUploadError`, subfase `APK_ALL_GATES_PASSED`; `APK verified: True`, `Drive upload: False`. Erro NÃO foi de compilação/assinatura, e V38 instalável NÃO foi publicada no Drive.
+- Artifact GitHub 13567394025 preserva APK `nfsmw-v38-bmw-passive-verified.apk` e relatório `pre289-v38-report.json`; zip ~45,7 MB.
+- Consulta à pasta de APK no Drive não encontrou V38/PRE289.
+- PRE289B prepara recuperação de upload apenas, sem recompilar ou assinar, reaproveitando artifact da run 42354940551. O script valida hash SHA256 e tamanho contra relatório PRE289, marcador BMW, hash libmain PAL, assinatura v2 com certificado permanente, pacote e versionCode 38, faz lookup idempotente por nome+MD5 no Drive e só então tenta upload; não toca no save.
+- Workflow `.github/workflows/nfsmw-pre289b-v38-upload-only.yml`; script `automation/kaggle/pre289b_upload_verified_v38_only.py`.
+- Run PRE289B 42367222713: queued na última consulta. Só declarar upload/publicação após `PRE289B_STATUS AUDIT_OK` e readback do Drive. Falha do Drive anterior pode ocorrer novamente; não alterar assinatura.
