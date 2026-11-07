@@ -1,0 +1,72 @@
+name: NFSMW PRE295-PRE297 cache rollout canary (no game, APK or signer)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre295_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre295-sdk-cache-rolling
+  cancel-in-progress: false
+jobs:
+  cache-canary:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare compiler and ccache
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! command -v ccache >/dev/null; then
+            sudo apt-get update -qq >/dev/null
+            sudo apt-get install -y -qq ccache >/dev/null
+          fi
+          ccache --version | head -1
+          python -m py_compile automation/kaggle/pre297_synthetic_cache_validation.py automation/kaggle/pre296_game_objects_cache_policy.py
+          bash -n automation/kaggle/pre296_game_objects_cache_launcher.sh
+      - name: PRE295 restore rolling SDK-only cache with legacy fallback
+        uses: actions/cache/restore@v4
+        id: sdk_cache
+        with:
+          path: ${{ runner.temp }}/nfsmw-ccache-sdk-only
+          key: nfsmw-sdk-rolling-v2-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: |
+            nfsmw-sdk-rolling-v2-${{ runner.os }}-
+            nfsmw-pre99-sdkonly-ndk28-clang-ccache4-v1-${{ runner.os }}
+      - name: Verify restored SDK-only scope before using cache
+        if: steps.sdk_cache.outputs.cache-matched-key != ''
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre140_guard_sdk_only_ccache.py \
+            --mode check --cache-dir "${{ runner.temp }}/nfsmw-ccache-sdk-only"
+      - name: PRE295-PRE297 synthetic cache correctness and hit measurement
+        id: audit
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre297_synthetic_cache_validation.py --run-id "$GITHUB_RUN_ID"
+      - name: Seal SDK cache policy after successful synthetic audit
+        if: steps.audit.outcome == 'success'
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre140_guard_sdk_only_ccache.py \
+            --mode seal --cache-dir "${{ runner.temp }}/nfsmw-ccache-sdk-only"
+      - name: PRE295 save immutable rolled SDK-only cache under a fresh key
+        if: steps.audit.outcome == 'success'
+        uses: actions/cache/save@v4
+        with:
+          path: ${{ runner.temp }}/nfsmw-ccache-sdk-only
+          key: nfsmw-sdk-rolling-v2-${{ runner.os }}-${{ github.run_id }}
+      - name: Upload sanitized measurement metadata
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre295-pre297-cache-canary-${{ github.run_id }}
+          path: /tmp/nfsmw-pre295-297/CACHE_PREFLIGHT.json
+          if-no-files-found: warn
+          retention-days: 30
