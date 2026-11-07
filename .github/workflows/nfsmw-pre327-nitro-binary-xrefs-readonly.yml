@@ -6,7 +6,7 @@ on:
     paths:
       - 'automation/kaggle/pre327_requests/*.json'
 permissions:
-  contents: read
+  contents: write
 jobs:
   audit:
     runs-on: ubuntu-latest
@@ -41,3 +41,10 @@ jobs:
           path: /tmp/nfsmw-pre327/NFSMW_PRE327_NITRO_BINARY_XREFS.json
           if-no-files-found: warn
           retention-days: 30
+      - name: PRE328 publish bounded audit status into GitHub for independent readback
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre328_publish_sanitized_audit_status.py --stage PRE327 --report /tmp/nfsmw-pre327/NFSMW_PRE327_NITRO_BINARY_XREFS.json
