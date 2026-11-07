@@ -1,0 +1,39 @@
+name: NFSMW PRE324 audit Nitro caller references and owner provenance
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre324_requests/*.json'
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare authenticated read-only reference scan
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+          python -m py_compile automation/kaggle/pre324_nitro_caller_xrefs_readonly.py
+      - name: Scan verified PAL original Nitro call sites
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre324_nitro_caller_xrefs_readonly.py
+      - name: Archive sanitized bounded xref report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre324-nitro-callers-${{ github.run_id }}
+          path: /tmp/nfsmw-pre324/NFSMW_PRE324_NITRO_CALLERS.json
+          retention-days: 30
+          if-no-files-found: warn
