@@ -1,0 +1,7 @@
+{
+  "stage": "PRE303",
+  "purpose": "Synchronize confirmed BMW model/type 41 callsite from V39 log into canonical Drive context",
+  "log_sha256": "2543f00a48b7e86bbcfb3d6234c922550a5f5b90b82cb09f21addd8c3219a1a7",
+  "backup_id": "1vSslqcCX2v4G6WOPETUyfSE86HNAYW2m",
+  "app_release_unchanged": true
+}
