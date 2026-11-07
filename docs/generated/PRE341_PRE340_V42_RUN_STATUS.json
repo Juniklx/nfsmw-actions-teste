@@ -1,0 +1,13 @@
+{
+  "stage": "PRE341_V42_RUN_LOOKUP",
+  "status": "FOUND",
+  "target_commit": "3bd0b7c14250663db49ef62edaa0b510b05e0e14",
+  "run_id": 42413667387,
+  "run_status": "in_progress",
+  "run_conclusion": null,
+  "html_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42413667387",
+  "apk_verified": false,
+  "apk_signed_verified": false,
+  "apk_uploaded": false,
+  "note": "Run metadata only; APK build/signing/upload must be verified independently."
+}
