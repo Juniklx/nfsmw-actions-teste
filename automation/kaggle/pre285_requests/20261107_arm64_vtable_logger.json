@@ -1,0 +1,19 @@
+{
+  "stage": "PRE285_ANDROID_ARM64_NDK_LOGGER",
+  "pre284_success": 42330124913,
+  "pinned_ndk": "28.2.13676358",
+  "target": "arm64-v8a",
+  "min_api": 26,
+  "source": "PRE99 authenticated and V37 reproduced ephemerally",
+  "module": "NFSMW_PRE283_VTABLE_TARGET_TRACE",
+  "diagnostic_macro_in_apk": false,
+  "goals": [
+    "compile module with actual Android NDK/SDK logging headers",
+    "make ARM64 CMake static linkable archive",
+    "attempt PAL guest shader syntax with feature enabled (may be missing full PCH)"
+  ],
+  "game_libmain_link": false,
+  "apk_build": false,
+  "signing_access": false,
+  "save_access": false
+}
