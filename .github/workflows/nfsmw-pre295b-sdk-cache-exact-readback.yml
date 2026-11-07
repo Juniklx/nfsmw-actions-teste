@@ -1,0 +1,30 @@
+name: NFSMW PRE295B verify exact rolling SDK cache readback (no game)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre295b_requests/*.json'
+permissions:
+  contents: read
+jobs:
+  cache-readback:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Restore exact previously saved PRE295 rotating key
+        id: exact
+        uses: actions/cache/restore@v4
+        with:
+          path: ${{ runner.temp }}/nfsmw-ccache-sdk-only
+          key: nfsmw-sdk-rolling-v2-Linux-42382484905
+          fail-on-cache-miss: true
+      - name: Verify exact match and protected original policy
+        run: |
+          set -euo pipefail
+          test "${{ steps.exact.outputs.cache-hit }}" = "true"
+          test "${{ steps.exact.outputs.cache-primary-key }}" = "nfsmw-sdk-rolling-v2-Linux-42382484905"
+          python automation/kaggle/pre140_guard_sdk_only_ccache.py \
+            --mode check --cache-dir "${{ runner.temp }}/nfsmw-ccache-sdk-only"
+          echo "PRE295B_EXACT_ROLLING_CACHE_READBACK_OK"
