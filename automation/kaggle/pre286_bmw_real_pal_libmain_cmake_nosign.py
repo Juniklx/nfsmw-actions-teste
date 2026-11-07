@@ -129,7 +129,13 @@ def choose_target(result,cmake_files):
     # or a custom substitute target as successful linking of the game.
     for name in names:
         if "libmain.so" in name and not name.endswith(".o") and ".so/" not in name:
-            return "main","libmain.so"
+            # The native engine uses target nfsmw with OUTPUT_NAME main,
+            # not the separate xenos engine's target main.
+            if "nfsmw" in names:
+                return "nfsmw","libmain.so"
+            if "main" in names:
+                return "main","libmain.so"
+            return None,None
     return None,None
 
 def find_outputs(build:Path):
@@ -189,6 +195,10 @@ def audit(repo:Path):
             "-DANDROID_ABI=arm64-v8a",
             "-DANDROID_PLATFORM=android-26",
             "-DANDROID_STL=c++_shared",
+            "-DNFSMW_MOTOR=nativo",
+            "-DNFSMW_NATIVO_APP=app",
+            "-DNFSMW_REPO="+str(root),
+            "-DNFSMW_NATIVO="+str(root/"nativo"),
             "-DCMAKE_BUILD_TYPE=Release",
             "-DCMAKE_CXX_STANDARD=23",
             "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
