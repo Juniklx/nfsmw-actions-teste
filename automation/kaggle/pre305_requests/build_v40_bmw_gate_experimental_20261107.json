@@ -1,0 +1,12 @@
+{
+  "stage": "PRE305",
+  "target": "V40 BMW model-41 menu gate experimental",
+  "pre302_run": 42389794686,
+  "pre304_run": 42390247261,
+  "version_code": 40,
+  "package": "io.github.nfsmwrecomp",
+  "permanent_signing_certificate_sha256": "1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b",
+  "changes": "PAL sub_82578988 model-41 conditional cr6.eq only (PRE264 feature on); retain V39 loggers; no game save code modifications",
+  "safety": "Do not claim BMW categories usable until hardware test; preserve rollback V39 and save MARCEK",
+  "run_automatically": true
+}
