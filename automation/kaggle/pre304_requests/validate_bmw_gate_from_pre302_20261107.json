@@ -1,0 +1,16 @@
+{
+  "stage": "PRE304",
+  "source_run": 42389794686,
+  "source_artifact": 13581111281,
+  "model_type": 41,
+  "expected_codes_hero": [
+    2051
+  ],
+  "expected_codes_normal": [
+    2049,
+    2050,
+    2051
+  ],
+  "source_read_only": true,
+  "no_apk": true
+}
