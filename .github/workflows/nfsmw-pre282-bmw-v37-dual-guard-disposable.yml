@@ -1,0 +1,44 @@
+name: NFSMW PRE282 BMW V37 dual guard disposable integration (no build)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre282_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre282-bmw-guards
+  cancel-in-progress: false
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install authenticated PRE99 reader
+        run: python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+      - name: Syntax-check preflight and existing patch libraries
+        run: |
+          python -m py_compile automation/kaggle/pre264_bmw_hero_menu_patch_dryrun.py
+          python -m py_compile automation/kaggle/pre281_bmw_null_header_guard_dryrun.py
+          python -m py_compile automation/kaggle/pre282_bmw_v37_disposable_dual_guard_preflight.py
+      - name: Restore disposable PRE99, apply V37 passive probes and default-off BMW guards
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre282_bmw_v37_disposable_dual_guard_preflight.py --run-id "$GITHUB_RUN_ID"
+      - name: Preserve sanitized results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre282-bmw-v37-dual-guard-preflight-${{ github.run_id }}
+          path: /tmp/nfsmw-pre282/PRE282_BMW_MENU_HEADER_DISPOSABLE_PREFLIGHT.json
+          retention-days: 14
+          if-no-files-found: warn
