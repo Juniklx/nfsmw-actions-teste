@@ -1,0 +1,334 @@
+{
+  "stage": "PRE524_PC_REFERENCE_FE_PACKAGE_PRICE_MAPPING_SCENARIOS_READONLY",
+  "status": "AUDIT_OK",
+  "public_reference_commit": "dbalatoni13/nfsmw@80993f35224c61d2f1b135beba76c6f8234c7940",
+  "reference_GameFlow_and_CustomizeManager_original_PC_not_Xbox_guest": true,
+  "reference_formula": "catalogueLevel = GetMaxPackages(type) - GetNumPackages(type) + chosenPartLevel",
+  "source_original_USA_frontend_sha256": "8ac09099cfc98646bbfbdb261d28b9648e3ec8b0d6bdf9d3edd6ef7bc967b528",
+  "source_PAL_pvehicle_vpak_sha256": "9f4b04a221232e614b927a870e25da7db100477a7e425114b87082f46e8b99ad",
+  "source_PAL_original_BMW_engine_level_count": 0,
+  "synthetic_BMW_single_engine_level_count": 1,
+  "Punto_original_and_BMW_synthetic_calculations": [
+    {
+      "scenario": "original_Punto_reference_only",
+      "per_category": [
+        {
+          "category": "tires",
+          "class_max_possible_packages": 3,
+          "vehicle_available_package_count": 3,
+          "packages_from_PC_reference_formula": [
+            {
+              "display_part_level": 1,
+              "source_catalog_level": 1,
+              "source_USA_cost": 1400.0
+            },
+            {
+              "display_part_level": 2,
+              "source_catalog_level": 2,
+              "source_USA_cost": 4800.0
+            },
+            {
+              "display_part_level": 3,
+              "source_catalog_level": 3,
+              "source_USA_cost": 11800.0
+            }
+          ]
+        },
+        {
+          "category": "brakes",
+          "class_max_possible_packages": 4,
+          "vehicle_available_package_count": 4,
+          "packages_from_PC_reference_formula": [
+            {
+              "display_part_level": 1,
+              "source_catalog_level": 1,
+              "source_USA_cost": 3100.0
+            },
+            {
+              "display_part_level": 2,
+              "source_catalog_level": 2,
+              "source_USA_cost": 5200.0
+            },
+            {
+              "display_part_level": 3,
+              "source_catalog_level": 3,
+              "source_USA_cost": 11400.0
+            },
+            {
+              "display_part_level": 4,
+              "source_catalog_level": 4,
+              "source_USA_cost": 26800.0
+            }
+          ]
+        },
+        {
+          "category": "chassis",
+          "class_max_possible_packages": 3,
+          "vehicle_available_package_count": 3,
+          "packages_from_PC_reference_formula": [
+            {
+              "display_part_level": 1,
+              "source_catalog_level": 1,
+              "source_USA_cost": 3600.0
+            },
+            {
+              "display_part_level": 2,
+              "source_catalog_level": 2,
+              "source_USA_cost": 7600.0
+            },
+            {
+              "display_part_level": 3,
+              "source_catalog_level": 3,
+              "source_USA_cost": 10000.0
+            }
+          ]
+        },
+        {
+          "category": "transmission",
+          "class_max_possible_packages": 4,
+          "vehicle_available_package_count": 4,
+          "packages_from_PC_reference_formula": [
+            {
+              "display_part_level": 1,
+              "source_catalog_level": 1,
+              "source_USA_cost": 4800.0
+            },
+            {
+              "display_part_level": 2,
+              "source_catalog_level": 2,
+              "source_USA_cost": 12200.0
+            },
+            {
+              "display_part_level": 3,
+              "source_catalog_level": 3,
+              "source_USA_cost": 32000.0
+            },
+            {
+              "display_part_level": 4,
+              "source_catalog_level": 4,
+              "source_USA_cost": 75200.0
+            }
+          ]
+        },
+        {
+          "category": "engine",
+          "class_max_possible_packages": 4,
+          "vehicle_available_package_count": 4,
+          "packages_from_PC_reference_formula": [
+            {
+              "display_part_level": 1,
+              "source_catalog_level": 1,
+              "source_USA_cost": 5500.0
+            },
+            {
+              "display_part_level": 2,
+              "source_catalog_level": 2,
+              "source_USA_cost": 14200.0
+            },
+            {
+              "display_part_level": 3,
+              "source_catalog_level": 3,
+              "source_USA_cost": 29800.0
+            },
+            {
+              "display_part_level": 4,
+              "source_catalog_level": 4,
+              "source_USA_cost": 98000.0
+            }
+          ]
+        },
+        {
+          "category": "induction",
+          "class_max_possible_packages": 3,
+          "vehicle_available_package_count": 3,
+          "packages_from_PC_reference_formula": [
+            {
+              "display_part_level": 1,
+              "source_catalog_level": 1,
+              "source_USA_cost": 5400.0
+            },
+            {
+              "display_part_level": 2,
+              "source_catalog_level": 2,
+              "source_USA_cost": 25000.0
+            },
+            {
+              "display_part_level": 3,
+              "source_catalog_level": 3,
+              "source_USA_cost": 76000.0
+            }
+          ]
+        },
+        {
+          "category": "nos",
+          "class_max_possible_packages": 3,
+          "vehicle_available_package_count": 3,
+          "packages_from_PC_reference_formula": [
+            {
+              "display_part_level": 1,
+              "source_catalog_level": 1,
+              "source_USA_cost": 4900.0
+            },
+            {
+              "display_part_level": 2,
+              "source_catalog_level": 2,
+              "source_USA_cost": 12500.0
+            },
+            {
+              "display_part_level": 3,
+              "source_catalog_level": 3,
+              "source_USA_cost": 18000.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": "original_BMW_unchanged_reference_only",
+      "per_category": [
+        {
+          "category": "tires",
+          "class_max_possible_packages": 3,
+          "vehicle_available_package_count": 0,
+          "packages_from_PC_reference_formula": []
+        },
+        {
+          "category": "brakes",
+          "class_max_possible_packages": 4,
+          "vehicle_available_package_count": 0,
+          "packages_from_PC_reference_formula": []
+        },
+        {
+          "category": "chassis",
+          "class_max_possible_packages": 3,
+          "vehicle_available_package_count": 0,
+          "packages_from_PC_reference_formula": []
+        },
+        {
+          "category": "transmission",
+          "class_max_possible_packages": 4,
+          "vehicle_available_package_count": 0,
+          "packages_from_PC_reference_formula": []
+        },
+        {
+          "category": "engine",
+          "class_max_possible_packages": 4,
+          "vehicle_available_package_count": 0,
+          "packages_from_PC_reference_formula": []
+        },
+        {
+          "category": "induction",
+          "class_max_possible_packages": 3,
+          "vehicle_available_package_count": 0,
+          "packages_from_PC_reference_formula": []
+        },
+        {
+          "category": "nos",
+          "class_max_possible_packages": 3,
+          "vehicle_available_package_count": 3,
+          "packages_from_PC_reference_formula": [
+            {
+              "display_part_level": 1,
+              "source_catalog_level": 1,
+              "source_USA_cost": 4900.0
+            },
+            {
+              "display_part_level": 2,
+              "source_catalog_level": 2,
+              "source_USA_cost": 12500.0
+            },
+            {
+              "display_part_level": 3,
+              "source_catalog_level": 3,
+              "source_USA_cost": 18000.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": "BMW_engine_limit1_synthetic_noninstalled_HYPOTHESIS",
+      "per_category": [
+        {
+          "category": "tires",
+          "class_max_possible_packages": 3,
+          "vehicle_available_package_count": 0,
+          "packages_from_PC_reference_formula": []
+        },
+        {
+          "category": "brakes",
+          "class_max_possible_packages": 4,
+          "vehicle_available_package_count": 0,
+          "packages_from_PC_reference_formula": []
+        },
+        {
+          "category": "chassis",
+          "class_max_possible_packages": 3,
+          "vehicle_available_package_count": 0,
+          "packages_from_PC_reference_formula": []
+        },
+        {
+          "category": "transmission",
+          "class_max_possible_packages": 4,
+          "vehicle_available_package_count": 0,
+          "packages_from_PC_reference_formula": []
+        },
+        {
+          "category": "engine",
+          "class_max_possible_packages": 4,
+          "vehicle_available_package_count": 1,
+          "packages_from_PC_reference_formula": [
+            {
+              "display_part_level": 1,
+              "source_catalog_level": 4,
+              "source_USA_cost": 98000.0
+            }
+          ]
+        },
+        {
+          "category": "induction",
+          "class_max_possible_packages": 3,
+          "vehicle_available_package_count": 0,
+          "packages_from_PC_reference_formula": []
+        },
+        {
+          "category": "nos",
+          "class_max_possible_packages": 3,
+          "vehicle_available_package_count": 3,
+          "packages_from_PC_reference_formula": [
+            {
+              "display_part_level": 1,
+              "source_catalog_level": 1,
+              "source_USA_cost": 4900.0
+            },
+            {
+              "display_part_level": 2,
+              "source_catalog_level": 2,
+              "source_USA_cost": 12500.0
+            },
+            {
+              "display_part_level": 3,
+              "source_catalog_level": 3,
+              "source_USA_cost": 18000.0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "candidate_BMW_single_engine_package_catalogue_level": 4,
+  "candidate_BMW_single_engine_package_USA_reference_cost": 98000,
+  "Punto_original_first_engine_package_USA_reference_cost": 5500,
+  "same_source_resource_PAL_USA_FE_price_identity_verified": false,
+  "actual_Xbox_guest_unlock_price_formula_verified": false,
+  "BMW_package_purchase_unlock_status_verified": false,
+  "BMW_Physics_SetPackage_or_save_roundtrip_verified": false,
+  "synthetic_BMW_5percent_torque_is_not_user_selected": true,
+  "game_asset_modified_or_published": false,
+  "APK_built": false,
+  "save_modified": false,
+  "signing_key_accessed": false,
+  "ready_to_enable_BMW_tuning": false,
+  "run_id": "42532309034",
+  "utc": "2026-11-08T22:51:39.696901+00:00"
+}
