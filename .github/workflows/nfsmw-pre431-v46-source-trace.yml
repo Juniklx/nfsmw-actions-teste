@@ -1,0 +1,36 @@
+name: NFSMW PRE431 V46 source-only BMW dual trace compatibility
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre431_requests/*.json'
+permissions:
+  contents: read
+jobs:
+  source-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install read-only authentication dependencies
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests cryptography >/dev/null
+          python -m py_compile automation/kaggle/pre431_v46_source_dual_trace_compat_readonly.py
+      - name: Replay authenticated V46 source chain and dry-run probe
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: PYTHONPATH=automation/kaggle python automation/kaggle/pre431_v46_source_dual_trace_compat_readonly.py --run-id "$GITHUB_RUN_ID"
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre431-v46-source-compat-${{ github.run_id }}
+          path: /tmp/nfsmw-pre431/report.json
+          retention-days: 14
+          if-no-files-found: warn
