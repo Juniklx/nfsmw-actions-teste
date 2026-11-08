@@ -1,0 +1,48 @@
+name: NFSMW PRE406 V46 global Nitro signed release context sync
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre406_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre406-canonical-v46-context
+  cancel-in-progress: false
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate backup-first context script and Drive client
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre406_sync_v46_release_context.py
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+      - name: Backup canonical context and append verified V46
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre406_sync_v46_release_context.py
+      - name: Preserve bounded sync evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre406-context-${{ github.run_id }}
+          path: /tmp/nfsmw-pre406/CONTEXT_SYNC_STATUS.json
+          if-no-files-found: warn
+      - name: Publish sanitized Drive readback
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre328_publish_sanitized_audit_status.py --stage PRE406 --report /tmp/nfsmw-pre406/CONTEXT_SYNC_STATUS.json
