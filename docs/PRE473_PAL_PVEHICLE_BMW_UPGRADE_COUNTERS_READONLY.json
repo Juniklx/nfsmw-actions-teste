@@ -1,0 +1,206 @@
+{
+  "status": "AUDIT_OK",
+  "stage": "PRE473_ORIGINAL_PAL_PVEHICLE_PERFORMANCE_UPGRADE_COUNTERS",
+  "vpak_sha256": "9f4b04a221232e614b927a870e25da7db100477a7e425114b87082f46e8b99ad",
+  "pal_us_bytewise_identical_proof": "PRE467",
+  "pc_generated_header_used_only_as_layout_reference": "dbalatoni13/nfsmw/src/Speed/Indep/Src/Generated/AttribSys/Classes/pvehicle.h",
+  "pc_generated_header_git_blob_sha": "9689104544d2ab9f273db4ef25996adead073b81",
+  "binary_endian": "big",
+  "int_type": "signed_32bit",
+  "pvehicle_class_hash": "4a97ec8f",
+  "pvehicle_collection_count": 113,
+  "pvehicle_name_candidates_in_StrE": 1920,
+  "pointer_kind_histogram": {
+    "2": 2,
+    "1": 3347,
+    "3": 7471,
+    "0": 2
+  },
+  "field_offsets": {
+    "engine_upgrades": 40,
+    "transmission_upgrades": 44,
+    "nos_upgrades": 48,
+    "brakes_upgrades": 52,
+    "tires_upgrades": 60,
+    "induction_upgrades": 68,
+    "chassis_upgrades": 72
+  },
+  "selected_variants_and_control_records": [
+    {
+      "export_index": 1907,
+      "record_key_hash": "eec2271a",
+      "candidate_names": [
+        "default"
+      ],
+      "parent_hash": "00000000",
+      "parent_names": [],
+      "vlt_record_offset": 114576,
+      "layout_field_value_u32": "effecadd",
+      "layout_field_raw_is_sentinel": true,
+      "fixup_at_vlt_offset": 114604,
+      "ptrn_matches": [
+        {
+          "kind": 3,
+          "index": 1,
+          "destination_offset": 244944,
+          "source_fixup_section": "VLT"
+        }
+      ],
+      "valid_single_bin_layout_fixup": true,
+      "bin_layout_offset": 244944,
+      "upgrade_counters_original_signed_i32": {
+        "engine_upgrades": 0,
+        "transmission_upgrades": 0,
+        "nos_upgrades": 0,
+        "brakes_upgrades": 0,
+        "tires_upgrades": 0,
+        "induction_upgrades": 0,
+        "chassis_upgrades": 0
+      }
+    },
+    {
+      "export_index": 1914,
+      "record_key_hash": "a6abc921",
+      "candidate_names": [
+        "racers"
+      ],
+      "parent_hash": "e3df4bfd",
+      "parent_names": [
+        "cars"
+      ],
+      "vlt_record_offset": 115648,
+      "layout_field_value_u32": "effecadd",
+      "layout_field_raw_is_sentinel": true,
+      "fixup_at_vlt_offset": 115676,
+      "ptrn_matches": [
+        {
+          "kind": 3,
+          "index": 1,
+          "destination_offset": 247120,
+          "source_fixup_section": "VLT"
+        }
+      ],
+      "valid_single_bin_layout_fixup": true,
+      "bin_layout_offset": 247120,
+      "upgrade_counters_original_signed_i32": {
+        "engine_upgrades": 0,
+        "transmission_upgrades": 0,
+        "nos_upgrades": 3,
+        "brakes_upgrades": 0,
+        "tires_upgrades": 0,
+        "induction_upgrades": 0,
+        "chassis_upgrades": 0
+      }
+    },
+    {
+      "export_index": 1941,
+      "record_key_hash": "cd88083f",
+      "candidate_names": [
+        "bmwm3gtr"
+      ],
+      "parent_hash": "a6abc921",
+      "parent_names": [
+        "racers"
+      ],
+      "vlt_record_offset": 120736,
+      "layout_field_value_u32": "effecadd",
+      "layout_field_raw_is_sentinel": true,
+      "fixup_at_vlt_offset": 120764,
+      "ptrn_matches": [
+        {
+          "kind": 3,
+          "index": 1,
+          "destination_offset": 256448,
+          "source_fixup_section": "VLT"
+        }
+      ],
+      "valid_single_bin_layout_fixup": true,
+      "bin_layout_offset": 256448,
+      "upgrade_counters_original_signed_i32": {
+        "engine_upgrades": 0,
+        "transmission_upgrades": 0,
+        "nos_upgrades": 3,
+        "brakes_upgrades": 0,
+        "tires_upgrades": 0,
+        "induction_upgrades": 0,
+        "chassis_upgrades": 0
+      }
+    },
+    {
+      "export_index": 1946,
+      "record_key_hash": "a6ee7a11",
+      "candidate_names": [
+        "punto"
+      ],
+      "parent_hash": "a6abc921",
+      "parent_names": [
+        "racers"
+      ],
+      "vlt_record_offset": 121640,
+      "layout_field_value_u32": "effecadd",
+      "layout_field_raw_is_sentinel": true,
+      "fixup_at_vlt_offset": 121668,
+      "ptrn_matches": [
+        {
+          "kind": 3,
+          "index": 1,
+          "destination_offset": 258352,
+          "source_fixup_section": "VLT"
+        }
+      ],
+      "valid_single_bin_layout_fixup": true,
+      "bin_layout_offset": 258352,
+      "upgrade_counters_original_signed_i32": {
+        "engine_upgrades": 4,
+        "transmission_upgrades": 4,
+        "nos_upgrades": 3,
+        "brakes_upgrades": 4,
+        "tires_upgrades": 3,
+        "induction_upgrades": 3,
+        "chassis_upgrades": 3
+      }
+    },
+    {
+      "export_index": 1981,
+      "record_key_hash": "39dae0f8",
+      "candidate_names": [
+        "m3gtre46careerstart"
+      ],
+      "parent_hash": "4e085fb3",
+      "parent_names": [],
+      "vlt_record_offset": 127352,
+      "layout_field_value_u32": "effecadd",
+      "layout_field_raw_is_sentinel": true,
+      "fixup_at_vlt_offset": 127380,
+      "ptrn_matches": [
+        {
+          "kind": 3,
+          "index": 1,
+          "destination_offset": 269568,
+          "source_fixup_section": "VLT"
+        }
+      ],
+      "valid_single_bin_layout_fixup": true,
+      "bin_layout_offset": 269568,
+      "upgrade_counters_original_signed_i32": {
+        "engine_upgrades": 0,
+        "transmission_upgrades": 0,
+        "nos_upgrades": 3,
+        "brakes_upgrades": 0,
+        "tires_upgrades": 0,
+        "induction_upgrades": 0,
+        "chassis_upgrades": 0
+      }
+    }
+  ],
+  "all_selected_layouts_authenticated": true,
+  "save_modified": false,
+  "apk_built": false,
+  "game_assets_exported": false,
+  "force_positive_upgrade_counts": false,
+  "upgrade_parts_installed": false,
+  "upgrades_purchase_safe": false,
+  "range_transferred_bytes": 733264,
+  "run_id": "42510870784",
+  "utc": "2026-11-08T18:36:50.490603+00:00"
+}
