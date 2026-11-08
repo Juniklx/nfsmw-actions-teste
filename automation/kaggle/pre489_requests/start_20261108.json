@@ -1,0 +1,10 @@
+{
+  "stage": "PRE489",
+  "goal": "Append verified PRE485-PRE488 original PAL physics function search and uncertainties to canonical Drive context",
+  "source_report": "docs/PRE489_BMW_TUNING_PAL_CODE_FUNCTIONS_HANDOFF_20261108.md",
+  "backup_before_write": true,
+  "prior_context_pre484_required": true,
+  "readback_bytewise": true,
+  "no_apk": true,
+  "no_save_writes": true
+}
