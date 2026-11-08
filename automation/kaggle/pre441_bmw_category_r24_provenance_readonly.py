@@ -47,6 +47,11 @@ def analyze():
    for line_no in range(max(1,i-13),min(len(body),i+16)+1):
     if line_no in seen:continue
     windows.append({"line":line_no,"source":body[line_no-1].strip()[:220]});seen.add(line_no)
+  # PRE441B: preserve the complete 0..6 switch and targets for exact mapping.
+  for line_no in range(365,404):
+   if line_no not in seen and line_no<=len(body):
+    windows.append({"line":line_no,"source":body[line_no-1].strip()[:220]})
+    seen.add(line_no)
   windows.sort(key=lambda x:x["line"])
   if not any("sub_8256F818(ctx, base);" in x for x in body):
    raise ValueError("Selected caller does not contain list builder")
