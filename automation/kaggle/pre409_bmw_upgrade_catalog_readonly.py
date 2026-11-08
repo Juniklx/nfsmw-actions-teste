@@ -44,6 +44,6 @@ def main():
     except Exception as e:r={"status":"FAILED","error_type":type(e).__name__,"error":str(e)[:250],"apk_built":False}
     r["run_id"]=args.run_id;r["utc"]=datetime.now(timezone.utc).isoformat()
     OUT.write_text(json.dumps(r,indent=2,ensure_ascii=False)+"\n")
-    print("PRE409_STATUS",r["status"]);print("PRE409_REPORT",OUT)
+    print("PRE409_STATUS",r["status"]);print("PRE409_ERROR_TYPE",r.get("error_type","none"));print("PRE409_ERROR",r.get("error","none"));print("PRE409_REPORT",OUT)
     return 0 if r["status"]=="AUDIT_OK" else 1
 if __name__=="__main__":sys.exit(main())
