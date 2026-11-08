@@ -1,0 +1,147 @@
+{
+  "stage": "PRE462_USA_XDVDFS_CATALOG_REFERENCE_READONLY",
+  "status": "AUDIT_OK",
+  "source_drive_file_id": "1eDWuZTPrtfzk-2qD1l1YgN6GYg-_9mfr",
+  "usa_independent_of_pal": true,
+  "usa_not_proven_equal_to_pal": true,
+  "nfs_directory_entries": 15,
+  "nfs_directory_names": [
+    {
+      "name": "ZZDATA2.BIN",
+      "size": 394506240
+    },
+    {
+      "name": "ZZDATA6.BIN",
+      "size": 481814528
+    },
+    {
+      "name": "ZZDATA8.BIN",
+      "size": 200359936
+    },
+    {
+      "name": "ZZDATA9.BIN",
+      "size": 456232960
+    },
+    {
+      "name": "ZZDATA7.BIN",
+      "size": 653262848
+    },
+    {
+      "name": "ZZDATA4.BIN",
+      "size": 379049984
+    },
+    {
+      "name": "ZZDATA5.BIN",
+      "size": 148135936
+    },
+    {
+      "name": "ZZDATA3.BIN",
+      "size": 382025728
+    },
+    {
+      "name": "PADB2.BIN",
+      "size": 653262848
+    },
+    {
+      "name": "ZZDATA0.BIN",
+      "size": 381569024
+    },
+    {
+      "name": "ZZDATA1.BIN",
+      "size": 377923584
+    },
+    {
+      "name": "ZDIR.BIN",
+      "size": 33360
+    },
+    {
+      "name": "PADA2.BIN",
+      "size": 394506240
+    },
+    {
+      "name": "PADB1.BIN",
+      "size": 653262848
+    },
+    {
+      "name": "PADA1.BIN",
+      "size": 394506240
+    }
+  ],
+  "zdir_sha256": "96c275a628f24e101f4fad9cb0531594c31effd870f64de3056c0e958e362ae6",
+  "zdir_size": 33360,
+  "zdir_records": 1390,
+  "valid_zzdata_locations": 1390,
+  "resource_candidates": {
+    "GLOBAL\\ATTRIBUTES.BIN": {
+      "entries": 1,
+      "locations": [
+        {
+          "archive": 4,
+          "offset": 287117312,
+          "size": 697856
+        }
+      ]
+    },
+    "GLOBAL\\FE_ATTRIB.BIN": {
+      "entries": 1,
+      "locations": [
+        {
+          "archive": 0,
+          "offset": 162392064,
+          "size": 113856
+        }
+      ]
+    },
+    "GLOBAL\\GLOBALB.LZC": {
+      "entries": 1,
+      "locations": [
+        {
+          "archive": 4,
+          "offset": 325015552,
+          "size": 5018060
+        }
+      ]
+    },
+    "GLOBAL\\GLOBALB.BUN": {
+      "entries": 1,
+      "locations": [
+        {
+          "archive": 4,
+          "offset": 306728960,
+          "size": 18285616
+        }
+      ]
+    },
+    "GLOBAL\\GLOBALA.BUN": {
+      "entries": 1,
+      "locations": [
+        {
+          "archive": 0,
+          "offset": 155082752,
+          "size": 871284
+        }
+      ]
+    }
+  },
+  "attribute_sample_metadata": {
+    "resource": "GLOBAL\\ATTRIBUTES.BIN",
+    "bytes_inspected": 131072,
+    "total_resource_size": 697856,
+    "first_16_bytes_hex": "5650414b010000004000000003000000",
+    "first_4_big_endian": 1448100171,
+    "first_4_little_endian": 1262571606,
+    "head_sha256": "2abd4458155d8139ef3b37918ea7266be06b39d3b51f3ad0dd46b2441e7ea3b0",
+    "ascii_bmw_occurrences": 33,
+    "ascii_upgrade_occurrences": 10,
+    "zero_byte_count": 71206
+  },
+  "strict_http_206_requests": 4,
+  "bytes_transferred": 168528,
+  "raw_game_assets_uploaded": false,
+  "apk_built": false,
+  "save_modified": false,
+  "bmw_parts_proven_compatible": false,
+  "feature_enabled": false,
+  "run_id": "42505438361",
+  "utc": "2026-11-08T17:32:19.619248+00:00"
+}
