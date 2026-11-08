@@ -1,0 +1,23 @@
+name: NFSMW PRE381 PRE380 LR entry canary status
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre381_requests/*.json'
+permissions:
+  actions: read
+  contents: write
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish sanitized PRE380 run status
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre381_lookup_pre380_run_metadata.py
+          python automation/kaggle/pre381_lookup_pre380_run_metadata.py
