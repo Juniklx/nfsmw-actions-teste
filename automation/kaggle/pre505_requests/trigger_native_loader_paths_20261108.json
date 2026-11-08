@@ -1,0 +1,10 @@
+{
+  "stage": "PRE505",
+  "purpose": "Audit authenticated PRE99 historical native asset file routing paths as candidates for V48 runtime inspection",
+  "pre99_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "source_old_not_V48": true,
+  "readonly": true,
+  "v48_modified": false,
+  "save_modified": false,
+  "signing_accessed": false
+}
