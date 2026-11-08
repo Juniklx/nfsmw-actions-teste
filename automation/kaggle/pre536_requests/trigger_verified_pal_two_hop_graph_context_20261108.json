@@ -1,0 +1,9 @@
+{
+  "stage": "PRE536",
+  "goal": "After PRE535 original signed V48 PAL graph audit, append only verified 12 two-hop guest numeric intersection evidence to canonical Google Drive CONTEXTO_NFSMW.md, with byte-identical backup and readback",
+  "previous_marker": "PRE534_BMW_TUNING_PRE531_PRE533_V48_PAL_ELF_GUEST_CALLGRAPH_20261108",
+  "new_marker": "PRE536_BMW_TUNING_PRE535_SIGNED_V48_TWO_HOP_SHOP_XREF_20261108",
+  "verified_pre535_run": 42536895518,
+  "before_size": 800575,
+  "original_V48_and_saves_untouched": true
+}
