@@ -1,0 +1,17 @@
+{
+  "stage": "PRE525",
+  "goal": "Append verified PRE520 PAL padding, PRE521 FE vault, PRE522 original price arrays, PRE523 PAL/USA FE byte identity and PRE524 PC-only price formula hypothesis to canonical Drive CONTEXTO_NFSMW.md",
+  "previous_marker": "PRE519_BMW_TUNING_PRE517_PRE518_ZDIR_EA_CHECKSUM_HANDOFF_20261108",
+  "new_marker": "PRE525_BMW_TUNING_PRE520_PRE524_PAL_FRONTEND_PRICING_HANDOFF_20261108",
+  "verified_runs": [
+    42531089216,
+    42531332000,
+    42531787428,
+    42531993233,
+    42532309034
+  ],
+  "backup_first": true,
+  "save_untouched": true,
+  "apk_untouched": true,
+  "signing_untouched": true
+}
