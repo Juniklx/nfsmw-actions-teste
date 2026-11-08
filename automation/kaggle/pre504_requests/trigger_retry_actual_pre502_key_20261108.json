@@ -1,0 +1,8 @@
+{
+  "stage": "PRE504",
+  "retry": "fix PRE502 field key new_engine_collection_name",
+  "read_only": true,
+  "source_sha256": "9f4b04a221232e614b927a870e25da7db100477a7e425114b87082f46e8b99ad",
+  "apk": false,
+  "save": false
+}
