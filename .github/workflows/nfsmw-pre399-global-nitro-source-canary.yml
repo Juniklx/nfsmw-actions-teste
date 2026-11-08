@@ -1,0 +1,39 @@
+name: NFSMW PRE399 global Nitro all-cars source canary
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre399_requests/*.json'
+permissions:
+  contents: read
+jobs:
+  canary:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check PRE398/PRE399 source scripts
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre398_global_nitro_full_staging.py automation/kaggle/pre399_global_nitro_source_canary.py
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+      - name: Verify five exact PAL Nitro stores on authenticated PRE99
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre399_global_nitro_source_canary.py
+      - name: Preserve bounded PRE399 report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre399-global-nitro-${{ github.run_id }}
+          path: /tmp/nfsmw-pre399/PRE399_GLOBAL_NITRO_SOURCE_CANARY.json
+          if-no-files-found: warn
+          retention-days: 30
