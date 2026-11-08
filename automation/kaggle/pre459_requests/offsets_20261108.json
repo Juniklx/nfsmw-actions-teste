@@ -1,0 +1,5 @@
+{
+  "stage": "PRE459B",
+  "action": "Recompute verified ZIP central dir metadata including offsets only",
+  "no_assets_downloaded": true
+}
