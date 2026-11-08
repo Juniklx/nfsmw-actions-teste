@@ -1,0 +1,7 @@
+{
+  "stage": "PRE514_RETRY",
+  "reason": "Original PRE514 backup succeeded; Google Drive canonical upload returned HTTP 502; canonical bytes stayed unchanged. Retry with exact backup reuse + guarded 5xx readback.",
+  "existing_backup_id": "1aKruZiJ1aZwvU7d9_HwiYY2uBzdvSfqI",
+  "previous_run": 42528039984,
+  "no_apk_or_save_modified": true
+}
