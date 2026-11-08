@@ -1,0 +1,7 @@
+{
+  "stage": "PRE470",
+  "purpose": "Inspect BMW optional attribute keys after validated PAL/USA VPAK identity",
+  "feature_default_off": true,
+  "no_apk": true,
+  "no_save_writes": true
+}
