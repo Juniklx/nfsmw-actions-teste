@@ -1,0 +1,63 @@
+name: NFSMW PRE458 BMW performance customization inventory
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre458_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre458-bmw-tuning
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Drive read dependencies and syntax-check audit
+        run: |
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          python -m py_compile automation/kaggle/pre458_bmw_tuning_catalog_inventory.py
+      - name: PRE458 authenticated read-only metadata and source controls
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre458_bmw_tuning_catalog_inventory.py --run-id "$GITHUB_RUN_ID"
+      - name: Commit private metadata-only report
+        if: success()
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          data=json.loads(Path("/tmp/nfsmw-pre458/report.json").read_text())
+          if data.get("status")!="AUDIT_OK" or data.get("safe_to_enable_performance_purchases") is not False:
+              raise SystemExit("PRE458 rejected: cannot activate unvalidated upgrades")
+          target=Path("docs/PRE458_BMW_TUNING_CATALOG_INVENTORY_READONLY.json")
+          target.parent.mkdir(parents=True,exist_ok=True)
+          target.write_text(json.dumps(data,indent=2,ensure_ascii=False)+"\n")
+          print("PRE458_REPORT",target)
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE458_BMW_TUNING_CATALOG_INVENTORY_READONLY.json
+          git diff --cached --quiet && exit 0
+          git commit -m "PRE458: record authenticated BMW tuning inventory"
+          git push origin HEAD:main
+      - name: Archive audit result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre458-bmw-tuning-audit-${{ github.run_id }}
+          path: /tmp/nfsmw-pre458/report.json
+          if-no-files-found: warn
+          retention-days: 14
