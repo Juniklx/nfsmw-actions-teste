@@ -1,0 +1,75 @@
+name: NFSMW PRE522 inspect authentic FECarPartInfo Level Rep Cost arrays and shop mapping
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre522_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre522-frontend-fe-carpart-costs
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare authenticated original PAL/USA ranged resource readers
+        run: |
+          python -m pip install --disable-pip-version-check google-auth requests >/dev/null
+          python -m py_compile automation/kaggle/pre522_frontend_cost_arrays_readonly.py
+      - name: Verify pinned ZDIR semantics and checksum candidate without changing game files
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre522_frontend_cost_arrays_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Guard against game modifications and save sanitized metadata
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          p=Path("/tmp/nfsmw-pre522/report.json")
+          d=json.loads(p.read_text()) if p.is_file() else {"stage":"PRE522","status":"FAILED_NO_REPORT"}
+          for k in ("original_game_bytes_written_or_published","APK_built",
+                    "save_modified","signing_material_accessed","BMW_tuning_enabled"):
+              if d.get(k,False) is not False:
+                  raise SystemExit("PRE522 read-only/safety flag violation: "+k)
+          if d.get("status")=="AUDIT_OK":
+              if d.get("actual_BMW_shop_cost_or_purchase_verified") is not False:
+                  raise SystemExit("Cannot promote checksum match to loader validation")
+              dest=Path("docs/PRE522_USA_FE_CARPARTS_COST_ARRAYS_READONLY.json")
+          else:
+              dest=Path("docs/PRE522_USA_FE_CARPARTS_COST_ARRAYS_DIAGNOSTIC.json")
+              d={k:d.get(k) for k in ("stage","status","error_type","error","run_id") if k in d}
+              d["BMW_tuning_enabled"]=False
+          dest.parent.mkdir(parents=True,exist_ok=True)
+          dest.write_text(json.dumps(d,indent=2,ensure_ascii=False)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE522_USA_FE_CARPARTS_COST_ARRAYS_*json
+          git diff --cached --quiet && exit 0
+          git commit -m "PRE522: authentic FECarPartInfo levels and costs mapping evidence"
+          for i in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
+      - name: Retain sanitized private verification report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre522-zdir-semantics-${{ github.run_id }}
+          path: /tmp/nfsmw-pre522/report.json
+          retention-days: 14
