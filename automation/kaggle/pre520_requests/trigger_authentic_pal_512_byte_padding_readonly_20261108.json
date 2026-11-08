@@ -1,0 +1,9 @@
+{
+  "stage": "PRE520",
+  "objective": "Authentically stream original NFS/ZZDATA4.BIN compressed ZIP entry via strict Google Drive HTTP206, validate complete member CRC and compare original 512 bytes following BMW ATTRIBUTES.BIN against sector-zero hypothesis",
+  "original_zip_id": "1sF5irZpUNfN5Z2p4L53eMVISBeh8MfRz",
+  "only_read": true,
+  "source_originals_preserved": true,
+  "apk_built": false,
+  "save_modified": false
+}
