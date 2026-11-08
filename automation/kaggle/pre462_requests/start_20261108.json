@@ -1,0 +1,10 @@
+{
+  "stage": "PRE462",
+  "source": "user-owned NFSMW.iso USA",
+  "method": "XGD2 filesystem metadata and strict HTTP206 byte ranges",
+  "transfer_limit_bytes": 2097152,
+  "purpose": "Identify real attribute resource header for performance mod research; USA only reference to PAL",
+  "no_asset_upload": true,
+  "no_APK": true,
+  "no_save_writes": true
+}
