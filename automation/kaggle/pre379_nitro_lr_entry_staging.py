@@ -18,7 +18,7 @@ def propose(original:str)->str:
         raise ValueError("PRE379 was already applied")
     body=body_for_function(original,SYMBOL)
     # Match exact generated line while preserving its original indentation.
-    anchors=list(re.finditer(r"(?m)^[ \\t]*REX_FUNC_PROLOGUE\\(\\);\\r?\\n",body))
+    anchors=list(re.finditer(r"(?m)^[ \t]*REX_FUNC_PROLOGUE\(\);\r?\n",body))
     if len(anchors)!=1 or body.count("ctx.r12.u64 = ctx.lr;")!=1:
         raise ValueError("PRE379 expected one prologue and one mflr")
     m=anchors[0]
