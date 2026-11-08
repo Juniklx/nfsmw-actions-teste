@@ -1,0 +1,8 @@
+{
+  "stage": "PRE473",
+  "goal": "Read seven original pvehicle upgrade counters of BMW variants and Punto control",
+  "confirmed_source_VPAK_SHA": "9f4b04a221232e614b927a870e25da7db100477a7e425114b87082f46e8b99ad",
+  "mod_off": true,
+  "no_apk": true,
+  "no_save_write": true
+}
