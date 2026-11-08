@@ -1,0 +1,8 @@
+{
+  "stage": "PRE515",
+  "scope": "Inspect selected compiled DEX method-to-method and field references in exactly authenticated V48 APK: Ajustes, MotorNativo, GameActivity, Ediciones, SetupActivity",
+  "prior_proof": "docs/PRE513_ORIGINAL_V48_ANDROID_DEX_GAME_ROOT_SELECTION_READONLY.json",
+  "no_apk_rebuild": true,
+  "source_metadata_only": true,
+  "no_apk_or_save_changes": true
+}
