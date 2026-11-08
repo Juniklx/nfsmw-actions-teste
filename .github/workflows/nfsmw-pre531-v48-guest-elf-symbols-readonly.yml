@@ -1,0 +1,80 @@
+name: NFSMW PRE531 authenticate original V48 guest ELF numeric symbols read only
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre531_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre531-v48-guest-symbols
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 24
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install authenticated Drive+ELF readers, compile PRE531 audit
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth pyelftools==0.32 >/dev/null
+          python -m py_compile automation/kaggle/pre531_original_v48_pal_guest_elf_symbols_readonly.py
+      - name: Authenticate V48 exact APK SHA and scan PAL and USA ELF symbol tables read only
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre531_original_v48_pal_guest_elf_symbols_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Publish sanitized guest symbol metadata only
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          f=Path("/tmp/nfsmw-pre531/report.json")
+          d=json.loads(f.read_text()) if f.is_file() else {"stage":"PRE531","status":"FAILED_NO_REPORT"}
+          for key in ("new_APK_built","original_game_or_APK_modified",
+                      "guest_source_or_ELF_published","save_modified",
+                      "signing_material_accessed","ready_to_enable_BMW_tuning"):
+              if d.get(key,False) is not False:
+                  raise SystemExit("PRE531 read-only safety boundary failed "+key)
+          if d.get("status")=="AUDIT_OK":
+              if (d.get("guest_SetPackage_function_identity_verified") is not False or
+                  d.get("V48_actual_PAL_library_selected_on_phone_verified") is not False or
+                  d.get("historical_PRE99_to_V48_semantic_equivalence_verified") is not False or
+                  d.get("guest_SetPackage_synthetic_BMW_acceptance_verified") is not False):
+                  raise SystemExit("Cannot promote binary symbol presence to runtime SetPackage proof")
+              out=Path("docs/PRE531_ORIGINAL_V48_PAL_GUEST_ELF_SYMBOLS_READONLY.json")
+          else:
+              out=Path("docs/PRE531_ORIGINAL_V48_GUEST_ELF_SYMBOLS_DIAGNOSTIC.json")
+              d={k:d[k] for k in ("stage","status","error_type","error","run_id") if k in d}
+              d["ready_to_enable_BMW_tuning"]=False
+          out.parent.mkdir(parents=True,exist_ok=True)
+          out.write_text(json.dumps(d,indent=2,ensure_ascii=False)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE531_ORIGINAL_V48_*json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "PRE531: authenticated V48 PAL/USA ELF guest numeric symbols metadata"
+          for i in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
+      - name: Keep sanitized PRE531 report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre531-authenticated-v48-guest-elf-${{ github.run_id }}
+          path: /tmp/nfsmw-pre531/report.json
+          retention-days: 14
