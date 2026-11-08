@@ -1,0 +1,9 @@
+{
+  "stage": "PRE497",
+  "goal": "Dry-run full original 96-byte BMW engine TORQUE[9] profile creation while preserving other physics bytes, test only 0/5/10 percent mathematical cases",
+  "not_user_selected_percentage": true,
+  "no_runtime_patch": true,
+  "no_game_file_out": true,
+  "no_apk": true,
+  "no_save": true
+}
