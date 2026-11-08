@@ -1,0 +1,63 @@
+name: NFSMW PRE480 append-only canonical Drive context with backup
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre480_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre480-canonical-drive-context
+  cancel-in-progress: false
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install authenticated Google Drive API dependencies and syntax-check
+        run: |
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          python -m py_compile automation/kaggle/pre480_append_canonical_context_safe.py
+      - name: PRE480 backup Drive context, append, and verify all bytes
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre480_append_canonical_context_safe.py --run-id "$GITHUB_RUN_ID"
+      - name: Persist only hashes, backup ID, and sync status
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          rpath=Path("/tmp/nfsmw-pre480/report.json")
+          doc=json.loads(rpath.read_text()) if rpath.is_file() else {
+              "stage":"PRE480_CANONICAL_CONTEXT_APPEND_BACKUP_VERIFIED","status":"FAILED_NO_REPORT"}
+          if doc.get("apk_built",False) is not False or doc.get("save_modified",False) is not False:
+              raise SystemExit("PRE480 safety gate invalid")
+          out=Path("docs/PRE480_CANONICAL_CONTEXT_DRIVE_SYNC_RESULT.json")
+          out.parent.mkdir(parents=True,exist_ok=True)
+          out.write_text(json.dumps(doc,ensure_ascii=False,indent=2)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE480_CANONICAL_CONTEXT_DRIVE_SYNC_RESULT.json
+          git diff --cached --quiet && exit 0
+          git commit -m "PRE480: record backup-verified canonical NFSMW context sync"
+          git push origin HEAD:main
+      - name: Preserve private context update status only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre480-context-sync-${{ github.run_id }}
+          path: /tmp/nfsmw-pre480/report.json
+          if-no-files-found: warn
+          retention-days: 14
