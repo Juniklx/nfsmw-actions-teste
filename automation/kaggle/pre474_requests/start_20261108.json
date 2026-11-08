@@ -1,0 +1,8 @@
+{
+  "stage": "PRE474",
+  "purpose": "Compare BMW vs Punto real category references in authenticated PAL VPAK",
+  "source_sha256": "9f4b04a221232e614b927a870e25da7db100477a7e425114b87082f46e8b99ad",
+  "no_apk": true,
+  "no_save_access": true,
+  "do_not_fabricate_parts": true
+}
