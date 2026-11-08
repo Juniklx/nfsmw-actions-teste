@@ -1,0 +1,69 @@
+name: NFSMW PRE502 BMW full engine and level-one combined scratch VPAK
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre502_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre502-bmw-engine-full-single-level
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate scratch reconstruction script
+        run: |
+          python -m pip install --disable-pip-version-check google-auth requests >/dev/null
+          python -m py_compile automation/kaggle/pre502_bmw_engine_combined_level1_scratch.py
+      - name: Rebuild one independent BMW torque profile, RefSpec, pointers and engine level 1 in memory
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre502_bmw_engine_combined_level1_scratch.py --run-id "$GITHUB_RUN_ID"
+      - name: Publish private metadata-only report
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          path=Path("/tmp/nfsmw-pre502/report.json")
+          d=json.loads(path.read_text()) if path.is_file() else {"status":"FAILED_NO_REPORT"}
+          if any(d.get(k,False) is not False for k in ("safe_to_enable_or_build_tuning","apk_built","modified_game_resource_file_written","rebuilt_asset_uploaded","source_game_files_modified")):
+              raise SystemExit("PRE502 fail-closed game mutation")
+          if d.get("status")=="AUDIT_OK":
+              if (d.get("scratch_BMW_pvehicle_engine_upgrade_limit_one") is not True
+                  or d.get("combined_new_engine_physical_collection_RefSpec_and_level1_in_one_VPAK") is not True
+                  or d.get("PAL_game_loader_support_verified") is not False
+                  or d.get("new_engine_not_buyable_in_game") is not True):
+                  raise SystemExit("PRE502 combined scratch proof not complete")
+              target=Path("docs/PRE502_BMW_ENGINE_FULL_LEVEL1_COMBINED_SCRATCH.json")
+          else:
+              target=Path("docs/PRE502_BMW_ENGINE_FULL_LEVEL1_DIAGNOSTIC.json")
+              d={k:d.get(k) for k in ("stage","status","error_type","error","run_id") if k in d}
+              d["safe_to_enable_or_build_tuning"]=False
+          target.parent.mkdir(parents=True,exist_ok=True)
+          target.write_text(json.dumps(d,ensure_ascii=False,indent=2)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE502_BMW_ENGINE_FULL_*.json
+          git diff --cached --quiet && exit 0
+          git commit -m "PRE502: verify complete original BMW engine level1 synthetic scratch layout"
+          for i in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
