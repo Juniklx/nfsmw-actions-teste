@@ -1,0 +1,297 @@
+{
+  "stage": "PRE508_HISTORICAL_ANDROID_GUEST_ASSET_LOADER_SOURCE_CONTEXT",
+  "status": "AUDIT_OK",
+  "source_snapshot": "PRE99 verified historical snapshot, not V48",
+  "snapshot_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "target_pinned_source_file_count": 4,
+  "source_anchor_review": [
+    {
+      "key": "android_nativo",
+      "historical_path": "workspace/android/app/src/main/cpp/nativo/nativo_android.cpp",
+      "sha256_matches_PRE505": true,
+      "historical_source_sha256": "0453fea3ec0ca4a5e4ce4e926e3b1d1fd46dc38a402d89ba73a400afc7b7ad73",
+      "source_line_count": 2571,
+      "anchor_contexts": [
+        {
+          "line": 537,
+          "window_start": 532,
+          "window_end": 542,
+          "window_marker_matches": {
+            "global_attributes": true,
+            "zdir": false,
+            "zzdata": false,
+            "zip_archive": false,
+            "file_redirect": false,
+            "fopen": false,
+            "file_read": false,
+            "file_path_mapping": false,
+            "android_external": true
+          },
+          "anchor_sha256": "fdc9100659c457c85a229904e059bc3512537ed912e612085dcb8b30e30cc8cd"
+        }
+      ]
+    },
+    {
+      "key": "guest_xboxkrnl_io",
+      "historical_path": "workspace/nativo/sdk/src/kernel/xboxkrnl/xboxkrnl_io.cpp",
+      "sha256_matches_PRE505": true,
+      "historical_source_sha256": "40869526201fbed631b7bb506c83680edc02b2f4a6701f31a19b1a068c622015",
+      "source_line_count": 1280,
+      "anchor_contexts": [
+        {
+          "line": 84,
+          "window_start": 79,
+          "window_end": 89,
+          "window_marker_matches": {
+            "global_attributes": false,
+            "zdir": false,
+            "zzdata": true,
+            "zip_archive": false,
+            "file_redirect": false,
+            "fopen": false,
+            "file_read": false,
+            "file_path_mapping": false,
+            "android_external": false
+          },
+          "anchor_sha256": "d9bafded32ddf72f016f0af84603f8ccca9c6a11820237e90f835c106143043e"
+        },
+        {
+          "line": 444,
+          "window_start": 439,
+          "window_end": 449,
+          "window_marker_matches": {
+            "global_attributes": false,
+            "zdir": false,
+            "zzdata": false,
+            "zip_archive": false,
+            "file_redirect": false,
+            "fopen": false,
+            "file_read": false,
+            "file_path_mapping": false,
+            "android_external": false
+          },
+          "anchor_sha256": "91dce11477251d12b6d915cc629185d231fc1e7c0970092243a334719cd96373"
+        },
+        {
+          "line": 445,
+          "window_start": 440,
+          "window_end": 450,
+          "window_marker_matches": {
+            "global_attributes": false,
+            "zdir": false,
+            "zzdata": false,
+            "zip_archive": false,
+            "file_redirect": false,
+            "fopen": false,
+            "file_read": false,
+            "file_path_mapping": false,
+            "android_external": false
+          },
+          "anchor_sha256": "553b36610d52d1d8d630f742cec6f601241cb6295d9cbf8e9e8bd95146e7b974"
+        },
+        {
+          "line": 531,
+          "window_start": 526,
+          "window_end": 536,
+          "window_marker_matches": {
+            "global_attributes": false,
+            "zdir": false,
+            "zzdata": false,
+            "zip_archive": false,
+            "file_redirect": false,
+            "fopen": false,
+            "file_read": true,
+            "file_path_mapping": true,
+            "android_external": false
+          },
+          "anchor_sha256": "9e85724e2c1036811b00bbdde24188cb70c6a6d3545f7c535dbff26e6505b481"
+        }
+      ]
+    },
+    {
+      "key": "host_path",
+      "historical_path": "workspace/nativo/sdk/src/filesystem/devices/host_path_file.cpp",
+      "sha256_matches_PRE505": true,
+      "historical_source_sha256": "7dace8159023592ee8008a0b0528a3798aea6a1856bc8e003492b9c4cce65346",
+      "source_line_count": 878,
+      "anchor_contexts": [
+        {
+          "line": 123,
+          "window_start": 118,
+          "window_end": 128,
+          "window_marker_matches": {
+            "global_attributes": false,
+            "zdir": false,
+            "zzdata": true,
+            "zip_archive": false,
+            "file_redirect": false,
+            "fopen": false,
+            "file_read": false,
+            "file_path_mapping": false,
+            "android_external": false
+          },
+          "anchor_sha256": "0486badd1d919d9946f033b600f21cc4c13c175444853732f8d62d17fa10d5a6"
+        },
+        {
+          "line": 160,
+          "window_start": 155,
+          "window_end": 165,
+          "window_marker_matches": {
+            "global_attributes": false,
+            "zdir": false,
+            "zzdata": true,
+            "zip_archive": false,
+            "file_redirect": false,
+            "fopen": false,
+            "file_read": false,
+            "file_path_mapping": false,
+            "android_external": false
+          },
+          "anchor_sha256": "772d332a0b9cad759d4a4913f8ac8b5665bc242cb5ed5bd07ce495e85da9d9be"
+        },
+        {
+          "line": 164,
+          "window_start": 159,
+          "window_end": 169,
+          "window_marker_matches": {
+            "global_attributes": false,
+            "zdir": false,
+            "zzdata": true,
+            "zip_archive": false,
+            "file_redirect": false,
+            "fopen": false,
+            "file_read": false,
+            "file_path_mapping": false,
+            "android_external": false
+          },
+          "anchor_sha256": "bb8c4d9881b64d4a995f2b24d648c6cd702a6ea07dae1fd0a70c8ff5966b3811"
+        },
+        {
+          "line": 448,
+          "window_start": 443,
+          "window_end": 453,
+          "window_marker_matches": {
+            "global_attributes": false,
+            "zdir": false,
+            "zzdata": true,
+            "zip_archive": false,
+            "file_redirect": false,
+            "fopen": false,
+            "file_read": false,
+            "file_path_mapping": false,
+            "android_external": false
+          },
+          "anchor_sha256": "d44e490ded4a4087012667e77a7722a0faf063d30ba2df7a5c57b5bae947622e"
+        }
+      ]
+    },
+    {
+      "key": "virtual_fs",
+      "historical_path": "workspace/nativo/sdk/src/filesystem/virtual_file_system.cpp",
+      "sha256_matches_PRE505": true,
+      "historical_source_sha256": "a3e89c5d85f899d9756750fcf2dcc47b21cb5afc96f71c1804fc35544902bc9d",
+      "source_line_count": 344,
+      "anchor_contexts": [
+        {
+          "line": 20,
+          "window_start": 15,
+          "window_end": 25,
+          "window_marker_matches": {
+            "global_attributes": false,
+            "zdir": false,
+            "zzdata": false,
+            "zip_archive": false,
+            "file_redirect": false,
+            "fopen": false,
+            "file_read": false,
+            "file_path_mapping": true,
+            "android_external": false
+          },
+          "anchor_sha256": "769a4fd8fd2531194db040297c0664532e905e6f342040010b2dd06c8ed25ac4"
+        },
+        {
+          "line": 218,
+          "window_start": 213,
+          "window_end": 223,
+          "window_marker_matches": {
+            "global_attributes": false,
+            "zdir": false,
+            "zzdata": false,
+            "zip_archive": false,
+            "file_redirect": false,
+            "fopen": false,
+            "file_read": false,
+            "file_path_mapping": true,
+            "android_external": false
+          },
+          "anchor_sha256": "10999665b9796e7e36ca90a0a423582b2bbb988e7fe3edeeefb63059a1bae508"
+        },
+        {
+          "line": 219,
+          "window_start": 214,
+          "window_end": 224,
+          "window_marker_matches": {
+            "global_attributes": false,
+            "zdir": false,
+            "zzdata": false,
+            "zip_archive": false,
+            "file_redirect": false,
+            "fopen": false,
+            "file_read": false,
+            "file_path_mapping": true,
+            "android_external": false
+          },
+          "anchor_sha256": "239c33250d7a88b3bdbc889185ac822fbd8ef55ef7a4513ba1f21e173d0f51fa"
+        },
+        {
+          "line": 220,
+          "window_start": 215,
+          "window_end": 225,
+          "window_marker_matches": {
+            "global_attributes": false,
+            "zdir": false,
+            "zzdata": false,
+            "zip_archive": false,
+            "file_redirect": false,
+            "fopen": false,
+            "file_read": false,
+            "file_path_mapping": true,
+            "android_external": false
+          },
+          "anchor_sha256": "21f9581f0d96ffe243af84cb6c93c010f54356d650f0eeb75e1125bab43aa1a1"
+        },
+        {
+          "line": 337,
+          "window_start": 332,
+          "window_end": 342,
+          "window_marker_matches": {
+            "global_attributes": false,
+            "zdir": false,
+            "zzdata": false,
+            "zip_archive": false,
+            "file_redirect": false,
+            "fopen": false,
+            "file_read": false,
+            "file_path_mapping": false,
+            "android_external": false
+          },
+          "anchor_sha256": "543b02378ef1e3b95faa50a076cf4dc5526ebc106b0cb2922545977e6be9181c"
+        }
+      ]
+    }
+  ],
+  "excerpt_log_type": "small redacted human-authored source windows in private runner logs only",
+  "long_source_or_game_data_exported": false,
+  "source_semantics_manually_reviewed": false,
+  "actual_V48_loader_or_mount_verified": false,
+  "new_engine_collection_runtime_accepted": false,
+  "ZDIR_checksum_semantics_verified": false,
+  "BMW_tuning_purchase_runtime_verified": false,
+  "any_game_asset_modified": false,
+  "APK_built": false,
+  "save_modified": false,
+  "signing_accessed": false,
+  "mod_enabled": false,
+  "run_id": "42525120679",
+  "utc": "2026-11-08T21:26:09.915217+00:00"
+}
