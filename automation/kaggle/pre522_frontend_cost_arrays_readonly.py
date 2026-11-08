@@ -74,6 +74,14 @@ def audit():
     ct=struct.unpack_from(">I",VLT,start+8)[0]
     if ct!=414 or [x["tag"] for x in vchunks]!=["DepN","StrN","DatN","ExpN","PtrN"]:
         raise ValueError("Source FE VLT section sequence changed")
+    ptr_region=VLT[ptr["relative_offset"]:ptr["relative_offset"]+ptr["declared_size"]]
+    print("PRE522_PTRN_DIAGNOSTIC",json.dumps({
+       "vlt_bytes":len(VLT),"ptr_at":ptr["relative_offset"],
+       "ptr_size":ptr["declared_size"],
+       "ptr_minus_header_mod12":(ptr["declared_size"]-8)%12,
+       "first_16_bytes_hex":ptr_region[:16].hex(),
+       "last_16_bytes_hex":ptr_region[-16:].hex()
+    }),flush=True)
     ptr_offsets=lookup_ptrn(VLT,ptr["relative_offset"],ptr["declared_size"])
     strings=get_names(BIN,bchunks)
     labels={hash32(x):x for x in strings}
