@@ -1,0 +1,9 @@
+{
+  "stage": "PRE504",
+  "goal": "Retry append after aligning marker with PRE504_BMW_ENGINE_INTEGRATION_CHECKPOINT_20261108",
+  "append_only": true,
+  "backup_first": true,
+  "readback_exact": true,
+  "no_save": true,
+  "no_apk": true
+}
