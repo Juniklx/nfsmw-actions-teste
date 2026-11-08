@@ -1,0 +1,7 @@
+{
+  "stage": "PRE395",
+  "scope": "authenticated PRE99 Nitro r26 r28 and field+136 source-only provenance",
+  "read_only": true,
+  "owner_verified": false,
+  "no_apk": true
+}
