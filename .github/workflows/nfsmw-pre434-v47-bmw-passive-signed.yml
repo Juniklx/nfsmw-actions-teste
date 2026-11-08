@@ -58,7 +58,7 @@ jobs:
             automation/kaggle/pre284_v37_full_passive_vtable_link_preflight.py \
             automation/kaggle/pre291_bmw_main_menu_passive_trace_dryrun.py \
             automation/kaggle/pre292_bmw_main_menu_native_link_nosign.py \
-            automation/kaggle/pre401_build_signed_v46_global_nitro_full.py
+            automation/kaggle/pre401_build_signed_v46_global_nitro_full.py \
             automation/kaggle/pre431_v46_source_dual_trace_compat_readonly.py \
             automation/kaggle/pre434_build_signed_v47_bmw_passive_diag.py
           python automation/kaggle/pre139_verify_dependency_cache.py --self-test
