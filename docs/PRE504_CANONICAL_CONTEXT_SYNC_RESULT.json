@@ -1,0 +1,11 @@
+{
+  "stage": "PRE504_CANONICAL_CONTEXT_APPEND_WITH_BACKUP",
+  "status": "FAILED",
+  "apk_built": false,
+  "save_modified": false,
+  "game_assets_modified": false,
+  "error_type": "ValueError",
+  "error": "Unexpected PRE504 handoff identity/length",
+  "run_id": "42523039486",
+  "utc": "2026-11-08T21:01:32.134728+00:00"
+}
