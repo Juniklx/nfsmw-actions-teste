@@ -1,0 +1,1007 @@
+{
+  "stage": "PRE537_SIGNED_V48_PAL_SHARED_GUEST_NODES_INBOUND_BREADTH_READONLY",
+  "status": "AUDIT_OK",
+  "original_signed_V48_APK_sha256": "c642f95b4a60b9ccf5d8fbd98802afffc0a2247ec5a0783b54cd8083ec55bd35",
+  "original_signed_V48_PAL_libmain_sha256": "f39870144295c98cb05b9e8649a378e968fccb5bf479b653d0654158e92316a3",
+  "ELF_PLT_relocation_count": 17107,
+  "ELF_guest_Plt_mapping_count": 15598,
+  "ELF_guest_numeric_function_count": 56338,
+  "all_guest_exported_bodies_scanned": 56338,
+  "all_guest_exported_bodies_skipped_by_bounds": 0,
+  "total_original_V48_ARM64_bytes_scanned": 21439048,
+  "all_resolved_guest_BL_calls_seen": 76786,
+  "audited_PRE535_shared_numeric_function_count": 12,
+  "audited_shared_numeric_functions": [
+    {
+      "function": "sub_823EAE40",
+      "original_V48_ELF_function_bytes": 2964,
+      "original_V48_ELF_ARM64_instruction_count": 741,
+      "branch_and_call_opcode_counts": {
+        "bl": 4,
+        "b": 18,
+        "b.eq": 3,
+        "b.ne": 17,
+        "cbz": 3,
+        "ret": 1
+      },
+      "memory_opcode_counts": {
+        "ldr": 98,
+        "ldrb": 3,
+        "ldp": 14,
+        "str": 101,
+        "stp": 29
+      },
+      "direct_ARM64_BL_count": 4,
+      "resolved_numeric_guest_callees": {
+        "sub_823EB290": 1,
+        "sub_823EB3B0": 1,
+        "sub_823E4130": 1,
+        "sub_823E4588": 1
+      },
+      "distinct_resolved_guest_callees": 4,
+      "incoming_guest_BL_callsite_count": 9,
+      "incoming_distinct_guest_caller_count": 7,
+      "incoming_distinct_guest_caller_address_regions": 5,
+      "incoming_callers_from_8255_to_8258_regions": 4,
+      "incoming_guest_caller_top_address_regions": {
+        "0x8226": 2,
+        "0x8256": 2,
+        "0x8254": 1,
+        "0x8255": 1,
+        "0x8258": 1
+      },
+      "incoming_guest_caller_bounded_examples": [
+        "sub_8226B228",
+        "sub_8226B4C0",
+        "sub_8254E908",
+        "sub_8255C1C8",
+        "sub_82566BE8",
+        "sub_82566BE8",
+        "sub_8256CE68",
+        "sub_8256CE68",
+        "sub_82584880"
+      ],
+      "PRE535_menu_root_roles_reaching": [
+        "ui_list_caller"
+      ],
+      "PRE535_field_writer_root_roles_reaching": [
+        "historical_field12_writer_B"
+      ],
+      "PRE535_verified_witness_paths": {
+        "ui_list_caller": [
+          "sub_82582F70",
+          "sub_8256CE68",
+          "sub_823EAE40"
+        ],
+        "historical_field12_writer_B": [
+          "sub_82564D80",
+          "sub_8254E908",
+          "sub_823EAE40"
+        ]
+      },
+      "semantic_identity_proven": false
+    },
+    {
+      "function": "sub_822CC740",
+      "original_V48_ELF_function_bytes": 488,
+      "original_V48_ELF_ARM64_instruction_count": 122,
+      "branch_and_call_opcode_counts": {
+        "bl": 3,
+        "b": 1,
+        "cbz": 2,
+        "cbnz": 1,
+        "ret": 1
+      },
+      "memory_opcode_counts": {
+        "ldr": 17,
+        "ldrb": 2,
+        "ldp": 3,
+        "str": 29,
+        "stp": 5
+      },
+      "direct_ARM64_BL_count": 3,
+      "resolved_numeric_guest_callees": {
+        "sub_821E02C0": 1,
+        "sub_824EDD40": 1,
+        "sub_82152A38": 1
+      },
+      "distinct_resolved_guest_callees": 3,
+      "incoming_guest_BL_callsite_count": 30,
+      "incoming_distinct_guest_caller_count": 27,
+      "incoming_distinct_guest_caller_address_regions": 6,
+      "incoming_callers_from_8255_to_8258_regions": 21,
+      "incoming_guest_caller_top_address_regions": {
+        "0x8256": 10,
+        "0x8257": 6,
+        "0x8258": 5,
+        "0x822c": 3,
+        "0x822e": 2,
+        "0x822a": 1
+      },
+      "incoming_guest_caller_bounded_examples": [
+        "sub_822A6810",
+        "sub_822CB728",
+        "sub_822CC220",
+        "sub_822CC308",
+        "sub_822E7B10",
+        "sub_822E7B10",
+        "sub_822E8D20",
+        "sub_82568668",
+        "sub_82568668",
+        "sub_8256C8B8",
+        "sub_8256EA78",
+        "sub_8256F1E0",
+        "sub_8256F238",
+        "sub_8256F298",
+        "sub_8256F2F8",
+        "sub_8256FC88",
+        "sub_8256FCE8",
+        "sub_8256FD30",
+        "sub_82576AB8",
+        "sub_82577C88"
+      ],
+      "PRE535_menu_root_roles_reaching": [
+        "ui_list_caller"
+      ],
+      "PRE535_field_writer_root_roles_reaching": [
+        "historical_field12_writer_B"
+      ],
+      "PRE535_verified_witness_paths": {
+        "ui_list_caller": [
+          "sub_82582F70",
+          "sub_822CC740"
+        ],
+        "historical_field12_writer_B": [
+          "sub_82564D80",
+          "sub_822CC308",
+          "sub_822CC740"
+        ]
+      },
+      "semantic_identity_proven": false
+    },
+    {
+      "function": "sub_821E02C0",
+      "original_V48_ELF_function_bytes": 352,
+      "original_V48_ELF_ARM64_instruction_count": 88,
+      "branch_and_call_opcode_counts": {
+        "bl": 1,
+        "cbz": 1,
+        "cbnz": 2,
+        "ret": 1
+      },
+      "memory_opcode_counts": {
+        "ldr": 12,
+        "ldp": 2,
+        "str": 25,
+        "strh": 3,
+        "stp": 3
+      },
+      "direct_ARM64_BL_count": 1,
+      "resolved_numeric_guest_callees": {
+        "sub_8214D958": 1
+      },
+      "distinct_resolved_guest_callees": 1,
+      "incoming_guest_BL_callsite_count": 32,
+      "incoming_distinct_guest_caller_count": 29,
+      "incoming_distinct_guest_caller_address_regions": 17,
+      "incoming_callers_from_8255_to_8258_regions": 7,
+      "incoming_guest_caller_top_address_regions": {
+        "0x822c": 6,
+        "0x8256": 4,
+        "0x8247": 3,
+        "0x824d": 2,
+        "0x8255": 2,
+        "0x821e": 1,
+        "0x8226": 1,
+        "0x822a": 1,
+        "0x822e": 1,
+        "0x8233": 1,
+        "0x8236": 1,
+        "0x823d": 1
+      },
+      "incoming_guest_caller_bounded_examples": [
+        "sub_821EA478",
+        "sub_8226B228",
+        "sub_822A6DD0",
+        "sub_822CB180",
+        "sub_822CB460",
+        "sub_822CBC08",
+        "sub_822CC598",
+        "sub_822CC740",
+        "sub_822CD830",
+        "sub_822E80B8",
+        "sub_82333658",
+        "sub_82362B18",
+        "sub_823D4100",
+        "sub_823E9D38",
+        "sub_823E9D38",
+        "sub_824339A8",
+        "sub_82472928",
+        "sub_82472A38",
+        "sub_82474528",
+        "sub_82474528"
+      ],
+      "PRE535_menu_root_roles_reaching": [
+        "ui_list_caller"
+      ],
+      "PRE535_field_writer_root_roles_reaching": [
+        "historical_field12_writer_B"
+      ],
+      "PRE535_verified_witness_paths": {
+        "ui_list_caller": [
+          "sub_82582F70",
+          "sub_8256CE68",
+          "sub_821E02C0"
+        ],
+        "historical_field12_writer_B": [
+          "sub_82564D80",
+          "sub_8254E908",
+          "sub_821E02C0"
+        ]
+      },
+      "semantic_identity_proven": false
+    },
+    {
+      "function": "sub_82284CC0",
+      "original_V48_ELF_function_bytes": 428,
+      "original_V48_ELF_ARM64_instruction_count": 107,
+      "branch_and_call_opcode_counts": {
+        "bl": 3,
+        "b": 2,
+        "b.eq": 1,
+        "cbz": 2,
+        "cbnz": 2,
+        "ret": 1
+      },
+      "memory_opcode_counts": {
+        "ldr": 17,
+        "ldrb": 1,
+        "ldp": 3,
+        "str": 23,
+        "stp": 5
+      },
+      "direct_ARM64_BL_count": 3,
+      "resolved_numeric_guest_callees": {
+        "sub_822F5A70": 2,
+        "sub_822D71A8": 1
+      },
+      "distinct_resolved_guest_callees": 2,
+      "incoming_guest_BL_callsite_count": 102,
+      "incoming_distinct_guest_caller_count": 35,
+      "incoming_distinct_guest_caller_address_regions": 12,
+      "incoming_callers_from_8255_to_8258_regions": 4,
+      "incoming_guest_caller_top_address_regions": {
+        "0x8227": 11,
+        "0x8228": 7,
+        "0x8226": 3,
+        "0x822a": 3,
+        "0x8258": 3,
+        "0x8225": 2,
+        "0x8229": 1,
+        "0x822b": 1,
+        "0x822d": 1,
+        "0x822e": 1,
+        "0x8254": 1,
+        "0x8257": 1
+      },
+      "incoming_guest_caller_bounded_examples": [
+        "sub_82255280",
+        "sub_82255508",
+        "sub_82255508",
+        "sub_82255508",
+        "sub_82255508",
+        "sub_82255508",
+        "sub_82255508",
+        "sub_82255508",
+        "sub_82255508",
+        "sub_82261A20",
+        "sub_82261A20",
+        "sub_82261A20",
+        "sub_82261A20",
+        "sub_82261A20",
+        "sub_82261A20",
+        "sub_82261A20",
+        "sub_82261A20",
+        "sub_82261A20",
+        "sub_82261A20",
+        "sub_82261A20"
+      ],
+      "PRE535_menu_root_roles_reaching": [
+        "ui_list_caller"
+      ],
+      "PRE535_field_writer_root_roles_reaching": [
+        "historical_field12_writer_B"
+      ],
+      "PRE535_verified_witness_paths": {
+        "ui_list_caller": [
+          "sub_82582F70",
+          "sub_8227FD70",
+          "sub_82284CC0"
+        ],
+        "historical_field12_writer_B": [
+          "sub_82564D80",
+          "sub_82284E88",
+          "sub_82284CC0"
+        ]
+      },
+      "semantic_identity_proven": false
+    },
+    {
+      "function": "sub_822FEB70",
+      "original_V48_ELF_function_bytes": 684,
+      "original_V48_ELF_ARM64_instruction_count": 171,
+      "branch_and_call_opcode_counts": {
+        "bl": 2,
+        "blr": 1,
+        "b": 3,
+        "b.ne": 1,
+        "cbz": 6,
+        "cbnz": 1,
+        "ret": 1
+      },
+      "memory_opcode_counts": {
+        "ldr": 16,
+        "ldrb": 1,
+        "ldp": 8,
+        "str": 37,
+        "stp": 9
+      },
+      "direct_ARM64_BL_count": 2,
+      "resolved_numeric_guest_callees": {
+        "sub_82232F38": 1
+      },
+      "distinct_resolved_guest_callees": 1,
+      "incoming_guest_BL_callsite_count": 93,
+      "incoming_distinct_guest_caller_count": 55,
+      "incoming_distinct_guest_caller_address_regions": 18,
+      "incoming_callers_from_8255_to_8258_regions": 5,
+      "incoming_guest_caller_top_address_regions": {
+        "0x8228": 18,
+        "0x8227": 5,
+        "0x8245": 5,
+        "0x822f": 4,
+        "0x8225": 3,
+        "0x8229": 3,
+        "0x8255": 3,
+        "0x8223": 2,
+        "0x822b": 2,
+        "0x8230": 2,
+        "0x8224": 1,
+        "0x8226": 1
+      },
+      "incoming_guest_caller_bounded_examples": [
+        "sub_8223EB70",
+        "sub_8223FC68",
+        "sub_8224AA98",
+        "sub_8224AA98",
+        "sub_82255280",
+        "sub_82258C78",
+        "sub_82258C78",
+        "sub_8225DEB0",
+        "sub_82267700",
+        "sub_82272990",
+        "sub_82272990",
+        "sub_82274EB8",
+        "sub_82275968",
+        "sub_82276790",
+        "sub_82279990",
+        "sub_82282F30",
+        "sub_82282F30",
+        "sub_82284E88",
+        "sub_82284E88",
+        "sub_82284F70"
+      ],
+      "PRE535_menu_root_roles_reaching": [
+        "ui_list_caller"
+      ],
+      "PRE535_field_writer_root_roles_reaching": [
+        "historical_field12_writer_B"
+      ],
+      "PRE535_verified_witness_paths": {
+        "ui_list_caller": [
+          "sub_82582F70",
+          "sub_82284E88",
+          "sub_822FEB70"
+        ],
+        "historical_field12_writer_B": [
+          "sub_82564D80",
+          "sub_825682F0",
+          "sub_822FEB70"
+        ]
+      },
+      "semantic_identity_proven": false
+    },
+    {
+      "function": "sub_82282A70",
+      "original_V48_ELF_function_bytes": 244,
+      "original_V48_ELF_ARM64_instruction_count": 61,
+      "branch_and_call_opcode_counts": {
+        "bl": 1,
+        "ret": 1
+      },
+      "memory_opcode_counts": {
+        "ldr": 12,
+        "ldp": 2,
+        "str": 14,
+        "stp": 4
+      },
+      "direct_ARM64_BL_count": 1,
+      "resolved_numeric_guest_callees": {
+        "sub_821581D8": 1
+      },
+      "distinct_resolved_guest_callees": 1,
+      "incoming_guest_BL_callsite_count": 140,
+      "incoming_distinct_guest_caller_count": 78,
+      "incoming_distinct_guest_caller_address_regions": 14,
+      "incoming_callers_from_8255_to_8258_regions": 6,
+      "incoming_guest_caller_top_address_regions": {
+        "0x8226": 23,
+        "0x8227": 21,
+        "0x8224": 6,
+        "0x822e": 6,
+        "0x8225": 3,
+        "0x822b": 3,
+        "0x822c": 3,
+        "0x8255": 3,
+        "0x8256": 3,
+        "0x822a": 2,
+        "0x822d": 2,
+        "0x8223": 1
+      },
+      "incoming_guest_caller_bounded_examples": [
+        "sub_8223F708",
+        "sub_8223F708",
+        "sub_822435F8",
+        "sub_822440F8",
+        "sub_82244678",
+        "sub_822448D8",
+        "sub_8224B7D0",
+        "sub_8224E7E8",
+        "sub_82258C78",
+        "sub_8225F0C0",
+        "sub_8225F0C0",
+        "sub_8225F0C0",
+        "sub_8225F628",
+        "sub_82260790",
+        "sub_82260908",
+        "sub_82260908",
+        "sub_82260B20",
+        "sub_82260B20",
+        "sub_82260D00",
+        "sub_82260E78"
+      ],
+      "PRE535_menu_root_roles_reaching": [
+        "ui_list_caller"
+      ],
+      "PRE535_field_writer_root_roles_reaching": [
+        "historical_field12_writer_B"
+      ],
+      "PRE535_verified_witness_paths": {
+        "ui_list_caller": [
+          "sub_82582F70",
+          "sub_8256D2B8",
+          "sub_82282A70"
+        ],
+        "historical_field12_writer_B": [
+          "sub_82564D80",
+          "sub_82567400",
+          "sub_82282A70"
+        ]
+      },
+      "semantic_identity_proven": false
+    },
+    {
+      "function": "sub_820E25C0",
+      "original_V48_ELF_function_bytes": 32,
+      "original_V48_ELF_ARM64_instruction_count": 8,
+      "branch_and_call_opcode_counts": {
+        "ret": 1
+      },
+      "memory_opcode_counts": {
+        "ldr": 2,
+        "str": 2
+      },
+      "direct_ARM64_BL_count": 0,
+      "resolved_numeric_guest_callees": {},
+      "distinct_resolved_guest_callees": 0,
+      "incoming_guest_BL_callsite_count": 290,
+      "incoming_distinct_guest_caller_count": 145,
+      "incoming_distinct_guest_caller_address_regions": 18,
+      "incoming_callers_from_8255_to_8258_regions": 14,
+      "incoming_guest_caller_top_address_regions": {
+        "0x8250": 23,
+        "0x8222": 20,
+        "0x8229": 20,
+        "0x824c": 20,
+        "0x8214": 11,
+        "0x822e": 8,
+        "0x8258": 8,
+        "0x823c": 6,
+        "0x8243": 6,
+        "0x8255": 6,
+        "0x8252": 5,
+        "0x8218": 3
+      },
+      "incoming_guest_caller_bounded_examples": [
+        "sub_82120298",
+        "sub_82120298",
+        "sub_8213A900",
+        "sub_8213A900",
+        "sub_82143B28",
+        "sub_82143B28",
+        "sub_82143C20",
+        "sub_82143C20",
+        "sub_82143D60",
+        "sub_82143D60",
+        "sub_82143E68",
+        "sub_82143E68",
+        "sub_82143FE0",
+        "sub_82143FE0",
+        "sub_821442A8",
+        "sub_821442A8",
+        "sub_82144498",
+        "sub_82144498",
+        "sub_82144560",
+        "sub_82144560"
+      ],
+      "PRE535_menu_root_roles_reaching": [
+        "ui_list_caller"
+      ],
+      "PRE535_field_writer_root_roles_reaching": [
+        "historical_field12_writer_A"
+      ],
+      "PRE535_verified_witness_paths": {
+        "ui_list_caller": [
+          "sub_82582F70",
+          "sub_82587498",
+          "sub_820E25C0"
+        ],
+        "historical_field12_writer_A": [
+          "sub_8256BFC8",
+          "sub_825878C8",
+          "sub_820E25C0"
+        ]
+      },
+      "semantic_identity_proven": false
+    },
+    {
+      "function": "sub_82284E88",
+      "original_V48_ELF_function_bytes": 316,
+      "original_V48_ELF_ARM64_instruction_count": 79,
+      "branch_and_call_opcode_counts": {
+        "bl": 3,
+        "b": 1,
+        "cbz": 4,
+        "cbnz": 1,
+        "ret": 1
+      },
+      "memory_opcode_counts": {
+        "ldr": 16,
+        "ldp": 4,
+        "str": 15,
+        "stp": 8
+      },
+      "direct_ARM64_BL_count": 3,
+      "resolved_numeric_guest_callees": {
+        "sub_822FEB70": 2,
+        "sub_82284CC0": 1
+      },
+      "distinct_resolved_guest_callees": 2,
+      "incoming_guest_BL_callsite_count": 237,
+      "incoming_distinct_guest_caller_count": 161,
+      "incoming_distinct_guest_caller_address_regions": 17,
+      "incoming_callers_from_8255_to_8258_regions": 35,
+      "incoming_guest_caller_top_address_regions": {
+        "0x8227": 20,
+        "0x8228": 19,
+        "0x8225": 15,
+        "0x822b": 13,
+        "0x8256": 13,
+        "0x8223": 12,
+        "0x8229": 11,
+        "0x8226": 10,
+        "0x8257": 10,
+        "0x8224": 8,
+        "0x8258": 8,
+        "0x822a": 7
+      },
+      "incoming_guest_caller_bounded_examples": [
+        "sub_82236948",
+        "sub_82236948",
+        "sub_82237498",
+        "sub_82237498",
+        "sub_8223BC28",
+        "sub_8223BEA8",
+        "sub_8223CB20",
+        "sub_8223CCB0",
+        "sub_8223CD70",
+        "sub_8223D760",
+        "sub_8223EB70",
+        "sub_8223EEE0",
+        "sub_8223F168",
+        "sub_8223F540",
+        "sub_822406A0",
+        "sub_82244BB8",
+        "sub_82244BB8",
+        "sub_82248B80",
+        "sub_8224B7D0",
+        "sub_8224B7D0"
+      ],
+      "PRE535_menu_root_roles_reaching": [
+        "ui_list_caller"
+      ],
+      "PRE535_field_writer_root_roles_reaching": [
+        "historical_field12_writer_B"
+      ],
+      "PRE535_verified_witness_paths": {
+        "ui_list_caller": [
+          "sub_82582F70",
+          "sub_82284E88"
+        ],
+        "historical_field12_writer_B": [
+          "sub_82564D80",
+          "sub_82284E88"
+        ]
+      },
+      "semantic_identity_proven": false
+    },
+    {
+      "function": "sub_822BCE60",
+      "original_V48_ELF_function_bytes": 472,
+      "original_V48_ELF_ARM64_instruction_count": 118,
+      "branch_and_call_opcode_counts": {
+        "b": 2,
+        "b.eq": 6,
+        "cbz": 1,
+        "ret": 6
+      },
+      "memory_opcode_counts": {
+        "ldr": 11,
+        "str": 22,
+        "stp": 5
+      },
+      "direct_ARM64_BL_count": 0,
+      "resolved_numeric_guest_callees": {},
+      "distinct_resolved_guest_callees": 0,
+      "incoming_guest_BL_callsite_count": 970,
+      "incoming_distinct_guest_caller_count": 181,
+      "incoming_distinct_guest_caller_address_regions": 24,
+      "incoming_callers_from_8255_to_8258_regions": 18,
+      "incoming_guest_caller_top_address_regions": {
+        "0x8227": 35,
+        "0x8226": 30,
+        "0x8224": 19,
+        "0x8225": 15,
+        "0x822b": 13,
+        "0x8229": 12,
+        "0x822a": 9,
+        "0x8256": 8,
+        "0x8223": 4,
+        "0x8228": 4,
+        "0x8255": 4,
+        "0x8257": 4
+      },
+      "incoming_guest_caller_bounded_examples": [
+        "sub_82237498",
+        "sub_82237498",
+        "sub_82237498",
+        "sub_82237498",
+        "sub_82239540",
+        "sub_82239540",
+        "sub_8223CD70",
+        "sub_8223CD70",
+        "sub_8223CD70",
+        "sub_8223CD70",
+        "sub_8223F168",
+        "sub_8223F168",
+        "sub_822406A0",
+        "sub_822406A0",
+        "sub_822406A0",
+        "sub_822406A0",
+        "sub_822406A0",
+        "sub_822406A0",
+        "sub_822406A0",
+        "sub_822406A0"
+      ],
+      "PRE535_menu_root_roles_reaching": [
+        "ui_list_caller"
+      ],
+      "PRE535_field_writer_root_roles_reaching": [
+        "historical_field12_writer_B"
+      ],
+      "PRE535_verified_witness_paths": {
+        "ui_list_caller": [
+          "sub_82582F70",
+          "sub_8256D2B8",
+          "sub_822BCE60"
+        ],
+        "historical_field12_writer_B": [
+          "sub_82564D80",
+          "sub_822BCE60"
+        ]
+      },
+      "semantic_identity_proven": false
+    },
+    {
+      "function": "sub_82152A38",
+      "original_V48_ELF_function_bytes": 420,
+      "original_V48_ELF_ARM64_instruction_count": 105,
+      "branch_and_call_opcode_counts": {
+        "bl": 2,
+        "b": 1,
+        "b.eq": 3,
+        "b.ne": 1,
+        "ret": 1
+      },
+      "memory_opcode_counts": {
+        "ldr": 15,
+        "ldp": 4,
+        "str": 29,
+        "stp": 5
+      },
+      "direct_ARM64_BL_count": 2,
+      "resolved_numeric_guest_callees": {
+        "sub_821534F8": 1,
+        "sub_82153560": 1
+      },
+      "distinct_resolved_guest_callees": 2,
+      "incoming_guest_BL_callsite_count": 595,
+      "incoming_distinct_guest_caller_count": 294,
+      "incoming_distinct_guest_caller_address_regions": 46,
+      "incoming_callers_from_8255_to_8258_regions": 21,
+      "incoming_guest_caller_top_address_regions": {
+        "0x822c": 31,
+        "0x823e": 29,
+        "0x8234": 23,
+        "0x8233": 17,
+        "0x8242": 15,
+        "0x8248": 15,
+        "0x8240": 12,
+        "0x8214": 9,
+        "0x823d": 9,
+        "0x8241": 9,
+        "0x824e": 9,
+        "0x8255": 8
+      },
+      "incoming_guest_caller_bounded_examples": [
+        "sub_820E64C0",
+        "sub_820E6910",
+        "sub_820E75D0",
+        "sub_820F18F8",
+        "sub_820F21A8",
+        "sub_820F3D28",
+        "sub_820FC4D8",
+        "sub_820FC4D8",
+        "sub_820FC4D8",
+        "sub_820FC4D8",
+        "sub_820FC818",
+        "sub_82100A90",
+        "sub_82101478",
+        "sub_82105CB8",
+        "sub_82105D30",
+        "sub_82106FC0",
+        "sub_821071C8",
+        "sub_821484F0",
+        "sub_82148AB8",
+        "sub_8214A358"
+      ],
+      "PRE535_menu_root_roles_reaching": [
+        "ui_list_caller"
+      ],
+      "PRE535_field_writer_root_roles_reaching": [
+        "historical_field12_writer_B"
+      ],
+      "PRE535_verified_witness_paths": {
+        "ui_list_caller": [
+          "sub_82582F70",
+          "sub_8256CE68",
+          "sub_82152A38"
+        ],
+        "historical_field12_writer_B": [
+          "sub_82564D80",
+          "sub_822CC818",
+          "sub_82152A38"
+        ]
+      },
+      "semantic_identity_proven": false
+    },
+    {
+      "function": "sub_8227FD70",
+      "original_V48_ELF_function_bytes": 316,
+      "original_V48_ELF_ARM64_instruction_count": 79,
+      "branch_and_call_opcode_counts": {
+        "bl": 2,
+        "b": 1,
+        "cbz": 3,
+        "ret": 1
+      },
+      "memory_opcode_counts": {
+        "ldr": 14,
+        "ldp": 3,
+        "str": 19,
+        "stp": 3
+      },
+      "direct_ARM64_BL_count": 2,
+      "resolved_numeric_guest_callees": {
+        "sub_82284CC0": 1,
+        "sub_82302510": 1
+      },
+      "distinct_resolved_guest_callees": 2,
+      "incoming_guest_BL_callsite_count": 1014,
+      "incoming_distinct_guest_caller_count": 346,
+      "incoming_distinct_guest_caller_address_regions": 19,
+      "incoming_callers_from_8255_to_8258_regions": 52,
+      "incoming_guest_caller_top_address_regions": {
+        "0x8227": 39,
+        "0x8226": 35,
+        "0x8225": 33,
+        "0x8229": 32,
+        "0x8224": 29,
+        "0x8257": 29,
+        "0x822a": 28,
+        "0x822b": 24,
+        "0x8228": 23,
+        "0x8223": 18,
+        "0x822d": 13,
+        "0x822e": 12
+      },
+      "incoming_guest_caller_bounded_examples": [
+        "sub_822336B0",
+        "sub_822336D8",
+        "sub_82233918",
+        "sub_82233978",
+        "sub_82237FA0",
+        "sub_82237FA0",
+        "sub_82237FA0",
+        "sub_82237FA0",
+        "sub_82237FA0",
+        "sub_8223BEA8",
+        "sub_8223BEA8",
+        "sub_8223BEA8",
+        "sub_8223D2A0",
+        "sub_8223D2A0",
+        "sub_8223D2A0",
+        "sub_8223D2A0",
+        "sub_8223D2A0",
+        "sub_8223D2A0",
+        "sub_8223D2A0",
+        "sub_8223D418"
+      ],
+      "PRE535_menu_root_roles_reaching": [
+        "ui_list_caller"
+      ],
+      "PRE535_field_writer_root_roles_reaching": [
+        "historical_field12_writer_B"
+      ],
+      "PRE535_verified_witness_paths": {
+        "ui_list_caller": [
+          "sub_82582F70",
+          "sub_8227FD70"
+        ],
+        "historical_field12_writer_B": [
+          "sub_82564D80",
+          "sub_82567400",
+          "sub_8227FD70"
+        ]
+      },
+      "semantic_identity_proven": false
+    },
+    {
+      "function": "sub_8215CB08",
+      "original_V48_ELF_function_bytes": 1732,
+      "original_V48_ELF_ARM64_instruction_count": 433,
+      "branch_and_call_opcode_counts": {
+        "bl": 20,
+        "blr": 1,
+        "b": 7,
+        "b.eq": 1,
+        "b.ne": 6,
+        "cbz": 10,
+        "cbnz": 2,
+        "tbz": 1,
+        "ret": 1
+      },
+      "memory_opcode_counts": {
+        "ldr": 45,
+        "ldrb": 1,
+        "ldrh": 1,
+        "ldp": 6,
+        "str": 60,
+        "strb": 2,
+        "strh": 2,
+        "stp": 27,
+        "ldur": 2,
+        "stur": 4
+      },
+      "direct_ARM64_BL_count": 20,
+      "resolved_numeric_guest_callees": {
+        "sub_8262D040": 3,
+        "sub_8215D140": 2,
+        "sub_8215FDC0": 1,
+        "sub_8215C168": 1,
+        "sub_8215BDD8": 1,
+        "sub_8215D0B8": 1,
+        "sub_82158028": 1,
+        "sub_8215C340": 1
+      },
+      "distinct_resolved_guest_callees": 8,
+      "incoming_guest_BL_callsite_count": 1030,
+      "incoming_distinct_guest_caller_count": 562,
+      "incoming_distinct_guest_caller_address_regions": 66,
+      "incoming_callers_from_8255_to_8258_regions": 51,
+      "incoming_guest_caller_top_address_regions": {
+        "0x822d": 72,
+        "0x8225": 32,
+        "0x8228": 25,
+        "0x8227": 23,
+        "0x8224": 20,
+        "0x8226": 20,
+        "0x822b": 19,
+        "0x8233": 19,
+        "0x823b": 17,
+        "0x8256": 16,
+        "0x8257": 16,
+        "0x8231": 14
+      },
+      "incoming_guest_caller_bounded_examples": [
+        "sub_820E6AA0",
+        "sub_820FF2E8",
+        "sub_820FF538",
+        "sub_821002E0",
+        "sub_82107B08",
+        "sub_8210A230",
+        "sub_8210A4B0",
+        "sub_8210BEF8",
+        "sub_82134D40",
+        "sub_82138280",
+        "sub_82138280",
+        "sub_8213ACB0",
+        "sub_8213C1E8",
+        "sub_8213C4C0",
+        "sub_8213C4C0",
+        "sub_8213C8B8",
+        "sub_8213D540",
+        "sub_8213D958",
+        "sub_8213DD88",
+        "sub_8213DE60"
+      ],
+      "PRE535_menu_root_roles_reaching": [
+        "ui_package_list",
+        "ui_package_related",
+        "ui_list_caller"
+      ],
+      "PRE535_field_writer_root_roles_reaching": [
+        "historical_field12_writer_B"
+      ],
+      "PRE535_verified_witness_paths": {
+        "ui_package_list": [
+          "sub_8256F818",
+          "sub_8215CB08"
+        ],
+        "ui_package_related": [
+          "sub_8256CBC8",
+          "sub_8215CB08"
+        ],
+        "historical_field12_writer_B": [
+          "sub_82564D80",
+          "sub_825693C0",
+          "sub_8215CB08"
+        ]
+      },
+      "semantic_identity_proven": false
+    }
+  ],
+  "metrics_support_only_breadth_not_function_identity": true,
+  "historical_field12_writes_proven_cash_debit": false,
+  "candidate_SetPackage_identified": false,
+  "actual_runtime_checkout_installation_or_save_verified": false,
+  "original_game_or_ELF_modified": false,
+  "original_APK_modified": false,
+  "guest_code_or_assets_published": false,
+  "APK_built": false,
+  "save_modified": false,
+  "signing_key_accessed": false,
+  "safe_to_enable_BMW_tuning": false,
+  "run_id": "42537704457",
+  "timestamp_utc": "2026-11-08T23:59:19.034234+00:00"
+}
