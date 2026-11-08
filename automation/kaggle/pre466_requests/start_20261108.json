@@ -1,0 +1,8 @@
+{
+  "stage": "PRE466",
+  "source": "USA VPAK 9f4b04a221232e614b927a870e25da7db100477a7e425114b87082f46e8b99ad",
+  "scope": "ExpN layout and BMW/UpgradeSpecs record indexes",
+  "read_only": true,
+  "save_unchanged": true,
+  "apk_unchanged": true
+}
