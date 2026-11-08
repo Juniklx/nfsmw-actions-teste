@@ -1,0 +1,39 @@
+name: NFSMW PRE380 Nitro LR entry source canary
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre380_requests/*.json'
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify PRE379 source proposal syntax
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre379_nitro_lr_entry_staging.py automation/kaggle/pre380_nitro_lr_entry_source_canary.py
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+      - name: Authenticate PRE99 and test in-memory patch exact reversal
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre380_nitro_lr_entry_source_canary.py
+      - name: Preserve bounded PRE380 proof
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre380-lr-entry-canary-${{ github.run_id }}
+          path: /tmp/nfsmw-pre380/PRE380_NITRO_LR_ENTRY_PROPOSAL.json
+          if-no-files-found: warn
+          retention-days: 30
