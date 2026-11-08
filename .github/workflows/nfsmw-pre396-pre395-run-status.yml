@@ -1,0 +1,23 @@
+name: NFSMW PRE396 PRE395 Nitro pointer audit status
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre396_requests/*.json'
+permissions:
+  actions: read
+  contents: write
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish bounded PRE395 workflow metadata
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre396_lookup_pre395_run_metadata.py
+          python automation/kaggle/pre396_lookup_pre395_run_metadata.py
