@@ -1,0 +1,76 @@
+name: NFSMW PRE523 authenticate original PAL FE_ATTRIB pricing vault and compare to USA
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre523_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre523-pal-frontend-identity
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare authenticated original PAL/USA ranged resource readers
+        run: |
+          python -m pip install --disable-pip-version-check google-auth requests >/dev/null
+          python -m py_compile automation/kaggle/pre523_pal_frontend_fe_attrib_binary_identity_readonly.py
+      - name: Verify pinned ZDIR semantics and checksum candidate without changing game files
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre523_pal_frontend_fe_attrib_binary_identity_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Guard against game modifications and save sanitized metadata
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          p=Path("/tmp/nfsmw-pre523/report.json")
+          d=json.loads(p.read_text()) if p.is_file() else {"stage":"PRE523","status":"FAILED_NO_REPORT"}
+          for k in ("asset_bytes_published","PAL_zip_modified",
+                    "ZDIR_or_ZZDATA_modified","APK_built",
+                    "save_modified","signing_accessed","safe_to_enable_tuning"):
+              if d.get(k,False) is not False:
+                  raise SystemExit("PRE523 read-only/safety flag violation: "+k)
+          if d.get("status")=="AUDIT_OK":
+              if d.get("PAL_runtime_shop_cost_lookups_verified") is not False:
+                  raise SystemExit("Cannot promote checksum match to loader validation")
+              dest=Path("docs/PRE523_ORIGINAL_PAL_FE_ATTRIB_BINARY_IDENTITY_READONLY.json")
+          else:
+              dest=Path("docs/PRE523_ORIGINAL_PAL_FE_ATTRIB_BINARY_IDENTITY_DIAGNOSTIC.json")
+              d={k:d.get(k) for k in ("stage","status","error_type","error","run_id") if k in d}
+              d["safe_to_enable_tuning"]=False
+          dest.parent.mkdir(parents=True,exist_ok=True)
+          dest.write_text(json.dumps(d,indent=2,ensure_ascii=False)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE523_ORIGINAL_PAL_FE_ATTRIB_*json
+          git diff --cached --quiet && exit 0
+          git commit -m "PRE523: original PAL FE_ATTRIB actual binary checksum and USA price catalogue identity"
+          for i in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
+      - name: Retain sanitized private verification report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre523-zdir-semantics-${{ github.run_id }}
+          path: /tmp/nfsmw-pre523/report.json
+          retention-days: 14
