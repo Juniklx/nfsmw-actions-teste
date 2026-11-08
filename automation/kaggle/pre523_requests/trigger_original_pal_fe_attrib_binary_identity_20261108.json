@@ -1,0 +1,9 @@
+{
+  "stage": "PRE523",
+  "goal": "Verify actual original PAL GLOBAL/FE_ATTRIB.BIN from user's NFS/ZZDATA0.BIN ZIP member against USA shop pricing vault; full archive CRC + resource EA hash + SHA256",
+  "ZIP_source_id": "1sF5irZpUNfN5Z2p4L53eMVISBeh8MfRz",
+  "USA_FE_SHA256": "8ac09099cfc98646bbfbdb261d28b9648e3ec8b0d6bdf9d3edd6ef7bc967b528",
+  "original_no_changes": true,
+  "APK_built": false,
+  "save_untouched": true
+}
