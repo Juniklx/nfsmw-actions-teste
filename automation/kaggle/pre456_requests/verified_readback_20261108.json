@@ -1,0 +1,8 @@
+{
+  "stage": "PRE456",
+  "mode": "authenticated-private-source-summary",
+  "write_back": "docs/PRE456_V48_ROUTE2_ATTRIBUTE_PROVENANCE_READONLY.json",
+  "do_not_publish_private_logs": true,
+  "do_not_modify_apk": true,
+  "do_not_modify_saves": true
+}
