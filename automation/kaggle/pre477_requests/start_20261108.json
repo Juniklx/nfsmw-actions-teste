@@ -1,0 +1,8 @@
+{
+  "stage": "PRE477",
+  "goal": "Compare original BMW and Punto required physical layouts across six classes without applying any values",
+  "source_sha256": "9f4b04a221232e614b927a870e25da7db100477a7e425114b87082f46e8b99ad",
+  "read_only": true,
+  "no_apk": true,
+  "no_save_writes": true
+}
