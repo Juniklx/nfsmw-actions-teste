@@ -44,7 +44,7 @@ jobs:
           else:
               data={"stage":"PRE477_PAL_BMW_VS_PUNTO_PHYSICS_PROFILE_LAYOUTS_READONLY",
                     "status":"FAILED_NO_REPORT","safe_to_enable_bmw_upgrade":False}
-          if data.get("safe_to_enable_bmw_upgrade") is not False:
+          if data.get("safe_to_enable_bmw_upgrade", False) is not False:
               raise SystemExit("PRE477 fail closed: mod enabled unexpectedly")
           if data.get("status")=="AUDIT_OK":
               target=Path("docs/PRE477_PAL_BMW_PUNTO_PHYSICS_LAYOUTS_READONLY.json")
