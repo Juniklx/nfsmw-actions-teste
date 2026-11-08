@@ -1,0 +1,979 @@
+{
+  "stage": "PRE477_PAL_BMW_VS_PUNTO_PHYSICS_PROFILE_LAYOUTS_READONLY",
+  "status": "AUDIT_OK",
+  "source_sha256": "9f4b04a221232e614b927a870e25da7db100477a7e425114b87082f46e8b99ad",
+  "pal_binary_identical_to_usa_from_PRE467": true,
+  "class_layout_reference": "dbalatoni13/nfsmw generated class headers (engine, transmission, chassis, tires, brakes, induction)",
+  "class_models": {
+    "engine": {
+      "metadata": {
+        "class": "engine",
+        "base_size_declared": 96,
+        "base_size_matches_reference_header": true,
+        "field_definition_count": 7
+      },
+      "collections": {
+        "bmwm3gtr": {
+          "vlt_record_offset": 33440,
+          "class": "engine",
+          "class_hash": "f1f5fbc7",
+          "collection_hash": "cd88083f",
+          "parent_hash": "eec2271a",
+          "layout_marker": "effecadd",
+          "optional_count": 0,
+          "fixup_candidates": 1,
+          "has_bounded_layout": true,
+          "bin_base_offset": 139176,
+          "layout_bytes": 96,
+          "sha256": "e09efe8e63d0971da0949e898dbf8ba1b03c2954d2da04db48e9e56cb6437471",
+          "scalar_f32_be_from_generated_pc_header": {
+            "FLYWHEEL_MASS": 10.0,
+            "MAX_RPM": 9500.0,
+            "RED_LINE": 8500.0,
+            "IDLE": 800.0
+          }
+        },
+        "m3gtre46careerstart": {
+          "vlt_record_offset": 35120,
+          "class": "engine",
+          "class_hash": "f1f5fbc7",
+          "collection_hash": "39dae0f8",
+          "parent_hash": "4e085fb3",
+          "layout_marker": "effecadd",
+          "optional_count": 0,
+          "fixup_candidates": 1,
+          "has_bounded_layout": true,
+          "bin_base_offset": 143208,
+          "layout_bytes": 96,
+          "sha256": "f38e28b98d93f129699b0612fe2544305bd316e7a72dc143bad1c7f4f5ca7d46",
+          "scalar_f32_be_from_generated_pc_header": {
+            "FLYWHEEL_MASS": 10.0,
+            "MAX_RPM": 9500.0,
+            "RED_LINE": 8500.0,
+            "IDLE": 800.0
+          }
+        },
+        "punto_base": {
+          "vlt_record_offset": 32680,
+          "class": "engine",
+          "class_hash": "f1f5fbc7",
+          "collection_hash": "a6ee7a11",
+          "parent_hash": "eec2271a",
+          "layout_marker": "effecadd",
+          "optional_count": 0,
+          "fixup_candidates": 1,
+          "has_bounded_layout": true,
+          "bin_base_offset": 137352,
+          "layout_bytes": 96,
+          "sha256": "133a073015b6935e003fd307baab03cb75580b3dff29cddb8780bee36e7a081e",
+          "scalar_f32_be_from_generated_pc_header": {
+            "FLYWHEEL_MASS": 12.0,
+            "MAX_RPM": 7500.0,
+            "RED_LINE": 6500.0,
+            "IDLE": 800.0
+          }
+        },
+        "punto_derived": {
+          "vlt_record_offset": 34440,
+          "class": "engine",
+          "class_hash": "f1f5fbc7",
+          "collection_hash": "a6f0f405",
+          "parent_hash": "a6ee7a11",
+          "layout_marker": "effecadd",
+          "optional_count": 0,
+          "fixup_candidates": 1,
+          "has_bounded_layout": true,
+          "bin_base_offset": 141576,
+          "layout_bytes": 96,
+          "sha256": "673baa5cc0fbada00abdfb9a15ed307b4efed79aebd100ecf8b3f00e5617bba4",
+          "scalar_f32_be_from_generated_pc_header": {
+            "FLYWHEEL_MASS": 12.0,
+            "MAX_RPM": 7500.0,
+            "RED_LINE": 6500.0,
+            "IDLE": 800.0
+          }
+        },
+        "default": {
+          "vlt_record_offset": 32040,
+          "class": "engine",
+          "class_hash": "f1f5fbc7",
+          "collection_hash": "eec2271a",
+          "parent_hash": "00000000",
+          "layout_marker": "effecadd",
+          "optional_count": 0,
+          "fixup_candidates": 1,
+          "has_bounded_layout": true,
+          "bin_base_offset": 135816,
+          "layout_bytes": 96,
+          "sha256": "df551b6b8e937097f98388f684697ece5fd99015e4521baffe78e82cd394401e",
+          "scalar_f32_be_from_generated_pc_header": {
+            "FLYWHEEL_MASS": 10.0,
+            "MAX_RPM": 7900.0,
+            "RED_LINE": 7500.0,
+            "IDLE": 800.0
+          }
+        }
+      },
+      "comparisons": [
+        {
+          "left": "punto_base",
+          "right": "punto_derived",
+          "same_layout_bytes": false,
+          "different_4byte_words": 12,
+          "different_word_offsets_hex": [
+            "0x8",
+            "0xc",
+            "0x10",
+            "0x14",
+            "0x18",
+            "0x1c",
+            "0x20",
+            "0x24",
+            "0x28",
+            "0x44",
+            "0x48",
+            "0x4c"
+          ],
+          "changed_word_offset_list_truncated": false
+        },
+        {
+          "left": "bmwm3gtr",
+          "right": "punto_base",
+          "same_layout_bytes": false,
+          "different_4byte_words": 12,
+          "different_word_offsets_hex": [
+            "0x8",
+            "0xc",
+            "0x10",
+            "0x14",
+            "0x18",
+            "0x1c",
+            "0x20",
+            "0x24",
+            "0x28",
+            "0x50",
+            "0x54",
+            "0x58"
+          ],
+          "changed_word_offset_list_truncated": false
+        },
+        {
+          "left": "bmwm3gtr",
+          "right": "m3gtre46careerstart",
+          "same_layout_bytes": false,
+          "different_4byte_words": 11,
+          "different_word_offsets_hex": [
+            "0x8",
+            "0xc",
+            "0x10",
+            "0x14",
+            "0x18",
+            "0x1c",
+            "0x20",
+            "0x24",
+            "0x28",
+            "0x44",
+            "0x48"
+          ],
+          "changed_word_offset_list_truncated": false
+        }
+      ]
+    },
+    "transmission": {
+      "metadata": {
+        "class": "transmission",
+        "base_size_declared": 132,
+        "base_size_matches_reference_header": true,
+        "field_definition_count": 9
+      },
+      "collections": {
+        "bmwm3gtr": {
+          "vlt_record_offset": 69912,
+          "class": "transmission",
+          "class_hash": "07a7a3e5",
+          "collection_hash": "cd88083f",
+          "parent_hash": "eec2271a",
+          "layout_marker": "effecadd",
+          "optional_count": 0,
+          "fixup_candidates": 1,
+          "has_bounded_layout": true,
+          "bin_base_offset": 183400,
+          "layout_bytes": 132,
+          "sha256": "a671446cdbeeb6d84f23c6f74433f3f724bfb9fa0fd2b63ea1169974cb17e7e3",
+          "scalar_f32_be_from_generated_pc_header": {
+            "TORQUE_CONVERTER": 0.20000000298023224,
+            "TORQUE_SPLIT": 0.0,
+            "CLUTCH_SLIP": 0.800000011920929,
+            "OPTIMAL_SHIFT": 500.0,
+            "SHIFT_SPEED": 0.25,
+            "FINAL_GEAR": 3.8499999046325684
+          }
+        },
+        "m3gtre46careerstart": {
+          "vlt_record_offset": 70512,
+          "class": "transmission",
+          "class_hash": "07a7a3e5",
+          "collection_hash": "39dae0f8",
+          "parent_hash": "4e085fb3",
+          "layout_marker": "effecadd",
+          "optional_count": 0,
+          "fixup_candidates": 1,
+          "has_bounded_layout": true,
+          "bin_base_offset": 185380,
+          "layout_bytes": 132,
+          "sha256": "2c62b44d64610be5b3abef39dae2a0ff2a14e987363e408399fd77c0652b3910",
+          "scalar_f32_be_from_generated_pc_header": {
+            "TORQUE_CONVERTER": 1.5,
+            "TORQUE_SPLIT": 0.0,
+            "CLUTCH_SLIP": 0.800000011920929,
+            "OPTIMAL_SHIFT": 800.0,
+            "SHIFT_SPEED": 0.25,
+            "FINAL_GEAR": 3.619999885559082
+          }
+        },
+        "punto_base": {
+          "vlt_record_offset": 69432,
+          "class": "transmission",
+          "class_hash": "07a7a3e5",
+          "collection_hash": "a6ee7a11",
+          "parent_hash": "eec2271a",
+          "layout_marker": "effecadd",
+          "optional_count": 0,
+          "fixup_candidates": 1,
+          "has_bounded_layout": true,
+          "bin_base_offset": 181816,
+          "layout_bytes": 132,
+          "sha256": "bb20c0fcdd613294a55aa9c6ef87be022251af2a02815be2901c24a2b20ae2af",
+          "scalar_f32_be_from_generated_pc_header": {
+            "TORQUE_CONVERTER": 0.30000001192092896,
+            "TORQUE_SPLIT": 1.0,
+            "CLUTCH_SLIP": 0.75,
+            "OPTIMAL_SHIFT": 500.0,
+            "SHIFT_SPEED": 0.25,
+            "FINAL_GEAR": 3.700000047683716
+          }
+        },
+        "punto_derived": {
+          "vlt_record_offset": 71432,
+          "class": "transmission",
+          "class_hash": "07a7a3e5",
+          "collection_hash": "a6f0f405",
+          "parent_hash": "a6ee7a11",
+          "layout_marker": "effecadd",
+          "optional_count": 0,
+          "fixup_candidates": 1,
+          "has_bounded_layout": true,
+          "bin_base_offset": 188416,
+          "layout_bytes": 132,
+          "sha256": "6d651acbf144d29e90e72899eff9330b7dc8067d9a72ea7472a802fbf7155dc2",
+          "scalar_f32_be_from_generated_pc_header": {
+            "TORQUE_CONVERTER": 0.4000000059604645,
+            "TORQUE_SPLIT": 1.0,
+            "CLUTCH_SLIP": 0.800000011920929,
+            "OPTIMAL_SHIFT": 500.0,
+            "SHIFT_SPEED": 0.25,
+            "FINAL_GEAR": 2.5
+          }
+        },
+        "default": {
+          "vlt_record_offset": 68312,
+          "class": "transmission",
+          "class_hash": "07a7a3e5",
+          "collection_hash": "eec2271a",
+          "parent_hash": "00000000",
+          "layout_marker": "effecadd",
+          "optional_count": 0,
+          "fixup_candidates": 1,
+          "has_bounded_layout": true,
+          "bin_base_offset": 178120,
+          "layout_bytes": 132,
+          "sha256": "62b7734bc1cf2ae32ea5f2a21840c8a942ac4a9c3e7c39e64782a5854c458cf5",
+          "scalar_f32_be_from_generated_pc_header": {
+            "TORQUE_CONVERTER": 1.5,
+            "TORQUE_SPLIT": 0.0,
+            "CLUTCH_SLIP": 0.800000011920929,
+            "OPTIMAL_SHIFT": 500.0,
+            "SHIFT_SPEED": 0.25,
+            "FINAL_GEAR": 3.0
+          }
+        }
+      },
+      "comparisons": [
+        {
+          "left": "punto_base",
+          "right": "punto_derived",
+          "same_layout_bytes": false,
+          "different_4byte_words": 7,
+          "different_word_offsets_hex": [
+            "0x8",
+            "0x24",
+            "0x34",
+            "0x38",
+            "0x6c",
+            "0x74",
+            "0x80"
+          ],
+          "changed_word_offset_list_truncated": false
+        },
+        {
+          "left": "bmwm3gtr",
+          "right": "punto_base",
+          "same_layout_bytes": false,
+          "different_4byte_words": 13,
+          "different_word_offsets_hex": [
+            "0x8",
+            "0x10",
+            "0x14",
+            "0x18",
+            "0x1c",
+            "0x20",
+            "0x24",
+            "0x34",
+            "0x38",
+            "0x6c",
+            "0x70",
+            "0x74",
+            "0x80"
+          ],
+          "changed_word_offset_list_truncated": false
+        },
+        {
+          "left": "bmwm3gtr",
+          "right": "m3gtre46careerstart",
+          "same_layout_bytes": false,
+          "different_4byte_words": 9,
+          "different_word_offsets_hex": [
+            "0x10",
+            "0x14",
+            "0x18",
+            "0x1c",
+            "0x20",
+            "0x24",
+            "0x6c",
+            "0x78",
+            "0x80"
+          ],
+          "changed_word_offset_list_truncated": false
+        }
+      ]
+    },
+    "chassis": {
+      "metadata": {
+        "class": "chassis",
+        "base_size_declared": 116,
+        "base_size_matches_reference_header": true,
+        "field_definition_count": 19
+      },
+      "collections": {
+        "bmwm3gtr": {
+          "vlt_record_offset": 3888,
+          "class": "chassis",
+          "class_hash": "afa210f0",
+          "collection_hash": "cd88083f",
+          "parent_hash": "4e085fb3",
+          "layout_marker": "effecadd",
+          "optional_count": 0,
+          "fixup_candidates": 1,
+          "has_bounded_layout": true,
+          "bin_base_offset": 42264,
+          "layout_bytes": 116,
+          "sha256": "aac8e502fc3d61ec2ea95e3f680a5fdcdd9964e4bdce99125b4ad247a90d1ca0",
+          "scalar_f32_be_from_generated_pc_header": {
+            "ROLL_CENTER": 9.0,
+            "WHEEL_BASE": 2.7249999046325684,
+            "SHOCK_BLOWOUT": 5.0,
+            "AERO_CG": 47.0,
+            "RENDER_MOTION": 1.0,
+            "FRONT_AXLE": 1.5,
+            "AERO_COEFFICIENT": 0.23999999463558197,
+            "FRONT_WEIGHT_BIAS": 54.0,
+            "DRAG_COEFFICIENT": 0.3199999928474426
+          }
+        },
+        "m3gtre46careerstart": {
+          "vlt_record_offset": 4248,
+          "class": "chassis",
+          "class_hash": "afa210f0",
+          "collection_hash": "39dae0f8",
+          "parent_hash": "4e085fb3",
+          "layout_marker": "effecadd",
+          "optional_count": 0,
+          "fixup_candidates": 1,
+          "has_bounded_layout": true,
+          "bin_base_offset": 43308,
+          "layout_bytes": 116,
+          "sha256": "2c046a138ae81b454d54eb14fd061906409a2c65cf90a3c4adb8e7d47b88af1e",
+          "scalar_f32_be_from_generated_pc_header": {
+            "ROLL_CENTER": 9.0,
+            "WHEEL_BASE": 2.7249999046325684,
+            "SHOCK_BLOWOUT": 5.0,
+            "AERO_CG": 47.5,
+            "RENDER_MOTION": 1.0,
+            "FRONT_AXLE": 1.5,
+            "AERO_COEFFICIENT": 0.23999999463558197,
+            "FRONT_WEIGHT_BIAS": 52.0,
+            "DRAG_COEFFICIENT": 0.30000001192092896
+          }
+        },
+        "punto_base": {
+          "vlt_record_offset": 1688,
+          "class": "chassis",
+          "class_hash": "afa210f0",
+          "collection_hash": "a6ee7a11",
+          "parent_hash": "eec2271a",
+          "layout_marker": "effecadd",
+          "optional_count": 0,
+          "fixup_candidates": 1,
+          "has_bounded_layout": true,
+          "bin_base_offset": 35884,
+          "layout_bytes": 116,
+          "sha256": "a1c7a9c97b8db15b8b65b2c58781a4aa4e2f5bd08e40ba036de065513ed22f9e",
+          "scalar_f32_be_from_generated_pc_header": {
+            "ROLL_CENTER": 10.399999618530273,
+            "WHEEL_BASE": 2.573199987411499,
+            "SHOCK_BLOWOUT": 6.0,
+            "AERO_CG": 48.0,
+            "RENDER_MOTION": 1.0,
+            "FRONT_AXLE": 1.2000000476837158,
+            "AERO_COEFFICIENT": 0.12999999523162842,
+            "FRONT_WEIGHT_BIAS": 52.5,
+            "DRAG_COEFFICIENT": 0.30000001192092896
+          }
+        },
+        "punto_derived": {
+          "vlt_record_offset": 2928,
+          "class": "chassis",
+          "class_hash": "afa210f0",
+          "collection_hash": "a6f0f405",
+          "parent_hash": "a6ee7a11",
+          "layout_marker": "effecadd",
+          "optional_count": 0,
+          "fixup_candidates": 1,
+          "has_bounded_layout": true,
+          "bin_base_offset": 39480,
+          "layout_bytes": 116,
+          "sha256": "410d03fdaeba60d4e71446728ff9c7c3a3b830fca9ce99d8e7453f71fb1269ae",
+          "scalar_f32_be_from_generated_pc_header": {
+            "ROLL_CENTER": 9.25,
+            "WHEEL_BASE": 2.573199987411499,
+            "SHOCK_BLOWOUT": 6.0,
+            "AERO_CG": 47.0,
+            "RENDER_MOTION": 0.5,
+            "FRONT_AXLE": 1.2000000476837158,
+            "AERO_COEFFICIENT": 0.2199999988079071,
+            "FRONT_WEIGHT_BIAS": 53.5,
+            "DRAG_COEFFICIENT": 0.3199999928474426
+          }
+        },
+        "default": {
+          "vlt_record_offset": 768,
+          "class": "chassis",
+          "class_hash": "afa210f0",
+          "collection_hash": "eec2271a",
+          "parent_hash": "00000000",
+          "layout_marker": "effecadd",
+          "optional_count": 0,
+          "fixup_candidates": 1,
+          "has_bounded_layout": true,
+          "bin_base_offset": 33216,
+          "layout_bytes": 116,
+          "sha256": "ff50d25c00905c2d28d6256ec67345eeb49cd404bf24bbe8f33a9ca6527fae5b",
+          "scalar_f32_be_from_generated_pc_header": {
+            "ROLL_CENTER": 14.0,
+            "WHEEL_BASE": 2.740000009536743,
+            "SHOCK_BLOWOUT": 8.0,
+            "AERO_CG": 50.0,
+            "RENDER_MOTION": 1.0,
+            "FRONT_AXLE": 1.4259999990463257,
+            "AERO_COEFFICIENT": 0.15000000596046448,
+            "FRONT_WEIGHT_BIAS": 50.0,
+            "DRAG_COEFFICIENT": 0.30000001192092896
+          }
+        }
+      },
+      "comparisons": [
+        {
+          "left": "punto_base",
+          "right": "punto_derived",
+          "same_layout_bytes": false,
+          "different_4byte_words": 22,
+          "different_word_offsets_hex": [
+            "0x0",
+            "0x4",
+            "0x8",
+            "0xc",
+            "0x10",
+            "0x14",
+            "0x28",
+            "0x2c",
+            "0x30",
+            "0x34",
+            "0x38",
+            "0x3c",
+            "0x40",
+            "0x44",
+            "0x48",
+            "0x4c",
+            "0x50",
+            "0x5c",
+            "0x60",
+            "0x68",
+            "0x6c",
+            "0x70"
+          ],
+          "changed_word_offset_list_truncated": false
+        },
+        {
+          "left": "bmwm3gtr",
+          "right": "punto_base",
+          "same_layout_bytes": false,
+          "different_4byte_words": 26,
+          "different_word_offsets_hex": [
+            "0x0",
+            "0x4",
+            "0x8",
+            "0xc",
+            "0x10",
+            "0x14",
+            "0x18",
+            "0x1c",
+            "0x20",
+            "0x24",
+            "0x28",
+            "0x2c",
+            "0x30",
+            "0x34",
+            "0x38",
+            "0x3c",
+            "0x48",
+            "0x4c",
+            "0x50",
+            "0x54",
+            "0x58",
+            "0x5c",
+            "0x64",
+            "0x68",
+            "0x6c",
+            "0x70"
+          ],
+          "changed_word_offset_list_truncated": false
+        },
+        {
+          "left": "bmwm3gtr",
+          "right": "m3gtre46careerstart",
+          "same_layout_bytes": false,
+          "different_4byte_words": 17,
+          "different_word_offsets_hex": [
+            "0x8",
+            "0x10",
+            "0x14",
+            "0x18",
+            "0x1c",
+            "0x28",
+            "0x2c",
+            "0x30",
+            "0x34",
+            "0x38",
+            "0x40",
+            "0x44",
+            "0x48",
+            "0x4c",
+            "0x5c",
+            "0x6c",
+            "0x70"
+          ],
+          "changed_word_offset_list_truncated": false
+        }
+      ]
+    },
+    "tires": {
+      "metadata": {
+        "class": "tires",
+        "base_size_declared": 80,
+        "base_size_matches_reference_header": true,
+        "field_definition_count": 9
+      },
+      "collections": {
+        "bmwm3gtr": {
+          "vlt_record_offset": 85888,
+          "class": "tires",
+          "class_hash": "bd38d1ca",
+          "collection_hash": "cd88083f",
+          "parent_hash": "eec2271a",
+          "layout_marker": "effecadd",
+          "optional_count": 0,
+          "fixup_candidates": 1,
+          "has_bounded_layout": true,
+          "bin_base_offset": 202256,
+          "layout_bytes": 80,
+          "sha256": "259230af41ed4354eddf4b11d1c9e59665b553db63333f683bd860a200ec64d5",
+          "scalar_f32_be_from_generated_pc_header": {
+            "STEERING": 1.0,
+            "YAW_SPEED": 0.30000001192092896
+          }
+        },
+        "m3gtre46careerstart": {
+          "vlt_record_offset": 87688,
+          "class": "tires",
+          "class_hash": "bd38d1ca",
+          "collection_hash": "39dae0f8",
+          "parent_hash": "4e085fb3",
+          "layout_marker": "effecadd",
+          "optional_count": 0,
+          "fixup_candidates": 1,
+          "has_bounded_layout": true,
+          "bin_base_offset": 205856,
+          "layout_bytes": 80,
+          "sha256": "cc1d3418ac20c2fe504e3acc2ad4b529445e4ae44db837792dcc218a3b014628",
+          "scalar_f32_be_from_generated_pc_header": {
+            "STEERING": 1.1100000143051147,
+            "YAW_SPEED": 0.25999999046325684
+          }
+        },
+        "punto_base": {
+          "vlt_record_offset": 85288,
+          "class": "tires",
+          "class_hash": "bd38d1ca",
+          "collection_hash": "a6ee7a11",
+          "parent_hash": "eec2271a",
+          "layout_marker": "effecadd",
+          "optional_count": 0,
+          "fixup_candidates": 1,
+          "has_bounded_layout": true,
+          "bin_base_offset": 201056,
+          "layout_bytes": 80,
+          "sha256": "46892acbc38844bb54a7358a8c35dec06b0ee517e5b506d3db91edea5691c6c7",
+          "scalar_f32_be_from_generated_pc_header": {
+            "STEERING": 1.0,
+            "YAW_SPEED": 0.30000001192092896
+          }
+        },
+        "punto_derived": {
+          "vlt_record_offset": 86528,
+          "class": "tires",
+          "class_hash": "bd38d1ca",
+          "collection_hash": "a6f0f405",
+          "parent_hash": "a6ee7a11",
+          "layout_marker": "effecadd",
+          "optional_count": 0,
+          "fixup_candidates": 1,
+          "has_bounded_layout": true,
+          "bin_base_offset": 203536,
+          "layout_bytes": 80,
+          "sha256": "ac31a3d5dc50fd0cf4e9215f198944a00ffae58c57bca68fc4c1e191fd005b2f",
+          "scalar_f32_be_from_generated_pc_header": {
+            "STEERING": 1.0,
+            "YAW_SPEED": 0.30000001192092896
+          }
+        },
+        "default": {
+          "vlt_record_offset": 84408,
+          "class": "tires",
+          "class_hash": "bd38d1ca",
+          "collection_hash": "eec2271a",
+          "parent_hash": "00000000",
+          "layout_marker": "effecadd",
+          "optional_count": 0,
+          "fixup_candidates": 1,
+          "has_bounded_layout": true,
+          "bin_base_offset": 199296,
+          "layout_bytes": 80,
+          "sha256": "34fd3e14367a51e2d3e753d1eaee9bb84108cd2410785f64029d569d493c1bef",
+          "scalar_f32_be_from_generated_pc_header": {
+            "STEERING": 1.100000023841858,
+            "YAW_SPEED": 1.0
+          }
+        }
+      },
+      "comparisons": [
+        {
+          "left": "punto_base",
+          "right": "punto_derived",
+          "same_layout_bytes": false,
+          "different_4byte_words": 8,
+          "different_word_offsets_hex": [
+            "0x8",
+            "0xc",
+            "0x10",
+            "0x14",
+            "0x20",
+            "0x24",
+            "0x38",
+            "0x3c"
+          ],
+          "changed_word_offset_list_truncated": false
+        },
+        {
+          "left": "bmwm3gtr",
+          "right": "punto_base",
+          "same_layout_bytes": false,
+          "different_4byte_words": 14,
+          "different_word_offsets_hex": [
+            "0x8",
+            "0xc",
+            "0x10",
+            "0x14",
+            "0x20",
+            "0x24",
+            "0x28",
+            "0x2c",
+            "0x30",
+            "0x34",
+            "0x38",
+            "0x3c",
+            "0x40",
+            "0x44"
+          ],
+          "changed_word_offset_list_truncated": false
+        },
+        {
+          "left": "bmwm3gtr",
+          "right": "m3gtre46careerstart",
+          "same_layout_bytes": false,
+          "different_4byte_words": 12,
+          "different_word_offsets_hex": [
+            "0xc",
+            "0x10",
+            "0x14",
+            "0x18",
+            "0x1c",
+            "0x20",
+            "0x24",
+            "0x28",
+            "0x2c",
+            "0x38",
+            "0x48",
+            "0x4c"
+          ],
+          "changed_word_offset_list_truncated": false
+        }
+      ]
+    },
+    "brakes": {
+      "metadata": {
+        "class": "brakes",
+        "base_size_declared": 20,
+        "base_size_matches_reference_header": true,
+        "field_definition_count": 3
+      },
+      "collections": {
+        "bmwm3gtr": {
+          "vlt_record_offset": 91768,
+          "class": "brakes",
+          "class_hash": "36350867",
+          "collection_hash": "cd88083f",
+          "parent_hash": "eec2271a",
+          "layout_marker": "effecadd",
+          "optional_count": 0,
+          "fixup_candidates": 1,
+          "has_bounded_layout": true,
+          "bin_base_offset": 208960,
+          "layout_bytes": 20,
+          "sha256": "87750a1d6cd0a68a682ef9a289c79bc42ade6de78af3ebb9a5e59322edde95be",
+          "scalar_f32_be_from_generated_pc_header": {
+            "EBRAKE": 850.0
+          }
+        },
+        "m3gtre46careerstart": {
+          "vlt_record_offset": 92568,
+          "class": "brakes",
+          "class_hash": "36350867",
+          "collection_hash": "39dae0f8",
+          "parent_hash": "4e085fb3",
+          "layout_marker": "effecadd",
+          "optional_count": 0,
+          "fixup_candidates": 1,
+          "has_bounded_layout": true,
+          "bin_base_offset": 209360,
+          "layout_bytes": 20,
+          "sha256": "12e6722d4c2a1cab3fc38343db1d3c1c970a7cdb858ca053dd6c0d1239d0eb95",
+          "scalar_f32_be_from_generated_pc_header": {
+            "EBRAKE": 650.0
+          }
+        },
+        "punto_base": {
+          "vlt_record_offset": 91528,
+          "class": "brakes",
+          "class_hash": "36350867",
+          "collection_hash": "a6ee7a11",
+          "parent_hash": "eec2271a",
+          "layout_marker": "effecadd",
+          "optional_count": 0,
+          "fixup_candidates": 1,
+          "has_bounded_layout": true,
+          "bin_base_offset": 208840,
+          "layout_bytes": 20,
+          "sha256": "1efb169a7ba41b50872ba0ed16d16660a1a5c0de95451403ac147c3e00b68e9e",
+          "scalar_f32_be_from_generated_pc_header": {
+            "EBRAKE": 350.0
+          }
+        },
+        "punto_derived": {
+          "vlt_record_offset": 93448,
+          "class": "brakes",
+          "class_hash": "36350867",
+          "collection_hash": "a6f0f405",
+          "parent_hash": "a6ee7a11",
+          "layout_marker": "effecadd",
+          "optional_count": 0,
+          "fixup_candidates": 1,
+          "has_bounded_layout": true,
+          "bin_base_offset": 209800,
+          "layout_bytes": 20,
+          "sha256": "63c7a23937ccb2199671826ed7c0d366b036d9c044e54b5b333fbbf6ecbaef4e",
+          "scalar_f32_be_from_generated_pc_header": {
+            "EBRAKE": 700.0
+          }
+        },
+        "default": {
+          "vlt_record_offset": 90248,
+          "class": "brakes",
+          "class_hash": "36350867",
+          "collection_hash": "eec2271a",
+          "parent_hash": "00000000",
+          "layout_marker": "effecadd",
+          "optional_count": 0,
+          "fixup_candidates": 1,
+          "has_bounded_layout": true,
+          "bin_base_offset": 208200,
+          "layout_bytes": 20,
+          "sha256": "8fa0790cb55005322e0844fa7d31b948633068f0a1649ec885d813c4132809de",
+          "scalar_f32_be_from_generated_pc_header": {
+            "EBRAKE": 590.0
+          }
+        }
+      },
+      "comparisons": [
+        {
+          "left": "punto_base",
+          "right": "punto_derived",
+          "same_layout_bytes": false,
+          "different_4byte_words": 4,
+          "different_word_offsets_hex": [
+            "0x4",
+            "0x8",
+            "0xc",
+            "0x10"
+          ],
+          "changed_word_offset_list_truncated": false
+        },
+        {
+          "left": "bmwm3gtr",
+          "right": "punto_base",
+          "same_layout_bytes": false,
+          "different_4byte_words": 4,
+          "different_word_offsets_hex": [
+            "0x4",
+            "0x8",
+            "0xc",
+            "0x10"
+          ],
+          "changed_word_offset_list_truncated": false
+        },
+        {
+          "left": "bmwm3gtr",
+          "right": "m3gtre46careerstart",
+          "same_layout_bytes": false,
+          "different_4byte_words": 4,
+          "different_word_offsets_hex": [
+            "0x4",
+            "0x8",
+            "0xc",
+            "0x10"
+          ],
+          "changed_word_offset_list_truncated": false
+        }
+      ]
+    },
+    "induction": {
+      "metadata": {
+        "class": "induction",
+        "base_size_declared": 28,
+        "base_size_matches_reference_header": true,
+        "field_definition_count": 7
+      },
+      "collections": {
+        "m3gtre46careerstart": {
+          "vlt_record_offset": 15112,
+          "class": "induction",
+          "class_hash": "c92a0142",
+          "collection_hash": "39dae0f8",
+          "parent_hash": "4e085fb3",
+          "layout_marker": "effecadd",
+          "optional_count": 0,
+          "fixup_candidates": 1,
+          "has_bounded_layout": true,
+          "bin_base_offset": 71468,
+          "layout_bytes": 28,
+          "sha256": "3612bae8d503a0468a141b3b34e5fa95ca2c5e6427c0016c2665d27fdff06a68",
+          "scalar_f32_be_from_generated_pc_header": {
+            "LOW_BOOST": 0.20000000298023224,
+            "SPOOL_TIME_DOWN": 0.25,
+            "VACUUM": -0.05000000074505806,
+            "SPOOL": 0.20000000298023224,
+            "SPOOL_TIME_UP": 2.0,
+            "PSI": 12.0,
+            "HIGH_BOOST": 0.20000000298023224
+          }
+        },
+        "punto_derived": {
+          "vlt_record_offset": 14712,
+          "class": "induction",
+          "class_hash": "c92a0142",
+          "collection_hash": "a6f0f405",
+          "parent_hash": "1bcdb55e",
+          "layout_marker": "effecadd",
+          "optional_count": 0,
+          "fixup_candidates": 1,
+          "has_bounded_layout": true,
+          "bin_base_offset": 71188,
+          "layout_bytes": 28,
+          "sha256": "19ccf70b709b07ff57050dceddcaac410c490264b12ab749bc83fb9b611aba98",
+          "scalar_f32_be_from_generated_pc_header": {
+            "LOW_BOOST": 0.10000000149011612,
+            "SPOOL_TIME_DOWN": 0.25,
+            "VACUUM": -0.05000000074505806,
+            "SPOOL": 0.20000000298023224,
+            "SPOOL_TIME_UP": 2.0,
+            "PSI": 14.0,
+            "HIGH_BOOST": 0.20000000298023224
+          }
+        },
+        "default": {
+          "vlt_record_offset": 12912,
+          "class": "induction",
+          "class_hash": "c92a0142",
+          "collection_hash": "eec2271a",
+          "parent_hash": "00000000",
+          "layout_marker": "effecadd",
+          "optional_count": 0,
+          "fixup_candidates": 1,
+          "has_bounded_layout": true,
+          "bin_base_offset": 69928,
+          "layout_bytes": 28,
+          "sha256": "2387f8acaa1ecac313a69f97b95931d8d918b851fe180f8a6bd1bcf066b13c2f",
+          "scalar_f32_be_from_generated_pc_header": {
+            "LOW_BOOST": 0.0,
+            "SPOOL_TIME_DOWN": 1.0,
+            "VACUUM": 0.0,
+            "SPOOL": 0.0,
+            "SPOOL_TIME_UP": 1.0,
+            "PSI": 0.0,
+            "HIGH_BOOST": 0.0
+          }
+        }
+      },
+      "comparisons": []
+    }
+  },
+  "all_required_bounded_layouts_found": true,
+  "finite_scalar_numbers_are_observations_not_verified_simulation_effects": true,
+  "no_source_modifications": true,
+  "safe_to_enable_bmw_upgrade": false,
+  "game_assets_published": false,
+  "apk_built": false,
+  "save_modified": false,
+  "range_bytes": 733264,
+  "run_id": "42512601096",
+  "utc": "2026-11-08T18:58:15.499087+00:00"
+}
