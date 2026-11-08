@@ -1,0 +1,69 @@
+name: NFSMW PRE487 PAL pvehicle READ-vs-WRITE function ranking
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre487_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre487-pal-physical-access-candidates
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install authenticated source requirements and compile Python
+        run: |
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          python -m py_compile automation/kaggle/pre104_verify_backup_tar.py automation/kaggle/pre105_read_settings_source.py automation/kaggle/pre487_pal_upgrade_readonly_function_ranking.py
+      - name: Rank PAL pvehicle read accesses against writes and package fields
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre487_pal_upgrade_readonly_function_ranking.py --run-id "$GITHUB_RUN_ID"
+      - name: Save bounded metadata-only report
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          src=Path("/tmp/nfsmw-pre487/report.json")
+          d=json.loads(src.read_text()) if src.is_file() else {"status":"FAILED_NO_REPORT"}
+          if d.get("tuning_enabled",False) is not False or d.get("apk_built",False) is not False:
+              raise SystemExit("Unsafe PRE487 result")
+          if d.get("status")=="AUDIT_OK":
+              if d.get("semantic_SetPackage_verified") is not False:
+                  raise SystemExit("PRE487 cannot claim verified semantic address")
+              out=Path("docs/PRE487_PAL_PHYSICS_UPGRADE_READ_WRITE_CANDIDATES.json")
+          else:
+              out=Path("docs/PRE487_PAL_PHYSICS_UPGRADE_DIAGNOSTIC.json")
+              d={k:d.get(k) for k in ("stage","status","error_type","error","run_id") if k in d}
+              d["tuning_enabled"]=False
+          out.parent.mkdir(parents=True,exist_ok=True)
+          out.write_text(json.dumps(d,ensure_ascii=False,indent=2)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE487_*.json
+          git diff --cached --quiet && exit 0
+          git commit -m "PRE487: record PAL read/write-sensitive physics upgrade candidates"
+          git push origin HEAD:main
+      - name: Preserve private sanitized metadata
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre487-guest-pvehicle-read-write-${{ github.run_id }}
+          path: /tmp/nfsmw-pre487/report.json
+          if-no-files-found: warn
+          retention-days: 14
