@@ -1,0 +1,7 @@
+{
+  "stage": "PRE522_RETRY",
+  "cause": "Original FE frontend PtrN chunk differs from performance VPAK fixed-stride pointer parser",
+  "action": "Read bounded ptr chunk header and size metadata, no game file exports",
+  "source_sha256": "8ac09099cfc98646bbfbdb261d28b9648e3ec8b0d6bdf9d3edd6ef7bc967b528",
+  "feature_enabled": false
+}
