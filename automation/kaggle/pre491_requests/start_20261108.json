@@ -1,0 +1,14 @@
+{
+  "stage": "PRE491",
+  "hypothesis": "PC v1.3 fully-upgraded and stock endpoints interpolation",
+  "source": "MagicIbrar/nfsmw-unity physics.md",
+  "pal_data_proofs": [
+    "PRE473",
+    "PRE474",
+    "PRE477"
+  ],
+  "gameplay_validation": false,
+  "feature_enabled": false,
+  "no_apk": true,
+  "no_save": true
+}
