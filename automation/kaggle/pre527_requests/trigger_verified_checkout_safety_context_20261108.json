@@ -1,0 +1,11 @@
+{
+  "stage": "PRE527",
+  "objective": "Backup-first canonical context append of verified PRE526 PC source checkout/SetPackage rollback risk and missing core physics implementation",
+  "previous_marker": "PRE525_BMW_TUNING_PRE520_PRE524_PAL_FRONTEND_PRICING_HANDOFF_20261108",
+  "new_marker": "PRE527_BMW_TUNING_PRE526_CHECKOUT_PHYSICS_FAILURE_SAFETY_20261108",
+  "verified_run": 42533754164,
+  "source_reconstructed_PC_only": true,
+  "APKs_unmodified": true,
+  "save_MARCEK_unmodified": true,
+  "signing_untouched": true
+}
