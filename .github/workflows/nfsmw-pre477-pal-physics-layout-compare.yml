@@ -31,23 +31,33 @@ jobs:
         run: |
           set -euo pipefail
           PYTHONPATH=automation/kaggle python automation/kaggle/pre477_pal_bmw_punto_physics_layout_compare.py --run-id "$GITHUB_RUN_ID"
-      - name: Record metadata only in private docs
-        if: success()
+      - name: Persist sanitized diagnostic even if script fails
+        if: always()
         run: |
           set -euo pipefail
           python - <<'PY'
           import json
           from pathlib import Path
-          data=json.loads(Path("/tmp/nfsmw-pre477/report.json").read_text())
-          if data.get("status")!="AUDIT_OK" or data.get("safe_to_enable_bmw_upgrade") is not False:
-              raise SystemExit("PRE477 fail closed")
-          target=Path("docs/PRE477_PAL_BMW_PUNTO_PHYSICS_LAYOUTS_READONLY.json")
+          source=Path("/tmp/nfsmw-pre477/report.json")
+          if source.is_file():
+              data=json.loads(source.read_text())
+          else:
+              data={"stage":"PRE477_PAL_BMW_VS_PUNTO_PHYSICS_PROFILE_LAYOUTS_READONLY",
+                    "status":"FAILED_NO_REPORT","safe_to_enable_bmw_upgrade":False}
+          if data.get("safe_to_enable_bmw_upgrade") is not False:
+              raise SystemExit("PRE477 fail closed: mod enabled unexpectedly")
+          if data.get("status")=="AUDIT_OK":
+              target=Path("docs/PRE477_PAL_BMW_PUNTO_PHYSICS_LAYOUTS_READONLY.json")
+          else:
+              target=Path("docs/PRE477_PAL_BMW_PUNTO_PHYSICS_DIAGNOSTIC.json")
+              data={k:data.get(k) for k in ("stage","status","error_type","error","run_id") if k in data}
+              data["safe_to_enable_bmw_upgrade"]=False
           target.parent.mkdir(parents=True,exist_ok=True)
           target.write_text(json.dumps(data,indent=2,ensure_ascii=False)+"\n")
           PY
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/PRE477_PAL_BMW_PUNTO_PHYSICS_LAYOUTS_READONLY.json
+          git add docs/PRE477_PAL_BMW_PUNTO_PHYSICS_LAYOUTS_READONLY.json docs/PRE477_PAL_BMW_PUNTO_PHYSICS_DIAGNOSTIC.json 2>/dev/null || true
           git diff --cached --quiet && exit 0
           git commit -m "PRE477: map original BMW/Punto physics layout hash and scalar metadata"
           git push origin HEAD:main
