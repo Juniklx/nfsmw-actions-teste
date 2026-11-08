@@ -1,0 +1,124 @@
+{
+  "stage": "PRE478_BMW_TUNING_FEATURE_OFF_CONTRACT",
+  "status": "AUDIT_OK",
+  "mod_enabled": false,
+  "save_modified": false,
+  "apk_built": false,
+  "game_assets_modified": false,
+  "authenticated_pal_vpak_sha256": "9f4b04a221232e614b927a870e25da7db100477a7e425114b87082f46e8b99ad",
+  "source_reports": {
+    "identity": "PRE467_PAL_BMW_ATTRIBUTES_BINARY_IDENTITY.json",
+    "limits": "PRE473_PAL_PVEHICLE_BMW_UPGRADE_COUNTERS_READONLY.json",
+    "references": "PRE474_PAL_BMW_PUNTO_PERFORMANCE_REF_ARRAYS.json",
+    "ancestry": "PRE476_PAL_BMW_PUNTO_REFERENCE_RESOLUTION_READONLY.json",
+    "physics": "PRE477_PAL_BMW_PUNTO_PHYSICS_LAYOUTS_READONLY.json"
+  },
+  "synthetic_tests_passed": 11,
+  "synthetic_test_suite_is_not_gameplay_validation": true,
+  "target_vehicle": "bmwm3gtr",
+  "careerstart_not_targeted": true,
+  "original_nitro_left_unchanged": true,
+  "blocked_categories": {
+    "engine": {
+      "original_upgrade_limit": 0,
+      "original_explicit_reference_count": 1,
+      "original_BMW_physical_base_verified": true,
+      "missing_BMW_upgrade_profiles_or_reference_coverage": true,
+      "synthetic_plan_rejection_reasons": [
+        "FEATURE_OFF",
+        "NO_ISOLATED_SAVE",
+        "NO_PROVEN_PERFORMANCE_CATALOG",
+        "NO_PROVEN_BMW_SPECIFIC_PHYSICS_PROFILES",
+        "NO_PROVEN_FRONTEND_PRICE",
+        "NO_PROVEN_SAVE_ROUNDTRIP",
+        "NO_RUNTIME_PHYSICS_REGRESSION"
+      ],
+      "modification_permitted": false
+    },
+    "transmission": {
+      "original_upgrade_limit": 0,
+      "original_explicit_reference_count": 1,
+      "original_BMW_physical_base_verified": true,
+      "missing_BMW_upgrade_profiles_or_reference_coverage": true,
+      "synthetic_plan_rejection_reasons": [
+        "FEATURE_OFF",
+        "NO_ISOLATED_SAVE",
+        "NO_PROVEN_PERFORMANCE_CATALOG",
+        "NO_PROVEN_BMW_SPECIFIC_PHYSICS_PROFILES",
+        "NO_PROVEN_FRONTEND_PRICE",
+        "NO_PROVEN_SAVE_ROUNDTRIP",
+        "NO_RUNTIME_PHYSICS_REGRESSION"
+      ],
+      "modification_permitted": false
+    },
+    "chassis": {
+      "original_upgrade_limit": 0,
+      "original_explicit_reference_count": 1,
+      "original_BMW_physical_base_verified": true,
+      "missing_BMW_upgrade_profiles_or_reference_coverage": true,
+      "synthetic_plan_rejection_reasons": [
+        "FEATURE_OFF",
+        "NO_ISOLATED_SAVE",
+        "NO_PROVEN_PERFORMANCE_CATALOG",
+        "NO_PROVEN_BMW_SPECIFIC_PHYSICS_PROFILES",
+        "NO_PROVEN_FRONTEND_PRICE",
+        "NO_PROVEN_SAVE_ROUNDTRIP",
+        "NO_RUNTIME_PHYSICS_REGRESSION"
+      ],
+      "modification_permitted": false
+    },
+    "tires": {
+      "original_upgrade_limit": 0,
+      "original_explicit_reference_count": 1,
+      "original_BMW_physical_base_verified": true,
+      "missing_BMW_upgrade_profiles_or_reference_coverage": true,
+      "synthetic_plan_rejection_reasons": [
+        "FEATURE_OFF",
+        "NO_ISOLATED_SAVE",
+        "NO_PROVEN_PERFORMANCE_CATALOG",
+        "NO_PROVEN_BMW_SPECIFIC_PHYSICS_PROFILES",
+        "NO_PROVEN_FRONTEND_PRICE",
+        "NO_PROVEN_SAVE_ROUNDTRIP",
+        "NO_RUNTIME_PHYSICS_REGRESSION"
+      ],
+      "modification_permitted": false
+    },
+    "brakes": {
+      "original_upgrade_limit": 0,
+      "original_explicit_reference_count": 1,
+      "original_BMW_physical_base_verified": true,
+      "missing_BMW_upgrade_profiles_or_reference_coverage": true,
+      "synthetic_plan_rejection_reasons": [
+        "FEATURE_OFF",
+        "NO_ISOLATED_SAVE",
+        "NO_PROVEN_PERFORMANCE_CATALOG",
+        "NO_PROVEN_BMW_SPECIFIC_PHYSICS_PROFILES",
+        "NO_PROVEN_FRONTEND_PRICE",
+        "NO_PROVEN_SAVE_ROUNDTRIP",
+        "NO_RUNTIME_PHYSICS_REGRESSION"
+      ],
+      "modification_permitted": false
+    },
+    "induction": {
+      "original_upgrade_limit": 0,
+      "original_explicit_reference_count": 0,
+      "original_BMW_physical_base_verified": false,
+      "missing_BMW_upgrade_profiles_or_reference_coverage": true,
+      "synthetic_plan_rejection_reasons": [
+        "FEATURE_OFF",
+        "NO_ISOLATED_SAVE",
+        "NO_PROVEN_PERFORMANCE_CATALOG",
+        "NO_PROVEN_BMW_SPECIFIC_PHYSICS_PROFILES",
+        "NO_PROVEN_FRONTEND_PRICE",
+        "NO_PROVEN_SAVE_ROUNDTRIP",
+        "NO_RUNTIME_PHYSICS_REGRESSION"
+      ],
+      "modification_permitted": false
+    }
+  },
+  "catalog_of_purchaseable_bmw_upgrades_validated": false,
+  "runtime_patch_written": false,
+  "ready_for_signed_APK": false,
+  "run_id": "42512969258",
+  "utc": "2026-11-08T19:02:30.364876+00:00"
+}
