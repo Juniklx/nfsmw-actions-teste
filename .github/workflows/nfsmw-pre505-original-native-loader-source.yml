@@ -25,9 +25,9 @@ jobs:
           python -m py_compile automation/kaggle/pre505_pre99_native_asset_loader_paths_readonly.py
       - name: Read PRE99 verified snapshot to find first-party file and asset loader paths
         env:
-          GOOGLE_REFRESH_TOKEN: \${{ secrets.GOOGLE_REFRESH_TOKEN }}
-          GOOGLE_CLIENT_ID: \${{ secrets.GOOGLE_CLIENT_ID }}
-          GOOGLE_CLIENT_SECRET: \${{ secrets.GOOGLE_CLIENT_SECRET }}
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
         run: |
           set -euo pipefail
           PYTHONPATH=automation/kaggle python automation/kaggle/pre505_pre99_native_asset_loader_paths_readonly.py --run-id "$GITHUB_RUN_ID"
@@ -71,6 +71,6 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: nfsmw-pre505-native-loader-\${{ github.run_id }}
+          name: nfsmw-pre505-native-loader-${{ github.run_id }}
           path: /tmp/nfsmw-pre505/report.json
           retention-days: 14
