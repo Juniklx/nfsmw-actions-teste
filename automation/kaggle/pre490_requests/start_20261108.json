@@ -1,0 +1,8 @@
+{
+  "stage": "PRE490",
+  "goal": "Identify original PAL guest arguments/return and write signatures for upgrade candidates without claiming speculative SetPackage, SetLevel or GetMaxLevel identities",
+  "source": "PRE99 authenticated 874780689-byte snapshot",
+  "read_only": true,
+  "save_untouched": true,
+  "stable_v48_untouched": true
+}
