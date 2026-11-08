@@ -5,10 +5,11 @@ Mutates only the designated Markdown context file, preserving all prior bytes
 and confirming exact readback. Never touches APK, VPAK, guest memory, saves.
 """
 from __future__ import annotations
-import argparse, io, json
+import argparse, io, json, time
 from pathlib import Path
 from datetime import datetime,timezone
 from googleapiclient.http import MediaIoBaseUpload
+from googleapiclient.errors import HttpError
 from pre480_append_canonical_context_safe import (
     FILE_ID, PARENT, sha, drive_client, get_bytes, get_meta)
 
@@ -17,6 +18,7 @@ HANDOFF=Path("docs/PRE514_BMW_TUNING_PRE513_V48_DEX_SELECTION_HANDOFF_20261108.m
 MARKER="PRE514_BMW_TUNING_PRE513_V48_DEX_SELECTION_HANDOFF_20261108"
 PREVIOUS="PRE512_BMW_TUNING_PRE511_V48_BINARY_CROSSCHECK_20261108"
 BACKUP_NAME="CONTEXTO_NFSMW_BACKUP_PRE514_BMW_TUNING_20261108.md"
+EXISTING_BACKUP_ID="1aKruZiJ1aZwvU7d9_HwiYY2uBzdvSfqI"
 FILE_NAME="CONTEXTO_NFSMW.md"
 
 def sync(drive):
@@ -56,27 +58,62 @@ def sync(drive):
     if not candidate.startswith(before) or candidate.count(MARKER.encode())!=1:
         raise ValueError("Append-only invariant failed")
 
-    backup=drive.files().copy(fileId=FILE_ID,supportsAllDrives=True,
-        body={"name":BACKUP_NAME,"parents":[PARENT]},
-        fields="id,name,size,parents").execute()
+    # Previous attempt got HTTP502 during the canonical upload, but made
+    # this backup successfully. Reuse it after exact metadata and hash checks.
+    backup=drive.files().get(fileId=EXISTING_BACKUP_ID,
+        supportsAllDrives=True, fields="id,name,size,parents").execute()
     backup_id=backup["id"]
-    result={"backup_created":True,"backup_file_id":backup_id,
+    if (backup["name"]!=BACKUP_NAME or backup.get("parents")!=[PARENT]
+        or int(backup.get("size",0))!=len(before)
+        or sha(get_bytes(drive,backup_id))!=sha(before)):
+        raise ValueError("PRE514 existing backup differs from canonical; abort")
+    result={"backup_created":False,"backup_reused":True,
+        "backup_file_id":backup_id,
         "backup_name":BACKUP_NAME,"canonical_before_bytes":len(before),
         "canonical_before_sha256":sha(before)}
-    if (int(backup.get("size",0))!=len(before) or
-        sha(get_bytes(drive,backup_id))!=sha(before)):
-        raise ValueError("Pre-update Drive backup failed byte-for-byte verification")
     # Avoid clobbering another user's edit made between initial read and copy.
     fresh_meta=get_meta(drive)
     if (fresh_meta.get("modifiedTime")!=metadata.get("modifiedTime")
         or sha(get_bytes(drive,FILE_ID))!=sha(before)):
         raise ValueError("Concurrent context edit detected; source not overwritten")
-    media=MediaIoBaseUpload(io.BytesIO(candidate),
-                            mimetype="text/markdown",resumable=False)
-    updated=drive.files().update(fileId=FILE_ID,supportsAllDrives=True,
-        media_body=media,
-        fields="id,name,size,modifiedTime").execute()
-    if updated.get("id")!=FILE_ID:raise ValueError("Drive changed canonical file ID")
+    # HTTP502 may occur after upload is applied. On each transient failure,
+    # read the actual canonical bytes, and retry only if it is still EXACTLY
+    # equal to the initial snapshot. Never clobber a concurrent edit.
+    uploaded=False
+    transient_failures=0
+    for attempt in range(3):
+        fresh=get_bytes(drive,FILE_ID)
+        if fresh==candidate:
+            uploaded=True
+            break
+        if fresh!=before:
+            raise ValueError("Concurrent Drive modification detected during retry")
+        media=MediaIoBaseUpload(io.BytesIO(candidate),
+                                mimetype="text/markdown",resumable=False)
+        try:
+            updated=drive.files().update(fileId=FILE_ID,
+                supportsAllDrives=True,media_body=media,
+                fields="id,name,size,modifiedTime").execute()
+            if updated.get("id")!=FILE_ID:
+                raise ValueError("Unexpected canonical Drive update target")
+            uploaded=True
+            break
+        except HttpError as exc:
+            if int(exc.resp.status) not in (500,502,503,504):
+                raise
+            transient_failures+=1
+            actual=get_bytes(drive,FILE_ID)
+            if actual==candidate:
+                uploaded=True
+                break
+            if actual!=before:
+                raise ValueError("Concurrent Drive bytes changed after HTTP5xx")
+            if attempt==2:
+                raise
+            time.sleep(2*(attempt+1))
+    if not uploaded:
+        raise ValueError("Unable to verify a safe canonical upload")
+    result["transient_http_failures"]=transient_failures
     after=get_bytes(drive,FILE_ID)
     if (after!=candidate or
         after[:len(before)]!=before or
