@@ -1,0 +1,7 @@
+{
+  "stage": "PRE504",
+  "purpose": "Read-only original StrE vs VLT collections name-hash coverage, do not modify assets, V48, saves or signature",
+  "source_vpak_sha256": "9f4b04a221232e614b927a870e25da7db100477a7e425114b87082f46e8b99ad",
+  "preceding_proof": "PRE502_BMW_ENGINE_FULL_LEVEL1_COMBINED_SCRATCH.json",
+  "enabled_in_game": false
+}
