@@ -1,0 +1,23 @@
+name: NFSMW PRE376 PRE375 provenance audit run status
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre376_requests/*.json'
+permissions:
+  actions: read
+  contents: write
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish sanitized PRE375 audit run lookup
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre376_lookup_pre375_run_metadata.py
+          python automation/kaggle/pre376_lookup_pre375_run_metadata.py
