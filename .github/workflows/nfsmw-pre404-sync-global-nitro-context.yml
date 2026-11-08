@@ -1,0 +1,48 @@
+name: NFSMW PRE404 user-authorized Nitro global context sync
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre404_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre404-global-nitro-context
+  cancel-in-progress: false
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate context script and Drive dependencies
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre404_sync_user_all_cars_nitro_context.py
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+      - name: Backup and append verified user-approved global Nitro change
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre404_sync_user_all_cars_nitro_context.py
+      - name: Preserve bounded Drive sync evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre404-context-${{ github.run_id }}
+          path: /tmp/nfsmw-pre404/CONTEXT_SYNC_STATUS.json
+          if-no-files-found: warn
+      - name: Publish sanitized readback
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre328_publish_sanitized_audit_status.py --stage PRE404 --report /tmp/nfsmw-pre404/CONTEXT_SYNC_STATUS.json
