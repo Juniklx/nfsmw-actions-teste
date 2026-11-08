@@ -1,0 +1,14 @@
+{
+  "stage": "PRE401",
+  "targetVersionCode": 46,
+  "apkName": "NFSMW_V46_PRE401_GLOBAL_NITRO_FULL_ALL_CARS.apk",
+  "package": "io.github.nfsmwrecomp",
+  "feature": "global all-cars unlimited Nitro",
+  "userAllowsAICars": true,
+  "constantValue": 1,
+  "sourceSites": 5,
+  "requireSamePermanentSigner": true,
+  "requireOriginalSavePreserved": true,
+  "keepV45": true,
+  "experimental": true
+}
