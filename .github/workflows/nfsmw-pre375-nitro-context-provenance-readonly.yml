@@ -1,0 +1,42 @@
+name: NFSMW PRE375 Nitro r3 provenance source-only audit
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre375_requests/*.json'
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate read-only PRE375 scanner
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre375_nitro_context_provenance_readonly.py
+      - name: Install Drive read client
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+      - name: Inspect SHA-verified PRE99 PAL Nitro provenance
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre375_nitro_context_provenance_readonly.py
+      - name: Preserve bounded provenance audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre375-nitro-r3-provenance-${{ github.run_id }}
+          path: /tmp/nfsmw-pre375/PRE375_NITRO_CONTEXT_PROVENANCE.json
+          if-no-files-found: warn
+          retention-days: 30
