@@ -1,0 +1,13 @@
+{
+  "stage": "PRE519",
+  "operation": "Backup-first exact append of PRE517 authentic EA checksum/ZDIR sector semantics and PRE518 hypothetical synthetic BMW checksum into canonical Drive CONTEXTO_NFSMW.md",
+  "previous_marker": "PRE516_BMW_TUNING_PRE515_COMPILED_JAVA_GAME_ROOT_CHAIN_20261108",
+  "new_marker": "PRE519_BMW_TUNING_PRE517_PRE518_ZDIR_EA_CHECKSUM_HANDOFF_20261108",
+  "verified_runs": [
+    42529083522,
+    42529543814
+  ],
+  "no_game_binary_changes": true,
+  "no_apk_build": true,
+  "no_save_changes": true
+}
