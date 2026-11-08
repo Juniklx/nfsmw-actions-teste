@@ -1,0 +1,7 @@
+{
+  "stage": "PRE375",
+  "scope": "authenticated PRE99 PAL r3 source provenance, guest field +252/+296, call refs",
+  "read_only": true,
+  "owner_verified": false,
+  "apk": false
+}
