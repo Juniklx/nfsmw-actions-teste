@@ -1,0 +1,7 @@
+{
+  "stage": "PRE380",
+  "source": "PRE99 Nitro PAL shard",
+  "mode": "in-memory reversible source canary",
+  "noAPK": true,
+  "ownerVerified": false
+}
