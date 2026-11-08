@@ -1,0 +1,10 @@
+{
+  "stage": "PRE459",
+  "input": "NFSMW_PAL.zip original user Drive archive",
+  "purpose": "Enumerate original disc resource paths for legitimate BMW M3 GTR upgrades",
+  "read_only": true,
+  "no_full_iso_download": true,
+  "strict_http_range_206": true,
+  "no_game_asset_extraction": true,
+  "no_save_mutation": true
+}
