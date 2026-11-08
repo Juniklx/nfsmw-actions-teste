@@ -1,0 +1,1043 @@
+{
+  "stage": "PRE469_USA_BMW_FULL_BIN_CLASS_NAMES_READONLY",
+  "status": "AUDIT_OK",
+  "vpak_sha256": "9f4b04a221232e614b927a870e25da7db100477a7e425114b87082f46e8b99ad",
+  "pal_byte_identity_confirmed_in_PRE467": true,
+  "source_class_hash_count": 59,
+  "class_hashes_resolved_by_full_bin_strings": 1,
+  "all_string_candidates_count": 2358,
+  "preStrE_string_count": 1881,
+  "postStrE_string_count": 477,
+  "verified_class_name_candidates": [
+    {
+      "class_hash": "b1669f64",
+      "class_name_candidates": [],
+      "definitions": 8,
+      "collection_reserve": 72,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 464,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "afa210f0",
+      "class_name_candidates": [],
+      "definitions": 19,
+      "collection_reserve": 188,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 736,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "c1f0b434",
+      "class_name_candidates": [],
+      "definitions": 16,
+      "collection_reserve": 19,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 4328,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "bc8c1aa3",
+      "class_name_candidates": [],
+      "definitions": 3,
+      "collection_reserve": 14,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 4920,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "aba86e60",
+      "class_name_candidates": [],
+      "definitions": 4,
+      "collection_reserve": 179,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 5288,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "e4983a7d",
+      "class_name_candidates": [],
+      "definitions": 4,
+      "collection_reserve": 5,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 11464,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "6d90da55",
+      "class_name_candidates": [],
+      "definitions": 33,
+      "collection_reserve": 1,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 11656,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "7c90bb38",
+      "class_name_candidates": [],
+      "definitions": 23,
+      "collection_reserve": 30,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 11792,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "c92a0142",
+      "class_name_candidates": [],
+      "definitions": 7,
+      "collection_reserve": 153,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 12880,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "6ab2d241",
+      "class_name_candidates": [],
+      "definitions": 7,
+      "collection_reserve": 9,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 15472,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "4e8dce05",
+      "class_name_candidates": [],
+      "definitions": 3,
+      "collection_reserve": 1,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 15832,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "b30b18af",
+      "class_name_candidates": [],
+      "definitions": 45,
+      "collection_reserve": 287,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 15928,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "b32682f1",
+      "class_name_candidates": [],
+      "definitions": 4,
+      "collection_reserve": 43,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 30736,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "f1f5fbc7",
+      "class_name_candidates": [],
+      "definitions": 7,
+      "collection_reserve": 176,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 32008,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "ff77f451",
+      "class_name_candidates": [],
+      "definitions": 5,
+      "collection_reserve": 39,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 35240,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "565465f8",
+      "class_name_candidates": [],
+      "definitions": 5,
+      "collection_reserve": 37,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 36408,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "55624a85",
+      "class_name_candidates": [],
+      "definitions": 6,
+      "collection_reserve": 25,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 37952,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "399ed882",
+      "class_name_candidates": [],
+      "definitions": 13,
+      "collection_reserve": 11,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 38888,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "bc683501",
+      "class_name_candidates": [],
+      "definitions": 39,
+      "collection_reserve": 1,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 39560,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "fbffb107",
+      "class_name_candidates": [],
+      "definitions": 7,
+      "collection_reserve": 183,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 39656,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "c7c5806d",
+      "class_name_candidates": [],
+      "definitions": 8,
+      "collection_reserve": 30,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 48456,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "ce70d7db",
+      "class_name_candidates": [],
+      "definitions": 30,
+      "collection_reserve": 253,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 49544,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "77b93104",
+      "class_name_candidates": [],
+      "definitions": 4,
+      "collection_reserve": 29,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 65856,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "5d417978",
+      "class_name_candidates": [],
+      "definitions": 11,
+      "collection_reserve": 1,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 67728,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "2870de90",
+      "class_name_candidates": [],
+      "definitions": 1,
+      "collection_reserve": 11,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 67928,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "07a7a3e5",
+      "class_name_candidates": [],
+      "definitions": 9,
+      "collection_reserve": 176,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 68280,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "0f409aa6",
+      "class_name_candidates": [],
+      "definitions": 7,
+      "collection_reserve": 1,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 71512,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "171737e9",
+      "class_name_candidates": [],
+      "definitions": 7,
+      "collection_reserve": 1,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 71632,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "d3c18f03",
+      "class_name_candidates": [],
+      "definitions": 20,
+      "collection_reserve": 12,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 71784,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "b267a856",
+      "class_name_candidates": [],
+      "definitions": 19,
+      "collection_reserve": 11,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 72336,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "c593dd47",
+      "class_name_candidates": [],
+      "definitions": 28,
+      "collection_reserve": 186,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 72816,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "bd38d1ca",
+      "class_name_candidates": [],
+      "definitions": 9,
+      "collection_reserve": 184,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 84376,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "11b47832",
+      "class_name_candidates": [],
+      "definitions": 2,
+      "collection_reserve": 9,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 87848,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "22515733",
+      "class_name_candidates": [],
+      "definitions": 9,
+      "collection_reserve": 32,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 88216,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "36350867",
+      "class_name_candidates": [],
+      "definitions": 3,
+      "collection_reserve": 178,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 90216,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "6f5943f1",
+      "class_name_candidates": [],
+      "definitions": 2,
+      "collection_reserve": 5,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 93528,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "ebcee74c",
+      "class_name_candidates": [],
+      "definitions": 20,
+      "collection_reserve": 277,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 93784,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "2dee1998",
+      "class_name_candidates": [],
+      "definitions": 152,
+      "collection_reserve": 29,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 104360,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "20d08342",
+      "class_name_candidates": [],
+      "definitions": 5,
+      "collection_reserve": 14,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 108632,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "6434f1fb",
+      "class_name_candidates": [],
+      "definitions": 6,
+      "collection_reserve": 1,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 109232,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "db01b754",
+      "class_name_candidates": [],
+      "definitions": 24,
+      "collection_reserve": 35,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 109304,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "93c171e4",
+      "class_name_candidates": [],
+      "definitions": 9,
+      "collection_reserve": 92,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 111344,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "4a97ec8f",
+      "class_name_candidates": [],
+      "definitions": 66,
+      "collection_reserve": 222,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 114544,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "5cea9d46",
+      "class_name_candidates": [
+        "gameplay"
+      ],
+      "definitions": 220,
+      "collection_reserve": 8801,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 131688,
+      "resolved_full_bin_names": [
+        {
+          "name": "gameplay",
+          "bin_offset": 88,
+          "inside_StrE": true
+        }
+      ]
+    },
+    {
+      "class_hash": "50eab0e6",
+      "class_name_candidates": [],
+      "definitions": 40,
+      "collection_reserve": 98,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 131720,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "5d898ee7",
+      "class_name_candidates": [],
+      "definitions": 24,
+      "collection_reserve": 4,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 140304,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "d6d4330b",
+      "class_name_candidates": [],
+      "definitions": 4,
+      "collection_reserve": 1,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 140480,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "af1837ca",
+      "class_name_candidates": [],
+      "definitions": 3,
+      "collection_reserve": 1,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 140600,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "093d7c56",
+      "class_name_candidates": [],
+      "definitions": 5,
+      "collection_reserve": 1,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 140704,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "d32a743f",
+      "class_name_candidates": [],
+      "definitions": 37,
+      "collection_reserve": 28,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 140840,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "551e22b3",
+      "class_name_candidates": [],
+      "definitions": 57,
+      "collection_reserve": 29,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 142280,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "a5b543b7",
+      "class_name_candidates": [],
+      "definitions": 49,
+      "collection_reserve": 128,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 146528,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "339f7d3d",
+      "class_name_candidates": [],
+      "definitions": 8,
+      "collection_reserve": 7,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 154776,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "d2410816",
+      "class_name_candidates": [],
+      "definitions": 6,
+      "collection_reserve": 63,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 155048,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "3473edcd",
+      "class_name_candidates": [],
+      "definitions": 2,
+      "collection_reserve": 2,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 157560,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "27e73952",
+      "class_name_candidates": [],
+      "definitions": 7,
+      "collection_reserve": 35,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 157688,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "e4c3d904",
+      "class_name_candidates": [],
+      "definitions": 4,
+      "collection_reserve": 42,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 159752,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "85885722",
+      "class_name_candidates": [],
+      "definitions": 55,
+      "collection_reserve": 575,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 161288,
+      "resolved_full_bin_names": []
+    },
+    {
+      "class_hash": "fb111fef",
+      "class_name_candidates": [],
+      "definitions": 24,
+      "collection_reserve": 65,
+      "required_count": 0,
+      "definitions_pointer_raw": "effecadd",
+      "record_offset": 161320,
+      "resolved_full_bin_names": []
+    }
+  ],
+  "bmw_variant_collections_with_class_candidates": {
+    "BMWM3GTR": [],
+    "BMWM3GTRE46": [],
+    "m3gtre46careerstart": [
+      {
+        "export_index": 96,
+        "record_offset": 4248,
+        "record_bytes": 40,
+        "collection_hash": "39dae0f8",
+        "collection_name_candidates": [
+          "m3gtre46careerstart"
+        ],
+        "class_hash": "afa210f0",
+        "class_name_candidates": [],
+        "parent_hash": "4e085fb3",
+        "parent_name_candidates": [],
+        "num_optional_entries": 0,
+        "num_types": 2,
+        "reserve_matches_optional_count": true,
+        "unknown_word_zero": true,
+        "full_bin_class_name_candidates": [],
+        "full_bin_parent_name_candidates": []
+      },
+      {
+        "export_index": 339,
+        "record_offset": 15112,
+        "record_bytes": 36,
+        "collection_hash": "39dae0f8",
+        "collection_name_candidates": [
+          "m3gtre46careerstart"
+        ],
+        "class_hash": "c92a0142",
+        "class_name_candidates": [],
+        "parent_hash": "4e085fb3",
+        "parent_name_candidates": [],
+        "num_optional_entries": 0,
+        "num_types": 1,
+        "reserve_matches_optional_count": true,
+        "unknown_word_zero": true,
+        "full_bin_class_name_candidates": [],
+        "full_bin_parent_name_candidates": []
+      },
+      {
+        "export_index": 674,
+        "record_offset": 35120,
+        "record_bytes": 36,
+        "collection_hash": "39dae0f8",
+        "collection_name_candidates": [
+          "m3gtre46careerstart"
+        ],
+        "class_hash": "f1f5fbc7",
+        "class_name_candidates": [],
+        "parent_hash": "4e085fb3",
+        "parent_name_candidates": [],
+        "num_optional_entries": 0,
+        "num_types": 1,
+        "reserve_matches_optional_count": true,
+        "unknown_word_zero": true,
+        "full_bin_class_name_candidates": [],
+        "full_bin_parent_name_candidates": []
+      },
+      {
+        "export_index": 1190,
+        "record_offset": 70512,
+        "record_bytes": 36,
+        "collection_hash": "39dae0f8",
+        "collection_name_candidates": [
+          "m3gtre46careerstart"
+        ],
+        "class_hash": "07a7a3e5",
+        "class_name_candidates": [],
+        "parent_hash": "4e085fb3",
+        "parent_name_candidates": [],
+        "num_optional_entries": 0,
+        "num_types": 1,
+        "reserve_matches_optional_count": true,
+        "unknown_word_zero": true,
+        "full_bin_class_name_candidates": [],
+        "full_bin_parent_name_candidates": []
+      },
+      {
+        "export_index": 1455,
+        "record_offset": 87688,
+        "record_bytes": 40,
+        "collection_hash": "39dae0f8",
+        "collection_name_candidates": [
+          "m3gtre46careerstart"
+        ],
+        "class_hash": "bd38d1ca",
+        "class_name_candidates": [],
+        "parent_hash": "4e085fb3",
+        "parent_name_candidates": [],
+        "num_optional_entries": 0,
+        "num_types": 2,
+        "reserve_matches_optional_count": true,
+        "unknown_word_zero": true,
+        "full_bin_class_name_candidates": [],
+        "full_bin_parent_name_candidates": []
+      },
+      {
+        "export_index": 1550,
+        "record_offset": 92568,
+        "record_bytes": 40,
+        "collection_hash": "39dae0f8",
+        "collection_name_candidates": [
+          "m3gtre46careerstart"
+        ],
+        "class_hash": "36350867",
+        "class_name_candidates": [],
+        "parent_hash": "4e085fb3",
+        "parent_name_candidates": [],
+        "num_optional_entries": 0,
+        "num_types": 2,
+        "reserve_matches_optional_count": true,
+        "unknown_word_zero": true,
+        "full_bin_class_name_candidates": [],
+        "full_bin_parent_name_candidates": []
+      },
+      {
+        "export_index": 1981,
+        "record_offset": 127352,
+        "record_bytes": 216,
+        "collection_hash": "39dae0f8",
+        "collection_name_candidates": [
+          "m3gtre46careerstart"
+        ],
+        "class_hash": "4a97ec8f",
+        "class_name_candidates": [],
+        "parent_hash": "4e085fb3",
+        "parent_name_candidates": [],
+        "num_optional_entries": 12,
+        "num_types": 10,
+        "reserve_matches_optional_count": true,
+        "unknown_word_zero": true,
+        "full_bin_class_name_candidates": [],
+        "full_bin_parent_name_candidates": []
+      }
+    ],
+    "bmwm3gtr": [
+      {
+        "export_index": 87,
+        "record_offset": 3888,
+        "record_bytes": 40,
+        "collection_hash": "cd88083f",
+        "collection_name_candidates": [
+          "bmwm3gtr"
+        ],
+        "class_hash": "afa210f0",
+        "class_name_candidates": [],
+        "parent_hash": "4e085fb3",
+        "parent_name_candidates": [],
+        "num_optional_entries": 0,
+        "num_types": 2,
+        "reserve_matches_optional_count": true,
+        "unknown_word_zero": true,
+        "full_bin_class_name_candidates": [],
+        "full_bin_parent_name_candidates": []
+      },
+      {
+        "export_index": 632,
+        "record_offset": 33440,
+        "record_bytes": 36,
+        "collection_hash": "cd88083f",
+        "collection_name_candidates": [
+          "bmwm3gtr"
+        ],
+        "class_hash": "f1f5fbc7",
+        "class_name_candidates": [],
+        "parent_hash": "eec2271a",
+        "parent_name_candidates": [
+          "default"
+        ],
+        "num_optional_entries": 0,
+        "num_types": 1,
+        "reserve_matches_optional_count": true,
+        "unknown_word_zero": true,
+        "full_bin_class_name_candidates": [],
+        "full_bin_parent_name_candidates": [
+          {
+            "name": "default",
+            "bin_offset": 8,
+            "inside_StrE": true
+          }
+        ]
+      },
+      {
+        "export_index": 1175,
+        "record_offset": 69912,
+        "record_bytes": 36,
+        "collection_hash": "cd88083f",
+        "collection_name_candidates": [
+          "bmwm3gtr"
+        ],
+        "class_hash": "07a7a3e5",
+        "class_name_candidates": [],
+        "parent_hash": "eec2271a",
+        "parent_name_candidates": [
+          "default"
+        ],
+        "num_optional_entries": 0,
+        "num_types": 1,
+        "reserve_matches_optional_count": true,
+        "unknown_word_zero": true,
+        "full_bin_class_name_candidates": [],
+        "full_bin_parent_name_candidates": [
+          {
+            "name": "default",
+            "bin_offset": 8,
+            "inside_StrE": true
+          }
+        ]
+      },
+      {
+        "export_index": 1410,
+        "record_offset": 85888,
+        "record_bytes": 40,
+        "collection_hash": "cd88083f",
+        "collection_name_candidates": [
+          "bmwm3gtr"
+        ],
+        "class_hash": "bd38d1ca",
+        "class_name_candidates": [],
+        "parent_hash": "eec2271a",
+        "parent_name_candidates": [
+          "default"
+        ],
+        "num_optional_entries": 0,
+        "num_types": 2,
+        "reserve_matches_optional_count": true,
+        "unknown_word_zero": true,
+        "full_bin_class_name_candidates": [],
+        "full_bin_parent_name_candidates": [
+          {
+            "name": "default",
+            "bin_offset": 8,
+            "inside_StrE": true
+          }
+        ]
+      },
+      {
+        "export_index": 1530,
+        "record_offset": 91768,
+        "record_bytes": 40,
+        "collection_hash": "cd88083f",
+        "collection_name_candidates": [
+          "bmwm3gtr"
+        ],
+        "class_hash": "36350867",
+        "class_name_candidates": [],
+        "parent_hash": "eec2271a",
+        "parent_name_candidates": [
+          "default"
+        ],
+        "num_optional_entries": 0,
+        "num_types": 2,
+        "reserve_matches_optional_count": true,
+        "unknown_word_zero": true,
+        "full_bin_class_name_candidates": [],
+        "full_bin_parent_name_candidates": [
+          {
+            "name": "default",
+            "bin_offset": 8,
+            "inside_StrE": true
+          }
+        ]
+      },
+      {
+        "export_index": 1941,
+        "record_offset": 120736,
+        "record_bytes": 200,
+        "collection_hash": "cd88083f",
+        "collection_name_candidates": [
+          "bmwm3gtr"
+        ],
+        "class_hash": "4a97ec8f",
+        "class_name_candidates": [],
+        "parent_hash": "a6abc921",
+        "parent_name_candidates": [
+          "racers"
+        ],
+        "num_optional_entries": 11,
+        "num_types": 9,
+        "reserve_matches_optional_count": true,
+        "unknown_word_zero": true,
+        "full_bin_class_name_candidates": [],
+        "full_bin_parent_name_candidates": [
+          {
+            "name": "racers",
+            "bin_offset": 20376,
+            "inside_StrE": true
+          }
+        ]
+      },
+      {
+        "export_index": 2166,
+        "record_offset": 148680,
+        "record_bytes": 88,
+        "collection_hash": "cd88083f",
+        "collection_name_candidates": [
+          "bmwm3gtr"
+        ],
+        "class_hash": "a5b543b7",
+        "class_name_candidates": [],
+        "parent_hash": "a6abc921",
+        "parent_name_candidates": [
+          "racers"
+        ],
+        "num_optional_entries": 2,
+        "num_types": 8,
+        "reserve_matches_optional_count": true,
+        "unknown_word_zero": true,
+        "full_bin_class_name_candidates": [],
+        "full_bin_parent_name_candidates": [
+          {
+            "name": "racers",
+            "bin_offset": 20376,
+            "inside_StrE": true
+          }
+        ]
+      }
+    ],
+    "bmwm3gtre46": [],
+    "UpgradeSpecs": [],
+    "eFEPartUpgradeLevels": [],
+    "JunkmanMod": []
+  },
+  "related_field_and_class_identities": {
+    "UpgradeSpecs": {
+      "lookup2": "5fde6463",
+      "full_bin_name_entries": [
+        {
+          "name": "UpgradeSpecs",
+          "bin_offset": 32130,
+          "inside_StrE": false
+        }
+      ],
+      "appears_as_class_header": false,
+      "appears_as_pre468_target_collection": false
+    },
+    "eFEPartUpgradeLevels": {
+      "lookup2": "d3f69b06",
+      "full_bin_name_entries": [
+        {
+          "name": "eFEPartUpgradeLevels",
+          "bin_offset": 32325,
+          "inside_StrE": false
+        }
+      ],
+      "appears_as_class_header": false,
+      "appears_as_pre468_target_collection": false
+    },
+    "JunkmanMod": {
+      "lookup2": "946f77a8",
+      "full_bin_name_entries": [
+        {
+          "name": "JunkmanMod",
+          "bin_offset": 31933,
+          "inside_StrE": false
+        }
+      ],
+      "appears_as_class_header": false,
+      "appears_as_pre468_target_collection": false
+    },
+    "BMWM3GTR": {
+      "lookup2": "20d3071f",
+      "full_bin_name_entries": [
+        {
+          "name": "BMWM3GTR",
+          "bin_offset": 20709,
+          "inside_StrE": true
+        }
+      ],
+      "appears_as_class_header": false,
+      "appears_as_pre468_target_collection": false
+    },
+    "bmwm3gtr": {
+      "lookup2": "cd88083f",
+      "full_bin_name_entries": [
+        {
+          "name": "bmwm3gtr",
+          "bin_offset": 20935,
+          "inside_StrE": true
+        }
+      ],
+      "appears_as_class_header": false,
+      "appears_as_pre468_target_collection": true
+    },
+    "m3gtre46careerstart": {
+      "lookup2": "39dae0f8",
+      "full_bin_name_entries": [
+        {
+          "name": "m3gtre46careerstart",
+          "bin_offset": 21561,
+          "inside_StrE": true
+        }
+      ],
+      "appears_as_class_header": false,
+      "appears_as_pre468_target_collection": true
+    },
+    "EngineRacer": {
+      "lookup2": "7375d1fa",
+      "full_bin_name_entries": [
+        {
+          "name": "EngineRacer",
+          "bin_offset": 20407,
+          "inside_StrE": true
+        }
+      ],
+      "appears_as_class_header": false,
+      "appears_as_pre468_target_collection": false
+    },
+    "SuspensionRacer": {
+      "lookup2": "6209e06a",
+      "full_bin_name_entries": [
+        {
+          "name": "SuspensionRacer",
+          "bin_offset": 20439,
+          "inside_StrE": true
+        }
+      ],
+      "appears_as_class_header": false,
+      "appears_as_pre468_target_collection": false
+    }
+  },
+  "class_name_hash_matches_do_not_identify_upgrade_level_or_part_ids": true,
+  "mod_enabled": false,
+  "signed_apk_built": false,
+  "game_assets_exported": false,
+  "save_modified": false,
+  "range_bytes": 733264,
+  "utc": "2026-11-08T18:22:25.657627+00:00",
+  "run_id": "42509657435"
+}
