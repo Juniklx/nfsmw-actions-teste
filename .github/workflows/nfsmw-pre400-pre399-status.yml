@@ -1,0 +1,23 @@
+name: NFSMW PRE400 PRE399 global Nitro source canary status
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre400_requests/*.json'
+permissions:
+  actions: read
+  contents: write
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish sanitized PRE399 run status
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre400_lookup_pre399_run_metadata.py
+          python automation/kaggle/pre400_lookup_pre399_run_metadata.py
