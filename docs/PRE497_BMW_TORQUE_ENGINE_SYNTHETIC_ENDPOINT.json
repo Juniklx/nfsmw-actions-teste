@@ -1,0 +1,102 @@
+{
+  "stage": "PRE497_PAL_BMW_ENGINE_PARAMETRIC_TORQUE_ENDPOINT_IN_RAM",
+  "status": "AUDIT_OK",
+  "authenticated_source_pal_vpak_sha256": "9f4b04a221232e614b927a870e25da7db100477a7e425114b87082f46e8b99ad",
+  "authentic_bmw_engine_collection": "bmwm3gtr",
+  "original_engine_layout_sha256": "e09efe8e63d0971da0949e898dbf8ba1b03c2954d2da04db48e9e56cb6437471",
+  "original_engine_layout_bytes": 96,
+  "stock_original_torque_curve": [
+    149.0,
+    179.0,
+    222.0,
+    266.0,
+    283.0,
+    275.0,
+    255.0,
+    235.0,
+    228.0
+  ],
+  "test_vectors_not_user_selected": true,
+  "synthetic_test_vectors": [
+    {
+      "synthetic_gain_basis_points": 0,
+      "synthetic_gain_percent": 0.0,
+      "original_peak_torque_sample": 283.0,
+      "synthetic_peak_torque_sample": 283.0,
+      "synthetic_curve_samples": [
+        149.0,
+        179.0,
+        222.0,
+        266.0,
+        283.0,
+        275.0,
+        255.0,
+        235.0,
+        228.0
+      ],
+      "output_engine_layout_sha256": "e09efe8e63d0971da0949e898dbf8ba1b03c2954d2da04db48e9e56cb6437471",
+      "engine_layout_header_unchanged": true,
+      "all_non_torque_bytes_identical": true,
+      "all_mutations_within_nine_torque_words": true,
+      "changed_layout_bytes": 0
+    },
+    {
+      "synthetic_gain_basis_points": 500,
+      "synthetic_gain_percent": 5.0,
+      "original_peak_torque_sample": 283.0,
+      "synthetic_peak_torque_sample": 297.1499938964844,
+      "synthetic_curve_samples": [
+        156.4499969482422,
+        187.9499969482422,
+        233.10000610351562,
+        279.29998779296875,
+        297.1499938964844,
+        288.75,
+        267.75,
+        246.75,
+        239.39999389648438
+      ],
+      "output_engine_layout_sha256": "b0789fa1358a6d23f5be57de4ddd495eac45d2ddc4c287c618c7e19c835d086b",
+      "engine_layout_header_unchanged": true,
+      "all_non_torque_bytes_identical": true,
+      "all_mutations_within_nine_torque_words": true,
+      "changed_layout_bytes": 24
+    },
+    {
+      "synthetic_gain_basis_points": 1000,
+      "synthetic_gain_percent": 10.0,
+      "original_peak_torque_sample": 283.0,
+      "synthetic_peak_torque_sample": 311.29998779296875,
+      "synthetic_curve_samples": [
+        163.89999389648438,
+        196.89999389648438,
+        244.1999969482422,
+        292.6000061035156,
+        311.29998779296875,
+        302.5,
+        280.5,
+        258.5,
+        250.8000030517578
+      ],
+      "output_engine_layout_sha256": "10767332c503b8dd85f3ccbcf68e5f011773892e5ad619b1146a5c83016781f6",
+      "engine_layout_header_unchanged": true,
+      "all_non_torque_bytes_identical": true,
+      "all_mutations_within_nine_torque_words": true,
+      "changed_layout_bytes": 24
+    }
+  ],
+  "estimated_hp_or_game_acceleration_proven": false,
+  "new_game_collection_created": false,
+  "game_loader_acceptance_verified": false,
+  "user_selected_power_target": null,
+  "engine_profile_finalized_for_game": false,
+  "module_intended_for_dry_run_only": true,
+  "original_game_asset_written": false,
+  "patched_binary_published": false,
+  "apk_built": false,
+  "save_modified": false,
+  "tuning_enabled": false,
+  "strict_ranges_transferred": 733264,
+  "run_id": "42519183600",
+  "utc": "2026-11-08T20:15:37.008124+00:00"
+}
