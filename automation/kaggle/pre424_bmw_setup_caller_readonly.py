@@ -12,8 +12,8 @@ FILES={
  "caller":("workspace/nativo/app/generated/default/nfsmw_recomp.91.cpp","89c4ac57c8443f8e2bd08e482d769705218544b885e5cff34db567257b4f4f83","sub_82582F70"),
  "setup":("workspace/nativo/app/generated/default/nfsmw_recomp.11.cpp","0208ca992595ccbddfddc1299f59a2ff586b9c726ad4a3c4d4c73f6dc40db4e3","sub_8256F818"),
 }
-FUNC=re.compile(r"DEFINE_REX_FUNC\\((sub_[A-Fa-f0-9]{8})\\)")
-CALL=re.compile(r"\\b(?:__imp__)?(sub_[A-Fa-f0-9]{8})\\(ctx,\\s*base\\)")
+FUNC=re.compile(r"DEFINE_REX_FUNC\((sub_[A-Fa-f0-9]{8})\)")
+CALL=re.compile(r"\b(?:__imp__)?(sub_[A-Fa-f0-9]{8})\(ctx,\s*base\)")
 
 def audit():
  with tempfile.TemporaryDirectory(prefix="pre424_") as d:
@@ -32,13 +32,13 @@ def audit():
     if hashlib.sha256(data).hexdigest()!=sha:raise ValueError("Source fingerprint mismatch "+path)
     source=data.decode("utf-8","replace")
     sites=[]
-    for match in re.finditer(r"\\b(?:__imp__)?"+re.escape(callee)+r"\\(ctx,\\s*base\\)",source):
+    for match in re.finditer(r"\b(?:__imp__)?"+re.escape(callee)+r"\(ctx,\s*base\)",source):
      funcs=list(FUNC.finditer(source,0,match.start()))
      if not funcs:raise ValueError("Enclosing function missing "+path)
      fn=funcs[-1].group(1)
      body=body_for_function(source,fn)
      lines=body.splitlines()
-     idx=next((i for i,line in enumerate(lines) if re.search(r"\\b(?:__imp__)?"+re.escape(callee)+r"\\(ctx,\\s*base\\)",line)),None)
+     idx=next((i for i,line in enumerate(lines) if re.search(r"\b(?:__imp__)?"+re.escape(callee)+r"\(ctx,\s*base\)",line)),None)
      if idx is None:raise ValueError("Call not in function body "+fn)
      start=max(0,idx-105);end=min(len(lines),idx+105)
      window=[{"line":i+1,"text":lines[i].strip()[:230]} for i in range(start,end)]
@@ -56,7 +56,7 @@ def main():
  try:r=audit()
  except Exception as e:r={"status":"FAILED","error_type":type(e).__name__,"error":str(e)[:250]}
  r["run_id"]=a.run_id;r["utc"]=datetime.now(timezone.utc).isoformat()
- OUT.write_text(json.dumps(r,indent=2,ensure_ascii=False)+"\\n")
+ OUT.write_text(json.dumps(r,indent=2,ensure_ascii=False)+"\n")
  print("PRE424_STATUS",r["status"],"ERROR",r.get("error","none"))
  for label,entry in r.get("results",{}).items():
   print("PRE424_FILE",label,entry["path"],"SITES",entry["site_count"])
