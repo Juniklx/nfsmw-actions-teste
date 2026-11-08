@@ -1,0 +1,8 @@
+{
+  "stage": "PRE478",
+  "purpose": "Validate BMW M3 GTR tuning feature OFF by default, using verified reports PRE467/473/474/476/477 and 11 offline synthetic safety cases",
+  "never_modify_save": "MARCEK",
+  "never_modify_apk": "V48 PRE452",
+  "no_binary_assets_accessed": true,
+  "feature_enabled": false
+}
