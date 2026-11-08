@@ -1,0 +1,8 @@
+{
+  "stage": "PRE495",
+  "goal": "Test whether m3gtre46careerstart is a genuine viable BMW engine top endpoint for bmwm3gtr, without modifying stock binary or enabling tuning",
+  "source": "PRE477/PRE494 authenticated PAL",
+  "no_apk": true,
+  "no_save": true,
+  "no_binary_publish": true
+}
