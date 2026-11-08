@@ -1,0 +1,8 @@
+{
+  "stage": "PRE504_ORIGINAL_STRE_VLT_COLLECTION_HASH_COVERAGE_READONLY",
+  "status": "FAILED",
+  "error_type": "ValueError",
+  "error": "PRE502 authenticated evidence or feature-OFF guard mismatch",
+  "run_id": "42523100356",
+  "runtime_tuning_enabled": false
+}
