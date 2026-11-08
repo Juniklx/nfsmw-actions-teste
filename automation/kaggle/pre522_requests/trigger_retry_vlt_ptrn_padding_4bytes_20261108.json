@@ -1,0 +1,6 @@
+{
+  "stage": "PRE522_RETRY_3",
+  "why": "FE_ATTRIB PtrN size 22560 has exactly 4 zero padding bytes after 1879 stride-12 entries, unlike ATTRIBUTES.BIN PtrN. Corrected parser validates this explicitly.",
+  "game_assets_not_exported": true,
+  "not_patch_game": true
+}
