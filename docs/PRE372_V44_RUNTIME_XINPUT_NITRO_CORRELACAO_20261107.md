@@ -31,3 +31,13 @@
 - **A identificação de player owner permanece NÃO COMPROVADA.** Para cheat exclusivo do jogador, extrair e verificar ponteiro/ID estrutural do veículo controlado, ou um vínculo independente e testado entre input, contexto do objeto e as stores Nitro.
 - Proposta de teste **sem nova APK**: o usuário confirma se entrou em exploração livre primeiro e depois corrida por volta das 22:05:40–22:06:00; o log sozinho não comprova esse modo. O trecho permite uma hipótese contextual, não semântica. Não é preciso repetir um teste Nitro até zero. Depois disso, avaliar instrumentação de vínculo com veículo, nunca aplicar mutação global em `sub_82424AF0`.
 - Preservar V43/V44, save `MARCEK`, mesmo certificado permanente, shaders, 1920×1080 e proteções térmicas.
+
+## PRE374 — sequência do teste confirmada diretamente pelo usuário (2026-11-07)
+
+O usuário confirmou explicitamente, após examinar a análise PRE372, que realizou o teste **primeiro em exploração livre, dirigindo sozinho**, e **depois entrou numa corrida com adversários controlados pela IA**, exatamente nesta ordem. Essa informação é depoimento do responsável pelo teste, não classificação de modo extraída automaticamente do log.
+
+- Exploração livre inicial: evento XInput `buttons=0x2000` às **22:04:39.351**, seguido de consumo Nitro no **slot efêmero 1** às **22:04:39.368** (17 ms).
+- Corrida posterior com IA: evento XInput `buttons=0x2000` às **22:05:58.967**, seguido de consumo Nitro no **slot efêmero 2** às **22:05:58.985** (18 ms).
+- A concordância entre o cenário relatado e os dois alinhamentos temporais **fortalece a hipótese** de que slot 1 correspondeu ao Nitro do carro do jogador na exploração livre e slot 2 ao carro do jogador durante a corrida. Isso **não** implica que o número do slot seja uma identidade estável: a tabela PRE336 atribui slots por ordem de observação, e o endereço/objeto Nitro pode ser recriado ou reorganizado.
+- Permanece **não comprovada** a ligação estrutural do contexto guest ao veículo do jogador. Não atribuir os demais slots a NPC específicos, não afirmar com certeza que `0x2000` seja exclusivamente o Nitro em todas as configurações, nem usar `slot==1`/`slot==2` ou endereço guest fixo para habilitar cheat.
+- A próxima etapa técnica recomendada é rastrear, passivamente e com limites, o vínculo entre `InputSystem::GetState`/entrada do usuário 0 e a instância de carro utilizada por `sub_82424AF0`; testar o caso negativo com IA. **Sem novos writes guest ou cheat nesta confirmação**.
