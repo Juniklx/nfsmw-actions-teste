@@ -112,7 +112,7 @@ def lookup_ptrn(vlt,ptr_start,ptr_bytes):
     if section!=0:raise ValueError("New PtrN insertion group not section0")
     return result
 
-def audit():
+def audit(consume_scratch=None):
     proofs,test=verify_provenance()
     r,position=locate()
     raw=r.read(position["absolute_offset"],position["size"])
@@ -298,7 +298,7 @@ def audit():
         raise ValueError("Repacked engine class+collection index not unique")
     if len(rows2)!=2339+1:
         raise ValueError("Original collection count changed unexpectedly")
-    return {
+    report = {
         "stage":"PRE502_BMW_ENGINE_LEVEL1_FULL_COMBINED_RAM_REPACK",
         "status":"AUDIT_OK","source_pal_sha256":EXPECTED_VPAK_SHA,
         "source_vpak_bytes":len(raw),"scratch_vpak_bytes":len(final),
@@ -344,6 +344,15 @@ def audit():
         "apk_built":False,"save_modified":False,
         "range_transfer_bytes":r.total
     }
+    # Opt-in, RAM-only consumer for follow-up format audits (PRE518).
+    # Ordinary PRE502 behavior and its output schema remain unchanged.
+    # Never serialize, log, save, or upload the rebuilt game bytes.
+    if consume_scratch is not None:
+        if not callable(consume_scratch):
+            raise TypeError("consume_scratch must be a callable")
+        report["_private_scratch_analysis"] = consume_scratch(bytes(final))
+    return report
+
 def main():
     p=argparse.ArgumentParser();p.add_argument("--run-id",required=True)
     args=p.parse_args();OUT.parent.mkdir(parents=True,exist_ok=True)
