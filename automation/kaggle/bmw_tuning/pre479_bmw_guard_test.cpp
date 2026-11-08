@@ -63,7 +63,7 @@ int main() {
   check(EvaluateSyntheticContract(x)==Reason::UnverifiedSaveRoundTrip);
   x=ok; x.proof.runtime_physics_and_other_cars_verified=false;
   check(EvaluateSyntheticContract(x)==Reason::UnverifiedRuntimeRegression);
-  std::printf("PRE479_CPP_TESTS_PASSED=%d\\n",tests_passed);
-  std::printf("PRE479_RUNTIME_MOD_ENABLED=0\\n");
+  std::printf("PRE479_CPP_TESTS_PASSED=%d\n",tests_passed);
+  std::printf("PRE479_RUNTIME_MOD_ENABLED=0\n");
   return tests_passed == 14 ? 0 : 1;
 }
