@@ -1,0 +1,394 @@
+{
+  "stage": "PRE481_PAL_BMW_FAMILY_ORIGINAL_PERFORMANCE_PROFILES",
+  "status": "AUDIT_OK",
+  "pal_vpak_sha256": "9f4b04a221232e614b927a870e25da7db100477a7e425114b87082f46e8b99ad",
+  "source_pal_identical_to_usa_proven": true,
+  "bmw_names_found_in_strE": [
+    "BMWM3GTR",
+    "BMWM3GTRE46",
+    "bmwm3gtr",
+    "bmwm3gtre46",
+    "m3gtre46careerstart"
+  ],
+  "analyzed_exact_names": [
+    "BMWM3GTR",
+    "BMWM3GTRE46",
+    "bmwm3gtr",
+    "bmwm3gtre46",
+    "m3gtre46careerstart"
+  ],
+  "vehicle_family_records": {
+    "BMWM3GTR": {
+      "lookup2_hash": "20d3071f",
+      "is_name_in_StrE": true,
+      "performance_classes": {}
+    },
+    "BMWM3GTRE46": {
+      "lookup2_hash": "5d1533ed",
+      "is_name_in_StrE": true,
+      "performance_classes": {}
+    },
+    "bmwm3gtr": {
+      "lookup2_hash": "cd88083f",
+      "is_name_in_StrE": true,
+      "performance_classes": {
+        "engine": {
+          "class": "engine",
+          "class_hash": "f1f5fbc7",
+          "collection_name": "bmwm3gtr",
+          "collection_hash": "cd88083f",
+          "VLT_collection_exists": true,
+          "inheritance_path": [
+            "cd88083f",
+            "eec2271a"
+          ],
+          "inheritance_termination": "END_ZERO_PARENT",
+          "optional_field_count": 0,
+          "class_base_layout_sha256": "e09efe8e63d0971da0949e898dbf8ba1b03c2954d2da04db48e9e56cb6437471",
+          "layout_data_in_original_vpak": true,
+          "bin_layout_fixup_count": 1,
+          "original_big_endian_scalar_samples": {
+            "FLYWHEEL_MASS": 10.0,
+            "MAX_RPM": 9500.0,
+            "RED_LINE": 8500.0,
+            "IDLE": 800.0
+          },
+          "physical_layout_byte_identical_to_bmwm3gtr": true
+        },
+        "transmission": {
+          "class": "transmission",
+          "class_hash": "07a7a3e5",
+          "collection_name": "bmwm3gtr",
+          "collection_hash": "cd88083f",
+          "VLT_collection_exists": true,
+          "inheritance_path": [
+            "cd88083f",
+            "eec2271a"
+          ],
+          "inheritance_termination": "END_ZERO_PARENT",
+          "optional_field_count": 0,
+          "class_base_layout_sha256": "a671446cdbeeb6d84f23c6f74433f3f724bfb9fa0fd2b63ea1169974cb17e7e3",
+          "layout_data_in_original_vpak": true,
+          "bin_layout_fixup_count": 1,
+          "original_big_endian_scalar_samples": {
+            "TORQUE_CONVERTER": 0.20000000298023224,
+            "TORQUE_SPLIT": 0.0,
+            "CLUTCH_SLIP": 0.800000011920929,
+            "OPTIMAL_SHIFT": 500.0,
+            "SHIFT_SPEED": 0.25,
+            "FINAL_GEAR": 3.8499999046325684
+          },
+          "physical_layout_byte_identical_to_bmwm3gtr": true
+        },
+        "chassis": {
+          "class": "chassis",
+          "class_hash": "afa210f0",
+          "collection_name": "bmwm3gtr",
+          "collection_hash": "cd88083f",
+          "VLT_collection_exists": true,
+          "inheritance_path": [
+            "cd88083f",
+            "4e085fb3",
+            "eec2271a"
+          ],
+          "inheritance_termination": "END_ZERO_PARENT",
+          "optional_field_count": 0,
+          "class_base_layout_sha256": "aac8e502fc3d61ec2ea95e3f680a5fdcdd9964e4bdce99125b4ad247a90d1ca0",
+          "layout_data_in_original_vpak": true,
+          "bin_layout_fixup_count": 1,
+          "original_big_endian_scalar_samples": {
+            "ROLL_CENTER": 9.0,
+            "WHEEL_BASE": 2.7249999046325684,
+            "SHOCK_BLOWOUT": 5.0,
+            "AERO_CG": 47.0,
+            "RENDER_MOTION": 1.0,
+            "FRONT_AXLE": 1.5,
+            "AERO_COEFFICIENT": 0.23999999463558197,
+            "FRONT_WEIGHT_BIAS": 54.0,
+            "DRAG_COEFFICIENT": 0.3199999928474426
+          },
+          "physical_layout_byte_identical_to_bmwm3gtr": true
+        },
+        "tires": {
+          "class": "tires",
+          "class_hash": "bd38d1ca",
+          "collection_name": "bmwm3gtr",
+          "collection_hash": "cd88083f",
+          "VLT_collection_exists": true,
+          "inheritance_path": [
+            "cd88083f",
+            "eec2271a"
+          ],
+          "inheritance_termination": "END_ZERO_PARENT",
+          "optional_field_count": 0,
+          "class_base_layout_sha256": "259230af41ed4354eddf4b11d1c9e59665b553db63333f683bd860a200ec64d5",
+          "layout_data_in_original_vpak": true,
+          "bin_layout_fixup_count": 1,
+          "original_big_endian_scalar_samples": {
+            "STEERING": 1.0,
+            "YAW_SPEED": 0.30000001192092896
+          },
+          "physical_layout_byte_identical_to_bmwm3gtr": true
+        },
+        "brakes": {
+          "class": "brakes",
+          "class_hash": "36350867",
+          "collection_name": "bmwm3gtr",
+          "collection_hash": "cd88083f",
+          "VLT_collection_exists": true,
+          "inheritance_path": [
+            "cd88083f",
+            "eec2271a"
+          ],
+          "inheritance_termination": "END_ZERO_PARENT",
+          "optional_field_count": 0,
+          "class_base_layout_sha256": "87750a1d6cd0a68a682ef9a289c79bc42ade6de78af3ebb9a5e59322edde95be",
+          "layout_data_in_original_vpak": true,
+          "bin_layout_fixup_count": 1,
+          "original_big_endian_scalar_samples": {
+            "EBRAKE": 850.0
+          },
+          "physical_layout_byte_identical_to_bmwm3gtr": true
+        },
+        "pvehicle": {
+          "class": "pvehicle",
+          "class_hash": "4a97ec8f",
+          "collection_name": "bmwm3gtr",
+          "collection_hash": "cd88083f",
+          "VLT_collection_exists": true,
+          "inheritance_path": [
+            "cd88083f",
+            "a6abc921",
+            "e3df4bfd",
+            "eec2271a"
+          ],
+          "inheritance_termination": "END_ZERO_PARENT",
+          "optional_field_count": 11,
+          "class_base_layout_sha256": null,
+          "layout_data_in_original_vpak": false
+        }
+      }
+    },
+    "bmwm3gtre46": {
+      "lookup2_hash": "4d695c3f",
+      "is_name_in_StrE": true,
+      "performance_classes": {}
+    },
+    "m3gtre46careerstart": {
+      "lookup2_hash": "39dae0f8",
+      "is_name_in_StrE": true,
+      "performance_classes": {
+        "engine": {
+          "class": "engine",
+          "class_hash": "f1f5fbc7",
+          "collection_name": "m3gtre46careerstart",
+          "collection_hash": "39dae0f8",
+          "VLT_collection_exists": true,
+          "inheritance_path": [
+            "39dae0f8",
+            "4e085fb3",
+            "eec2271a"
+          ],
+          "inheritance_termination": "END_ZERO_PARENT",
+          "optional_field_count": 0,
+          "class_base_layout_sha256": "f38e28b98d93f129699b0612fe2544305bd316e7a72dc143bad1c7f4f5ca7d46",
+          "layout_data_in_original_vpak": true,
+          "bin_layout_fixup_count": 1,
+          "original_big_endian_scalar_samples": {
+            "FLYWHEEL_MASS": 10.0,
+            "MAX_RPM": 9500.0,
+            "RED_LINE": 8500.0,
+            "IDLE": 800.0
+          },
+          "physical_layout_byte_identical_to_bmwm3gtr": false
+        },
+        "transmission": {
+          "class": "transmission",
+          "class_hash": "07a7a3e5",
+          "collection_name": "m3gtre46careerstart",
+          "collection_hash": "39dae0f8",
+          "VLT_collection_exists": true,
+          "inheritance_path": [
+            "39dae0f8",
+            "4e085fb3",
+            "eec2271a"
+          ],
+          "inheritance_termination": "END_ZERO_PARENT",
+          "optional_field_count": 0,
+          "class_base_layout_sha256": "2c62b44d64610be5b3abef39dae2a0ff2a14e987363e408399fd77c0652b3910",
+          "layout_data_in_original_vpak": true,
+          "bin_layout_fixup_count": 1,
+          "original_big_endian_scalar_samples": {
+            "TORQUE_CONVERTER": 1.5,
+            "TORQUE_SPLIT": 0.0,
+            "CLUTCH_SLIP": 0.800000011920929,
+            "OPTIMAL_SHIFT": 800.0,
+            "SHIFT_SPEED": 0.25,
+            "FINAL_GEAR": 3.619999885559082
+          },
+          "physical_layout_byte_identical_to_bmwm3gtr": false
+        },
+        "chassis": {
+          "class": "chassis",
+          "class_hash": "afa210f0",
+          "collection_name": "m3gtre46careerstart",
+          "collection_hash": "39dae0f8",
+          "VLT_collection_exists": true,
+          "inheritance_path": [
+            "39dae0f8",
+            "4e085fb3",
+            "eec2271a"
+          ],
+          "inheritance_termination": "END_ZERO_PARENT",
+          "optional_field_count": 0,
+          "class_base_layout_sha256": "2c046a138ae81b454d54eb14fd061906409a2c65cf90a3c4adb8e7d47b88af1e",
+          "layout_data_in_original_vpak": true,
+          "bin_layout_fixup_count": 1,
+          "original_big_endian_scalar_samples": {
+            "ROLL_CENTER": 9.0,
+            "WHEEL_BASE": 2.7249999046325684,
+            "SHOCK_BLOWOUT": 5.0,
+            "AERO_CG": 47.5,
+            "RENDER_MOTION": 1.0,
+            "FRONT_AXLE": 1.5,
+            "AERO_COEFFICIENT": 0.23999999463558197,
+            "FRONT_WEIGHT_BIAS": 52.0,
+            "DRAG_COEFFICIENT": 0.30000001192092896
+          },
+          "physical_layout_byte_identical_to_bmwm3gtr": false
+        },
+        "tires": {
+          "class": "tires",
+          "class_hash": "bd38d1ca",
+          "collection_name": "m3gtre46careerstart",
+          "collection_hash": "39dae0f8",
+          "VLT_collection_exists": true,
+          "inheritance_path": [
+            "39dae0f8",
+            "4e085fb3",
+            "eec2271a"
+          ],
+          "inheritance_termination": "END_ZERO_PARENT",
+          "optional_field_count": 0,
+          "class_base_layout_sha256": "cc1d3418ac20c2fe504e3acc2ad4b529445e4ae44db837792dcc218a3b014628",
+          "layout_data_in_original_vpak": true,
+          "bin_layout_fixup_count": 1,
+          "original_big_endian_scalar_samples": {
+            "STEERING": 1.1100000143051147,
+            "YAW_SPEED": 0.25999999046325684
+          },
+          "physical_layout_byte_identical_to_bmwm3gtr": false
+        },
+        "brakes": {
+          "class": "brakes",
+          "class_hash": "36350867",
+          "collection_name": "m3gtre46careerstart",
+          "collection_hash": "39dae0f8",
+          "VLT_collection_exists": true,
+          "inheritance_path": [
+            "39dae0f8",
+            "4e085fb3",
+            "eec2271a"
+          ],
+          "inheritance_termination": "END_ZERO_PARENT",
+          "optional_field_count": 0,
+          "class_base_layout_sha256": "12e6722d4c2a1cab3fc38343db1d3c1c970a7cdb858ca053dd6c0d1239d0eb95",
+          "layout_data_in_original_vpak": true,
+          "bin_layout_fixup_count": 1,
+          "original_big_endian_scalar_samples": {
+            "EBRAKE": 650.0
+          },
+          "physical_layout_byte_identical_to_bmwm3gtr": false
+        },
+        "induction": {
+          "class": "induction",
+          "class_hash": "c92a0142",
+          "collection_name": "m3gtre46careerstart",
+          "collection_hash": "39dae0f8",
+          "VLT_collection_exists": true,
+          "inheritance_path": [
+            "39dae0f8",
+            "4e085fb3",
+            "eec2271a"
+          ],
+          "inheritance_termination": "END_ZERO_PARENT",
+          "optional_field_count": 0,
+          "class_base_layout_sha256": "3612bae8d503a0468a141b3b34e5fa95ca2c5e6427c0016c2665d27fdff06a68",
+          "layout_data_in_original_vpak": true,
+          "bin_layout_fixup_count": 1,
+          "original_big_endian_scalar_samples": {
+            "LOW_BOOST": 0.20000000298023224,
+            "SPOOL_TIME_DOWN": 0.25,
+            "VACUUM": -0.05000000074505806,
+            "SPOOL": 0.20000000298023224,
+            "SPOOL_TIME_UP": 2.0,
+            "PSI": 12.0,
+            "HIGH_BOOST": 0.20000000298023224
+          }
+        },
+        "pvehicle": {
+          "class": "pvehicle",
+          "class_hash": "4a97ec8f",
+          "collection_name": "m3gtre46careerstart",
+          "collection_hash": "39dae0f8",
+          "VLT_collection_exists": true,
+          "inheritance_path": [
+            "39dae0f8",
+            "4e085fb3",
+            "a6abc921",
+            "e3df4bfd",
+            "eec2271a"
+          ],
+          "inheritance_termination": "END_ZERO_PARENT",
+          "optional_field_count": 12,
+          "class_base_layout_sha256": null,
+          "layout_data_in_original_vpak": false
+        }
+      }
+    }
+  },
+  "bmwm3gtr_base_physics_classes_verified": 5,
+  "candidate_bmw_alternate_physical_profiles": [
+    {
+      "collection_name": "m3gtre46careerstart",
+      "class_name": "engine",
+      "sha256": "f38e28b98d93f129699b0612fe2544305bd316e7a72dc143bad1c7f4f5ca7d46"
+    },
+    {
+      "collection_name": "m3gtre46careerstart",
+      "class_name": "transmission",
+      "sha256": "2c62b44d64610be5b3abef39dae2a0ff2a14e987363e408399fd77c0652b3910"
+    },
+    {
+      "collection_name": "m3gtre46careerstart",
+      "class_name": "chassis",
+      "sha256": "2c046a138ae81b454d54eb14fd061906409a2c65cf90a3c4adb8e7d47b88af1e"
+    },
+    {
+      "collection_name": "m3gtre46careerstart",
+      "class_name": "tires",
+      "sha256": "cc1d3418ac20c2fe504e3acc2ad4b529445e4ae44db837792dcc218a3b014628"
+    },
+    {
+      "collection_name": "m3gtre46careerstart",
+      "class_name": "brakes",
+      "sha256": "12e6722d4c2a1cab3fc38343db1d3c1c970a7cdb858ca053dd6c0d1239d0eb95"
+    },
+    {
+      "collection_name": "m3gtre46careerstart",
+      "class_name": "induction",
+      "sha256": "3612bae8d503a0468a141b3b34e5fa95ca2c5e6427c0016c2665d27fdff06a68"
+    }
+  ],
+  "candidate_alternative_profile_is_not_verified_purchase_level": true,
+  "reference_is_not_sufficient_to_install_upgrade": true,
+  "custom_upgrade_physics_proven": false,
+  "frontend_catalog_proven": false,
+  "runtime_mod_enabled": false,
+  "save_modified": false,
+  "game_assets_published": false,
+  "apk_built": false,
+  "bytes_read_original_vpak": 733264,
+  "run_id": "42514250936",
+  "utc": "2026-11-08T19:17:20.297110+00:00"
+}
