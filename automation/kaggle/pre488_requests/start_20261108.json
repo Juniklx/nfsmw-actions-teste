@@ -1,0 +1,8 @@
+{
+  "stage": "PRE488",
+  "goal": "Inspect original PAL functions neighboring sub_823E5988, classify use of attribute resolver and candidate SetLevel/GetMaxLevel/SetPackage control flows",
+  "source_PRE99_SHA": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "no_apk": true,
+  "no_save_write": true,
+  "no_executable_changes": true
+}
