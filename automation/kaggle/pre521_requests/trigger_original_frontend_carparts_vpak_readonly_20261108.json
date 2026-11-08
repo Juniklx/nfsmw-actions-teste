@@ -1,0 +1,14 @@
+{
+  "stage": "PRE521",
+  "goal": "Read-only authenticate original USA GLOBAL/FE_ATTRIB.BIN VPAK and discover frontend class (0x85885722) carparts collection, as described by original PC sources; no pricing assumptions",
+  "source_ref": [
+    "dbalatoni13/nfsmw GameFlow.cpp",
+    "dbalatoni13/nfsmw UnlockSystem.cpp",
+    "dbalatoni13/nfsmw frontend.h",
+    "dbalatoni13/nfsmw FEReflected.hpp"
+  ],
+  "original_pal_equivalence_unproven": true,
+  "no_original_assets_written": true,
+  "save_modified": false,
+  "apk_built": false
+}
