@@ -1,0 +1,13 @@
+{
+  "stage": "PRE535",
+  "goal": "Authenticate published signed V48 PAL libmain.so and use ELF PLT relocations to trace two numeric-guest-call hops from existing shop list / adjacent function and historical offset+12 write candidates, identifying only static convergences, no false guest SetPackage or payment labeling",
+  "authenticated_apk_sha256": "c642f95b4a60b9ccf5d8fbd98802afffc0a2247ec5a0783b54cd8083ec55bd35",
+  "upstream_pre533_run": 42536104083,
+  "upstream_pre534_run": 42536377149,
+  "reversible": false,
+  "read_only": true,
+  "game_assets_untouched": true,
+  "apk_not_rebuilt": true,
+  "profile_MARCEK_untouched": true,
+  "signing_key_not_accessed": true
+}
