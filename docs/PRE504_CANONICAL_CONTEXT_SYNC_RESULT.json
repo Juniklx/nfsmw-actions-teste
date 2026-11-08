@@ -1,11 +1,20 @@
 {
   "stage": "PRE504_CANONICAL_CONTEXT_APPEND_WITH_BACKUP",
-  "status": "FAILED",
+  "status": "AUDIT_OK",
   "apk_built": false,
   "save_modified": false,
   "game_assets_modified": false,
-  "error_type": "ValueError",
-  "error": "Unexpected PRE504 handoff identity/length",
-  "run_id": "42523039486",
-  "utc": "2026-11-08T21:01:32.134728+00:00"
+  "backup_created": true,
+  "backup_file_id": "1hkfiVQZok0QHD0Y3QiehVHQzzaSxgQ86",
+  "backup_name": "CONTEXTO_NFSMW_BACKUP_PRE504_BMW_TUNING_20261108.md",
+  "canonical_before_bytes": 734519,
+  "canonical_before_sha256": "089604f541c59e9ea2881753e829fb2eaec7f537866c681ba2b6c2e8030bae09",
+  "append_bytes": 6787,
+  "new_total_bytes": 741306,
+  "new_sha256": "bb87192070b4eda511939b5ab643782d1c9657d4dae9d217a37b3a830c6c1102",
+  "prior_history_bytewise_preserved": true,
+  "postupdate_readback_bytewise_verified": true,
+  "canonical_file_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+  "run_id": "42523100398",
+  "utc": "2026-11-08T21:02:19.389758+00:00"
 }
