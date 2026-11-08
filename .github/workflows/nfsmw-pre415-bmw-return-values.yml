@@ -4,6 +4,10 @@ on:
     workflows: ["NFSMW PRE414 BMW helper returns read-only"]
     types: [completed]
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre415_requests/*.json'
 permissions:
   contents: read
 jobs:
