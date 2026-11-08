@@ -1,0 +1,11 @@
+{
+  "stage": "PRE525_CANONICAL_CONTEXT_APPEND_WITH_BACKUP",
+  "status": "FAILED",
+  "apk_built": false,
+  "save_modified": false,
+  "game_assets_modified": false,
+  "error_type": "TypeError",
+  "error": "'str' object is not callable",
+  "run_id": "42532600509",
+  "utc": "2026-11-08T22:55:35.429583+00:00"
+}
