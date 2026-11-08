@@ -1,0 +1,16 @@
+{
+  "stage": "PRE483_BMW_OFFLINE_TRANSACTION_SIMULATION",
+  "status": "AUDIT_OK",
+  "run_id": "42514659147",
+  "host_compilers": [
+    "clang++ C++17",
+    "g++ C++17"
+  ],
+  "expected_assertions_per_compiler": 44,
+  "synthetic_only": true,
+  "real_guest_runtime_activated": false,
+  "save_read_or_modified": false,
+  "apk_created": false,
+  "nitro_behavior_not_modified": true,
+  "real_physics_or_save_persistence_proven": false
+}
