@@ -1,0 +1,9 @@
+{
+  "stage": "PRE525_RETRY",
+  "previous_run": 42532600509,
+  "previous_failure": "Script shadowed sha() callable with FE SHA string, after byte-exact backup creation",
+  "validated_existing_backup_id": "1J2NSsSylZfvoHcQCH6Rh9IRvP7kWktxm",
+  "canonical_at_failure_bytes": 773542,
+  "action": "Retry guarded append reusing backup only after bytes and SHA match",
+  "no_apk_or_save_change": true
+}
