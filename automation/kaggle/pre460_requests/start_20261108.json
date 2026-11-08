@@ -1,0 +1,9 @@
+{
+  "stage": "PRE460",
+  "input": "ZDIR.BIN inside 53-entry PAL archive",
+  "method": "strict byte-ranges and deflate",
+  "max_read_bytes": 25000,
+  "publish_game_data": false,
+  "save_modified": false,
+  "apk_modified": false
+}
