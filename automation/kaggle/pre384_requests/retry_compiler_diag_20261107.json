@@ -1,0 +1,5 @@
+{
+  "stage": "PRE384_RETRY",
+  "reason": "expose C++ synthetic compile stderr for correction",
+  "noAPK": true
+}
