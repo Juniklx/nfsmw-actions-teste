@@ -1,0 +1,218 @@
+{
+  "stage": "PRE491_PAL_VS_PC_PERFORMANCE_INTERPOLATION_HYPOTHESIS",
+  "status": "AUDIT_OK",
+  "pal_vpak_sha256": "9f4b04a221232e614b927a870e25da7db100477a7e425114b87082f46e8b99ad",
+  "hypothesis_origin": "https://github.com/MagicIbrar/nfsmw-unity/blob/336fb872d698377b586cfab75d70c5828c77086c/NFSMW_RE/specs/physics.md",
+  "hypothesis_origin_blob_sha": "b627fc7db26de515cdbc87d4f2f70331c6596b64",
+  "hypothesis_scope": "PC v1.3 reverse-engineering report; NOT Xbox PAL runtime proof",
+  "original_PAL_structurally_compatible_with_two_endpoint_model": true,
+  "engine_behavior_PAL_runtime_verified": false,
+  "math_test_count": 25,
+  "Punto_original_data_with_model_levels": {
+    "transmission": {
+      "field": "FINAL_GEAR",
+      "source_class_and_field_from_authenticated_PAL": true,
+      "punto_stock_collection": "a6ee7a11",
+      "punto_top_collection": "a6f0f405",
+      "punto_upgrade_limit": 4,
+      "punto_original_stock_value": 3.700000047683716,
+      "punto_original_top_value": 2.5,
+      "pc_hypothesis_mathematical_levels": [
+        {
+          "simulated_level": 0,
+          "normalized_t": 0.0,
+          "modeled_scalar": 3.700000047683716
+        },
+        {
+          "simulated_level": 1,
+          "normalized_t": 0.25,
+          "modeled_scalar": 3.400000035762787
+        },
+        {
+          "simulated_level": 2,
+          "normalized_t": 0.5,
+          "modeled_scalar": 3.100000023841858
+        },
+        {
+          "simulated_level": 3,
+          "normalized_t": 0.75,
+          "modeled_scalar": 2.800000011920929
+        },
+        {
+          "simulated_level": 4,
+          "normalized_t": 1.0,
+          "modeled_scalar": 2.5
+        }
+      ],
+      "BMW_stock_collection": "cd88083f",
+      "BMW_stock_field_original_value": 3.8499999046325684,
+      "BMW_current_upgrade_limit": 0,
+      "BMW_original_reference_count": 1,
+      "BMW_simulation_allowed": false
+    },
+    "brakes": {
+      "field": "EBRAKE",
+      "source_class_and_field_from_authenticated_PAL": true,
+      "punto_stock_collection": "a6ee7a11",
+      "punto_top_collection": "a6f0f405",
+      "punto_upgrade_limit": 4,
+      "punto_original_stock_value": 350.0,
+      "punto_original_top_value": 700.0,
+      "pc_hypothesis_mathematical_levels": [
+        {
+          "simulated_level": 0,
+          "normalized_t": 0.0,
+          "modeled_scalar": 350.0
+        },
+        {
+          "simulated_level": 1,
+          "normalized_t": 0.25,
+          "modeled_scalar": 437.5
+        },
+        {
+          "simulated_level": 2,
+          "normalized_t": 0.5,
+          "modeled_scalar": 525.0
+        },
+        {
+          "simulated_level": 3,
+          "normalized_t": 0.75,
+          "modeled_scalar": 612.5
+        },
+        {
+          "simulated_level": 4,
+          "normalized_t": 1.0,
+          "modeled_scalar": 700.0
+        }
+      ],
+      "BMW_stock_collection": "cd88083f",
+      "BMW_stock_field_original_value": 850.0,
+      "BMW_current_upgrade_limit": 0,
+      "BMW_original_reference_count": 1,
+      "BMW_simulation_allowed": false
+    },
+    "chassis": {
+      "field": "AERO_COEFFICIENT",
+      "source_class_and_field_from_authenticated_PAL": true,
+      "punto_stock_collection": "a6ee7a11",
+      "punto_top_collection": "a6f0f405",
+      "punto_upgrade_limit": 3,
+      "punto_original_stock_value": 0.12999999523162842,
+      "punto_original_top_value": 0.2199999988079071,
+      "pc_hypothesis_mathematical_levels": [
+        {
+          "simulated_level": 0,
+          "normalized_t": 0.0,
+          "modeled_scalar": 0.12999999523162842
+        },
+        {
+          "simulated_level": 1,
+          "normalized_t": 0.3333333333333333,
+          "modeled_scalar": 0.1599999964237213
+        },
+        {
+          "simulated_level": 2,
+          "normalized_t": 0.6666666666666666,
+          "modeled_scalar": 0.1899999976158142
+        },
+        {
+          "simulated_level": 3,
+          "normalized_t": 1.0,
+          "modeled_scalar": 0.2199999988079071
+        }
+      ],
+      "BMW_stock_collection": "cd88083f",
+      "BMW_stock_field_original_value": 0.23999999463558197,
+      "BMW_current_upgrade_limit": 0,
+      "BMW_original_reference_count": 1,
+      "BMW_simulation_allowed": false
+    },
+    "tires": {
+      "field": "STEERING",
+      "source_class_and_field_from_authenticated_PAL": true,
+      "punto_stock_collection": "a6ee7a11",
+      "punto_top_collection": "a6f0f405",
+      "punto_upgrade_limit": 3,
+      "punto_original_stock_value": 1.0,
+      "punto_original_top_value": 1.0,
+      "pc_hypothesis_mathematical_levels": [
+        {
+          "simulated_level": 0,
+          "normalized_t": 0.0,
+          "modeled_scalar": 1.0
+        },
+        {
+          "simulated_level": 1,
+          "normalized_t": 0.3333333333333333,
+          "modeled_scalar": 1.0
+        },
+        {
+          "simulated_level": 2,
+          "normalized_t": 0.6666666666666666,
+          "modeled_scalar": 1.0
+        },
+        {
+          "simulated_level": 3,
+          "normalized_t": 1.0,
+          "modeled_scalar": 1.0
+        }
+      ],
+      "BMW_stock_collection": "cd88083f",
+      "BMW_stock_field_original_value": 1.0,
+      "BMW_current_upgrade_limit": 0,
+      "BMW_original_reference_count": 1,
+      "BMW_simulation_allowed": false
+    },
+    "engine": {
+      "field": "MAX_RPM",
+      "source_class_and_field_from_authenticated_PAL": true,
+      "punto_stock_collection": "a6ee7a11",
+      "punto_top_collection": "a6f0f405",
+      "punto_upgrade_limit": 4,
+      "punto_original_stock_value": 7500.0,
+      "punto_original_top_value": 7500.0,
+      "pc_hypothesis_mathematical_levels": [
+        {
+          "simulated_level": 0,
+          "normalized_t": 0.0,
+          "modeled_scalar": 7500.0
+        },
+        {
+          "simulated_level": 1,
+          "normalized_t": 0.25,
+          "modeled_scalar": 7500.0
+        },
+        {
+          "simulated_level": 2,
+          "normalized_t": 0.5,
+          "modeled_scalar": 7500.0
+        },
+        {
+          "simulated_level": 3,
+          "normalized_t": 0.75,
+          "modeled_scalar": 7500.0
+        },
+        {
+          "simulated_level": 4,
+          "normalized_t": 1.0,
+          "modeled_scalar": 7500.0
+        }
+      ],
+      "BMW_stock_collection": "cd88083f",
+      "BMW_stock_field_original_value": 9500.0,
+      "BMW_current_upgrade_limit": 0,
+      "BMW_original_reference_count": 1,
+      "BMW_simulation_allowed": false
+    }
+  },
+  "BMW_original_upgradeable": false,
+  "BMW_second_performance_reference_exists": false,
+  "BMW_new_physics_profiles_proven": false,
+  "BMW_buyable_upgrade_catalog_proven": false,
+  "safe_to_enable_feature": false,
+  "generated_apk": false,
+  "save_changed": false,
+  "game_assets_modified": false,
+  "run_id": "42517561288",
+  "utc": "2026-11-08T19:56:54.345937+00:00"
+}
