@@ -1,0 +1,74 @@
+name: NFSMW PRE499 BMW independent engine collection repack preflight
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre499_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre499-engine-repack-preflight
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare authenticated original PAL attribute reader
+        run: |
+          python -m pip install --disable-pip-version-check google-auth requests >/dev/null
+          python -m py_compile automation/kaggle/pre499_bmw_engine_collection_repack_preflight.py
+      - name: PRE499 inspect full original DatN ExpN and PtrN layout, no writes
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre499_bmw_engine_collection_repack_preflight.py --run-id "$GITHUB_RUN_ID"
+      - name: Publish sanitized structural preflight without game bytes
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          source=Path("/tmp/nfsmw-pre499/report.json")
+          d=json.loads(source.read_text()) if source.is_file() else {"status":"FAILED_NO_REPORT"}
+          if any(d.get(k,False) is not False for k in ("runtime_tuning_enabled","apk_built","modified_VPAK_written","source_touched")):
+              raise SystemExit("PRE499 no-game-write invariant violated")
+          if d.get("status")=="AUDIT_OK":
+              if d.get("runtime_loader_acceptance_proven") is not False:
+                  raise SystemExit("Unexpected live game proof in metadata audit")
+              path=Path("docs/PRE499_BMW_ENGINE_COLLECTION_REPACK_PREFLIGHT.json")
+          else:
+              path=Path("docs/PRE499_BMW_ENGINE_COLLECTION_REPACK_DIAGNOSTIC.json")
+              d={k:d.get(k) for k in ("stage","status","error_type","error","run_id") if k in d}
+              d["runtime_tuning_enabled"]=False
+          path.parent.mkdir(parents=True,exist_ok=True)
+          path.write_text(json.dumps(d,ensure_ascii=False,indent=2)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE499_BMW_ENGINE_COLLECTION_REPACK_*.json
+          git diff --cached --quiet && exit 0
+          git commit -m "PRE499: audit original BMW engine collection repack feasibility"
+          for i in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
+      - name: Archive sanitized report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre499-bmw-collection-preflight-${{ github.run_id }}
+          path: /tmp/nfsmw-pre499/report.json
+          if-no-files-found: warn
+          retention-days: 14
