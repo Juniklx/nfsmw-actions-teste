@@ -19,13 +19,13 @@ jobs:
       - run: |
           set -euo pipefail
           python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
-          python -m py_compile automation/kaggle/pre437_sync_bmw_context_verified_backup.py
+          python -m py_compile automation/kaggle/pre437_sync_v47_context_verified_backup.py
       - name: Verify backup and append exact context
         env:
           GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
-        run: python automation/kaggle/pre437_sync_bmw_context_verified_backup.py --run-id "$GITHUB_RUN_ID"
+        run: python automation/kaggle/pre437_sync_v47_context_verified_backup.py --run-id "$GITHUB_RUN_ID"
       - if: always()
         uses: actions/upload-artifact@v4
         with:
