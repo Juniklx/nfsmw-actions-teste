@@ -1,0 +1,199 @@
+{
+  "stage": "PRE517_ORIGINAL_PAL_USA_ZDIR_TOTAL_SECTOR_AND_EA_DATA_HASH_READONLY",
+  "status": "AUDIT_OK",
+  "public_reference_repository": "Ekey/NFS.BIN.Tool",
+  "public_reference_commit": "ebf30eaa7ee37862254f37b2542107eafd29f7f6",
+  "packer_hash_source_git_blob": "7d47c9019f7f58981085c5e0d632fdc7362bbc03",
+  "packer_index_source_git_blob": "a6e1c2307c52bd16238bb5f4a8e1451b136d0e5f",
+  "reference_algorithm": "MSB-first CRC poly 04C11DB7, init FFFFFFFF, append bytewise file length least-significant first, final bitwise NOT",
+  "crc_table_generated_from_public_polynomial": true,
+  "original_source_vpak_sha256": "9f4b04a221232e614b927a870e25da7db100477a7e425114b87082f46e8b99ad",
+  "original_source_vpak_identical_PAL_USA_SHA": true,
+  "source_vpak_byte_size": 697856,
+  "original_target_checksum_hex": "296ad9ed",
+  "candidate_data_hash_calculated_hex": "296ad9ed",
+  "candidate_checksum_matches_original_target": true,
+  "pal_original_zdir_sha256": "7f37d29f958454ec73d5dbd30068a6acb23cf92d5056fa2d944ca5c87c6637ee",
+  "pal_original_target_sector_offset": 173795,
+  "pal_original_target_total_sector_offset": 890205,
+  "pal_calculated_total_sector_offset": 890205,
+  "pal_target_total_field_matches_cumulative_sector_formula": true,
+  "usa_original_target_sector_offset": 140194,
+  "usa_original_target_total_sector_offset": 890206,
+  "usa_calculated_total_sector_offset": 890206,
+  "usa_target_total_field_matches_cumulative_sector_formula": true,
+  "original_pal_ZDIR_offset_field_validation": {
+    "rows": 1390,
+    "matching_total_sector_offsets": 1390,
+    "mismatches": 0,
+    "invalid_archive_rows": 0,
+    "all_valid_rows_match": true,
+    "by_archive": {
+      "5": {
+        "rows": 583,
+        "matches": 583,
+        "mismatches": 0
+      },
+      "2": {
+        "rows": 49,
+        "matches": 49,
+        "mismatches": 0
+      },
+      "4": {
+        "rows": 204,
+        "matches": 204,
+        "mismatches": 0
+      },
+      "0": {
+        "rows": 367,
+        "matches": 367,
+        "mismatches": 0
+      },
+      "1": {
+        "rows": 116,
+        "matches": 116,
+        "mismatches": 0
+      },
+      "3": {
+        "rows": 66,
+        "matches": 66,
+        "mismatches": 0
+      },
+      "8": {
+        "rows": 1,
+        "matches": 1,
+        "mismatches": 0
+      },
+      "7": {
+        "rows": 1,
+        "matches": 1,
+        "mismatches": 0
+      },
+      "9": {
+        "rows": 2,
+        "matches": 2,
+        "mismatches": 0
+      },
+      "6": {
+        "rows": 1,
+        "matches": 1,
+        "mismatches": 0
+      }
+    }
+  },
+  "original_usa_ZDIR_offset_field_validation": {
+    "rows": 1390,
+    "matching_total_sector_offsets": 1390,
+    "mismatches": 0,
+    "invalid_archive_rows": 0,
+    "all_valid_rows_match": true,
+    "by_archive": {
+      "5": {
+        "rows": 536,
+        "matches": 536,
+        "mismatches": 0
+      },
+      "2": {
+        "rows": 54,
+        "matches": 54,
+        "mismatches": 0
+      },
+      "4": {
+        "rows": 231,
+        "matches": 231,
+        "mismatches": 0
+      },
+      "0": {
+        "rows": 369,
+        "matches": 369,
+        "mismatches": 0
+      },
+      "1": {
+        "rows": 118,
+        "matches": 118,
+        "mismatches": 0
+      },
+      "3": {
+        "rows": 77,
+        "matches": 77,
+        "mismatches": 0
+      },
+      "8": {
+        "rows": 1,
+        "matches": 1,
+        "mismatches": 0
+      },
+      "7": {
+        "rows": 1,
+        "matches": 1,
+        "mismatches": 0
+      },
+      "9": {
+        "rows": 2,
+        "matches": 2,
+        "mismatches": 0
+      },
+      "6": {
+        "rows": 1,
+        "matches": 1,
+        "mismatches": 0
+      }
+    }
+  },
+  "small_independent_original_resource_samples": [
+    {
+      "archive": 0,
+      "resource_size": 32,
+      "name_hash": "3d55df4e",
+      "original_ZDIR_checksum": "b326670d",
+      "calculated_length_extended_crc": "b326670d",
+      "matches": true
+    },
+    {
+      "archive": 5,
+      "resource_size": 64,
+      "name_hash": "c777e9e6",
+      "original_ZDIR_checksum": "3c237156",
+      "calculated_length_extended_crc": "3c237156",
+      "matches": true
+    },
+    {
+      "archive": 1,
+      "resource_size": 92,
+      "name_hash": "667392ac",
+      "original_ZDIR_checksum": "50fc2570",
+      "calculated_length_extended_crc": "50fc2570",
+      "matches": true
+    },
+    {
+      "archive": 4,
+      "resource_size": 1224,
+      "name_hash": "8dd835be",
+      "original_ZDIR_checksum": "0b50542b",
+      "calculated_length_extended_crc": "0b50542b",
+      "matches": true
+    },
+    {
+      "archive": 3,
+      "resource_size": 2368,
+      "name_hash": "309b331c",
+      "original_ZDIR_checksum": "ad3fa513",
+      "calculated_length_extended_crc": "ad3fa513",
+      "matches": true
+    }
+  ],
+  "all_samples_match_candidate_hash": true,
+  "original_game_bytes_uploaded": false,
+  "game_archive_modified": false,
+  "game_resource_modified": false,
+  "ZDIR_modified": false,
+  "APK_built": false,
+  "save_modified": false,
+  "signing_key_accessed": false,
+  "new_modified_VPAK_loader_acceptance_proven": false,
+  "safe_to_build_tuning_APK": false,
+  "tuning_enabled": false,
+  "original_range_bytes_read": 772452,
+  "run_id": "42529083522",
+  "timestamp_utc": "2026-11-08T22:12:54.974867+00:00"
+}
