@@ -9,7 +9,7 @@ from pre239_pal_money_probe_recipe_readonly import body_for_function
 
 OUT=Path("/tmp/nfsmw-pre409/report.json")
 TARGETS={"menu_gate":("workspace/nativo/app/generated/default/nfsmw_recomp.5.cpp","26c58fa8c5b5810f2fa06bcf25d3f3f7ac131bf73692a9991a84269433b8de07",["sub_82578988"]),
-         "performance_setup":("workspace/nativo/app/generated/default/nfsmw_recomp.11.cpp","0208ca992595ccbddfddc1299f59a2ff586b9c4d4c73f6dc40db4e3",["sub_82582F70","sub_8256F818"])}
+         "performance_setup":("workspace/nativo/app/generated/default/nfsmw_recomp.11.cpp","0208ca992595ccbddfddc1299f59a2ff586b9c726ad4a3c4d4c73f6dc40db4e3",["sub_82582F70","sub_8256F818"])}
 CALL=re.compile(r"\b(?:__imp__)?(sub_[A-Fa-f0-9]{8})\(ctx,\s*base\)")
 def audit():
     with tempfile.TemporaryDirectory(prefix="pre409_") as d:
