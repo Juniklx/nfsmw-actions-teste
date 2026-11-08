@@ -1,0 +1,69 @@
+name: NFSMW PRE488 original PAL upgrade attribute function neighborhood
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre488_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre488-pal-guest-upgrade-neighborhood
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare authenticated source parser
+        run: |
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          python -m py_compile automation/kaggle/pre104_verify_backup_tar.py automation/kaggle/pre105_read_settings_source.py automation/kaggle/pre488_pal_upgrade_function_neighborhood_readonly.py
+      - name: PRE488 inspect adjacent guest upgrade attribute function control flows
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre488_pal_upgrade_function_neighborhood_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Save bounded PC/guest opcode metadata only
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report=Path("/tmp/nfsmw-pre488/report.json")
+          r=json.loads(report.read_text()) if report.is_file() else {"status":"FAILED_NO_REPORT"}
+          if r.get("tuning_enabled",False) is not False or r.get("apk_built",False) is not False:
+              raise SystemExit("Unsafe PRE488 status")
+          if r.get("status")=="AUDIT_OK":
+              if r.get("SetPackage_address_confirmed") is not False:
+                  raise SystemExit("PRE488 cannot claim verified semantics")
+              dst=Path("docs/PRE488_PAL_UPGRADE_FUNCTION_NEIGHBORHOOD_READONLY.json")
+          else:
+              dst=Path("docs/PRE488_PAL_UPGRADE_NEIGHBORHOOD_DIAGNOSTIC.json")
+              r={k:r.get(k) for k in ("stage","status","error_type","error","run_id") if k in r}
+              r["tuning_enabled"]=False
+          dst.parent.mkdir(parents=True,exist_ok=True)
+          dst.write_text(json.dumps(r,ensure_ascii=False,indent=2)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE488_*.json
+          git diff --cached --quiet && exit 0
+          git commit -m "PRE488: record PAL guest physics attribute function neighborhood metadata"
+          git push origin HEAD:main
+      - name: Archive sanitized private code-location report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre488-guest-upgrade-neighborhood-${{ github.run_id }}
+          path: /tmp/nfsmw-pre488/report.json
+          if-no-files-found: warn
+          retention-days: 14
