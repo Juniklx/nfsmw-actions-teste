@@ -1,0 +1,17 @@
+{
+  "stage": "PRE479_BMW_TUNING_CPP_GUARD_OFF_BY_CONSTRUCTION",
+  "status": "AUDIT_OK",
+  "run_id": "42513282234",
+  "compilers": [
+    "clang++ C++17",
+    "g++ C++17"
+  ],
+  "host_guard_tests_each_compiler": 14,
+  "reality": "offline synthetic guard only; no game integration",
+  "feature_enabled": false,
+  "runtime_hook_installed": false,
+  "save_modified": false,
+  "apk_built": false,
+  "nitro_pre398_preserved": true,
+  "catalog_and_BMW_custom_profiles_not_yet_verified": true
+}
