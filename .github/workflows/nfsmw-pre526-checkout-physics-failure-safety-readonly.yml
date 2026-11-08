@@ -1,0 +1,72 @@
+name: NFSMW PRE526 pinned PC shop checkout payment-before-physics safety audit read-only
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre526_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre526-checkout-failure-safety
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Inspect source-backed formula on authenticated metadata only
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre526_pinned_reference_shop_checkout_physics_safety_readonly.py
+          python automation/kaggle/pre526_pinned_reference_shop_checkout_physics_safety_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Publish verified read-only scenario, not patch
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          p=Path("/tmp/nfsmw-pre526/report.json")
+          d=json.loads(p.read_text()) if p.exists() else {"stage":"PRE526","status":"FAILED_NO_REPORT"}
+          for key in ("asset_bytes_written_or_published","game_or_apk_modified","save_modified",
+                      "signing_key_accessed","safe_to_build_BMW_tuning_APK"):
+              if d.get(key,False) is not False:
+                  raise SystemExit("PRE526 game asset safe-boundary failed: "+key)
+          if d.get("status")=="AUDIT_OK":
+              for key in ("guest_V48_checkout_equivalence_verified",
+                          "guest_V48_GetMaxLevel_or_SetPackage_behavior_verified",
+                          "new_BMW_engine_collection_loaded_on_guest_verified",
+                          "BMW_purchase_approved"):
+                  if d.get(key) is not False:
+                      raise SystemExit("Cannot promote hypothetical PC price to Xbox runtime proof")
+              destination=Path("docs/PRE526_PC_SHOP_CHECKOUT_PHYSICS_SAFETY_READONLY.json")
+          else:
+              destination=Path("docs/PRE526_PC_SHOP_CHECKOUT_PHYSICS_SAFETY_DIAGNOSTIC.json")
+              d={k:d[k] for k in ("stage","status","error_type","error","run_id") if k in d}
+              d["safe_to_build_BMW_tuning_APK"]=False
+          destination.parent.mkdir(parents=True,exist_ok=True)
+          destination.write_text(json.dumps(d,ensure_ascii=False,indent=2)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE526_PC_SHOP_CHECKOUT_PHYSICS_SAFETY_*json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "PRE526: PC checkout charge-before-install and physics rollback safety guarded"
+          for i in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
+      - name: Archive scenario metadata
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre526-pricing-scenarios-${{ github.run_id }}
+          path: /tmp/nfsmw-pre526/report.json
+          retention-days: 14
