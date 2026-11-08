@@ -23,12 +23,12 @@ CHUNK_BYTES=4*1024*1024
 MINUTES_LIMIT="GitHub ephemeral runner: bounded file read"
 CHECK_NAMES=("BMWM3GTR","BMWM3GTRE46","m3gtre46careerstart",
              "UpgradeSpecs","eFEPartUpgradeLevels","JunkmanMod")
-def read_streamed_member(s,data_start):
+def read_streamed_member(s,data_start,target_length=TARGET_LENGTH):
     end_data=data_start+COMPRESSED
     if end_data>SIZE:raise ValueError("ZIP member extends beyond archive")
     cursor=0;plain_cursor=0;crc=0
     inflater=zlib.decompressobj(-15)
-    target=bytearray(TARGET_LENGTH)
+    target=bytearray(target_length)
     collected=0;calls=0
     while cursor<COMPRESSED:
         count=min(CHUNK_BYTES,COMPRESSED-cursor)
@@ -47,7 +47,7 @@ def read_streamed_member(s,data_start):
         expanded=inflater.decompress(compressed)
         crc=zlib.crc32(expanded,crc)
         lo=max(TARGET_START,plain_cursor)
-        hi=min(TARGET_START+TARGET_LENGTH,plain_cursor+len(expanded))
+        hi=min(TARGET_START+target_length,plain_cursor+len(expanded))
         if hi>lo:
             target[lo-TARGET_START:hi-TARGET_START]=expanded[lo-plain_cursor:hi-plain_cursor]
             collected+=hi-lo
@@ -59,14 +59,14 @@ def read_streamed_member(s,data_start):
     if final:
         crc=zlib.crc32(final,crc)
         lo=max(TARGET_START,plain_cursor)
-        hi=min(TARGET_START+TARGET_LENGTH,plain_cursor+len(final))
+        hi=min(TARGET_START+target_length,plain_cursor+len(final))
         if hi>lo:
             target[lo-TARGET_START:hi-TARGET_START]=final[lo-plain_cursor:hi-plain_cursor]
             collected+=hi-lo
         plain_cursor+=len(final)
     if not inflater.eof or inflater.unused_data or inflater.unconsumed_tail:
         raise ValueError("Deflate stream did not end cleanly")
-    if plain_cursor!=UNCOMPRESSED or (crc&0xffffffff)!=CRC or collected!=TARGET_LENGTH:
+    if plain_cursor!=UNCOMPRESSED or (crc&0xffffffff)!=CRC or collected!=target_length:
         raise ValueError("ZIP CRC, full length or targeted byte range mismatch")
     return bytes(target),{"http_range_calls":calls,
        "compressed_bytes_read":cursor,"total_deflated_bytes":plain_cursor,
