@@ -1,0 +1,33 @@
+name: NFSMW PRE429 BMW passive entry count correlation dryrun
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre429_requests/*.json'
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+      - run: python -m py_compile automation/kaggle/pre429_bmw_entry_level_correlation_dryrun.py
+      - name: Validate reversible bounded passive marker previews
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: PYTHONPATH=automation/kaggle python automation/kaggle/pre429_bmw_entry_level_correlation_dryrun.py --run-id "$GITHUB_RUN_ID"
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre429-bmw-passive-correlation-${{ github.run_id }}
+          path: /tmp/nfsmw-pre429/report.json
+          retention-days: 14
+          if-no-files-found: warn
