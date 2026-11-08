@@ -1,0 +1,188 @@
+{
+  "stage": "PRE466_USA_VLT_EXPN_EXPORT_SCHEMA_READONLY",
+  "status": "AUDIT_OK",
+  "edition": "USA reference only (not authenticated PAL runtime)",
+  "vpak_sha256": "9f4b04a221232e614b927a870e25da7db100477a7e425114b87082f46e8b99ad",
+  "chunk_tag": "ExpN",
+  "chunk_offset": 164848,
+  "chunk_bytes": 48000,
+  "declared_export_count": 2399,
+  "first_15_payload_u32_be": [
+    2399,
+    4057967757,
+    3418120847,
+    0,
+    392,
+    72,
+    2976292708,
+    1586957500,
+    0,
+    28,
+    464,
+    2555476869,
+    2383490743,
+    0,
+    36
+  ],
+  "entry_layout_candidates": [
+    {
+      "stride_bytes": 16,
+      "possible": false,
+      "reason": "nonzero_or_large_padding",
+      "padding_len": 9604
+    },
+    {
+      "stride_bytes": 20,
+      "possible": true,
+      "reported_count": 2399,
+      "padding_len": 8,
+      "all_entries_within_vlt_and_reserved_ok": true,
+      "valid_entry_count": 2399,
+      "reserved_violations": 0,
+      "type_hash_histogram": {
+        "cbbc628f": 1,
+        "5e970cbc": 59,
+        "8e112eb7": 2339
+      },
+      "sample_and_named_rows": [
+        {
+          "index": 0,
+          "id_hash": "f1dfac8d",
+          "type_hash": "cbbc628f",
+          "known_type": "DatabaseLoadData",
+          "size": 392,
+          "vlt_offset": 72,
+          "bounds_valid": true,
+          "reserved_zero": true
+        },
+        {
+          "index": 1,
+          "id_hash": "b1669f64",
+          "type_hash": "5e970cbc",
+          "known_type": "ClassLoadData",
+          "size": 28,
+          "vlt_offset": 464,
+          "bounds_valid": true,
+          "reserved_zero": true
+        },
+        {
+          "index": 2,
+          "id_hash": "98517b85",
+          "type_hash": "8e112eb7",
+          "known_type": "CollectionLoadData",
+          "size": 36,
+          "vlt_offset": 496,
+          "bounds_valid": true,
+          "reserved_zero": true
+        },
+        {
+          "index": 3,
+          "id_hash": "769351d8",
+          "type_hash": "8e112eb7",
+          "known_type": "CollectionLoadData",
+          "size": 36,
+          "vlt_offset": 536,
+          "bounds_valid": true,
+          "reserved_zero": true
+        },
+        {
+          "index": 4,
+          "id_hash": "3c75348b",
+          "type_hash": "8e112eb7",
+          "known_type": "CollectionLoadData",
+          "size": 36,
+          "vlt_offset": 576,
+          "bounds_valid": true,
+          "reserved_zero": true
+        },
+        {
+          "index": 5,
+          "id_hash": "00566701",
+          "type_hash": "8e112eb7",
+          "known_type": "CollectionLoadData",
+          "size": 36,
+          "vlt_offset": 616,
+          "bounds_valid": true,
+          "reserved_zero": true
+        },
+        {
+          "index": 6,
+          "id_hash": "04fe6f39",
+          "type_hash": "8e112eb7",
+          "known_type": "CollectionLoadData",
+          "size": 36,
+          "vlt_offset": 656,
+          "bounds_valid": true,
+          "reserved_zero": true
+        },
+        {
+          "index": 7,
+          "id_hash": "7e7faba1",
+          "type_hash": "8e112eb7",
+          "known_type": "CollectionLoadData",
+          "size": 36,
+          "vlt_offset": 696,
+          "bounds_valid": true,
+          "reserved_zero": true
+        },
+        {
+          "index": 8,
+          "id_hash": "afa210f0",
+          "type_hash": "5e970cbc",
+          "known_type": "ClassLoadData",
+          "size": 28,
+          "vlt_offset": 736,
+          "bounds_valid": true,
+          "reserved_zero": true
+        },
+        {
+          "index": 9,
+          "id_hash": "0ba761d6",
+          "type_hash": "8e112eb7",
+          "known_type": "CollectionLoadData",
+          "size": 40,
+          "vlt_offset": 768,
+          "bounds_valid": true,
+          "reserved_zero": true
+        },
+        {
+          "index": 10,
+          "id_hash": "8f78c3ea",
+          "type_hash": "8e112eb7",
+          "known_type": "CollectionLoadData",
+          "size": 40,
+          "vlt_offset": 808,
+          "bounds_valid": true,
+          "reserved_zero": true
+        },
+        {
+          "index": 11,
+          "id_hash": "0e32cdf3",
+          "type_hash": "8e112eb7",
+          "known_type": "CollectionLoadData",
+          "size": 40,
+          "vlt_offset": 848,
+          "bounds_valid": true,
+          "reserved_zero": true
+        }
+      ],
+      "matched_named_export_rows": {
+        "BMWM3GTR": [],
+        "BMWM3GTRE46": [],
+        "m3gtre46careerstart": [],
+        "UpgradeSpecs": [],
+        "eFEPartUpgradeLevels": [],
+        "JunkmanMod": []
+      }
+    }
+  ],
+  "schema_confirmed": true,
+  "matching_export_does_not_prove_upgrade_application": true,
+  "bmw_upgrade_purchase_safe": false,
+  "game_assets_exported": false,
+  "apk_built": false,
+  "save_modified": false,
+  "range_bytes": 733264,
+  "run_id": "42509147384",
+  "utc": "2026-11-08T18:16:28.883329+00:00"
+}
