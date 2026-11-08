@@ -1,0 +1,37 @@
+name: NFSMW PRE417 BMW caller branch audit read-only
+on:
+  workflow_run:
+    workflows: ["NFSMW PRE416 BMW dynamic returns read-only"]
+    types: [completed]
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre417_requests/*.json'
+permissions:
+  contents: read
+jobs:
+  audit:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'push' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+      - run: python -m py_compile automation/kaggle/pre417_bmw_caller_branches_readonly.py
+      - name: Audit caller branches
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: PYTHONPATH=automation/kaggle python automation/kaggle/pre417_bmw_caller_branches_readonly.py --run-id "$GITHUB_RUN_ID"
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre417-bmw-caller-branches-${{ github.run_id }}
+          path: /tmp/nfsmw-pre417/report.json
+          retention-days: 14
+          if-no-files-found: warn
