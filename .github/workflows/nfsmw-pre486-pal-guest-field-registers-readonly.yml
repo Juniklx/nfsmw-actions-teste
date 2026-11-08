@@ -1,0 +1,69 @@
+name: NFSMW PRE486 PAL physics fields by register and guest callsites
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre486_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre486-pal-field-registers
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare PRE99 authentic source reader
+        run: |
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          python -m py_compile automation/kaggle/pre104_verify_backup_tar.py automation/kaggle/pre105_read_settings_source.py automation/kaggle/pre486_pal_upgrade_register_profiles_readonly.py
+      - name: PRE486 rank PAL helper offset groupings with no guest writes
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre486_pal_upgrade_register_profiles_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Persist metadata-only structural interpretation or sanitized failure
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          src=Path("/tmp/nfsmw-pre486/report.json")
+          doc=json.loads(src.read_text()) if src.is_file() else {"status":"FAILED_NO_REPORT"}
+          if doc.get("tuning_enabled",False) is not False or doc.get("apk_built",False) is not False:
+              raise SystemExit("PRE486 fail-closed state invalid")
+          if doc.get("status")=="AUDIT_OK":
+              path=Path("docs/PRE486_PAL_GUEST_UPGRADE_REGISTER_CANDIDATES_READONLY.json")
+              if doc.get("functions_SetPackage_SetLevel_GetMaxLevel_confirmed") is not False:
+                  raise SystemExit("PRE486 semantic proof not yet established")
+          else:
+              path=Path("docs/PRE486_PAL_GUEST_UPGRADE_REGISTER_DIAGNOSTIC.json")
+              doc={k:doc.get(k) for k in ("stage","status","error_type","error","run_id") if k in doc}
+              doc["tuning_enabled"]=False
+          path.parent.mkdir(parents=True,exist_ok=True)
+          path.write_text(json.dumps(doc,ensure_ascii=False,indent=2)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE486_*.json
+          git diff --cached --quiet && exit 0
+          git commit -m "PRE486: capture original PAL physics register function candidates"
+          git push origin HEAD:main
+      - name: Preserve sanitized report privately
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre486-register-analysis-${{ github.run_id }}
+          path: /tmp/nfsmw-pre486/report.json
+          if-no-files-found: warn
+          retention-days: 14
