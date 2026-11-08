@@ -1,11 +1,22 @@
 {
   "stage": "PRE514_CANONICAL_CONTEXT_APPEND_WITH_BACKUP",
-  "status": "FAILED",
+  "status": "AUDIT_OK",
   "apk_built": false,
   "save_modified": false,
   "game_assets_modified": false,
-  "error_type": "HttpError",
-  "error": "<HttpError 502 when requesting https://www.googleapis.com/upload/drive/v3/files/1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB?supportsAllDrives=true&fields=id%2Cname%2Csize%2CmodifiedTime&alt=json&uploadType=media returned \"Bad Gateway\". Details: \"<!DOCTYPE html>\n<html lang=en>\n  <meta chars",
-  "run_id": "42528039984",
-  "utc": "2026-11-08T22:01:40.017168+00:00"
+  "backup_created": false,
+  "backup_reused": true,
+  "backup_file_id": "1aKruZiJ1aZwvU7d9_HwiYY2uBzdvSfqI",
+  "backup_name": "CONTEXTO_NFSMW_BACKUP_PRE514_BMW_TUNING_20261108.md",
+  "canonical_before_bytes": 757756,
+  "canonical_before_sha256": "877d41d97d703d7cbd4c716e75a8dcc1ff822d419b01820310f66cf91ad9ba66",
+  "transient_http_failures": 0,
+  "append_bytes": 4407,
+  "new_total_bytes": 762163,
+  "new_sha256": "ed786fe9c319c0e4de44cdb53528a7054400d3d36866bb73442f1ade9a508564",
+  "prior_history_bytewise_preserved": true,
+  "postupdate_readback_bytewise_verified": true,
+  "canonical_file_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+  "run_id": "42528343256",
+  "utc": "2026-11-08T22:04:36.585677+00:00"
 }
