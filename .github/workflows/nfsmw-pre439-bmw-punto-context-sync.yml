@@ -1,0 +1,35 @@
+name: NFSMW PRE439 sync verified BMW audits into Drive canonical context
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre439_requests/*.json'
+permissions:
+  contents: read
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+          python -m py_compile automation/kaggle/pre439_sync_v47_bmw_punto_logs_context.py
+      - name: Verify backup and append exact context
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: python automation/kaggle/pre439_sync_v47_bmw_punto_logs_context.py --run-id "$GITHUB_RUN_ID"
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre439-drive-context-${{ github.run_id }}
+          path: /tmp/nfsmw-pre439/report.json
+          retention-days: 14
+          if-no-files-found: warn
