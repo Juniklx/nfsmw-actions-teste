@@ -106,7 +106,7 @@ def audit():
   return {"stage":"PRE426_PASSIVE_LEVEL_RETURN_PROBE_DRYRUN",
    "status":"AUDIT_OK" if t["passed"] else "NEEDS_REVIEW",
    "archive_sha256":digest,"preview":p,"host_mock":t,"apk_built":False,
-   "game_source_changed":False,"save_changed":False,"credentials_read":False,
+   "game_source_changed":False,"save_changed":False,"signing_key_or_password_accessed":False,
    "limits":["No actual BMW/Fiat runtime counts measured",
              "The returned value is a candidate package count, not yet linked to a specific car",
              "No production CMake integration or Android binary created",
