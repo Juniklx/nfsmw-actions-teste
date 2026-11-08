@@ -1,0 +1,8 @@
+{
+  "stage": "PRE500",
+  "goal": "Build in RAM independent BMW M3 GTR engine +5 percent synthetic endpoint as real CollectionLoad with ExpN/PtrN and two RefSpecs, then independent reparse",
+  "engine_percent_is_synthetic_not_user_selected": true,
+  "original_v48_untouched": true,
+  "save_marcEK_untouched": true,
+  "mode": "scratch_memory_only"
+}
