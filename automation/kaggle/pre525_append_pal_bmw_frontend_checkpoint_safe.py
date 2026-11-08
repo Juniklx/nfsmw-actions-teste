@@ -26,20 +26,20 @@ def sync(drive):
     proof522=json.loads(Path("docs/PRE522_USA_FE_CARPARTS_COST_ARRAYS_READONLY.json").read_text())
     proof523=json.loads(Path("docs/PRE523_ORIGINAL_PAL_FE_ATTRIB_BINARY_IDENTITY_READONLY.json").read_text())
     proof524=json.loads(Path("docs/PRE524_BMW_PC_REFERENCE_FE_PRICE_SCENARIOS_READONLY.json").read_text())
-    sha="8ac09099cfc98646bbfbdb261d28b9648e3ec8b0d6bdf9d3edd6ef7bc967b528"
+    expected_fe_sha="8ac09099cfc98646bbfbdb261d28b9648e3ec8b0d6bdf9d3edd6ef7bc967b528"
     if (any(x.get("status")!="AUDIT_OK" for x in (proof520,proof521,proof522,proof523,proof524))
         or proof520.get("original_padding_all_zero") is not True
         or proof520.get("original_padding_zero_byte_count")!=512
         or proof520.get("original_loader_acceptance_proven") is not False
         or proof520.get("ready_to_modify_original_game") is not False
-        or proof521.get("source_sha256")!=sha
+        or proof521.get("source_sha256")!=expected_fe_sha
         or proof521.get("original_frontend_collection_count")!=414
         or proof521.get("original_carparts_direct_children_count")!=21
-        or proof522.get("original_FE_ATTRIB_sha256")!=sha
+        or proof522.get("original_FE_ATTRIB_sha256")!=expected_fe_sha
         or proof522.get("children_with_valid_FECarPartInfo_array")!=21
         or proof522.get("children_with_category_enum_decoded")!=7
         or proof522.get("actual_BMW_shop_cost_or_purchase_verified") is not False
-        or proof523.get("original_PAL_FE_resource_sha256")!=sha
+        or proof523.get("original_PAL_FE_resource_sha256")!=expected_fe_sha
         or proof523.get("original_PAL_FE_same_bytes_as_USA_proven") is not True
         or proof523.get("PAL_runtime_shop_cost_lookups_verified") is not False
         or proof524.get("candidate_BMW_single_engine_package_catalogue_level")!=4
@@ -75,17 +75,21 @@ def sync(drive):
         raise ValueError("Append-only invariant failed")
 
     # Existing source remains protected by a bytewise verified fresh Drive backup.
-    backup=drive.files().copy(fileId=FILE_ID,supportsAllDrives=True,
-        body={"name":BACKUP_NAME,"parents":[PARENT]},
+    # The previous attempt successfully copied the untouched canonical to
+    # Drive, then failed due to a local script name shadow. Reuse that exact
+    # known backup only after proving metadata and every byte are identical.
+    existing_backup_id="1J2NSsSylZfvoHcQCH6Rh9IRvP7kWktxm"
+    backup=drive.files().get(fileId=existing_backup_id,supportsAllDrives=True,
         fields="id,name,size,parents").execute()
     backup_id=backup["id"]
-    result={"backup_created":True,"backup_reused":False,
-        "backup_file_id":backup_id,
-        "backup_name":BACKUP_NAME,"canonical_before_bytes":len(before),
+    if (backup.get("name")!=BACKUP_NAME or backup.get("parents")!=[PARENT]
+        or int(backup.get("size",0))!=len(before)
+        or sha(get_bytes(drive,backup_id))!=sha(before)):
+        raise ValueError("PRE525 authenticated backup not byte-identical: stop")
+    result={"backup_created":False,"backup_reused":True,
+        "backup_file_id":backup_id,"backup_name":BACKUP_NAME,
+        "canonical_before_bytes":len(before),
         "canonical_before_sha256":sha(before)}
-    if (int(backup.get("size",0))!=len(before) or
-        sha(get_bytes(drive,backup_id))!=sha(before)):
-        raise ValueError("PRE525 backup failed byte-for-byte verification")
     # Avoid clobbering another user's edit made between initial read and copy.
     fresh_meta=get_meta(drive)
     if (fresh_meta.get("modifiedTime")!=metadata.get("modifiedTime")
