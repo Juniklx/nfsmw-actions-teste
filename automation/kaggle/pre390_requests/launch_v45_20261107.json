@@ -1,0 +1,11 @@
+{
+  "stage": "PRE390",
+  "targetVersionCode": 45,
+  "package": "io.github.nfsmwrecomp",
+  "apkName": "NFSMW_V45_PRE390_NITRO_CALLSITE_LR_PASSIVE.apk",
+  "samePermanentCertificate": true,
+  "cheatsEnabled": false,
+  "source": "V44 signed builder + PRE389 reversible LR-to-Nitro-slot diagnostic",
+  "require": "PRE316 PRE336 PRE348 PRE364 PRE383 markers and signed V2 certificate preserved",
+  "saveUntouched": true
+}
