@@ -1,0 +1,11 @@
+{
+  "stage": "PRE493",
+  "source_report": "docs/PRE493_BMW_ENGINE_TOP_ENDPOINT_INTERPOLATION_AND_CAPACITY_HANDOFF_20261108.md",
+  "previous_context_marker": "PRE489_BMW_TUNING_GUEST_CODE_HANDOFF_20261108",
+  "backup_first": true,
+  "append_only": true,
+  "readback_bytewise": true,
+  "game_source_modified": false,
+  "apk_untouched": true,
+  "save_untouched": true
+}
