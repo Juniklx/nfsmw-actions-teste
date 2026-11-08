@@ -1,0 +1,497 @@
+{
+  "status": "AUDIT_OK",
+  "stage": "PRE459_PAL_ZIP_CATALOG_PATHS_ONLY",
+  "source_name": "NFSMW_PAL.zip",
+  "source_size": 5567403879,
+  "source_file_id": "1sF5irZpUNfN5Z2p4L53eMVISBeh8MfRz",
+  "cd_sha256": "a74f69e40ec0cc84ff58fcbf9fcccdd7353996c75592779ec63f09cf7dfdc7d6",
+  "central_dir_offset": 5567397896,
+  "central_dir_bytes": 5885,
+  "entry_count": 53,
+  "entries": [
+    {
+      "name": "Movies/",
+      "uncompressed_bytes": 0,
+      "compressed_bytes": 0,
+      "method": 0,
+      "flags": 0,
+      "crc32": "00000000",
+      "xex": false
+    },
+    {
+      "name": "Movies/storyfmv_cro06_coh06a_spanish_pal.wmv",
+      "uncompressed_bytes": 158586964,
+      "compressed_bytes": 158426646,
+      "method": 8,
+      "flags": 0,
+      "crc32": "f573862e",
+      "xex": false
+    },
+    {
+      "name": "Movies/attract_movie_spanish_pal.wmv",
+      "uncompressed_bytes": 48739436,
+      "compressed_bytes": 48425296,
+      "method": 8,
+      "flags": 0,
+      "crc32": "b6afecf7",
+      "xex": false
+    },
+    {
+      "name": "Movies/blacklist_01_spanish_pal.wmv",
+      "uncompressed_bytes": 24622602,
+      "compressed_bytes": 24545943,
+      "method": 8,
+      "flags": 0,
+      "crc32": "2fea02cf",
+      "xex": false
+    },
+    {
+      "name": "Movies/blacklist_02_spanish_pal.wmv",
+      "uncompressed_bytes": 25569394,
+      "compressed_bytes": 25497476,
+      "method": 8,
+      "flags": 0,
+      "crc32": "f54b41a8",
+      "xex": false
+    },
+    {
+      "name": "Movies/blacklist_03_spanish_pal.wmv",
+      "uncompressed_bytes": 22889794,
+      "compressed_bytes": 22818175,
+      "method": 8,
+      "flags": 0,
+      "crc32": "07f32b93",
+      "xex": false
+    },
+    {
+      "name": "Movies/blacklist_04_spanish_pal.wmv",
+      "uncompressed_bytes": 22854066,
+      "compressed_bytes": 22767025,
+      "method": 8,
+      "flags": 0,
+      "crc32": "96c45d60",
+      "xex": false
+    },
+    {
+      "name": "Movies/blacklist_05_spanish_pal.wmv",
+      "uncompressed_bytes": 23086298,
+      "compressed_bytes": 23002758,
+      "method": 8,
+      "flags": 0,
+      "crc32": "4a7130ce",
+      "xex": false
+    },
+    {
+      "name": "Movies/blacklist_06_spanish_pal.wmv",
+      "uncompressed_bytes": 23515034,
+      "compressed_bytes": 23435925,
+      "method": 8,
+      "flags": 0,
+      "crc32": "4650b46a",
+      "xex": false
+    },
+    {
+      "name": "Movies/blacklist_07_spanish_pal.wmv",
+      "uncompressed_bytes": 24015226,
+      "compressed_bytes": 23937669,
+      "method": 8,
+      "flags": 0,
+      "crc32": "b8c1e48b",
+      "xex": false
+    },
+    {
+      "name": "Movies/blacklist_08_spanish_pal.wmv",
+      "uncompressed_bytes": 23139890,
+      "compressed_bytes": 23066457,
+      "method": 8,
+      "flags": 0,
+      "crc32": "20ba88a7",
+      "xex": false
+    },
+    {
+      "name": "Movies/blacklist_09_spanish_pal.wmv",
+      "uncompressed_bytes": 22550378,
+      "compressed_bytes": 22483014,
+      "method": 8,
+      "flags": 0,
+      "crc32": "0b6cbe2e",
+      "xex": false
+    },
+    {
+      "name": "Movies/blacklist_10_spanish_pal.wmv",
+      "uncompressed_bytes": 23407850,
+      "compressed_bytes": 23336333,
+      "method": 8,
+      "flags": 0,
+      "crc32": "a5e76e20",
+      "xex": false
+    },
+    {
+      "name": "Movies/blacklist_11_spanish_pal.wmv",
+      "uncompressed_bytes": 23800858,
+      "compressed_bytes": 23738966,
+      "method": 8,
+      "flags": 0,
+      "crc32": "8f606466",
+      "xex": false
+    },
+    {
+      "name": "Movies/blacklist_12_spanish_pal.wmv",
+      "uncompressed_bytes": 22800474,
+      "compressed_bytes": 22727474,
+      "method": 8,
+      "flags": 0,
+      "crc32": "b72bd587",
+      "xex": false
+    },
+    {
+      "name": "Movies/blacklist_13_spanish_pal.wmv",
+      "uncompressed_bytes": 21067666,
+      "compressed_bytes": 20981860,
+      "method": 8,
+      "flags": 0,
+      "crc32": "70b03e18",
+      "xex": false
+    },
+    {
+      "name": "Movies/blacklist_14_spanish_pal.wmv",
+      "uncompressed_bytes": 21639314,
+      "compressed_bytes": 21552261,
+      "method": 8,
+      "flags": 0,
+      "crc32": "10ad261b",
+      "xex": false
+    },
+    {
+      "name": "Movies/blacklist_15_spanish_pal.wmv",
+      "uncompressed_bytes": 21657178,
+      "compressed_bytes": 21567970,
+      "method": 8,
+      "flags": 0,
+      "crc32": "2d11c9a6",
+      "xex": false
+    },
+    {
+      "name": "Movies/bounty_tutorial_spanish_pal.wmv",
+      "uncompressed_bytes": 18836334,
+      "compressed_bytes": 18676638,
+      "method": 8,
+      "flags": 0,
+      "crc32": "91f377eb",
+      "xex": false
+    },
+    {
+      "name": "Movies/drag_tutorial_spanish_pal.wmv",
+      "uncompressed_bytes": 23268567,
+      "compressed_bytes": 23123773,
+      "method": 8,
+      "flags": 0,
+      "crc32": "142b128d",
+      "xex": false
+    },
+    {
+      "name": "Movies/eahd_bumper_spanish_pal.wmv",
+      "uncompressed_bytes": 1988536,
+      "compressed_bytes": 1933680,
+      "method": 8,
+      "flags": 0,
+      "crc32": "f3fff433",
+      "xex": false
+    },
+    {
+      "name": "Movies/ealogo_spanish_pal.wmv",
+      "uncompressed_bytes": 437438,
+      "compressed_bytes": 349544,
+      "method": 8,
+      "flags": 0,
+      "crc32": "43e68422",
+      "xex": false
+    },
+    {
+      "name": "Movies/psa_spanish_pal.wmv",
+      "uncompressed_bytes": 9491528,
+      "compressed_bytes": 9461612,
+      "method": 8,
+      "flags": 0,
+      "crc32": "3f49d255",
+      "xex": false
+    },
+    {
+      "name": "Movies/pursuit_tutorial_spanish_pal.wmv",
+      "uncompressed_bytes": 35463378,
+      "compressed_bytes": 35313075,
+      "method": 8,
+      "flags": 0,
+      "crc32": "68075748",
+      "xex": false
+    },
+    {
+      "name": "Movies/speedtrap_tutorial_spanish_pal.wmv",
+      "uncompressed_bytes": 17035473,
+      "compressed_bytes": 16926202,
+      "method": 8,
+      "flags": 0,
+      "crc32": "13f6b8f9",
+      "xex": false
+    },
+    {
+      "name": "Movies/storyfmv_bla134_spanish_pal.wmv",
+      "uncompressed_bytes": 21621478,
+      "compressed_bytes": 21598344,
+      "method": 8,
+      "flags": 0,
+      "crc32": "563d3f57",
+      "xex": false
+    },
+    {
+      "name": "Movies/storyfmv_bus12_spanish_pal.wmv",
+      "uncompressed_bytes": 130754376,
+      "compressed_bytes": 130571393,
+      "method": 8,
+      "flags": 0,
+      "crc32": "9dd2ea65",
+      "xex": false
+    },
+    {
+      "name": "Movies/storyfmv_her136_spanish_pal.wmv",
+      "uncompressed_bytes": 79233662,
+      "compressed_bytes": 79161000,
+      "method": 8,
+      "flags": 0,
+      "crc32": "14bec2f6",
+      "xex": false
+    },
+    {
+      "name": "Movies/storyfmv_pin11_spanish_pal.wmv",
+      "uncompressed_bytes": 33394106,
+      "compressed_bytes": 33235986,
+      "method": 8,
+      "flags": 0,
+      "crc32": "b77eacd6",
+      "xex": false
+    },
+    {
+      "name": "Movies/storyfmv_rac01_spanish_pal.wmv",
+      "uncompressed_bytes": 37127682,
+      "compressed_bytes": 37013991,
+      "method": 8,
+      "flags": 0,
+      "crc32": "30172cb5",
+      "xex": false
+    },
+    {
+      "name": "Movies/storyfmv_rap30_spanish_pal.wmv",
+      "uncompressed_bytes": 38557012,
+      "compressed_bytes": 38381059,
+      "method": 8,
+      "flags": 0,
+      "crc32": "e0e40a3f",
+      "xex": false
+    },
+    {
+      "name": "Movies/storyfmv_raz08_spanish_pal.wmv",
+      "uncompressed_bytes": 116856030,
+      "compressed_bytes": 116758073,
+      "method": 8,
+      "flags": 0,
+      "crc32": "2e98b66c",
+      "xex": false
+    },
+    {
+      "name": "Movies/storyfmv_saf25_spanish_pal.wmv",
+      "uncompressed_bytes": 35466218,
+      "compressed_bytes": 35392247,
+      "method": 8,
+      "flags": 0,
+      "crc32": "0dc38caa",
+      "xex": false
+    },
+    {
+      "name": "Movies/tollbooth_tutorial_spanish_pal.wmv",
+      "uncompressed_bytes": 16311843,
+      "compressed_bytes": 16203255,
+      "method": 8,
+      "flags": 0,
+      "crc32": "78b06d1c",
+      "xex": false
+    },
+    {
+      "name": "NFS/",
+      "uncompressed_bytes": 0,
+      "compressed_bytes": 0,
+      "method": 0,
+      "flags": 0,
+      "crc32": "00000000",
+      "xex": false
+    },
+    {
+      "name": "NFS/PADA1.BIN",
+      "uncompressed_bytes": 394506240,
+      "compressed_bytes": 266600756,
+      "method": 8,
+      "flags": 0,
+      "crc32": "936551aa",
+      "xex": false
+    },
+    {
+      "name": "NFS/PADA2.BIN",
+      "uncompressed_bytes": 394506240,
+      "compressed_bytes": 266600756,
+      "method": 8,
+      "flags": 0,
+      "crc32": "936551aa",
+      "xex": false
+    },
+    {
+      "name": "NFS/PADB1.BIN",
+      "uncompressed_bytes": 653262848,
+      "compressed_bytes": 536443708,
+      "method": 8,
+      "flags": 0,
+      "crc32": "165793ad",
+      "xex": false
+    },
+    {
+      "name": "NFS/PADB2.BIN",
+      "uncompressed_bytes": 653262848,
+      "compressed_bytes": 536443708,
+      "method": 8,
+      "flags": 0,
+      "crc32": "165793ad",
+      "xex": false
+    },
+    {
+      "name": "NFS/ZDIR.BIN",
+      "uncompressed_bytes": 33360,
+      "compressed_bytes": 24233,
+      "method": 8,
+      "flags": 0,
+      "crc32": "1572a136",
+      "xex": false
+    },
+    {
+      "name": "NFS/ZZDATA0.BIN",
+      "uncompressed_bytes": 369948672,
+      "compressed_bytes": 225288232,
+      "method": 8,
+      "flags": 0,
+      "crc32": "11d904ba",
+      "xex": false
+    },
+    {
+      "name": "NFS/ZZDATA1.BIN",
+      "uncompressed_bytes": 349106176,
+      "compressed_bytes": 227920405,
+      "method": 8,
+      "flags": 0,
+      "crc32": "424ad27f",
+      "xex": false
+    },
+    {
+      "name": "NFS/ZZDATA2.BIN",
+      "uncompressed_bytes": 400523264,
+      "compressed_bytes": 279197319,
+      "method": 8,
+      "flags": 0,
+      "crc32": "7b9fda94",
+      "xex": false
+    },
+    {
+      "name": "NFS/ZZDATA3.BIN",
+      "uncompressed_bytes": 347629568,
+      "compressed_bytes": 226400390,
+      "method": 8,
+      "flags": 0,
+      "crc32": "3d068a8e",
+      "xex": false
+    },
+    {
+      "name": "NFS/ZZDATA4.BIN",
+      "uncompressed_bytes": 401068032,
+      "compressed_bytes": 261097565,
+      "method": 8,
+      "flags": 0,
+      "crc32": "b46a396c",
+      "xex": false
+    },
+    {
+      "name": "NFS/ZZDATA5.BIN",
+      "uncompressed_bytes": 194918400,
+      "compressed_bytes": 159237638,
+      "method": 8,
+      "flags": 0,
+      "crc32": "62e365d7",
+      "xex": false
+    },
+    {
+      "name": "NFS/ZZDATA6.BIN",
+      "uncompressed_bytes": 481814528,
+      "compressed_bytes": 431445395,
+      "method": 8,
+      "flags": 0,
+      "crc32": "06eb03ec",
+      "xex": false
+    },
+    {
+      "name": "NFS/ZZDATA7.BIN",
+      "uncompressed_bytes": 653262848,
+      "compressed_bytes": 536443708,
+      "method": 8,
+      "flags": 0,
+      "crc32": "165793ad",
+      "xex": false
+    },
+    {
+      "name": "NFS/ZZDATA8.BIN",
+      "uncompressed_bytes": 200359936,
+      "compressed_bytes": 141703411,
+      "method": 8,
+      "flags": 0,
+      "crc32": "72d68e2f",
+      "xex": false
+    },
+    {
+      "name": "NFS/ZZDATA9.BIN",
+      "uncompressed_bytes": 338206720,
+      "compressed_bytes": 301750639,
+      "method": 8,
+      "flags": 0,
+      "crc32": "9308444e",
+      "xex": false
+    },
+    {
+      "name": "nfsmw_shaders.nfsp.version",
+      "uncompressed_bytes": 14,
+      "compressed_bytes": 14,
+      "method": 0,
+      "flags": 0,
+      "crc32": "4cae4155",
+      "xex": false
+    },
+    {
+      "name": "default.xex",
+      "uncompressed_bytes": 3940352,
+      "compressed_bytes": 3936969,
+      "method": 8,
+      "flags": 0,
+      "crc32": "fe008090",
+      "xex": true
+    },
+    {
+      "name": "nfsmw_shaders.nfsp",
+      "uncompressed_bytes": 1553464,
+      "compressed_bytes": 448873,
+      "method": 8,
+      "flags": 0,
+      "crc32": "ac1868ef",
+      "xex": false
+    }
+  ],
+  "data_bytes_read_max": 145961,
+  "assets_downloaded": false,
+  "executable_extracted": false,
+  "run_id": "42504474760",
+  "utc": "2026-11-08T17:20:44.455411+00:00",
+  "apk_built": false,
+  "save_touched": false
+}
