@@ -1,0 +1,66 @@
+name: NFSMW PRE501 isolate BMW engine pvehicle upgrade counter in scratch
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre501_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre501-bmw-engine-one-level
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check authenticated PAL source reader and script syntax
+        run: |
+          python -m pip install --disable-pip-version-check google-auth requests >/dev/null
+          python -m py_compile automation/kaggle/pre501_bmw_engine_one_level_counter_scratch.py
+      - name: Test one BMW engine tier only in RAM without changing other categories
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre501_bmw_engine_one_level_counter_scratch.py --run-id "$GITHUB_RUN_ID"
+      - name: Persist only metadata of safe original engine counter change
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("/tmp/nfsmw-pre501/report.json")
+          d=json.loads(p.read_text()) if p.is_file() else {"status":"FAILED_NO_REPORT"}
+          if any(d.get(k,False) is not False for k in ("tuning_enabled","apk_built","original_game_asset_modified","modified_game_file_written")):
+              raise SystemExit("PRE501 strictly no original game file mutation")
+          if d.get("status")=="AUDIT_OK":
+              if d.get("PRE500_new_engine_collection_and_counter_tested_in_one_combined_VPAK") is not False:
+                  raise SystemExit("PRE501 cannot claim combined runtime integration")
+              out=Path("docs/PRE501_BMW_ENGINE_ONE_LEVEL_COUNTER_SCRATCH.json")
+          else:
+              out=Path("docs/PRE501_BMW_ENGINE_COUNTER_SCRATCH_DIAGNOSTIC.json")
+              d={k:d.get(k) for k in ("stage","status","error_type","error","run_id") if k in d}
+              d["tuning_enabled"]=False
+          out.parent.mkdir(parents=True,exist_ok=True)
+          out.write_text(json.dumps(d,ensure_ascii=False,indent=2)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE501_BMW_ENGINE_*.json
+          git diff --cached --quiet && exit 0
+          git commit -m "PRE501: verify isolated one-level BMW engine counter scratch test"
+          for i in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
