@@ -1,0 +1,11 @@
+{
+  "stage": "PRE370",
+  "workflow": "PRE367",
+  "reason": "Read XInput SDK marker from librexruntime.so, not PAL libmain.so",
+  "versionCode": 44,
+  "package": "io.github.nfsmwrecomp",
+  "samePermanentSigner": true,
+  "keepV43": true,
+  "doNotModifySaves": true,
+  "cheatsEnabled": false
+}
