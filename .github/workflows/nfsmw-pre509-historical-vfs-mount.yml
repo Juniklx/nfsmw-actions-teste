@@ -1,0 +1,76 @@
+name: NFSMW PRE509 authenticated historical virtual filesystem mount and host file callpath
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre509_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre509-historical-vfs-mount
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install private Drive reader and validate Python
+        run: |
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth requests >/dev/null
+          python -m py_compile automation/kaggle/pre509_historical_vfs_mount_callpath_readonly.py
+      - name: Inspect original source for VFS mount and file open calls without trusting comments
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre509_historical_vfs_mount_callpath_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Record sanitized read-only historical source indices
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          source=Path("/tmp/nfsmw-pre509/report.json")
+          d=json.loads(source.read_text()) if source.is_file() else {"stage":"PRE509","status":"FAILED_NO_REPORT"}
+          for k in ("original_code_or_game_data_written","APK_built","save_modified","signing_accessed","tuning_enabled"):
+              if d.get(k,False) is not False:
+                  raise SystemExit("PRE509 safety guard violation: "+k)
+          if d.get("status")=="AUDIT_OK":
+              for k in ("actual_V48_file_mount_verified","game_ZDIR_resource_reader_identified",
+                        "VPAK_loader_acceptance_verified","runtime_BMW_tuning_verified"):
+                  if d.get(k) is not False:
+                      raise SystemExit("Historical-source limitation unexpectedly promoted")
+              dest=Path("docs/PRE509_HISTORICAL_VFS_MOUNT_CALLPATH_READONLY.json")
+          else:
+              dest=Path("docs/PRE509_HISTORICAL_VFS_MOUNT_DIAGNOSTIC.json")
+              d={k:d.get(k) for k in ("stage","status","error_type","error","run_id") if k in d}
+              d["tuning_enabled"]=False
+          dest.parent.mkdir(parents=True,exist_ok=True)
+          dest.write_text(json.dumps(d,ensure_ascii=False,indent=2)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE509_HISTORICAL_VFS_MOUNT_*json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "PRE509: original VFS mount and host file callpath index"
+          for i in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
+      - name: Archive private metadata report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre509-vfs-mount-${{ github.run_id }}
+          path: /tmp/nfsmw-pre509/report.json
+          retention-days: 14
