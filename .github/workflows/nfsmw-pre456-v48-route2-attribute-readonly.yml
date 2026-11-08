@@ -69,7 +69,7 @@ jobs:
               }
           out=Path("docs/PRE456_V48_ROUTE2_ATTRIBUTE_PROVENANCE_READONLY.json")
           out.parent.mkdir(parents=True,exist_ok=True)
-          out.write_text(json.dumps(clean,indent=2,ensure_ascii=False)+"\\n")
+          out.write_text(json.dumps(clean,indent=2,ensure_ascii=False)+"\n")
           print("PRE456_PRIVATE_SUMMARY",out,"FUNCTIONS",list(clean["read_only_source_evidence"]))
           PY
           git config user.name "github-actions[bot]"
