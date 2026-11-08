@@ -75,7 +75,7 @@ def inspect(sess):
         if not name or name.startswith("/") or ".." in name.split("/") or chr(0) in name:
             raise ValueError("Unsafe member name")
         entries.append({"name":name[:250],"uncompressed_bytes":usize,
-                        "compressed_bytes":csize,"method":method,
+                        "compressed_bytes":csize,"local_header_offset":offset,"method":method,
                         "flags":flags,"crc32":f"{crc:08x}",
                         "xex":name.lower().endswith(".xex")})
         pos=end
