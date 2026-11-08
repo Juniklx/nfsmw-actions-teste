@@ -49,5 +49,9 @@ def main():
     r["run_id"]=args.run_id;r["utc"]=datetime.now(timezone.utc).isoformat()
     OUT.write_text(json.dumps(r,indent=2,ensure_ascii=False)+"\n")
     print("PRE409_STATUS",r["status"]);print("PRE409_ERROR_TYPE",r.get("error_type","none"));print("PRE409_ERROR",r.get("error","none"));print("PRE409_REPORT",OUT)
+    for label,group in r.get("results",{}).items():
+        print("PRE409_GROUP",label,"MISSING",group.get("missing_functions",[]))
+        for fn,entry in group.get("functions",{}).items():
+            print("PRE409_FUNCTION",fn,"STATUS",entry.get("status","FOUND"),"LINES",entry.get("line_count",0),"CALLS",len(entry.get("direct_calls",[])))
     return 0 if r["status"] in ("AUDIT_OK","PARTIAL") else 1
 if __name__=="__main__":sys.exit(main())
