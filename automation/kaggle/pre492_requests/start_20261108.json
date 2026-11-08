@@ -1,0 +1,8 @@
+{
+  "stage": "PRE492",
+  "goal": "Prove whether existing BMW one-entry RefSpec arrays can accept an additional engine or other performance profile in place",
+  "read_only": true,
+  "upgrade_feature_enabled": false,
+  "no_apk": true,
+  "no_save_write": true
+}
