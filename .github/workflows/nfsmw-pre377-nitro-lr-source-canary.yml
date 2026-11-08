@@ -1,0 +1,39 @@
+name: NFSMW PRE377 Nitro LR source canary
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre377_requests/*.json'
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate PRE377 scanner
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre377_nitro_lr_source_readonly.py
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+      - name: Inspect authenticated PRE99 Nitro PPC LR provenance
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre377_nitro_lr_source_readonly.py
+      - name: Preserve bounded source report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre377-nitro-lr-${{ github.run_id }}
+          path: /tmp/nfsmw-pre377/PRE377_NITRO_LR_SOURCE_CANARY.json
+          if-no-files-found: warn
+          retention-days: 30
