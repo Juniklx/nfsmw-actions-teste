@@ -1,0 +1,9 @@
+{
+  "stage": "PRE479",
+  "goal": "Compile and test isolated C++ BMW M3 GTR tuning guard, feature OFF",
+  "proofs": "PRE477 AUDIT_OK and PRE478 11 synthetic tests",
+  "no_runtime_hook": true,
+  "no_signed_apk": true,
+  "no_save_writes": true,
+  "protect_nitro": true
+}
