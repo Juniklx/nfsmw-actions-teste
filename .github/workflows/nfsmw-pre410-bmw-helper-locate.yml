@@ -1,0 +1,36 @@
+name: NFSMW PRE410 BMW helper locate read-only
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre410_requests/*.json'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre410-bmw-helper
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+      - run: python -m py_compile automation/kaggle/pre410_bmw_helper_locate_readonly.py
+      - name: Locate BMW helper across authenticated generated sources
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: PYTHONPATH=automation/kaggle python automation/kaggle/pre410_bmw_helper_locate_readonly.py --run-id "$GITHUB_RUN_ID"
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre410-bmw-helper-${{ github.run_id }}
+          path: /tmp/nfsmw-pre410/report.json
+          retention-days: 14
+          if-no-files-found: warn
