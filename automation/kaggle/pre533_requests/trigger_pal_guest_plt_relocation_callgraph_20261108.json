@@ -1,0 +1,9 @@
+{
+  "stage": "PRE533",
+  "goal": "Resolve V48 PAL ARM64 BL targets through genuine original ELF AArch64 PLT and .rela.plt jump-slot relocation symbols; compare against PRE529 guest calls, never infer Xbox function meaning",
+  "pre532_run": 42535822905,
+  "pre531_run": 42535508836,
+  "read_only": true,
+  "release_APK_unchanged": true,
+  "save_untouched": true
+}
