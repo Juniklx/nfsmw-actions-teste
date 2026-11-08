@@ -1,0 +1,10 @@
+{
+  "stage": "PRE537",
+  "goal": "For all 12 PRE535 intersections, authenticate signed original V48 PAL ELF, calculate function sizes, Capstone ARM64 instruction and memory access shape, reverse incoming PLT-linked BL caller counts across all 56338 numeric guest functions to distinguish broad utilities from neighborhood-specific candidates; never label SetPackage without additional proof",
+  "prior_run": 42536895518,
+  "prior_context_run": 42537144914,
+  "source_apk_sha256": "c642f95b4a60b9ccf5d8fbd98802afffc0a2247ec5a0783b54cd8083ec55bd35",
+  "read_only": true,
+  "game_binary_untouched": true,
+  "profile_MARCEK_untouched": true
+}
