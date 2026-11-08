@@ -257,8 +257,11 @@ def verify_apk(apk:Path,sdk:Path,v30:dict[str,bytes],progress:dict)->dict:
         if b"NFSMW_PRE348_NITRO_SLOT_VALUES" not in main_binary:
             raise ValueError("PRE352 per-slot Nitro value marker missing from linked PAL ELF")
         progress["pre352_nitro_slot_values_marker_verified"]=True
-        if b"NFSMW_PRE364_XINPUT_USER0" not in main_binary:
-            raise ValueError("PRE367 XInput user0 marker missing from linked ARM64 PAL ELF")
+        runtime_binary=z.read("lib/arm64-v8a/librexruntime.so")
+        if runtime_binary[:4]!=b"\x7fELF":
+            raise ValueError("PRE367 runtime library is not ELF")
+        if b"NFSMW_PRE364_XINPUT_USER0" not in runtime_binary:
+            raise ValueError("PRE367 XInput user0 marker missing from signed ARM64 rexruntime ELF")
         progress["pre367_xinput_user0_marker_verified"]=True
         progress["pre194_c3_pal_libmain_sha256"]=pal_main_sha
         progress["pre194_c3_marker_verified_in_pal_libmain"]=True
@@ -800,9 +803,11 @@ def main()->int:
             report["pre352_nitro_slot_values_in_signed_apk"]=b"NFSMW_PRE348_NITRO_SLOT_VALUES" in pal_bytes
             if not report["pre352_nitro_slot_values_in_signed_apk"]:
                 raise ValueError("PRE352 per-slot Nitro marker missing from signed ELF")
-            report["pre367_xinput_user0_in_signed_apk"]=b"NFSMW_PRE364_XINPUT_USER0" in pal_bytes
+            with zipfile.ZipFile(apk) as pre367_zip:
+                runtime_bytes=pre367_zip.read("lib/arm64-v8a/librexruntime.so")
+            report["pre367_xinput_user0_in_signed_apk"]=b"NFSMW_PRE364_XINPUT_USER0" in runtime_bytes
             if not report["pre367_xinput_user0_in_signed_apk"]:
-                raise ValueError("PRE367 XInput user0 marker missing from signed PAL ELF")
+                raise ValueError("PRE367 XInput user0 marker missing from signed rexruntime ELF")
             report["pre194_c3_marker_in_libmain_verified"]=report.get("pre194_c3_marker_verified_in_pal_libmain",False)
             if not report["pre194_c3_marker_in_libmain_verified"]:
                 raise ValueError("PRE194 C3 marker linkage not proven")
