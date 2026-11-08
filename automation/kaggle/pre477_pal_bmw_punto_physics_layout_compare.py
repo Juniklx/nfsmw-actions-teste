@@ -79,7 +79,7 @@ def parse_export(vlt):
         if typ==0x5E970CBC:
             if size<28:raise ValueError("Invalid ClassLoad record")
             key,reserve,defs,defptr,base_size,zero,num_base=struct.unpack_from(">IIIIIIH",vlt,ref)
-            if key in CLASS_NAMES:
+            if key in CLASS_NAMES and CLASS_NAMES[key] in SIZES:
                 class_sizes[key]={"class":CLASS_NAMES[key],"base_size_declared":base_size,
                                   "base_size_matches_reference_header":base_size==SIZES[CLASS_NAMES[key]],
                                   "field_definition_count":defs}
