@@ -1,0 +1,8 @@
+{
+  "stage": "PRE499",
+  "goal": "Survey original collection export ID, DatN capacity, PtrN section switches, and unique BMW engineered engine hash before planning scratch repack",
+  "source_SHA256": "9f4b04a221232e614b927a870e25da7db100477a7e425114b87082f46e8b99ad",
+  "read_only": true,
+  "game_mutation": false,
+  "save_mutation": false
+}
