@@ -1,0 +1,6088 @@
+{
+  "stage": "PRE485_ORIGINAL_PAL_UPGRADE_GUEST_CALL_GRAPH_CANDIDATES",
+  "status": "AUDIT_OK",
+  "original_tar_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "original_tar_size": 874780689,
+  "generated_files_read": 129,
+  "generated_functions_indexed": 56338,
+  "generated_files_oversized_skipped": 0,
+  "all_four_prior_source_shas_verified": true,
+  "anchor_call_relationships": {
+    "package_list_builder": {
+      "guest_function": "sub_8256F818",
+      "location": {
+        "generated_file": "nfsmw_recomp.57.cpp",
+        "generated_file_sha256": "a74e2314e878a88d197d2d8774254bf8c7fbc0e835f84a6c048f0ec86d9f455c",
+        "generated_function_size_chars": 5237,
+        "incoming_calls_known": true,
+        "call_targets_total": 5,
+        "performance_offset_distinct": 0,
+        "performance_offsets": []
+      },
+      "direct_caller_count": 1,
+      "direct_callers": [
+        {
+          "function": "sub_82582F70",
+          "generated_file": "nfsmw_recomp.11.cpp",
+          "generated_file_sha256": "0208ca992595ccbddfddc1299f59a2ff586b9c726ad4a3c4d4c73f6dc40db4e3",
+          "generated_function_size_chars": 30540,
+          "incoming_calls_known": true,
+          "call_targets_total": 12,
+          "performance_offset_distinct": 5,
+          "performance_offsets": [
+            {
+              "ppc_offset": 40,
+              "accesses": 3
+            },
+            {
+              "ppc_offset": 44,
+              "accesses": 1
+            },
+            {
+              "ppc_offset": 48,
+              "accesses": 1
+            },
+            {
+              "ppc_offset": 60,
+              "accesses": 2
+            },
+            {
+              "ppc_offset": 72,
+              "accesses": 1
+            }
+          ]
+        }
+      ],
+      "second_hop_caller_count": 0,
+      "second_hop_callers": [],
+      "all_direct_callers_reported": true
+    },
+    "candidate_attribute_lookup": {
+      "guest_function": "sub_823E5988",
+      "location": {
+        "generated_file": "nfsmw_recomp.28.cpp",
+        "generated_file_sha256": "11eec8fe3d20dc5d53e262525a4cf31021c2bbfb28e2690b6372c6c3cbea4aad",
+        "generated_function_size_chars": 4008,
+        "incoming_calls_known": true,
+        "call_targets_total": 2,
+        "performance_offset_distinct": 0,
+        "performance_offsets": []
+      },
+      "direct_caller_count": 18,
+      "direct_callers": [
+        {
+          "function": "sub_823D4100",
+          "generated_file": "nfsmw_recomp.26.cpp",
+          "generated_file_sha256": "b08284822bda04f3d57f88a2c7c703f67749c248932441fa097344db0f88c2cb",
+          "generated_function_size_chars": 26947,
+          "incoming_calls_known": true,
+          "call_targets_total": 30,
+          "performance_offset_distinct": 2,
+          "performance_offsets": [
+            {
+              "ppc_offset": 40,
+              "accesses": 1
+            },
+            {
+              "ppc_offset": 44,
+              "accesses": 1
+            }
+          ]
+        },
+        {
+          "function": "sub_823E4130",
+          "generated_file": "nfsmw_recomp.3.cpp",
+          "generated_file_sha256": "baa3b79ea54b3aab4f4afd9db4d501e32e29a970cdd84c6a945a91fe56842e03",
+          "generated_function_size_chars": 2293,
+          "incoming_calls_known": true,
+          "call_targets_total": 2,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E5128",
+          "generated_file": "nfsmw_recomp.98.cpp",
+          "generated_file_sha256": "f0eddfa79a33ae4f28f1c0651319ba43c6209103b4ccf49a59ea1ef4211ff4d2",
+          "generated_function_size_chars": 10967,
+          "incoming_calls_known": true,
+          "call_targets_total": 8,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E56B0",
+          "generated_file": "nfsmw_recomp.35.cpp",
+          "generated_file_sha256": "0c8de1ce2cf1f97cdf6f458c0914c5a42d3280e1c9ce24b39dd12642b725a21e",
+          "generated_function_size_chars": 9006,
+          "incoming_calls_known": true,
+          "call_targets_total": 9,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E5AA0",
+          "generated_file": "nfsmw_recomp.41.cpp",
+          "generated_file_sha256": "6e3c83e95e701b55894d503d7fcdaeffca1e4f92019f1fe2a7272e1139136a5b",
+          "generated_function_size_chars": 1480,
+          "incoming_calls_known": true,
+          "call_targets_total": 2,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E5B08",
+          "generated_file": "nfsmw_recomp.48.cpp",
+          "generated_file_sha256": "aa68d0c153ce27f5fb27c5d22303dfe1d0abc336038fe5cfff076b3b9eb7487f",
+          "generated_function_size_chars": 38682,
+          "incoming_calls_known": true,
+          "call_targets_total": 19,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E6560",
+          "generated_file": "nfsmw_recomp.81.cpp",
+          "generated_file_sha256": "88d0ea1ddc4c6523b530e799a0dc9bb90ef17afbfcda4b1f77bc734d510a7f0d",
+          "generated_function_size_chars": 8416,
+          "incoming_calls_known": true,
+          "call_targets_total": 7,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E67E8",
+          "generated_file": "nfsmw_recomp.15.cpp",
+          "generated_file_sha256": "414803e217226952833caf347a1ef61dde781a01a8a518262f77196bbc9a0d3a",
+          "generated_function_size_chars": 14285,
+          "incoming_calls_known": true,
+          "call_targets_total": 9,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_82474528",
+          "generated_file": "nfsmw_recomp.104.cpp",
+          "generated_file_sha256": "918f265ba9d296a4dce8840260f2893c2b15e0aa5116a546f62b9aed1e9e8e4b",
+          "generated_function_size_chars": 26720,
+          "incoming_calls_known": true,
+          "call_targets_total": 10,
+          "performance_offset_distinct": 2,
+          "performance_offsets": [
+            {
+              "ppc_offset": 40,
+              "accesses": 1
+            },
+            {
+              "ppc_offset": 48,
+              "accesses": 1
+            }
+          ]
+        },
+        {
+          "function": "sub_824E7820",
+          "generated_file": "nfsmw_recomp.119.cpp",
+          "generated_file_sha256": "8b1d913d33b0050da719a6ebfb008eb8468310becd6aaca5a4f79cb26c017923",
+          "generated_function_size_chars": 21283,
+          "incoming_calls_known": true,
+          "call_targets_total": 13,
+          "performance_offset_distinct": 1,
+          "performance_offsets": [
+            {
+              "ppc_offset": 60,
+              "accesses": 3
+            }
+          ]
+        },
+        {
+          "function": "sub_8255C790",
+          "generated_file": "nfsmw_recomp.20.cpp",
+          "generated_file_sha256": "3c4ea677142919989b0a5f9e2e18efc3b7aecf90c537ff2b1271146691e6292a",
+          "generated_function_size_chars": 21253,
+          "incoming_calls_known": true,
+          "call_targets_total": 28,
+          "performance_offset_distinct": 3,
+          "performance_offsets": [
+            {
+              "ppc_offset": 44,
+              "accesses": 2
+            },
+            {
+              "ppc_offset": 48,
+              "accesses": 1
+            },
+            {
+              "ppc_offset": 52,
+              "accesses": 7
+            }
+          ]
+        },
+        {
+          "function": "sub_8256C2F0",
+          "generated_file": "nfsmw_recomp.100.cpp",
+          "generated_file_sha256": "5c07eae92a5583a52b88c5cd90e2d259f26ac402fe451b668768e048dac29bea",
+          "generated_function_size_chars": 4893,
+          "incoming_calls_known": true,
+          "call_targets_total": 4,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8256CBB8",
+          "generated_file": "nfsmw_recomp.68.cpp",
+          "generated_file_sha256": "3703d9cae96852c014bdb5df54cf5e72c2cfc145100664ca331eb481a1537e6f",
+          "generated_function_size_chars": 271,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8256CBC8",
+          "generated_file": "nfsmw_recomp.126.cpp",
+          "generated_file_sha256": "c9aef77757bf9f1754b2aefd7d205500148f9255d2d9a9b2a33c2727c9241bf8",
+          "generated_function_size_chars": 9021,
+          "incoming_calls_known": true,
+          "call_targets_total": 8,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8256F818",
+          "generated_file": "nfsmw_recomp.57.cpp",
+          "generated_file_sha256": "a74e2314e878a88d197d2d8774254bf8c7fbc0e835f84a6c048f0ec86d9f455c",
+          "generated_function_size_chars": 5237,
+          "incoming_calls_known": true,
+          "call_targets_total": 5,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_82570D90",
+          "generated_file": "nfsmw_recomp.97.cpp",
+          "generated_file_sha256": "5446c0f06bca0c669497b6f4f9a8319519a43dfd2442ac37099e4d884ac259a7",
+          "generated_function_size_chars": 89585,
+          "incoming_calls_known": true,
+          "call_targets_total": 9,
+          "performance_offset_distinct": 1,
+          "performance_offsets": [
+            {
+              "ppc_offset": 44,
+              "accesses": 21
+            }
+          ]
+        },
+        {
+          "function": "sub_82582A40",
+          "generated_file": "nfsmw_recomp.83.cpp",
+          "generated_file_sha256": "21e561eeae953888b7d645719dc6bd7077dfa040f3f06896b7bbe3ba3e7774d4",
+          "generated_function_size_chars": 19541,
+          "incoming_calls_known": true,
+          "call_targets_total": 12,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_82582F70",
+          "generated_file": "nfsmw_recomp.11.cpp",
+          "generated_file_sha256": "0208ca992595ccbddfddc1299f59a2ff586b9c726ad4a3c4d4c73f6dc40db4e3",
+          "generated_function_size_chars": 30540,
+          "incoming_calls_known": true,
+          "call_targets_total": 12,
+          "performance_offset_distinct": 5,
+          "performance_offsets": [
+            {
+              "ppc_offset": 40,
+              "accesses": 3
+            },
+            {
+              "ppc_offset": 44,
+              "accesses": 1
+            },
+            {
+              "ppc_offset": 48,
+              "accesses": 1
+            },
+            {
+              "ppc_offset": 60,
+              "accesses": 2
+            },
+            {
+              "ppc_offset": 72,
+              "accesses": 1
+            }
+          ]
+        }
+      ],
+      "second_hop_caller_count": 18,
+      "second_hop_callers": [
+        {
+          "function": "sub_822CB180",
+          "generated_file": "nfsmw_recomp.85.cpp",
+          "generated_file_sha256": "e8c85788d811c0cb9390c35705ea4e60bb7dbd4210ce73d19d6d03358e5cfbf3",
+          "generated_function_size_chars": 7846,
+          "incoming_calls_known": true,
+          "call_targets_total": 13,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_822CB460",
+          "generated_file": "nfsmw_recomp.79.cpp",
+          "generated_file_sha256": "293cabff984871c27e82b573130db3c3c0ef43869aece45df6ce197eb59c1d11",
+          "generated_function_size_chars": 10141,
+          "incoming_calls_known": true,
+          "call_targets_total": 12,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_822E80B8",
+          "generated_file": "nfsmw_recomp.76.cpp",
+          "generated_file_sha256": "3653846cbc173073ca4589d0e61bd322551f18432030d1c76ff44699e5b51637",
+          "generated_function_size_chars": 7213,
+          "incoming_calls_known": true,
+          "call_targets_total": 7,
+          "performance_offset_distinct": 1,
+          "performance_offsets": [
+            {
+              "ppc_offset": 44,
+              "accesses": 1
+            }
+          ]
+        },
+        {
+          "function": "sub_823D4100",
+          "generated_file": "nfsmw_recomp.26.cpp",
+          "generated_file_sha256": "b08284822bda04f3d57f88a2c7c703f67749c248932441fa097344db0f88c2cb",
+          "generated_function_size_chars": 26947,
+          "incoming_calls_known": true,
+          "call_targets_total": 30,
+          "performance_offset_distinct": 2,
+          "performance_offsets": [
+            {
+              "ppc_offset": 40,
+              "accesses": 1
+            },
+            {
+              "ppc_offset": 44,
+              "accesses": 1
+            }
+          ]
+        },
+        {
+          "function": "sub_823E4370",
+          "generated_file": "nfsmw_recomp.11.cpp",
+          "generated_file_sha256": "0208ca992595ccbddfddc1299f59a2ff586b9c726ad4a3c4d4c73f6dc40db4e3",
+          "generated_function_size_chars": 7693,
+          "incoming_calls_known": true,
+          "call_targets_total": 8,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E5128",
+          "generated_file": "nfsmw_recomp.98.cpp",
+          "generated_file_sha256": "f0eddfa79a33ae4f28f1c0651319ba43c6209103b4ccf49a59ea1ef4211ff4d2",
+          "generated_function_size_chars": 10967,
+          "incoming_calls_known": true,
+          "call_targets_total": 8,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E54F8",
+          "generated_file": "nfsmw_recomp.96.cpp",
+          "generated_file_sha256": "84d862feb1c9813dac1a62cd5e13969c3c613e1a2fb0241535ccd5d01ce7f01f",
+          "generated_function_size_chars": 3081,
+          "incoming_calls_known": true,
+          "call_targets_total": 4,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E5920",
+          "generated_file": "nfsmw_recomp.17.cpp",
+          "generated_file_sha256": "af50b35398a256d44bf300911fa576c3f3be86bb487469d9adf97aafb96f818e",
+          "generated_function_size_chars": 1457,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E6560",
+          "generated_file": "nfsmw_recomp.81.cpp",
+          "generated_file_sha256": "88d0ea1ddc4c6523b530e799a0dc9bb90ef17afbfcda4b1f77bc734d510a7f0d",
+          "generated_function_size_chars": 8416,
+          "incoming_calls_known": true,
+          "call_targets_total": 7,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E67E8",
+          "generated_file": "nfsmw_recomp.15.cpp",
+          "generated_file_sha256": "414803e217226952833caf347a1ef61dde781a01a8a518262f77196bbc9a0d3a",
+          "generated_function_size_chars": 14285,
+          "incoming_calls_known": true,
+          "call_targets_total": 9,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E8FA0",
+          "generated_file": "nfsmw_recomp.90.cpp",
+          "generated_file_sha256": "4c4be4548441acc9cd703917a71db84e230d522acf164450fc87e9f74fe36a01",
+          "generated_function_size_chars": 44840,
+          "incoming_calls_known": true,
+          "call_targets_total": 10,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E9D38",
+          "generated_file": "nfsmw_recomp.50.cpp",
+          "generated_file_sha256": "f20ec567de4c4637756977a71a6c85f3848b63ba639f037b819868328e3f7e9d",
+          "generated_function_size_chars": 22821,
+          "incoming_calls_known": true,
+          "call_targets_total": 16,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823EAE40",
+          "generated_file": "nfsmw_recomp.85.cpp",
+          "generated_file_sha256": "e8c85788d811c0cb9390c35705ea4e60bb7dbd4210ce73d19d6d03358e5cfbf3",
+          "generated_function_size_chars": 14144,
+          "incoming_calls_known": true,
+          "call_targets_total": 4,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_82474BD0",
+          "generated_file": "nfsmw_recomp.119.cpp",
+          "generated_file_sha256": "8b1d913d33b0050da719a6ebfb008eb8468310becd6aaca5a4f79cb26c017923",
+          "generated_function_size_chars": 2872,
+          "incoming_calls_known": true,
+          "call_targets_total": 3,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_824E7790",
+          "generated_file": "nfsmw_recomp.126.cpp",
+          "generated_file_sha256": "c9aef77757bf9f1754b2aefd7d205500148f9255d2d9a9b2a33c2727c9241bf8",
+          "generated_function_size_chars": 1872,
+          "incoming_calls_known": true,
+          "call_targets_total": 3,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8255C790",
+          "generated_file": "nfsmw_recomp.20.cpp",
+          "generated_file_sha256": "3c4ea677142919989b0a5f9e2e18efc3b7aecf90c537ff2b1271146691e6292a",
+          "generated_function_size_chars": 21253,
+          "incoming_calls_known": true,
+          "call_targets_total": 28,
+          "performance_offset_distinct": 3,
+          "performance_offsets": [
+            {
+              "ppc_offset": 44,
+              "accesses": 2
+            },
+            {
+              "ppc_offset": 48,
+              "accesses": 1
+            },
+            {
+              "ppc_offset": 52,
+              "accesses": 7
+            }
+          ]
+        },
+        {
+          "function": "sub_8256F9D8",
+          "generated_file": "nfsmw_recomp.90.cpp",
+          "generated_file_sha256": "4c4be4548441acc9cd703917a71db84e230d522acf164450fc87e9f74fe36a01",
+          "generated_function_size_chars": 2635,
+          "incoming_calls_known": true,
+          "call_targets_total": 4,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_82582F70",
+          "generated_file": "nfsmw_recomp.11.cpp",
+          "generated_file_sha256": "0208ca992595ccbddfddc1299f59a2ff586b9c726ad4a3c4d4c73f6dc40db4e3",
+          "generated_function_size_chars": 30540,
+          "incoming_calls_known": true,
+          "call_targets_total": 12,
+          "performance_offset_distinct": 5,
+          "performance_offsets": [
+            {
+              "ppc_offset": 40,
+              "accesses": 3
+            },
+            {
+              "ppc_offset": 44,
+              "accesses": 1
+            },
+            {
+              "ppc_offset": 48,
+              "accesses": 1
+            },
+            {
+              "ppc_offset": 60,
+              "accesses": 2
+            },
+            {
+              "ppc_offset": 72,
+              "accesses": 1
+            }
+          ]
+        }
+      ],
+      "all_direct_callers_reported": true
+    },
+    "attribute_lookup_check": {
+      "guest_function": "sub_8214B858",
+      "location": {
+        "generated_file": "nfsmw_recomp.50.cpp",
+        "generated_file_sha256": "f20ec567de4c4637756977a71a6c85f3848b63ba639f037b819868328e3f7e9d",
+        "generated_function_size_chars": 2261,
+        "incoming_calls_known": true,
+        "call_targets_total": 2,
+        "performance_offset_distinct": 0,
+        "performance_offsets": []
+      },
+      "direct_caller_count": 10,
+      "direct_callers": [
+        {
+          "function": "sub_823E3A20",
+          "generated_file": "nfsmw_recomp.111.cpp",
+          "generated_file_sha256": "1700d6f1d39c133e62f4c6e22f2b1a374bdccb641bb94773d990862088a8c686",
+          "generated_function_size_chars": 10281,
+          "incoming_calls_known": true,
+          "call_targets_total": 12,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E41C0",
+          "generated_file": "nfsmw_recomp.122.cpp",
+          "generated_file_sha256": "acfbc33cab2c9db4bf0f694104d29b006505198a6063836d8b32d02214098c62",
+          "generated_function_size_chars": 4008,
+          "incoming_calls_known": true,
+          "call_targets_total": 2,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E4600",
+          "generated_file": "nfsmw_recomp.128.cpp",
+          "generated_file_sha256": "a892eddeb589eb3c0177264ee09dc89a7c8626685d2d023c2d7ae87bd10f74a5",
+          "generated_function_size_chars": 8516,
+          "incoming_calls_known": true,
+          "call_targets_total": 8,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E4850",
+          "generated_file": "nfsmw_recomp.44.cpp",
+          "generated_file_sha256": "7b70c87b3d1a49c3377410cb4c57c9847f4c98b9e34580db5569a11e95c03f91",
+          "generated_function_size_chars": 32498,
+          "incoming_calls_known": true,
+          "call_targets_total": 19,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E5128",
+          "generated_file": "nfsmw_recomp.98.cpp",
+          "generated_file_sha256": "f0eddfa79a33ae4f28f1c0651319ba43c6209103b4ccf49a59ea1ef4211ff4d2",
+          "generated_function_size_chars": 10967,
+          "incoming_calls_known": true,
+          "call_targets_total": 8,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E56B0",
+          "generated_file": "nfsmw_recomp.35.cpp",
+          "generated_file_sha256": "0c8de1ce2cf1f97cdf6f458c0914c5a42d3280e1c9ce24b39dd12642b725a21e",
+          "generated_function_size_chars": 9006,
+          "incoming_calls_known": true,
+          "call_targets_total": 9,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E5988",
+          "generated_file": "nfsmw_recomp.28.cpp",
+          "generated_file_sha256": "11eec8fe3d20dc5d53e262525a4cf31021c2bbfb28e2690b6372c6c3cbea4aad",
+          "generated_function_size_chars": 4008,
+          "incoming_calls_known": true,
+          "call_targets_total": 2,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E5B08",
+          "generated_file": "nfsmw_recomp.48.cpp",
+          "generated_file_sha256": "aa68d0c153ce27f5fb27c5d22303dfe1d0abc336038fe5cfff076b3b9eb7487f",
+          "generated_function_size_chars": 38682,
+          "incoming_calls_known": true,
+          "call_targets_total": 19,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8256E170",
+          "generated_file": "nfsmw_recomp.32.cpp",
+          "generated_file_sha256": "9dd5ca889dc88aef5c5b0f65f59963a7d659886ff1ce3fc904881e18271bb9f3",
+          "generated_function_size_chars": 31625,
+          "incoming_calls_known": true,
+          "call_targets_total": 12,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_82577C88",
+          "generated_file": "nfsmw_recomp.60.cpp",
+          "generated_file_sha256": "15906e7466fcdc5606c7fc92d99886185ee7d1e993adbd945b6b7af0571f71f7",
+          "generated_function_size_chars": 29810,
+          "incoming_calls_known": true,
+          "call_targets_total": 20,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        }
+      ],
+      "second_hop_caller_count": 28,
+      "second_hop_callers": [
+        {
+          "function": "sub_822CB180",
+          "generated_file": "nfsmw_recomp.85.cpp",
+          "generated_file_sha256": "e8c85788d811c0cb9390c35705ea4e60bb7dbd4210ce73d19d6d03358e5cfbf3",
+          "generated_function_size_chars": 7846,
+          "incoming_calls_known": true,
+          "call_targets_total": 13,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_822CB460",
+          "generated_file": "nfsmw_recomp.79.cpp",
+          "generated_file_sha256": "293cabff984871c27e82b573130db3c3c0ef43869aece45df6ce197eb59c1d11",
+          "generated_function_size_chars": 10141,
+          "incoming_calls_known": true,
+          "call_targets_total": 12,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823D4100",
+          "generated_file": "nfsmw_recomp.26.cpp",
+          "generated_file_sha256": "b08284822bda04f3d57f88a2c7c703f67749c248932441fa097344db0f88c2cb",
+          "generated_function_size_chars": 26947,
+          "incoming_calls_known": true,
+          "call_targets_total": 30,
+          "performance_offset_distinct": 2,
+          "performance_offsets": [
+            {
+              "ppc_offset": 40,
+              "accesses": 1
+            },
+            {
+              "ppc_offset": 44,
+              "accesses": 1
+            }
+          ]
+        },
+        {
+          "function": "sub_823E4130",
+          "generated_file": "nfsmw_recomp.3.cpp",
+          "generated_file_sha256": "baa3b79ea54b3aab4f4afd9db4d501e32e29a970cdd84c6a945a91fe56842e03",
+          "generated_function_size_chars": 2293,
+          "incoming_calls_known": true,
+          "call_targets_total": 2,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E42D8",
+          "generated_file": "nfsmw_recomp.45.cpp",
+          "generated_file_sha256": "f8571a593fb321ce7eac05f30b429ef08c8b194bd2be9d070242d27272aa5e8d",
+          "generated_function_size_chars": 2117,
+          "incoming_calls_known": true,
+          "call_targets_total": 2,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E4370",
+          "generated_file": "nfsmw_recomp.11.cpp",
+          "generated_file_sha256": "0208ca992595ccbddfddc1299f59a2ff586b9c726ad4a3c4d4c73f6dc40db4e3",
+          "generated_function_size_chars": 7693,
+          "incoming_calls_known": true,
+          "call_targets_total": 8,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E4850",
+          "generated_file": "nfsmw_recomp.44.cpp",
+          "generated_file_sha256": "7b70c87b3d1a49c3377410cb4c57c9847f4c98b9e34580db5569a11e95c03f91",
+          "generated_function_size_chars": 32498,
+          "incoming_calls_known": true,
+          "call_targets_total": 19,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E5128",
+          "generated_file": "nfsmw_recomp.98.cpp",
+          "generated_file_sha256": "f0eddfa79a33ae4f28f1c0651319ba43c6209103b4ccf49a59ea1ef4211ff4d2",
+          "generated_function_size_chars": 10967,
+          "incoming_calls_known": true,
+          "call_targets_total": 8,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E5420",
+          "generated_file": "nfsmw_recomp.1.cpp",
+          "generated_file_sha256": "61dfd877d2449a1db9d1ef4ffad4cb1040dfbfc8558bf432cdd43ad666ddae26",
+          "generated_function_size_chars": 3043,
+          "incoming_calls_known": true,
+          "call_targets_total": 4,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E54F8",
+          "generated_file": "nfsmw_recomp.96.cpp",
+          "generated_file_sha256": "84d862feb1c9813dac1a62cd5e13969c3c613e1a2fb0241535ccd5d01ce7f01f",
+          "generated_function_size_chars": 3081,
+          "incoming_calls_known": true,
+          "call_targets_total": 4,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E56B0",
+          "generated_file": "nfsmw_recomp.35.cpp",
+          "generated_file_sha256": "0c8de1ce2cf1f97cdf6f458c0914c5a42d3280e1c9ce24b39dd12642b725a21e",
+          "generated_function_size_chars": 9006,
+          "incoming_calls_known": true,
+          "call_targets_total": 9,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E5920",
+          "generated_file": "nfsmw_recomp.17.cpp",
+          "generated_file_sha256": "af50b35398a256d44bf300911fa576c3f3be86bb487469d9adf97aafb96f818e",
+          "generated_function_size_chars": 1457,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E5AA0",
+          "generated_file": "nfsmw_recomp.41.cpp",
+          "generated_file_sha256": "6e3c83e95e701b55894d503d7fcdaeffca1e4f92019f1fe2a7272e1139136a5b",
+          "generated_function_size_chars": 1480,
+          "incoming_calls_known": true,
+          "call_targets_total": 2,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E5B08",
+          "generated_file": "nfsmw_recomp.48.cpp",
+          "generated_file_sha256": "aa68d0c153ce27f5fb27c5d22303dfe1d0abc336038fe5cfff076b3b9eb7487f",
+          "generated_function_size_chars": 38682,
+          "incoming_calls_known": true,
+          "call_targets_total": 19,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E6560",
+          "generated_file": "nfsmw_recomp.81.cpp",
+          "generated_file_sha256": "88d0ea1ddc4c6523b530e799a0dc9bb90ef17afbfcda4b1f77bc734d510a7f0d",
+          "generated_function_size_chars": 8416,
+          "incoming_calls_known": true,
+          "call_targets_total": 7,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E67E8",
+          "generated_file": "nfsmw_recomp.15.cpp",
+          "generated_file_sha256": "414803e217226952833caf347a1ef61dde781a01a8a518262f77196bbc9a0d3a",
+          "generated_function_size_chars": 14285,
+          "incoming_calls_known": true,
+          "call_targets_total": 9,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_82474528",
+          "generated_file": "nfsmw_recomp.104.cpp",
+          "generated_file_sha256": "918f265ba9d296a4dce8840260f2893c2b15e0aa5116a546f62b9aed1e9e8e4b",
+          "generated_function_size_chars": 26720,
+          "incoming_calls_known": true,
+          "call_targets_total": 10,
+          "performance_offset_distinct": 2,
+          "performance_offsets": [
+            {
+              "ppc_offset": 40,
+              "accesses": 1
+            },
+            {
+              "ppc_offset": 48,
+              "accesses": 1
+            }
+          ]
+        },
+        {
+          "function": "sub_824E7820",
+          "generated_file": "nfsmw_recomp.119.cpp",
+          "generated_file_sha256": "8b1d913d33b0050da719a6ebfb008eb8468310becd6aaca5a4f79cb26c017923",
+          "generated_function_size_chars": 21283,
+          "incoming_calls_known": true,
+          "call_targets_total": 13,
+          "performance_offset_distinct": 1,
+          "performance_offsets": [
+            {
+              "ppc_offset": 60,
+              "accesses": 3
+            }
+          ]
+        },
+        {
+          "function": "sub_8255C790",
+          "generated_file": "nfsmw_recomp.20.cpp",
+          "generated_file_sha256": "3c4ea677142919989b0a5f9e2e18efc3b7aecf90c537ff2b1271146691e6292a",
+          "generated_function_size_chars": 21253,
+          "incoming_calls_known": true,
+          "call_targets_total": 28,
+          "performance_offset_distinct": 3,
+          "performance_offsets": [
+            {
+              "ppc_offset": 44,
+              "accesses": 2
+            },
+            {
+              "ppc_offset": 48,
+              "accesses": 1
+            },
+            {
+              "ppc_offset": 52,
+              "accesses": 7
+            }
+          ]
+        },
+        {
+          "function": "sub_8256C2F0",
+          "generated_file": "nfsmw_recomp.100.cpp",
+          "generated_file_sha256": "5c07eae92a5583a52b88c5cd90e2d259f26ac402fe451b668768e048dac29bea",
+          "generated_function_size_chars": 4893,
+          "incoming_calls_known": true,
+          "call_targets_total": 4,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8256CBB8",
+          "generated_file": "nfsmw_recomp.68.cpp",
+          "generated_file_sha256": "3703d9cae96852c014bdb5df54cf5e72c2cfc145100664ca331eb481a1537e6f",
+          "generated_function_size_chars": 271,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8256CBC8",
+          "generated_file": "nfsmw_recomp.126.cpp",
+          "generated_file_sha256": "c9aef77757bf9f1754b2aefd7d205500148f9255d2d9a9b2a33c2727c9241bf8",
+          "generated_function_size_chars": 9021,
+          "incoming_calls_known": true,
+          "call_targets_total": 8,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8256E170",
+          "generated_file": "nfsmw_recomp.32.cpp",
+          "generated_file_sha256": "9dd5ca889dc88aef5c5b0f65f59963a7d659886ff1ce3fc904881e18271bb9f3",
+          "generated_function_size_chars": 31625,
+          "incoming_calls_known": true,
+          "call_targets_total": 12,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8256F818",
+          "generated_file": "nfsmw_recomp.57.cpp",
+          "generated_file_sha256": "a74e2314e878a88d197d2d8774254bf8c7fbc0e835f84a6c048f0ec86d9f455c",
+          "generated_function_size_chars": 5237,
+          "incoming_calls_known": true,
+          "call_targets_total": 5,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8256F998",
+          "generated_file": "nfsmw_recomp.4.cpp",
+          "generated_file_sha256": "19af4c35ff688bae8e3766211a2d0ab57692445c9cbc47bbc28c9676ebb8c3b1",
+          "generated_function_size_chars": 163,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_82570D90",
+          "generated_file": "nfsmw_recomp.97.cpp",
+          "generated_file_sha256": "5446c0f06bca0c669497b6f4f9a8319519a43dfd2442ac37099e4d884ac259a7",
+          "generated_function_size_chars": 89585,
+          "incoming_calls_known": true,
+          "call_targets_total": 9,
+          "performance_offset_distinct": 1,
+          "performance_offsets": [
+            {
+              "ppc_offset": 44,
+              "accesses": 21
+            }
+          ]
+        },
+        {
+          "function": "sub_82582A40",
+          "generated_file": "nfsmw_recomp.83.cpp",
+          "generated_file_sha256": "21e561eeae953888b7d645719dc6bd7077dfa040f3f06896b7bbe3ba3e7774d4",
+          "generated_function_size_chars": 19541,
+          "incoming_calls_known": true,
+          "call_targets_total": 12,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_82582F70",
+          "generated_file": "nfsmw_recomp.11.cpp",
+          "generated_file_sha256": "0208ca992595ccbddfddc1299f59a2ff586b9c726ad4a3c4d4c73f6dc40db4e3",
+          "generated_function_size_chars": 30540,
+          "incoming_calls_known": true,
+          "call_targets_total": 12,
+          "performance_offset_distinct": 5,
+          "performance_offsets": [
+            {
+              "ppc_offset": 40,
+              "accesses": 3
+            },
+            {
+              "ppc_offset": 44,
+              "accesses": 1
+            },
+            {
+              "ppc_offset": 48,
+              "accesses": 1
+            },
+            {
+              "ppc_offset": 60,
+              "accesses": 2
+            },
+            {
+              "ppc_offset": 72,
+              "accesses": 1
+            }
+          ]
+        }
+      ],
+      "all_direct_callers_reported": true
+    },
+    "attribute_resolve_pointer": {
+      "guest_function": "sub_8214EDA8",
+      "location": {
+        "generated_file": "nfsmw_recomp.83.cpp",
+        "generated_file_sha256": "21e561eeae953888b7d645719dc6bd7077dfa040f3f06896b7bbe3ba3e7774d4",
+        "generated_function_size_chars": 2212,
+        "incoming_calls_known": true,
+        "call_targets_total": 1,
+        "performance_offset_distinct": 0,
+        "performance_offsets": []
+      },
+      "direct_caller_count": 65,
+      "direct_callers": [
+        {
+          "function": "sub_82144D40",
+          "generated_file": "nfsmw_recomp.2.cpp",
+          "generated_file_sha256": "8744bb1ef68bec095defb4e5a46ddac203cc46f1e74cc2d636ce85af253174c3",
+          "generated_function_size_chars": 584,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8214DEA0",
+          "generated_file": "nfsmw_recomp.49.cpp",
+          "generated_file_sha256": "0162593b08b62a2356dc4f26118ba1c754bff84c9461920ec9ab8588b00da4e1",
+          "generated_function_size_chars": 601,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8214E0B8",
+          "generated_file": "nfsmw_recomp.31.cpp",
+          "generated_file_sha256": "bc41cc424905b78648e903f04ef812d5cb835e3ed4009574e8330cbacb22e165",
+          "generated_function_size_chars": 16600,
+          "incoming_calls_known": true,
+          "call_targets_total": 17,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823287D0",
+          "generated_file": "nfsmw_recomp.22.cpp",
+          "generated_file_sha256": "cd8bc627074dc90fc6c46d058dbb5c665a2803b95f46a14e883de39b8f913fec",
+          "generated_function_size_chars": 2671,
+          "incoming_calls_known": true,
+          "call_targets_total": 2,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823289B0",
+          "generated_file": "nfsmw_recomp.128.cpp",
+          "generated_file_sha256": "a892eddeb589eb3c0177264ee09dc89a7c8626685d2d023c2d7ae87bd10f74a5",
+          "generated_function_size_chars": 2669,
+          "incoming_calls_known": true,
+          "call_targets_total": 2,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8233B4B8",
+          "generated_file": "nfsmw_recomp.124.cpp",
+          "generated_file_sha256": "1140b660635386b3c4d5a559d7cb3f1ce3985e85e378997b4d55ca51680fc6b1",
+          "generated_function_size_chars": 16456,
+          "incoming_calls_known": true,
+          "call_targets_total": 22,
+          "performance_offset_distinct": 2,
+          "performance_offsets": [
+            {
+              "ppc_offset": 40,
+              "accesses": 1
+            },
+            {
+              "ppc_offset": 44,
+              "accesses": 1
+            }
+          ]
+        },
+        {
+          "function": "sub_82341EA0",
+          "generated_file": "nfsmw_recomp.25.cpp",
+          "generated_file_sha256": "73ba93615c4afc570940b0249a96ed9f62d98ebd3a62b9aea2cd79608a823fc5",
+          "generated_function_size_chars": 9579,
+          "incoming_calls_known": true,
+          "call_targets_total": 10,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_82349B20",
+          "generated_file": "nfsmw_recomp.125.cpp",
+          "generated_file_sha256": "fe4a1f0d5ac6efa23478181c14ad6834c5bf8df3daab8492526c7b6a769eedf5",
+          "generated_function_size_chars": 1659,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_82355938",
+          "generated_file": "nfsmw_recomp.46.cpp",
+          "generated_file_sha256": "fa13e77fff9bf6d26bcc4beb42f476ec1eb186038006bd3ddd0d3f3e00264647",
+          "generated_function_size_chars": 8803,
+          "incoming_calls_known": true,
+          "call_targets_total": 5,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_82356188",
+          "generated_file": "nfsmw_recomp.22.cpp",
+          "generated_file_sha256": "cd8bc627074dc90fc6c46d058dbb5c665a2803b95f46a14e883de39b8f913fec",
+          "generated_function_size_chars": 1659,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_82356670",
+          "generated_file": "nfsmw_recomp.52.cpp",
+          "generated_file_sha256": "e2c75793a5aca4dc5b6c1540c9a8ce4c19fdc6c25d8eec236abac7237a6e73a2",
+          "generated_function_size_chars": 1218,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823586E0",
+          "generated_file": "nfsmw_recomp.25.cpp",
+          "generated_file_sha256": "73ba93615c4afc570940b0249a96ed9f62d98ebd3a62b9aea2cd79608a823fc5",
+          "generated_function_size_chars": 1218,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_82358988",
+          "generated_file": "nfsmw_recomp.55.cpp",
+          "generated_file_sha256": "0903676af55599c6d2185f24d5d802a1fbbb2fa9a81309a0455ccc24eb7cda55",
+          "generated_function_size_chars": 1659,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823589F8",
+          "generated_file": "nfsmw_recomp.56.cpp",
+          "generated_file_sha256": "107b050f763b42d37f14e6266bbcb5ce56505148df5e48a754e6284935297bbf",
+          "generated_function_size_chars": 1767,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_82358A68",
+          "generated_file": "nfsmw_recomp.104.cpp",
+          "generated_file_sha256": "918f265ba9d296a4dce8840260f2893c2b15e0aa5116a546f62b9aed1e9e8e4b",
+          "generated_function_size_chars": 1553,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8235FE88",
+          "generated_file": "nfsmw_recomp.109.cpp",
+          "generated_file_sha256": "f43aee227bc514cf4b7bf6858aa25af49c6c42cd0d93b61fb993050c55c295e9",
+          "generated_function_size_chars": 2198,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8235FF10",
+          "generated_file": "nfsmw_recomp.92.cpp",
+          "generated_file_sha256": "f8033d993f8beee09f7c3c7a619af841c842e24153e7dd384abfa2b8d0979e81",
+          "generated_function_size_chars": 2224,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8235FFA0",
+          "generated_file": "nfsmw_recomp.81.cpp",
+          "generated_file_sha256": "88d0ea1ddc4c6523b530e799a0dc9bb90ef17afbfcda4b1f77bc734d510a7f0d",
+          "generated_function_size_chars": 2407,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_82360038",
+          "generated_file": "nfsmw_recomp.57.cpp",
+          "generated_file_sha256": "a74e2314e878a88d197d2d8774254bf8c7fbc0e835f84a6c048f0ec86d9f455c",
+          "generated_function_size_chars": 2450,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823600D8",
+          "generated_file": "nfsmw_recomp.90.cpp",
+          "generated_file_sha256": "4c4be4548441acc9cd703917a71db84e230d522acf164450fc87e9f74fe36a01",
+          "generated_function_size_chars": 2450,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_82360178",
+          "generated_file": "nfsmw_recomp.44.cpp",
+          "generated_file_sha256": "7b70c87b3d1a49c3377410cb4c57c9847f4c98b9e34580db5569a11e95c03f91",
+          "generated_function_size_chars": 2448,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_82360218",
+          "generated_file": "nfsmw_recomp.60.cpp",
+          "generated_file_sha256": "15906e7466fcdc5606c7fc92d99886185ee7d1e993adbd945b6b7af0571f71f7",
+          "generated_function_size_chars": 2255,
+          "incoming_calls_known": true,
+          "call_targets_total": 2,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823602A8",
+          "generated_file": "nfsmw_recomp.37.cpp",
+          "generated_file_sha256": "c449e8c8a4648c4490540c533fc7427111011a3b39ba1a7f35253e9e0b5cd1cc",
+          "generated_function_size_chars": 2408,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_82360340",
+          "generated_file": "nfsmw_recomp.30.cpp",
+          "generated_file_sha256": "44d15fb55918657dd395ff523ca86c4a07f2cb43b09d85f0a90f894ef6cc2473",
+          "generated_function_size_chars": 2450,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823603E0",
+          "generated_file": "nfsmw_recomp.34.cpp",
+          "generated_file_sha256": "c972fcac927c13539fd8a536edfc1827d96353d22ab8fe88816d31ec94b3595a",
+          "generated_function_size_chars": 2407,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_82360478",
+          "generated_file": "nfsmw_recomp.12.cpp",
+          "generated_file_sha256": "29dfb337dc9975fbc7eb0c17f7e8ba919f267ab6f8504effeed266267f177c8a",
+          "generated_function_size_chars": 2421,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_82360518",
+          "generated_file": "nfsmw_recomp.9.cpp",
+          "generated_file_sha256": "14dfeab9f7112e3904c16cf2650c770a48bf6abff2cdaaa3ff640ccaee2982fd",
+          "generated_function_size_chars": 1959,
+          "incoming_calls_known": true,
+          "call_targets_total": 2,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_82360598",
+          "generated_file": "nfsmw_recomp.25.cpp",
+          "generated_file_sha256": "73ba93615c4afc570940b0249a96ed9f62d98ebd3a62b9aea2cd79608a823fc5",
+          "generated_function_size_chars": 1719,
+          "incoming_calls_known": true,
+          "call_targets_total": 2,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_82360608",
+          "generated_file": "nfsmw_recomp.39.cpp",
+          "generated_file_sha256": "ac9c0f8f5d69a59c390010227263ece19ae4688ef4bc4d30d16ed622879bd0e4",
+          "generated_function_size_chars": 1930,
+          "incoming_calls_known": true,
+          "call_targets_total": 2,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8237CAA8",
+          "generated_file": "nfsmw_recomp.12.cpp",
+          "generated_file_sha256": "29dfb337dc9975fbc7eb0c17f7e8ba919f267ab6f8504effeed266267f177c8a",
+          "generated_function_size_chars": 1218,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8237CAF8",
+          "generated_file": "nfsmw_recomp.69.cpp",
+          "generated_file_sha256": "1e4208ac1d14f55364f48c87084cf07be1277eecbaa018151f84ae6e4067a41d",
+          "generated_function_size_chars": 1218,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8237CB48",
+          "generated_file": "nfsmw_recomp.98.cpp",
+          "generated_file_sha256": "f0eddfa79a33ae4f28f1c0651319ba43c6209103b4ccf49a59ea1ef4211ff4d2",
+          "generated_function_size_chars": 1218,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8237CB98",
+          "generated_file": "nfsmw_recomp.3.cpp",
+          "generated_file_sha256": "baa3b79ea54b3aab4f4afd9db4d501e32e29a970cdd84c6a945a91fe56842e03",
+          "generated_function_size_chars": 1218,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8237CBE8",
+          "generated_file": "nfsmw_recomp.112.cpp",
+          "generated_file_sha256": "8922146f0398c33cae52d8948af087d9ebd79fa0794e4e3fa3e8938effd881be",
+          "generated_function_size_chars": 1218,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8237CC38",
+          "generated_file": "nfsmw_recomp.72.cpp",
+          "generated_file_sha256": "cbbc922bad0b2b56da53afcb74b375ca3714c6e33c064e9798a2ec0b5e9c0b67",
+          "generated_function_size_chars": 1218,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8237CC88",
+          "generated_file": "nfsmw_recomp.7.cpp",
+          "generated_file_sha256": "0f423d5906ebadf38209a4e9c7e43449573b6f37f02f3df6528f5bef1251daa6",
+          "generated_function_size_chars": 1218,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8237CCD8",
+          "generated_file": "nfsmw_recomp.14.cpp",
+          "generated_file_sha256": "d7e8d17ed0cfdc2860929426a1a65e377759738222d91ed4ee9f58fe099be32e",
+          "generated_function_size_chars": 1218,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8237CD28",
+          "generated_file": "nfsmw_recomp.24.cpp",
+          "generated_file_sha256": "e5cf7f0f0b7369615432845bbbfdcf0786f6a4646b0872dfb037fc6a6c320b71",
+          "generated_function_size_chars": 1218,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8237CD78",
+          "generated_file": "nfsmw_recomp.71.cpp",
+          "generated_file_sha256": "6f6d464c9ae7f845e60a73adac69a7f0b592a49cab43f93d9c6bfad926c0e519",
+          "generated_function_size_chars": 1218,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8237CDC8",
+          "generated_file": "nfsmw_recomp.83.cpp",
+          "generated_file_sha256": "21e561eeae953888b7d645719dc6bd7077dfa040f3f06896b7bbe3ba3e7774d4",
+          "generated_function_size_chars": 1218,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8237CE18",
+          "generated_file": "nfsmw_recomp.8.cpp",
+          "generated_file_sha256": "9e47df9a81e90fbbe545680cccf06872d6ef31282e9b3cd7676950b2749853c6",
+          "generated_function_size_chars": 1218,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8237CE68",
+          "generated_file": "nfsmw_recomp.91.cpp",
+          "generated_file_sha256": "89c4ac57c8443f8e2bd08e482d769705218544b885e5cff34db567257b4f4f83",
+          "generated_function_size_chars": 1218,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8237CEB8",
+          "generated_file": "nfsmw_recomp.6.cpp",
+          "generated_file_sha256": "e372ba18e933dd0c50dbc83a871eb61bd97064d9d77f4cf39d0c171176a8c01e",
+          "generated_function_size_chars": 1218,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8239E410",
+          "generated_file": "nfsmw_recomp.29.cpp",
+          "generated_file_sha256": "7db4eb1b742c1e64cc4f1b2d8a35836d1a0c63b4f3f682afbd0ee0cd679fbc33",
+          "generated_function_size_chars": 12160,
+          "incoming_calls_known": true,
+          "call_targets_total": 9,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823ABE70",
+          "generated_file": "nfsmw_recomp.6.cpp",
+          "generated_file_sha256": "e372ba18e933dd0c50dbc83a871eb61bd97064d9d77f4cf39d0c171176a8c01e",
+          "generated_function_size_chars": 1218,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E41C0",
+          "generated_file": "nfsmw_recomp.122.cpp",
+          "generated_file_sha256": "acfbc33cab2c9db4bf0f694104d29b006505198a6063836d8b32d02214098c62",
+          "generated_function_size_chars": 4008,
+          "incoming_calls_known": true,
+          "call_targets_total": 2,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E4850",
+          "generated_file": "nfsmw_recomp.44.cpp",
+          "generated_file_sha256": "7b70c87b3d1a49c3377410cb4c57c9847f4c98b9e34580db5569a11e95c03f91",
+          "generated_function_size_chars": 32498,
+          "incoming_calls_known": true,
+          "call_targets_total": 19,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E5128",
+          "generated_file": "nfsmw_recomp.98.cpp",
+          "generated_file_sha256": "f0eddfa79a33ae4f28f1c0651319ba43c6209103b4ccf49a59ea1ef4211ff4d2",
+          "generated_function_size_chars": 10967,
+          "incoming_calls_known": true,
+          "call_targets_total": 8,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E5988",
+          "generated_file": "nfsmw_recomp.28.cpp",
+          "generated_file_sha256": "11eec8fe3d20dc5d53e262525a4cf31021c2bbfb28e2690b6372c6c3cbea4aad",
+          "generated_function_size_chars": 4008,
+          "incoming_calls_known": true,
+          "call_targets_total": 2,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823F91B0",
+          "generated_file": "nfsmw_recomp.98.cpp",
+          "generated_file_sha256": "f0eddfa79a33ae4f28f1c0651319ba43c6209103b4ccf49a59ea1ef4211ff4d2",
+          "generated_function_size_chars": 1803,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823F9778",
+          "generated_file": "nfsmw_recomp.118.cpp",
+          "generated_file_sha256": "c583d35bec9b65c43b1215289271549d91a3bd8a36085b5ee3caced0d52e4f01",
+          "generated_function_size_chars": 3340,
+          "incoming_calls_known": true,
+          "call_targets_total": 4,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823F9860",
+          "generated_file": "nfsmw_recomp.32.cpp",
+          "generated_file_sha256": "9dd5ca889dc88aef5c5b0f65f59963a7d659886ff1ce3fc904881e18271bb9f3",
+          "generated_function_size_chars": 1781,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823F98D8",
+          "generated_file": "nfsmw_recomp.31.cpp",
+          "generated_file_sha256": "bc41cc424905b78648e903f04ef812d5cb835e3ed4009574e8330cbacb22e165",
+          "generated_function_size_chars": 1781,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823F9950",
+          "generated_file": "nfsmw_recomp.13.cpp",
+          "generated_file_sha256": "d1550761b760981183a190e6b46db17615c3a69e94bfde7040d65c7ac5bc60e2",
+          "generated_function_size_chars": 1903,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823F9C08",
+          "generated_file": "nfsmw_recomp.58.cpp",
+          "generated_file_sha256": "5feaa38658f509d805e54cd640c9d1d0e800f3205a27ac4c5774d2407f9bebd8",
+          "generated_function_size_chars": 1218,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823F9C58",
+          "generated_file": "nfsmw_recomp.102.cpp",
+          "generated_file_sha256": "a66907b52d4e194edf180c9b220ec1e42f89a9a4469f4cad39fd3e671ac19788",
+          "generated_function_size_chars": 3510,
+          "incoming_calls_known": true,
+          "call_targets_total": 5,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823F9D48",
+          "generated_file": "nfsmw_recomp.111.cpp",
+          "generated_file_sha256": "1700d6f1d39c133e62f4c6e22f2b1a374bdccb641bb94773d990862088a8c686",
+          "generated_function_size_chars": 1659,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823F9E60",
+          "generated_file": "nfsmw_recomp.74.cpp",
+          "generated_file_sha256": "02118beb8549e6dc26fac685e6ae37fa61fd08d602e562cbc57413bfc4a91693",
+          "generated_function_size_chars": 1581,
+          "incoming_calls_known": true,
+          "call_targets_total": 2,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823FAA90",
+          "generated_file": "nfsmw_recomp.21.cpp",
+          "generated_file_sha256": "ecb8fa07df5acf3d2da7c9f2d0e2f7d046c76c16d5c679d289995dbf90ae1b6a",
+          "generated_function_size_chars": 1767,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823FAB00",
+          "generated_file": "nfsmw_recomp.0.cpp",
+          "generated_file_sha256": "e140523388541b0c9c041e73c4a8b1b43f2f159b32cc2cd245a35b02416f9a30",
+          "generated_function_size_chars": 1679,
+          "incoming_calls_known": true,
+          "call_targets_total": 2,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823FD748",
+          "generated_file": "nfsmw_recomp.79.cpp",
+          "generated_file_sha256": "293cabff984871c27e82b573130db3c3c0ef43869aece45df6ce197eb59c1d11",
+          "generated_function_size_chars": 3808,
+          "incoming_calls_known": true,
+          "call_targets_total": 2,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8240BB38",
+          "generated_file": "nfsmw_recomp.121.cpp",
+          "generated_file_sha256": "186522c6dfb39556313417ead79d8b8b2e91a90b0b0b55e10e294a592b62b9ae",
+          "generated_function_size_chars": 2168,
+          "incoming_calls_known": true,
+          "call_targets_total": 2,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_824365A8",
+          "generated_file": "nfsmw_recomp.125.cpp",
+          "generated_file_sha256": "fe4a1f0d5ac6efa23478181c14ad6834c5bf8df3daab8492526c7b6a769eedf5",
+          "generated_function_size_chars": 1113,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_82436A88",
+          "generated_file": "nfsmw_recomp.55.cpp",
+          "generated_file_sha256": "0903676af55599c6d2185f24d5d802a1fbbb2fa9a81309a0455ccc24eb7cda55",
+          "generated_function_size_chars": 1218,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_825364D0",
+          "generated_file": "nfsmw_recomp.27.cpp",
+          "generated_file_sha256": "1d46a68ef12f1218ff94141e501dcf43451b515d01f2b98d40ce10cfc6790fcc",
+          "generated_function_size_chars": 1113,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        }
+      ],
+      "second_hop_caller_count": 58,
+      "second_hop_callers": [
+        {
+          "function": "sub_822CB180",
+          "generated_file": "nfsmw_recomp.85.cpp",
+          "generated_file_sha256": "e8c85788d811c0cb9390c35705ea4e60bb7dbd4210ce73d19d6d03358e5cfbf3",
+          "generated_function_size_chars": 7846,
+          "incoming_calls_known": true,
+          "call_targets_total": 13,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_822CB460",
+          "generated_file": "nfsmw_recomp.79.cpp",
+          "generated_file_sha256": "293cabff984871c27e82b573130db3c3c0ef43869aece45df6ce197eb59c1d11",
+          "generated_function_size_chars": 10141,
+          "incoming_calls_known": true,
+          "call_targets_total": 12,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823287D0",
+          "generated_file": "nfsmw_recomp.22.cpp",
+          "generated_file_sha256": "cd8bc627074dc90fc6c46d058dbb5c665a2803b95f46a14e883de39b8f913fec",
+          "generated_function_size_chars": 2671,
+          "incoming_calls_known": true,
+          "call_targets_total": 2,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823289B0",
+          "generated_file": "nfsmw_recomp.128.cpp",
+          "generated_file_sha256": "a892eddeb589eb3c0177264ee09dc89a7c8626685d2d023c2d7ae87bd10f74a5",
+          "generated_function_size_chars": 2669,
+          "incoming_calls_known": true,
+          "call_targets_total": 2,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8233B4B8",
+          "generated_file": "nfsmw_recomp.124.cpp",
+          "generated_file_sha256": "1140b660635386b3c4d5a559d7cb3f1ce3985e85e378997b4d55ca51680fc6b1",
+          "generated_function_size_chars": 16456,
+          "incoming_calls_known": true,
+          "call_targets_total": 22,
+          "performance_offset_distinct": 2,
+          "performance_offsets": [
+            {
+              "ppc_offset": 40,
+              "accesses": 1
+            },
+            {
+              "ppc_offset": 44,
+              "accesses": 1
+            }
+          ]
+        },
+        {
+          "function": "sub_82340590",
+          "generated_file": "nfsmw_recomp.75.cpp",
+          "generated_file_sha256": "1eb224c9431bf3d5d9d4d744a41126dd2f8973a577bcf827a954abd37cfa76bf",
+          "generated_function_size_chars": 7202,
+          "incoming_calls_known": true,
+          "call_targets_total": 9,
+          "performance_offset_distinct": 1,
+          "performance_offsets": [
+            {
+              "ppc_offset": 44,
+              "accesses": 1
+            }
+          ]
+        },
+        {
+          "function": "sub_82341D38",
+          "generated_file": "nfsmw_recomp.27.cpp",
+          "generated_file_sha256": "1d46a68ef12f1218ff94141e501dcf43451b515d01f2b98d40ce10cfc6790fcc",
+          "generated_function_size_chars": 5423,
+          "incoming_calls_known": true,
+          "call_targets_total": 5,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_82355938",
+          "generated_file": "nfsmw_recomp.46.cpp",
+          "generated_file_sha256": "fa13e77fff9bf6d26bcc4beb42f476ec1eb186038006bd3ddd0d3f3e00264647",
+          "generated_function_size_chars": 8803,
+          "incoming_calls_known": true,
+          "call_targets_total": 5,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823561F8",
+          "generated_file": "nfsmw_recomp.126.cpp",
+          "generated_file_sha256": "c9aef77757bf9f1754b2aefd7d205500148f9255d2d9a9b2a33c2727c9241bf8",
+          "generated_function_size_chars": 2829,
+          "incoming_calls_known": true,
+          "call_targets_total": 4,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823562C0",
+          "generated_file": "nfsmw_recomp.3.cpp",
+          "generated_file_sha256": "baa3b79ea54b3aab4f4afd9db4d501e32e29a970cdd84c6a945a91fe56842e03",
+          "generated_function_size_chars": 2895,
+          "incoming_calls_known": true,
+          "call_targets_total": 4,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_82356388",
+          "generated_file": "nfsmw_recomp.65.cpp",
+          "generated_file_sha256": "c075c8e55855cf457d82ef844a21e93ac14d061bac6048d66e83321ca1cae871",
+          "generated_function_size_chars": 2829,
+          "incoming_calls_known": true,
+          "call_targets_total": 4,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8239D8C8",
+          "generated_file": "nfsmw_recomp.77.cpp",
+          "generated_file_sha256": "c3b55b762a152fd40e311c92c03226d7ef3d946e7c85897d7e8b1b5b9e4c7c1b",
+          "generated_function_size_chars": 4554,
+          "incoming_calls_known": true,
+          "call_targets_total": 7,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823D4100",
+          "generated_file": "nfsmw_recomp.26.cpp",
+          "generated_file_sha256": "b08284822bda04f3d57f88a2c7c703f67749c248932441fa097344db0f88c2cb",
+          "generated_function_size_chars": 26947,
+          "incoming_calls_known": true,
+          "call_targets_total": 30,
+          "performance_offset_distinct": 2,
+          "performance_offsets": [
+            {
+              "ppc_offset": 40,
+              "accesses": 1
+            },
+            {
+              "ppc_offset": 44,
+              "accesses": 1
+            }
+          ]
+        },
+        {
+          "function": "sub_823D52B0",
+          "generated_file": "nfsmw_recomp.42.cpp",
+          "generated_file_sha256": "fb3b3799ddf55021f25b30b3fcdb999b2c5d9381afdd45031b0ffa9b611f9d75",
+          "generated_function_size_chars": 19543,
+          "incoming_calls_known": true,
+          "call_targets_total": 4,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E3790",
+          "generated_file": "nfsmw_recomp.32.cpp",
+          "generated_file_sha256": "9dd5ca889dc88aef5c5b0f65f59963a7d659886ff1ce3fc904881e18271bb9f3",
+          "generated_function_size_chars": 5141,
+          "incoming_calls_known": true,
+          "call_targets_total": 3,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E38F8",
+          "generated_file": "nfsmw_recomp.24.cpp",
+          "generated_file_sha256": "e5cf7f0f0b7369615432845bbbfdcf0786f6a4646b0872dfb037fc6a6c320b71",
+          "generated_function_size_chars": 3006,
+          "incoming_calls_known": true,
+          "call_targets_total": 2,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E39A0",
+          "generated_file": "nfsmw_recomp.51.cpp",
+          "generated_file_sha256": "9781d6f912c2d69e555b641c91f5bfdb6f647ed5908bec04b0dd4a472c3647a1",
+          "generated_function_size_chars": 2279,
+          "incoming_calls_known": true,
+          "call_targets_total": 2,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E3A20",
+          "generated_file": "nfsmw_recomp.111.cpp",
+          "generated_file_sha256": "1700d6f1d39c133e62f4c6e22f2b1a374bdccb641bb94773d990862088a8c686",
+          "generated_function_size_chars": 10281,
+          "incoming_calls_known": true,
+          "call_targets_total": 12,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E4130",
+          "generated_file": "nfsmw_recomp.3.cpp",
+          "generated_file_sha256": "baa3b79ea54b3aab4f4afd9db4d501e32e29a970cdd84c6a945a91fe56842e03",
+          "generated_function_size_chars": 2293,
+          "incoming_calls_known": true,
+          "call_targets_total": 2,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E42D8",
+          "generated_file": "nfsmw_recomp.45.cpp",
+          "generated_file_sha256": "f8571a593fb321ce7eac05f30b429ef08c8b194bd2be9d070242d27272aa5e8d",
+          "generated_function_size_chars": 2117,
+          "incoming_calls_known": true,
+          "call_targets_total": 2,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E4370",
+          "generated_file": "nfsmw_recomp.11.cpp",
+          "generated_file_sha256": "0208ca992595ccbddfddc1299f59a2ff586b9c726ad4a3c4d4c73f6dc40db4e3",
+          "generated_function_size_chars": 7693,
+          "incoming_calls_known": true,
+          "call_targets_total": 8,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E4850",
+          "generated_file": "nfsmw_recomp.44.cpp",
+          "generated_file_sha256": "7b70c87b3d1a49c3377410cb4c57c9847f4c98b9e34580db5569a11e95c03f91",
+          "generated_function_size_chars": 32498,
+          "incoming_calls_known": true,
+          "call_targets_total": 19,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E5128",
+          "generated_file": "nfsmw_recomp.98.cpp",
+          "generated_file_sha256": "f0eddfa79a33ae4f28f1c0651319ba43c6209103b4ccf49a59ea1ef4211ff4d2",
+          "generated_function_size_chars": 10967,
+          "incoming_calls_known": true,
+          "call_targets_total": 8,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E5420",
+          "generated_file": "nfsmw_recomp.1.cpp",
+          "generated_file_sha256": "61dfd877d2449a1db9d1ef4ffad4cb1040dfbfc8558bf432cdd43ad666ddae26",
+          "generated_function_size_chars": 3043,
+          "incoming_calls_known": true,
+          "call_targets_total": 4,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E54F8",
+          "generated_file": "nfsmw_recomp.96.cpp",
+          "generated_file_sha256": "84d862feb1c9813dac1a62cd5e13969c3c613e1a2fb0241535ccd5d01ce7f01f",
+          "generated_function_size_chars": 3081,
+          "incoming_calls_known": true,
+          "call_targets_total": 4,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E56B0",
+          "generated_file": "nfsmw_recomp.35.cpp",
+          "generated_file_sha256": "0c8de1ce2cf1f97cdf6f458c0914c5a42d3280e1c9ce24b39dd12642b725a21e",
+          "generated_function_size_chars": 9006,
+          "incoming_calls_known": true,
+          "call_targets_total": 9,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E5AA0",
+          "generated_file": "nfsmw_recomp.41.cpp",
+          "generated_file_sha256": "6e3c83e95e701b55894d503d7fcdaeffca1e4f92019f1fe2a7272e1139136a5b",
+          "generated_function_size_chars": 1480,
+          "incoming_calls_known": true,
+          "call_targets_total": 2,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E5B08",
+          "generated_file": "nfsmw_recomp.48.cpp",
+          "generated_file_sha256": "aa68d0c153ce27f5fb27c5d22303dfe1d0abc336038fe5cfff076b3b9eb7487f",
+          "generated_function_size_chars": 38682,
+          "incoming_calls_known": true,
+          "call_targets_total": 19,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E6560",
+          "generated_file": "nfsmw_recomp.81.cpp",
+          "generated_file_sha256": "88d0ea1ddc4c6523b530e799a0dc9bb90ef17afbfcda4b1f77bc734d510a7f0d",
+          "generated_function_size_chars": 8416,
+          "incoming_calls_known": true,
+          "call_targets_total": 7,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823E67E8",
+          "generated_file": "nfsmw_recomp.15.cpp",
+          "generated_file_sha256": "414803e217226952833caf347a1ef61dde781a01a8a518262f77196bbc9a0d3a",
+          "generated_function_size_chars": 14285,
+          "incoming_calls_known": true,
+          "call_targets_total": 9,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823F39E0",
+          "generated_file": "nfsmw_recomp.6.cpp",
+          "generated_file_sha256": "e372ba18e933dd0c50dbc83a871eb61bd97064d9d77f4cf39d0c171176a8c01e",
+          "generated_function_size_chars": 4459,
+          "incoming_calls_known": true,
+          "call_targets_total": 3,
+          "performance_offset_distinct": 1,
+          "performance_offsets": [
+            {
+              "ppc_offset": 68,
+              "accesses": 1
+            }
+          ]
+        },
+        {
+          "function": "sub_823F99D0",
+          "generated_file": "nfsmw_recomp.29.cpp",
+          "generated_file_sha256": "7db4eb1b742c1e64cc4f1b2d8a35836d1a0c63b4f3f682afbd0ee0cd679fbc33",
+          "generated_function_size_chars": 1921,
+          "incoming_calls_known": true,
+          "call_targets_total": 2,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823F9A40",
+          "generated_file": "nfsmw_recomp.78.cpp",
+          "generated_file_sha256": "ddd1e461ac8c463d9edfdd1705500033fc69416eac5dd4ff0ce3cedc356b4c84",
+          "generated_function_size_chars": 2210,
+          "incoming_calls_known": true,
+          "call_targets_total": 2,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823F9AC8",
+          "generated_file": "nfsmw_recomp.114.cpp",
+          "generated_file_sha256": "4c0e391422e3780ce06070b3857a078958a1cb554dce9f0e5fc32ace1808cae5",
+          "generated_function_size_chars": 2372,
+          "incoming_calls_known": true,
+          "call_targets_total": 2,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_823F9B50",
+          "generated_file": "nfsmw_recomp.30.cpp",
+          "generated_file_sha256": "44d15fb55918657dd395ff523ca86c4a07f2cb43b09d85f0a90f894ef6cc2473",
+          "generated_function_size_chars": 2874,
+          "incoming_calls_known": true,
+          "call_targets_total": 2,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_824092B0",
+          "generated_file": "nfsmw_recomp.81.cpp",
+          "generated_file_sha256": "88d0ea1ddc4c6523b530e799a0dc9bb90ef17afbfcda4b1f77bc734d510a7f0d",
+          "generated_function_size_chars": 16324,
+          "incoming_calls_known": true,
+          "call_targets_total": 5,
+          "performance_offset_distinct": 2,
+          "performance_offsets": [
+            {
+              "ppc_offset": 52,
+              "accesses": 1
+            },
+            {
+              "ppc_offset": 68,
+              "accesses": 1
+            }
+          ]
+        },
+        {
+          "function": "sub_8240B880",
+          "generated_file": "nfsmw_recomp.36.cpp",
+          "generated_file_sha256": "5021cbdada25f178cbcb5497667064c1f3e67de25a7c42edc6df2a0ce7cc9321",
+          "generated_function_size_chars": 10433,
+          "incoming_calls_known": true,
+          "call_targets_total": 8,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_824342B0",
+          "generated_file": "nfsmw_recomp.76.cpp",
+          "generated_file_sha256": "3653846cbc173073ca4589d0e61bd322551f18432030d1c76ff44699e5b51637",
+          "generated_function_size_chars": 4459,
+          "incoming_calls_known": true,
+          "call_targets_total": 3,
+          "performance_offset_distinct": 1,
+          "performance_offsets": [
+            {
+              "ppc_offset": 68,
+              "accesses": 1
+            }
+          ]
+        },
+        {
+          "function": "sub_824344C8",
+          "generated_file": "nfsmw_recomp.103.cpp",
+          "generated_file_sha256": "88d866e93ccbb448186e45cb106fd16d42e033b7c3f9959105ceeea430c3abef",
+          "generated_function_size_chars": 4459,
+          "incoming_calls_known": true,
+          "call_targets_total": 3,
+          "performance_offset_distinct": 1,
+          "performance_offsets": [
+            {
+              "ppc_offset": 68,
+              "accesses": 1
+            }
+          ]
+        },
+        {
+          "function": "sub_824345F8",
+          "generated_file": "nfsmw_recomp.118.cpp",
+          "generated_file_sha256": "c583d35bec9b65c43b1215289271549d91a3bd8a36085b5ee3caced0d52e4f01",
+          "generated_function_size_chars": 4459,
+          "incoming_calls_known": true,
+          "call_targets_total": 3,
+          "performance_offset_distinct": 1,
+          "performance_offsets": [
+            {
+              "ppc_offset": 68,
+              "accesses": 1
+            }
+          ]
+        },
+        {
+          "function": "sub_82434728",
+          "generated_file": "nfsmw_recomp.63.cpp",
+          "generated_file_sha256": "08bde1f8bdfdc4aee078e5337292803486c1f60bacd8dca128c6669df84ba611",
+          "generated_function_size_chars": 4459,
+          "incoming_calls_known": true,
+          "call_targets_total": 3,
+          "performance_offset_distinct": 1,
+          "performance_offsets": [
+            {
+              "ppc_offset": 68,
+              "accesses": 1
+            }
+          ]
+        },
+        {
+          "function": "sub_82434858",
+          "generated_file": "nfsmw_recomp.50.cpp",
+          "generated_file_sha256": "f20ec567de4c4637756977a71a6c85f3848b63ba639f037b819868328e3f7e9d",
+          "generated_function_size_chars": 4459,
+          "incoming_calls_known": true,
+          "call_targets_total": 3,
+          "performance_offset_distinct": 1,
+          "performance_offsets": [
+            {
+              "ppc_offset": 68,
+              "accesses": 1
+            }
+          ]
+        },
+        {
+          "function": "sub_82434988",
+          "generated_file": "nfsmw_recomp.48.cpp",
+          "generated_file_sha256": "aa68d0c153ce27f5fb27c5d22303dfe1d0abc336038fe5cfff076b3b9eb7487f",
+          "generated_function_size_chars": 4457,
+          "incoming_calls_known": true,
+          "call_targets_total": 3,
+          "performance_offset_distinct": 1,
+          "performance_offsets": [
+            {
+              "ppc_offset": 68,
+              "accesses": 1
+            }
+          ]
+        },
+        {
+          "function": "sub_82434AB8",
+          "generated_file": "nfsmw_recomp.89.cpp",
+          "generated_file_sha256": "813e62cb5fffc8a784cf4c589eb80923025360c2d77aa5af11a78d8ce6af85df",
+          "generated_function_size_chars": 4459,
+          "incoming_calls_known": true,
+          "call_targets_total": 3,
+          "performance_offset_distinct": 1,
+          "performance_offsets": [
+            {
+              "ppc_offset": 68,
+              "accesses": 1
+            }
+          ]
+        },
+        {
+          "function": "sub_82434BE8",
+          "generated_file": "nfsmw_recomp.61.cpp",
+          "generated_file_sha256": "7865c26268a44cdd2c51d29e41af824cb784e2ba1f20258cfee42d7686c8c6f1",
+          "generated_function_size_chars": 4459,
+          "incoming_calls_known": true,
+          "call_targets_total": 3,
+          "performance_offset_distinct": 1,
+          "performance_offsets": [
+            {
+              "ppc_offset": 68,
+              "accesses": 1
+            }
+          ]
+        },
+        {
+          "function": "sub_82434D18",
+          "generated_file": "nfsmw_recomp.83.cpp",
+          "generated_file_sha256": "21e561eeae953888b7d645719dc6bd7077dfa040f3f06896b7bbe3ba3e7774d4",
+          "generated_function_size_chars": 4459,
+          "incoming_calls_known": true,
+          "call_targets_total": 3,
+          "performance_offset_distinct": 1,
+          "performance_offsets": [
+            {
+              "ppc_offset": 68,
+              "accesses": 1
+            }
+          ]
+        },
+        {
+          "function": "sub_82434E48",
+          "generated_file": "nfsmw_recomp.18.cpp",
+          "generated_file_sha256": "790c1ced11e2012dd55ca28fbfadfccc580de607c3a43090cf04bc6bee5f2f25",
+          "generated_function_size_chars": 4459,
+          "incoming_calls_known": true,
+          "call_targets_total": 3,
+          "performance_offset_distinct": 1,
+          "performance_offsets": [
+            {
+              "ppc_offset": 68,
+              "accesses": 1
+            }
+          ]
+        },
+        {
+          "function": "sub_82474528",
+          "generated_file": "nfsmw_recomp.104.cpp",
+          "generated_file_sha256": "918f265ba9d296a4dce8840260f2893c2b15e0aa5116a546f62b9aed1e9e8e4b",
+          "generated_function_size_chars": 26720,
+          "incoming_calls_known": true,
+          "call_targets_total": 10,
+          "performance_offset_distinct": 2,
+          "performance_offsets": [
+            {
+              "ppc_offset": 40,
+              "accesses": 1
+            },
+            {
+              "ppc_offset": 48,
+              "accesses": 1
+            }
+          ]
+        },
+        {
+          "function": "sub_824E7820",
+          "generated_file": "nfsmw_recomp.119.cpp",
+          "generated_file_sha256": "8b1d913d33b0050da719a6ebfb008eb8468310becd6aaca5a4f79cb26c017923",
+          "generated_function_size_chars": 21283,
+          "incoming_calls_known": true,
+          "call_targets_total": 13,
+          "performance_offset_distinct": 1,
+          "performance_offsets": [
+            {
+              "ppc_offset": 60,
+              "accesses": 3
+            }
+          ]
+        },
+        {
+          "function": "sub_825295E0",
+          "generated_file": "nfsmw_recomp.56.cpp",
+          "generated_file_sha256": "107b050f763b42d37f14e6266bbcb5ce56505148df5e48a754e6284935297bbf",
+          "generated_function_size_chars": 32911,
+          "incoming_calls_known": true,
+          "call_targets_total": 24,
+          "performance_offset_distinct": 3,
+          "performance_offsets": [
+            {
+              "ppc_offset": 44,
+              "accesses": 1
+            },
+            {
+              "ppc_offset": 48,
+              "accesses": 1
+            },
+            {
+              "ppc_offset": 52,
+              "accesses": 1
+            }
+          ]
+        },
+        {
+          "function": "sub_8255C790",
+          "generated_file": "nfsmw_recomp.20.cpp",
+          "generated_file_sha256": "3c4ea677142919989b0a5f9e2e18efc3b7aecf90c537ff2b1271146691e6292a",
+          "generated_function_size_chars": 21253,
+          "incoming_calls_known": true,
+          "call_targets_total": 28,
+          "performance_offset_distinct": 3,
+          "performance_offsets": [
+            {
+              "ppc_offset": 44,
+              "accesses": 2
+            },
+            {
+              "ppc_offset": 48,
+              "accesses": 1
+            },
+            {
+              "ppc_offset": 52,
+              "accesses": 7
+            }
+          ]
+        },
+        {
+          "function": "sub_8256C2F0",
+          "generated_file": "nfsmw_recomp.100.cpp",
+          "generated_file_sha256": "5c07eae92a5583a52b88c5cd90e2d259f26ac402fe451b668768e048dac29bea",
+          "generated_function_size_chars": 4893,
+          "incoming_calls_known": true,
+          "call_targets_total": 4,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8256CBB8",
+          "generated_file": "nfsmw_recomp.68.cpp",
+          "generated_file_sha256": "3703d9cae96852c014bdb5df54cf5e72c2cfc145100664ca331eb481a1537e6f",
+          "generated_function_size_chars": 271,
+          "incoming_calls_known": true,
+          "call_targets_total": 1,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8256CBC8",
+          "generated_file": "nfsmw_recomp.126.cpp",
+          "generated_file_sha256": "c9aef77757bf9f1754b2aefd7d205500148f9255d2d9a9b2a33c2727c9241bf8",
+          "generated_function_size_chars": 9021,
+          "incoming_calls_known": true,
+          "call_targets_total": 8,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_8256F818",
+          "generated_file": "nfsmw_recomp.57.cpp",
+          "generated_file_sha256": "a74e2314e878a88d197d2d8774254bf8c7fbc0e835f84a6c048f0ec86d9f455c",
+          "generated_function_size_chars": 5237,
+          "incoming_calls_known": true,
+          "call_targets_total": 5,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_82570D90",
+          "generated_file": "nfsmw_recomp.97.cpp",
+          "generated_file_sha256": "5446c0f06bca0c669497b6f4f9a8319519a43dfd2442ac37099e4d884ac259a7",
+          "generated_function_size_chars": 89585,
+          "incoming_calls_known": true,
+          "call_targets_total": 9,
+          "performance_offset_distinct": 1,
+          "performance_offsets": [
+            {
+              "ppc_offset": 44,
+              "accesses": 21
+            }
+          ]
+        },
+        {
+          "function": "sub_82582A40",
+          "generated_file": "nfsmw_recomp.83.cpp",
+          "generated_file_sha256": "21e561eeae953888b7d645719dc6bd7077dfa040f3f06896b7bbe3ba3e7774d4",
+          "generated_function_size_chars": 19541,
+          "incoming_calls_known": true,
+          "call_targets_total": 12,
+          "performance_offset_distinct": 0,
+          "performance_offsets": []
+        },
+        {
+          "function": "sub_82582F70",
+          "generated_file": "nfsmw_recomp.11.cpp",
+          "generated_file_sha256": "0208ca992595ccbddfddc1299f59a2ff586b9c726ad4a3c4d4c73f6dc40db4e3",
+          "generated_function_size_chars": 30540,
+          "incoming_calls_known": true,
+          "call_targets_total": 12,
+          "performance_offset_distinct": 5,
+          "performance_offsets": [
+            {
+              "ppc_offset": 40,
+              "accesses": 3
+            },
+            {
+              "ppc_offset": 44,
+              "accesses": 1
+            },
+            {
+              "ppc_offset": 48,
+              "accesses": 1
+            },
+            {
+              "ppc_offset": 60,
+              "accesses": 2
+            },
+            {
+              "ppc_offset": 72,
+              "accesses": 1
+            }
+          ]
+        }
+      ],
+      "all_direct_callers_reported": true
+    }
+  },
+  "performance_counter_guest_offsets_interpreted_as_heuristic_only": true,
+  "physical_counter_offsets_from_PVEHICLE_PAL": [
+    "0x28",
+    "0x2c",
+    "0x30",
+    "0x34",
+    "0x3c",
+    "0x44",
+    "0x48"
+  ],
+  "offset_access_candidate_total": 477,
+  "offset_candidate_top80": [
+    {
+      "function": "sub_82694EC0",
+      "offset_candidate_hit_count": 54,
+      "generated_file": "nfsmw_recomp.121.cpp",
+      "generated_file_sha256": "186522c6dfb39556313417ead79d8b8b2e91a90b0b0b55e10e294a592b62b9ae",
+      "generated_function_size_chars": 210154,
+      "incoming_calls_known": true,
+      "call_targets_total": 0,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 4
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 4
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 4
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 4
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 4
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 32
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 2
+        }
+      ],
+      "caller_count": 3,
+      "outgoing_sample": [],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_821F4E30",
+      "offset_candidate_hit_count": 40,
+      "generated_file": "nfsmw_recomp.30.cpp",
+      "generated_file_sha256": "44d15fb55918657dd395ff523ca86c4a07f2cb43b09d85f0a90f894ef6cc2473",
+      "generated_function_size_chars": 22544,
+      "incoming_calls_known": true,
+      "call_targets_total": 3,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 26
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 5
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 3
+        }
+      ],
+      "caller_count": 0,
+      "outgoing_sample": [
+        "sub_821DFCF8",
+        "sub_821E59E8",
+        "sub_82210E98"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_82719CB0",
+      "offset_candidate_hit_count": 32,
+      "generated_file": "nfsmw_recomp.107.cpp",
+      "generated_file_sha256": "0e35368260ec0773c22f2cc88d31e2c621d1b79d85b74802931dba54e493d830",
+      "generated_function_size_chars": 49583,
+      "incoming_calls_known": true,
+      "call_targets_total": 8,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 3
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 6
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 13
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 5
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 3
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 1,
+      "outgoing_sample": [
+        "sub_82709890",
+        "sub_827098A0",
+        "sub_82718CB0",
+        "sub_82719138",
+        "sub_827193D0",
+        "sub_827195B0",
+        "sub_82719A10",
+        "sub_82719C48"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_82117950",
+      "offset_candidate_hit_count": 18,
+      "generated_file": "nfsmw_recomp.128.cpp",
+      "generated_file_sha256": "a892eddeb589eb3c0177264ee09dc89a7c8626685d2d023c2d7ae87bd10f74a5",
+      "generated_function_size_chars": 87593,
+      "incoming_calls_known": true,
+      "call_targets_total": 29,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 9
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 4
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 0,
+      "outgoing_sample": [
+        "sub_820E1E38",
+        "sub_820E2FE8",
+        "sub_820E3178",
+        "sub_820E3208",
+        "sub_820E3250",
+        "sub_820E3570",
+        "sub_820E5E58",
+        "sub_820E5F28",
+        "sub_820FFC58",
+        "sub_8210E438"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_8272EF20",
+      "offset_candidate_hit_count": 18,
+      "generated_file": "nfsmw_recomp.95.cpp",
+      "generated_file_sha256": "82f281f59d5811b00768e8c151f33b26a02e58cf08198bae136cffa61ab39264",
+      "generated_function_size_chars": 55206,
+      "incoming_calls_known": true,
+      "call_targets_total": 19,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 3
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 3
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 3
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 3
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 2
+        }
+      ],
+      "caller_count": 5,
+      "outgoing_sample": [
+        "sub_8272E968",
+        "sub_8272E9C8",
+        "sub_8272ED68",
+        "sub_8273D3B8",
+        "sub_8273D4C0",
+        "sub_827528C8",
+        "sub_82752E10",
+        "sub_82753D18",
+        "sub_82759230",
+        "sub_82759530"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_825D8088",
+      "offset_candidate_hit_count": 14,
+      "generated_file": "nfsmw_recomp.26.cpp",
+      "generated_file_sha256": "b08284822bda04f3d57f88a2c7c703f67749c248932441fa097344db0f88c2cb",
+      "generated_function_size_chars": 21204,
+      "incoming_calls_known": true,
+      "call_targets_total": 9,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 3
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 4
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 1,
+      "outgoing_sample": [
+        "sub_825CC058",
+        "sub_825CC1B8",
+        "sub_825CC318",
+        "sub_825CF3E0",
+        "sub_825CFE90",
+        "sub_825CFF48",
+        "sub_825D10A8",
+        "sub_825D1168",
+        "sub_8261AFE0"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_821FAC60",
+      "offset_candidate_hit_count": 12,
+      "generated_file": "nfsmw_recomp.44.cpp",
+      "generated_file_sha256": "7b70c87b3d1a49c3377410cb4c57c9847f4c98b9e34580db5569a11e95c03f91",
+      "generated_function_size_chars": 18443,
+      "incoming_calls_known": true,
+      "call_targets_total": 3,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 3
+        }
+      ],
+      "caller_count": 0,
+      "outgoing_sample": [
+        "sub_8215A0F0",
+        "sub_821C2168",
+        "sub_821C35C0"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_8236E378",
+      "offset_candidate_hit_count": 11,
+      "generated_file": "nfsmw_recomp.50.cpp",
+      "generated_file_sha256": "f20ec567de4c4637756977a71a6c85f3848b63ba639f037b819868328e3f7e9d",
+      "generated_function_size_chars": 5893,
+      "incoming_calls_known": true,
+      "call_targets_total": 6,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 3
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 0,
+      "outgoing_sample": [
+        "sub_8236E1E8",
+        "sub_8236E9F8",
+        "sub_8236EBD8",
+        "sub_8236F778",
+        "sub_8236FD60",
+        "sub_826BD9F0"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_825AD920",
+      "offset_candidate_hit_count": 11,
+      "generated_file": "nfsmw_recomp.80.cpp",
+      "generated_file_sha256": "cb45903be77cd07f16be9bb26fa06bc170646eaab891c5424bb808080d1732cd",
+      "generated_function_size_chars": 3777,
+      "incoming_calls_known": true,
+      "call_targets_total": 0,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 2
+        }
+      ],
+      "caller_count": 1,
+      "outgoing_sample": [],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_8264F168",
+      "offset_candidate_hit_count": 11,
+      "generated_file": "nfsmw_recomp.72.cpp",
+      "generated_file_sha256": "cbbc922bad0b2b56da53afcb74b375ca3714c6e33c064e9798a2ec0b5e9c0b67",
+      "generated_function_size_chars": 14667,
+      "incoming_calls_known": true,
+      "call_targets_total": 14,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 2
+        }
+      ],
+      "caller_count": 4,
+      "outgoing_sample": [
+        "sub_8262EB50",
+        "sub_8262EBE8",
+        "sub_82640EC8",
+        "sub_8264A228",
+        "sub_8264A490",
+        "sub_8264A898",
+        "sub_8264B400",
+        "sub_8264C520",
+        "sub_8264CB10",
+        "sub_8264D238"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_825E4EA8",
+      "offset_candidate_hit_count": 9,
+      "generated_file": "nfsmw_recomp.124.cpp",
+      "generated_file_sha256": "1140b660635386b3c4d5a559d7cb3f1ce3985e85e378997b4d55ca51680fc6b1",
+      "generated_function_size_chars": 3991,
+      "incoming_calls_known": true,
+      "call_targets_total": 1,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 0,
+      "outgoing_sample": [
+        "sub_82604308"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_82203AB8",
+      "offset_candidate_hit_count": 8,
+      "generated_file": "nfsmw_recomp.59.cpp",
+      "generated_file_sha256": "acf7533e6ca052a5107f1cefe98dc89d5a2b2b7a16fc95f603d402fffba5679d",
+      "generated_function_size_chars": 2524,
+      "incoming_calls_known": true,
+      "call_targets_total": 3,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 0,
+      "outgoing_sample": [
+        "sub_821B7140",
+        "sub_821E5C60",
+        "sub_825CAE08"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_824F1BC0",
+      "offset_candidate_hit_count": 8,
+      "generated_file": "nfsmw_recomp.56.cpp",
+      "generated_file_sha256": "107b050f763b42d37f14e6266bbcb5ce56505148df5e48a754e6284935297bbf",
+      "generated_function_size_chars": 7163,
+      "incoming_calls_known": true,
+      "call_targets_total": 2,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 1,
+      "outgoing_sample": [
+        "sub_824CB7F8",
+        "sub_824ED648"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_82613D08",
+      "offset_candidate_hit_count": 8,
+      "generated_file": "nfsmw_recomp.71.cpp",
+      "generated_file_sha256": "6f6d464c9ae7f845e60a73adac69a7f0b592a49cab43f93d9c6bfad926c0e519",
+      "generated_function_size_chars": 4429,
+      "incoming_calls_known": true,
+      "call_targets_total": 0,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 0,
+      "outgoing_sample": [],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_82141B48",
+      "offset_candidate_hit_count": 7,
+      "generated_file": "nfsmw_recomp.98.cpp",
+      "generated_file_sha256": "f0eddfa79a33ae4f28f1c0651319ba43c6209103b4ccf49a59ea1ef4211ff4d2",
+      "generated_function_size_chars": 2412,
+      "incoming_calls_known": true,
+      "call_targets_total": 0,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 1,
+      "outgoing_sample": [],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_82142B38",
+      "offset_candidate_hit_count": 7,
+      "generated_file": "nfsmw_recomp.4.cpp",
+      "generated_file_sha256": "19af4c35ff688bae8e3766211a2d0ab57692445c9cbc47bbc28c9676ebb8c3b1",
+      "generated_function_size_chars": 1496,
+      "incoming_calls_known": true,
+      "call_targets_total": 0,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 0,
+      "outgoing_sample": [],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_8217D000",
+      "offset_candidate_hit_count": 7,
+      "generated_file": "nfsmw_recomp.102.cpp",
+      "generated_file_sha256": "a66907b52d4e194edf180c9b220ec1e42f89a9a4469f4cad39fd3e671ac19788",
+      "generated_function_size_chars": 2899,
+      "incoming_calls_known": true,
+      "call_targets_total": 0,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 1,
+      "outgoing_sample": [],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_821E11D8",
+      "offset_candidate_hit_count": 7,
+      "generated_file": "nfsmw_recomp.0.cpp",
+      "generated_file_sha256": "e140523388541b0c9c041e73c4a8b1b43f2f159b32cc2cd245a35b02416f9a30",
+      "generated_function_size_chars": 4657,
+      "incoming_calls_known": true,
+      "call_targets_total": 4,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 2,
+      "outgoing_sample": [
+        "sub_825CAA80",
+        "sub_825CB688",
+        "sub_82630328",
+        "sub_8284EE30"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_821E58B8",
+      "offset_candidate_hit_count": 7,
+      "generated_file": "nfsmw_recomp.76.cpp",
+      "generated_file_sha256": "3653846cbc173073ca4589d0e61bd322551f18432030d1c76ff44699e5b51637",
+      "generated_function_size_chars": 4076,
+      "incoming_calls_known": true,
+      "call_targets_total": 4,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 1,
+      "outgoing_sample": [
+        "sub_825CAA80",
+        "sub_825CB688",
+        "sub_82630328",
+        "sub_8284EE30"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_821FAA68",
+      "offset_candidate_hit_count": 7,
+      "generated_file": "nfsmw_recomp.49.cpp",
+      "generated_file_sha256": "0162593b08b62a2356dc4f26118ba1c754bff84c9461920ec9ab8588b00da4e1",
+      "generated_function_size_chars": 1940,
+      "incoming_calls_known": true,
+      "call_targets_total": 0,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 1,
+      "outgoing_sample": [],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_82203928",
+      "offset_candidate_hit_count": 7,
+      "generated_file": "nfsmw_recomp.31.cpp",
+      "generated_file_sha256": "bc41cc424905b78648e903f04ef812d5cb835e3ed4009574e8330cbacb22e165",
+      "generated_function_size_chars": 2232,
+      "incoming_calls_known": true,
+      "call_targets_total": 0,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 1,
+      "outgoing_sample": [],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_822040B0",
+      "offset_candidate_hit_count": 7,
+      "generated_file": "nfsmw_recomp.38.cpp",
+      "generated_file_sha256": "091dc348b694447350bcb10f2cc8cf46e77b86505dc7a966c0c7dac3431d0b1c",
+      "generated_function_size_chars": 64111,
+      "incoming_calls_known": true,
+      "call_targets_total": 0,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 1,
+      "outgoing_sample": [],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_82272240",
+      "offset_candidate_hit_count": 7,
+      "generated_file": "nfsmw_recomp.116.cpp",
+      "generated_file_sha256": "ea611fd7449ae08e90d5181f5f97f0b603f3c3b2359f7f3f48440f4e3b691e0f",
+      "generated_function_size_chars": 9540,
+      "incoming_calls_known": true,
+      "call_targets_total": 26,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 18,
+      "outgoing_sample": [
+        "sub_8215D7B8",
+        "sub_8253EB58",
+        "sub_8253F590",
+        "sub_8253F648",
+        "sub_82814750",
+        "sub_82814758",
+        "sub_82814760",
+        "sub_82814768",
+        "sub_82814788",
+        "sub_828147A8"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_82300BE0",
+      "offset_candidate_hit_count": 7,
+      "generated_file": "nfsmw_recomp.22.cpp",
+      "generated_file_sha256": "cd8bc627074dc90fc6c46d058dbb5c665a2803b95f46a14e883de39b8f913fec",
+      "generated_function_size_chars": 2072,
+      "incoming_calls_known": true,
+      "call_targets_total": 0,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 13,
+      "outgoing_sample": [],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_8233E098",
+      "offset_candidate_hit_count": 7,
+      "generated_file": "nfsmw_recomp.31.cpp",
+      "generated_file_sha256": "bc41cc424905b78648e903f04ef812d5cb835e3ed4009574e8330cbacb22e165",
+      "generated_function_size_chars": 11404,
+      "incoming_calls_known": true,
+      "call_targets_total": 10,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 1,
+      "outgoing_sample": [
+        "sub_820E5048",
+        "sub_8214F480",
+        "sub_8215CB08",
+        "sub_8231EE58",
+        "sub_8233FEC0",
+        "sub_82349BB8",
+        "sub_8234AC48",
+        "sub_8234F788",
+        "sub_8234FD10",
+        "sub_82350298"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_823B0CF8",
+      "offset_candidate_hit_count": 7,
+      "generated_file": "nfsmw_recomp.91.cpp",
+      "generated_file_sha256": "89c4ac57c8443f8e2bd08e482d769705218544b885e5cff34db567257b4f4f83",
+      "generated_function_size_chars": 2995,
+      "incoming_calls_known": true,
+      "call_targets_total": 2,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 1,
+      "outgoing_sample": [
+        "sub_8215E5E8",
+        "sub_823BCB18"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_82458310",
+      "offset_candidate_hit_count": 7,
+      "generated_file": "nfsmw_recomp.123.cpp",
+      "generated_file_sha256": "3f9a9929422e9e5ba2a80f8bc00060e23a204c7e3db214ff0508261adc4c957a",
+      "generated_function_size_chars": 14561,
+      "incoming_calls_known": true,
+      "call_targets_total": 0,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 0,
+      "outgoing_sample": [],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_824981A8",
+      "offset_candidate_hit_count": 7,
+      "generated_file": "nfsmw_recomp.63.cpp",
+      "generated_file_sha256": "08bde1f8bdfdc4aee078e5337292803486c1f60bacd8dca128c6669df84ba611",
+      "generated_function_size_chars": 7034,
+      "incoming_calls_known": true,
+      "call_targets_total": 6,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 1,
+      "outgoing_sample": [
+        "sub_820E1E38",
+        "sub_824A8880",
+        "sub_824A89D0",
+        "sub_824B0130",
+        "sub_824B01D8",
+        "sub_824B0288"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_824C4FF8",
+      "offset_candidate_hit_count": 7,
+      "generated_file": "nfsmw_recomp.24.cpp",
+      "generated_file_sha256": "e5cf7f0f0b7369615432845bbbfdcf0786f6a4646b0872dfb037fc6a6c320b71",
+      "generated_function_size_chars": 5810,
+      "incoming_calls_known": true,
+      "call_targets_total": 0,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 1,
+      "outgoing_sample": [],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_824D9020",
+      "offset_candidate_hit_count": 7,
+      "generated_file": "nfsmw_recomp.93.cpp",
+      "generated_file_sha256": "8ce11ce3eeb22d578b2af4ca6daf79fe3218d4005c3a34203be1b10b0f280261",
+      "generated_function_size_chars": 4275,
+      "incoming_calls_known": true,
+      "call_targets_total": 0,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 1,
+      "outgoing_sample": [],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_824EC6E8",
+      "offset_candidate_hit_count": 7,
+      "generated_file": "nfsmw_recomp.123.cpp",
+      "generated_file_sha256": "3f9a9929422e9e5ba2a80f8bc00060e23a204c7e3db214ff0508261adc4c957a",
+      "generated_function_size_chars": 4716,
+      "incoming_calls_known": true,
+      "call_targets_total": 0,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 1,
+      "outgoing_sample": [],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_824F2400",
+      "offset_candidate_hit_count": 7,
+      "generated_file": "nfsmw_recomp.32.cpp",
+      "generated_file_sha256": "9dd5ca889dc88aef5c5b0f65f59963a7d659886ff1ce3fc904881e18271bb9f3",
+      "generated_function_size_chars": 2909,
+      "incoming_calls_known": true,
+      "call_targets_total": 0,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 1,
+      "outgoing_sample": [],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_8253B5B8",
+      "offset_candidate_hit_count": 7,
+      "generated_file": "nfsmw_recomp.12.cpp",
+      "generated_file_sha256": "29dfb337dc9975fbc7eb0c17f7e8ba919f267ab6f8504effeed266267f177c8a",
+      "generated_function_size_chars": 3006,
+      "incoming_calls_known": true,
+      "call_targets_total": 1,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 9,
+      "outgoing_sample": [
+        "sub_82812BB0"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_8254E7B8",
+      "offset_candidate_hit_count": 7,
+      "generated_file": "nfsmw_recomp.46.cpp",
+      "generated_file_sha256": "fa13e77fff9bf6d26bcc4beb42f476ec1eb186038006bd3ddd0d3f3e00264647",
+      "generated_function_size_chars": 3696,
+      "incoming_calls_known": true,
+      "call_targets_total": 0,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 5,
+      "outgoing_sample": [],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_825A9DC8",
+      "offset_candidate_hit_count": 7,
+      "generated_file": "nfsmw_recomp.40.cpp",
+      "generated_file_sha256": "d8fb6f805d3bb0858a0ca5d4709f8954fcb3c37f7c3f6d70f0fd595dbc76e83b",
+      "generated_function_size_chars": 4679,
+      "incoming_calls_known": true,
+      "call_targets_total": 0,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 0,
+      "outgoing_sample": [],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_825A9EF8",
+      "offset_candidate_hit_count": 7,
+      "generated_file": "nfsmw_recomp.89.cpp",
+      "generated_file_sha256": "813e62cb5fffc8a784cf4c589eb80923025360c2d77aa5af11a78d8ce6af85df",
+      "generated_function_size_chars": 6313,
+      "incoming_calls_known": true,
+      "call_targets_total": 0,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 0,
+      "outgoing_sample": [],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_825AB040",
+      "offset_candidate_hit_count": 7,
+      "generated_file": "nfsmw_recomp.126.cpp",
+      "generated_file_sha256": "c9aef77757bf9f1754b2aefd7d205500148f9255d2d9a9b2a33c2727c9241bf8",
+      "generated_function_size_chars": 10850,
+      "incoming_calls_known": true,
+      "call_targets_total": 1,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 0,
+      "outgoing_sample": [
+        "sub_82596C18"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_825AB450",
+      "offset_candidate_hit_count": 7,
+      "generated_file": "nfsmw_recomp.41.cpp",
+      "generated_file_sha256": "6e3c83e95e701b55894d503d7fcdaeffca1e4f92019f1fe2a7272e1139136a5b",
+      "generated_function_size_chars": 5022,
+      "incoming_calls_known": true,
+      "call_targets_total": 0,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 0,
+      "outgoing_sample": [],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_825AB5A0",
+      "offset_candidate_hit_count": 7,
+      "generated_file": "nfsmw_recomp.93.cpp",
+      "generated_file_sha256": "8ce11ce3eeb22d578b2af4ca6daf79fe3218d4005c3a34203be1b10b0f280261",
+      "generated_function_size_chars": 6752,
+      "incoming_calls_known": true,
+      "call_targets_total": 0,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 0,
+      "outgoing_sample": [],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_825CEF28",
+      "offset_candidate_hit_count": 7,
+      "generated_file": "nfsmw_recomp.20.cpp",
+      "generated_file_sha256": "3c4ea677142919989b0a5f9e2e18efc3b7aecf90c537ff2b1271146691e6292a",
+      "generated_function_size_chars": 5995,
+      "incoming_calls_known": true,
+      "call_targets_total": 1,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 1,
+      "outgoing_sample": [
+        "sub_8261AF18"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_82674FA0",
+      "offset_candidate_hit_count": 7,
+      "generated_file": "nfsmw_recomp.10.cpp",
+      "generated_file_sha256": "42d4f0d1c78c185ad51838e6edad965bc99b170871e310ac985c52c6985a1c76",
+      "generated_function_size_chars": 4179,
+      "incoming_calls_known": true,
+      "call_targets_total": 3,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 2,
+      "outgoing_sample": [
+        "sub_8267D0C0",
+        "sub_8267D398",
+        "sub_8267D3A8"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_827193D0",
+      "offset_candidate_hit_count": 7,
+      "generated_file": "nfsmw_recomp.88.cpp",
+      "generated_file_sha256": "cc7257a8d7f6f3d29c2710d6b0d289fa441f17f763728625f4b38e1a86e8e2af",
+      "generated_function_size_chars": 2283,
+      "incoming_calls_known": true,
+      "call_targets_total": 0,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 2,
+      "outgoing_sample": [],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_8274C7C0",
+      "offset_candidate_hit_count": 7,
+      "generated_file": "nfsmw_recomp.38.cpp",
+      "generated_file_sha256": "091dc348b694447350bcb10f2cc8cf46e77b86505dc7a966c0c7dac3431d0b1c",
+      "generated_function_size_chars": 23204,
+      "incoming_calls_known": true,
+      "call_targets_total": 0,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 0,
+      "outgoing_sample": [],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_82752E10",
+      "offset_candidate_hit_count": 7,
+      "generated_file": "nfsmw_recomp.98.cpp",
+      "generated_file_sha256": "f0eddfa79a33ae4f28f1c0651319ba43c6209103b4ccf49a59ea1ef4211ff4d2",
+      "generated_function_size_chars": 5019,
+      "incoming_calls_known": true,
+      "call_targets_total": 0,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 5,
+      "outgoing_sample": [],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_8276AFE0",
+      "offset_candidate_hit_count": 7,
+      "generated_file": "nfsmw_recomp.113.cpp",
+      "generated_file_sha256": "1cb11ddb7abdc3d726f9b4da1569a54c4d478660ab4ec56d8580bb5a1d26692a",
+      "generated_function_size_chars": 15443,
+      "incoming_calls_known": true,
+      "call_targets_total": 0,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 1,
+      "outgoing_sample": [],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_827F24A0",
+      "offset_candidate_hit_count": 7,
+      "generated_file": "nfsmw_recomp.50.cpp",
+      "generated_file_sha256": "f20ec567de4c4637756977a71a6c85f3848b63ba639f037b819868328e3f7e9d",
+      "generated_function_size_chars": 5059,
+      "incoming_calls_known": true,
+      "call_targets_total": 0,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 1,
+      "outgoing_sample": [],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_827F6398",
+      "offset_candidate_hit_count": 7,
+      "generated_file": "nfsmw_recomp.54.cpp",
+      "generated_file_sha256": "318f51391757110fd85eb1ad40bb9feb6954d412a01e8961fa2049969dca4fc4",
+      "generated_function_size_chars": 3606,
+      "incoming_calls_known": true,
+      "call_targets_total": 1,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 2,
+      "outgoing_sample": [
+        "sub_827F3830"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_82885900",
+      "offset_candidate_hit_count": 7,
+      "generated_file": "nfsmw_recomp.67.cpp",
+      "generated_file_sha256": "e7d3d4344914ffb1e8c4a4a8daea6ee254275bf212aa1e04e583c116c2acd902",
+      "generated_function_size_chars": 4167,
+      "incoming_calls_known": true,
+      "call_targets_total": 0,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 1,
+      "outgoing_sample": [],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_828A56D8",
+      "offset_candidate_hit_count": 7,
+      "generated_file": "nfsmw_recomp.103.cpp",
+      "generated_file_sha256": "88d866e93ccbb448186e45cb106fd16d42e033b7c3f9959105ceeea430c3abef",
+      "generated_function_size_chars": 24768,
+      "incoming_calls_known": true,
+      "call_targets_total": 0,
+      "performance_offset_distinct": 7,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 0,
+      "outgoing_sample": [],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_82703970",
+      "offset_candidate_hit_count": 81,
+      "generated_file": "nfsmw_recomp.58.cpp",
+      "generated_file_sha256": "5feaa38658f509d805e54cd640c9d1d0e800f3205a27ac4c5774d2407f9bebd8",
+      "generated_function_size_chars": 108825,
+      "incoming_calls_known": true,
+      "call_targets_total": 12,
+      "performance_offset_distinct": 6,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 10
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 6
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 52
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 5
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 4
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 4
+        }
+      ],
+      "caller_count": 0,
+      "outgoing_sample": [
+        "sub_826EA920",
+        "sub_826EA9C8",
+        "sub_826EB070",
+        "sub_826EB628",
+        "sub_826FB500",
+        "sub_826FB618",
+        "sub_826FBC18",
+        "sub_826FC3A8",
+        "sub_826FFA50",
+        "sub_826FFE50"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_821CA360",
+      "offset_candidate_hit_count": 54,
+      "generated_file": "nfsmw_recomp.108.cpp",
+      "generated_file_sha256": "562e86fc9cf47c62c8beb06221efc149432188df81351a81455188fad8e84e68",
+      "generated_function_size_chars": 40355,
+      "incoming_calls_known": true,
+      "call_targets_total": 11,
+      "performance_offset_distinct": 6,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 14
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 11
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 13
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 7
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 8
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 0,
+      "outgoing_sample": [
+        "sub_82148818",
+        "sub_821B4890",
+        "sub_821B49D0",
+        "sub_821B4A88",
+        "sub_821B4AD0",
+        "sub_821C18D8",
+        "sub_821C19B0",
+        "sub_821CB358",
+        "sub_821CB5A0",
+        "sub_821CB690"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_821F69E0",
+      "offset_candidate_hit_count": 33,
+      "generated_file": "nfsmw_recomp.128.cpp",
+      "generated_file_sha256": "a892eddeb589eb3c0177264ee09dc89a7c8626685d2d023c2d7ae87bd10f74a5",
+      "generated_function_size_chars": 23678,
+      "incoming_calls_known": true,
+      "call_targets_total": 3,
+      "performance_offset_distinct": 6,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 14
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 11
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 4
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 2
+        }
+      ],
+      "caller_count": 0,
+      "outgoing_sample": [
+        "sub_821E1330",
+        "sub_821E1B40",
+        "sub_82210E98"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_8246C428",
+      "offset_candidate_hit_count": 27,
+      "generated_file": "nfsmw_recomp.86.cpp",
+      "generated_file_sha256": "56a208914092a2bbcdfbb5e57d4db71594140fb3bc001d051ee231c5061f8b9e",
+      "generated_function_size_chars": 85557,
+      "incoming_calls_known": true,
+      "call_targets_total": 53,
+      "performance_offset_distinct": 6,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 6
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 12
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 4
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 3
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 1,
+      "outgoing_sample": [
+        "sub_8211DE40",
+        "sub_8212C3F0",
+        "sub_8212CB70",
+        "sub_8212D760",
+        "sub_8212D818",
+        "sub_8212D8B8",
+        "sub_8212DBE8",
+        "sub_82163130",
+        "sub_822341F8",
+        "sub_822B28E0"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_8249E940",
+      "offset_candidate_hit_count": 27,
+      "generated_file": "nfsmw_recomp.19.cpp",
+      "generated_file_sha256": "52b8f3da6c55b33dd19e9b30545d1157ea79a88c98862523c9fc4b0c0c76fabc",
+      "generated_function_size_chars": 81202,
+      "incoming_calls_known": true,
+      "call_targets_total": 16,
+      "performance_offset_distinct": 6,
+      "performance_offsets": [
+        {
+          "ppc_offset": 44,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 4
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 8
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 6
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 5
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 2
+        }
+      ],
+      "caller_count": 0,
+      "outgoing_sample": [
+        "sub_820FF0C8",
+        "sub_8211DE40",
+        "sub_8212C3F0",
+        "sub_8212CBC0",
+        "sub_8212D238",
+        "sub_8214B580",
+        "sub_82152A38",
+        "sub_821C6BC8",
+        "sub_82489588",
+        "sub_82494900"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_82666790",
+      "offset_candidate_hit_count": 24,
+      "generated_file": "nfsmw_recomp.103.cpp",
+      "generated_file_sha256": "88d866e93ccbb448186e45cb106fd16d42e033b7c3f9959105ceeea430c3abef",
+      "generated_function_size_chars": 7895,
+      "incoming_calls_known": true,
+      "call_targets_total": 0,
+      "performance_offset_distinct": 6,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 10
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 10
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 1,
+      "outgoing_sample": [],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_821F9AC0",
+      "offset_candidate_hit_count": 23,
+      "generated_file": "nfsmw_recomp.35.cpp",
+      "generated_file_sha256": "0c8de1ce2cf1f97cdf6f458c0914c5a42d3280e1c9ce24b39dd12642b725a21e",
+      "generated_function_size_chars": 25902,
+      "incoming_calls_known": true,
+      "call_targets_total": 10,
+      "performance_offset_distinct": 6,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 7
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 3
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 8
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 3
+        }
+      ],
+      "caller_count": 0,
+      "outgoing_sample": [
+        "sub_82148818",
+        "sub_8214B4E8",
+        "sub_82152A38",
+        "sub_8215A0F0",
+        "sub_821C35C0",
+        "sub_821DFE00",
+        "sub_821DFEE8",
+        "sub_821E6688",
+        "sub_82389CC0",
+        "sub_825CAE08"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_826E9CA8",
+      "offset_candidate_hit_count": 22,
+      "generated_file": "nfsmw_recomp.41.cpp",
+      "generated_file_sha256": "6e3c83e95e701b55894d503d7fcdaeffca1e4f92019f1fe2a7272e1139136a5b",
+      "generated_function_size_chars": 24686,
+      "incoming_calls_known": true,
+      "call_targets_total": 7,
+      "performance_offset_distinct": 6,
+      "performance_offsets": [
+        {
+          "ppc_offset": 44,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 8
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 5
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 4
+        }
+      ],
+      "caller_count": 0,
+      "outgoing_sample": [
+        "sub_825A17B0",
+        "sub_825A17F0",
+        "sub_8262F750",
+        "sub_826E6988",
+        "sub_826E69E0",
+        "sub_826E6B18",
+        "sub_8284DE78"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_825B7150",
+      "offset_candidate_hit_count": 21,
+      "generated_file": "nfsmw_recomp.10.cpp",
+      "generated_file_sha256": "42d4f0d1c78c185ad51838e6edad965bc99b170871e310ac985c52c6985a1c76",
+      "generated_function_size_chars": 44222,
+      "incoming_calls_known": true,
+      "call_targets_total": 3,
+      "performance_offset_distinct": 6,
+      "performance_offsets": [
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 7
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 4
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 7
+        }
+      ],
+      "caller_count": 0,
+      "outgoing_sample": [
+        "sub_825AFF38",
+        "sub_825B7E40",
+        "sub_825B7EE0"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_82603B88",
+      "offset_candidate_hit_count": 19,
+      "generated_file": "nfsmw_recomp.96.cpp",
+      "generated_file_sha256": "84d862feb1c9813dac1a62cd5e13969c3c613e1a2fb0241535ccd5d01ce7f01f",
+      "generated_function_size_chars": 23543,
+      "incoming_calls_known": true,
+      "call_targets_total": 4,
+      "performance_offset_distinct": 6,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 5
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 6
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 4
+        }
+      ],
+      "caller_count": 1,
+      "outgoing_sample": [
+        "sub_82603768",
+        "sub_82615C98",
+        "sub_82616560",
+        "sub_8262E5D0"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_82528EE0",
+      "offset_candidate_hit_count": 18,
+      "generated_file": "nfsmw_recomp.32.cpp",
+      "generated_file_sha256": "9dd5ca889dc88aef5c5b0f65f59963a7d659886ff1ce3fc904881e18271bb9f3",
+      "generated_function_size_chars": 27900,
+      "incoming_calls_known": true,
+      "call_targets_total": 15,
+      "performance_offset_distinct": 6,
+      "performance_offsets": [
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 3
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 7
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 5
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 1,
+      "outgoing_sample": [
+        "sub_820E1268",
+        "sub_82148818",
+        "sub_8214DB80",
+        "sub_8214DDE8",
+        "sub_821C04C8",
+        "sub_822294F0",
+        "sub_8222C428",
+        "sub_82318860",
+        "sub_8250A3B0",
+        "sub_82527860"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_826E8EE8",
+      "offset_candidate_hit_count": 16,
+      "generated_file": "nfsmw_recomp.71.cpp",
+      "generated_file_sha256": "6f6d464c9ae7f845e60a73adac69a7f0b592a49cab43f93d9c6bfad926c0e519",
+      "generated_function_size_chars": 43257,
+      "incoming_calls_known": true,
+      "call_targets_total": 7,
+      "performance_offset_distinct": 6,
+      "performance_offsets": [
+        {
+          "ppc_offset": 44,
+          "accesses": 4
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 3
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 3
+        }
+      ],
+      "caller_count": 0,
+      "outgoing_sample": [
+        "sub_826D8BF0",
+        "sub_826D8BF8",
+        "sub_826DB130",
+        "sub_826E6988",
+        "sub_826E69E0",
+        "sub_826E6B18",
+        "sub_8284DE78"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_8267A920",
+      "offset_candidate_hit_count": 15,
+      "generated_file": "nfsmw_recomp.1.cpp",
+      "generated_file_sha256": "61dfd877d2449a1db9d1ef4ffad4cb1040dfbfc8558bf432cdd43ad666ddae26",
+      "generated_function_size_chars": 8986,
+      "incoming_calls_known": true,
+      "call_targets_total": 2,
+      "performance_offset_distinct": 6,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 7
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 2,
+      "outgoing_sample": [
+        "sub_82679398",
+        "sub_8267A700"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_821CB428",
+      "offset_candidate_hit_count": 14,
+      "generated_file": "nfsmw_recomp.60.cpp",
+      "generated_file_sha256": "15906e7466fcdc5606c7fc92d99886185ee7d1e993adbd945b6b7af0571f71f7",
+      "generated_function_size_chars": 6478,
+      "incoming_calls_known": true,
+      "call_targets_total": 1,
+      "performance_offset_distinct": 6,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 3
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 3
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 3
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 1,
+      "outgoing_sample": [
+        "sub_821C18D8"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_821AAEC0",
+      "offset_candidate_hit_count": 13,
+      "generated_file": "nfsmw_recomp.76.cpp",
+      "generated_file_sha256": "3653846cbc173073ca4589d0e61bd322551f18432030d1c76ff44699e5b51637",
+      "generated_function_size_chars": 21452,
+      "incoming_calls_known": true,
+      "call_targets_total": 0,
+      "performance_offset_distinct": 6,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 4
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 4
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 0,
+      "outgoing_sample": [],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_821CB000",
+      "offset_candidate_hit_count": 13,
+      "generated_file": "nfsmw_recomp.48.cpp",
+      "generated_file_sha256": "aa68d0c153ce27f5fb27c5d22303dfe1d0abc336038fe5cfff076b3b9eb7487f",
+      "generated_function_size_chars": 13622,
+      "incoming_calls_known": true,
+      "call_targets_total": 4,
+      "performance_offset_distinct": 6,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 5
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 1,
+      "outgoing_sample": [
+        "sub_82148818",
+        "sub_821B49D0",
+        "sub_821C18D8",
+        "sub_821CB358"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_826992F0",
+      "offset_candidate_hit_count": 13,
+      "generated_file": "nfsmw_recomp.86.cpp",
+      "generated_file_sha256": "56a208914092a2bbcdfbb5e57d4db71594140fb3bc001d051ee231c5061f8b9e",
+      "generated_function_size_chars": 78754,
+      "incoming_calls_known": true,
+      "call_targets_total": 4,
+      "performance_offset_distinct": 6,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 8
+        }
+      ],
+      "caller_count": 0,
+      "outgoing_sample": [
+        "sub_8259B578",
+        "sub_8259B5D0",
+        "sub_8259B6B8",
+        "sub_8259B708"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_8216A420",
+      "offset_candidate_hit_count": 12,
+      "generated_file": "nfsmw_recomp.82.cpp",
+      "generated_file_sha256": "4947087a5c4dcede68245a55dae8c4ed5286deac83ccd0310906cfc3af22cf62",
+      "generated_function_size_chars": 17991,
+      "incoming_calls_known": true,
+      "call_targets_total": 19,
+      "performance_offset_distinct": 6,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 4
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 2
+        }
+      ],
+      "caller_count": 1,
+      "outgoing_sample": [
+        "sub_820E1E38",
+        "sub_8212D908",
+        "sub_82134580",
+        "sub_82158028",
+        "sub_8215CB08",
+        "sub_82162F08",
+        "sub_82163008",
+        "sub_82165798",
+        "sub_82165C90",
+        "sub_8216AE48"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_8216C170",
+      "offset_candidate_hit_count": 12,
+      "generated_file": "nfsmw_recomp.54.cpp",
+      "generated_file_sha256": "318f51391757110fd85eb1ad40bb9feb6954d412a01e8961fa2049969dca4fc4",
+      "generated_function_size_chars": 11828,
+      "incoming_calls_known": true,
+      "call_targets_total": 16,
+      "performance_offset_distinct": 6,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 3
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 3
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 1,
+      "outgoing_sample": [
+        "sub_8212D908",
+        "sub_82134580",
+        "sub_82158028",
+        "sub_8215CB08",
+        "sub_82162F08",
+        "sub_82163008",
+        "sub_82165798",
+        "sub_82165C90",
+        "sub_8216C730",
+        "sub_82172740"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_8216CD88",
+      "offset_candidate_hit_count": 12,
+      "generated_file": "nfsmw_recomp.69.cpp",
+      "generated_file_sha256": "1e4208ac1d14f55364f48c87084cf07be1277eecbaa018151f84ae6e4067a41d",
+      "generated_function_size_chars": 12857,
+      "incoming_calls_known": true,
+      "call_targets_total": 16,
+      "performance_offset_distinct": 6,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 3
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 3
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 1,
+      "outgoing_sample": [
+        "sub_8212D908",
+        "sub_82134580",
+        "sub_82158028",
+        "sub_8215CB08",
+        "sub_82162F08",
+        "sub_82163008",
+        "sub_82165798",
+        "sub_82165C90",
+        "sub_8216D390",
+        "sub_821739A8"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_821EE950",
+      "offset_candidate_hit_count": 12,
+      "generated_file": "nfsmw_recomp.106.cpp",
+      "generated_file_sha256": "795810b597cc9d3edf42ecce5aff58d57ccdabe1cc79716311d26d39a7f4bba4",
+      "generated_function_size_chars": 5411,
+      "incoming_calls_known": true,
+      "call_targets_total": 1,
+      "performance_offset_distinct": 6,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 2
+        }
+      ],
+      "caller_count": 0,
+      "outgoing_sample": [
+        "sub_821B2C28"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_821CF770",
+      "offset_candidate_hit_count": 11,
+      "generated_file": "nfsmw_recomp.73.cpp",
+      "generated_file_sha256": "db2684071330e3c5fa60c6909da1e2daa5d93418c17225fe8a56e4dded58ab71",
+      "generated_function_size_chars": 28210,
+      "incoming_calls_known": true,
+      "call_targets_total": 3,
+      "performance_offset_distinct": 6,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 3
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 3
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 0,
+      "outgoing_sample": [
+        "sub_82148818",
+        "sub_821C2168",
+        "sub_823C59A8"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_822E3778",
+      "offset_candidate_hit_count": 11,
+      "generated_file": "nfsmw_recomp.97.cpp",
+      "generated_file_sha256": "5446c0f06bca0c669497b6f4f9a8319519a43dfd2442ac37099e4d884ac259a7",
+      "generated_function_size_chars": 6144,
+      "incoming_calls_known": true,
+      "call_targets_total": 3,
+      "performance_offset_distinct": 6,
+      "performance_offsets": [
+        {
+          "ppc_offset": 44,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 3
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 1,
+      "outgoing_sample": [
+        "sub_82158148",
+        "sub_822827E8",
+        "sub_822F5BB8"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_82604430",
+      "offset_candidate_hit_count": 11,
+      "generated_file": "nfsmw_recomp.62.cpp",
+      "generated_file_sha256": "40223de7eae9db7ecedfb2150959282736a82f42cafadc8cc8c506d9ac2c63be",
+      "generated_function_size_chars": 13199,
+      "incoming_calls_known": true,
+      "call_targets_total": 3,
+      "performance_offset_distinct": 6,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 4
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 1,
+      "outgoing_sample": [
+        "sub_826040D0",
+        "sub_82604728",
+        "sub_826151B0"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_826EB628",
+      "offset_candidate_hit_count": 11,
+      "generated_file": "nfsmw_recomp.26.cpp",
+      "generated_file_sha256": "b08284822bda04f3d57f88a2c7c703f67749c248932441fa097344db0f88c2cb",
+      "generated_function_size_chars": 11995,
+      "incoming_calls_known": true,
+      "call_targets_total": 3,
+      "performance_offset_distinct": 6,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 3
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 3
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 1,
+      "outgoing_sample": [
+        "sub_826EABE8",
+        "sub_826EAC48",
+        "sub_826EB070"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_82425208",
+      "offset_candidate_hit_count": 10,
+      "generated_file": "nfsmw_recomp.77.cpp",
+      "generated_file_sha256": "c3b55b762a152fd40e311c92c03226d7ef3d946e7c85897d7e8b1b5b9e4c7c1b",
+      "generated_function_size_chars": 44275,
+      "incoming_calls_known": true,
+      "call_targets_total": 10,
+      "performance_offset_distinct": 6,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 5
+        }
+      ],
+      "caller_count": 1,
+      "outgoing_sample": [
+        "sub_820E0ED0",
+        "sub_82182C98",
+        "sub_82422500",
+        "sub_82423920",
+        "sub_82424138",
+        "sub_82424330",
+        "sub_82424468",
+        "sub_82424820",
+        "sub_82424940",
+        "sub_826B76C0"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_826EB950",
+      "offset_candidate_hit_count": 10,
+      "generated_file": "nfsmw_recomp.78.cpp",
+      "generated_file_sha256": "ddd1e461ac8c463d9edfdd1705500033fc69416eac5dd4ff0ce3cedc356b4c84",
+      "generated_function_size_chars": 11193,
+      "incoming_calls_known": true,
+      "call_targets_total": 2,
+      "performance_offset_distinct": 6,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 0,
+      "outgoing_sample": [
+        "sub_826EAC48",
+        "sub_826EB070"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_82720B10",
+      "offset_candidate_hit_count": 10,
+      "generated_file": "nfsmw_recomp.110.cpp",
+      "generated_file_sha256": "e914f39cc7098a3a29c2b45af925dd5dbf3d9b69d09697bf292da3f3a5d7e95a",
+      "generated_function_size_chars": 11669,
+      "incoming_calls_known": true,
+      "call_targets_total": 4,
+      "performance_offset_distinct": 6,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 4
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 0,
+      "outgoing_sample": [
+        "sub_826EA758",
+        "sub_826EABE8",
+        "sub_82730370",
+        "sub_827305E0"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_8242EC98",
+      "offset_candidate_hit_count": 9,
+      "generated_file": "nfsmw_recomp.5.cpp",
+      "generated_file_sha256": "26c58fa8c5b5810f2fa06bcf25d3f3f7ac131bf73692a9991a84269433b8de07",
+      "generated_function_size_chars": 23837,
+      "incoming_calls_known": true,
+      "call_targets_total": 3,
+      "performance_offset_distinct": 6,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 3
+        }
+      ],
+      "caller_count": 3,
+      "outgoing_sample": [
+        "sub_82152A38",
+        "sub_82162380",
+        "sub_8242E430"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_827339D8",
+      "offset_candidate_hit_count": 9,
+      "generated_file": "nfsmw_recomp.65.cpp",
+      "generated_file_sha256": "c075c8e55855cf457d82ef844a21e93ac14d061bac6048d66e83321ca1cae871",
+      "generated_function_size_chars": 14025,
+      "incoming_calls_known": true,
+      "call_targets_total": 4,
+      "performance_offset_distinct": 6,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 72,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 1,
+      "outgoing_sample": [
+        "sub_8272ED68",
+        "sub_8272EDF8",
+        "sub_8272EF20",
+        "sub_8274ECB8"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    },
+    {
+      "function": "sub_8281C930",
+      "offset_candidate_hit_count": 9,
+      "generated_file": "nfsmw_recomp.92.cpp",
+      "generated_file_sha256": "f8033d993f8beee09f7c3c7a619af841c842e24153e7dd384abfa2b8d0979e81",
+      "generated_function_size_chars": 13740,
+      "incoming_calls_known": true,
+      "call_targets_total": 3,
+      "performance_offset_distinct": 6,
+      "performance_offsets": [
+        {
+          "ppc_offset": 40,
+          "accesses": 3
+        },
+        {
+          "ppc_offset": 44,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 48,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 52,
+          "accesses": 1
+        },
+        {
+          "ppc_offset": 60,
+          "accesses": 2
+        },
+        {
+          "ppc_offset": 68,
+          "accesses": 1
+        }
+      ],
+      "caller_count": 3,
+      "outgoing_sample": [
+        "sub_8281C720",
+        "sub_828254E8",
+        "sub_82825500"
+      ],
+      "is_in_known_anchor_neighborhood": false
+    }
+  ],
+  "other_potential_symbol_map_names": [
+    "workspace/nativo/sdk/thirdparty/sdl3/build-scripts/rename_symbols.py",
+    "workspace/nativo/sdk/thirdparty/sdl3/test/testsymbols.c",
+    "workspace/nativo/sdk/thirdparty/tracy/cmake/gl3w-extra-symbols.patch"
+  ],
+  "functions_SetPackage_SetLevel_GetMaxLevel_identified": false,
+  "guest_code_executed": false,
+  "game_source_extracted_to_disk": false,
+  "apk_built": false,
+  "save_modified": false,
+  "mod_enabled": false,
+  "raw_generated_source_published": false,
+  "run_id": "42515287736",
+  "utc": "2026-11-08T19:30:16.450575+00:00"
+}
