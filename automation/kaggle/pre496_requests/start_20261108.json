@@ -1,0 +1,9 @@
+{
+  "stage": "PRE496",
+  "goal": "Recover original PRE490 13 function audit from verified artifact; avoid 875MB re-download",
+  "run_id": 42517016343,
+  "artifact_id": 13632775377,
+  "report_sha256": "e33fce658a44f6b8a5e9e10466241e9cc48a26a0d234177d18d540c94c1c77a7",
+  "no_apk": true,
+  "no_save": true
+}
