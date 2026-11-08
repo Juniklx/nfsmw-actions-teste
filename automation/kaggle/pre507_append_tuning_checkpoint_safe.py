@@ -12,7 +12,7 @@ from googleapiclient.http import MediaIoBaseUpload
 from pre480_append_canonical_context_safe import (
     FILE_ID, PARENT, sha, drive_client, get_bytes, get_meta)
 
-OUT=Path("/tmp/nfsmw-pre504/report.json")
+OUT=Path("/tmp/nfsmw-pre507/report.json")
 HANDOFF=Path("docs/PRE507_BMW_TUNING_PRE505_PRE506_CHECKPOINT_20261108.md")
 MARKER="PRE507_BMW_TUNING_PRE505_PRE506_CHECKPOINT_20261108"
 PREVIOUS="PRE504_BMW_ENGINE_INTEGRATION_CHECKPOINT_20261108"
