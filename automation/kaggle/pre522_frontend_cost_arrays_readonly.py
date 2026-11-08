@@ -15,7 +15,6 @@ from collections import Counter
 from pre462_usa_raw_iso_attributes_readonly import Reader,PARTITION_BASE,EXPECTED_NFS_SECTOR,SECTOR,dir_entries,NAMES
 from pre465_usa_bmw_vpak_inner_schema_readonly import chunks,get_names,hash32
 from pre517_original_zdir_ea_checksum_readonly import ea_data_hash
-from pre502_bmw_engine_combined_level1_scratch import lookup_ptrn
 OUT=Path("/tmp/nfsmw-pre522/report.json")
 FE_SHA="8ac09099cfc98646bbfbdb261d28b9648e3ec8b0d6bdf9d3edd6ef7bc967b528"
 RESOURCE="GLOBAL\\FE_ATTRIB.BIN"
@@ -30,6 +29,36 @@ KEY_COST=hash32("Cost")
 ENUM={4:"tires",5:"brakes",6:"chassis",7:"transmission",8:"engine",9:"induction",10:"nos"}
 EXPECTED_BROKEN_OR_UNKNOWN_FIELD_NAMES_ALLOWED=True
 REF_SOURCE="dbalatoni13/nfsmw@80993f35224c61d2f1b135beba76c6f8234c7940/FEReflected.hpp"
+
+def decode_frontend_ptrn(vlt:bytes,offset:int,declared_size:int):
+    region=vlt[offset:offset+declared_size]
+    if (region[:4]!=b"PtrN" or len(region)!=declared_size or
+        int.from_bytes(region[4:8],"big")!=declared_size):
+        raise ValueError("Original FE PtrN header or length invalid")
+    # Unlike Physics::ATTRIBUTES.BIN, FE_ATTRIB.BIN has four trailing zero
+    # bytes after complete 12-byte fixup instructions. Verified on original
+    # SHA-pinned resource. Do not silently skip arbitrary unknown bytes.
+    trailing=0
+    if (declared_size-8)%12==4 and region[-4:]==b"\x00"*4:
+        trailing=4
+    elif (declared_size-8)%12!=0:
+        raise ValueError("Unknown original FE PtrN instruction padding")
+    out={};current=None;counts={}
+    for pos in range(8,declared_size-trailing,12):
+        src,kind,index,dst=struct.unpack_from(">IHHI",region,pos)
+        counts[kind]=counts.get(kind,0)+1
+        if kind==2:
+            if index not in (0,1):raise ValueError("Unknown section in FE PtrN")
+            current=index
+        elif kind in (1,3,4):
+            if current is None:raise ValueError("FE pointer instruction without section")
+            if current==0:out.setdefault(src,[]).append((kind,index,dst))
+        elif kind!=0:
+            raise ValueError("Unknown FE PtrN fixup opcode")
+    return out,{"PtrN_declared_bytes":declared_size,
+                "trailing_zero_padding_bytes":trailing,
+                "instruction_opcode_histogram":counts,
+                "decoded_fixup_source_slots":len(out)}
 
 def read_original():
     reader=Reader()
@@ -82,7 +111,7 @@ def audit():
        "first_16_bytes_hex":ptr_region[:16].hex(),
        "last_16_bytes_hex":ptr_region[-16:].hex()
     }),flush=True)
-    ptr_offsets=lookup_ptrn(VLT,ptr["relative_offset"],ptr["declared_size"])
+    ptr_offsets,ptr_format=decode_frontend_ptrn(VLT,ptr["relative_offset"],ptr["declared_size"])
     strings=get_names(BIN,bchunks)
     labels={hash32(x):x for x in strings}
     fields_count=Counter()
@@ -163,6 +192,7 @@ def audit():
         "carparts_hash":f"{CARPARTS:08x}",
         "feCarPartInfo_field_hash":f"{KEY_INFO:08x}",
         "feCarPartName_field_hash":f"{KEY_NAME:08x}",
+        "original_frontend_PtrN_layout":ptr_format,
         "original_carparts_children_examined":len(all_children),
         "optional_key_occurrences":dict(fields_count),
         "children_with_category_enum_decoded":len(mapped),
