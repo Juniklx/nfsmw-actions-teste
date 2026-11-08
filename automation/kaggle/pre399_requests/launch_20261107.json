@@ -1,0 +1,8 @@
+{
+  "stage": "PRE399",
+  "goal": "global Nitro full for all cars, user consent",
+  "read_only": true,
+  "expectedSource": "PRE99 sha pinned",
+  "expectedGuestStores": 5,
+  "apk": false
+}
