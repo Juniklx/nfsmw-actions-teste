@@ -1,0 +1,1228 @@
+{
+  "stage": "PRE476_PAL_BMW_PUNTO_REFERENCE_RESOLUTION_READONLY",
+  "status": "AUDIT_OK",
+  "source_pal_vpak_sha256": "9f4b04a221232e614b927a870e25da7db100477a7e425114b87082f46e8b99ad",
+  "referenced_source_proofs": [
+    "PRE467",
+    "PRE474"
+  ],
+  "all_indexed_collections": 2339,
+  "punto_second_reference_hash": "a6f0f405",
+  "punto_second_reference_per_class": [
+    {
+      "class_hash": "f1f5fbc7",
+      "class_name": "engine",
+      "record_exists": true,
+      "ancestry_state": "END_ZERO_PARENT",
+      "ancestry": [
+        {
+          "class_hash": "f1f5fbc7",
+          "collection_hash": "a6f0f405",
+          "parent_hash": "a6ee7a11",
+          "optional_attribute_count": 0,
+          "field_type_count": 1,
+          "record_size": 36,
+          "record_offset_vlt": 34440,
+          "export_index": 657
+        },
+        {
+          "class_hash": "f1f5fbc7",
+          "collection_hash": "a6ee7a11",
+          "parent_hash": "eec2271a",
+          "optional_attribute_count": 0,
+          "field_type_count": 1,
+          "record_size": 36,
+          "record_offset_vlt": 32680,
+          "export_index": 613
+        },
+        {
+          "class_hash": "f1f5fbc7",
+          "collection_hash": "eec2271a",
+          "parent_hash": "00000000",
+          "optional_attribute_count": 0,
+          "field_type_count": 1,
+          "record_size": 36,
+          "record_offset_vlt": 32040,
+          "export_index": 597
+        }
+      ]
+    },
+    {
+      "class_hash": "07a7a3e5",
+      "class_name": "transmission",
+      "record_exists": true,
+      "ancestry_state": "END_ZERO_PARENT",
+      "ancestry": [
+        {
+          "class_hash": "07a7a3e5",
+          "collection_hash": "a6f0f405",
+          "parent_hash": "a6ee7a11",
+          "optional_attribute_count": 0,
+          "field_type_count": 1,
+          "record_size": 36,
+          "record_offset_vlt": 71432,
+          "export_index": 1213
+        },
+        {
+          "class_hash": "07a7a3e5",
+          "collection_hash": "a6ee7a11",
+          "parent_hash": "eec2271a",
+          "optional_attribute_count": 0,
+          "field_type_count": 1,
+          "record_size": 36,
+          "record_offset_vlt": 69432,
+          "export_index": 1163
+        },
+        {
+          "class_hash": "07a7a3e5",
+          "collection_hash": "eec2271a",
+          "parent_hash": "00000000",
+          "optional_attribute_count": 0,
+          "field_type_count": 1,
+          "record_size": 36,
+          "record_offset_vlt": 68312,
+          "export_index": 1135
+        }
+      ]
+    },
+    {
+      "class_hash": "afa210f0",
+      "class_name": "chassis",
+      "record_exists": true,
+      "ancestry_state": "END_ZERO_PARENT",
+      "ancestry": [
+        {
+          "class_hash": "afa210f0",
+          "collection_hash": "a6f0f405",
+          "parent_hash": "a6ee7a11",
+          "optional_attribute_count": 0,
+          "field_type_count": 2,
+          "record_size": 40,
+          "record_offset_vlt": 2928,
+          "export_index": 63
+        },
+        {
+          "class_hash": "afa210f0",
+          "collection_hash": "a6ee7a11",
+          "parent_hash": "eec2271a",
+          "optional_attribute_count": 0,
+          "field_type_count": 2,
+          "record_size": 40,
+          "record_offset_vlt": 1688,
+          "export_index": 32
+        },
+        {
+          "class_hash": "afa210f0",
+          "collection_hash": "eec2271a",
+          "parent_hash": "00000000",
+          "optional_attribute_count": 0,
+          "field_type_count": 2,
+          "record_size": 40,
+          "record_offset_vlt": 768,
+          "export_index": 9
+        }
+      ]
+    },
+    {
+      "class_hash": "b1669f64",
+      "class_name": "nos",
+      "record_exists": false,
+      "ancestry_state": "MISSING_REFERENCED_COLLECTION",
+      "ancestry": []
+    },
+    {
+      "class_hash": "bd38d1ca",
+      "class_name": "tires",
+      "record_exists": true,
+      "ancestry_state": "END_ZERO_PARENT",
+      "ancestry": [
+        {
+          "class_hash": "bd38d1ca",
+          "collection_hash": "a6f0f405",
+          "parent_hash": "a6ee7a11",
+          "optional_attribute_count": 0,
+          "field_type_count": 2,
+          "record_size": 40,
+          "record_offset_vlt": 86528,
+          "export_index": 1426
+        },
+        {
+          "class_hash": "bd38d1ca",
+          "collection_hash": "a6ee7a11",
+          "parent_hash": "eec2271a",
+          "optional_attribute_count": 0,
+          "field_type_count": 2,
+          "record_size": 40,
+          "record_offset_vlt": 85288,
+          "export_index": 1395
+        },
+        {
+          "class_hash": "bd38d1ca",
+          "collection_hash": "eec2271a",
+          "parent_hash": "00000000",
+          "optional_attribute_count": 0,
+          "field_type_count": 2,
+          "record_size": 40,
+          "record_offset_vlt": 84408,
+          "export_index": 1373
+        }
+      ]
+    },
+    {
+      "class_hash": "36350867",
+      "class_name": "brakes",
+      "record_exists": true,
+      "ancestry_state": "END_ZERO_PARENT",
+      "ancestry": [
+        {
+          "class_hash": "36350867",
+          "collection_hash": "a6f0f405",
+          "parent_hash": "a6ee7a11",
+          "optional_attribute_count": 0,
+          "field_type_count": 2,
+          "record_size": 40,
+          "record_offset_vlt": 93448,
+          "export_index": 1572
+        },
+        {
+          "class_hash": "36350867",
+          "collection_hash": "a6ee7a11",
+          "parent_hash": "eec2271a",
+          "optional_attribute_count": 0,
+          "field_type_count": 2,
+          "record_size": 40,
+          "record_offset_vlt": 91528,
+          "export_index": 1524
+        },
+        {
+          "class_hash": "36350867",
+          "collection_hash": "eec2271a",
+          "parent_hash": "00000000",
+          "optional_attribute_count": 0,
+          "field_type_count": 2,
+          "record_size": 40,
+          "record_offset_vlt": 90248,
+          "export_index": 1492
+        }
+      ]
+    },
+    {
+      "class_hash": "c92a0142",
+      "class_name": "induction",
+      "record_exists": true,
+      "ancestry_state": "END_ZERO_PARENT",
+      "ancestry": [
+        {
+          "class_hash": "c92a0142",
+          "collection_hash": "a6f0f405",
+          "parent_hash": "1bcdb55e",
+          "optional_attribute_count": 0,
+          "field_type_count": 1,
+          "record_size": 36,
+          "record_offset_vlt": 14712,
+          "export_index": 329
+        },
+        {
+          "class_hash": "c92a0142",
+          "collection_hash": "1bcdb55e",
+          "parent_hash": "eec2271a",
+          "optional_attribute_count": 0,
+          "field_type_count": 1,
+          "record_size": 36,
+          "record_offset_vlt": 13232,
+          "export_index": 292
+        },
+        {
+          "class_hash": "c92a0142",
+          "collection_hash": "eec2271a",
+          "parent_hash": "00000000",
+          "optional_attribute_count": 0,
+          "field_type_count": 1,
+          "record_size": 36,
+          "record_offset_vlt": 12912,
+          "export_index": 284
+        }
+      ]
+    }
+  ],
+  "second_reference_classes_resolved": 6,
+  "vehicles": {
+    "bmwm3gtr": {
+      "engine": {
+        "explicit_field_found": true,
+        "declared_array_count": 1,
+        "original_upgrade_counter": 0,
+        "reference_resolution": [
+          {
+            "array_item_index": 0,
+            "ref_collection_hash": "cd88083f",
+            "ref_class_hash": "f1f5fbc7",
+            "explicit_reference_exists_in_vlt": true,
+            "chain_termination": "END_ZERO_PARENT",
+            "chain": [
+              {
+                "class_hash": "f1f5fbc7",
+                "collection_hash": "cd88083f",
+                "parent_hash": "eec2271a",
+                "optional_attribute_count": 0,
+                "field_type_count": 1,
+                "record_size": 36,
+                "record_offset_vlt": 33440,
+                "export_index": 632
+              },
+              {
+                "class_hash": "f1f5fbc7",
+                "collection_hash": "eec2271a",
+                "parent_hash": "00000000",
+                "optional_attribute_count": 0,
+                "field_type_count": 1,
+                "record_size": 36,
+                "record_offset_vlt": 32040,
+                "export_index": 597
+              }
+            ]
+          }
+        ]
+      },
+      "transmission": {
+        "explicit_field_found": true,
+        "declared_array_count": 1,
+        "original_upgrade_counter": 0,
+        "reference_resolution": [
+          {
+            "array_item_index": 0,
+            "ref_collection_hash": "cd88083f",
+            "ref_class_hash": "07a7a3e5",
+            "explicit_reference_exists_in_vlt": true,
+            "chain_termination": "END_ZERO_PARENT",
+            "chain": [
+              {
+                "class_hash": "07a7a3e5",
+                "collection_hash": "cd88083f",
+                "parent_hash": "eec2271a",
+                "optional_attribute_count": 0,
+                "field_type_count": 1,
+                "record_size": 36,
+                "record_offset_vlt": 69912,
+                "export_index": 1175
+              },
+              {
+                "class_hash": "07a7a3e5",
+                "collection_hash": "eec2271a",
+                "parent_hash": "00000000",
+                "optional_attribute_count": 0,
+                "field_type_count": 1,
+                "record_size": 36,
+                "record_offset_vlt": 68312,
+                "export_index": 1135
+              }
+            ]
+          }
+        ]
+      },
+      "chassis": {
+        "explicit_field_found": true,
+        "declared_array_count": 1,
+        "original_upgrade_counter": 0,
+        "reference_resolution": [
+          {
+            "array_item_index": 0,
+            "ref_collection_hash": "cd88083f",
+            "ref_class_hash": "afa210f0",
+            "explicit_reference_exists_in_vlt": true,
+            "chain_termination": "END_ZERO_PARENT",
+            "chain": [
+              {
+                "class_hash": "afa210f0",
+                "collection_hash": "cd88083f",
+                "parent_hash": "4e085fb3",
+                "optional_attribute_count": 0,
+                "field_type_count": 2,
+                "record_size": 40,
+                "record_offset_vlt": 3888,
+                "export_index": 87
+              },
+              {
+                "class_hash": "afa210f0",
+                "collection_hash": "4e085fb3",
+                "parent_hash": "eec2271a",
+                "optional_attribute_count": 0,
+                "field_type_count": 2,
+                "record_size": 40,
+                "record_offset_vlt": 968,
+                "export_index": 14
+              },
+              {
+                "class_hash": "afa210f0",
+                "collection_hash": "eec2271a",
+                "parent_hash": "00000000",
+                "optional_attribute_count": 0,
+                "field_type_count": 2,
+                "record_size": 40,
+                "record_offset_vlt": 768,
+                "export_index": 9
+              }
+            ]
+          }
+        ]
+      },
+      "tires": {
+        "explicit_field_found": true,
+        "declared_array_count": 1,
+        "original_upgrade_counter": 0,
+        "reference_resolution": [
+          {
+            "array_item_index": 0,
+            "ref_collection_hash": "cd88083f",
+            "ref_class_hash": "bd38d1ca",
+            "explicit_reference_exists_in_vlt": true,
+            "chain_termination": "END_ZERO_PARENT",
+            "chain": [
+              {
+                "class_hash": "bd38d1ca",
+                "collection_hash": "cd88083f",
+                "parent_hash": "eec2271a",
+                "optional_attribute_count": 0,
+                "field_type_count": 2,
+                "record_size": 40,
+                "record_offset_vlt": 85888,
+                "export_index": 1410
+              },
+              {
+                "class_hash": "bd38d1ca",
+                "collection_hash": "eec2271a",
+                "parent_hash": "00000000",
+                "optional_attribute_count": 0,
+                "field_type_count": 2,
+                "record_size": 40,
+                "record_offset_vlt": 84408,
+                "export_index": 1373
+              }
+            ]
+          }
+        ]
+      },
+      "brakes": {
+        "explicit_field_found": true,
+        "declared_array_count": 1,
+        "original_upgrade_counter": 0,
+        "reference_resolution": [
+          {
+            "array_item_index": 0,
+            "ref_collection_hash": "cd88083f",
+            "ref_class_hash": "36350867",
+            "explicit_reference_exists_in_vlt": true,
+            "chain_termination": "END_ZERO_PARENT",
+            "chain": [
+              {
+                "class_hash": "36350867",
+                "collection_hash": "cd88083f",
+                "parent_hash": "eec2271a",
+                "optional_attribute_count": 0,
+                "field_type_count": 2,
+                "record_size": 40,
+                "record_offset_vlt": 91768,
+                "export_index": 1530
+              },
+              {
+                "class_hash": "36350867",
+                "collection_hash": "eec2271a",
+                "parent_hash": "00000000",
+                "optional_attribute_count": 0,
+                "field_type_count": 2,
+                "record_size": 40,
+                "record_offset_vlt": 90248,
+                "export_index": 1492
+              }
+            ]
+          }
+        ]
+      },
+      "nos": {
+        "explicit_field_found": true,
+        "declared_array_count": 2,
+        "original_upgrade_counter": 3,
+        "reference_resolution": [
+          {
+            "array_item_index": 0,
+            "ref_collection_hash": "1efbd807",
+            "ref_class_hash": "b1669f64",
+            "explicit_reference_exists_in_vlt": true,
+            "chain_termination": "END_ZERO_PARENT",
+            "chain": [
+              {
+                "class_hash": "b1669f64",
+                "collection_hash": "1efbd807",
+                "parent_hash": "eec2271a",
+                "optional_attribute_count": 0,
+                "field_type_count": 1,
+                "record_size": 36,
+                "record_offset_vlt": 616,
+                "export_index": 5
+              },
+              {
+                "class_hash": "b1669f64",
+                "collection_hash": "eec2271a",
+                "parent_hash": "00000000",
+                "optional_attribute_count": 0,
+                "field_type_count": 1,
+                "record_size": 36,
+                "record_offset_vlt": 496,
+                "export_index": 2
+              }
+            ]
+          },
+          {
+            "array_item_index": 1,
+            "ref_collection_hash": "40826f5e",
+            "ref_class_hash": "b1669f64",
+            "explicit_reference_exists_in_vlt": true,
+            "chain_termination": "END_ZERO_PARENT",
+            "chain": [
+              {
+                "class_hash": "b1669f64",
+                "collection_hash": "40826f5e",
+                "parent_hash": "1efbd807",
+                "optional_attribute_count": 0,
+                "field_type_count": 1,
+                "record_size": 36,
+                "record_offset_vlt": 696,
+                "export_index": 7
+              },
+              {
+                "class_hash": "b1669f64",
+                "collection_hash": "1efbd807",
+                "parent_hash": "eec2271a",
+                "optional_attribute_count": 0,
+                "field_type_count": 1,
+                "record_size": 36,
+                "record_offset_vlt": 616,
+                "export_index": 5
+              },
+              {
+                "class_hash": "b1669f64",
+                "collection_hash": "eec2271a",
+                "parent_hash": "00000000",
+                "optional_attribute_count": 0,
+                "field_type_count": 1,
+                "record_size": 36,
+                "record_offset_vlt": 496,
+                "export_index": 2
+              }
+            ]
+          }
+        ]
+      },
+      "induction": {
+        "explicit_field_found": false,
+        "note": "May be inherited; no negative existence assertion"
+      }
+    },
+    "m3gtre46careerstart": {
+      "engine": {
+        "explicit_field_found": true,
+        "declared_array_count": 1,
+        "original_upgrade_counter": 0,
+        "reference_resolution": [
+          {
+            "array_item_index": 0,
+            "ref_collection_hash": "39dae0f8",
+            "ref_class_hash": "f1f5fbc7",
+            "explicit_reference_exists_in_vlt": true,
+            "chain_termination": "END_ZERO_PARENT",
+            "chain": [
+              {
+                "class_hash": "f1f5fbc7",
+                "collection_hash": "39dae0f8",
+                "parent_hash": "4e085fb3",
+                "optional_attribute_count": 0,
+                "field_type_count": 1,
+                "record_size": 36,
+                "record_offset_vlt": 35120,
+                "export_index": 674
+              },
+              {
+                "class_hash": "f1f5fbc7",
+                "collection_hash": "4e085fb3",
+                "parent_hash": "eec2271a",
+                "optional_attribute_count": 0,
+                "field_type_count": 1,
+                "record_size": 36,
+                "record_offset_vlt": 33040,
+                "export_index": 622
+              },
+              {
+                "class_hash": "f1f5fbc7",
+                "collection_hash": "eec2271a",
+                "parent_hash": "00000000",
+                "optional_attribute_count": 0,
+                "field_type_count": 1,
+                "record_size": 36,
+                "record_offset_vlt": 32040,
+                "export_index": 597
+              }
+            ]
+          }
+        ]
+      },
+      "transmission": {
+        "explicit_field_found": true,
+        "declared_array_count": 1,
+        "original_upgrade_counter": 0,
+        "reference_resolution": [
+          {
+            "array_item_index": 0,
+            "ref_collection_hash": "39dae0f8",
+            "ref_class_hash": "07a7a3e5",
+            "explicit_reference_exists_in_vlt": true,
+            "chain_termination": "END_ZERO_PARENT",
+            "chain": [
+              {
+                "class_hash": "07a7a3e5",
+                "collection_hash": "39dae0f8",
+                "parent_hash": "4e085fb3",
+                "optional_attribute_count": 0,
+                "field_type_count": 1,
+                "record_size": 36,
+                "record_offset_vlt": 70512,
+                "export_index": 1190
+              },
+              {
+                "class_hash": "07a7a3e5",
+                "collection_hash": "4e085fb3",
+                "parent_hash": "eec2271a",
+                "optional_attribute_count": 0,
+                "field_type_count": 1,
+                "record_size": 36,
+                "record_offset_vlt": 69152,
+                "export_index": 1156
+              },
+              {
+                "class_hash": "07a7a3e5",
+                "collection_hash": "eec2271a",
+                "parent_hash": "00000000",
+                "optional_attribute_count": 0,
+                "field_type_count": 1,
+                "record_size": 36,
+                "record_offset_vlt": 68312,
+                "export_index": 1135
+              }
+            ]
+          }
+        ]
+      },
+      "chassis": {
+        "explicit_field_found": true,
+        "declared_array_count": 1,
+        "original_upgrade_counter": 0,
+        "reference_resolution": [
+          {
+            "array_item_index": 0,
+            "ref_collection_hash": "39dae0f8",
+            "ref_class_hash": "afa210f0",
+            "explicit_reference_exists_in_vlt": true,
+            "chain_termination": "END_ZERO_PARENT",
+            "chain": [
+              {
+                "class_hash": "afa210f0",
+                "collection_hash": "39dae0f8",
+                "parent_hash": "4e085fb3",
+                "optional_attribute_count": 0,
+                "field_type_count": 2,
+                "record_size": 40,
+                "record_offset_vlt": 4248,
+                "export_index": 96
+              },
+              {
+                "class_hash": "afa210f0",
+                "collection_hash": "4e085fb3",
+                "parent_hash": "eec2271a",
+                "optional_attribute_count": 0,
+                "field_type_count": 2,
+                "record_size": 40,
+                "record_offset_vlt": 968,
+                "export_index": 14
+              },
+              {
+                "class_hash": "afa210f0",
+                "collection_hash": "eec2271a",
+                "parent_hash": "00000000",
+                "optional_attribute_count": 0,
+                "field_type_count": 2,
+                "record_size": 40,
+                "record_offset_vlt": 768,
+                "export_index": 9
+              }
+            ]
+          }
+        ]
+      },
+      "tires": {
+        "explicit_field_found": true,
+        "declared_array_count": 1,
+        "original_upgrade_counter": 0,
+        "reference_resolution": [
+          {
+            "array_item_index": 0,
+            "ref_collection_hash": "39dae0f8",
+            "ref_class_hash": "bd38d1ca",
+            "explicit_reference_exists_in_vlt": true,
+            "chain_termination": "END_ZERO_PARENT",
+            "chain": [
+              {
+                "class_hash": "bd38d1ca",
+                "collection_hash": "39dae0f8",
+                "parent_hash": "4e085fb3",
+                "optional_attribute_count": 0,
+                "field_type_count": 2,
+                "record_size": 40,
+                "record_offset_vlt": 87688,
+                "export_index": 1455
+              },
+              {
+                "class_hash": "bd38d1ca",
+                "collection_hash": "4e085fb3",
+                "parent_hash": "eec2271a",
+                "optional_attribute_count": 0,
+                "field_type_count": 2,
+                "record_size": 40,
+                "record_offset_vlt": 84608,
+                "export_index": 1378
+              },
+              {
+                "class_hash": "bd38d1ca",
+                "collection_hash": "eec2271a",
+                "parent_hash": "00000000",
+                "optional_attribute_count": 0,
+                "field_type_count": 2,
+                "record_size": 40,
+                "record_offset_vlt": 84408,
+                "export_index": 1373
+              }
+            ]
+          }
+        ]
+      },
+      "brakes": {
+        "explicit_field_found": true,
+        "declared_array_count": 1,
+        "original_upgrade_counter": 0,
+        "reference_resolution": [
+          {
+            "array_item_index": 0,
+            "ref_collection_hash": "39dae0f8",
+            "ref_class_hash": "36350867",
+            "explicit_reference_exists_in_vlt": true,
+            "chain_termination": "END_ZERO_PARENT",
+            "chain": [
+              {
+                "class_hash": "36350867",
+                "collection_hash": "39dae0f8",
+                "parent_hash": "4e085fb3",
+                "optional_attribute_count": 0,
+                "field_type_count": 2,
+                "record_size": 40,
+                "record_offset_vlt": 92568,
+                "export_index": 1550
+              },
+              {
+                "class_hash": "36350867",
+                "collection_hash": "4e085fb3",
+                "parent_hash": "eec2271a",
+                "optional_attribute_count": 0,
+                "field_type_count": 2,
+                "record_size": 40,
+                "record_offset_vlt": 91008,
+                "export_index": 1511
+              },
+              {
+                "class_hash": "36350867",
+                "collection_hash": "eec2271a",
+                "parent_hash": "00000000",
+                "optional_attribute_count": 0,
+                "field_type_count": 2,
+                "record_size": 40,
+                "record_offset_vlt": 90248,
+                "export_index": 1492
+              }
+            ]
+          }
+        ]
+      },
+      "nos": {
+        "explicit_field_found": true,
+        "declared_array_count": 2,
+        "original_upgrade_counter": 3,
+        "reference_resolution": [
+          {
+            "array_item_index": 0,
+            "ref_collection_hash": "1efbd807",
+            "ref_class_hash": "b1669f64",
+            "explicit_reference_exists_in_vlt": true,
+            "chain_termination": "END_ZERO_PARENT",
+            "chain": [
+              {
+                "class_hash": "b1669f64",
+                "collection_hash": "1efbd807",
+                "parent_hash": "eec2271a",
+                "optional_attribute_count": 0,
+                "field_type_count": 1,
+                "record_size": 36,
+                "record_offset_vlt": 616,
+                "export_index": 5
+              },
+              {
+                "class_hash": "b1669f64",
+                "collection_hash": "eec2271a",
+                "parent_hash": "00000000",
+                "optional_attribute_count": 0,
+                "field_type_count": 1,
+                "record_size": 36,
+                "record_offset_vlt": 496,
+                "export_index": 2
+              }
+            ]
+          },
+          {
+            "array_item_index": 1,
+            "ref_collection_hash": "40826f5e",
+            "ref_class_hash": "b1669f64",
+            "explicit_reference_exists_in_vlt": true,
+            "chain_termination": "END_ZERO_PARENT",
+            "chain": [
+              {
+                "class_hash": "b1669f64",
+                "collection_hash": "40826f5e",
+                "parent_hash": "1efbd807",
+                "optional_attribute_count": 0,
+                "field_type_count": 1,
+                "record_size": 36,
+                "record_offset_vlt": 696,
+                "export_index": 7
+              },
+              {
+                "class_hash": "b1669f64",
+                "collection_hash": "1efbd807",
+                "parent_hash": "eec2271a",
+                "optional_attribute_count": 0,
+                "field_type_count": 1,
+                "record_size": 36,
+                "record_offset_vlt": 616,
+                "export_index": 5
+              },
+              {
+                "class_hash": "b1669f64",
+                "collection_hash": "eec2271a",
+                "parent_hash": "00000000",
+                "optional_attribute_count": 0,
+                "field_type_count": 1,
+                "record_size": 36,
+                "record_offset_vlt": 496,
+                "export_index": 2
+              }
+            ]
+          }
+        ]
+      },
+      "induction": {
+        "explicit_field_found": false,
+        "note": "May be inherited; no negative existence assertion"
+      }
+    },
+    "punto": {
+      "engine": {
+        "explicit_field_found": true,
+        "declared_array_count": 2,
+        "original_upgrade_counter": 4,
+        "reference_resolution": [
+          {
+            "array_item_index": 0,
+            "ref_collection_hash": "a6ee7a11",
+            "ref_class_hash": "f1f5fbc7",
+            "explicit_reference_exists_in_vlt": true,
+            "chain_termination": "END_ZERO_PARENT",
+            "chain": [
+              {
+                "class_hash": "f1f5fbc7",
+                "collection_hash": "a6ee7a11",
+                "parent_hash": "eec2271a",
+                "optional_attribute_count": 0,
+                "field_type_count": 1,
+                "record_size": 36,
+                "record_offset_vlt": 32680,
+                "export_index": 613
+              },
+              {
+                "class_hash": "f1f5fbc7",
+                "collection_hash": "eec2271a",
+                "parent_hash": "00000000",
+                "optional_attribute_count": 0,
+                "field_type_count": 1,
+                "record_size": 36,
+                "record_offset_vlt": 32040,
+                "export_index": 597
+              }
+            ]
+          },
+          {
+            "array_item_index": 1,
+            "ref_collection_hash": "a6f0f405",
+            "ref_class_hash": "f1f5fbc7",
+            "explicit_reference_exists_in_vlt": true,
+            "chain_termination": "END_ZERO_PARENT",
+            "chain": [
+              {
+                "class_hash": "f1f5fbc7",
+                "collection_hash": "a6f0f405",
+                "parent_hash": "a6ee7a11",
+                "optional_attribute_count": 0,
+                "field_type_count": 1,
+                "record_size": 36,
+                "record_offset_vlt": 34440,
+                "export_index": 657
+              },
+              {
+                "class_hash": "f1f5fbc7",
+                "collection_hash": "a6ee7a11",
+                "parent_hash": "eec2271a",
+                "optional_attribute_count": 0,
+                "field_type_count": 1,
+                "record_size": 36,
+                "record_offset_vlt": 32680,
+                "export_index": 613
+              },
+              {
+                "class_hash": "f1f5fbc7",
+                "collection_hash": "eec2271a",
+                "parent_hash": "00000000",
+                "optional_attribute_count": 0,
+                "field_type_count": 1,
+                "record_size": 36,
+                "record_offset_vlt": 32040,
+                "export_index": 597
+              }
+            ]
+          }
+        ]
+      },
+      "transmission": {
+        "explicit_field_found": true,
+        "declared_array_count": 2,
+        "original_upgrade_counter": 4,
+        "reference_resolution": [
+          {
+            "array_item_index": 0,
+            "ref_collection_hash": "a6ee7a11",
+            "ref_class_hash": "07a7a3e5",
+            "explicit_reference_exists_in_vlt": true,
+            "chain_termination": "END_ZERO_PARENT",
+            "chain": [
+              {
+                "class_hash": "07a7a3e5",
+                "collection_hash": "a6ee7a11",
+                "parent_hash": "eec2271a",
+                "optional_attribute_count": 0,
+                "field_type_count": 1,
+                "record_size": 36,
+                "record_offset_vlt": 69432,
+                "export_index": 1163
+              },
+              {
+                "class_hash": "07a7a3e5",
+                "collection_hash": "eec2271a",
+                "parent_hash": "00000000",
+                "optional_attribute_count": 0,
+                "field_type_count": 1,
+                "record_size": 36,
+                "record_offset_vlt": 68312,
+                "export_index": 1135
+              }
+            ]
+          },
+          {
+            "array_item_index": 1,
+            "ref_collection_hash": "a6f0f405",
+            "ref_class_hash": "07a7a3e5",
+            "explicit_reference_exists_in_vlt": true,
+            "chain_termination": "END_ZERO_PARENT",
+            "chain": [
+              {
+                "class_hash": "07a7a3e5",
+                "collection_hash": "a6f0f405",
+                "parent_hash": "a6ee7a11",
+                "optional_attribute_count": 0,
+                "field_type_count": 1,
+                "record_size": 36,
+                "record_offset_vlt": 71432,
+                "export_index": 1213
+              },
+              {
+                "class_hash": "07a7a3e5",
+                "collection_hash": "a6ee7a11",
+                "parent_hash": "eec2271a",
+                "optional_attribute_count": 0,
+                "field_type_count": 1,
+                "record_size": 36,
+                "record_offset_vlt": 69432,
+                "export_index": 1163
+              },
+              {
+                "class_hash": "07a7a3e5",
+                "collection_hash": "eec2271a",
+                "parent_hash": "00000000",
+                "optional_attribute_count": 0,
+                "field_type_count": 1,
+                "record_size": 36,
+                "record_offset_vlt": 68312,
+                "export_index": 1135
+              }
+            ]
+          }
+        ]
+      },
+      "chassis": {
+        "explicit_field_found": true,
+        "declared_array_count": 2,
+        "original_upgrade_counter": 3,
+        "reference_resolution": [
+          {
+            "array_item_index": 0,
+            "ref_collection_hash": "a6ee7a11",
+            "ref_class_hash": "afa210f0",
+            "explicit_reference_exists_in_vlt": true,
+            "chain_termination": "END_ZERO_PARENT",
+            "chain": [
+              {
+                "class_hash": "afa210f0",
+                "collection_hash": "a6ee7a11",
+                "parent_hash": "eec2271a",
+                "optional_attribute_count": 0,
+                "field_type_count": 2,
+                "record_size": 40,
+                "record_offset_vlt": 1688,
+                "export_index": 32
+              },
+              {
+                "class_hash": "afa210f0",
+                "collection_hash": "eec2271a",
+                "parent_hash": "00000000",
+                "optional_attribute_count": 0,
+                "field_type_count": 2,
+                "record_size": 40,
+                "record_offset_vlt": 768,
+                "export_index": 9
+              }
+            ]
+          },
+          {
+            "array_item_index": 1,
+            "ref_collection_hash": "a6f0f405",
+            "ref_class_hash": "afa210f0",
+            "explicit_reference_exists_in_vlt": true,
+            "chain_termination": "END_ZERO_PARENT",
+            "chain": [
+              {
+                "class_hash": "afa210f0",
+                "collection_hash": "a6f0f405",
+                "parent_hash": "a6ee7a11",
+                "optional_attribute_count": 0,
+                "field_type_count": 2,
+                "record_size": 40,
+                "record_offset_vlt": 2928,
+                "export_index": 63
+              },
+              {
+                "class_hash": "afa210f0",
+                "collection_hash": "a6ee7a11",
+                "parent_hash": "eec2271a",
+                "optional_attribute_count": 0,
+                "field_type_count": 2,
+                "record_size": 40,
+                "record_offset_vlt": 1688,
+                "export_index": 32
+              },
+              {
+                "class_hash": "afa210f0",
+                "collection_hash": "eec2271a",
+                "parent_hash": "00000000",
+                "optional_attribute_count": 0,
+                "field_type_count": 2,
+                "record_size": 40,
+                "record_offset_vlt": 768,
+                "export_index": 9
+              }
+            ]
+          }
+        ]
+      },
+      "tires": {
+        "explicit_field_found": true,
+        "declared_array_count": 2,
+        "original_upgrade_counter": 3,
+        "reference_resolution": [
+          {
+            "array_item_index": 0,
+            "ref_collection_hash": "a6ee7a11",
+            "ref_class_hash": "bd38d1ca",
+            "explicit_reference_exists_in_vlt": true,
+            "chain_termination": "END_ZERO_PARENT",
+            "chain": [
+              {
+                "class_hash": "bd38d1ca",
+                "collection_hash": "a6ee7a11",
+                "parent_hash": "eec2271a",
+                "optional_attribute_count": 0,
+                "field_type_count": 2,
+                "record_size": 40,
+                "record_offset_vlt": 85288,
+                "export_index": 1395
+              },
+              {
+                "class_hash": "bd38d1ca",
+                "collection_hash": "eec2271a",
+                "parent_hash": "00000000",
+                "optional_attribute_count": 0,
+                "field_type_count": 2,
+                "record_size": 40,
+                "record_offset_vlt": 84408,
+                "export_index": 1373
+              }
+            ]
+          },
+          {
+            "array_item_index": 1,
+            "ref_collection_hash": "a6f0f405",
+            "ref_class_hash": "bd38d1ca",
+            "explicit_reference_exists_in_vlt": true,
+            "chain_termination": "END_ZERO_PARENT",
+            "chain": [
+              {
+                "class_hash": "bd38d1ca",
+                "collection_hash": "a6f0f405",
+                "parent_hash": "a6ee7a11",
+                "optional_attribute_count": 0,
+                "field_type_count": 2,
+                "record_size": 40,
+                "record_offset_vlt": 86528,
+                "export_index": 1426
+              },
+              {
+                "class_hash": "bd38d1ca",
+                "collection_hash": "a6ee7a11",
+                "parent_hash": "eec2271a",
+                "optional_attribute_count": 0,
+                "field_type_count": 2,
+                "record_size": 40,
+                "record_offset_vlt": 85288,
+                "export_index": 1395
+              },
+              {
+                "class_hash": "bd38d1ca",
+                "collection_hash": "eec2271a",
+                "parent_hash": "00000000",
+                "optional_attribute_count": 0,
+                "field_type_count": 2,
+                "record_size": 40,
+                "record_offset_vlt": 84408,
+                "export_index": 1373
+              }
+            ]
+          }
+        ]
+      },
+      "brakes": {
+        "explicit_field_found": true,
+        "declared_array_count": 2,
+        "original_upgrade_counter": 4,
+        "reference_resolution": [
+          {
+            "array_item_index": 0,
+            "ref_collection_hash": "a6ee7a11",
+            "ref_class_hash": "36350867",
+            "explicit_reference_exists_in_vlt": true,
+            "chain_termination": "END_ZERO_PARENT",
+            "chain": [
+              {
+                "class_hash": "36350867",
+                "collection_hash": "a6ee7a11",
+                "parent_hash": "eec2271a",
+                "optional_attribute_count": 0,
+                "field_type_count": 2,
+                "record_size": 40,
+                "record_offset_vlt": 91528,
+                "export_index": 1524
+              },
+              {
+                "class_hash": "36350867",
+                "collection_hash": "eec2271a",
+                "parent_hash": "00000000",
+                "optional_attribute_count": 0,
+                "field_type_count": 2,
+                "record_size": 40,
+                "record_offset_vlt": 90248,
+                "export_index": 1492
+              }
+            ]
+          },
+          {
+            "array_item_index": 1,
+            "ref_collection_hash": "a6f0f405",
+            "ref_class_hash": "36350867",
+            "explicit_reference_exists_in_vlt": true,
+            "chain_termination": "END_ZERO_PARENT",
+            "chain": [
+              {
+                "class_hash": "36350867",
+                "collection_hash": "a6f0f405",
+                "parent_hash": "a6ee7a11",
+                "optional_attribute_count": 0,
+                "field_type_count": 2,
+                "record_size": 40,
+                "record_offset_vlt": 93448,
+                "export_index": 1572
+              },
+              {
+                "class_hash": "36350867",
+                "collection_hash": "a6ee7a11",
+                "parent_hash": "eec2271a",
+                "optional_attribute_count": 0,
+                "field_type_count": 2,
+                "record_size": 40,
+                "record_offset_vlt": 91528,
+                "export_index": 1524
+              },
+              {
+                "class_hash": "36350867",
+                "collection_hash": "eec2271a",
+                "parent_hash": "00000000",
+                "optional_attribute_count": 0,
+                "field_type_count": 2,
+                "record_size": 40,
+                "record_offset_vlt": 90248,
+                "export_index": 1492
+              }
+            ]
+          }
+        ]
+      },
+      "nos": {
+        "explicit_field_found": false,
+        "note": "May be inherited; no negative existence assertion"
+      },
+      "induction": {
+        "explicit_field_found": false,
+        "note": "May be inherited; no negative existence assertion"
+      }
+    }
+  },
+  "missing_refspec_targets": 0,
+  "reference_existence_does_not_mean_available_upgrades": true,
+  "part_catalog_validated": false,
+  "safe_to_enable_tuning": false,
+  "source_assets_published": false,
+  "save_modified": false,
+  "apk_built": false,
+  "ranges_transferred_bytes": 733264,
+  "run_id": "42511463983",
+  "utc": "2026-11-08T18:44:17.466186+00:00"
+}
