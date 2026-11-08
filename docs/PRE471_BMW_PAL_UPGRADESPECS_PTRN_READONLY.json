@@ -1,0 +1,113 @@
+{
+  "stage": "PRE471_PAL_VERIFIED_UPGRADESPECS_POINTER_FIXUPS_READONLY",
+  "status": "AUDIT_OK",
+  "source_vpak_sha256": "9f4b04a221232e614b927a870e25da7db100477a7e425114b87082f46e8b99ad",
+  "pal_equals_usa_source_verified": true,
+  "ptrn_size": 129872,
+  "total_pointer_records": 10822,
+  "u16_endian_candidates": [
+    {
+      "endian": "big",
+      "invalid_ptr_types": 0,
+      "valid_target_switches": 2,
+      "types": {
+        "2": 2,
+        "1": 3347,
+        "3": 7471,
+        "0": 2
+      }
+    },
+    {
+      "endian": "little",
+      "invalid_ptr_types": 10820,
+      "valid_target_switches": 0,
+      "types": {
+        "512": 2,
+        "256": 3347,
+        "768": 7471,
+        "0": 2
+      }
+    }
+  ],
+  "selected_u16_endian": "big",
+  "type_counts": {
+    "2": 2,
+    "1": 3347,
+    "3": 7471,
+    "0": 2
+  },
+  "invalid_fixed_pointer_bounds": 67,
+  "vlt_fixup_count": 4804,
+  "bmw_upgrade_field_pointer_lookup": [
+    {
+      "car": "bmwm3gtr",
+      "field_hash": "8ae8bee0",
+      "optional_field_value_offset": 120844,
+      "value_raw_u32": "effecadd",
+      "flags_u16_from_PRE470": "0200",
+      "ptr_fixup": {
+        "ptr_type": 3,
+        "ptr_index": 1,
+        "target_section": "VLT",
+        "target_offset": 256596,
+        "fixup_offset": 120844
+      },
+      "has_vlt_fixup": true
+    },
+    {
+      "car": "bmwm3gtr",
+      "field_hash": "0e9bfb66",
+      "optional_field_value_offset": 120892,
+      "value_raw_u32": "effecadd",
+      "flags_u16_from_PRE470": "0200",
+      "ptr_fixup": {
+        "ptr_type": 3,
+        "ptr_index": 1,
+        "target_section": "VLT",
+        "target_offset": 256680,
+        "fixup_offset": 120892
+      },
+      "has_vlt_fixup": true
+    },
+    {
+      "car": "m3gtre46careerstart",
+      "field_hash": "8ae8bee0",
+      "optional_field_value_offset": 127476,
+      "value_raw_u32": "effecadd",
+      "flags_u16_from_PRE470": "0200",
+      "ptr_fixup": {
+        "ptr_type": 3,
+        "ptr_index": 1,
+        "target_section": "VLT",
+        "target_offset": 269716,
+        "fixup_offset": 127476
+      },
+      "has_vlt_fixup": true
+    },
+    {
+      "car": "m3gtre46careerstart",
+      "field_hash": "0e9bfb66",
+      "optional_field_value_offset": 127524,
+      "value_raw_u32": "effecadd",
+      "flags_u16_from_PRE470": "0200",
+      "ptr_fixup": {
+        "ptr_type": 3,
+        "ptr_index": 1,
+        "target_section": "VLT",
+        "target_offset": 269800,
+        "fixup_offset": 127524
+      },
+      "has_vlt_fixup": true
+    }
+  ],
+  "all_four_bmw_upgrade_fields_have_fixups": true,
+  "resolved_pointer_is_not_installed_upgrade": true,
+  "bmw_part_ids_verified": false,
+  "safe_to_enable_mod": false,
+  "game_assets_exported": false,
+  "apk_built": false,
+  "save_modified": false,
+  "bytes_transferred": 733264,
+  "utc": "2026-11-08T18:26:59.339666+00:00",
+  "run_id": "42510044893"
+}
