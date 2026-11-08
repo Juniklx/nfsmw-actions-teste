@@ -1,0 +1,8 @@
+{
+  "stage": "PRE388",
+  "contextOnly": true,
+  "backupFirst": true,
+  "evidence": "PRE374 confirmed mode sequence PRE375 PRE377 PRE382 PRE384 successful canaries",
+  "ownerVerified": false,
+  "apkBuilt": false
+}
