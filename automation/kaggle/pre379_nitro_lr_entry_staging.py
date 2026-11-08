@@ -17,11 +17,14 @@ def propose(original:str)->str:
     if MARKER in original or "NFSMW_PRE379_NITRO_ENTRY_TRACE" in original:
         raise ValueError("PRE379 was already applied")
     body=body_for_function(original,SYMBOL)
-    if body.count(ANCHOR)!=1 or body.count("ctx.r12.u64 = ctx.lr;")!=1:
-        raise ValueError("unexpected Nitro function entry")
-    if body.index(ANCHOR)>body.index("ctx.r12.u64 = ctx.lr;"):
-        raise ValueError("PRE379 entry placement would not precede mflr")
-    patched=body.replace(ANCHOR,ANCHOR+CALL,1)
+    # Match exact generated line while preserving its original indentation.
+    anchors=list(re.finditer(r"(?m)^[ \\t]*REX_FUNC_PROLOGUE\\(\\);\\r?\\n",body))
+    if len(anchors)!=1 or body.count("ctx.r12.u64 = ctx.lr;")!=1:
+        raise ValueError("PRE379 expected one prologue and one mflr")
+    m=anchors[0]
+    if m.start()>body.index("ctx.r12.u64 = ctx.lr;"):
+        raise ValueError("PRE379 prologue does not precede mflr")
+    patched=body[:m.end()]+CALL+body[m.end():]
     # The runtime label is in a separate native C++ callback to be supplied in a later phase.
     if original.count(body)!=1:raise ValueError("Nonunique Nitro function")
     output=original.replace(body,patched,1)
