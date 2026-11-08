@@ -1,0 +1,13 @@
+{
+  "stage": "PRE526",
+  "objective": "Pin original public PC source and prove checkout charges before successful physics SetPackage, rollback of failed install, absence of complete PhysicsUpgrades.cpp implementation, comparing with authenticated PAL catalogue; no game modifications",
+  "source_commit": "80993f35224c61d2f1b135beba76c6f8234c7940",
+  "prior_runs": [
+    42532711473,
+    42532309034,
+    42531993233
+  ],
+  "save_untouched": true,
+  "apk_untouched": true,
+  "feature_off": true
+}
