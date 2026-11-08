@@ -1,0 +1,8 @@
+{
+  "stage": "PRE524",
+  "objective": "Compare original BMW engine count0 and synthetic engine count1 with original USA frontend Cost arrays via documented PC GetMaxPackages-GetNumPackages+selectedLevel formula",
+  "source_reference": "dbalatoni13/nfsmw/CustomizeManager.cpp @ 80993f35224c61d2f1b135beba76c6f8234c7940",
+  "runtime_claims": false,
+  "game_asset_changes": false,
+  "save_changes": false
+}
