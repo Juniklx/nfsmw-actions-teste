@@ -1,0 +1,9 @@
+{
+  "stage": "PRE528",
+  "goal": "Authenticate PRE99 archived original generated PAL Xbox PPC C++ and index exactly identified guest upgrade list/lookup attribute helper calls and all callers; no function rename to PC unless evidence",
+  "upstream_pre526_run": 42533754164,
+  "source_archive_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "no_apk_build": true,
+  "no_game_data_modification": true,
+  "no_save_access": true
+}
