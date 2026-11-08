@@ -26,7 +26,7 @@ TARGETS={
    "anchors":[84,444,445,531]},
  "host_path":{
    "path":"nativo/sdk/src/filesystem/devices/host_path_file.cpp",
-   "sha":"7dace8159023592ee8008a3798aea6a1856bc8e003492b9c4cce65346",
+   "sha":"7dace8159023592ee8008a0b0528a3798aea6a1856bc8e003492b9c4cce65346",
    "anchors":[123,160,164,448]},
  "virtual_fs":{
    "path":"nativo/sdk/src/filesystem/virtual_file_system.cpp",
