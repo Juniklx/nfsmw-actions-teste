@@ -1,0 +1,11 @@
+{
+  "stage": "PRE509",
+  "scope": "Follow verified guest OpenFile -> VirtualFileSystem ResolvePath -> host path/device/source mount using original PRE99 first-party source code only",
+  "previous_run": "42525120679",
+  "readonly": true,
+  "comments_excluded_from_code_patterns": true,
+  "source_snapshot_historical": true,
+  "game_asset_modified": false,
+  "apk_modified": false,
+  "save_modified": false
+}
