@@ -1,0 +1,8 @@
+{
+  "stage": "PRE469",
+  "purpose": "Recover hashed class names for BMW M3 GTR and identify UpgradeSpecs role",
+  "source": "PAL VPAK identical USA",
+  "read_only": true,
+  "save_unchanged": true,
+  "no_apk": true
+}
