@@ -1,0 +1,13 @@
+{
+  "stage": "PRE508",
+  "goal": "Read 4 authenticated historical PRE99 native loader functions at PRE505 pinned lines; collect limited redacted callpath snippets in private GitHub job log; export metadata only",
+  "source_auth_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "code_is_historical_not_V48": true,
+  "read_only": true,
+  "do_not_touch": [
+    "V48",
+    "VPAK game data",
+    "save MARCEK",
+    "release signing"
+  ]
+}
