@@ -134,7 +134,9 @@ def audit():
     checkout=bodies["checkout"]
     spend=checkout.index("FEDatabase->GetCareerSettings()->SpendCash(cost)")
     install=checkout.index("InstallPerfPkg(part->GetPhysicsType(), part->GetUpgradeLevel())")
-    if spend>=install or "Refund" in checkout or "AwardCash(-cost)" in checkout[spend:install]:
+    if (spend>=install or "Refund" in checkout or
+        "FEDatabase->GetCareerSettings()->AwardCash(-cost)" not in checkout[spend:install] or
+        "AwardCash(" in checkout[install:] or "AwardCash(" in bodies["install"]):
         raise ValueError("PC checkout call ordering or refund control changed")
     # The checkout branch is conditional on career/backroom; it is not an
     # observed payment. This condition must remain in the report.
