@@ -1,0 +1,8 @@
+{
+  "stage": "PRE404",
+  "contextOnly": true,
+  "backupFirst": true,
+  "change": "user explicitly accepts global infinite Nitro for all cars including AI",
+  "source": "PRE399 verified source and PRE401 V46 build initiated",
+  "noAPKModifications": true
+}
