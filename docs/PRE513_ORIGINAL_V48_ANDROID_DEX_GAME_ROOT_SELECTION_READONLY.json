@@ -1,0 +1,1178 @@
+{
+  "stage": "PRE513_ORIGINAL_V48_ANDROID_DEX_GAME_ROOT_SELECTION_READONLY",
+  "status": "AUDIT_OK",
+  "apk_drive_id": "1xPJ0er2h5CJ6Syxx89hdkbIFrbjrfI0C",
+  "original_v48_apk_sha256": "c642f95b4a60b9ccf5d8fbd98802afffc0a2247ec5a0783b54cd8083ec55bd35",
+  "authenticated_apk_byte_size": 47104233,
+  "apk_sha256_exactly_verified": true,
+  "dex_entries": [
+    {
+      "entry": "classes.dex",
+      "size": 8680496,
+      "sha256": "b98bd2f2c7bc54a4442e638d641f8a353665f4a6220d2d1051d7af805e4a1dab",
+      "target_classes": 137
+    }
+  ],
+  "selected_class_names_exist": [
+    "Ajustes",
+    "Ediciones",
+    "GameActivity",
+    "MotorNativo",
+    "SetupActivity"
+  ],
+  "selected_class_count": 137,
+  "selected_method_count": 710,
+  "selected_invoke_instruction_count": 3588,
+  "target_class_method_call_families": [
+    {
+      "dex_entry": "classes.dex",
+      "class": "Ajustes",
+      "is_nested_class": true,
+      "method_names_observed": [],
+      "target_method_audit": []
+    },
+    {
+      "dex_entry": "classes.dex",
+      "class": "Ajustes",
+      "is_nested_class": false,
+      "method_names_observed": [
+        "<init>",
+        "carpetaDatos",
+        "carpetaLogs",
+        "direccionValida",
+        "fotoGraficos",
+        "guardarMisAjustes",
+        "informeSonda",
+        "resolverIpv4",
+        "uriIso",
+        "anfitrionLan",
+        "anfitrionLan",
+        "anisotropico",
+        "anisotropico",
+        "antialiasing",
+        "antialiasing",
+        "apiGrafica",
+        "apiGrafica",
+        "aplicarAhorro",
+        "aplicarFabrica",
+        "aplicarMisAjustes",
+        "aplicarPerfilGpuDebil",
+        "argumentos",
+        "argumentos",
+        "argumentosDriver",
+        "audioAAudio",
+        "audioAAudio",
+        "calidadSombras",
+        "calidadSombras",
+        "compatibilidad",
+        "compatibilidad",
+        "desenfoque",
+        "desenfoque",
+        "driver",
+        "driver",
+        "edicion",
+        "edramEnShader",
+        "edramEnShader",
+        "escala",
+        "escala",
+        "escalado",
+        "escalado",
+        "estirar",
+        "estirar",
+        "exposicionFiel",
+        "exposicionFiel",
+        "fijarHilos",
+        "fijarHilos",
+        "filtroColor",
+        "filtroColor",
+        "filtroImagen",
+        "filtroImagen",
+        "fxaaAlta",
+        "fxaaAlta",
+        "gamertag",
+        "gamertag",
+        "girarConFlechas",
+        "girarInclinando",
+        "hayMisAjustes",
+        "iso",
+        "iso",
+        "isoFaltan",
+        "isoMirada",
+        "isoSinMirar",
+        "lecturaMemexport",
+        "lecturaMemexport",
+        "limiteFps",
+        "limiteFps",
+        "menusTactiles",
+        "menusTactiles",
+        "modoGiro",
+        "modoGiro",
+        "mostrarFps",
+        "mostrarFps",
+        "msaaMuestras",
+        "msaaMuestras",
+        "nombreIso",
+        "nombreIso",
+        "oclusion",
+        "oclusion",
+        "panoramico",
+        "panoramico",
+        "panoramicoEfectivo",
+        "reflejoAsfalto",
+        "reflejoAsfalto",
+        "reflejosCoche",
+        "reflejosCoche",
+        "refrescarPaginas",
+        "refrescarPaginas",
+        "registroDetallado",
+        "registroDetallado"
+      ],
+      "target_method_audit": [
+        {
+          "name": "<init>",
+          "bytecode_present": true,
+          "instruction_count": 14,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "carpetaDatos",
+          "bytecode_present": true,
+          "instruction_count": 8,
+          "invoke_family_counts": {
+            "android_files": 3
+          }
+        },
+        {
+          "name": "carpetaLogs",
+          "bytecode_present": true,
+          "instruction_count": 8,
+          "invoke_family_counts": {
+            "android_files": 3
+          }
+        },
+        {
+          "name": "direccionValida",
+          "bytecode_present": true,
+          "instruction_count": 22,
+          "invoke_family_counts": {
+            "edition_selection": 1
+          }
+        },
+        {
+          "name": "fotoGraficos",
+          "bytecode_present": true,
+          "instruction_count": 47,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "guardarMisAjustes",
+          "bytecode_present": true,
+          "instruction_count": 20,
+          "invoke_family_counts": {
+            "edition_selection": 1,
+            "android_preferences": 2
+          }
+        },
+        {
+          "name": "informeSonda",
+          "bytecode_present": true,
+          "instruction_count": 7,
+          "invoke_family_counts": {
+            "android_files": 2
+          }
+        },
+        {
+          "name": "resolverIpv4",
+          "bytecode_present": true,
+          "instruction_count": 19,
+          "invoke_family_counts": {
+            "edition_selection": 1
+          }
+        },
+        {
+          "name": "uriIso",
+          "bytecode_present": true,
+          "instruction_count": 12,
+          "invoke_family_counts": {
+            "android_files": 2,
+            "android_uri": 2
+          }
+        },
+        {
+          "name": "anfitrionLan",
+          "bytecode_present": true,
+          "instruction_count": 8,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "anfitrionLan",
+          "bytecode_present": true,
+          "instruction_count": 6,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "anisotropico",
+          "bytecode_present": true,
+          "instruction_count": 6,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "anisotropico",
+          "bytecode_present": true,
+          "instruction_count": 8,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "antialiasing",
+          "bytecode_present": true,
+          "instruction_count": 18,
+          "invoke_family_counts": {
+            "android_preferences": 3
+          }
+        },
+        {
+          "name": "antialiasing",
+          "bytecode_present": true,
+          "instruction_count": 8,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "apiGrafica",
+          "bytecode_present": true,
+          "instruction_count": 10,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "apiGrafica",
+          "bytecode_present": true,
+          "instruction_count": 8,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "aplicarAhorro",
+          "bytecode_present": true,
+          "instruction_count": 53,
+          "invoke_family_counts": {
+            "edition_selection": 2,
+            "android_preferences": 2
+          }
+        },
+        {
+          "name": "aplicarFabrica",
+          "bytecode_present": true,
+          "instruction_count": 57,
+          "invoke_family_counts": {
+            "edition_selection": 3,
+            "android_preferences": 2
+          }
+        },
+        {
+          "name": "aplicarMisAjustes",
+          "bytecode_present": true,
+          "instruction_count": 51,
+          "invoke_family_counts": {
+            "android_preferences": 2
+          }
+        },
+        {
+          "name": "aplicarPerfilGpuDebil",
+          "bytecode_present": true,
+          "instruction_count": 77,
+          "invoke_family_counts": {
+            "android_preferences": 10
+          }
+        },
+        {
+          "name": "argumentos",
+          "bytecode_present": true,
+          "instruction_count": 5,
+          "invoke_family_counts": {
+            "edition_selection": 2
+          }
+        },
+        {
+          "name": "argumentos",
+          "bytecode_present": true,
+          "instruction_count": 221,
+          "invoke_family_counts": {
+            "edition_selection": 21,
+            "android_files": 2
+          }
+        },
+        {
+          "name": "argumentosDriver",
+          "bytecode_present": true,
+          "instruction_count": 89,
+          "invoke_family_counts": {
+            "android_files": 5,
+            "edition_selection": 2
+          }
+        },
+        {
+          "name": "audioAAudio",
+          "bytecode_present": true,
+          "instruction_count": 8,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "audioAAudio",
+          "bytecode_present": true,
+          "instruction_count": 6,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "calidadSombras",
+          "bytecode_present": true,
+          "instruction_count": 6,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "calidadSombras",
+          "bytecode_present": true,
+          "instruction_count": 8,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "compatibilidad",
+          "bytecode_present": true,
+          "instruction_count": 8,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "compatibilidad",
+          "bytecode_present": true,
+          "instruction_count": 6,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "desenfoque",
+          "bytecode_present": true,
+          "instruction_count": 8,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "desenfoque",
+          "bytecode_present": true,
+          "instruction_count": 6,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "driver",
+          "bytecode_present": true,
+          "instruction_count": 6,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "driver",
+          "bytecode_present": true,
+          "instruction_count": 8,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "edicion",
+          "bytecode_present": true,
+          "instruction_count": 5,
+          "invoke_family_counts": {
+            "edition_selection": 2,
+            "xex_or_game_data": 1
+          }
+        },
+        {
+          "name": "edramEnShader",
+          "bytecode_present": true,
+          "instruction_count": 8,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "edramEnShader",
+          "bytecode_present": true,
+          "instruction_count": 6,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "escala",
+          "bytecode_present": true,
+          "instruction_count": 6,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "escala",
+          "bytecode_present": true,
+          "instruction_count": 8,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "escalado",
+          "bytecode_present": true,
+          "instruction_count": 6,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "escalado",
+          "bytecode_present": true,
+          "instruction_count": 8,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "estirar",
+          "bytecode_present": true,
+          "instruction_count": 8,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "estirar",
+          "bytecode_present": true,
+          "instruction_count": 6,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "exposicionFiel",
+          "bytecode_present": true,
+          "instruction_count": 8,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "exposicionFiel",
+          "bytecode_present": true,
+          "instruction_count": 6,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "fijarHilos",
+          "bytecode_present": true,
+          "instruction_count": 8,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "fijarHilos",
+          "bytecode_present": true,
+          "instruction_count": 6,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "filtroColor",
+          "bytecode_present": true,
+          "instruction_count": 6,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "filtroColor",
+          "bytecode_present": true,
+          "instruction_count": 8,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "filtroImagen",
+          "bytecode_present": true,
+          "instruction_count": 6,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "filtroImagen",
+          "bytecode_present": true,
+          "instruction_count": 8,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "fxaaAlta",
+          "bytecode_present": true,
+          "instruction_count": 8,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "fxaaAlta",
+          "bytecode_present": true,
+          "instruction_count": 6,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "gamertag",
+          "bytecode_present": true,
+          "instruction_count": 6,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "gamertag",
+          "bytecode_present": true,
+          "instruction_count": 8,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "girarConFlechas",
+          "bytecode_present": true,
+          "instruction_count": 6,
+          "invoke_family_counts": {
+            "edition_selection": 1
+          }
+        },
+        {
+          "name": "girarInclinando",
+          "bytecode_present": true,
+          "instruction_count": 6,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "hayMisAjustes",
+          "bytecode_present": true,
+          "instruction_count": 5,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "iso",
+          "bytecode_present": true,
+          "instruction_count": 6,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "iso",
+          "bytecode_present": true,
+          "instruction_count": 8,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "isoFaltan",
+          "bytecode_present": true,
+          "instruction_count": 6,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "isoMirada",
+          "bytecode_present": true,
+          "instruction_count": 11,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "isoSinMirar",
+          "bytecode_present": true,
+          "instruction_count": 11,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "lecturaMemexport",
+          "bytecode_present": true,
+          "instruction_count": 8,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "lecturaMemexport",
+          "bytecode_present": true,
+          "instruction_count": 6,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "limiteFps",
+          "bytecode_present": true,
+          "instruction_count": 6,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "limiteFps",
+          "bytecode_present": true,
+          "instruction_count": 8,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "menusTactiles",
+          "bytecode_present": true,
+          "instruction_count": 8,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "menusTactiles",
+          "bytecode_present": true,
+          "instruction_count": 6,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "modoGiro",
+          "bytecode_present": true,
+          "instruction_count": 16,
+          "invoke_family_counts": {
+            "edition_selection": 1,
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "modoGiro",
+          "bytecode_present": true,
+          "instruction_count": 14,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "mostrarFps",
+          "bytecode_present": true,
+          "instruction_count": 8,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "mostrarFps",
+          "bytecode_present": true,
+          "instruction_count": 6,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "msaaMuestras",
+          "bytecode_present": true,
+          "instruction_count": 6,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "msaaMuestras",
+          "bytecode_present": true,
+          "instruction_count": 8,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "nombreIso",
+          "bytecode_present": true,
+          "instruction_count": 6,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "nombreIso",
+          "bytecode_present": true,
+          "instruction_count": 8,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "oclusion",
+          "bytecode_present": true,
+          "instruction_count": 8,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "oclusion",
+          "bytecode_present": true,
+          "instruction_count": 6,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        },
+        {
+          "name": "panoramico",
+          "bytecode_present": true,
+          "instruction_count": 8,
+          "invoke_family_counts": {
+            "android_preferences": 1
+          }
+        }
+      ]
+    },
+    {
+      "dex_entry": "classes.dex",
+      "class": "Ediciones",
+      "is_nested_class": true,
+      "method_names_observed": [],
+      "target_method_audit": []
+    },
+    {
+      "dex_entry": "classes.dex",
+      "class": "Ediciones",
+      "is_nested_class": false,
+      "method_names_observed": [
+        "<clinit>",
+        "ajena",
+        "deXex",
+        "paraJugar",
+        "porId"
+      ],
+      "target_method_audit": [
+        {
+          "name": "<clinit>",
+          "bytecode_present": true,
+          "instruction_count": 5,
+          "invoke_family_counts": {
+            "edition_selection": 1
+          }
+        },
+        {
+          "name": "ajena",
+          "bytecode_present": true,
+          "instruction_count": 21,
+          "invoke_family_counts": {
+            "edition_selection": 2
+          }
+        },
+        {
+          "name": "deXex",
+          "bytecode_present": true,
+          "instruction_count": 21,
+          "invoke_family_counts": {}
+        },
+        {
+          "name": "paraJugar",
+          "bytecode_present": true,
+          "instruction_count": 7,
+          "invoke_family_counts": {
+            "edition_selection": 2
+          }
+        },
+        {
+          "name": "porId",
+          "bytecode_present": true,
+          "instruction_count": 17,
+          "invoke_family_counts": {
+            "edition_selection": 1
+          }
+        }
+      ]
+    },
+    {
+      "dex_entry": "classes.dex",
+      "class": "GameActivity",
+      "is_nested_class": true,
+      "method_names_observed": [],
+      "target_method_audit": []
+    },
+    {
+      "dex_entry": "classes.dex",
+      "class": "GameActivity",
+      "is_nested_class": true,
+      "method_names_observed": [],
+      "target_method_audit": []
+    },
+    {
+      "dex_entry": "classes.dex",
+      "class": "GameActivity",
+      "is_nested_class": true,
+      "method_names_observed": [],
+      "target_method_audit": []
+    },
+    {
+      "dex_entry": "classes.dex",
+      "class": "GameActivity",
+      "is_nested_class": true,
+      "method_names_observed": [],
+      "target_method_audit": []
+    },
+    {
+      "dex_entry": "classes.dex",
+      "class": "GameActivity",
+      "is_nested_class": true,
+      "method_names_observed": [],
+      "target_method_audit": []
+    },
+    {
+      "dex_entry": "classes.dex",
+      "class": "GameActivity",
+      "is_nested_class": false,
+      "method_names_observed": [
+        "<init>",
+        "ajustarSuperficie",
+        "openContentFd",
+        "pg9076Registrar",
+        "getArguments",
+        "getLibraries",
+        "onCreate",
+        "onResume"
+      ],
+      "target_method_audit": [
+        {
+          "name": "<init>",
+          "bytecode_present": true,
+          "instruction_count": 20,
+          "invoke_family_counts": {
+            "edition_selection": 1
+          }
+        },
+        {
+          "name": "ajustarSuperficie",
+          "bytecode_present": true,
+          "instruction_count": 30,
+          "invoke_family_counts": {
+            "edition_selection": 2
+          }
+        },
+        {
+          "name": "openContentFd",
+          "bytecode_present": true,
+          "instruction_count": 15,
+          "invoke_family_counts": {
+            "android_uri": 3
+          }
+        },
+        {
+          "name": "pg9076Registrar",
+          "bytecode_present": true,
+          "instruction_count": 61,
+          "invoke_family_counts": {
+            "android_files": 5
+          }
+        },
+        {
+          "name": "getArguments",
+          "bytecode_present": true,
+          "instruction_count": 2,
+          "invoke_family_counts": {}
+        },
+        {
+          "name": "getLibraries",
+          "bytecode_present": true,
+          "instruction_count": 19,
+          "invoke_family_counts": {}
+        },
+        {
+          "name": "onCreate",
+          "bytecode_present": true,
+          "instruction_count": 170,
+          "invoke_family_counts": {
+            "android_intent": 10,
+            "edition_selection": 3
+          }
+        },
+        {
+          "name": "onResume",
+          "bytecode_present": true,
+          "instruction_count": 12,
+          "invoke_family_counts": {}
+        }
+      ]
+    },
+    {
+      "dex_entry": "classes.dex",
+      "class": "MotorNativo",
+      "is_nested_class": true,
+      "method_names_observed": [],
+      "target_method_audit": []
+    },
+    {
+      "dex_entry": "classes.dex",
+      "class": "MotorNativo",
+      "is_nested_class": false,
+      "method_names_observed": [
+        "argumentos",
+        "carpetaCache",
+        "carpetaUsuario",
+        "copiarArbol",
+        "copiarAsset",
+        "glesDisponible",
+        "instalarAjustes",
+        "instalarShaders",
+        "preparar",
+        "traerPartidas"
+      ],
+      "target_method_audit": [
+        {
+          "name": "argumentos",
+          "bytecode_present": true,
+          "instruction_count": 331,
+          "invoke_family_counts": {
+            "android_files": 7,
+            "edition_selection": 28
+          }
+        },
+        {
+          "name": "carpetaCache",
+          "bytecode_present": true,
+          "instruction_count": 6,
+          "invoke_family_counts": {
+            "android_files": 2
+          }
+        },
+        {
+          "name": "carpetaUsuario",
+          "bytecode_present": true,
+          "instruction_count": 6,
+          "invoke_family_counts": {
+            "android_files": 2
+          }
+        },
+        {
+          "name": "copiarArbol",
+          "bytecode_present": true,
+          "instruction_count": 51,
+          "invoke_family_counts": {
+            "android_files": 9
+          }
+        },
+        {
+          "name": "copiarAsset",
+          "bytecode_present": true,
+          "instruction_count": 52,
+          "invoke_family_counts": {
+            "android_files": 5
+          }
+        },
+        {
+          "name": "glesDisponible",
+          "bytecode_present": true,
+          "instruction_count": 12,
+          "invoke_family_counts": {
+            "android_files": 3
+          }
+        },
+        {
+          "name": "instalarAjustes",
+          "bytecode_present": true,
+          "instruction_count": 57,
+          "invoke_family_counts": {
+            "android_files": 4,
+            "android_preferences": 3
+          }
+        },
+        {
+          "name": "instalarShaders",
+          "bytecode_present": true,
+          "instruction_count": 59,
+          "invoke_family_counts": {
+            "android_files": 8,
+            "android_preferences": 4
+          }
+        },
+        {
+          "name": "preparar",
+          "bytecode_present": true,
+          "instruction_count": 22,
+          "invoke_family_counts": {
+            "android_files": 9
+          }
+        },
+        {
+          "name": "traerPartidas",
+          "bytecode_present": true,
+          "instruction_count": 16,
+          "invoke_family_counts": {
+            "android_files": 2,
+            "edition_selection": 1
+          }
+        }
+      ]
+    },
+    {
+      "dex_entry": "classes.dex",
+      "class": "SetupActivity",
+      "is_nested_class": true,
+      "method_names_observed": [],
+      "target_method_audit": []
+    },
+    {
+      "dex_entry": "classes.dex",
+      "class": "SetupActivity",
+      "is_nested_class": true,
+      "method_names_observed": [],
+      "target_method_audit": []
+    },
+    {
+      "dex_entry": "classes.dex",
+      "class": "SetupActivity",
+      "is_nested_class": true,
+      "method_names_observed": [],
+      "target_method_audit": []
+    },
+    {
+      "dex_entry": "classes.dex",
+      "class": "SetupActivity",
+      "is_nested_class": true,
+      "method_names_observed": [],
+      "target_method_audit": []
+    },
+    {
+      "dex_entry": "classes.dex",
+      "class": "SetupActivity",
+      "is_nested_class": true,
+      "method_names_observed": [],
+      "target_method_audit": []
+    },
+    {
+      "dex_entry": "classes.dex",
+      "class": "SetupActivity",
+      "is_nested_class": true,
+      "method_names_observed": [],
+      "target_method_audit": []
+    },
+    {
+      "dex_entry": "classes.dex",
+      "class": "SetupActivity",
+      "is_nested_class": true,
+      "method_names_observed": [
+        "accept"
+      ],
+      "target_method_audit": [
+        {
+          "name": "accept",
+          "bytecode_present": true,
+          "instruction_count": 6,
+          "invoke_family_counts": {
+            "edition_selection": 1
+          }
+        }
+      ]
+    },
+    {
+      "dex_entry": "classes.dex",
+      "class": "SetupActivity",
+      "is_nested_class": true,
+      "method_names_observed": [],
+      "target_method_audit": []
+    },
+    {
+      "dex_entry": "classes.dex",
+      "class": "SetupActivity",
+      "is_nested_class": true,
+      "method_names_observed": [
+        "accept"
+      ],
+      "target_method_audit": [
+        {
+          "name": "accept",
+          "bytecode_present": true,
+          "instruction_count": 6,
+          "invoke_family_counts": {
+            "edition_selection": 1
+          }
+        }
+      ]
+    },
+    {
+      "dex_entry": "classes.dex",
+      "class": "SetupActivity",
+      "is_nested_class": true,
+      "method_names_observed": [],
+      "target_method_audit": []
+    }
+  ],
+  "literal_marker_dex_presence": {
+    "android_document_action": true,
+    "persistable_uri_permission": true,
+    "game_editions_pref": true,
+    "get_android_extras": true,
+    "activity_libraries": true
+  },
+  "unrecognized_user_string_values_exported": false,
+  "static_compiled_code_review_only": true,
+  "source_snapshot_comparison_not_runtime_trace": true,
+  "actual_phone_selected_game_root_type": null,
+  "actual_phone_selected_game_root_path": null,
+  "actual_phone_edition_or_shared_object_verified": false,
+  "game_file_mount_observed": false,
+  "loader_ZDIR_checksum_semantics_verified": false,
+  "tuning_purchase_proven": false,
+  "apk_or_game_data_modified": false,
+  "binary_or_raw_dex_uploaded": false,
+  "apk_built": false,
+  "save_modified": false,
+  "release_signing_key_accessed": false,
+  "tuning_enabled": false,
+  "run_id": "42527679678",
+  "timestamp_utc": "2026-11-08T21:57:51.317681+00:00"
+}
