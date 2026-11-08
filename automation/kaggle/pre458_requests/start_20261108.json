@@ -1,0 +1,15 @@
+{
+  "stage": "PRE458",
+  "purpose": "Begin BMW M3 GTR performance tuning mod by catalog inventory",
+  "baseline_v48": "PRE452",
+  "source": "authenticated PRE99",
+  "runtime_evidence": "PRE455 BMW type41 vs Punto type74",
+  "safety": {
+    "feature_default_off": true,
+    "no_fake_parts": true,
+    "no_game_assets_export": true,
+    "no_apk": true,
+    "no_save_changes": true
+  },
+  "next_gate": "validate BMW-specific legitimate parts and model compatibility"
+}
