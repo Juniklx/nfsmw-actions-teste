@@ -1,0 +1,30 @@
+# PRE519_BMW_TUNING_PRE517_PRE518_ZDIR_EA_CHECKSUM_HANDOFF_20261108
+
+**Data:** 2026-11-08. **Projeto:** Need for Speed: Most Wanted (2005), Xbox 360 PAL, recompilação Android. **Objetivo:** tornar o upgrade de motor da BMW M3 GTR realmente listável, comprável, aplicável à física e persistente, sem sacrificar as funções da V48, Nitro PRE398, PG-9076 ou save `MARCEK`. **Estado:** somente auditoria estática/recursos em RAM, tunagem funcional **NÃO COMPROVADA**; V49 não compilada; V48 PRE452 segue referência sem alterações.
+
+## PRE517 — semântica do índice ZDIR e algoritmo de checksum verificados
+
+- Run [42529083522](https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42529083522) `AUDIT_OK`, arquivo `docs/PRE517_ORIGINAL_ZDIR_EA_DATA_HASH_AND_TOTAL_OFFSETS_READONLY.json`; apenas leitura de fontes e dos recursos originais autenticados em runner privado.
+- Implementação pública de referência **Ekey/NFS.BIN.Tool**, commit `ebf30eaa7ee37862254f37b2542107eafd29f7f6`. Fonte de hash `NFS.Packer/NFS.Packer/FileSystem/Package/BinHash.cs` blob `7d47c9019f7f58981085c5e0d632fdc7362bbc03`, e packer `BinPack.cs` blob `a6e1c2307c52bd16238bb5f4a8e1451b136d0e5f`.
+- **Checksum real do ZDIR** conforme dados verificados: algoritmo CRC MSB-first (não refletido) polinômio `0x04C11DB7`, inicial `0xFFFFFFFF`, processa os bytes integrais do recurso; em seguida processa bytes do **tamanho original**, do menos significativo para o mais significativo (ao menos um byte), e inverte o estado final. Não é igual a `zlib.crc32(raw)`. Para `GLOBAL\\ATTRIBUTES.BIN` original de **697.856 bytes**, SHA256 `9f4b04a221232e614b927a870e25da7db100477a7e425114b87082f46e8b99ad`, produziu **`296ad9ed`**, igual ao campo da PAL e USA.
+- Verificação independente em **cinco outros recursos originais** de arquivos ZZDATA distintos, tamanhos 32, 64, 92, 1.224 e 2.368 bytes: todos os checksums coincidiram exatamente com os do índice original. Não depender somente de um exemplo.
+- O campo ZDIR chamado `total` corresponde a **deslocamento acumulado em setores de 2048 bytes**: soma dos setores dos ZZDATA anteriores mais o setor local do recurso. Confirmação **1.390/1.390 registros PAL** e **1.390/1.390 USA**, sem incompatibilidades. Campo da BMW PAL `890205`, USA `890206` porque a organização/sectorização das mídias difere, não por um tamanho ou checksum diferente do recurso.
+
+## PRE518 — checksum correto para a cópia BMW do PRE502, tudo em RAM
+
+- Run [42529543814](https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42529543814) `AUDIT_OK`, arquivo `docs/PRE518_BMW_RAM_VPAK_ZDIR_CHECKSUM_READONLY.json`.
+- A função PRE502 de reconstrução foi verificada antes da mudança e recebeu **apenas callback opcional in-memory** para permitir calcular hashes. Execução PRE502 padrão mantém resultado/esquema original. Nenhum binário VPAK reconstruído foi gravado, exportado ou enviado ao GitHub.
+- A PRE518 **reexecutou de modo autenticado** a reconstrução VPAK completa e o parser independente da PRE502: `engine/bmwm3gtr_upgrade_engine_pre499`, motor físico independente, `CollectionLoad/ExpN/PtrN`, `RefSpec[2]` e contador `engine_upgrades=1` específico BMW. O vetor de torque **+5% é exclusivamente sintético**, e não ajuste final selecionado pelo usuário nem ganho medido no aparelho.
+- VPAK RAM reconstruído de **698.004 bytes**, SHA256 **`d4fa0e98ba9bd2ee637d768d00a42d7e5a06c6d74df4581d6730f98dad31d8f6`**. Checksum EA calculado sobre estes bytes **`4d05584a`**.
+- A simulação do registro original **ZDIR PAL linha 806**, `GLOBAL\\ATTRIBUTES.BIN` em `ZZDATA4.BIN`, manteve inalterados nome hash, archive ID 4, setor local correspondente ao offset **355.932.160 bytes**, e deslocamento total **890205**. **Só tamanho e checksum** mudariam (em um ZDIR hipotético RAM): `697856 -> 698004`, `296ad9ed -> 4d05584a`.
+- Os **outros 1.389 registros** ZDIR originais permanecem iguais byte a byte, com 33.352 bytes do índice fora dos 8 bytes de campos alvo intactos. Todos os offsets e capacidades reservados ainda compatíveis: **341 setores × 2.048 = 698.368 bytes**; sobra **364 bytes** para o candidato em RAM. Nenhum índice ou ZZDATA foi gravado.
+- A PRE518 **não leu os bytes do padding do ZZDATA4 PAL**; PRE503 confirmou padding zero somente em ISO USA, não na PAL. Não declarar compatibilidade final de substituição, sincronização, montagem ou leitura runtime.
+
+## Próximo gate: carregamento e compra reais, sem colocar em risco a V48
+
+1. A existência de código de URI e montagem na V48 (PRE511, PRE513, PRE515) não demonstra a modalidade escolhida na sessão do Galaxy S24 FE: pasta via `HostPathDevice`, arquivo local ou content URI via `DiscImageDevice`. Confirmar por log/evento da V48 efetiva quando possível.
+2. Antes de qualquer arquivo modificado, provar como o loader **guest** PAL interpreta `ZDIR` e `GLOBAL\\ATTRIBUTES.BIN` e se aceita **VPAK de tamanho diferente, nova coleção `ExpN` e hash sem entrada de texto `StrE`**. Nenhum registro de checksum validado substitui teste de loader.
+3. Ainda é necessário um catálogo `FECarPartInfo` autêntico, custo positivo/verificado, integração de `Physics::Upgrades::{GetMaxLevel,SetLevel,SetPackage}`, prova do carro `type=41` ↔ `bmwm3gtr`, transação de compra/instalação e roundtrip somente com **save descartável**. Uma contagem candidata ou escolha vazia não equivale a compra.
+4. Manter PRE479/PRE483 e qualquer patch experimental **OFF**; não construir V49 nem substituir a V48 PRE452 antes dessas provas. Preservar `io.github.nfsmwrecomp`, assinatura release permanente SHA256 `1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b`, Nitro PRE398, touch/PG-9076, 1920×1080, 120 FPS máximo, gráficos, shaders, física, limitações térmicas e save `MARCEK`.
+
+**Proveniência/safety:** logs GitHub Actions PRE517/PRE518 e relatórios privados apenas de metadados. Arquivos ISO, ZIP PAL, ZDIR, ZZDATA, VPAK original, APK V48, saves, credenciais e chave de assinatura não foram modificados. **Build nova = não; APK instalada = não; tunagem funcional = não; ganho medido = não.**
