@@ -1,0 +1,8 @@
+{
+  "stage": "PRE476",
+  "goal": "Resolve original PAL BMW/Punto performance class and collection references, including hash a6f0f405",
+  "source_vpak_sha256": "9f4b04a221232e614b927a870e25da7db100477a7e425114b87082f46e8b99ad",
+  "no_apk_build": true,
+  "no_save_access": true,
+  "read_only": true
+}
