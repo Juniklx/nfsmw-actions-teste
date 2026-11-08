@@ -1,0 +1,344 @@
+{
+  "stage": "PRE465_USA_BMW_VPAK_BIN_VLT_STRUCTURAL_HASH_PROBE",
+  "status": "AUDIT_OK",
+  "source_vpak_sha256": "9f4b04a221232e614b927a870e25da7db100477a7e425114b87082f46e8b99ad",
+  "source_edition": "USA reference only; PAL runtime not verified",
+  "hash_regression": {
+    "lookup2_canonical_test_vectors": true,
+    "vectors": {
+      "default": "eec2271a",
+      "car": "a13753eb",
+      "gameplay": "5cea9d46"
+    }
+  },
+  "vault_name": "db",
+  "bin_chunks": [
+    {
+      "tag": "StrE",
+      "relative_offset": 0,
+      "declared_size": 30816,
+      "length_endianness": "big"
+    }
+  ],
+  "bin_parse_tail": {
+    "parsed_bytes": 30816,
+    "remaining_bytes": 324143,
+    "remaining_all_zero": false
+  },
+  "vlt_chunks": [
+    {
+      "tag": "DepN",
+      "relative_offset": 0,
+      "declared_size": 48,
+      "length_endianness": "big"
+    },
+    {
+      "tag": "StrN",
+      "relative_offset": 48,
+      "declared_size": 16,
+      "length_endianness": "big"
+    },
+    {
+      "tag": "DatN",
+      "relative_offset": 64,
+      "declared_size": 164784,
+      "length_endianness": "big"
+    },
+    {
+      "tag": "ExpN",
+      "relative_offset": 164848,
+      "declared_size": 48000,
+      "length_endianness": "big"
+    },
+    {
+      "tag": "PtrN",
+      "relative_offset": 212848,
+      "declared_size": 129872,
+      "length_endianness": "big"
+    }
+  ],
+  "vlt_parse_tail": {
+    "parsed_bytes": 342720,
+    "remaining_bytes": 0,
+    "remaining_all_zero": true
+  },
+  "bin_string_count_candidate": 1920,
+  "bin_strings_related_to_tuning": [
+    "fxcar_exhaust_bmw",
+    "fxcar_engineblow1",
+    "fxcar_exhaust_bmw2",
+    "emcar_exhaust_bmw",
+    "emcar_exhaust_bmw_sm1",
+    "emcar_engineblow_fire",
+    "emcar_engineblow_smoke",
+    "emcar_exhaust_bmw_sm2",
+    "emcar_exhaust_bmw2",
+    "ENGINES_AEMS2.csi",
+    "Nitrous_00_MB.abk",
+    "Nitrous_01_MB.abk",
+    "carexhaustbmw",
+    "carexhaustbmw2",
+    "bmwm3gtr_hood",
+    "bmwm3gtre46_hood",
+    "BEHAVIOR_MECHANIC_ENGINE",
+    "BEHAVIOR_MECHANIC_SUSPENSION",
+    "SuspensionTrailer",
+    "EngineRacer",
+    "SuspensionRacer",
+    "SuspensionTraffic",
+    "EngineTraffic",
+    "SuspensionSimple",
+    "BMWM3GTR",
+    "BMWM3GTRE46",
+    "bmwm3gtre46",
+    "bmwm3gtr",
+    "m3gtre46careerstart",
+    "GIN_BMW_M5_DCL.gin",
+    "GIN_BMW_M5.gin",
+    "bmw_m5_a",
+    "GIN_BMW_M3_LagSeca_V2_DCL.gin",
+    "GIN_BMW_M3_LagSeca_V2.gin",
+    "bmw_m3_e",
+    "GIN_BMW_M3_race_DCL.gin",
+    "GIN_BMW_M3_race.gin",
+    "bmw_m3_c",
+    "GIN_BMW_M3_DCL.gin",
+    "GIN_BMW_M3.gin",
+    "bmw_m3_a"
+  ],
+  "target_name_hash_cross_reference": {
+    "BMWM3GTR": {
+      "lookup2_hash": "20d3071f",
+      "BIN": {
+        "text_count": 2,
+        "text_offsets": [
+          20709,
+          20736
+        ],
+        "hash_big_endian_count": 2,
+        "hash_big_endian_offsets": [
+          250456,
+          256472
+        ],
+        "hash_little_endian_count": 0,
+        "hash_little_endian_offsets": []
+      },
+      "VLT": {
+        "text_count": 0,
+        "text_offsets": [],
+        "hash_big_endian_count": 0,
+        "hash_big_endian_offsets": [],
+        "hash_little_endian_count": 0,
+        "hash_little_endian_offsets": []
+      }
+    },
+    "BMWM3GTRE46": {
+      "lookup2_hash": "5d1533ed",
+      "BIN": {
+        "text_count": 1,
+        "text_offsets": [
+          20736
+        ],
+        "hash_big_endian_count": 0,
+        "hash_big_endian_offsets": [],
+        "hash_little_endian_count": 0,
+        "hash_little_endian_offsets": []
+      },
+      "VLT": {
+        "text_count": 0,
+        "text_offsets": [],
+        "hash_big_endian_count": 0,
+        "hash_big_endian_offsets": [],
+        "hash_little_endian_count": 0,
+        "hash_little_endian_offsets": []
+      }
+    },
+    "m3gtre46careerstart": {
+      "lookup2_hash": "39dae0f8",
+      "BIN": {
+        "text_count": 1,
+        "text_offsets": [
+          21561
+        ],
+        "hash_big_endian_count": 10,
+        "hash_big_endian_offsets": [
+          269708,
+          269752,
+          269772,
+          269848,
+          269868,
+          274764,
+          274784,
+          274804,
+          274824,
+          274844
+        ],
+        "hash_little_endian_count": 0,
+        "hash_little_endian_offsets": []
+      },
+      "VLT": {
+        "text_count": 0,
+        "text_offsets": [],
+        "hash_big_endian_count": 7,
+        "hash_big_endian_offsets": [
+          4248,
+          15112,
+          35120,
+          70512,
+          87688,
+          92568,
+          127352
+        ],
+        "hash_little_endian_count": 0,
+        "hash_little_endian_offsets": []
+      }
+    },
+    "UpgradeSpecs": {
+      "lookup2_hash": "5fde6463",
+      "BIN": {
+        "text_count": 1,
+        "text_offsets": [
+          32130
+        ],
+        "hash_big_endian_count": 2,
+        "hash_big_endian_offsets": [
+          243924,
+          244452
+        ],
+        "hash_little_endian_count": 0,
+        "hash_little_endian_offsets": []
+      },
+      "VLT": {
+        "text_count": 0,
+        "text_offsets": [],
+        "hash_big_endian_count": 49,
+        "hash_big_endian_offsets": [
+          114908,
+          116624,
+          117192,
+          117388,
+          117596,
+          117996,
+          118204,
+          118428,
+          118692,
+          118896,
+          119096,
+          119496,
+          119696,
+          119900,
+          120196,
+          120400,
+          120600,
+          120800,
+          120996,
+          121288,
+          121504,
+          121700,
+          121904,
+          122104
+        ],
+        "hash_little_endian_count": 0,
+        "hash_little_endian_offsets": []
+      }
+    },
+    "eFEPartUpgradeLevels": {
+      "lookup2_hash": "d3f69b06",
+      "BIN": {
+        "text_count": 1,
+        "text_offsets": [
+          32325
+        ],
+        "hash_big_endian_count": 0,
+        "hash_big_endian_offsets": [],
+        "hash_little_endian_count": 0,
+        "hash_little_endian_offsets": []
+      },
+      "VLT": {
+        "text_count": 0,
+        "text_offsets": [],
+        "hash_big_endian_count": 0,
+        "hash_big_endian_offsets": [],
+        "hash_little_endian_count": 0,
+        "hash_little_endian_offsets": []
+      }
+    },
+    "JunkmanMod": {
+      "lookup2_hash": "946f77a8",
+      "BIN": {
+        "text_count": 1,
+        "text_offsets": [
+          31933
+        ],
+        "hash_big_endian_count": 0,
+        "hash_big_endian_offsets": [],
+        "hash_little_endian_count": 0,
+        "hash_little_endian_offsets": []
+      },
+      "VLT": {
+        "text_count": 0,
+        "text_offsets": [],
+        "hash_big_endian_count": 0,
+        "hash_big_endian_offsets": [],
+        "hash_little_endian_count": 0,
+        "hash_little_endian_offsets": []
+      }
+    },
+    "EngineRacer": {
+      "lookup2_hash": "7375d1fa",
+      "BIN": {
+        "text_count": 1,
+        "text_offsets": [
+          20407
+        ],
+        "hash_big_endian_count": 0,
+        "hash_big_endian_offsets": [],
+        "hash_little_endian_count": 0,
+        "hash_little_endian_offsets": []
+      },
+      "VLT": {
+        "text_count": 0,
+        "text_offsets": [],
+        "hash_big_endian_count": 0,
+        "hash_big_endian_offsets": [],
+        "hash_little_endian_count": 0,
+        "hash_little_endian_offsets": []
+      }
+    },
+    "SuspensionRacer": {
+      "lookup2_hash": "6209e06a",
+      "BIN": {
+        "text_count": 1,
+        "text_offsets": [
+          20439
+        ],
+        "hash_big_endian_count": 3,
+        "hash_big_endian_offsets": [
+          247464,
+          253608,
+          269264
+        ],
+        "hash_little_endian_count": 0,
+        "hash_little_endian_offsets": []
+      },
+      "VLT": {
+        "text_count": 0,
+        "text_offsets": [],
+        "hash_big_endian_count": 0,
+        "hash_big_endian_offsets": [],
+        "hash_little_endian_count": 0,
+        "hash_little_endian_offsets": []
+      }
+    }
+  },
+  "hash_presence_is_not_record_field_or_upgrade_validation": true,
+  "bmw_usable_upgrade_parts_identified": false,
+  "pal_catalog_validated": false,
+  "safe_to_enable_bmw_tuning": false,
+  "assets_exported": false,
+  "save_touched": false,
+  "signed_apk_built": false,
+  "requested_byte_ranges_total": 733264,
+  "run_id": "42508972507",
+  "utc": "2026-11-08T18:14:36.859117+00:00"
+}
