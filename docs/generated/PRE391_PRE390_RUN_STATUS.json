@@ -1,0 +1,13 @@
+{
+  "stage": "PRE391_PRE390_RUN_LOOKUP",
+  "status": "FOUND",
+  "target_commit": "69bbaa5c94c7e99e43091477d959274c6b5ff429",
+  "run_id": 42434751520,
+  "run_status": "in_progress",
+  "run_conclusion": null,
+  "html_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42434751520",
+  "owner_verified": false,
+  "apk_built": false,
+  "guest_modified": false,
+  "note": "Run metadata only; source matches must be verified from the full audit artifact."
+}
