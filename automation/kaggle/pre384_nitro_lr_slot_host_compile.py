@@ -21,9 +21,13 @@ def main():
             (root/h.name).write_bytes(h.read_bytes())
         logger=root/"rex/logging/macros.h";logger.parent.mkdir(parents=True)
         logger.write_text("#pragma once\n#define REXLOG_INFO(...) do {} while (0)\n")
-        subprocess.run(["g++","-std=c++17","-O2","-Wall","-Wextra","-Werror",
+        proc=subprocess.run(["g++","-std=c++17","-O2","-Wall","-Wextra","-Werror",
                         "-pthread","-fsyntax-only","-I",str(root),str(cpp)],
-                       check=True,capture_output=True,text=True,timeout=40)
+                       check=False,capture_output=True,text=True,timeout=40)
+        if proc.returncode:
+            # Compiler diagnostics contain no credentials: local synthetic C++ only.
+            print("PRE384_HOST_CPP_DIAGNOSTIC",proc.stderr[:2400])
+            raise ValueError("PRE384 host compilation failed")
     result={"stage":"PRE384_NITRO_LR_SLOT_HOST_COMPILE","status":"AUDIT_OK",
       "stage_reverse_exact":True,"native_host_syntax":"success",
       "extra_guest_reads":0,"guest_stores_rewritten":0,
