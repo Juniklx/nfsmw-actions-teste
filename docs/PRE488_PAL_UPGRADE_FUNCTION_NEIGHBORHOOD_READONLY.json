@@ -1,0 +1,4237 @@
+{
+  "stage": "PRE488_PAL_UPGRADES_ATTR_RESOLVER_FUNCTION_NEIGHBORHOOD",
+  "status": "AUDIT_OK",
+  "source_pre99_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "generated_files_scanned": 129,
+  "generated_guest_functions_indexed": 56338,
+  "lookup_anchor": "sub_823E5988",
+  "suspected_frontend_and_attribute_function_metadata": {
+    "sub_82582F70": {
+      "guest_function": "sub_82582F70",
+      "generated_file": "nfsmw_recomp.11.cpp",
+      "generated_file_sha256": "0208ca992595ccbddfddc1299f59a2ff586b9c726ad4a3c4d4c73f6dc40db4e3",
+      "function_lines": 1231,
+      "ppc_mnemonic_counts": {
+        "mr": 76,
+        "lwz": 53,
+        "stw": 48,
+        "li": 46,
+        "addi": 36,
+        "cmplwi": 36,
+        "bl": 35,
+        "beq": 29,
+        "lis": 26,
+        "fmr": 21,
+        "stb": 18,
+        "b": 17,
+        "clrlwi": 14,
+        "bne": 11,
+        "ori": 11,
+        "lbz": 9,
+        "mtctr": 8,
+        "stfs": 8,
+        "bctrl": 6,
+        "cmpwi": 4,
+        "rlwimi": 4,
+        "lfs": 3
+      },
+      "calls_to_sub_823E5988": 1,
+      "callsite_counts": [
+        {
+          "callee": "sub_8215CB08",
+          "count": 3
+        },
+        {
+          "callee": "sub_822CC740",
+          "count": 2
+        },
+        {
+          "callee": "sub_822DADC0",
+          "count": 2
+        },
+        {
+          "callee": "sub_823E4600",
+          "count": 1
+        },
+        {
+          "callee": "sub_823E5988",
+          "count": 1
+        },
+        {
+          "callee": "sub_8256BB10",
+          "count": 1
+        },
+        {
+          "callee": "sub_8256BC60",
+          "count": 2
+        },
+        {
+          "callee": "sub_8256D548",
+          "count": 2
+        },
+        {
+          "callee": "sub_8256F818",
+          "count": 1
+        },
+        {
+          "callee": "sub_8256F9D8",
+          "count": 1
+        },
+        {
+          "callee": "sub_82579CE0",
+          "count": 2
+        },
+        {
+          "callee": "sub_82587498",
+          "count": 1
+        }
+      ],
+      "return_instructions": 0,
+      "original_rex_store_count": 75,
+      "stores_with_explicit_non_stack_address_count": 64,
+      "selected_ppc_comments_only": [
+        {
+          "line": 32,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x826bdce4"
+        },
+        {
+          "line": 36,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x826becd8"
+        },
+        {
+          "line": 52,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,-14716(r16)"
+        },
+        {
+          "line": 54,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,300(r11)"
+        },
+        {
+          "line": 82,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r5,16(r29)"
+        },
+        {
+          "line": 92,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,-14908(r11)"
+        },
+        {
+          "line": 94,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x82284e88"
+        },
+        {
+          "line": 117,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x822dadc0"
+        },
+        {
+          "line": 120,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,16(r29)"
+        },
+        {
+          "line": 126,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8227fd70"
+        },
+        {
+          "line": 133,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r6,24(r3)"
+        },
+        {
+          "line": 147,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r11,-12(r30)"
+        },
+        {
+          "line": 151,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x822dadc0"
+        },
+        {
+          "line": 154,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,16(r29)"
+        },
+        {
+          "line": 160,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8227fd70"
+        },
+        {
+          "line": 167,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r5,24(r3)"
+        },
+        {
+          "line": 179,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r3,0(r30)"
+        },
+        {
+          "line": 199,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8256ce68"
+        },
+        {
+          "line": 211,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8256ce68"
+        },
+        {
+          "line": 227,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r4,16(r29)"
+        },
+        {
+          "line": 244,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,0(r3)"
+        },
+        {
+          "line": 252,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r10,40(r11)"
+        },
+        {
+          "line": 265,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8256ce68"
+        },
+        {
+          "line": 277,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8256ce68"
+        },
+        {
+          "line": 287,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r4,16(r29)"
+        },
+        {
+          "line": 297,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r9,0(r3)"
+        },
+        {
+          "line": 303,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r8,40(r9)"
+        },
+        {
+          "line": 316,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8256ce68"
+        },
+        {
+          "line": 328,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8256ce68"
+        },
+        {
+          "line": 338,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r4,16(r29)"
+        },
+        {
+          "line": 348,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r7,0(r3)"
+        },
+        {
+          "line": 354,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r6,40(r7)"
+        },
+        {
+          "line": 361,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,324(r29)"
+        },
+        {
+          "line": 407,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r4,344(r29)"
+        },
+        {
+          "line": 418,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r11,344(r29)"
+        },
+        {
+          "line": 429,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r9,344(r29)"
+        },
+        {
+          "line": 449,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r5,344(r29)"
+        },
+        {
+          "line": 460,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r3,344(r29)"
+        },
+        {
+          "line": 469,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8256f9d8"
+        },
+        {
+          "line": 482,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r9,344(r29)"
+        },
+        {
+          "line": 492,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r7,344(r29)"
+        },
+        {
+          "line": 509,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r5,96(r1)"
+        },
+        {
+          "line": 513,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r4,100(r1)"
+        },
+        {
+          "line": 521,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,-14716(r16)"
+        },
+        {
+          "line": 523,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,300(r11)"
+        },
+        {
+          "line": 549,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,4(r31)"
+        },
+        {
+          "line": 551,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x822cc740"
+        },
+        {
+          "line": 579,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r4,324(r29)"
+        },
+        {
+          "line": 583,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8256d2b8"
+        },
+        {
+          "line": 597,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8215cb08"
+        },
+        {
+          "line": 604,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r22,12(r3)"
+        },
+        {
+          "line": 608,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r17,0(r3)"
+        },
+        {
+          "line": 610,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r22,16(r3)"
+        },
+        {
+          "line": 612,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r20,20(r3)"
+        },
+        {
+          "line": 614,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r24,24(r3)"
+        },
+        {
+          "line": 618,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r19,32(r3)"
+        },
+        {
+          "line": 620,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r22,36(r3)"
+        },
+        {
+          "line": 644,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x82579ce0"
+        },
+        {
+          "line": 651,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8256d548"
+        },
+        {
+          "line": 660,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,32(r30)"
+        },
+        {
+          "line": 664,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r3,32(r30)"
+        },
+        {
+          "line": 673,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8256bc60"
+        },
+        {
+          "line": 680,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,32(r30)"
+        },
+        {
+          "line": 684,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r11,32(r30)"
+        },
+        {
+          "line": 695,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8256f818"
+        },
+        {
+          "line": 706,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,96(r1)"
+        },
+        {
+          "line": 714,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r10,0(r11)"
+        },
+        {
+          "line": 718,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r9,4(r11)"
+        },
+        {
+          "line": 724,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r10,0(r9)"
+        },
+        {
+          "line": 726,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r9,4(r10)"
+        },
+        {
+          "line": 728,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8256cb60"
+        },
+        {
+          "line": 735,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823e5988"
+        },
+        {
+          "line": 738,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,20(r30)"
+        },
+        {
+          "line": 742,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r4,324(r29)"
+        },
+        {
+          "line": 750,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8256d2b8"
+        },
+        {
+          "line": 761,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8256d5f0"
+        },
+        {
+          "line": 774,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8215cb08"
+        },
+        {
+          "line": 785,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r21,12(r3)"
+        },
+        {
+          "line": 790,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r22,16(r3)"
+        },
+        {
+          "line": 810,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r25,44(r3)"
+        },
+        {
+          "line": 812,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r22,48(r3)"
+        },
+        {
+          "line": 820,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r22,72(r3)"
+        },
+        {
+          "line": 822,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r23,0(r3)"
+        },
+        {
+          "line": 824,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r30,76(r3)"
+        },
+        {
+          "line": 826,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r28,80(r3)"
+        },
+        {
+          "line": 838,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r9,0(r3)"
+        },
+        {
+          "line": 840,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r8,8(r9)"
+        },
+        {
+          "line": 847,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,12(r27)"
+        },
+        {
+          "line": 853,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r7,36(r3)"
+        },
+        {
+          "line": 859,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r6,28(r3)"
+        },
+        {
+          "line": 861,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r11,36(r3)"
+        },
+        {
+          "line": 865,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r5,28(r3)"
+        },
+        {
+          "line": 875,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r10,-14716(r16)"
+        },
+        {
+          "line": 879,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r9,16(r10)"
+        },
+        {
+          "line": 881,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r4,180(r9)"
+        },
+        {
+          "line": 898,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r8,300(r10)"
+        },
+        {
+          "line": 917,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,4(r31)"
+        },
+        {
+          "line": 919,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x822cc740"
+        },
+        {
+          "line": 942,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823e4600"
+        },
+        {
+          "line": 959,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8215cb08"
+        }
+      ],
+      "does_not_confirm_semantic_role": true,
+      "direct_callers_found_in_source": 0,
+      "direct_caller_guest_ids": [],
+      "direct_caller_list_truncated": false
+    },
+    "sub_823E3A20": {
+      "guest_function": "sub_823E3A20",
+      "generated_file": "nfsmw_recomp.111.cpp",
+      "generated_file_sha256": "1700d6f1d39c133e62f4c6e22f2b1a374bdccb641bb94773d990862088a8c686",
+      "function_lines": 412,
+      "ppc_mnemonic_counts": {
+        "mr": 30,
+        "lwz": 25,
+        "beq": 17,
+        "bl": 15,
+        "cmplwi": 14,
+        "addi": 12,
+        "b": 9,
+        "lis": 6,
+        "cmplw": 6,
+        "li": 4,
+        "stw": 4,
+        "ori": 4,
+        "add": 4,
+        "lhz": 4,
+        "blt": 3,
+        "fmr": 3,
+        "sth": 3,
+        "clrlwi": 2,
+        "mflr": 1,
+        "stfd": 1,
+        "stwu": 1,
+        "rlwinm": 1
+      },
+      "calls_to_sub_823E5988": 0,
+      "callsite_counts": [
+        {
+          "callee": "sub_82145E10",
+          "count": 2
+        },
+        {
+          "callee": "sub_8214B4E8",
+          "count": 1
+        },
+        {
+          "callee": "sub_8214B758",
+          "count": 2
+        },
+        {
+          "callee": "sub_8214B858",
+          "count": 1
+        },
+        {
+          "callee": "sub_8214B990",
+          "count": 1
+        },
+        {
+          "callee": "sub_8214BAA8",
+          "count": 1
+        },
+        {
+          "callee": "sub_8214BD08",
+          "count": 1
+        },
+        {
+          "callee": "sub_823E39A0",
+          "count": 1
+        },
+        {
+          "callee": "sub_823F9950",
+          "count": 1
+        },
+        {
+          "callee": "sub_823F99D0",
+          "count": 1
+        },
+        {
+          "callee": "sub_823F9A40",
+          "count": 1
+        },
+        {
+          "callee": "sub_8262D040",
+          "count": 1
+        }
+      ],
+      "return_instructions": 0,
+      "original_rex_store_count": 9,
+      "stores_with_explicit_non_stack_address_count": 4,
+      "selected_ppc_comments_only": [
+        {
+          "line": 24,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x826bdcf4"
+        },
+        {
+          "line": 43,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214b4e8"
+        },
+        {
+          "line": 54,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r22,96(r1)"
+        },
+        {
+          "line": 56,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r22,100(r1)"
+        },
+        {
+          "line": 58,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r22,104(r1)"
+        },
+        {
+          "line": 60,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r22,108(r1)"
+        },
+        {
+          "line": 62,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214b858"
+        },
+        {
+          "line": 67,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r19,96(r1)"
+        },
+        {
+          "line": 77,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,4(r28)"
+        },
+        {
+          "line": 79,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,20(r11)"
+        },
+        {
+          "line": 85,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r4,0(r11)"
+        },
+        {
+          "line": 101,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214bd08"
+        },
+        {
+          "line": 104,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,4(r28)"
+        },
+        {
+          "line": 112,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r8,20(r11)"
+        },
+        {
+          "line": 114,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r9,8(r11)"
+        },
+        {
+          "line": 116,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r7,8(r8)"
+        },
+        {
+          "line": 118,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r10,20(r7)"
+        },
+        {
+          "line": 128,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,20(r11)"
+        },
+        {
+          "line": 134,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r4,0(r11)"
+        },
+        {
+          "line": 144,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214baa8"
+        },
+        {
+          "line": 147,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,104(r1)"
+        },
+        {
+          "line": 153,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r4,8(r19)"
+        },
+        {
+          "line": 155,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x82145e10"
+        },
+        {
+          "line": 193,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823f9950"
+        },
+        {
+          "line": 202,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r30,84(r1)"
+        },
+        {
+          "line": 210,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214b758"
+        },
+        {
+          "line": 213,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,136(r1)"
+        },
+        {
+          "line": 219,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r31,128(r1)"
+        },
+        {
+          "line": 221,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r4,8(r31)"
+        },
+        {
+          "line": 223,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x82145e10"
+        },
+        {
+          "line": 238,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214b990"
+        },
+        {
+          "line": 247,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214b758"
+        },
+        {
+          "line": 250,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,120(r1)"
+        },
+        {
+          "line": 256,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r10,-16692(r27)"
+        },
+        {
+          "line": 260,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r10,4(r10)"
+        },
+        {
+          "line": 262,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r9,24(r10)"
+        },
+        {
+          "line": 271,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r10,32(r10)"
+        },
+        {
+          "line": 277,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r30,0(r8)"
+        },
+        {
+          "line": 308,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8262d040"
+        },
+        {
+          "line": 321,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823f9a40"
+        },
+        {
+          "line": 334,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823e39a0"
+        },
+        {
+          "line": 347,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823f99d0"
+        },
+        {
+          "line": 358,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,112(r1)"
+        },
+        {
+          "line": 371,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r31,128(r1)"
+        }
+      ],
+      "does_not_confirm_semantic_role": true,
+      "direct_callers_found_in_source": 1,
+      "direct_caller_guest_ids": [
+        "sub_823E4850"
+      ],
+      "direct_caller_list_truncated": false
+    },
+    "sub_823E41C0": {
+      "guest_function": "sub_823E41C0",
+      "generated_file": "nfsmw_recomp.122.cpp",
+      "generated_file_sha256": "acfbc33cab2c9db4bf0f694104d29b006505198a6063836d8b32d02214098c62",
+      "function_lines": 155,
+      "ppc_mnemonic_counts": {
+        "lwz": 11,
+        "addi": 10,
+        "cmplwi": 8,
+        "beq": 6,
+        "stw": 5,
+        "li": 4,
+        "bne": 3,
+        "mtlr": 3,
+        "blr": 3,
+        "lis": 2,
+        "mr": 2,
+        "bl": 2,
+        "lhz": 2,
+        "addis": 2,
+        "sth": 2,
+        "mflr": 1,
+        "stwu": 1,
+        "cmpw": 1,
+        "clrlwi": 1
+      },
+      "calls_to_sub_823E5988": 0,
+      "callsite_counts": [
+        {
+          "callee": "sub_8214B858",
+          "count": 1
+        },
+        {
+          "callee": "sub_8214EDA8",
+          "count": 1
+        }
+      ],
+      "return_instructions": 3,
+      "original_rex_store_count": 8,
+      "stores_with_explicit_non_stack_address_count": 3,
+      "selected_ppc_comments_only": [
+        {
+          "line": 9,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r12,-8(r1)"
+        },
+        {
+          "line": 21,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r11,80(r1)"
+        },
+        {
+          "line": 23,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r11,84(r1)"
+        },
+        {
+          "line": 25,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r11,88(r1)"
+        },
+        {
+          "line": 27,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r11,92(r1)"
+        },
+        {
+          "line": 31,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r10,8(r10)"
+        },
+        {
+          "line": 38,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r10,0(r11)"
+        },
+        {
+          "line": 46,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r9,8(r11)"
+        },
+        {
+          "line": 56,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r12,-8(r1)"
+        },
+        {
+          "line": 69,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r4,16(r11)"
+        },
+        {
+          "line": 71,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214b858"
+        },
+        {
+          "line": 80,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,92(r1)"
+        },
+        {
+          "line": 90,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214eda8"
+        },
+        {
+          "line": 104,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,0(r11)"
+        },
+        {
+          "line": 106,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,80(r1)"
+        },
+        {
+          "line": 122,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r12,-8(r1)"
+        },
+        {
+          "line": 129,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,80(r1)"
+        },
+        {
+          "line": 149,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r12,-8(r1)"
+        }
+      ],
+      "does_not_confirm_semantic_role": true,
+      "direct_callers_found_in_source": 8,
+      "direct_caller_guest_ids": [
+        "sub_823D4100",
+        "sub_823E4130",
+        "sub_823E42D8",
+        "sub_823E5420",
+        "sub_823E54F8",
+        "sub_823E56B0",
+        "sub_823E6560",
+        "sub_824E7820"
+      ],
+      "direct_caller_list_truncated": false
+    },
+    "sub_823E4600": {
+      "guest_function": "sub_823E4600",
+      "generated_file": "nfsmw_recomp.128.cpp",
+      "generated_file_sha256": "a892eddeb589eb3c0177264ee09dc89a7c8626685d2d023c2d7ae87bd10f74a5",
+      "function_lines": 333,
+      "ppc_mnemonic_counts": {
+        "addi": 21,
+        "lwz": 20,
+        "cmplwi": 17,
+        "beq": 14,
+        "bl": 10,
+        "mr": 9,
+        "li": 9,
+        "stw": 9,
+        "b": 7,
+        "bne": 5,
+        "lis": 4,
+        "cmpwi": 3,
+        "clrlwi": 3,
+        "lhz": 3,
+        "addis": 3,
+        "sth": 3,
+        "ble": 3,
+        "mflr": 1,
+        "stwu": 1,
+        "cmpw": 1,
+        "ori": 1,
+        "cmplw": 1
+      },
+      "calls_to_sub_823E5988": 0,
+      "callsite_counts": [
+        {
+          "callee": "sub_82145E10",
+          "count": 1
+        },
+        {
+          "callee": "sub_8214B4E8",
+          "count": 1
+        },
+        {
+          "callee": "sub_8214B858",
+          "count": 1
+        },
+        {
+          "callee": "sub_8214EC10",
+          "count": 1
+        },
+        {
+          "callee": "sub_82152A38",
+          "count": 2
+        },
+        {
+          "callee": "sub_823CFD48",
+          "count": 1
+        },
+        {
+          "callee": "sub_823E6DC0",
+          "count": 1
+        },
+        {
+          "callee": "sub_823E6F08",
+          "count": 1
+        }
+      ],
+      "return_instructions": 0,
+      "original_rex_store_count": 13,
+      "stores_with_explicit_non_stack_address_count": 9,
+      "selected_ppc_comments_only": [
+        {
+          "line": 12,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x826bdd1c"
+        },
+        {
+          "line": 26,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r10,8(r11)"
+        },
+        {
+          "line": 33,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,0(r31)"
+        },
+        {
+          "line": 41,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r10,8(r31)"
+        },
+        {
+          "line": 58,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r9,20(r31)"
+        },
+        {
+          "line": 74,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823e6f08"
+        },
+        {
+          "line": 93,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823e6dc0"
+        },
+        {
+          "line": 103,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823cfd48"
+        },
+        {
+          "line": 114,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214b4e8"
+        },
+        {
+          "line": 117,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r4,20(r31)"
+        },
+        {
+          "line": 125,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r31,80(r1)"
+        },
+        {
+          "line": 127,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r31,84(r1)"
+        },
+        {
+          "line": 129,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r31,88(r1)"
+        },
+        {
+          "line": 131,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r31,92(r1)"
+        },
+        {
+          "line": 133,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214b858"
+        },
+        {
+          "line": 142,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,80(r1)"
+        },
+        {
+          "line": 157,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,100(r1)"
+        },
+        {
+          "line": 163,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 171,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 182,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r31,28(r3)"
+        },
+        {
+          "line": 184,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,-16692(r11)"
+        },
+        {
+          "line": 186,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,4(r11)"
+        },
+        {
+          "line": 190,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x82152a38"
+        },
+        {
+          "line": 203,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214ec10"
+        },
+        {
+          "line": 214,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,80(r1)"
+        },
+        {
+          "line": 229,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,100(r1)"
+        },
+        {
+          "line": 235,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 243,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r5,28(r3)"
+        },
+        {
+          "line": 252,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,88(r1)"
+        },
+        {
+          "line": 254,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r30,80(r1)"
+        },
+        {
+          "line": 260,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r4,8(r30)"
+        },
+        {
+          "line": 262,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x82145e10"
+        },
+        {
+          "line": 290,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,100(r1)"
+        },
+        {
+          "line": 296,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 304,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r10,28(r3)"
+        },
+        {
+          "line": 315,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r31,28(r3)"
+        },
+        {
+          "line": 317,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,-16692(r11)"
+        },
+        {
+          "line": 319,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,4(r11)"
+        },
+        {
+          "line": 323,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x82152a38"
+        }
+      ],
+      "does_not_confirm_semantic_role": true,
+      "direct_callers_found_in_source": 5,
+      "direct_caller_guest_ids": [
+        "sub_823E4850",
+        "sub_823E56B0",
+        "sub_8256E170",
+        "sub_8256F998",
+        "sub_82582F70"
+      ],
+      "direct_caller_list_truncated": false
+    },
+    "sub_823E67E8": {
+      "guest_function": "sub_823E67E8",
+      "generated_file": "nfsmw_recomp.15.cpp",
+      "generated_file_sha256": "414803e217226952833caf347a1ef61dde781a01a8a518262f77196bbc9a0d3a",
+      "function_lines": 545,
+      "ppc_mnemonic_counts": {
+        "addi": 32,
+        "bl": 20,
+        "lwz": 18,
+        "cmplwi": 15,
+        "lfs": 13,
+        "b": 11,
+        "mr": 9,
+        "stw": 9,
+        "li": 8,
+        "fmr": 8,
+        "lis": 6,
+        "beq": 6,
+        "stfs": 6,
+        "ble": 6,
+        "clrlwi": 5,
+        "fadds": 5,
+        "bne": 4,
+        "fmuls": 4,
+        "fcmpu": 4,
+        "lhz": 2,
+        "bge": 2,
+        "blt": 2
+      },
+      "calls_to_sub_823E5988": 1,
+      "callsite_counts": [
+        {
+          "callee": "sub_820E0ED0",
+          "count": 3
+        },
+        {
+          "callee": "sub_8214B580",
+          "count": 1
+        },
+        {
+          "callee": "sub_8214BBC0",
+          "count": 1
+        },
+        {
+          "callee": "sub_8214C420",
+          "count": 1
+        },
+        {
+          "callee": "sub_82152A38",
+          "count": 2
+        },
+        {
+          "callee": "sub_823E5988",
+          "count": 1
+        },
+        {
+          "callee": "sub_823E5B08",
+          "count": 1
+        },
+        {
+          "callee": "sub_823EB290",
+          "count": 1
+        },
+        {
+          "callee": "sub_823EB3B0",
+          "count": 1
+        }
+      ],
+      "return_instructions": 0,
+      "original_rex_store_count": 21,
+      "stores_with_explicit_non_stack_address_count": 12,
+      "selected_ppc_comments_only": [
+        {
+          "line": 23,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x826bdd18"
+        },
+        {
+          "line": 27,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x826becc8"
+        },
+        {
+          "line": 41,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214b580"
+        },
+        {
+          "line": 44,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,136(r1)"
+        },
+        {
+          "line": 54,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r11,136(r1)"
+        },
+        {
+          "line": 80,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214bbc0"
+        },
+        {
+          "line": 114,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823eb290"
+        },
+        {
+          "line": 123,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,132(r1)"
+        },
+        {
+          "line": 129,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 137,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r5,28(r3)"
+        },
+        {
+          "line": 145,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x826bed14"
+        },
+        {
+          "line": 152,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r28,28(r3)"
+        },
+        {
+          "line": 154,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,-16692(r11)"
+        },
+        {
+          "line": 156,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,4(r11)"
+        },
+        {
+          "line": 160,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x82152a38"
+        },
+        {
+          "line": 170,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x826bed14"
+        },
+        {
+          "line": 179,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823eb3b0"
+        },
+        {
+          "line": 188,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,132(r1)"
+        },
+        {
+          "line": 194,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 202,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 210,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x826bed14"
+        },
+        {
+          "line": 225,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x820e0ed0"
+        },
+        {
+          "line": 240,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x820e0ed0"
+        },
+        {
+          "line": 255,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x820e0ed0"
+        },
+        {
+          "line": 366,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823e5988"
+        },
+        {
+          "line": 392,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r8,80(r1)"
+        },
+        {
+          "line": 424,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r5,84(r1)"
+        },
+        {
+          "line": 426,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823e5b08"
+        },
+        {
+          "line": 444,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r4,132(r1)"
+        },
+        {
+          "line": 446,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214c420"
+        },
+        {
+          "line": 449,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,128(r1)"
+        },
+        {
+          "line": 451,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r10,140(r1)"
+        },
+        {
+          "line": 455,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,132(r1)"
+        },
+        {
+          "line": 459,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r11,0(r29)"
+        },
+        {
+          "line": 461,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r10,12(r29)"
+        },
+        {
+          "line": 467,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 475,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r8,28(r3)"
+        },
+        {
+          "line": 483,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x826bed14"
+        },
+        {
+          "line": 494,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,132(r1)"
+        },
+        {
+          "line": 500,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 508,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r4,28(r3)"
+        },
+        {
+          "line": 516,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x826bed14"
+        },
+        {
+          "line": 523,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r28,28(r3)"
+        },
+        {
+          "line": 525,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,-16692(r11)"
+        },
+        {
+          "line": 527,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,4(r11)"
+        },
+        {
+          "line": 531,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x82152a38"
+        },
+        {
+          "line": 541,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x826bed14"
+        }
+      ],
+      "does_not_confirm_semantic_role": true,
+      "direct_callers_found_in_source": 0,
+      "direct_caller_guest_ids": [],
+      "direct_caller_list_truncated": false
+    },
+    "sub_823E5988": {
+      "guest_function": "sub_823E5988",
+      "generated_file": "nfsmw_recomp.28.cpp",
+      "generated_file_sha256": "11eec8fe3d20dc5d53e262525a4cf31021c2bbfb28e2690b6372c6c3cbea4aad",
+      "function_lines": 155,
+      "ppc_mnemonic_counts": {
+        "lwz": 11,
+        "addi": 10,
+        "cmplwi": 8,
+        "beq": 6,
+        "stw": 5,
+        "li": 4,
+        "bne": 3,
+        "mtlr": 3,
+        "blr": 3,
+        "lis": 2,
+        "mr": 2,
+        "bl": 2,
+        "lhz": 2,
+        "addis": 2,
+        "sth": 2,
+        "mflr": 1,
+        "stwu": 1,
+        "cmpw": 1,
+        "clrlwi": 1
+      },
+      "calls_to_sub_823E5988": 0,
+      "callsite_counts": [
+        {
+          "callee": "sub_8214B858",
+          "count": 1
+        },
+        {
+          "callee": "sub_8214EDA8",
+          "count": 1
+        }
+      ],
+      "return_instructions": 3,
+      "original_rex_store_count": 8,
+      "stores_with_explicit_non_stack_address_count": 3,
+      "selected_ppc_comments_only": [
+        {
+          "line": 9,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r12,-8(r1)"
+        },
+        {
+          "line": 21,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r11,80(r1)"
+        },
+        {
+          "line": 23,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r11,84(r1)"
+        },
+        {
+          "line": 25,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r11,88(r1)"
+        },
+        {
+          "line": 27,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r11,92(r1)"
+        },
+        {
+          "line": 31,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r10,8(r10)"
+        },
+        {
+          "line": 38,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r10,0(r11)"
+        },
+        {
+          "line": 46,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r9,8(r11)"
+        },
+        {
+          "line": 56,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r12,-8(r1)"
+        },
+        {
+          "line": 69,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r4,12(r11)"
+        },
+        {
+          "line": 71,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214b858"
+        },
+        {
+          "line": 80,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,92(r1)"
+        },
+        {
+          "line": 90,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214eda8"
+        },
+        {
+          "line": 104,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,0(r11)"
+        },
+        {
+          "line": 106,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,80(r1)"
+        },
+        {
+          "line": 122,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r12,-8(r1)"
+        },
+        {
+          "line": 129,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,80(r1)"
+        },
+        {
+          "line": 149,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r12,-8(r1)"
+        }
+      ],
+      "does_not_confirm_semantic_role": true,
+      "direct_callers_found_in_source": 18,
+      "direct_caller_guest_ids": [
+        "sub_823D4100",
+        "sub_823E4130",
+        "sub_823E5128",
+        "sub_823E56B0",
+        "sub_823E5AA0",
+        "sub_823E5B08",
+        "sub_823E6560",
+        "sub_823E67E8",
+        "sub_82474528",
+        "sub_824E7820",
+        "sub_8255C790",
+        "sub_8256C2F0",
+        "sub_8256CBB8",
+        "sub_8256CBC8",
+        "sub_8256F818",
+        "sub_82570D90",
+        "sub_82582A40",
+        "sub_82582F70"
+      ],
+      "direct_caller_list_truncated": false
+    },
+    "sub_823E4130": {
+      "guest_function": "sub_823E4130",
+      "generated_file": "nfsmw_recomp.3.cpp",
+      "generated_file_sha256": "baa3b79ea54b3aab4f4afd9db4d501e32e29a970cdd84c6a945a91fe56842e03",
+      "function_lines": 94,
+      "ppc_mnemonic_counts": {
+        "mr": 5,
+        "addi": 4,
+        "bl": 3,
+        "b": 3,
+        "bne": 2,
+        "lis": 2,
+        "lfs": 2,
+        "extsw": 2,
+        "std": 2,
+        "lfd": 2,
+        "fcfid": 2,
+        "frsp": 2,
+        "mflr": 1,
+        "stwu": 1,
+        "cmpwi": 1,
+        "cmpw": 1,
+        "fdivs": 1
+      },
+      "calls_to_sub_823E5988": 1,
+      "callsite_counts": [
+        {
+          "callee": "sub_823E41C0",
+          "count": 1
+        },
+        {
+          "callee": "sub_823E5988",
+          "count": 1
+        }
+      ],
+      "return_instructions": 0,
+      "original_rex_store_count": 3,
+      "stores_with_explicit_non_stack_address_count": 1,
+      "selected_ppc_comments_only": [
+        {
+          "line": 13,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x826bdd1c"
+        },
+        {
+          "line": 23,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823e5988"
+        },
+        {
+          "line": 49,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823e41c0"
+        }
+      ],
+      "does_not_confirm_semantic_role": true,
+      "direct_callers_found_in_source": 2,
+      "direct_caller_guest_ids": [
+        "sub_823E8FA0",
+        "sub_823EAE40"
+      ],
+      "direct_caller_list_truncated": false
+    },
+    "sub_823E56B0": {
+      "guest_function": "sub_823E56B0",
+      "generated_file": "nfsmw_recomp.35.cpp",
+      "generated_file_sha256": "0c8de1ce2cf1f97cdf6f458c0914c5a42d3280e1c9ce24b39dd12642b725a21e",
+      "function_lines": 351,
+      "ppc_mnemonic_counts": {
+        "addi": 20,
+        "cmplwi": 19,
+        "lwz": 19,
+        "mr": 14,
+        "beq": 13,
+        "bl": 11,
+        "stw": 10,
+        "li": 7,
+        "clrlwi": 6,
+        "b": 6,
+        "bne": 5,
+        "lis": 4,
+        "lhz": 4,
+        "ble": 4,
+        "addis": 3,
+        "sth": 3,
+        "cmpwi": 2,
+        "cmpw": 2,
+        "mflr": 1,
+        "stwu": 1,
+        "bge": 1
+      },
+      "calls_to_sub_823E5988": 1,
+      "callsite_counts": [
+        {
+          "callee": "sub_82145E10",
+          "count": 1
+        },
+        {
+          "callee": "sub_8214B580",
+          "count": 1
+        },
+        {
+          "callee": "sub_8214B858",
+          "count": 1
+        },
+        {
+          "callee": "sub_8214BBC0",
+          "count": 1
+        },
+        {
+          "callee": "sub_82152A38",
+          "count": 2
+        },
+        {
+          "callee": "sub_823E41C0",
+          "count": 1
+        },
+        {
+          "callee": "sub_823E4588",
+          "count": 1
+        },
+        {
+          "callee": "sub_823E4600",
+          "count": 1
+        },
+        {
+          "callee": "sub_823E5988",
+          "count": 1
+        }
+      ],
+      "return_instructions": 0,
+      "original_rex_store_count": 14,
+      "stores_with_explicit_non_stack_address_count": 9,
+      "selected_ppc_comments_only": [
+        {
+          "line": 15,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x826bdd10"
+        },
+        {
+          "line": 25,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823e4588"
+        },
+        {
+          "line": 38,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823e4600"
+        },
+        {
+          "line": 52,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823e41c0"
+        },
+        {
+          "line": 61,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823e5988"
+        },
+        {
+          "line": 82,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r10,8(r11)"
+        },
+        {
+          "line": 89,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r9,0(r30)"
+        },
+        {
+          "line": 97,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r8,8(r30)"
+        },
+        {
+          "line": 118,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214b580"
+        },
+        {
+          "line": 121,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r7,104(r1)"
+        },
+        {
+          "line": 131,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r11,104(r1)"
+        },
+        {
+          "line": 155,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214bbc0"
+        },
+        {
+          "line": 161,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r4,8(r30)"
+        },
+        {
+          "line": 165,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r28,80(r1)"
+        },
+        {
+          "line": 167,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r28,84(r1)"
+        },
+        {
+          "line": 169,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r28,88(r1)"
+        },
+        {
+          "line": 171,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r28,92(r1)"
+        },
+        {
+          "line": 173,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214b858"
+        },
+        {
+          "line": 182,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,80(r1)"
+        },
+        {
+          "line": 197,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,100(r1)"
+        },
+        {
+          "line": 203,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 211,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r7,28(r3)"
+        },
+        {
+          "line": 222,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r28,28(r3)"
+        },
+        {
+          "line": 224,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,-16692(r11)"
+        },
+        {
+          "line": 226,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,4(r11)"
+        },
+        {
+          "line": 230,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x82152a38"
+        },
+        {
+          "line": 241,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,88(r1)"
+        },
+        {
+          "line": 243,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r31,80(r1)"
+        },
+        {
+          "line": 249,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r4,8(r31)"
+        },
+        {
+          "line": 251,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x82145e10"
+        },
+        {
+          "line": 272,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,100(r1)"
+        },
+        {
+          "line": 278,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 286,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 303,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,100(r1)"
+        },
+        {
+          "line": 309,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 317,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r7,28(r3)"
+        },
+        {
+          "line": 324,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r28,28(r3)"
+        },
+        {
+          "line": 326,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,-16692(r11)"
+        },
+        {
+          "line": 328,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,4(r11)"
+        },
+        {
+          "line": 332,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x82152a38"
+        }
+      ],
+      "does_not_confirm_semantic_role": true,
+      "direct_callers_found_in_source": 1,
+      "direct_caller_guest_ids": [
+        "sub_823E5920"
+      ],
+      "direct_caller_list_truncated": false
+    },
+    "sub_823E5AA0": {
+      "guest_function": "sub_823E5AA0",
+      "generated_file": "nfsmw_recomp.41.cpp",
+      "generated_file_sha256": "6e3c83e95e701b55894d503d7fcdaeffca1e4f92019f1fe2a7272e1139136a5b",
+      "function_lines": 65,
+      "ppc_mnemonic_counts": {
+        "addi": 6,
+        "mr": 4,
+        "std": 4,
+        "bl": 3,
+        "stw": 2,
+        "mflr": 1,
+        "stwu": 1,
+        "li": 1,
+        "cmpwi": 1,
+        "blt": 1,
+        "b": 1
+      },
+      "calls_to_sub_823E5988": 1,
+      "callsite_counts": [
+        {
+          "callee": "sub_823E4370",
+          "count": 1
+        },
+        {
+          "callee": "sub_823E5988",
+          "count": 1
+        }
+      ],
+      "return_instructions": 0,
+      "original_rex_store_count": 7,
+      "stores_with_explicit_non_stack_address_count": 6,
+      "selected_ppc_comments_only": [
+        {
+          "line": 12,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x826bdd1c"
+        },
+        {
+          "line": 34,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r31,108(r1)"
+        },
+        {
+          "line": 41,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823e5988"
+        },
+        {
+          "line": 46,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r3,0(r30)"
+        },
+        {
+          "line": 58,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823e4370"
+        }
+      ],
+      "does_not_confirm_semantic_role": true,
+      "direct_callers_found_in_source": 1,
+      "direct_caller_guest_ids": [
+        "sub_823E9D38"
+      ],
+      "direct_caller_list_truncated": false
+    },
+    "sub_823E4850": {
+      "guest_function": "sub_823E4850",
+      "generated_file": "nfsmw_recomp.44.cpp",
+      "generated_file_sha256": "7b70c87b3d1a49c3377410cb4c57c9847f4c98b9e34580db5569a11e95c03f91",
+      "function_lines": 1222,
+      "ppc_mnemonic_counts": {
+        "lwz": 97,
+        "cmplwi": 77,
+        "addi": 72,
+        "beq": 46,
+        "stw": 43,
+        "bl": 38,
+        "li": 28,
+        "mr": 25,
+        "b": 25,
+        "bne": 17,
+        "ble": 15,
+        "lis": 14,
+        "clrlwi": 13,
+        "lhz": 8,
+        "ori": 6,
+        "addis": 6,
+        "sth": 6,
+        "bgt": 3,
+        "cmplw": 3,
+        "mflr": 1,
+        "stwu": 1,
+        "cmpw": 1
+      },
+      "calls_to_sub_823E5988": 0,
+      "callsite_counts": [
+        {
+          "callee": "sub_82148ED0",
+          "count": 2
+        },
+        {
+          "callee": "sub_8214B4E8",
+          "count": 1
+        },
+        {
+          "callee": "sub_8214B580",
+          "count": 1
+        },
+        {
+          "callee": "sub_8214B858",
+          "count": 1
+        },
+        {
+          "callee": "sub_8214BAA8",
+          "count": 2
+        },
+        {
+          "callee": "sub_8214BD08",
+          "count": 1
+        },
+        {
+          "callee": "sub_8214DBE8",
+          "count": 1
+        },
+        {
+          "callee": "sub_8214DDE8",
+          "count": 7
+        },
+        {
+          "callee": "sub_8214EC10",
+          "count": 1
+        },
+        {
+          "callee": "sub_8214EDA8",
+          "count": 1
+        },
+        {
+          "callee": "sub_82152A38",
+          "count": 11
+        },
+        {
+          "callee": "sub_823CFB20",
+          "count": 1
+        },
+        {
+          "callee": "sub_823CFD48",
+          "count": 1
+        },
+        {
+          "callee": "sub_823CFD90",
+          "count": 1
+        },
+        {
+          "callee": "sub_823E3A20",
+          "count": 1
+        },
+        {
+          "callee": "sub_823E4588",
+          "count": 1
+        },
+        {
+          "callee": "sub_823E4600",
+          "count": 1
+        },
+        {
+          "callee": "sub_823F9778",
+          "count": 1
+        },
+        {
+          "callee": "sub_823F9C58",
+          "count": 1
+        }
+      ],
+      "return_instructions": 0,
+      "original_rex_store_count": 50,
+      "stores_with_explicit_non_stack_address_count": 38,
+      "selected_ppc_comments_only": [
+        {
+          "line": 16,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x826bdd0c"
+        },
+        {
+          "line": 30,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214b580"
+        },
+        {
+          "line": 33,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,152(r1)"
+        },
+        {
+          "line": 43,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r30,152(r1)"
+        },
+        {
+          "line": 50,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823e4588"
+        },
+        {
+          "line": 59,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,148(r1)"
+        },
+        {
+          "line": 65,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 73,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r9,28(r3)"
+        },
+        {
+          "line": 86,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,-16692(r11)"
+        },
+        {
+          "line": 88,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r8,28(r3)"
+        },
+        {
+          "line": 90,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,4(r11)"
+        },
+        {
+          "line": 94,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x82152a38"
+        },
+        {
+          "line": 109,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823e4600"
+        },
+        {
+          "line": 118,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,148(r1)"
+        },
+        {
+          "line": 124,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 133,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r6,28(r3)"
+        },
+        {
+          "line": 144,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r5,28(r3)"
+        },
+        {
+          "line": 153,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r10,8(r11)"
+        },
+        {
+          "line": 160,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r4,0(r11)"
+        },
+        {
+          "line": 168,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,8(r11)"
+        },
+        {
+          "line": 182,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,148(r1)"
+        },
+        {
+          "line": 188,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 196,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r10,28(r3)"
+        },
+        {
+          "line": 201,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r28,8(r11)"
+        },
+        {
+          "line": 203,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r31,20(r11)"
+        },
+        {
+          "line": 215,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823cfd90"
+        },
+        {
+          "line": 220,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r27,0(r3)"
+        },
+        {
+          "line": 256,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,148(r1)"
+        },
+        {
+          "line": 266,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x82148ed0"
+        },
+        {
+          "line": 272,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r29,128(r1)"
+        },
+        {
+          "line": 276,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r29,132(r1)"
+        },
+        {
+          "line": 280,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r29,136(r1)"
+        },
+        {
+          "line": 282,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r29,140(r1)"
+        },
+        {
+          "line": 284,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214b858"
+        },
+        {
+          "line": 293,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,128(r1)"
+        },
+        {
+          "line": 308,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,148(r1)"
+        },
+        {
+          "line": 314,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 321,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r29,28(r3)"
+        },
+        {
+          "line": 328,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214ec10"
+        },
+        {
+          "line": 339,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,128(r1)"
+        },
+        {
+          "line": 354,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,148(r1)"
+        },
+        {
+          "line": 360,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 369,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 378,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,140(r1)"
+        },
+        {
+          "line": 388,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214eda8"
+        },
+        {
+          "line": 400,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r10,8(r11)"
+        },
+        {
+          "line": 402,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r9,0(r11)"
+        },
+        {
+          "line": 404,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r8,4(r11)"
+        },
+        {
+          "line": 408,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r10,96(r1)"
+        },
+        {
+          "line": 410,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r9,88(r1)"
+        },
+        {
+          "line": 412,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r8,92(r1)"
+        },
+        {
+          "line": 416,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,28(r10)"
+        },
+        {
+          "line": 420,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r7,28(r10)"
+        },
+        {
+          "line": 425,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823cfd48"
+        },
+        {
+          "line": 436,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214b4e8"
+        },
+        {
+          "line": 447,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823e3a20"
+        },
+        {
+          "line": 450,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r4,212(r1)"
+        },
+        {
+          "line": 473,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,28(r4)"
+        },
+        {
+          "line": 481,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r3,28(r4)"
+        },
+        {
+          "line": 486,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,-16692(r31)"
+        },
+        {
+          "line": 490,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r29,28(r4)"
+        },
+        {
+          "line": 492,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,4(r11)"
+        },
+        {
+          "line": 496,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x82152a38"
+        },
+        {
+          "line": 500,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,180(r1)"
+        },
+        {
+          "line": 506,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 514,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 519,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,-16692(r31)"
+        },
+        {
+          "line": 521,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r29,28(r3)"
+        },
+        {
+          "line": 523,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,4(r11)"
+        },
+        {
+          "line": 527,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x82152a38"
+        },
+        {
+          "line": 531,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r10,96(r1)"
+        },
+        {
+          "line": 539,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214dde8"
+        },
+        {
+          "line": 543,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,128(r1)"
+        },
+        {
+          "line": 558,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,148(r1)"
+        },
+        {
+          "line": 564,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 571,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,-16692(r31)"
+        },
+        {
+          "line": 573,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r29,28(r3)"
+        },
+        {
+          "line": 580,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r29,104(r1)"
+        },
+        {
+          "line": 582,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r29,108(r1)"
+        },
+        {
+          "line": 584,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r29,112(r1)"
+        },
+        {
+          "line": 586,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214dbe8"
+        },
+        {
+          "line": 589,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r5,88(r1)"
+        },
+        {
+          "line": 591,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r4,104(r1)"
+        },
+        {
+          "line": 597,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,108(r1)"
+        },
+        {
+          "line": 599,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,92(r1)"
+        },
+        {
+          "line": 640,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r10,152(r1)"
+        },
+        {
+          "line": 650,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r5,36(r10)"
+        },
+        {
+          "line": 652,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214bd08"
+        },
+        {
+          "line": 655,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,148(r1)"
+        },
+        {
+          "line": 663,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r9,20(r11)"
+        },
+        {
+          "line": 667,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r10,8(r11)"
+        },
+        {
+          "line": 673,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r8,8(r9)"
+        },
+        {
+          "line": 675,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,20(r8)"
+        },
+        {
+          "line": 679,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214baa8"
+        },
+        {
+          "line": 693,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214baa8"
+        },
+        {
+          "line": 714,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,148(r1)"
+        },
+        {
+          "line": 722,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x82148ed0"
+        },
+        {
+          "line": 734,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823f9c58"
+        },
+        {
+          "line": 743,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r4,112(r1)"
+        },
+        {
+          "line": 751,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214dde8"
+        }
+      ],
+      "does_not_confirm_semantic_role": true,
+      "direct_callers_found_in_source": 3,
+      "direct_caller_guest_ids": [
+        "sub_823E4370",
+        "sub_823E5420",
+        "sub_823E5B08"
+      ],
+      "direct_caller_list_truncated": false
+    },
+    "sub_823E5B08": {
+      "guest_function": "sub_823E5B08",
+      "generated_file": "nfsmw_recomp.48.cpp",
+      "generated_file_sha256": "aa68d0c153ce27f5fb27c5d22303dfe1d0abc336038fe5cfff076b3b9eb7487f",
+      "function_lines": 1457,
+      "ppc_mnemonic_counts": {
+        "lwz": 106,
+        "addi": 95,
+        "cmplwi": 87,
+        "beq": 56,
+        "bl": 48,
+        "stw": 47,
+        "mr": 28,
+        "li": 28,
+        "b": 26,
+        "ble": 18,
+        "bne": 14,
+        "lis": 14,
+        "lfd": 14,
+        "lhz": 11,
+        "addis": 10,
+        "sth": 10,
+        "clrlwi": 9,
+        "bgt": 5,
+        "ori": 3,
+        "cmplw": 3,
+        "fmr": 2,
+        "lfs": 2
+      },
+      "calls_to_sub_823E5988": 1,
+      "callsite_counts": [
+        {
+          "callee": "sub_82145E10",
+          "count": 2
+        },
+        {
+          "callee": "sub_8214B580",
+          "count": 1
+        },
+        {
+          "callee": "sub_8214B858",
+          "count": 1
+        },
+        {
+          "callee": "sub_8214BAA8",
+          "count": 1
+        },
+        {
+          "callee": "sub_8214BD08",
+          "count": 1
+        },
+        {
+          "callee": "sub_8214DBE8",
+          "count": 1
+        },
+        {
+          "callee": "sub_8214DDE8",
+          "count": 19
+        },
+        {
+          "callee": "sub_8214EC10",
+          "count": 1
+        },
+        {
+          "callee": "sub_82152A38",
+          "count": 9
+        },
+        {
+          "callee": "sub_823CFB20",
+          "count": 1
+        },
+        {
+          "callee": "sub_823E3790",
+          "count": 1
+        },
+        {
+          "callee": "sub_823E3CD0",
+          "count": 1
+        },
+        {
+          "callee": "sub_823E4588",
+          "count": 1
+        },
+        {
+          "callee": "sub_823E4850",
+          "count": 1
+        },
+        {
+          "callee": "sub_823E5420",
+          "count": 1
+        },
+        {
+          "callee": "sub_823E5988",
+          "count": 1
+        },
+        {
+          "callee": "sub_823F9778",
+          "count": 1
+        },
+        {
+          "callee": "sub_823F9C08",
+          "count": 2
+        },
+        {
+          "callee": "sub_823F9C58",
+          "count": 1
+        }
+      ],
+      "return_instructions": 0,
+      "original_rex_store_count": 59,
+      "stores_with_explicit_non_stack_address_count": 43,
+      "selected_ppc_comments_only": [
+        {
+          "line": 22,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x826bdcfc"
+        },
+        {
+          "line": 33,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r5,324(r1)"
+        },
+        {
+          "line": 43,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214b580"
+        },
+        {
+          "line": 46,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,136(r1)"
+        },
+        {
+          "line": 56,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r11,136(r1)"
+        },
+        {
+          "line": 77,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823e5420"
+        },
+        {
+          "line": 80,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,132(r1)"
+        },
+        {
+          "line": 86,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 94,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r10,28(r3)"
+        },
+        {
+          "line": 110,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,-16692(r11)"
+        },
+        {
+          "line": 112,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r9,28(r3)"
+        },
+        {
+          "line": 114,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,4(r11)"
+        },
+        {
+          "line": 118,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x82152a38"
+        },
+        {
+          "line": 136,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823e5988"
+        },
+        {
+          "line": 157,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r10,8(r11)"
+        },
+        {
+          "line": 164,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r8,0(r25)"
+        },
+        {
+          "line": 172,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r7,8(r25)"
+        },
+        {
+          "line": 186,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,132(r1)"
+        },
+        {
+          "line": 192,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 201,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r6,28(r3)"
+        },
+        {
+          "line": 215,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r5,28(r3)"
+        },
+        {
+          "line": 220,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r26,8(r25)"
+        },
+        {
+          "line": 226,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,132(r1)"
+        },
+        {
+          "line": 232,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 240,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 249,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823e4588"
+        },
+        {
+          "line": 258,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823e3790"
+        },
+        {
+          "line": 269,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r27,112(r1)"
+        },
+        {
+          "line": 271,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r27,116(r1)"
+        },
+        {
+          "line": 273,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r27,120(r1)"
+        },
+        {
+          "line": 275,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r27,124(r1)"
+        },
+        {
+          "line": 277,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214b858"
+        },
+        {
+          "line": 286,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,112(r1)"
+        },
+        {
+          "line": 301,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,132(r1)"
+        },
+        {
+          "line": 307,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 314,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r27,28(r3)"
+        },
+        {
+          "line": 321,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214ec10"
+        },
+        {
+          "line": 332,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,112(r1)"
+        },
+        {
+          "line": 347,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,132(r1)"
+        },
+        {
+          "line": 353,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 361,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r8,28(r3)"
+        },
+        {
+          "line": 373,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r30,120(r1)"
+        },
+        {
+          "line": 375,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r21,112(r1)"
+        },
+        {
+          "line": 381,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r31,8(r21)"
+        },
+        {
+          "line": 387,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x82145e10"
+        },
+        {
+          "line": 408,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,132(r1)"
+        },
+        {
+          "line": 414,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 423,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r4,28(r3)"
+        },
+        {
+          "line": 443,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x82145e10"
+        },
+        {
+          "line": 459,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823f9c08"
+        },
+        {
+          "line": 462,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r31,8(r3)"
+        },
+        {
+          "line": 464,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r29,0(r3)"
+        },
+        {
+          "line": 466,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r28,4(r3)"
+        },
+        {
+          "line": 470,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r31,88(r1)"
+        },
+        {
+          "line": 472,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r29,80(r1)"
+        },
+        {
+          "line": 474,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r28,84(r1)"
+        },
+        {
+          "line": 478,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,28(r31)"
+        },
+        {
+          "line": 482,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r3,28(r31)"
+        },
+        {
+          "line": 489,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823f9c08"
+        },
+        {
+          "line": 492,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,8(r3)"
+        },
+        {
+          "line": 494,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r9,0(r3)"
+        },
+        {
+          "line": 496,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r8,4(r3)"
+        },
+        {
+          "line": 500,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r11,120(r1)"
+        },
+        {
+          "line": 502,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r9,112(r1)"
+        },
+        {
+          "line": 504,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r8,116(r1)"
+        },
+        {
+          "line": 508,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r10,28(r11)"
+        },
+        {
+          "line": 512,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r10,28(r11)"
+        },
+        {
+          "line": 540,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823e3cd0"
+        },
+        {
+          "line": 543,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r4,164(r1)"
+        },
+        {
+          "line": 566,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,28(r4)"
+        },
+        {
+          "line": 574,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r7,28(r4)"
+        },
+        {
+          "line": 579,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,-16692(r31)"
+        },
+        {
+          "line": 583,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r27,28(r4)"
+        },
+        {
+          "line": 585,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,4(r11)"
+        },
+        {
+          "line": 589,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x82152a38"
+        },
+        {
+          "line": 593,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r6,120(r1)"
+        },
+        {
+          "line": 601,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214dde8"
+        },
+        {
+          "line": 605,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r5,88(r1)"
+        },
+        {
+          "line": 613,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214dde8"
+        },
+        {
+          "line": 625,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,132(r1)"
+        },
+        {
+          "line": 631,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 638,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,-16692(r31)"
+        },
+        {
+          "line": 640,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r27,28(r3)"
+        },
+        {
+          "line": 647,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r27,96(r1)"
+        },
+        {
+          "line": 649,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r27,100(r1)"
+        },
+        {
+          "line": 651,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r27,104(r1)"
+        },
+        {
+          "line": 653,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214dbe8"
+        },
+        {
+          "line": 656,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r9,80(r1)"
+        },
+        {
+          "line": 658,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r8,96(r1)"
+        },
+        {
+          "line": 664,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r7,84(r1)"
+        },
+        {
+          "line": 668,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r6,100(r1)"
+        },
+        {
+          "line": 684,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,104(r1)"
+        },
+        {
+          "line": 692,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214dde8"
+        },
+        {
+          "line": 696,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,164(r1)"
+        },
+        {
+          "line": 704,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 712,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 717,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,-16692(r31)"
+        },
+        {
+          "line": 719,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r27,28(r3)"
+        },
+        {
+          "line": 721,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,4(r11)"
+        },
+        {
+          "line": 725,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x82152a38"
+        }
+      ],
+      "does_not_confirm_semantic_role": true,
+      "direct_callers_found_in_source": 2,
+      "direct_caller_guest_ids": [
+        "sub_823E6560",
+        "sub_823E67E8"
+      ],
+      "direct_caller_list_truncated": false
+    },
+    "sub_8256F818": {
+      "guest_function": "sub_8256F818",
+      "generated_file": "nfsmw_recomp.57.cpp",
+      "generated_file_sha256": "a74e2314e878a88d197d2d8774254bf8c7fbc0e835f84a6c048f0ec86d9f455c",
+      "function_lines": 230,
+      "ppc_mnemonic_counts": {
+        "mr": 24,
+        "stw": 13,
+        "bl": 10,
+        "addi": 9,
+        "li": 8,
+        "cmplwi": 5,
+        "beq": 5,
+        "b": 4,
+        "clrlwi": 3,
+        "lis": 2,
+        "stb": 2,
+        "ori": 2,
+        "mflr": 1,
+        "stwu": 1,
+        "cmpwi": 1,
+        "ble": 1,
+        "subf": 1,
+        "add": 1,
+        "lwz": 1,
+        "cmpw": 1,
+        "blt": 1
+      },
+      "calls_to_sub_823E5988": 2,
+      "callsite_counts": [
+        {
+          "callee": "sub_8215CB08",
+          "count": 1
+        },
+        {
+          "callee": "sub_823E5988",
+          "count": 2
+        },
+        {
+          "callee": "sub_8256BC60",
+          "count": 1
+        },
+        {
+          "callee": "sub_8256D548",
+          "count": 1
+        },
+        {
+          "callee": "sub_8256D800",
+          "count": 1
+        }
+      ],
+      "return_instructions": 0,
+      "original_rex_store_count": 16,
+      "stores_with_explicit_non_stack_address_count": 16,
+      "selected_ppc_comments_only": [
+        {
+          "line": 21,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x826bdcf8"
+        },
+        {
+          "line": 37,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823e5988"
+        },
+        {
+          "line": 54,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8256cb60"
+        },
+        {
+          "line": 74,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8215cb08"
+        },
+        {
+          "line": 83,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r23,12(r3)"
+        },
+        {
+          "line": 85,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r20,0(r3)"
+        },
+        {
+          "line": 89,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r23,16(r3)"
+        },
+        {
+          "line": 91,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r26,24(r3)"
+        },
+        {
+          "line": 95,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r11,20(r3)"
+        },
+        {
+          "line": 97,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r24,32(r3)"
+        },
+        {
+          "line": 99,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r23,36(r3)"
+        },
+        {
+          "line": 113,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823e5988"
+        },
+        {
+          "line": 132,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8256d5f0"
+        },
+        {
+          "line": 152,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8256d800"
+        },
+        {
+          "line": 168,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8256d548"
+        },
+        {
+          "line": 186,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8256bc60"
+        },
+        {
+          "line": 198,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r27,32(r31)"
+        },
+        {
+          "line": 202,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8256c2f0"
+        },
+        {
+          "line": 205,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r3,36(r31)"
+        },
+        {
+          "line": 207,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r10,4(r25)"
+        },
+        {
+          "line": 215,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r11,0(r10)"
+        },
+        {
+          "line": 217,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r11,4(r25)"
+        },
+        {
+          "line": 219,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r25,0(r11)"
+        },
+        {
+          "line": 221,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r10,4(r11)"
+        }
+      ],
+      "does_not_confirm_semantic_role": true,
+      "direct_callers_found_in_source": 1,
+      "direct_caller_guest_ids": [
+        "sub_82582F70"
+      ],
+      "direct_caller_list_truncated": false
+    },
+    "sub_823E6560": {
+      "guest_function": "sub_823E6560",
+      "generated_file": "nfsmw_recomp.81.cpp",
+      "generated_file_sha256": "88d0ea1ddc4c6523b530e799a0dc9bb90ef17afbfcda4b1f77bc734d510a7f0d",
+      "function_lines": 338,
+      "ppc_mnemonic_counts": {
+        "addi": 23,
+        "lwz": 19,
+        "li": 14,
+        "cmplwi": 12,
+        "bl": 11,
+        "mr": 11,
+        "stw": 11,
+        "b": 10,
+        "ble": 6,
+        "lis": 5,
+        "beq": 5,
+        "bne": 3,
+        "cmpw": 2,
+        "cmpwi": 2,
+        "bgt": 2,
+        "extsw": 2,
+        "std": 2,
+        "lfd": 2,
+        "fcfid": 2,
+        "frsp": 2,
+        "mflr": 1,
+        "stwu": 1
+      },
+      "calls_to_sub_823E5988": 1,
+      "callsite_counts": [
+        {
+          "callee": "sub_8214B580",
+          "count": 1
+        },
+        {
+          "callee": "sub_82152A38",
+          "count": 4
+        },
+        {
+          "callee": "sub_823CFB20",
+          "count": 1
+        },
+        {
+          "callee": "sub_823E41C0",
+          "count": 1
+        },
+        {
+          "callee": "sub_823E5420",
+          "count": 1
+        },
+        {
+          "callee": "sub_823E5988",
+          "count": 1
+        },
+        {
+          "callee": "sub_823E5B08",
+          "count": 1
+        }
+      ],
+      "return_instructions": 0,
+      "original_rex_store_count": 14,
+      "stores_with_explicit_non_stack_address_count": 11,
+      "selected_ppc_comments_only": [
+        {
+          "line": 12,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x826bdd1c"
+        },
+        {
+          "line": 28,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214b580"
+        },
+        {
+          "line": 31,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,104(r1)"
+        },
+        {
+          "line": 41,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r11,104(r1)"
+        },
+        {
+          "line": 48,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823e41c0"
+        },
+        {
+          "line": 55,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,100(r1)"
+        },
+        {
+          "line": 61,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 69,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r10,28(r3)"
+        },
+        {
+          "line": 82,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,-16692(r11)"
+        },
+        {
+          "line": 84,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r9,28(r3)"
+        },
+        {
+          "line": 86,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,4(r11)"
+        },
+        {
+          "line": 90,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x82152a38"
+        },
+        {
+          "line": 109,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823e5420"
+        },
+        {
+          "line": 112,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,100(r1)"
+        },
+        {
+          "line": 118,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 126,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r8,28(r3)"
+        },
+        {
+          "line": 139,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,-16692(r11)"
+        },
+        {
+          "line": 141,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r7,28(r3)"
+        },
+        {
+          "line": 143,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,4(r11)"
+        },
+        {
+          "line": 147,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x82152a38"
+        },
+        {
+          "line": 160,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823e5988"
+        },
+        {
+          "line": 200,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823e5b08"
+        },
+        {
+          "line": 209,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,100(r1)"
+        },
+        {
+          "line": 215,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 223,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r9,28(r3)"
+        },
+        {
+          "line": 234,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r8,28(r3)"
+        },
+        {
+          "line": 243,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823cfb20"
+        },
+        {
+          "line": 246,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,100(r1)"
+        },
+        {
+          "line": 252,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 260,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r7,28(r3)"
+        },
+        {
+          "line": 273,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,-16692(r11)"
+        },
+        {
+          "line": 275,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r6,28(r3)"
+        },
+        {
+          "line": 277,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,4(r11)"
+        },
+        {
+          "line": 281,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x82152a38"
+        },
+        {
+          "line": 292,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,100(r1)"
+        },
+        {
+          "line": 298,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 306,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r5,28(r3)"
+        },
+        {
+          "line": 317,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r4,28(r3)"
+        },
+        {
+          "line": 322,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,-16692(r11)"
+        },
+        {
+          "line": 324,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,4(r11)"
+        },
+        {
+          "line": 328,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x82152a38"
+        }
+      ],
+      "does_not_confirm_semantic_role": true,
+      "direct_callers_found_in_source": 7,
+      "direct_caller_guest_ids": [
+        "sub_822E80B8",
+        "sub_823D4100",
+        "sub_823E4370",
+        "sub_823E5128",
+        "sub_823E54F8",
+        "sub_8255C790",
+        "sub_8256F9D8"
+      ],
+      "direct_caller_list_truncated": false
+    },
+    "sub_823E5128": {
+      "guest_function": "sub_823E5128",
+      "generated_file": "nfsmw_recomp.98.cpp",
+      "generated_file_sha256": "f0eddfa79a33ae4f28f1c0651319ba43c6209103b4ccf49a59ea1ef4211ff4d2",
+      "function_lines": 429,
+      "ppc_mnemonic_counts": {
+        "lwz": 25,
+        "cmplwi": 25,
+        "mr": 19,
+        "addi": 17,
+        "beq": 15,
+        "li": 11,
+        "stw": 11,
+        "bl": 10,
+        "bne": 9,
+        "clrlwi": 8,
+        "b": 8,
+        "lhz": 6,
+        "lis": 5,
+        "sth": 5,
+        "add": 4,
+        "ble": 3,
+        "cmpw": 2,
+        "cmpwi": 2,
+        "blt": 2,
+        "mflr": 1,
+        "stwu": 1,
+        "ori": 1
+      },
+      "calls_to_sub_823E5988": 1,
+      "callsite_counts": [
+        {
+          "callee": "sub_8214B580",
+          "count": 1
+        },
+        {
+          "callee": "sub_8214B858",
+          "count": 1
+        },
+        {
+          "callee": "sub_8214BBC0",
+          "count": 1
+        },
+        {
+          "callee": "sub_8214C420",
+          "count": 1
+        },
+        {
+          "callee": "sub_8214EDA8",
+          "count": 1
+        },
+        {
+          "callee": "sub_82152A38",
+          "count": 2
+        },
+        {
+          "callee": "sub_823E5988",
+          "count": 1
+        },
+        {
+          "callee": "sub_823E6560",
+          "count": 1
+        }
+      ],
+      "return_instructions": 0,
+      "original_rex_store_count": 17,
+      "stores_with_explicit_non_stack_address_count": 12,
+      "selected_ppc_comments_only": [
+        {
+          "line": 17,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x826bdd08"
+        },
+        {
+          "line": 29,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,4(r24)"
+        },
+        {
+          "line": 46,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r8,4(r25)"
+        },
+        {
+          "line": 67,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214b580"
+        },
+        {
+          "line": 70,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r5,104(r1)"
+        },
+        {
+          "line": 80,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r11,104(r1)"
+        },
+        {
+          "line": 104,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214bbc0"
+        },
+        {
+          "line": 119,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r8,8(r26)"
+        },
+        {
+          "line": 128,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r7,0(r31)"
+        },
+        {
+          "line": 136,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r6,8(r31)"
+        },
+        {
+          "line": 153,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823e5988"
+        },
+        {
+          "line": 164,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r4,24(r31)"
+        },
+        {
+          "line": 168,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r27,80(r1)"
+        },
+        {
+          "line": 170,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r27,84(r1)"
+        },
+        {
+          "line": 172,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r27,88(r1)"
+        },
+        {
+          "line": 174,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r27,92(r1)"
+        },
+        {
+          "line": 176,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214b858"
+        },
+        {
+          "line": 185,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,80(r1)"
+        },
+        {
+          "line": 200,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r9,88(r1)"
+        },
+        {
+          "line": 217,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,92(r1)"
+        },
+        {
+          "line": 229,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214eda8"
+        },
+        {
+          "line": 237,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r31,0(r3)"
+        },
+        {
+          "line": 253,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,80(r1)"
+        },
+        {
+          "line": 281,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x823e6560"
+        },
+        {
+          "line": 291,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,80(r1)"
+        },
+        {
+          "line": 312,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r4,100(r1)"
+        },
+        {
+          "line": 314,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x8214c420"
+        },
+        {
+          "line": 317,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r7,96(r1)"
+        },
+        {
+          "line": 319,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r6,108(r1)"
+        },
+        {
+          "line": 323,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,100(r1)"
+        },
+        {
+          "line": 327,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r7,0(r25)"
+        },
+        {
+          "line": 329,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r6,12(r25)"
+        },
+        {
+          "line": 335,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 343,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r4,28(r3)"
+        },
+        {
+          "line": 352,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,80(r1)"
+        },
+        {
+          "line": 365,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r3,100(r1)"
+        },
+        {
+          "line": 371,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,28(r3)"
+        },
+        {
+          "line": 379,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r8,28(r3)"
+        },
+        {
+          "line": 390,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r27,28(r3)"
+        },
+        {
+          "line": 392,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,-16692(r11)"
+        },
+        {
+          "line": 394,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,4(r11)"
+        },
+        {
+          "line": 398,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x82152a38"
+        },
+        {
+          "line": 411,
+          "ppc_mnemonic": "stw",
+          "ppc_operands": "r27,28(r3)"
+        },
+        {
+          "line": 413,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,-16692(r11)"
+        },
+        {
+          "line": 415,
+          "ppc_mnemonic": "lwz",
+          "ppc_operands": "r11,4(r11)"
+        },
+        {
+          "line": 419,
+          "ppc_mnemonic": "bl",
+          "ppc_operands": "0x82152a38"
+        }
+      ],
+      "does_not_confirm_semantic_role": true,
+      "direct_callers_found_in_source": 2,
+      "direct_caller_guest_ids": [
+        "sub_822CB180",
+        "sub_822CB460"
+      ],
+      "direct_caller_list_truncated": false
+    }
+  },
+  "GetMaxLevel_address_confirmed": false,
+  "SetLevel_address_confirmed": false,
+  "SetPackage_address_confirmed": false,
+  "emitted_only_bounded_opcode_metadata": true,
+  "original_source_extracted": false,
+  "game_executed": false,
+  "apk_built": false,
+  "save_modified": false,
+  "tuning_enabled": false,
+  "run_id": "42515970372",
+  "utc": "2026-11-08T19:38:17.276897+00:00"
+}
