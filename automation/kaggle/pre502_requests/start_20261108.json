@@ -1,0 +1,8 @@
+{
+  "stage": "PRE502",
+  "goal": "One synthetic 5% BMW-only engine upgrade level full in-memory PAL attribute data: new collection, torque, pointer, two refs, engine counter1",
+  "original_untouched": true,
+  "save_MARCEK_untouched": true,
+  "apk_untouched": true,
+  "game_runtime_not_proven": true
+}
