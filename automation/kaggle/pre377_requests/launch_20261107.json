@@ -1,0 +1,6 @@
+{
+  "stage": "PRE377",
+  "scope": "read-only PPC LR in Nitro prologue",
+  "noAPK": true,
+  "noGuestModification": true
+}
