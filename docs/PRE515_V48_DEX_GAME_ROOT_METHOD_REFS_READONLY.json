@@ -1,0 +1,940 @@
+{
+  "stage": "PRE515_AUTHENTICATED_V48_JAVA_GAME_ROOT_METHOD_REFERENCE_AUDIT",
+  "status": "AUDIT_OK",
+  "v48_apk_sha256": "c642f95b4a60b9ccf5d8fbd98802afffc0a2247ec5a0783b54cd8083ec55bd35",
+  "exact_apk_hash_verified_again": true,
+  "dex_mapped_methods_reviewed": 17,
+  "method_level_source_reference_evidence": [
+    {
+      "class": "Ajustes",
+      "method": "uriIso",
+      "bytecode_instruction_count": 12,
+      "known_call_family_counts": {
+        "file_path": 2,
+        "uri_class": 2
+      },
+      "invoked_safe_methods": [
+        {
+          "target": "Ljava/io/File;-><init>",
+          "count": 1
+        },
+        {
+          "target": "Landroid/net/Uri;->fromFile",
+          "count": 1
+        },
+        {
+          "target": "Landroid/net/Uri;->parse",
+          "count": 1
+        }
+      ],
+      "referenced_safe_fields": []
+    },
+    {
+      "class": "Ajustes",
+      "method": "argumentos",
+      "bytecode_instruction_count": 5,
+      "known_call_family_counts": {
+        "edition_dataflow": 2
+      },
+      "invoked_safe_methods": [
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->driver",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->argumentos",
+          "count": 1
+        }
+      ],
+      "referenced_safe_fields": []
+    },
+    {
+      "class": "Ajustes",
+      "method": "argumentos",
+      "bytecode_instruction_count": 221,
+      "known_call_family_counts": {
+        "native_args": 2,
+        "edition_dataflow": 21,
+        "file_path": 2
+      },
+      "invoked_safe_methods": [
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->edicion",
+          "count": 2
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/MotorNativo;->argumentos",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->edramEnShader",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->escalado",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->escala",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->oclusion",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->exposicionFiel",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->lecturaMemexport",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->refrescarPaginas",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->anisotropico",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->antialiasing",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->msaaMuestras",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->fxaaAlta",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->sinPosprocesado",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->unaPasada",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->fijarHilos",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->gamertag",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->gamertagValido",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->carpetaDatos",
+          "count": 1
+        },
+        {
+          "target": "Ljava/io/File;->getAbsolutePath",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->argumentosDriver",
+          "count": 1
+        }
+      ],
+      "referenced_safe_fields": [
+        {
+          "field": "Lio/github/nfsmwrecomp/MotorNativo;->ACTIVO",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "class": "Ajustes",
+      "method": "edicion",
+      "bytecode_instruction_count": 5,
+      "known_call_family_counts": {
+        "edition_dataflow": 2
+      },
+      "invoked_safe_methods": [
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->xexIso",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ediciones;->paraJugar",
+          "count": 1
+        }
+      ],
+      "referenced_safe_fields": []
+    },
+    {
+      "class": "Ajustes",
+      "method": "iso",
+      "bytecode_instruction_count": 6,
+      "known_call_family_counts": {
+        "edition_dataflow": 1
+      },
+      "invoked_safe_methods": [
+        {
+          "target": "Landroid/content/SharedPreferences;->getString",
+          "count": 1
+        }
+      ],
+      "referenced_safe_fields": [
+        {
+          "field": "Lio/github/nfsmwrecomp/Ajustes;->p",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "class": "Ajustes",
+      "method": "iso",
+      "bytecode_instruction_count": 8,
+      "known_call_family_counts": {
+        "edition_dataflow": 1
+      },
+      "invoked_safe_methods": [
+        {
+          "target": "Landroid/content/SharedPreferences;->edit",
+          "count": 1
+        },
+        {
+          "target": "Landroid/content/SharedPreferences$Editor;->putString",
+          "count": 1
+        },
+        {
+          "target": "Landroid/content/SharedPreferences$Editor;->apply",
+          "count": 1
+        }
+      ],
+      "referenced_safe_fields": [
+        {
+          "field": "Lio/github/nfsmwrecomp/Ajustes;->p",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "class": "Ediciones",
+      "method": "deXex",
+      "bytecode_instruction_count": 21,
+      "known_call_family_counts": {
+        "edition_dataflow": 1
+      },
+      "invoked_safe_methods": [],
+      "referenced_safe_fields": [
+        {
+          "field": "Lio/github/nfsmwrecomp/Ediciones;->TODAS",
+          "count": 1
+        },
+        {
+          "field": "Lio/github/nfsmwrecomp/Ediciones$Edicion;->xex",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "class": "Ediciones",
+      "method": "paraJugar",
+      "bytecode_instruction_count": 7,
+      "known_call_family_counts": {
+        "edition_dataflow": 2
+      },
+      "invoked_safe_methods": [
+        {
+          "target": "Lio/github/nfsmwrecomp/Ediciones;->deXex",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ediciones;->principal",
+          "count": 1
+        }
+      ],
+      "referenced_safe_fields": []
+    },
+    {
+      "class": "GameActivity",
+      "method": "openContentFd",
+      "bytecode_instruction_count": 15,
+      "known_call_family_counts": {
+        "uri_class": 3,
+        "platform_environment": 1
+      },
+      "invoked_safe_methods": [
+        {
+          "target": "Lorg/libsdl/app/SDLActivity;->getContentResolver",
+          "count": 1
+        },
+        {
+          "target": "Landroid/net/Uri;->parse",
+          "count": 1
+        },
+        {
+          "target": "Landroid/content/ContentResolver;->openFileDescriptor",
+          "count": 1
+        }
+      ],
+      "referenced_safe_fields": [
+        {
+          "field": "Lio/github/nfsmwrecomp/GameActivity;->mSingleton",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "class": "GameActivity",
+      "method": "getArguments",
+      "bytecode_instruction_count": 2,
+      "known_call_family_counts": {},
+      "invoked_safe_methods": [],
+      "referenced_safe_fields": [
+        {
+          "field": "Lio/github/nfsmwrecomp/GameActivity;->argumentos",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "class": "GameActivity",
+      "method": "getLibraries",
+      "bytecode_instruction_count": 19,
+      "known_call_family_counts": {
+        "native_args": 1
+      },
+      "invoked_safe_methods": [],
+      "referenced_safe_fields": [
+        {
+          "field": "Lio/github/nfsmwrecomp/GameActivity;->edicion",
+          "count": 2
+        },
+        {
+          "field": "Lio/github/nfsmwrecomp/Ediciones$Edicion;->libreria",
+          "count": 2
+        },
+        {
+          "field": "Lio/github/nfsmwrecomp/MotorNativo;->ACTIVO",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "class": "GameActivity",
+      "method": "onCreate",
+      "bytecode_instruction_count": 170,
+      "known_call_family_counts": {
+        "android_activity_intent": 10,
+        "edition_dataflow": 3,
+        "native_args": 4
+      },
+      "invoked_safe_methods": [
+        {
+          "target": "Landroid/content/Intent;->getBooleanExtra",
+          "count": 5
+        },
+        {
+          "target": "Landroid/content/Intent;->getStringExtra",
+          "count": 3
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/GameActivity;->getWindow",
+          "count": 2
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/GameActivity;->getSystemService",
+          "count": 2
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/GameActivity;->getIntent",
+          "count": 1
+        },
+        {
+          "target": "Landroid/content/Intent;->getStringArrayExtra",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/GameActivity;->setRequestedOrientation",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ediciones;->porId",
+          "count": 1
+        },
+        {
+          "target": "Landroid/system/Os;->setenv",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/MotorNativo;->preparar",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/MotorNativo;->glesDisponible",
+          "count": 1
+        },
+        {
+          "target": "Landroid/widget/Toast;->makeText",
+          "count": 1
+        },
+        {
+          "target": "Landroid/widget/Toast;->show",
+          "count": 1
+        },
+        {
+          "target": "Landroid/view/Window;->getAttributes",
+          "count": 1
+        },
+        {
+          "target": "Landroid/view/Window;->setAttributes",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/GameActivity;->proporcionPantalla",
+          "count": 1
+        },
+        {
+          "target": "Lorg/libsdl/app/SDLActivity;->onCreate",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/GameActivity;->ajustarSuperficie",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/GameActivity;->ponerContadorFps",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;-><init>",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->vibracion",
+          "count": 1
+        },
+        {
+          "target": "Landroid/os/VibratorManager;->getDefaultVibrator",
+          "count": 1
+        },
+        {
+          "target": "Landroid/os/Vibrator;->hasVibrator",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/TouchControllerView;-><init>",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/TouchControllerView;->estirar",
+          "count": 1
+        },
+        {
+          "target": "Landroid/view/ViewGroup$LayoutParams;-><init>",
+          "count": 1
+        },
+        {
+          "target": "Landroid/view/ViewGroup;->addView",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/GameActivity;->pre74InstallSettingsButton",
+          "count": 1
+        }
+      ],
+      "referenced_safe_fields": [
+        {
+          "field": "Lio/github/nfsmwrecomp/GameActivity;->vibrador",
+          "count": 4
+        },
+        {
+          "field": "Lio/github/nfsmwrecomp/GameActivity;->edicion",
+          "count": 3
+        },
+        {
+          "field": "Lio/github/nfsmwrecomp/MotorNativo;->ACTIVO",
+          "count": 2
+        },
+        {
+          "field": "Lio/github/nfsmwrecomp/GameActivity;->touchController",
+          "count": 2
+        },
+        {
+          "field": "Lio/github/nfsmwrecomp/Ediciones$Edicion;->id",
+          "count": 1
+        },
+        {
+          "field": "Lio/github/nfsmwrecomp/GameActivity;->argumentos",
+          "count": 1
+        },
+        {
+          "field": "Lio/github/nfsmwrecomp/GameActivity;->vibracion",
+          "count": 1
+        },
+        {
+          "field": "Lio/github/nfsmwrecomp/GameActivity;->mLayout",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "class": "MotorNativo",
+      "method": "argumentos",
+      "bytecode_instruction_count": 331,
+      "known_call_family_counts": {
+        "file_path": 7,
+        "native_args": 4,
+        "edition_dataflow": 28
+      },
+      "invoked_safe_methods": [
+        {
+          "target": "Ljava/io/File;->getAbsolutePath",
+          "count": 3
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->limiteFps",
+          "count": 2
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/MotorNativo;->carpetaUsuario",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/MotorNativo;->carpetaCache",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->escalado",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->apiGrafica",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->resolucionInterna",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->antialiasing",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->anisotropico",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/MotorNativo;->anisotropico",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->filtroColor",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->desenfoque",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->filtroImagen",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->calidadSombras",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->sombrasEscala",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->sombrasCorte",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->reflejosCoche",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->reflejoAsfalto",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->resplandorCielo",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->audioAAudio",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->vibracion",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->compatibilidad",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/MotorNativo;->argumentosCompatibilidad",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->fijarHilos",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->edicion",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->gamertag",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->gamertagValido",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->servidorEfectivo",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->direccionValida",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->carpetaLogs",
+          "count": 1
+        },
+        {
+          "target": "Ljava/io/File;-><init>",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->registroDetallado",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->argumentosDriver",
+          "count": 1
+        }
+      ],
+      "referenced_safe_fields": []
+    },
+    {
+      "class": "SetupActivity",
+      "method": "edicionAlJugar",
+      "bytecode_instruction_count": 31,
+      "known_call_family_counts": {
+        "edition_dataflow": 10,
+        "uri_class": 2
+      },
+      "invoked_safe_methods": [
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->iso",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ediciones;->varias",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->xexIso",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/SetupActivity;->getApplicationContext",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->uriIso",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/IsoXex;->mirar",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->isoMirada",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->edicion",
+          "count": 1
+        }
+      ],
+      "referenced_safe_fields": [
+        {
+          "field": "Lio/github/nfsmwrecomp/SetupActivity;->ajustes",
+          "count": 4
+        },
+        {
+          "field": "Lio/github/nfsmwrecomp/IsoXex$Info;->xex",
+          "count": 1
+        },
+        {
+          "field": "Lio/github/nfsmwrecomp/IsoXex$Info;->faltan",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "class": "SetupActivity",
+      "method": "jugar",
+      "bytecode_instruction_count": 30,
+      "known_call_family_counts": {
+        "edition_dataflow": 5,
+        "native_args": 1
+      },
+      "invoked_safe_methods": [
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->servidorEfectivo",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->direccionValida",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->gamertag",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/SetupActivity$$ExternalSyntheticLambda112;-><init>",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/SetupActivity;->lanzar",
+          "count": 1
+        }
+      ],
+      "referenced_safe_fields": [
+        {
+          "field": "Lio/github/nfsmwrecomp/SetupActivity;->ajustes",
+          "count": 2
+        },
+        {
+          "field": "Lio/github/nfsmwrecomp/SetupActivity;->comprobandoParaJugar",
+          "count": 2
+        },
+        {
+          "field": "Lio/github/nfsmwrecomp/MotorNativo;->ACTIVO",
+          "count": 1
+        },
+        {
+          "field": "Lio/github/nfsmwrecomp/SetupActivity;->botonJugar",
+          "count": 1
+        },
+        {
+          "field": "Lio/github/nfsmwrecomp/SetupActivity;->red",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "class": "SetupActivity",
+      "method": "onActivityResult",
+      "bytecode_instruction_count": 84,
+      "known_call_family_counts": {
+        "android_activity_intent": 3,
+        "uri_class": 10,
+        "saf_picker": 1,
+        "edition_dataflow": 8
+      },
+      "invoked_safe_methods": [
+        {
+          "target": "Landroid/widget/Toast;->makeText",
+          "count": 3
+        },
+        {
+          "target": "Landroid/widget/Toast;->show",
+          "count": 3
+        },
+        {
+          "target": "Landroid/content/Intent;->getData",
+          "count": 2
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/SetupActivity;->getString",
+          "count": 2
+        },
+        {
+          "target": "Landroidx/appcompat/app/AppCompatActivity;->onActivityResult",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/SetupActivity;->volverDePermiso",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/SetupActivity;->diag41PastaSelecionada",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/SetupActivity$$ExternalSyntheticLambda84;-><init>",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/SetupActivity;->copiarPartidas",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/SetupActivity$$ExternalSyntheticLambda86;-><init>",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/SetupActivity;->confirmarImportar",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/SetupActivity;->getContentResolver",
+          "count": 1
+        },
+        {
+          "target": "Landroid/content/ContentResolver;->takePersistableUriPermission",
+          "count": 1
+        },
+        {
+          "target": "Landroid/net/Uri;->toString",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->iso",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/SetupActivity;->nombreDe",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->nombreIso",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->isoSinMirar",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/SetupActivity;->mirarIso",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Drivers;->importar",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->driver",
+          "count": 1
+        },
+        {
+          "target": "Ljava/io/IOException;->getMessage",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/SetupActivity;->refrescar",
+          "count": 1
+        }
+      ],
+      "referenced_safe_fields": [
+        {
+          "field": "Lio/github/nfsmwrecomp/SetupActivity;->ajustes",
+          "count": 4
+        },
+        {
+          "field": "Lio/github/nfsmwrecomp/Drivers$Driver;->nombre",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "class": "SetupActivity",
+      "method": "onCreate",
+      "bytecode_instruction_count": 38,
+      "known_call_family_counts": {
+        "edition_dataflow": 3,
+        "android_activity_intent": 2
+      },
+      "invoked_safe_methods": [
+        {
+          "target": "Lio/github/nfsmwrecomp/SetupActivity;->getWindow",
+          "count": 3
+        },
+        {
+          "target": "Landroidx/appcompat/app/AppCompatActivity;->onCreate",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;-><init>",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->aplicarPerfilGpuDebil",
+          "count": 1
+        },
+        {
+          "target": "Landroid/os/Bundle;->getInt",
+          "count": 1
+        },
+        {
+          "target": "Landroid/view/Window;->setDecorFitsSystemWindows",
+          "count": 1
+        },
+        {
+          "target": "Landroid/view/Window;->setStatusBarColor",
+          "count": 1
+        },
+        {
+          "target": "Landroid/view/Window;->setNavigationBarColor",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/SetupActivity;->construir",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/SetupActivity;->setContentView",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/SetupActivity;->mirarIso",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/SetupActivity;->getIntent",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/SetupActivity;->bancoDePruebas",
+          "count": 1
+        }
+      ],
+      "referenced_safe_fields": [
+        {
+          "field": "Lio/github/nfsmwrecomp/SetupActivity;->ajustes",
+          "count": 1
+        },
+        {
+          "field": "Lio/github/nfsmwrecomp/SetupActivity;->SECCIONES",
+          "count": 1
+        }
+      ]
+    }
+  ],
+  "method_targets_limited_to_static_allowlist": true,
+  "original_app_uses_uri_capable_java_routines": true,
+  "actual_android_session_game_root_path": null,
+  "actual_android_session_mount_type": null,
+  "selected_game_edition_runtime_proven": false,
+  "kernel_vfs_branch_executed_proven": false,
+  "BMW_runtime_VPAK_loaded": false,
+  "BMW_tuning_usable": false,
+  "apk_or_game_resources_modified": false,
+  "dex_or_apk_contents_published": false,
+  "apk_built": false,
+  "save_modified": false,
+  "signing_key_accessed": false,
+  "run_id": "42528214393",
+  "timestamp_utc": "2026-11-08T22:04:11.456744+00:00"
+}
