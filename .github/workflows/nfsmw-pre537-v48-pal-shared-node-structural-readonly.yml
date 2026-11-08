@@ -1,0 +1,80 @@
+name: NFSMW PRE537 authenticate original V48 PAL 12 shared guest nodes structure read only
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre537_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre537-v48-shared-guest-node-triage
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install authenticated ELF and ARM64 readers and validate source
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth pyelftools==0.32 capstone==5.0.6 >/dev/null
+          python -m py_compile automation/kaggle/pre537_v48_pal_shared_guest_nodes_structural_triage_readonly.py
+      - name: Read SHA-pinned V48 PAL native ELF and audit exactly 12 intersections
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre537_v48_pal_shared_guest_nodes_structural_triage_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Publish bounded numeric guest metadata or failure diagnostic
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("/tmp/nfsmw-pre537/report.json")
+          d=json.loads(p.read_text()) if p.exists() else {"stage":"PRE537","status":"FAILED_NO_REPORT"}
+          for k in ("original_game_or_ELF_modified","original_APK_modified",
+                    "guest_code_or_assets_published","APK_built","save_modified",
+                    "signing_key_accessed","safe_to_enable_BMW_tuning"):
+              if d.get(k,False) is not False:
+                  raise SystemExit("PRE537 unexpected side effect "+k)
+          if d.get("status")=="AUDIT_OK":
+              for k in ("historical_field12_writes_proven_cash_debit",
+                        "candidate_SetPackage_identified",
+                        "actual_runtime_checkout_installation_or_save_verified"):
+                  if d.get(k) is not False:
+                      raise SystemExit("Do not promote static counts into runtime semantics")
+              out=Path("docs/PRE537_ORIGINAL_V48_PAL_SHARED_NODES_STRUCTURAL_TRIAGE_READONLY.json")
+          else:
+              out=Path("docs/PRE537_ORIGINAL_V48_PAL_SHARED_NODES_DIAGNOSTIC.json")
+              d={k:d.get(k) for k in ("stage","status","error_type","error","run_id") if k in d}
+              d["safe_to_enable_BMW_tuning"]=False
+          out.parent.mkdir(parents=True,exist_ok=True)
+          out.write_text(json.dumps(d,indent=2,ensure_ascii=False)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE537_ORIGINAL_V48_PAL_SHARED_NODES_*json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "PRE537: V48 PAL shared guest function structural triage metadata"
+          for n in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
+      - name: Retain private sanitised structural diagnostic
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre537-original-v48-shared-nodes-${{ github.run_id }}
+          path: /tmp/nfsmw-pre537/report.json
+          retention-days: 14
