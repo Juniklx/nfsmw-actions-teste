@@ -1,0 +1,9 @@
+{
+  "stage": "PRE498",
+  "reason": "Fix exact handoff markdown heading marker",
+  "append_to_original": "CONTEXTO_NFSMW.md",
+  "backup_first": true,
+  "readback_exact": true,
+  "original_game_untouched": true,
+  "save_untouched": true
+}
