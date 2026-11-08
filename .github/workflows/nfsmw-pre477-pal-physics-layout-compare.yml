@@ -57,7 +57,7 @@ jobs:
           PY
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/PRE477_PAL_BMW_PUNTO_PHYSICS_LAYOUTS_READONLY.json docs/PRE477_PAL_BMW_PUNTO_PHYSICS_DIAGNOSTIC.json 2>/dev/null || true
+          git add docs/PRE477_PAL_BMW_PUNTO_PHYSICS_*.json
           git diff --cached --quiet && exit 0
           git commit -m "PRE477: map original BMW/Punto physics layout hash and scalar metadata"
           git push origin HEAD:main
