@@ -30,7 +30,7 @@ jobs:
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
         run: |
           set -euo pipefail
-          PYTHONPATH=automation/kaggle python automation/kaggle/pre520_scratch_bmw_vpak_zdir_checksum_readonly.py --run-id "$GITHUB_RUN_ID"
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre520_pal_original_zzdata4_padding_readonly.py --run-id "$GITHUB_RUN_ID"
       - name: Guard against game modifications and save sanitized metadata
         if: always()
         run: |
