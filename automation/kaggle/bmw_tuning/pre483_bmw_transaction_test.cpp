@@ -34,6 +34,7 @@ int main() {
   original.installed.junkman=0x12;
   original.credits=1000;
   original.preview_visible=true;
+  const auto stable_snapshot=original;
   const auto good=GoodProposal();
   auto result=SimulateOffline(original,good);
   check(result.status==TransactionStatus::SyntheticAccepted);
@@ -41,7 +42,7 @@ int main() {
   check(result.state.installed.part[4]==1);
   check(result.state.installed.part[6]==3); // Nitro remains untouched
   check(result.state.installed.junkman==0x12);
-  check(SameState(original,SyntheticState{original})); // caller input unchanged
+  check(SameState(original,stable_snapshot)); // caller input unchanged
   check(TryRealGameOperation(original,good).status==TransactionStatus::RuntimeDisabled);
   check(SameState(TryRealGameOperation(original,good).state,original));
   auto assert_rejected=[&](const Proposal &p,TransactionStatus why) {
