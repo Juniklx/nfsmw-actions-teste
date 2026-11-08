@@ -1,0 +1,11 @@
+{
+  "stage": "PRE467",
+  "purpose": "Authenticate original PAL attribute VPAK and compare to USA",
+  "source_id": "1sF5irZpUNfN5Z2p4L53eMVISBeh8MfRz",
+  "method": "stream ZIP Deflate 4MiB 206 ranges 261MB compressed",
+  "file": "NFS/ZZDATA4.BIN",
+  "target": "GLOBAL\\\\ATTRIBUTES.BIN",
+  "no_apk": true,
+  "no_save_mutation": true,
+  "no_asset_publication": true
+}
