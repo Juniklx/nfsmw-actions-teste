@@ -1,0 +1,27 @@
+name: NFSMW PRE384 Nitro LR-slot host-only compile
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre384_requests/*.json'
+permissions:
+  contents: read
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Native-only LR to Nitro existing slot callback regression
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre383_nitro_lr_slot_callback_staging.py automation/kaggle/pre384_nitro_lr_slot_host_compile.py
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre384_nitro_lr_slot_host_compile.py
+      - name: Preserve PRE384 bounded result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre384-lr-slot-host-${{ github.run_id }}
+          path: /tmp/nfsmw-pre384/PRE384_NITRO_LR_SLOT_HOST_COMPILE.json
+          if-no-files-found: warn
