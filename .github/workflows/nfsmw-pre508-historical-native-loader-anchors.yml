@@ -1,0 +1,79 @@
+name: NFSMW PRE508 inspect authenticated historical native asset loader anchor contexts
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre508_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre508-historical-asset-loader-anchor
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare authenticated Drive reader and source-audit syntax check
+        run: |
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth requests >/dev/null
+          python -m py_compile automation/kaggle/pre508_original_loader_source_anchors_readonly.py
+      - name: Inspect pinned PRE99 native code around PRE505 source anchors
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre508_original_loader_source_anchors_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Preserve only safe metadata and evidence boundaries
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report=Path("/tmp/nfsmw-pre508/report.json")
+          d=json.loads(report.read_text()) if report.is_file() else {"stage":"PRE508","status":"FAILED_NO_REPORT"}
+          for k in ("long_source_or_game_data_exported","any_game_asset_modified","APK_built",
+                    "save_modified","signing_accessed","mod_enabled"):
+              if d.get(k,False) is not False:
+                  raise SystemExit("PRE508 safety invariant violated: "+k)
+          if d.get("status")=="AUDIT_OK":
+              for k in ("actual_V48_loader_or_mount_verified",
+                        "new_engine_collection_runtime_accepted",
+                        "ZDIR_checksum_semantics_verified",
+                        "BMW_tuning_purchase_runtime_verified"):
+                  if d.get(k) is not False:
+                      raise SystemExit("PRE508 cannot promote historical source review to runtime proof")
+              dest=Path("docs/PRE508_HISTORICAL_NATIVE_LOADER_SOURCE_ANCHORS_READONLY.json")
+          else:
+              dest=Path("docs/PRE508_HISTORICAL_NATIVE_LOADER_DIAGNOSTIC.json")
+              d={k:d[k] for k in ("stage","status","error_type","error","run_id") if k in d}
+              d["mod_enabled"]=False
+          dest.parent.mkdir(parents=True,exist_ok=True)
+          dest.write_text(json.dumps(d,ensure_ascii=False,indent=2)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE508_HISTORICAL_NATIVE_LOADER_*json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "PRE508: original asset loader source anchors read-only metadata"
+          for i in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
+      - name: Archive metadata report for diagnostic checks
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre508-original-loader-${{ github.run_id }}
+          path: /tmp/nfsmw-pre508/report.json
+          retention-days: 14
