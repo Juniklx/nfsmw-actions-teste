@@ -1,0 +1,11 @@
+{
+  "stage": "PRE498_CANONICAL_CONTEXT_APPEND_WITH_BACKUP",
+  "status": "FAILED",
+  "apk_built": false,
+  "save_modified": false,
+  "game_assets_modified": false,
+  "error_type": "ValueError",
+  "error": "Unexpected PRE498 handoff identity/length",
+  "run_id": "42519377444",
+  "utc": "2026-11-08T20:17:54.354089+00:00"
+}
