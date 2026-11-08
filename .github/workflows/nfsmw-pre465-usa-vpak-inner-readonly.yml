@@ -1,0 +1,61 @@
+name: NFSMW PRE465 USA VPAK BIN/VLT structural and hash provenance
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre465_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre465-usa-vpak-schema
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Authenticate source and check Python syntax
+        run: |
+          python -m pip install --disable-pip-version-check google-auth requests >/dev/null
+          python -m py_compile automation/kaggle/pre459_pal_zip_car_catalog_readonly.py automation/kaggle/pre462_usa_raw_iso_attributes_readonly.py automation/kaggle/pre463_usa_vpak_attribute_metadata_readonly.py automation/kaggle/pre465_usa_bmw_vpak_inner_schema_readonly.py
+      - name: Inspect true BIN/VLT chunk boundaries and name hashes
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre465_usa_bmw_vpak_inner_schema_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Commit metadata-only proof to private repository
+        if: success()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          r=json.loads(Path("/tmp/nfsmw-pre465/report.json").read_text())
+          if r.get("status")!="AUDIT_OK" or r.get("safe_to_enable_bmw_tuning") is not False:
+              raise SystemExit("PRE465 fail-closed gate")
+          out=Path("docs/PRE465_BMW_USA_VPAK_BIN_VLT_STRUCTURE_READONLY.json")
+          out.parent.mkdir(parents=True,exist_ok=True)
+          out.write_text(json.dumps(r,ensure_ascii=False,indent=2)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE465_BMW_USA_VPAK_BIN_VLT_STRUCTURE_READONLY.json
+          git diff --cached --quiet && exit 0
+          git commit -m "PRE465: record real USA attribute BIN/VLT structure and hashes"
+          git push origin HEAD:main
+      - name: Archive private metadata
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre465-vpak-inner-structure-${{ github.run_id }}
+          path: /tmp/nfsmw-pre465/report.json
+          if-no-files-found: warn
+          retention-days: 14
