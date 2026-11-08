@@ -1,0 +1,12 @@
+{
+  "stage": "PRE510",
+  "purpose": "Backup and append PRE508 and PRE509 verified historical VFS findings to canonical Drive CONTEXTO_NFSMW.md",
+  "previous_marker": "PRE507_BMW_TUNING_PRE505_PRE506_CHECKPOINT_20261108",
+  "handoff": "docs/PRE510_BMW_TUNING_PRE508_PRE509_VFS_HANDOFF_20261108.md",
+  "verified_runs": [
+    42525120679,
+    42525446142
+  ],
+  "read_only_game_and_apk": true,
+  "save_MARCEK_preserved": true
+}
