@@ -1,0 +1,1886 @@
+{
+  "status": "AUDIT_OK",
+  "stage": "PRE461_BMW_INDEX_HASH_NAMES_READONLY",
+  "zdir_sha256": "7f37d29f958454ec73d5dbd30068a6acb23cf92d5056fa2d944ca5c87c6637ee",
+  "zdir_records": 1390,
+  "record_size_bytes": 24,
+  "record_locations_valid": 1390,
+  "record_locations_invalid": 0,
+  "archive_id_histogram": {
+    "5": 583,
+    "2": 49,
+    "4": 204,
+    "0": 367,
+    "1": 116,
+    "3": 66,
+    "8": 1,
+    "7": 1,
+    "9": 2,
+    "6": 1
+  },
+  "public_filename_list_git_blob_sha1": "da86cf16a04f5a42b85bfdc4ee792e6f18dcfe34",
+  "public_name_lines": 33655,
+  "hash_matches_from_public_candidates": 1386,
+  "name_samples": [
+    {
+      "index": 0,
+      "name_hash": "00621487",
+      "archive_id": 5,
+      "offset": 180238336,
+      "size": 51488,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\SWTN_CAR_16_MB.ABK"
+      ]
+    },
+    {
+      "index": 1,
+      "name_hash": "00766252",
+      "archive_id": 2,
+      "offset": 307306496,
+      "size": 24619392,
+      "location_valid": true,
+      "public_name_candidates": [
+        "CARS\\GALLARDO\\VINYLS.BIN"
+      ]
+    },
+    {
+      "index": 2,
+      "name_hash": "007a808f",
+      "archive_id": 5,
+      "offset": 170098688,
+      "size": 91068,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\GIN_FORDFOCUS_ROAD.GIN"
+      ]
+    },
+    {
+      "index": 3,
+      "name_hash": "00b0e2ef",
+      "archive_id": 5,
+      "offset": 158906368,
+      "size": 186604,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\CAR_55_ENG_MB_SPU.ABK"
+      ]
+    },
+    {
+      "index": 4,
+      "name_hash": "00d2d0ec",
+      "archive_id": 4,
+      "offset": 325052416,
+      "size": 0,
+      "location_valid": true,
+      "public_name_candidates": [
+        "CARS\\COPGTO\\PREVINYL.BIN"
+      ]
+    },
+    {
+      "index": 5,
+      "name_hash": "00dea8c2",
+      "archive_id": 5,
+      "offset": 172894208,
+      "size": 98182,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\GIN_MITSECLIPSE_2000.GIN"
+      ]
+    },
+    {
+      "index": 6,
+      "name_hash": "00e58a25",
+      "archive_id": 5,
+      "offset": 193900544,
+      "size": 120168,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\TURBO\\TURBO_TUN_SML2_1_MB.ABK"
+      ]
+    },
+    {
+      "index": 7,
+      "name_hash": "00f1c026",
+      "archive_id": 0,
+      "offset": 364228608,
+      "size": 5718384,
+      "location_valid": true,
+      "public_name_candidates": [
+        "NIS\\SCENE_ARRESTM06B_BUNDLEB.BUN"
+      ]
+    },
+    {
+      "index": 8,
+      "name_hash": "01c5354e",
+      "archive_id": 5,
+      "offset": 164188160,
+      "size": 211404,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\CAR_72_ENG_MB_SPU.ABK"
+      ]
+    },
+    {
+      "index": 9,
+      "name_hash": "0220387e",
+      "archive_id": 4,
+      "offset": 346310656,
+      "size": 57280,
+      "location_valid": true,
+      "public_name_candidates": [
+        "CARS\\TRAILERCON\\TEXTURES.BIN"
+      ]
+    },
+    {
+      "index": 10,
+      "name_hash": "0244767c",
+      "archive_id": 1,
+      "offset": 47312896,
+      "size": 2096,
+      "location_valid": true,
+      "public_name_candidates": [
+        "NIS\\SCENE_REPLAYBURNOUT_BUNDLEB.BUN"
+      ]
+    },
+    {
+      "index": 11,
+      "name_hash": "025aa640",
+      "archive_id": 5,
+      "offset": 179619840,
+      "size": 46024,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\SWTN_CAR_00_MB.ABK"
+      ]
+    },
+    {
+      "index": 12,
+      "name_hash": "0287bf4f",
+      "archive_id": 3,
+      "offset": 0,
+      "size": 2896064,
+      "location_valid": true,
+      "public_name_candidates": [
+        "CARS\\TEXTURES.BIN"
+      ]
+    },
+    {
+      "index": 13,
+      "name_hash": "02981403",
+      "archive_id": 5,
+      "offset": 136531968,
+      "size": 2308,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\NISREVDATA\\GENERICSTART.BIN"
+      ]
+    },
+    {
+      "index": 14,
+      "name_hash": "02a20ef3",
+      "archive_id": 0,
+      "offset": 10115072,
+      "size": 64944,
+      "location_valid": true,
+      "public_name_candidates": [
+        "TRACKS\\L2RA\\MINI_MAP_1_3_1.BIN"
+      ]
+    },
+    {
+      "index": 15,
+      "name_hash": "02a78546",
+      "archive_id": 5,
+      "offset": 189915136,
+      "size": 39168,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\SHIFTING\\GEAR_MED_BASE.ABK"
+      ]
+    },
+    {
+      "index": 16,
+      "name_hash": "02bbe400",
+      "archive_id": 4,
+      "offset": 344598528,
+      "size": 0,
+      "location_valid": true,
+      "public_name_candidates": [
+        "CARS\\TRAILERA\\VINYLS.BIN"
+      ]
+    },
+    {
+      "index": 17,
+      "name_hash": "0306f074",
+      "archive_id": 5,
+      "offset": 177731584,
+      "size": 97472,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\GIN_TVR_CHIMAERA.GIN"
+      ]
+    },
+    {
+      "index": 18,
+      "name_hash": "035e8e30",
+      "archive_id": 2,
+      "offset": 338284544,
+      "size": 27808768,
+      "location_valid": true,
+      "public_name_candidates": [
+        "CARS\\GTI\\VINYLS.BIN"
+      ]
+    },
+    {
+      "index": 19,
+      "name_hash": "04016896",
+      "archive_id": 5,
+      "offset": 165740544,
+      "size": 42062,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\GIN_300ZX_DCL.GIN"
+      ]
+    },
+    {
+      "index": 20,
+      "name_hash": "04892434",
+      "archive_id": 5,
+      "offset": 179542016,
+      "size": 77183,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\GIN_WRXSTI_PULL_09.GIN"
+      ]
+    },
+    {
+      "index": 21,
+      "name_hash": "04ce47e3",
+      "archive_id": 3,
+      "offset": 241995776,
+      "size": 27402496,
+      "location_valid": true,
+      "public_name_candidates": [
+        "CARS\\LANCEREVO8\\VINYLS.BIN"
+      ]
+    },
+    {
+      "index": 22,
+      "name_hash": "04cfded1",
+      "archive_id": 0,
+      "offset": 269805568,
+      "size": 38922,
+      "location_valid": true,
+      "public_name_candidates": [
+        "CREDITS\\GERMAN.TXT"
+      ]
+    },
+    {
+      "index": 23,
+      "name_hash": "04ed7221",
+      "archive_id": 5,
+      "offset": 165668864,
+      "size": 18532,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\CAR_WHINE_00.ABK"
+      ]
+    },
+    {
+      "index": 24,
+      "name_hash": "04ee839e",
+      "archive_id": 5,
+      "offset": 168857600,
+      "size": 145508,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\GIN_DB9.GIN"
+      ]
+    },
+    {
+      "index": 25,
+      "name_hash": "0534c9f5",
+      "archive_id": 0,
+      "offset": 2342912,
+      "size": 92848,
+      "location_valid": true,
+      "public_name_candidates": [
+        "TRACKS\\L2RA\\MINI_MAP_12_2_1_R.BIN"
+      ]
+    },
+    {
+      "index": 26,
+      "name_hash": "05557934",
+      "archive_id": 4,
+      "offset": 62310400,
+      "size": 6095744,
+      "location_valid": true,
+      "public_name_candidates": [
+        "CARS\\RX7\\GEOMETRY.BIN"
+      ]
+    },
+    {
+      "index": 27,
+      "name_hash": "0565cc4e",
+      "archive_id": 5,
+      "offset": 136503296,
+      "size": 176,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\FXEDIT\\CAR_SHOW_BASS.FX"
+      ]
+    },
+    {
+      "index": 28,
+      "name_hash": "059caa5b",
+      "archive_id": 8,
+      "offset": 0,
+      "size": 200359168,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\STREAMS\\NISAUDIO.BIG"
+      ]
+    },
+    {
+      "index": 29,
+      "name_hash": "059cafe8",
+      "archive_id": 5,
+      "offset": 190910464,
+      "size": 156,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\STREAMS\\NISAUDIO.CSI"
+      ]
+    },
+    {
+      "index": 30,
+      "name_hash": "059cb8d8",
+      "archive_id": 5,
+      "offset": 190912512,
+      "size": 484,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\STREAMS\\NISAUDIO.EVT"
+      ]
+    },
+    {
+      "index": 31,
+      "name_hash": "059cc78e",
+      "archive_id": 5,
+      "offset": 190914560,
+      "size": 900,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\STREAMS\\NISAUDIO.IDX"
+      ]
+    },
+    {
+      "index": 32,
+      "name_hash": "05c53d36",
+      "archive_id": 5,
+      "offset": 191764480,
+      "size": 59312,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\TURBO\\TURBO_LRG_1_MB.ABK"
+      ]
+    },
+    {
+      "index": 33,
+      "name_hash": "06400968",
+      "archive_id": 0,
+      "offset": 4974592,
+      "size": 32508,
+      "location_valid": true,
+      "public_name_candidates": [
+        "TRACKS\\L2RA\\MINI_MAP_15_3_1.BIN"
+      ]
+    },
+    {
+      "index": 34,
+      "name_hash": "06fa3016",
+      "archive_id": 5,
+      "offset": 179427328,
+      "size": 73108,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\GIN_WRX_STREET.GIN"
+      ]
+    },
+    {
+      "index": 35,
+      "name_hash": "070de41e",
+      "archive_id": 5,
+      "offset": 139669504,
+      "size": 218276,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\CAR_07_ENG_MB_EE.ABK"
+      ]
+    },
+    {
+      "index": 36,
+      "name_hash": "0710282a",
+      "archive_id": 4,
+      "offset": 352854016,
+      "size": 39872,
+      "location_valid": true,
+      "public_name_candidates": [
+        "CARS\\TRAFMINIVAN\\TEXTURES.BIN"
+      ]
+    },
+    {
+      "index": 37,
+      "name_hash": "077d56dd",
+      "archive_id": 5,
+      "offset": 154355712,
+      "size": 179364,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\CAR_42_ENG_MB_EE.ABK"
+      ]
+    },
+    {
+      "index": 38,
+      "name_hash": "07f73e1d",
+      "archive_id": 4,
+      "offset": 197357568,
+      "size": 26060992,
+      "location_valid": true,
+      "public_name_candidates": [
+        "CARS\\SLR\\VINYLS.BIN"
+      ]
+    },
+    {
+      "index": 39,
+      "name_hash": "07fe2d8e",
+      "archive_id": 5,
+      "offset": 170190848,
+      "size": 92125,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\GIN_G35_350ZX_COMP_V2_AB.GIN"
+      ]
+    },
+    {
+      "index": 40,
+      "name_hash": "087cc5fb",
+      "archive_id": 0,
+      "offset": 16994304,
+      "size": 44276,
+      "location_valid": true,
+      "public_name_candidates": [
+        "TRACKS\\L2RA\\MINI_MAP_5_7_1.BIN"
+      ]
+    },
+    {
+      "index": 41,
+      "name_hash": "088ede7c",
+      "archive_id": 0,
+      "offset": 17039360,
+      "size": 40284,
+      "location_valid": true,
+      "public_name_candidates": [
+        "TRACKS\\L2RA\\MINI_MAP_5_7_2.BIN"
+      ]
+    },
+    {
+      "index": 42,
+      "name_hash": "08a0f6fd",
+      "archive_id": 0,
+      "offset": 17080320,
+      "size": 40220,
+      "location_valid": true,
+      "public_name_candidates": [
+        "TRACKS\\L2RA\\MINI_MAP_5_7_3.BIN"
+      ]
+    },
+    {
+      "index": 43,
+      "name_hash": "08b30f7e",
+      "archive_id": 0,
+      "offset": 17121280,
+      "size": 38084,
+      "location_valid": true,
+      "public_name_candidates": [
+        "TRACKS\\L2RA\\MINI_MAP_5_7_4.BIN"
+      ]
+    },
+    {
+      "index": 44,
+      "name_hash": "08c527ff",
+      "archive_id": 0,
+      "offset": 17160192,
+      "size": 36052,
+      "location_valid": true,
+      "public_name_candidates": [
+        "TRACKS\\L2RA\\MINI_MAP_5_7_5.BIN"
+      ]
+    },
+    {
+      "index": 45,
+      "name_hash": "09bdebe2",
+      "archive_id": 5,
+      "offset": 161761280,
+      "size": 187556,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\CAR_65_ENG_MB_EE.ABK"
+      ]
+    },
+    {
+      "index": 46,
+      "name_hash": "09c50a82",
+      "archive_id": 5,
+      "offset": 189636608,
+      "size": 31600,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\SHIFTING\\GEAR_BIG_BASE.ABK"
+      ]
+    },
+    {
+      "index": 47,
+      "name_hash": "0a052d28",
+      "archive_id": 5,
+      "offset": 138258432,
+      "size": 177920,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\CAR_03_ENG_MB_SPU.ABK"
+      ]
+    },
+    {
+      "index": 48,
+      "name_hash": "0a456709",
+      "archive_id": 5,
+      "offset": 182421504,
+      "size": 45852,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\SWTN_CAR_72_MB.ABK"
+      ]
+    },
+    {
+      "index": 49,
+      "name_hash": "0a86f1ba",
+      "archive_id": 0,
+      "offset": 18972672,
+      "size": 111836,
+      "location_valid": true,
+      "public_name_candidates": [
+        "TRACKS\\L2RA\\MINI_MAP_7_4_1.BIN"
+      ]
+    },
+    {
+      "index": 50,
+      "name_hash": "0a990a3b",
+      "archive_id": 0,
+      "offset": 19197952,
+      "size": 111040,
+      "location_valid": true,
+      "public_name_candidates": [
+        "TRACKS\\L2RA\\MINI_MAP_7_4_2.BIN"
+      ]
+    },
+    {
+      "index": 51,
+      "name_hash": "0aab22bc",
+      "archive_id": 0,
+      "offset": 19439616,
+      "size": 117240,
+      "location_valid": true,
+      "public_name_candidates": [
+        "TRACKS\\L2RA\\MINI_MAP_7_4_3.BIN"
+      ]
+    },
+    {
+      "index": 52,
+      "name_hash": "0ac41d51",
+      "archive_id": 4,
+      "offset": 197023744,
+      "size": 64896,
+      "location_valid": true,
+      "public_name_candidates": [
+        "CARS\\SLR\\PREVINYL.BIN"
+      ]
+    },
+    {
+      "index": 53,
+      "name_hash": "0b197f87",
+      "archive_id": 5,
+      "offset": 145332224,
+      "size": 207724,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\CAR_20_ENG_MB_SPU.ABK"
+      ]
+    },
+    {
+      "index": 54,
+      "name_hash": "0b55697a",
+      "archive_id": 1,
+      "offset": 307505152,
+      "size": 7149184,
+      "location_valid": true,
+      "public_name_candidates": [
+        "CARS\\CLIO\\GEOMETRY.BIN"
+      ]
+    },
+    {
+      "index": 55,
+      "name_hash": "0b95c82f",
+      "archive_id": 5,
+      "offset": 182300672,
+      "size": 25500,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\SWTN_CAR_69_MB.ABK"
+      ]
+    },
+    {
+      "index": 56,
+      "name_hash": "0ba01796",
+      "archive_id": 0,
+      "offset": 163332096,
+      "size": 7164,
+      "location_valid": true,
+      "public_name_candidates": [
+        "FX\\COMPILED\\DEBUGPOLY.FX.O"
+      ]
+    },
+    {
+      "index": 57,
+      "name_hash": "0bd1b671",
+      "archive_id": 5,
+      "offset": 153458688,
+      "size": 211404,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\CAR_39_ENG_MB_SPU.ABK"
+      ]
+    },
+    {
+      "index": 58,
+      "name_hash": "0c1ca2b8",
+      "archive_id": 1,
+      "offset": 212013056,
+      "size": 0,
+      "location_valid": true,
+      "public_name_candidates": [
+        "CARS\\BRAKES\\PREVINYL.BIN"
+      ]
+    },
+    {
+      "index": 59,
+      "name_hash": "0c265394",
+      "archive_id": 4,
+      "offset": 29534208,
+      "size": 0,
+      "location_valid": true,
+      "public_name_candidates": [
+        "CARS\\PLATES\\TEXTURES.BIN"
+      ]
+    },
+    {
+      "index": 60,
+      "name_hash": "0c911d79",
+      "archive_id": 0,
+      "offset": 21049344,
+      "size": 67944,
+      "location_valid": true,
+      "public_name_candidates": [
+        "TRACKS\\L2RA\\MINI_MAP_9_1_1.BIN"
+      ]
+    },
+    {
+      "index": 61,
+      "name_hash": "0ccc1124",
+      "archive_id": 0,
+      "offset": 624640,
+      "size": 81812,
+      "location_valid": true,
+      "public_name_candidates": [
+        "TRACKS\\L2RA\\MINI_MAP_10_4_1.BIN"
+      ]
+    },
+    {
+      "index": 62,
+      "name_hash": "0cde29a5",
+      "archive_id": 0,
+      "offset": 706560,
+      "size": 84320,
+      "location_valid": true,
+      "public_name_candidates": [
+        "TRACKS\\L2RA\\MINI_MAP_10_4_2.BIN"
+      ]
+    },
+    {
+      "index": 63,
+      "name_hash": "0ce608d0",
+      "archive_id": 5,
+      "offset": 159264768,
+      "size": 92932,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\CAR_56_ENG_MB_SPU.ABK"
+      ]
+    },
+    {
+      "index": 64,
+      "name_hash": "0cfa47d9",
+      "archive_id": 0,
+      "offset": 270174208,
+      "size": 5456736,
+      "location_valid": true,
+      "public_name_candidates": [
+        "NIS\\SCENE_ARRESTF02_BUNDLEB.BUN"
+      ]
+    },
+    {
+      "index": 65,
+      "name_hash": "0d099d7c",
+      "archive_id": 1,
+      "offset": 47370240,
+      "size": 2140,
+      "location_valid": true,
+      "public_name_candidates": [
+        "NIS\\SCENE_WMSTRIPMALL_BUNDLEB.BUN"
+      ]
+    },
+    {
+      "index": 66,
+      "name_hash": "0d1bdda1",
+      "archive_id": 4,
+      "offset": 132216832,
+      "size": 494784,
+      "location_valid": true,
+      "public_name_candidates": [
+        "CARS\\SEMI\\GEOMETRY.BIN"
+      ]
+    },
+    {
+      "index": 67,
+      "name_hash": "0d525fe1",
+      "archive_id": 4,
+      "offset": 35616768,
+      "size": 300032,
+      "location_valid": true,
+      "public_name_candidates": [
+        "CARS\\PUNTO\\TEXTURES.BIN"
+      ]
+    },
+    {
+      "index": 68,
+      "name_hash": "0d83357d",
+      "archive_id": 5,
+      "offset": 64733184,
+      "size": 54585216,
+      "location_valid": true,
+      "public_name_candidates": [
+        "TRACKS\\L2RA\\TRACKMAPS.BIN"
+      ]
+    },
+    {
+      "index": 69,
+      "name_hash": "0d8e59e8",
+      "archive_id": 5,
+      "offset": 181686272,
+      "size": 23476,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\SWTN_CAR_53_MB.ABK"
+      ]
+    },
+    {
+      "index": 70,
+      "name_hash": "0dfa5b2f",
+      "archive_id": 5,
+      "offset": 164601856,
+      "size": 107268,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\CAR_73_ENG_MB_SPU.ABK"
+      ]
+    },
+    {
+      "index": 71,
+      "name_hash": "0e8051a6",
+      "archive_id": 4,
+      "offset": 334139392,
+      "size": 395840,
+      "location_valid": true,
+      "public_name_candidates": [
+        "CARS\\COPSPORT\\VINYLS.BIN"
+      ]
+    },
+    {
+      "index": 72,
+      "name_hash": "0ed63ce3",
+      "archive_id": 0,
+      "offset": 1986560,
+      "size": 64408,
+      "location_valid": true,
+      "public_name_candidates": [
+        "TRACKS\\L2RA\\MINI_MAP_12_1_1.BIN"
+      ]
+    },
+    {
+      "index": 73,
+      "name_hash": "0ee85564",
+      "archive_id": 0,
+      "offset": 2113536,
+      "size": 62004,
+      "location_valid": true,
+      "public_name_candidates": [
+        "TRACKS\\L2RA\\MINI_MAP_12_1_2.BIN"
+      ]
+    },
+    {
+      "index": 74,
+      "name_hash": "0f2f0bf7",
+      "archive_id": 5,
+      "offset": 172005376,
+      "size": 98332,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\GIN_MAZDA_MIATA.GIN"
+      ]
+    },
+    {
+      "index": 75,
+      "name_hash": "0f6d0cfa",
+      "archive_id": 3,
+      "offset": 347246592,
+      "size": 63232,
+      "location_valid": true,
+      "public_name_candidates": [
+        "CARS\\MUSTANGGT\\PREVINYL.BIN"
+      ]
+    },
+    {
+      "index": 76,
+      "name_hash": "0f9f3d77",
+      "archive_id": 1,
+      "offset": 279105536,
+      "size": 281920,
+      "location_valid": true,
+      "public_name_candidates": [
+        "CARS\\CAYMANS\\TEXTURES.BIN"
+      ]
+    },
+    {
+      "index": 77,
+      "name_hash": "0fad5388",
+      "archive_id": 5,
+      "offset": 166090752,
+      "size": 152089,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\GIN_AUDI_S4.GIN"
+      ]
+    },
+    {
+      "index": 78,
+      "name_hash": "105d0185",
+      "archive_id": 5,
+      "offset": 189499392,
+      "size": 136148,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\PFDATA\\MW_MUSIC.MPF"
+      ]
+    },
+    {
+      "index": 79,
+      "name_hash": "105d0237",
+      "archive_id": 7,
+      "offset": 0,
+      "size": 653261696,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\PFDATA\\MW_MUSIC.MUS"
+      ]
+    }
+  ],
+  "bmw_related_candidates": [
+    {
+      "index": 67,
+      "name_hash": "0d525fe1",
+      "archive_id": 4,
+      "offset": 35616768,
+      "size": 300032,
+      "location_valid": true,
+      "public_name_candidates": [
+        "CARS\\PUNTO\\TEXTURES.BIN"
+      ]
+    },
+    {
+      "index": 86,
+      "name_hash": "11a65899",
+      "archive_id": 1,
+      "offset": 117811200,
+      "size": 3389824,
+      "location_valid": true,
+      "public_name_candidates": [
+        "CARS\\BMWM3\\GEOMETRY.BIN"
+      ]
+    },
+    {
+      "index": 94,
+      "name_hash": "13bd8bee",
+      "archive_id": 1,
+      "offset": 182958080,
+      "size": 28980224,
+      "location_valid": true,
+      "public_name_candidates": [
+        "CARS\\BMWM3GTRE46\\VINYLS.BIN"
+      ]
+    },
+    {
+      "index": 104,
+      "name_hash": "1553ffcb",
+      "archive_id": 5,
+      "offset": 187082752,
+      "size": 91148,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\IG_GLOBAL\\SIREN_MB.ABK"
+      ]
+    },
+    {
+      "index": 149,
+      "name_hash": "1e789a38",
+      "archive_id": 5,
+      "offset": 34494464,
+      "size": 63824,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\WIDESCREEN_GLOBAL.BUN"
+      ]
+    },
+    {
+      "index": 155,
+      "name_hash": "1f1f7583",
+      "archive_id": 4,
+      "offset": 399552512,
+      "size": 1036288,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\HUDTEXDRAG.BIN"
+      ]
+    },
+    {
+      "index": 157,
+      "name_hash": "1f5cadc4",
+      "archive_id": 5,
+      "offset": 167725056,
+      "size": 95224,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\GIN_BMW_M3_WHITE.GIN"
+      ]
+    },
+    {
+      "index": 166,
+      "name_hash": "1fee0e3f",
+      "archive_id": 1,
+      "offset": 151445504,
+      "size": 29150336,
+      "location_valid": true,
+      "public_name_candidates": [
+        "CARS\\BMWM3GTR\\VINYLS.BIN"
+      ]
+    },
+    {
+      "index": 173,
+      "name_hash": "21552362",
+      "archive_id": 1,
+      "offset": 182464512,
+      "size": 74048,
+      "location_valid": true,
+      "public_name_candidates": [
+        "CARS\\BMWM3GTRE46\\PREVINYL.BIN"
+      ]
+    },
+    {
+      "index": 196,
+      "name_hash": "263ee37c",
+      "archive_id": 5,
+      "offset": 6998016,
+      "size": 32056,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\INGAMESPLITSCREEN.BUN"
+      ]
+    },
+    {
+      "index": 210,
+      "name_hash": "29ee288f",
+      "archive_id": 4,
+      "offset": 356728832,
+      "size": 16697664,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\DYNTEX.BIN"
+      ]
+    },
+    {
+      "index": 211,
+      "name_hash": "29ee288f",
+      "archive_id": 5,
+      "offset": 46796800,
+      "size": 16697664,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\DYNTEX.BIN"
+      ]
+    },
+    {
+      "index": 212,
+      "name_hash": "29ee288f",
+      "archive_id": 5,
+      "offset": 119785472,
+      "size": 16697664,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\DYNTEX.BIN"
+      ]
+    },
+    {
+      "index": 216,
+      "name_hash": "2a89aa2f",
+      "archive_id": 4,
+      "offset": 400588800,
+      "size": 479232,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\HUDTEXDRAGSPLIT.BIN"
+      ]
+    },
+    {
+      "index": 253,
+      "name_hash": "31c73f69",
+      "archive_id": 4,
+      "offset": 29534208,
+      "size": 6081920,
+      "location_valid": true,
+      "public_name_candidates": [
+        "CARS\\PUNTO\\GEOMETRY.BIN"
+      ]
+    },
+    {
+      "index": 258,
+      "name_hash": "3235aec2",
+      "archive_id": 5,
+      "offset": 34441216,
+      "size": 52092,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\THINSCREEN_GLOBAL.BUN"
+      ]
+    },
+    {
+      "index": 262,
+      "name_hash": "32d85f72",
+      "archive_id": 1,
+      "offset": 121593856,
+      "size": 27833088,
+      "location_valid": true,
+      "public_name_candidates": [
+        "CARS\\BMWM3\\VINYLS.BIN"
+      ]
+    },
+    {
+      "index": 275,
+      "name_hash": "3484f9d0",
+      "archive_id": 5,
+      "offset": 188045312,
+      "size": 210588,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\IG_GLOBAL\\STITCH_WHOOSH_MB.ABK"
+      ]
+    },
+    {
+      "index": 345,
+      "name_hash": "41f681f3",
+      "archive_id": 5,
+      "offset": 186544128,
+      "size": 170640,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\IG_GLOBAL\\FX_MISC_MB.ABK"
+      ]
+    },
+    {
+      "index": 399,
+      "name_hash": "4c815791",
+      "archive_id": 0,
+      "offset": 155082752,
+      "size": 871284,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\GLOBALA.BUN"
+      ]
+    },
+    {
+      "index": 400,
+      "name_hash": "4c937012",
+      "archive_id": 4,
+      "offset": 375543808,
+      "size": 18285616,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\GLOBALB.BUN"
+      ]
+    },
+    {
+      "index": 401,
+      "name_hash": "4c939b36",
+      "archive_id": 4,
+      "offset": 393830400,
+      "size": 5018060,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\GLOBALB.LZC"
+      ]
+    },
+    {
+      "index": 413,
+      "name_hash": "4e48c2db",
+      "archive_id": 5,
+      "offset": 185686016,
+      "size": 326908,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\IG_GLOBAL\\ENV_COMMON_MB.ABK"
+      ]
+    },
+    {
+      "index": 435,
+      "name_hash": "51eafec3",
+      "archive_id": 5,
+      "offset": 37791744,
+      "size": 2113536,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\GAMEPLAY.BIN"
+      ]
+    },
+    {
+      "index": 436,
+      "name_hash": "51eafec3",
+      "archive_id": 4,
+      "offset": 373430272,
+      "size": 2113536,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\GAMEPLAY.BIN"
+      ]
+    },
+    {
+      "index": 437,
+      "name_hash": "51eb2b73",
+      "archive_id": 0,
+      "offset": 162506752,
+      "size": 772063,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\GAMEPLAY.LZC"
+      ]
+    },
+    {
+      "index": 448,
+      "name_hash": "53e49631",
+      "archive_id": 5,
+      "offset": 1114112,
+      "size": 577536,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\HUDTEXSPLIT.BIN"
+      ]
+    },
+    {
+      "index": 449,
+      "name_hash": "54351ad6",
+      "archive_id": 5,
+      "offset": 186048512,
+      "size": 188976,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\IG_GLOBAL\\FX_HELICOPTER_MB.ABK"
+      ]
+    },
+    {
+      "index": 465,
+      "name_hash": "56693ed1",
+      "archive_id": 5,
+      "offset": 186716160,
+      "size": 102396,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\IG_GLOBAL\\FX_RAIN_MB.ABK"
+      ]
+    },
+    {
+      "index": 468,
+      "name_hash": "5722cc23",
+      "archive_id": 5,
+      "offset": 1691648,
+      "size": 2646400,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\HUDTEXTURESPHOTOFINISH.BIN"
+      ]
+    },
+    {
+      "index": 487,
+      "name_hash": "5a914411",
+      "archive_id": 5,
+      "offset": 40126464,
+      "size": 6066176,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\INGAMEA.BUN"
+      ]
+    },
+    {
+      "index": 488,
+      "name_hash": "5aa35c92",
+      "archive_id": 5,
+      "offset": 4339712,
+      "size": 2656696,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\INGAMEB.BUN"
+      ]
+    },
+    {
+      "index": 489,
+      "name_hash": "5aa387b6",
+      "archive_id": 5,
+      "offset": 46192640,
+      "size": 602872,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\INGAMEB.LZC"
+      ]
+    },
+    {
+      "index": 496,
+      "name_hash": "5b8b970e",
+      "archive_id": 5,
+      "offset": 185323520,
+      "size": 360608,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\GLOBAL\\FE_COMMON_MB.ABK"
+      ]
+    },
+    {
+      "index": 509,
+      "name_hash": "5f2adc18",
+      "archive_id": 5,
+      "offset": 166307840,
+      "size": 95224,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\GIN_BMW_328I_E46.GIN"
+      ]
+    },
+    {
+      "index": 515,
+      "name_hash": "610f2fea",
+      "archive_id": 5,
+      "offset": 167661568,
+      "size": 62781,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\GIN_BMW_M3_SILVER_DCL.GIN"
+      ]
+    },
+    {
+      "index": 548,
+      "name_hash": "68f15242",
+      "archive_id": 4,
+      "offset": 35917824,
+      "size": 26391360,
+      "location_valid": true,
+      "public_name_candidates": [
+        "CARS\\PUNTO\\VINYLS.BIN"
+      ]
+    },
+    {
+      "index": 554,
+      "name_hash": "6b0b28b6",
+      "archive_id": 0,
+      "offset": 162248704,
+      "size": 3200,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\PERMANENTMEMORYFILE.BIN"
+      ]
+    },
+    {
+      "index": 567,
+      "name_hash": "6cf7f04d",
+      "archive_id": 5,
+      "offset": 186818560,
+      "size": 263188,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\IG_GLOBAL\\ROADNOISE_00_MB.ABK"
+      ]
+    },
+    {
+      "index": 594,
+      "name_hash": "7272e7e6",
+      "archive_id": 1,
+      "offset": 121202688,
+      "size": 74048,
+      "location_valid": true,
+      "public_name_candidates": [
+        "CARS\\BMWM3\\PREVINYL.BIN"
+      ]
+    },
+    {
+      "index": 612,
+      "name_hash": "766e0f1e",
+      "archive_id": 1,
+      "offset": 151146496,
+      "size": 297856,
+      "location_valid": true,
+      "public_name_candidates": [
+        "CARS\\BMWM3GTR\\TEXTURES.BIN"
+      ]
+    },
+    {
+      "index": 646,
+      "name_hash": "7d3f6d5b",
+      "archive_id": 5,
+      "offset": 188995584,
+      "size": 212208,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\IG_GLOBAL\\WIND_00_MB.ABK"
+      ]
+    },
+    {
+      "index": 666,
+      "name_hash": "80be7b63",
+      "archive_id": 0,
+      "offset": 162392064,
+      "size": 113856,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\FE_ATTRIB.BIN"
+      ]
+    },
+    {
+      "index": 695,
+      "name_hash": "84d0d95d",
+      "archive_id": 0,
+      "offset": 155955200,
+      "size": 6292096,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\GLOBALMEMORYFILE.BIN"
+      ]
+    },
+    {
+      "index": 725,
+      "name_hash": "885cbb9a",
+      "archive_id": 5,
+      "offset": 166922240,
+      "size": 377933,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\GIN_BMW_M3_LAGSECA_V2.GIN"
+      ]
+    },
+    {
+      "index": 744,
+      "name_hash": "8bbe58c2",
+      "archive_id": 5,
+      "offset": 186013696,
+      "size": 33752,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\IG_GLOBAL\\FX_CAMERA.ABK"
+      ]
+    },
+    {
+      "index": 763,
+      "name_hash": "91b58860",
+      "archive_id": 4,
+      "offset": 398850048,
+      "size": 57920,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\HUDS_CUSTOM_00.BIN"
+      ]
+    },
+    {
+      "index": 765,
+      "name_hash": "91c7a0e1",
+      "archive_id": 4,
+      "offset": 398909440,
+      "size": 57664,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\HUDS_CUSTOM_01.BIN"
+      ]
+    },
+    {
+      "index": 766,
+      "name_hash": "91d9b962",
+      "archive_id": 4,
+      "offset": 398968832,
+      "size": 51904,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\HUDS_CUSTOM_02.BIN"
+      ]
+    },
+    {
+      "index": 768,
+      "name_hash": "91ebd1e3",
+      "archive_id": 4,
+      "offset": 399022080,
+      "size": 61312,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\HUDS_CUSTOM_03.BIN"
+      ]
+    },
+    {
+      "index": 769,
+      "name_hash": "91fdea64",
+      "archive_id": 4,
+      "offset": 399083520,
+      "size": 62144,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\HUDS_CUSTOM_04.BIN"
+      ]
+    },
+    {
+      "index": 770,
+      "name_hash": "921002e5",
+      "archive_id": 4,
+      "offset": 399147008,
+      "size": 59136,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\HUDS_CUSTOM_05.BIN"
+      ]
+    },
+    {
+      "index": 771,
+      "name_hash": "92221b66",
+      "archive_id": 4,
+      "offset": 399206400,
+      "size": 61312,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\HUDS_CUSTOM_06.BIN"
+      ]
+    },
+    {
+      "index": 772,
+      "name_hash": "923433e7",
+      "archive_id": 4,
+      "offset": 399267840,
+      "size": 59264,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\HUDS_CUSTOM_07.BIN"
+      ]
+    },
+    {
+      "index": 773,
+      "name_hash": "92464c68",
+      "archive_id": 4,
+      "offset": 399327232,
+      "size": 73792,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\HUDS_CUSTOM_08.BIN"
+      ]
+    },
+    {
+      "index": 774,
+      "name_hash": "925864e9",
+      "archive_id": 4,
+      "offset": 399403008,
+      "size": 71424,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\HUDS_CUSTOM_09.BIN"
+      ]
+    },
+    {
+      "index": 777,
+      "name_hash": "9293ceb6",
+      "archive_id": 4,
+      "offset": 35616768,
+      "size": 0,
+      "location_valid": true,
+      "public_name_candidates": [
+        "CARS\\PUNTO\\PREVINYL.BIN"
+      ]
+    },
+    {
+      "index": 785,
+      "name_hash": "940ab101",
+      "archive_id": 4,
+      "offset": 399474688,
+      "size": 75904,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\HUDS_CUSTOM_10.BIN"
+      ]
+    },
+    {
+      "index": 794,
+      "name_hash": "958505d0",
+      "archive_id": 5,
+      "offset": 187174912,
+      "size": 859764,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\IG_GLOBAL\\STICH_COLLISION_MB.ABK"
+      ]
+    },
+    {
+      "index": 801,
+      "name_hash": "96d2d5dd",
+      "archive_id": 5,
+      "offset": 39905280,
+      "size": 79943,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\INGAMEMEMORYFILE.BIN"
+      ]
+    },
+    {
+      "index": 806,
+      "name_hash": "9775379a",
+      "archive_id": 4,
+      "offset": 355932160,
+      "size": 697856,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\ATTRIBUTES.BIN"
+      ]
+    },
+    {
+      "index": 819,
+      "name_hash": "9ae2eea6",
+      "archive_id": 1,
+      "offset": 149428224,
+      "size": 1640640,
+      "location_valid": true,
+      "public_name_candidates": [
+        "CARS\\BMWM3GTR\\GEOMETRY.BIN"
+      ]
+    },
+    {
+      "index": 821,
+      "name_hash": "9c13b48d",
+      "archive_id": 1,
+      "offset": 182540288,
+      "size": 417024,
+      "location_valid": true,
+      "public_name_candidates": [
+        "CARS\\BMWM3GTRE46\\TEXTURES.BIN"
+      ]
+    },
+    {
+      "index": 839,
+      "name_hash": "9e5363d0",
+      "archive_id": 5,
+      "offset": 167503872,
+      "size": 62781,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\GIN_BMW_M3_RACE_DCL.GIN"
+      ]
+    },
+    {
+      "index": 848,
+      "name_hash": "9f0447c6",
+      "archive_id": 5,
+      "offset": 166467584,
+      "size": 95224,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\GIN_BMW_450I.GIN"
+      ]
+    },
+    {
+      "index": 891,
+      "name_hash": "a8356c29",
+      "archive_id": 5,
+      "offset": 188256256,
+      "size": 738352,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\IG_GLOBAL\\TRAFFIC_MB.ABK"
+      ]
+    },
+    {
+      "index": 971,
+      "name_hash": "b68d7d4a",
+      "archive_id": 5,
+      "offset": 166404096,
+      "size": 62781,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\GIN_BMW_328I_E46_DCL.GIN"
+      ]
+    },
+    {
+      "index": 994,
+      "name_hash": "bb1a8c8a",
+      "archive_id": 5,
+      "offset": 186238976,
+      "size": 304736,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\IG_GLOBAL\\FX_MAIN_MEM_MB.ABK"
+      ]
+    },
+    {
+      "index": 1002,
+      "name_hash": "bc80e945",
+      "archive_id": 5,
+      "offset": 194533376,
+      "size": 385024,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\DEMO_MARKETING.BUN"
+      ]
+    },
+    {
+      "index": 1015,
+      "name_hash": "bf9b1744",
+      "archive_id": 5,
+      "offset": 166627328,
+      "size": 92752,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\GIN_BMW_M3.GIN"
+      ]
+    },
+    {
+      "index": 1016,
+      "name_hash": "bfbf4846",
+      "archive_id": 5,
+      "offset": 167884800,
+      "size": 85037,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\GIN_BMW_M5.GIN"
+      ]
+    },
+    {
+      "index": 1023,
+      "name_hash": "c0889415",
+      "archive_id": 1,
+      "offset": 180596736,
+      "size": 1866176,
+      "location_valid": true,
+      "public_name_candidates": [
+        "CARS\\BMWM3GTRE46\\GEOMETRY.BIN"
+      ]
+    },
+    {
+      "index": 1131,
+      "name_hash": "d07c3eb8",
+      "archive_id": 5,
+      "offset": 167567360,
+      "size": 92752,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\GIN_BMW_M3_SILVER.GIN"
+      ]
+    },
+    {
+      "index": 1157,
+      "name_hash": "d630cee4",
+      "archive_id": 5,
+      "offset": 7030784,
+      "size": 27410112,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\RIVALS.BIN"
+      ]
+    },
+    {
+      "index": 1164,
+      "name_hash": "d7710ff8",
+      "archive_id": 5,
+      "offset": 166563840,
+      "size": 62781,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\GIN_BMW_450I_DCL.GIN"
+      ]
+    },
+    {
+      "index": 1186,
+      "name_hash": "daa4eb51",
+      "archive_id": 4,
+      "offset": 356630528,
+      "size": 40768,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\CARDTEXTURES.BIN"
+      ]
+    },
+    {
+      "index": 1194,
+      "name_hash": "dcc74dcc",
+      "archive_id": 5,
+      "offset": 167301120,
+      "size": 57436,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\GIN_BMW_M3_LAGSECA_V2_DCL.GIN"
+      ]
+    },
+    {
+      "index": 1213,
+      "name_hash": "e16e8e00",
+      "archive_id": 5,
+      "offset": 188035072,
+      "size": 9280,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\IG_GLOBAL\\STITCH_STATIC_MB.ABK"
+      ]
+    },
+    {
+      "index": 1248,
+      "name_hash": "e6b85078",
+      "archive_id": 5,
+      "offset": 167970816,
+      "size": 33279,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\GIN_BMW_M5_DCL.GIN"
+      ]
+    },
+    {
+      "index": 1288,
+      "name_hash": "ed317911",
+      "archive_id": 1,
+      "offset": 121278464,
+      "size": 313536,
+      "location_valid": true,
+      "public_name_candidates": [
+        "CARS\\BMWM3\\TEXTURES.BIN"
+      ]
+    },
+    {
+      "index": 1289,
+      "name_hash": "ed3f9613",
+      "archive_id": 5,
+      "offset": 166752256,
+      "size": 169512,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\GIN_BMW_M3_LAGSECA.GIN"
+      ]
+    },
+    {
+      "index": 1299,
+      "name_hash": "ef97b84c",
+      "archive_id": 4,
+      "offset": 373428224,
+      "size": 16,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\FRONTENDMEMORYFILE.BIN"
+      ]
+    },
+    {
+      "index": 1317,
+      "name_hash": "f2a13140",
+      "archive_id": 5,
+      "offset": 0,
+      "size": 1114112,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\HUDTEXRACE.BIN"
+      ]
+    },
+    {
+      "index": 1330,
+      "name_hash": "f3e66f9e",
+      "archive_id": 5,
+      "offset": 167360512,
+      "size": 142405,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\GIN_BMW_M3_RACE.GIN"
+      ]
+    },
+    {
+      "index": 1351,
+      "name_hash": "f96844f6",
+      "archive_id": 5,
+      "offset": 167821312,
+      "size": 62781,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\GIN_BMW_M3_WHITE_DCL.GIN"
+      ]
+    },
+    {
+      "index": 1364,
+      "name_hash": "fbaf7df3",
+      "archive_id": 1,
+      "offset": 151070720,
+      "size": 74048,
+      "location_valid": true,
+      "public_name_candidates": [
+        "CARS\\BMWM3GTR\\PREVINYL.BIN"
+      ]
+    },
+    {
+      "index": 1377,
+      "name_hash": "fdbf6e76",
+      "archive_id": 5,
+      "offset": 166721536,
+      "size": 30680,
+      "location_valid": true,
+      "public_name_candidates": [
+        "SOUND\\ENGINE\\GIN_BMW_M3_DCL.GIN"
+      ]
+    },
+    {
+      "index": 1381,
+      "name_hash": "fe673a34",
+      "archive_id": 4,
+      "offset": 356671488,
+      "size": 57220,
+      "location_valid": true,
+      "public_name_candidates": [
+        "GLOBAL\\DEMO_GLOBAL.BUN"
+      ]
+    }
+  ],
+  "candidate_names_not_confirmed_by_resource_content": true,
+  "performance_upgrade_data_verified": false,
+  "safe_to_enable_mod": false,
+  "zzdata_bytes_downloaded": false,
+  "no_files_repacked": true,
+  "game_assets_uploaded": false,
+  "save_modified": false,
+  "apk_built": false,
+  "run_id": "42505058024",
+  "utc": "2026-11-08T17:27:43.204686+00:00"
+}
