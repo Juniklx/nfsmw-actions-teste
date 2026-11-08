@@ -1,0 +1,9 @@
+{
+  "stage": "PRE465",
+  "scope": "USA VPAK inner format BIN StrE and VLT DepN",
+  "purpose": "Verify BMW M3 GTR attribute names and Jenkins hashes without modifying game",
+  "source_sha256": "9f4b04a221232e614b927a870e25da7db100477a7e425114b87082f46e8b99ad",
+  "feature_default_off": true,
+  "save_touched": false,
+  "apk_built": false
+}
