@@ -1,0 +1,23 @@
+name: NFSMW PRE435 offline BMW passive log parser regression
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre435_requests/*.json'
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Compile and test synthetic log scenarios
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre435_bmw_passive_log_analyzer.py
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre435_bmw_passive_log_analyzer_test.py
