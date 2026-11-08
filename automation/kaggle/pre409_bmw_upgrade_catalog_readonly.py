@@ -28,13 +28,17 @@ def audit():
                 source=raw.decode("utf-8","replace")
                 entries={}
                 for fn in funcs:
-                    body=body_for_function(source,fn)
+                    try:
+                        body=body_for_function(source,fn)
+                    except ValueError as exc:
+                        entries[fn]={"status":"FUNCTION_NOT_FOUND","reason":str(exc)[:120]}
+                        continue
                     lines=body.splitlines()
                     calls=[{"line":i+1,"callee":c.group(1),"preceding_asm":[z.strip()[:130] for z in lines[max(0,i-5):i] if z.lstrip().startswith("//")]} for i,line in enumerate(lines) for c in CALL.finditer(line)]
                     markers=[{"line":i+1,"text":line.strip()[:180]} for i,line in enumerate(lines) if re.search(r"cmpwi|cmplwi|li\s+r\d+,20|999999999|0x3b9ac9ff|REX_CALL_INDIRECT_FUNC",line,re.I)]
                     entries[fn]={"line_count":len(lines),"direct_calls":calls[:180],"comparisons_and_indirect_calls":markers[:220],"truncated":len(calls)>180 or len(markers)>220}
-                results[label]={"source":path,"sha256":sha,"functions":entries}
-        return {"status":"AUDIT_OK","stage":"PRE409_BMW_UPGRADE_CATALOG_READONLY","archive_sha256":digest,"results":results,
+                results[label]={"source":path,"sha256":sha,"functions":entries,"missing_functions":[fn for fn,item in entries.items() if item.get("status")=="FUNCTION_NOT_FOUND"]}
+        return {"status":"PARTIAL" if any(v["missing_functions"] for v in results.values()) else "AUDIT_OK","stage":"PRE409_BMW_UPGRADE_CATALOG_READONLY","archive_sha256":digest,"results":results,
                 "interpretation":"Static callsite evidence only. Does not establish which call generates Option title, 20/20 or 999999999.",
                 "apk_built":False,"save_modified":False,"signing_accessed":False,"source_modified":False}
 def main():
@@ -45,5 +49,5 @@ def main():
     r["run_id"]=args.run_id;r["utc"]=datetime.now(timezone.utc).isoformat()
     OUT.write_text(json.dumps(r,indent=2,ensure_ascii=False)+"\n")
     print("PRE409_STATUS",r["status"]);print("PRE409_ERROR_TYPE",r.get("error_type","none"));print("PRE409_ERROR",r.get("error","none"));print("PRE409_REPORT",OUT)
-    return 0 if r["status"]=="AUDIT_OK" else 1
+    return 0 if r["status"] in ("AUDIT_OK","PARTIAL") else 1
 if __name__=="__main__":sys.exit(main())
