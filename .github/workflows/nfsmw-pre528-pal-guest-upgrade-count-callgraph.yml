@@ -30,7 +30,7 @@ jobs:
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
         run: |
           set -euo pipefail
-          PYTHONPATH=automation/kaggle python automation/kaggle/pre528_pre99_native_asset_loader_paths_readonly.py --run-id "$GITHUB_RUN_ID"
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre528_historical_guest_upgrade_count_callgraph_readonly.py --run-id "$GITHUB_RUN_ID"
       - name: Verify safety fields and persist sanitized metadata only
         if: always()
         run: |
