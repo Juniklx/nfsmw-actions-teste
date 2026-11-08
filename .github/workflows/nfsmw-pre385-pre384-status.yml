@@ -1,0 +1,23 @@
+name: NFSMW PRE385 PRE384 native host test readback
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre385_requests/*.json'
+permissions:
+  actions: read
+  contents: write
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish PRE384 native host mock run status
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre385_lookup_pre384_run_metadata.py
+          python automation/kaggle/pre385_lookup_pre384_run_metadata.py
