@@ -1,0 +1,39 @@
+name: NFSMW PRE395 Nitro r26 r28 field136 source audit
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre395_requests/*.json'
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate scanner and install Drive dependencies
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre395_nitro_r26_r28_136_readonly.py
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+      - name: Examine authenticated Nitro pointer source flow
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre395_nitro_r26_r28_136_readonly.py
+      - name: Preserve bounded PRE395 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre395-ref-origin-${{ github.run_id }}
+          path: /tmp/nfsmw-pre395/PRE395_NITRO_REFERENCE_ORIGINS.json
+          if-no-files-found: warn
+          retention-days: 30
