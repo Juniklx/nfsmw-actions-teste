@@ -1,0 +1,23 @@
+name: NFSMW PRE402 PRE401 V46 global Nitro build status
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre402_requests/*.json'
+permissions:
+  actions: read
+  contents: write
+jobs:
+  status:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish sanitized PRE401 run lookup
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre402_lookup_pre401_run_metadata.py
+          python automation/kaggle/pre402_lookup_pre401_run_metadata.py
