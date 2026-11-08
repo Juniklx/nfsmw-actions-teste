@@ -1,0 +1,8 @@
+{
+  "stage": "PRE472",
+  "source": "PAL VPAK original identical to USA",
+  "purpose": "read pointer-target array headers of BMW UpgradeSpecs",
+  "no_save_writes": true,
+  "no_build": true,
+  "feature_off": true
+}
