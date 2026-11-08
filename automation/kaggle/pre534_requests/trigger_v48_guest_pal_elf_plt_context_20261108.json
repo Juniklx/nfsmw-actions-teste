@@ -1,0 +1,13 @@
+{
+  "stage": "PRE534",
+  "goal": "Append verified PRE531/PRE532/PRE533 original V48 PAL guest ELF symbol and relocation-corrected callgraph findings into canonical CONTEXTO_NFSMW.md, backup first and verify prior 793913-byte prefix",
+  "prior_marker": "PRE530_BMW_TUNING_PRE528_PRE529_GUEST_PAL_CALLGRAPH_20261108",
+  "new_marker": "PRE534_BMW_TUNING_PRE531_PRE533_V48_PAL_ELF_GUEST_CALLGRAPH_20261108",
+  "verified_runs": [
+    42535508836,
+    42535822905,
+    42536104083
+  ],
+  "signed_V48_unchanged": true,
+  "save_MARCEK_unchanged": true
+}
