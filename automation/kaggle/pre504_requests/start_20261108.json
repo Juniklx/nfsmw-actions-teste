@@ -1,0 +1,11 @@
+{
+  "stage": "PRE504",
+  "purpose": "Append PRE499-503 authentic PAL BMW combined engine one-level scratch proof to main Drive CONTEXTO_NFSMW.md",
+  "prior_marker": "PRE498_BMW_ENGINE_PROFILE_HANDOFF_20261108",
+  "backup_first": true,
+  "verify_sha_readback": true,
+  "append_only": true,
+  "no_game_assets_modified": true,
+  "no_apk": true,
+  "no_save": true
+}
