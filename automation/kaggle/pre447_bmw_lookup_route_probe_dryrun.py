@@ -35,7 +35,7 @@ def preview(raw,other):
   raise ValueError("PRE99 source fingerprint mismatch")
  b=body_for_function(other.decode(),FILES["builder"][2]).splitlines()
  calls=[i for i,l in enumerate(b) if "__imp__sub_823E5988(ctx, base);" in l]
- if len(calls)!=2 or "ctx.lr = 0x8256F83C;" not in b[calls[0]-2:calls[0]]:
+ if len(calls)!=2 or not any("ctx.lr = 0x8256F83C;" in line for line in b[calls[0]-2:calls[0]]):
   raise ValueError("No unique first-call return-address proof")
  original=raw.decode()
  if FLAG in original or NAME in original:raise ValueError("Already instrumented")
