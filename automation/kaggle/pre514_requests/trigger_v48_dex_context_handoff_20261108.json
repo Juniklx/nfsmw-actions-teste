@@ -1,0 +1,9 @@
+{
+  "stage": "PRE514",
+  "purpose": "Verified DEX V48 audit PRE513 append-only checkpoint to canonical CONTEXTO_NFSMW.md with backup and byte-identical old prefix",
+  "previous_marker": "PRE512_BMW_TUNING_PRE511_V48_BINARY_CROSSCHECK_20261108",
+  "new_marker": "PRE514_BMW_TUNING_PRE513_V48_DEX_SELECTION_HANDOFF_20261108",
+  "github_report": "docs/PRE513_ORIGINAL_V48_ANDROID_DEX_GAME_ROOT_SELECTION_READONLY.json",
+  "no_apk_or_game_modifications": true,
+  "no_save_modifications": true
+}
