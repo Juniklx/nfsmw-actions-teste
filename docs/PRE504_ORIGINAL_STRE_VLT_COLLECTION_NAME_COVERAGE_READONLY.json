@@ -1,0 +1,42 @@
+{
+  "stage": "PRE504_ORIGINAL_STRE_VLT_COLLECTION_HASH_COVERAGE_READONLY",
+  "status": "AUDIT_OK",
+  "source_vpak_sha256": "9f4b04a221232e614b927a870e25da7db100477a7e425114b87082f46e8b99ad",
+  "original_StrE_ASCII_token_count": 1920,
+  "original_StrE_distinct_name_hash_count": 1920,
+  "original_VLT_collection_count": 2339,
+  "original_VLT_collections_with_name_hash_in_StrE": 1274,
+  "original_VLT_collections_without_name_hash_in_StrE": 1065,
+  "original_name_coverage_fraction": 0.544677,
+  "sample_original_engine_collection_names": {
+    "bmwm3gtr": {
+      "original_engine_collection_exists": true,
+      "collection_hash_in_original_StrE": true
+    },
+    "m3gtre46careerstart": {
+      "original_engine_collection_exists": true,
+      "collection_hash_in_original_StrE": true
+    },
+    "punto": {
+      "original_engine_collection_exists": true,
+      "collection_hash_in_original_StrE": true
+    }
+  },
+  "candidate_new_BMW_engine_collection_hash": "33b0fa80",
+  "candidate_name_in_original_StrE": false,
+  "candidate_class_collection_pair_already_exists": false,
+  "original_Collections_without_StrE_names_exist": true,
+  "original_collections_present_in_authenticated_asset": true,
+  "new_loader_collection_acceptance_proven": false,
+  "new_name_registration_required_in_PAL_loader": null,
+  "gameplay_tuning_or_purchase_verified": false,
+  "safe_to_build_tuning_APK": false,
+  "modified_VPAK_written": false,
+  "ISO_modified": false,
+  "APK_built": false,
+  "save_modified": false,
+  "runtime_tuning_enabled": false,
+  "source_bytes_read": 733264,
+  "run_id": "42523199651",
+  "utc": "2026-11-08T21:03:18.177954+00:00"
+}
