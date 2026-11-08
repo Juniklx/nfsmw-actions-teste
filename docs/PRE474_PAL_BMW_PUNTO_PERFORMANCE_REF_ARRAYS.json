@@ -1,0 +1,588 @@
+{
+  "stage": "PRE474_PAL_ORIGINAL_BMW_REAL_REF_ARRAY_INVENTORY",
+  "status": "AUDIT_OK",
+  "vpak_sha256": "9f4b04a221232e614b927a870e25da7db100477a7e425114b87082f46e8b99ad",
+  "pal_binary_identical_to_usa_from_PRE467": true,
+  "reference_array_item_size_bytes": 12,
+  "refspec_has_class_collection_and_reserved": true,
+  "vehicles": {
+    "bmwm3gtr": {
+      "collection_name": "bmwm3gtr",
+      "collection_hash": "cd88083f",
+      "parent_hash": "a6abc921",
+      "parent_name_candidates": [
+        "racers"
+      ],
+      "optional_entry_count": 11,
+      "categories_with_explicit_references": {
+        "nos": {
+          "field_name": "nos",
+          "field_hash": "b1669f64",
+          "nodeflags_be": "0200",
+          "type_index": 7,
+          "sentinel_vlt_value": "effecadd",
+          "pointer_fixups_count": 1,
+          "bin_array_offset": 256528,
+          "capacity": 2,
+          "item_count": 2,
+          "element_size": 12,
+          "flags": "0000",
+          "array_header_valid": true,
+          "items": [
+            {
+              "index": 0,
+              "class_hash": "b1669f64",
+              "class_name": "nos",
+              "collection_hash": "1efbd807",
+              "collection_name_candidates": [],
+              "trailing_u32": "00000000"
+            },
+            {
+              "index": 1,
+              "class_hash": "b1669f64",
+              "class_name": "nos",
+              "collection_hash": "40826f5e",
+              "collection_name_candidates": [],
+              "trailing_u32": "00000000"
+            }
+          ],
+          "pvehicle_upgrade_limit": 3
+        },
+        "tires": {
+          "field_name": "tires",
+          "field_hash": "bd38d1ca",
+          "nodeflags_be": "0200",
+          "type_index": 7,
+          "sentinel_vlt_value": "effecadd",
+          "pointer_fixups_count": 1,
+          "bin_array_offset": 256576,
+          "capacity": 1,
+          "item_count": 1,
+          "element_size": 12,
+          "flags": "0000",
+          "array_header_valid": true,
+          "items": [
+            {
+              "index": 0,
+              "class_hash": "bd38d1ca",
+              "class_name": "tires",
+              "collection_hash": "cd88083f",
+              "collection_name_candidates": [
+                "bmwm3gtr"
+              ],
+              "trailing_u32": "00000000"
+            }
+          ],
+          "pvehicle_upgrade_limit": 0
+        },
+        "chassis": {
+          "field_name": "chassis",
+          "field_hash": "afa210f0",
+          "nodeflags_be": "0200",
+          "type_index": 7,
+          "sentinel_vlt_value": "effecadd",
+          "pointer_fixups_count": 1,
+          "bin_array_offset": 256620,
+          "capacity": 1,
+          "item_count": 1,
+          "element_size": 12,
+          "flags": "0000",
+          "array_header_valid": true,
+          "items": [
+            {
+              "index": 0,
+              "class_hash": "afa210f0",
+              "class_name": "chassis",
+              "collection_hash": "cd88083f",
+              "collection_name_candidates": [
+                "bmwm3gtr"
+              ],
+              "trailing_u32": "00000000"
+            }
+          ],
+          "pvehicle_upgrade_limit": 0
+        },
+        "transmission": {
+          "field_name": "transmission",
+          "field_hash": "07a7a3e5",
+          "nodeflags_be": "0200",
+          "type_index": 7,
+          "sentinel_vlt_value": "effecadd",
+          "pointer_fixups_count": 1,
+          "bin_array_offset": 256640,
+          "capacity": 1,
+          "item_count": 1,
+          "element_size": 12,
+          "flags": "0000",
+          "array_header_valid": true,
+          "items": [
+            {
+              "index": 0,
+              "class_hash": "07a7a3e5",
+              "class_name": "transmission",
+              "collection_hash": "cd88083f",
+              "collection_name_candidates": [
+                "bmwm3gtr"
+              ],
+              "trailing_u32": "00000000"
+            }
+          ],
+          "pvehicle_upgrade_limit": 0
+        },
+        "engine": {
+          "field_name": "engine",
+          "field_hash": "f1f5fbc7",
+          "nodeflags_be": "0200",
+          "type_index": 7,
+          "sentinel_vlt_value": "effecadd",
+          "pointer_fixups_count": 1,
+          "bin_array_offset": 256660,
+          "capacity": 1,
+          "item_count": 1,
+          "element_size": 12,
+          "flags": "0000",
+          "array_header_valid": true,
+          "items": [
+            {
+              "index": 0,
+              "class_hash": "f1f5fbc7",
+              "class_name": "engine",
+              "collection_hash": "cd88083f",
+              "collection_name_candidates": [
+                "bmwm3gtr"
+              ],
+              "trailing_u32": "00000000"
+            }
+          ],
+          "pvehicle_upgrade_limit": 0
+        },
+        "brakes": {
+          "field_name": "brakes",
+          "field_hash": "36350867",
+          "nodeflags_be": "0200",
+          "type_index": 7,
+          "sentinel_vlt_value": "effecadd",
+          "pointer_fixups_count": 1,
+          "bin_array_offset": 256716,
+          "capacity": 1,
+          "item_count": 1,
+          "element_size": 12,
+          "flags": "0000",
+          "array_header_valid": true,
+          "items": [
+            {
+              "index": 0,
+              "class_hash": "36350867",
+              "class_name": "brakes",
+              "collection_hash": "cd88083f",
+              "collection_name_candidates": [
+                "bmwm3gtr"
+              ],
+              "trailing_u32": "00000000"
+            }
+          ],
+          "pvehicle_upgrade_limit": 0
+        }
+      },
+      "pvehicle_original_all_upgrade_limits": {
+        "engine_upgrades": 0,
+        "transmission_upgrades": 0,
+        "nos_upgrades": 3,
+        "brakes_upgrades": 0,
+        "tires_upgrades": 0,
+        "induction_upgrades": 0,
+        "chassis_upgrades": 0
+      }
+    },
+    "punto": {
+      "collection_name": "punto",
+      "collection_hash": "a6ee7a11",
+      "parent_hash": "a6abc921",
+      "parent_name_candidates": [
+        "racers"
+      ],
+      "optional_entry_count": 11,
+      "categories_with_explicit_references": {
+        "tires": {
+          "field_name": "tires",
+          "field_hash": "bd38d1ca",
+          "nodeflags_be": "0200",
+          "type_index": 8,
+          "sentinel_vlt_value": "effecadd",
+          "pointer_fixups_count": 1,
+          "bin_array_offset": 258520,
+          "capacity": 2,
+          "item_count": 2,
+          "element_size": 12,
+          "flags": "0000",
+          "array_header_valid": true,
+          "items": [
+            {
+              "index": 0,
+              "class_hash": "bd38d1ca",
+              "class_name": "tires",
+              "collection_hash": "a6ee7a11",
+              "collection_name_candidates": [
+                "punto"
+              ],
+              "trailing_u32": "00000000"
+            },
+            {
+              "index": 1,
+              "class_hash": "bd38d1ca",
+              "class_name": "tires",
+              "collection_hash": "a6f0f405",
+              "collection_name_candidates": [],
+              "trailing_u32": "00000000"
+            }
+          ],
+          "pvehicle_upgrade_limit": 3
+        },
+        "transmission": {
+          "field_name": "transmission",
+          "field_hash": "07a7a3e5",
+          "nodeflags_be": "0200",
+          "type_index": 8,
+          "sentinel_vlt_value": "effecadd",
+          "pointer_fixups_count": 1,
+          "bin_array_offset": 258640,
+          "capacity": 2,
+          "item_count": 2,
+          "element_size": 12,
+          "flags": "0000",
+          "array_header_valid": true,
+          "items": [
+            {
+              "index": 0,
+              "class_hash": "07a7a3e5",
+              "class_name": "transmission",
+              "collection_hash": "a6ee7a11",
+              "collection_name_candidates": [
+                "punto"
+              ],
+              "trailing_u32": "00000000"
+            },
+            {
+              "index": 1,
+              "class_hash": "07a7a3e5",
+              "class_name": "transmission",
+              "collection_hash": "a6f0f405",
+              "collection_name_candidates": [],
+              "trailing_u32": "00000000"
+            }
+          ],
+          "pvehicle_upgrade_limit": 4
+        },
+        "engine": {
+          "field_name": "engine",
+          "field_hash": "f1f5fbc7",
+          "nodeflags_be": "0200",
+          "type_index": 8,
+          "sentinel_vlt_value": "effecadd",
+          "pointer_fixups_count": 1,
+          "bin_array_offset": 258672,
+          "capacity": 2,
+          "item_count": 2,
+          "element_size": 12,
+          "flags": "0000",
+          "array_header_valid": true,
+          "items": [
+            {
+              "index": 0,
+              "class_hash": "f1f5fbc7",
+              "class_name": "engine",
+              "collection_hash": "a6ee7a11",
+              "collection_name_candidates": [
+                "punto"
+              ],
+              "trailing_u32": "00000000"
+            },
+            {
+              "index": 1,
+              "class_hash": "f1f5fbc7",
+              "class_name": "engine",
+              "collection_hash": "a6f0f405",
+              "collection_name_candidates": [],
+              "trailing_u32": "00000000"
+            }
+          ],
+          "pvehicle_upgrade_limit": 4
+        },
+        "chassis": {
+          "field_name": "chassis",
+          "field_hash": "afa210f0",
+          "nodeflags_be": "0200",
+          "type_index": 8,
+          "sentinel_vlt_value": "effecadd",
+          "pointer_fixups_count": 1,
+          "bin_array_offset": 258760,
+          "capacity": 2,
+          "item_count": 2,
+          "element_size": 12,
+          "flags": "0000",
+          "array_header_valid": true,
+          "items": [
+            {
+              "index": 0,
+              "class_hash": "afa210f0",
+              "class_name": "chassis",
+              "collection_hash": "a6ee7a11",
+              "collection_name_candidates": [
+                "punto"
+              ],
+              "trailing_u32": "00000000"
+            },
+            {
+              "index": 1,
+              "class_hash": "afa210f0",
+              "class_name": "chassis",
+              "collection_hash": "a6f0f405",
+              "collection_name_candidates": [],
+              "trailing_u32": "00000000"
+            }
+          ],
+          "pvehicle_upgrade_limit": 3
+        },
+        "brakes": {
+          "field_name": "brakes",
+          "field_hash": "36350867",
+          "nodeflags_be": "0200",
+          "type_index": 8,
+          "sentinel_vlt_value": "effecadd",
+          "pointer_fixups_count": 1,
+          "bin_array_offset": 258792,
+          "capacity": 2,
+          "item_count": 2,
+          "element_size": 12,
+          "flags": "0000",
+          "array_header_valid": true,
+          "items": [
+            {
+              "index": 0,
+              "class_hash": "36350867",
+              "class_name": "brakes",
+              "collection_hash": "a6ee7a11",
+              "collection_name_candidates": [
+                "punto"
+              ],
+              "trailing_u32": "00000000"
+            },
+            {
+              "index": 1,
+              "class_hash": "36350867",
+              "class_name": "brakes",
+              "collection_hash": "a6f0f405",
+              "collection_name_candidates": [],
+              "trailing_u32": "00000000"
+            }
+          ],
+          "pvehicle_upgrade_limit": 4
+        }
+      },
+      "pvehicle_original_all_upgrade_limits": {
+        "engine_upgrades": 4,
+        "transmission_upgrades": 4,
+        "nos_upgrades": 3,
+        "brakes_upgrades": 4,
+        "tires_upgrades": 3,
+        "induction_upgrades": 3,
+        "chassis_upgrades": 3
+      }
+    },
+    "m3gtre46careerstart": {
+      "collection_name": "m3gtre46careerstart",
+      "collection_hash": "39dae0f8",
+      "parent_hash": "4e085fb3",
+      "parent_name_candidates": [],
+      "optional_entry_count": 12,
+      "categories_with_explicit_references": {
+        "nos": {
+          "field_name": "nos",
+          "field_hash": "b1669f64",
+          "nodeflags_be": "0200",
+          "type_index": 7,
+          "sentinel_vlt_value": "effecadd",
+          "pointer_fixups_count": 1,
+          "bin_array_offset": 269648,
+          "capacity": 2,
+          "item_count": 2,
+          "element_size": 12,
+          "flags": "0000",
+          "array_header_valid": true,
+          "items": [
+            {
+              "index": 0,
+              "class_hash": "b1669f64",
+              "class_name": "nos",
+              "collection_hash": "1efbd807",
+              "collection_name_candidates": [],
+              "trailing_u32": "00000000"
+            },
+            {
+              "index": 1,
+              "class_hash": "b1669f64",
+              "class_name": "nos",
+              "collection_hash": "40826f5e",
+              "collection_name_candidates": [],
+              "trailing_u32": "00000000"
+            }
+          ],
+          "pvehicle_upgrade_limit": 3
+        },
+        "tires": {
+          "field_name": "tires",
+          "field_hash": "bd38d1ca",
+          "nodeflags_be": "0200",
+          "type_index": 7,
+          "sentinel_vlt_value": "effecadd",
+          "pointer_fixups_count": 1,
+          "bin_array_offset": 269696,
+          "capacity": 1,
+          "item_count": 1,
+          "element_size": 12,
+          "flags": "0000",
+          "array_header_valid": true,
+          "items": [
+            {
+              "index": 0,
+              "class_hash": "bd38d1ca",
+              "class_name": "tires",
+              "collection_hash": "39dae0f8",
+              "collection_name_candidates": [
+                "m3gtre46careerstart"
+              ],
+              "trailing_u32": "00000000"
+            }
+          ],
+          "pvehicle_upgrade_limit": 0
+        },
+        "transmission": {
+          "field_name": "transmission",
+          "field_hash": "07a7a3e5",
+          "nodeflags_be": "0200",
+          "type_index": 7,
+          "sentinel_vlt_value": "effecadd",
+          "pointer_fixups_count": 1,
+          "bin_array_offset": 269740,
+          "capacity": 1,
+          "item_count": 1,
+          "element_size": 12,
+          "flags": "0000",
+          "array_header_valid": true,
+          "items": [
+            {
+              "index": 0,
+              "class_hash": "07a7a3e5",
+              "class_name": "transmission",
+              "collection_hash": "39dae0f8",
+              "collection_name_candidates": [
+                "m3gtre46careerstart"
+              ],
+              "trailing_u32": "00000000"
+            }
+          ],
+          "pvehicle_upgrade_limit": 0
+        },
+        "engine": {
+          "field_name": "engine",
+          "field_hash": "f1f5fbc7",
+          "nodeflags_be": "0200",
+          "type_index": 7,
+          "sentinel_vlt_value": "effecadd",
+          "pointer_fixups_count": 1,
+          "bin_array_offset": 269760,
+          "capacity": 1,
+          "item_count": 1,
+          "element_size": 12,
+          "flags": "0000",
+          "array_header_valid": true,
+          "items": [
+            {
+              "index": 0,
+              "class_hash": "f1f5fbc7",
+              "class_name": "engine",
+              "collection_hash": "39dae0f8",
+              "collection_name_candidates": [
+                "m3gtre46careerstart"
+              ],
+              "trailing_u32": "00000000"
+            }
+          ],
+          "pvehicle_upgrade_limit": 0
+        },
+        "chassis": {
+          "field_name": "chassis",
+          "field_hash": "afa210f0",
+          "nodeflags_be": "0200",
+          "type_index": 7,
+          "sentinel_vlt_value": "effecadd",
+          "pointer_fixups_count": 1,
+          "bin_array_offset": 269836,
+          "capacity": 1,
+          "item_count": 1,
+          "element_size": 12,
+          "flags": "0000",
+          "array_header_valid": true,
+          "items": [
+            {
+              "index": 0,
+              "class_hash": "afa210f0",
+              "class_name": "chassis",
+              "collection_hash": "39dae0f8",
+              "collection_name_candidates": [
+                "m3gtre46careerstart"
+              ],
+              "trailing_u32": "00000000"
+            }
+          ],
+          "pvehicle_upgrade_limit": 0
+        },
+        "brakes": {
+          "field_name": "brakes",
+          "field_hash": "36350867",
+          "nodeflags_be": "0200",
+          "type_index": 7,
+          "sentinel_vlt_value": "effecadd",
+          "pointer_fixups_count": 1,
+          "bin_array_offset": 269856,
+          "capacity": 1,
+          "item_count": 1,
+          "element_size": 12,
+          "flags": "0000",
+          "array_header_valid": true,
+          "items": [
+            {
+              "index": 0,
+              "class_hash": "36350867",
+              "class_name": "brakes",
+              "collection_hash": "39dae0f8",
+              "collection_name_candidates": [
+                "m3gtre46careerstart"
+              ],
+              "trailing_u32": "00000000"
+            }
+          ],
+          "pvehicle_upgrade_limit": 0
+        }
+      },
+      "pvehicle_original_all_upgrade_limits": {
+        "engine_upgrades": 0,
+        "transmission_upgrades": 0,
+        "nos_upgrades": 3,
+        "brakes_upgrades": 0,
+        "tires_upgrades": 0,
+        "induction_upgrades": 0,
+        "chassis_upgrades": 0
+      }
+    }
+  },
+  "candidate_refspec_array_does_not_prove_purchasable_upgrade_part": true,
+  "part_catalog_validated": false,
+  "safe_to_enable_mod": false,
+  "apk_built": false,
+  "save_accessed": false,
+  "assets_published": false,
+  "ranges_transferred_bytes": 733264,
+  "run_id": "42511041055",
+  "utc": "2026-11-08T18:39:02.825681+00:00"
+}
