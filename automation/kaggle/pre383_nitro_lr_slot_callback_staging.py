@@ -20,7 +20,7 @@ extern "C" void NFSMW_PRE379_NITRO_ENTRY_TRACE(unsigned int guest_lr,
   auto& n=g_pre383_calls_by_slot[slot-1u];
   const std::uint32_t ordinal=n.fetch_add(1u,std::memory_order_relaxed)+1u;
   if (ordinal > 1024u || (ordinal & (ordinal-1u))!=0u) return;
-  REXLOG_INFO("[NFSMW_PRE383_NITRO_CALLSITE] slot={} guest_lr=0x{:08X} samples={}",
+  (void)guest_lr; // keep host-only synthetic logging stub -Werror clean\n  REXLOG_INFO("[NFSMW_PRE383_NITRO_CALLSITE] slot={} guest_lr=0x{:08X} samples={}",
               slot, guest_lr, ordinal);
 }
 '''
