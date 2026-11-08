@@ -1,0 +1,7 @@
+{
+  "stage": "PRE517",
+  "purpose": "Independently calculate nonreflected poly04C11DB7 checksum over original VPAK plus length and compare with pinned original ZDIR 296ad9ed; verify global sector total fields PAL/USA all records",
+  "public_reference": "Ekey/NFS.BIN.Tool source commit ebf30eaa7ee37862254f37b2542107eafd29f7f6",
+  "readonly": true,
+  "guest_game_assets_unchanged": true
+}
