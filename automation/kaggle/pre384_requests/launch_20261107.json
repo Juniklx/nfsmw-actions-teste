@@ -1,0 +1,7 @@
+{
+  "stage": "PRE384",
+  "mode": "host_only_native_compile",
+  "noAPK": true,
+  "noGuestWrites": true,
+  "ownerVerified": false
+}
