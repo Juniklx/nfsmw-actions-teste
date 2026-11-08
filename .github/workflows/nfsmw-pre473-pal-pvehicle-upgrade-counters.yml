@@ -1,0 +1,61 @@
+name: NFSMW PRE473 verify PAL BMW actual performance upgrade counters
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre473_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre473-pal-pvehicle-upgrades
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare authenticated read-only parser
+        run: |
+          python -m pip install --disable-pip-version-check google-auth requests >/dev/null
+          python -m py_compile automation/kaggle/pre459_pal_zip_car_catalog_readonly.py automation/kaggle/pre462_usa_raw_iso_attributes_readonly.py automation/kaggle/pre463_usa_vpak_attribute_metadata_readonly.py automation/kaggle/pre465_usa_bmw_vpak_inner_schema_readonly.py automation/kaggle/pre473_pal_pvehicle_original_upgrade_counts_readonly.py
+      - name: Read only original BMW performance upgrade counters
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre473_pal_pvehicle_original_upgrade_counts_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Persist non-sensitive original counters
+        if: success()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data=json.loads(Path("/tmp/nfsmw-pre473/report.json").read_text())
+          if data.get("status")!="AUDIT_OK" or data.get("upgrades_purchase_safe") is not False:
+              raise SystemExit("PRE473 safety gate failed")
+          dest=Path("docs/PRE473_PAL_PVEHICLE_BMW_UPGRADE_COUNTERS_READONLY.json")
+          dest.parent.mkdir(parents=True,exist_ok=True)
+          dest.write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE473_PAL_PVEHICLE_BMW_UPGRADE_COUNTERS_READONLY.json
+          git diff --cached --quiet && exit 0
+          git commit -m "PRE473: record authenticated BMW original performance upgrade counters"
+          git push origin HEAD:main
+      - name: Preserve read-only diagnostic report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre473-bmw-actual-upgrade-counters-${{ github.run_id }}
+          path: /tmp/nfsmw-pre473/report.json
+          if-no-files-found: warn
+          retention-days: 14
