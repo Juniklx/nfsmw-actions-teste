@@ -1,0 +1,531 @@
+{
+  "stage": "PRE509_HISTORICAL_VFS_GAME_MOUNT_SOURCE_CALLPATH_READONLY",
+  "status": "AUDIT_OK",
+  "PRE99_archive_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "source_provenance": "authenticated PRE99 historical snapshot, not current V48",
+  "comments_masked_before_pattern_scan": true,
+  "candidate_files_read": 9,
+  "source_reviews": [
+    {
+      "original_pre99_relative_source": "workspace/nativo/sdk/src/filesystem/virtual_file_system.cpp",
+      "sha256": "a3e89c5d85f899d9756750fcf2dcc47b21cb5afc96f71c1804fc35544902bc9d",
+      "matched_pre505_pin": true,
+      "source_lines": 344,
+      "noncomment_matching_code_lines": 21,
+      "pattern_hit_counts": {
+        "guest_game_route": 1,
+        "mount_or_host_device": 1,
+        "virtual_path_resolution": 19
+      },
+      "selected_code_anchors": [
+        {
+          "line": 34,
+          "kind": [
+            "mount_or_host_device"
+          ],
+          "original_line_sha256": "de547d1c27fc93a6076f561bab3e9a4caaad39add3a4ac8efe65fe98f190b615"
+        },
+        {
+          "line": 105,
+          "kind": [
+            "virtual_path_resolution"
+          ],
+          "original_line_sha256": "4dc72b7b4a4182674898eac8df40e3cf0210f9e551766f670f65d7bf936c696c"
+        },
+        {
+          "line": 127,
+          "kind": [
+            "virtual_path_resolution"
+          ],
+          "original_line_sha256": "707cc44b6106fb0ce56c7d59909d6ec85f6a53cbdb10d3410bf9637a2d2f573b"
+        },
+        {
+          "line": 134,
+          "kind": [
+            "virtual_path_resolution"
+          ],
+          "original_line_sha256": "26b9cee950812bf37de837926e206136f59b6dc54463fb50cb0f0900a54a0d3c"
+        },
+        {
+          "line": 163,
+          "kind": [
+            "virtual_path_resolution"
+          ],
+          "original_line_sha256": "f774ec9bf3307949e8f3532c4042d35a461094e3f7924b27f5f23b6a45dc3372"
+        },
+        {
+          "line": 170,
+          "kind": [
+            "virtual_path_resolution"
+          ],
+          "original_line_sha256": "20816dd98dd01901596a7bf850b5253637b9292e43cfab81996be687847cc7dd"
+        },
+        {
+          "line": 183,
+          "kind": [
+            "virtual_path_resolution"
+          ],
+          "original_line_sha256": "6aa73234d7c64963119f43c61a82629429f20534e96888bb2cae41f8194ed675"
+        },
+        {
+          "line": 195,
+          "kind": [
+            "virtual_path_resolution"
+          ],
+          "original_line_sha256": "18e39cfce38d84507c2bfbc7d5132884b2d12328039c2659841e5061d5295361"
+        },
+        {
+          "line": 198,
+          "kind": [
+            "virtual_path_resolution"
+          ],
+          "original_line_sha256": "eb86e19098f8ff138daacdecf22a33544d4e78d36b7cea7d33688d0219641b53"
+        },
+        {
+          "line": 220,
+          "kind": [
+            "virtual_path_resolution"
+          ],
+          "original_line_sha256": "21f9581f0d96ffe243af84cb6c93c010f54356d650f0eeb75e1125bab43aa1a1"
+        }
+      ],
+      "source_exported": false
+    },
+    {
+      "original_pre99_relative_source": "workspace/nativo/sdk/src/filesystem/devices/host_path_file.cpp",
+      "sha256": "7dace8159023592ee8008a0b0528a3798aea6a1856bc8e003492b9c4cce65346",
+      "matched_pre505_pin": true,
+      "source_lines": 878,
+      "noncomment_matching_code_lines": 1,
+      "pattern_hit_counts": {
+        "host_physical_read": 1
+      },
+      "selected_code_anchors": [
+        {
+          "line": 746,
+          "kind": [
+            "host_physical_read"
+          ],
+          "original_line_sha256": "94be114796f18ba06880b42448ecd5cfb84b221fc848a688e25005741f093492"
+        }
+      ],
+      "source_exported": false
+    },
+    {
+      "original_pre99_relative_source": "workspace/nativo/sdk/src/filesystem/devices/host_path_entry.cpp",
+      "sha256": "d9cc8916666ab499ccb67fc07c9283917da8bf708c987c05cf9a393ae28bbdb3",
+      "matched_pre505_pin": true,
+      "source_lines": 202,
+      "noncomment_matching_code_lines": 6,
+      "pattern_hit_counts": {
+        "host_physical_read": 2,
+        "mount_or_host_device": 2,
+        "virtual_path_resolution": 2
+      },
+      "selected_code_anchors": [
+        {
+          "line": 53,
+          "kind": [
+            "host_physical_read"
+          ],
+          "original_line_sha256": "116bdbfde23864ca020b4ef0cd9eb2eae21743d903821fa86f578b8887be1b83"
+        },
+        {
+          "line": 79,
+          "kind": [
+            "mount_or_host_device"
+          ],
+          "original_line_sha256": "a06e82781117266f44de6e7eb30911c2dee0d3e9bf63907e3eaea138e28e7eb0"
+        },
+        {
+          "line": 88,
+          "kind": [
+            "host_physical_read"
+          ],
+          "original_line_sha256": "fff5b162191ab55b6e4190d6494dc37b4c6a160458cee0f99c23bfb2dcc18eb0"
+        },
+        {
+          "line": 97,
+          "kind": [
+            "virtual_path_resolution"
+          ],
+          "original_line_sha256": "99250dbd424d69320f9266c051d8318ce70aa1155667e2af3ebc384810397384"
+        },
+        {
+          "line": 115,
+          "kind": [
+            "virtual_path_resolution"
+          ],
+          "original_line_sha256": "daf59114df7bc3abdf482468b5dc578be5ca2d48cbf1dca35fb307fb219dae68"
+        },
+        {
+          "line": 142,
+          "kind": [
+            "mount_or_host_device"
+          ],
+          "original_line_sha256": "2250b364620a4206a10b345ea5a1bec84db4cca857c87c39987ec5ec560ea613"
+        }
+      ],
+      "source_exported": false
+    },
+    {
+      "original_pre99_relative_source": "workspace/nativo/sdk/src/filesystem/devices/host_path_device.cpp",
+      "sha256": "dccda2f48817a594aaa1e22dd4d6210e6f8c8eb438345ad9e423420587450be4",
+      "matched_pre505_pin": false,
+      "source_lines": 217,
+      "noncomment_matching_code_lines": 7,
+      "pattern_hit_counts": {
+        "mount_or_host_device": 6,
+        "virtual_path_resolution": 2
+      },
+      "selected_code_anchors": [
+        {
+          "line": 44,
+          "kind": [
+            "mount_or_host_device"
+          ],
+          "original_line_sha256": "35270f9ead92cc9738c994fbec9e447f6e0c2261fbe7b697b8b65f4969ef1f4b"
+        },
+        {
+          "line": 53,
+          "kind": [
+            "mount_or_host_device"
+          ],
+          "original_line_sha256": "f71530c3f6b087722e1226a92cb4c31642a5040c87f517910b9ba32735111365"
+        },
+        {
+          "line": 55,
+          "kind": [
+            "mount_or_host_device"
+          ],
+          "original_line_sha256": "550819e058a1cb553f405a3b0853021f3ff6f288b5a44e51790b49f4a05dba7e"
+        },
+        {
+          "line": 89,
+          "kind": [
+            "mount_or_host_device"
+          ],
+          "original_line_sha256": "022c56e05354177155e5d0e266e5acbd65f72e2621c504d54a02acd7a4a508ed"
+        },
+        {
+          "line": 120,
+          "kind": [
+            "mount_or_host_device",
+            "virtual_path_resolution"
+          ],
+          "original_line_sha256": "d0a1d51af73673ec1095db30fd36992bcea92d0bee2336cb8852098abe85ac13"
+        },
+        {
+          "line": 124,
+          "kind": [
+            "virtual_path_resolution"
+          ],
+          "original_line_sha256": "a25b46a902d7dada6a0c52726deb001f491ffaa5dc989f1814ee2beb428b2b22"
+        },
+        {
+          "line": 191,
+          "kind": [
+            "mount_or_host_device"
+          ],
+          "original_line_sha256": "4b595bc25d0e4834bfe4050d6b83bfb84b352d23807659cb9bbb9b3e488e2ef7"
+        }
+      ],
+      "source_exported": false
+    },
+    {
+      "original_pre99_relative_source": "workspace/nativo/sdk/src/kernel/xboxkrnl/xboxkrnl_io.cpp",
+      "sha256": "40869526201fbed631b7bb506c83680edc02b2f4a6701f31a19b1a068c622015",
+      "matched_pre505_pin": true,
+      "source_lines": 1280,
+      "noncomment_matching_code_lines": 3,
+      "pattern_hit_counts": {
+        "virtual_path_resolution": 3
+      },
+      "selected_code_anchors": [
+        {
+          "line": 533,
+          "kind": [
+            "virtual_path_resolution"
+          ],
+          "original_line_sha256": "760e41e816ec4bbb1853aa885513d5ff1b8ec4d578ab570809b8358b2b6e7f1d"
+        },
+        {
+          "line": 535,
+          "kind": [
+            "virtual_path_resolution"
+          ],
+          "original_line_sha256": "d55a8637769167f90d264289175eaec01f708c633c5d7f36ee3fcaff4e11aca3"
+        },
+        {
+          "line": 977,
+          "kind": [
+            "virtual_path_resolution"
+          ],
+          "original_line_sha256": "6b61d818cb449fccb951de5827b560bdf3001fc69730fb9dbec7def0b74f29f5"
+        }
+      ],
+      "source_exported": false
+    },
+    {
+      "original_pre99_relative_source": "workspace/nativo/sdk/src/rexglue/commands/init_command.cpp",
+      "sha256": "47f0d4ee7d0d19d53ae06480651c7791ca177a69741a7ead05e003be3edc36bf",
+      "matched_pre505_pin": true,
+      "source_lines": 642,
+      "noncomment_matching_code_lines": 10,
+      "pattern_hit_counts": {
+        "guest_game_route": 10
+      },
+      "selected_code_anchors": [
+        {
+          "line": 122,
+          "kind": [
+            "guest_game_route"
+          ],
+          "original_line_sha256": "aa53d33b5f4c7349e749befa1a6f46d659c892fa16ca823f72249aca75254ae7"
+        },
+        {
+          "line": 125,
+          "kind": [
+            "guest_game_route"
+          ],
+          "original_line_sha256": "718b3c62e40b8d2e52f6d47b257284a9375987d416054b2f34572e2139dcc1dd"
+        },
+        {
+          "line": 128,
+          "kind": [
+            "guest_game_route"
+          ],
+          "original_line_sha256": "b89dd3329f31f57f4b2290f8a94e094e6a3ca35a0d894da1fd936d27454a4e3f"
+        },
+        {
+          "line": 131,
+          "kind": [
+            "guest_game_route"
+          ],
+          "original_line_sha256": "f9eeff5a32f9f589143884d71ddac5f96369d2dde2f9c6ca23899966fda5ed59"
+        },
+        {
+          "line": 136,
+          "kind": [
+            "guest_game_route"
+          ],
+          "original_line_sha256": "c15787e38f10d65067b3e072a66945ad72a8c92fc0bfb92787d7200ebc94f328"
+        },
+        {
+          "line": 185,
+          "kind": [
+            "guest_game_route"
+          ],
+          "original_line_sha256": "b86885177310e70a40bc6bf7261f7064c0f1f0021459f2ffe756435afbcffdd6"
+        },
+        {
+          "line": 384,
+          "kind": [
+            "guest_game_route"
+          ],
+          "original_line_sha256": "9771c4588a26e726c872efd8bd6eb88497702b4e11a640e0f628bd5ed0512bbd"
+        },
+        {
+          "line": 544,
+          "kind": [
+            "guest_game_route"
+          ],
+          "original_line_sha256": "176dc238fcaaed7a3780c9c6dc606bbf61dd2af1491c5ed15129d20ea304e2c5"
+        },
+        {
+          "line": 573,
+          "kind": [
+            "guest_game_route"
+          ],
+          "original_line_sha256": "554fb695a7e4031eb4b7b6753e3cc244b261b314ed94ca2b2aa81928ffb0b340"
+        },
+        {
+          "line": 604,
+          "kind": [
+            "guest_game_route"
+          ],
+          "original_line_sha256": "079b321502c2590b8458453c2a81fedc74994711fde47085c6252947f1fb72a3"
+        }
+      ],
+      "source_exported": false
+    },
+    {
+      "original_pre99_relative_source": "workspace/nativo/sdk/src/system/runtime.cpp",
+      "sha256": "2a0a0f221f4851500afe79a0d7515f3a8815210d8f7f311e9541fdd4d12885d9",
+      "matched_pre505_pin": true,
+      "source_lines": 441,
+      "noncomment_matching_code_lines": 15,
+      "pattern_hit_counts": {
+        "guest_game_route": 10,
+        "mount_or_host_device": 5
+      },
+      "selected_code_anchors": [
+        {
+          "line": 323,
+          "kind": [
+            "guest_game_route"
+          ],
+          "original_line_sha256": "8d85ef0b3bed78caaee3ab908efc08d88301c6aafa012d4f04f0d82e0e147df5"
+        },
+        {
+          "line": 325,
+          "kind": [
+            "guest_game_route"
+          ],
+          "original_line_sha256": "5d5e7daa88bf867bd82693791ee89c06e17fc457cbd2909bdcb68f330c8a9b1b"
+        },
+        {
+          "line": 326,
+          "kind": [
+            "guest_game_route"
+          ],
+          "original_line_sha256": "095a8ce0f174d6b3dd2af1fd0d7b4dbc73a112164b3fd2f7086c145c3b539bfc"
+        },
+        {
+          "line": 327,
+          "kind": [
+            "guest_game_route"
+          ],
+          "original_line_sha256": "0c43132611956e9ade8843d05f176b5300681f6236adf5b928b0133b13475d7c"
+        },
+        {
+          "line": 341,
+          "kind": [
+            "guest_game_route"
+          ],
+          "original_line_sha256": "b651aa0aaded3e4fe27b26ee380dbd110f36cad13a1d1cf7fee130ec0be1ccea"
+        },
+        {
+          "line": 346,
+          "kind": [
+            "mount_or_host_device"
+          ],
+          "original_line_sha256": "6b278226c1b678b9b7e8677d11e5c6aa1d3e0e6394834f12e274b655e95cd819"
+        },
+        {
+          "line": 354,
+          "kind": [
+            "mount_or_host_device"
+          ],
+          "original_line_sha256": "dbb8e55b4dfb0a5aa3f96e30ff697ba37a460759f2d6d20af622cbd8be60506f"
+        },
+        {
+          "line": 371,
+          "kind": [
+            "mount_or_host_device"
+          ],
+          "original_line_sha256": "42faf5f4301025583aa123dc739d94365f4b977308d4fa04265ef192197abbaf"
+        },
+        {
+          "line": 372,
+          "kind": [
+            "mount_or_host_device"
+          ],
+          "original_line_sha256": "16b172378c898dc23f19ee25f9be1b76c004ba917217817fe2f3b5738d7166d8"
+        },
+        {
+          "line": 389,
+          "kind": [
+            "mount_or_host_device"
+          ],
+          "original_line_sha256": "3534d6c06a0fdbb1ba573a801c461b1bcf8be8897d27851a243573fbbbf692b7"
+        }
+      ],
+      "source_exported": false
+    },
+    {
+      "original_pre99_relative_source": "workspace/nativo/sdk/src/ui/rex_app.cpp",
+      "sha256": "455e11b701d553df24bc11f436fdb666b0c2f1447a6d6152b6d673962d2a152b",
+      "matched_pre505_pin": true,
+      "source_lines": 698,
+      "noncomment_matching_code_lines": 5,
+      "pattern_hit_counts": {
+        "guest_game_route": 5
+      },
+      "selected_code_anchors": [
+        {
+          "line": 124,
+          "kind": [
+            "guest_game_route"
+          ],
+          "original_line_sha256": "e0bc307a77ec6dbcbb90783ddd54b6e47408ea5f2bbb03851c84531d3a51f237"
+        },
+        {
+          "line": 127,
+          "kind": [
+            "guest_game_route"
+          ],
+          "original_line_sha256": "f346bc114566c86999b30ff568e5657a62eb9f631f3f994da478350d939a432a"
+        },
+        {
+          "line": 161,
+          "kind": [
+            "guest_game_route"
+          ],
+          "original_line_sha256": "7d9cbb43c08b107a6aaa33256f5d5fbf3d6ff70334b9a5da205984205f1f9535"
+        },
+        {
+          "line": 302,
+          "kind": [
+            "guest_game_route"
+          ],
+          "original_line_sha256": "7e49fa1a6bff87cf1ecf56b66b2302812f5c7e056da8014928d7287e617d3017"
+        },
+        {
+          "line": 307,
+          "kind": [
+            "guest_game_route"
+          ],
+          "original_line_sha256": "15078932c2896ac88abb0a90fef86ebf1d808349aee9ee96171bc34c5f643f8c"
+        }
+      ],
+      "source_exported": false
+    },
+    {
+      "original_pre99_relative_source": "workspace/nativo/app/src/nfsmw_app.h",
+      "sha256": "a8cd99605bc913931356262341d9606a6fb9bb579cc0e7ace33b266b67f8a1f4",
+      "matched_pre505_pin": true,
+      "source_lines": 672,
+      "noncomment_matching_code_lines": 3,
+      "pattern_hit_counts": {
+        "guest_game_route": 3
+      },
+      "selected_code_anchors": [
+        {
+          "line": 202,
+          "kind": [
+            "guest_game_route"
+          ],
+          "original_line_sha256": "6bf09f41afd0186561240f7839ee4ab3d764b21652575e52a4d37022b6904f29"
+        },
+        {
+          "line": 203,
+          "kind": [
+            "guest_game_route"
+          ],
+          "original_line_sha256": "578737b8c3dca8a7e7e3743d2047c0312d623124b67cc9ff42879558b075c8ae"
+        },
+        {
+          "line": 279,
+          "kind": [
+            "guest_game_route"
+          ],
+          "original_line_sha256": "566cd1e86133120068d25189fdf51fafd3e828a08b36506b578c47fe38d16353"
+        }
+      ],
+      "source_exported": false
+    }
+  ],
+  "bounded_redacted_snippets_only_in_private_job_log": true,
+  "actual_V48_file_mount_verified": false,
+  "game_ZDIR_resource_reader_identified": false,
+  "VPAK_loader_acceptance_verified": false,
+  "runtime_BMW_tuning_verified": false,
+  "original_code_or_game_data_written": false,
+  "APK_built": false,
+  "save_modified": false,
+  "signing_accessed": false,
+  "tuning_enabled": false,
+  "run_id": "42525446142",
+  "utc": "2026-11-08T21:30:15.577500+00:00"
+}
