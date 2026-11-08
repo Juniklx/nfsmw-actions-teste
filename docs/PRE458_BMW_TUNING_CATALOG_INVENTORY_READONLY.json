@@ -1,0 +1,364 @@
+{
+  "stage": "PRE458_BMW_TUNING_CATALOG_INVENTORY_READONLY",
+  "status": "AUDIT_OK",
+  "pre99_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "pre99_bytes": 874780689,
+  "total_files": 26994,
+  "pinned_source_sha256": {
+    "menu_sha256": "0208ca992595ccbddfddc1299f59a2ff586b9c726ad4a3c4d4c73f6dc40db4e3",
+    "lookup": "11eec8fe3d20dc5d53e262525a4cf31021c2bbfb28e2690b6372c6c3cbea4aad",
+    "attribute_check": "f20ec567de4c4637756977a71a6c85f3848b63ba639f037b819868328e3f7e9d",
+    "builder": "a74e2314e878a88d197d2d8774254bf8c7fbc0e835f84a6c048f0ec86d9f455c",
+    "attribute_value": "21e561eeae953888b7d645719dc6bd7077dfa040f3f06896b7bbe3ba3e7774d4"
+  },
+  "source_control_flow": {
+    "lookup_reads_category": true,
+    "lookup_resolves_attribute": true,
+    "lookup_has_fallback": true,
+    "builder_first_lookup": true,
+    "builder_skips_nonpositive": true,
+    "menu_builder_call": true
+  },
+  "inventory_counts": {
+    "performance_data": 75,
+    "disc_resource": 1,
+    "global_or_frontend": 1
+  },
+  "inventory_filename_samples": {
+    "bmw_car_asset": [],
+    "performance_data": [
+      {
+        "path": "workspace/ios/.gitattributes",
+        "bytes": 50
+      },
+      {
+        "path": "workspace/nativo/.gitattributes",
+        "bytes": 66
+      },
+      {
+        "path": "workspace/nativo/docs/performance-history.md",
+        "bytes": 10121
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/FFmpeg/.gitattributes",
+        "bytes": 50
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/FFmpeg/libavutil/attributes.h",
+        "bytes": 4828
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/FFmpeg/tests/ref/fate/gaplessenc-itunes-to-ipod-aac",
+        "bytes": 2427
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/FFmpeg/tests/ref/fate/gaplessinfo-itunes1",
+        "bytes": 2506
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/FFmpeg/tests/ref/fate/gaplessinfo-itunes2",
+        "bytes": 2447
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/catch2/.gitattributes",
+        "bytes": 613
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/glslang/.gitattributes",
+        "bytes": 523
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/glslang/Test/baseResults/hlsl.attribute.expression.comp.out",
+        "bytes": 6333
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/glslang/Test/baseResults/hlsl.attribute.frag.out",
+        "bytes": 4168
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/glslang/Test/baseResults/hlsl.attributeC11.frag.out",
+        "bytes": 9796
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/glslang/Test/baseResults/hlsl.attributeGlobalBuffer.frag.out",
+        "bytes": 5503
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/glslang/Test/baseResults/spv.controlFlowAttributes.frag.out",
+        "bytes": 10952
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/glslang/Test/baseResults/spv.multiviewPerViewAttributes.tesc.out",
+        "bytes": 4477
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/glslang/Test/baseResults/spv.multiviewPerViewAttributes.vert.out",
+        "bytes": 3317
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/glslang/Test/hlsl.attribute.expression.comp",
+        "bytes": 222
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/glslang/Test/hlsl.attribute.frag",
+        "bytes": 236
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/glslang/Test/hlsl.attributeC11.frag",
+        "bytes": 435
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/glslang/Test/hlsl.attributeGlobalBuffer.frag",
+        "bytes": 117
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/glslang/Test/spv.controlFlowAttributes.frag",
+        "bytes": 1570
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/glslang/Test/spv.multiviewPerViewAttributes.tesc",
+        "bytes": 404
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/glslang/Test/spv.multiviewPerViewAttributes.vert",
+        "bytes": 189
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/glslang/glslang/HLSL/hlslAttributes.cpp",
+        "bytes": 7047
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/glslang/glslang/HLSL/hlslAttributes.h",
+        "bytes": 2132
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/glslang/glslang/MachineIndependent/attribute.cpp",
+        "bytes": 11566
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/glslang/glslang/MachineIndependent/attribute.h",
+        "bytes": 4462
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/imgui/.gitattributes",
+        "bytes": 397
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/sdl3/src/render/gpu/shaders/.gitattributes",
+        "bytes": 23
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spdlog/.gitattributes",
+        "bytes": 13
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-cross/reference/opt/shaders/legacy/vert/int-attribute.legacy.vert",
+        "bytes": 219
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-cross/reference/opt/shaders/vulkan/rchit/hit_attribute_block.khr.spv14.nocompat.vk.rchit.vk",
+        "bytes": 281
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-cross/reference/opt/shaders/vulkan/rchit/hit_attribute_block.nocompat.vk.rchit.vk",
+        "bytes": 278
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-cross/reference/opt/shaders/vulkan/rchit/hit_attribute_block_in_function.khr.spv14.nocompat.vk.rchit.vk",
+        "bytes": 281
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-cross/reference/opt/shaders/vulkan/rchit/hit_attribute_block_in_function.nocompat.vk.rchit.vk",
+        "bytes": 278
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-cross/reference/opt/shaders/vulkan/rchit/hit_attribute_plain.khr.spv14.nocompat.vk.rchit.vk",
+        "bytes": 168
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-cross/reference/opt/shaders/vulkan/rchit/hit_attribute_plain.nocompat.vk.rchit.vk",
+        "bytes": 165
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-cross/reference/opt/shaders/vulkan/rchit/hit_attribute_struct.khr.spv14.nocompat.vk.rchit.vk",
+        "bytes": 209
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-cross/reference/opt/shaders/vulkan/rchit/hit_attribute_struct.nocompat.vk.rchit.vk",
+        "bytes": 206
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-cross/reference/opt/shaders-hlsl/vert/legacy-int-attribute.sm30.vert",
+        "bytes": 813
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-cross/reference/opt/shaders-hlsl/vert/matrix-attribute.vert",
+        "bytes": 703
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-cross/reference/shaders/legacy/vert/int-attribute.legacy.vert",
+        "bytes": 219
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-cross/reference/shaders/vulkan/rchit/hit_attribute_block.khr.spv14.nocompat.vk.rchit.vk",
+        "bytes": 281
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-cross/reference/shaders/vulkan/rchit/hit_attribute_block.nocompat.vk.rchit.vk",
+        "bytes": 278
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-cross/reference/shaders/vulkan/rchit/hit_attribute_block_in_function.khr.spv14.nocompat.vk.rchit.vk",
+        "bytes": 324
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-cross/reference/shaders/vulkan/rchit/hit_attribute_block_in_function.nocompat.vk.rchit.vk",
+        "bytes": 321
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-cross/reference/shaders/vulkan/rchit/hit_attribute_plain.khr.spv14.nocompat.vk.rchit.vk",
+        "bytes": 168
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-cross/reference/shaders/vulkan/rchit/hit_attribute_plain.nocompat.vk.rchit.vk",
+        "bytes": 165
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-cross/reference/shaders/vulkan/rchit/hit_attribute_struct.khr.spv14.nocompat.vk.rchit.vk",
+        "bytes": 209
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-cross/reference/shaders/vulkan/rchit/hit_attribute_struct.nocompat.vk.rchit.vk",
+        "bytes": 206
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-cross/reference/shaders-hlsl/vert/legacy-int-attribute.sm30.vert",
+        "bytes": 813
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-cross/reference/shaders-hlsl/vert/matrix-attribute.vert",
+        "bytes": 703
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-cross/reference/shaders-msl-no-opt/tese/builtin-input-automatic-attribute-assignment.tese",
+        "bytes": 2232
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-cross/shaders/legacy/vert/int-attribute.legacy.vert",
+        "bytes": 199
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-cross/shaders/vulkan/rchit/hit_attribute_block.khr.spv14.nocompat.vk.rchit",
+        "bytes": 231
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-cross/shaders/vulkan/rchit/hit_attribute_block.nocompat.vk.rchit",
+        "bytes": 228
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-cross/shaders/vulkan/rchit/hit_attribute_block_in_function.khr.spv14.nocompat.vk.rchit",
+        "bytes": 271
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-cross/shaders/vulkan/rchit/hit_attribute_block_in_function.nocompat.vk.rchit",
+        "bytes": 268
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-cross/shaders/vulkan/rchit/hit_attribute_plain.khr.spv14.nocompat.vk.rchit",
+        "bytes": 164
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-cross/shaders/vulkan/rchit/hit_attribute_plain.nocompat.vk.rchit",
+        "bytes": 161
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-cross/shaders/vulkan/rchit/hit_attribute_struct.khr.spv14.nocompat.vk.rchit",
+        "bytes": 197
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-cross/shaders/vulkan/rchit/hit_attribute_struct.nocompat.vk.rchit",
+        "bytes": 194
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-cross/shaders-hlsl/vert/legacy-int-attribute.sm30.vert",
+        "bytes": 199
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-cross/shaders-hlsl/vert/matrix-attribute.vert",
+        "bytes": 135
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-cross/shaders-msl-no-opt/tese/builtin-input-automatic-attribute-assignment.tese",
+        "bytes": 294
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-headers/.gitattributes",
+        "bytes": 72
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-tools/source/opt/upgrade_memory_model.cpp",
+        "bytes": 33818
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-tools/source/opt/upgrade_memory_model.h",
+        "bytes": 6008
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-tools/test/fuzzers/spvtools_opt_performance_fuzzer.cpp",
+        "bytes": 994
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-tools/test/opt/upgrade_memory_model_test.cpp",
+        "bytes": 94167
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/tomlplusplus/.gitattributes",
+        "bytes": 1178
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/vulkan-headers/.gitattributes",
+        "bytes": 594
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/vulkan-loader/.gitattributes",
+        "bytes": 612
+      },
+      {
+        "path": "workspace/nativo/sdk/thirdparty/xxHash/.gitattributes",
+        "bytes": 167
+      }
+    ],
+    "car_data": [],
+    "global_or_frontend": [
+      {
+        "path": "workspace/nativo/sdk/thirdparty/spirv-tools/test/link/global_values_amount_test.cpp",
+        "bytes": 4841
+      }
+    ],
+    "disc_resource": [
+      {
+        "path": "workspace/nativo/sdk/thirdparty/sdl3/test/moose.dat",
+        "bytes": 56320
+      }
+    ]
+  },
+  "synthetic_contract": {
+    "off_rejects": true,
+    "zero_rejects": true,
+    "unknown_part_rejects": true,
+    "other_car_rejects": true,
+    "synthetic_known_part_passes": true
+  },
+  "bmw_car_type_from_v48_logs": 41,
+  "punto_car_type_from_v48_logs": 74,
+  "parts_or_catalog_validated": false,
+  "bmw_mod_enabled": false,
+  "safe_to_enable_performance_purchases": false,
+  "game_assets_exported": false,
+  "game_source_exported": false,
+  "guest_executed": false,
+  "save_modified": false,
+  "signed_apk_built": false,
+  "run_id": "42504047334",
+  "utc": "2026-11-08T17:16:10.734553+00:00"
+}
