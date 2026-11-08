@@ -20,6 +20,7 @@ SCHEMA = {
         "status", "pal_shards_scanned", "other_source_files_scanned",
         "matches_truncated", "owner_verified", "indirect_dispatch_verified",
     },
+    "PRE406": {"status", "readback", "backup_created", "backup_unchanged", "context_bytes"},
     "PRE404": {"status", "readback", "backup_created", "backup_unchanged", "context_bytes"},
     "PRE397": {"status", "readback", "backup_created", "backup_unchanged", "context_bytes"},
     "PRE388": {"status", "readback", "backup_created", "backup_unchanged", "context_bytes"},
@@ -54,7 +55,7 @@ def sanitized_report(stage: str, source: object, run_id: str, commit: str) -> di
     result = {
         "stage": stage, "status": "NO_REPORT",
         "github_run_id": run_id, "source_commit": commit,
-        "read_only": stage not in ("PRE335", "PRE339", "PRE342", "PRE345", "PRE354", "PRE356", "PRE369", "PRE373", "PRE388", "PRE397", "PRE404"), "apk_built": False,
+        "read_only": stage not in ("PRE335", "PRE339", "PRE342", "PRE345", "PRE354", "PRE356", "PRE369", "PRE373", "PRE388", "PRE397", "PRE404", "PRE406"), "apk_built": False,
         "owner_proven": False, "result_is_not_player_owner_proof": True,
     }
     if not isinstance(source, dict):
