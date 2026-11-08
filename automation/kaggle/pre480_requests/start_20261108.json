@@ -1,0 +1,10 @@
+{
+  "stage": "PRE480",
+  "goal": "Append PRE455-PRE479 verified BMW tuning development state to canonical CONTEXTO_NFSMW.md",
+  "backup_first": true,
+  "readback_bytewise": true,
+  "append_only": true,
+  "canonical_drive_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+  "no_apk": true,
+  "no_save_mutations": true
+}
