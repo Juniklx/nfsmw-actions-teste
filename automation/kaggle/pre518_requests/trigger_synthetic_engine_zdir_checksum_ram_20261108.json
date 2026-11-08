@@ -1,0 +1,10 @@
+{
+  "stage": "PRE518",
+  "operation": "Use authenticated PRE502 full BMW synthetic engine VPAK reconstruction in ephemeral RAM and independently compute correct length-extended EA hash; simulate PAL ZDIR 24-byte record size/checksum update only in memory",
+  "upstream_verified_run": 42529083522,
+  "new_game_assets_written": false,
+  "APK_built": false,
+  "signing_key_accessed": false,
+  "save_modified": false,
+  "keep_feature_disabled": true
+}
