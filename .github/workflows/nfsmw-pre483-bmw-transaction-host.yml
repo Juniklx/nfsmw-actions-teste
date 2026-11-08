@@ -1,0 +1,58 @@
+name: NFSMW PRE483 isolated BMW transaction rollback simulation
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre483_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre483-bmw-transaction-host
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile offline pure transaction simulation with Clang and GCC
+        run: |
+          set -euo pipefail
+          clang++ -std=c++17 -O2 -Wall -Wextra -Werror -pedantic automation/kaggle/bmw_tuning/pre483_bmw_transaction_test.cpp -o /tmp/pre483_clang
+          g++ -std=c++17 -O2 -Wall -Wextra -Werror -pedantic automation/kaggle/bmw_tuning/pre483_bmw_transaction_test.cpp -o /tmp/pre483_gcc
+      - name: Test rollback, cross-car, price, runtime-disabled, and Nitro safeguards
+        run: |
+          set -euo pipefail
+          /tmp/pre483_clang | tee /tmp/pre483_clang.txt
+          /tmp/pre483_gcc | tee /tmp/pre483_gcc.txt
+          for report in /tmp/pre483_clang.txt /tmp/pre483_gcc.txt; do
+            grep -Fx 'PRE483_CPP_CHECKS_PASSED=44' "$report"
+            grep -Fx 'PRE483_RUNTIME_ENABLED=0' "$report"
+            grep -Fx 'PRE483_REAL_SAVE_READ_OR_WRITE=0' "$report"
+          done
+      - name: Persist verified synthetic result metadata
+        if: success()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import os,json
+          from pathlib import Path
+          result={"stage":"PRE483_BMW_OFFLINE_TRANSACTION_SIMULATION",
+             "status":"AUDIT_OK","run_id":os.getenv("GITHUB_RUN_ID"),
+             "host_compilers":["clang++ C++17","g++ C++17"],
+             "expected_assertions_per_compiler":44,
+             "synthetic_only":True,"real_guest_runtime_activated":False,
+             "save_read_or_modified":False,"apk_created":False,
+             "nitro_behavior_not_modified":True,
+             "real_physics_or_save_persistence_proven":False}
+          file=Path("docs/PRE483_BMW_OFFLINE_TRANSACTION_GUARDS.json")
+          file.parent.mkdir(parents=True,exist_ok=True)
+          file.write_text(json.dumps(result,indent=2,ensure_ascii=False)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE483_BMW_OFFLINE_TRANSACTION_GUARDS.json
+          git diff --cached --quiet && exit 0
+          git commit -m "PRE483: validate BMW synthetic transaction rollback and no runtime writes"
+          git push origin HEAD:main
