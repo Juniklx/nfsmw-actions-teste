@@ -1,0 +1,913 @@
+{
+  "stage": "PRE505_PRE99_NATIVE_ASSET_LOADER_SOURCE_PATH_CANDIDATES_READONLY",
+  "status": "AUDIT_OK",
+  "authenticated_snapshot": "PRE99 (historical; NOT current V48)",
+  "authenticated_PRE99_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "authenticated_PRE99_bytes": 874780689,
+  "tar_members_examined": 28911,
+  "first_party_files_scanned": 755,
+  "first_party_source_bytes_read": 24746022,
+  "bounded_before_full_tree": false,
+  "file_extensions_scanned": {
+    "kts": 3,
+    "cpp": 421,
+    "h": 305,
+    "java": 20,
+    "py": 3,
+    "c": 3
+  },
+  "matching_source_files": 48,
+  "matching_filenames_reported": 48,
+  "hit_file_counts_by_marker_family": {
+    "native_file_calls": 31,
+    "attributes_resource": 1,
+    "game_data_routing": 14,
+    "zzdata_resource": 3,
+    "guest_disc_path": 15
+  },
+  "first_party_source_candidates": [
+    {
+      "relative_path": "workspace/nativo/sdk/src/kernel/xboxkrnl/xboxkrnl_io.cpp",
+      "source_sha256": "40869526201fbed631b7bb506c83680edc02b2f4a6701f31a19b1a068c622015",
+      "source_bytes": 51771,
+      "marker_families": {
+        "zzdata_resource": {
+          "matched_line_count": 1,
+          "first_lines": [
+            84
+          ]
+        },
+        "native_file_calls": {
+          "matched_line_count": 1,
+          "first_lines": [
+            531
+          ]
+        },
+        "guest_disc_path": {
+          "matched_line_count": 2,
+          "first_lines": [
+            444,
+            445
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/android/app/src/main/cpp/nativo/nativo_android.cpp",
+      "source_sha256": "0453fea3ec0ca4a5e4ce4e926e3b1d1fd46dc38a402d89ba73a400afc7b7ad73",
+      "source_bytes": 106703,
+      "marker_families": {
+        "attributes_resource": {
+          "matched_line_count": 1,
+          "first_lines": [
+            537
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/app/src/nfsmw_d3d_trace.cpp",
+      "source_sha256": "12e87bfd3c5b910c5de2bc1e20faf763cd4b38147457eb8ad1c03ff71e865a4f",
+      "source_bytes": 30352,
+      "marker_families": {
+        "zzdata_resource": {
+          "matched_line_count": 1,
+          "first_lines": [
+            88
+          ]
+        },
+        "native_file_calls": {
+          "matched_line_count": 3,
+          "first_lines": [
+            239,
+            368,
+            502
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/sdk/src/filesystem/devices/host_path_file.cpp",
+      "source_sha256": "7dace8159023592ee8008a0b0528a3798aea6a1856bc8e003492b9c4cce65346",
+      "source_bytes": 39618,
+      "marker_families": {
+        "zzdata_resource": {
+          "matched_line_count": 4,
+          "first_lines": [
+            123,
+            160,
+            164,
+            448
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/sdk/src/filesystem/virtual_file_system.cpp",
+      "source_sha256": "a3e89c5d85f899d9756750fcf2dcc47b21cb5afc96f71c1804fc35544902bc9d",
+      "source_bytes": 11791,
+      "marker_families": {
+        "native_file_calls": {
+          "matched_line_count": 1,
+          "first_lines": [
+            337
+          ]
+        },
+        "guest_disc_path": {
+          "matched_line_count": 1,
+          "first_lines": [
+            20
+          ]
+        },
+        "game_data_routing": {
+          "matched_line_count": 3,
+          "first_lines": [
+            218,
+            219,
+            220
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/sdk/src/system/xam/content_manager.cpp",
+      "source_sha256": "cc0dee8beef2d698741667a9ac744a0e64b6e4cb9f473c28db56957b70aa8e95",
+      "source_bytes": 30154,
+      "marker_families": {
+        "native_file_calls": {
+          "matched_line_count": 1,
+          "first_lines": [
+            728
+          ]
+        },
+        "guest_disc_path": {
+          "matched_line_count": 32,
+          "first_lines": [
+            35,
+            36,
+            200,
+            231,
+            236,
+            246,
+            261,
+            265,
+            277,
+            282,
+            297,
+            298
+          ]
+        },
+        "game_data_routing": {
+          "matched_line_count": 2,
+          "first_lines": [
+            711,
+            712
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/sdk/src/codegen/project_recompiler.cpp",
+      "source_sha256": "41e38add35929b8be1105997de45b2f39c3c3f715925ca1d6f89ac68e1b81d14",
+      "source_bytes": 22565,
+      "marker_families": {
+        "guest_disc_path": {
+          "matched_line_count": 2,
+          "first_lines": [
+            253,
+            282
+          ]
+        },
+        "game_data_routing": {
+          "matched_line_count": 14,
+          "first_lines": [
+            219,
+            221,
+            222,
+            223,
+            226,
+            229,
+            231,
+            234,
+            237,
+            238,
+            241,
+            274
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/sdk/src/rexglue/commands/init_command.cpp",
+      "source_sha256": "47f0d4ee7d0d19d53ae06480651c7791ca177a69741a7ead05e003be3edc36bf",
+      "source_bytes": 23477,
+      "marker_families": {
+        "guest_disc_path": {
+          "matched_line_count": 3,
+          "first_lines": [
+            380,
+            384,
+            592
+          ]
+        },
+        "game_data_routing": {
+          "matched_line_count": 20,
+          "first_lines": [
+            121,
+            122,
+            123,
+            125,
+            128,
+            130,
+            131,
+            133,
+            136,
+            137,
+            142,
+            147
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/sdk/src/system/runtime.cpp",
+      "source_sha256": "2a0a0f221f4851500afe79a0d7515f3a8815210d8f7f311e9541fdd4d12885d9",
+      "source_bytes": 15524,
+      "marker_families": {
+        "guest_disc_path": {
+          "matched_line_count": 1,
+          "first_lines": [
+            178
+          ]
+        },
+        "game_data_routing": {
+          "matched_line_count": 11,
+          "first_lines": [
+            33,
+            323,
+            325,
+            326,
+            327,
+            341,
+            343,
+            344,
+            347,
+            351,
+            358
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/sdk/src/filesystem/devices/stfs_container_device.cpp",
+      "source_sha256": "385ad50777f5151644cb6ddc3d5869b17c310036660e7dd39e6e18a481296e63",
+      "source_bytes": 30791,
+      "marker_families": {
+        "native_file_calls": {
+          "matched_line_count": 1,
+          "first_lines": [
+            791
+          ]
+        },
+        "guest_disc_path": {
+          "matched_line_count": 8,
+          "first_lines": [
+            90,
+            93,
+            96,
+            213,
+            790,
+            792,
+            818,
+            819
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/sdk/src/kernel/xam/xam_content.cpp",
+      "source_sha256": "3261cef86ffa20297e74afe1f1bf3bc5267ab0adc034962d148a6bf3bc476b4b",
+      "source_bytes": 19906,
+      "marker_families": {
+        "native_file_calls": {
+          "matched_line_count": 1,
+          "first_lines": [
+            228
+          ]
+        },
+        "guest_disc_path": {
+          "matched_line_count": 90,
+          "first_lines": [
+            32,
+            47,
+            49,
+            55,
+            61,
+            75,
+            80,
+            89,
+            98,
+            110,
+            118,
+            124
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/sdk/src/ui/rex_app.cpp",
+      "source_sha256": "455e11b701d553df24bc11f436fdb666b0c2f1447a6d6152b6d673962d2a152b",
+      "source_bytes": 23956,
+      "marker_families": {
+        "native_file_calls": {
+          "matched_line_count": 1,
+          "first_lines": [
+            410
+          ]
+        },
+        "guest_disc_path": {
+          "matched_line_count": 4,
+          "first_lines": [
+            302,
+            305,
+            307,
+            319
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/sdk/src/codegen/codegen_context.cpp",
+      "source_sha256": "d99534deec41a14c733f3efe48ac2aff33d6edabb2a9a83bddb5baeab843b75d",
+      "source_bytes": 3522,
+      "marker_families": {
+        "guest_disc_path": {
+          "matched_line_count": 1,
+          "first_lines": [
+            49
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/sdk/src/core/filesystem_posix.cpp",
+      "source_sha256": "9ec11bee8b58ce2320238e6991751ba85c483b8e98613d8d47cc16a3ddf0edef",
+      "source_bytes": 13193,
+      "marker_families": {
+        "native_file_calls": {
+          "matched_line_count": 2,
+          "first_lines": [
+            190,
+            305
+          ]
+        },
+        "game_data_routing": {
+          "matched_line_count": 1,
+          "first_lines": [
+            109
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/sdk/src/core/mapped_memory_switch.cpp",
+      "source_sha256": "a89e7314eda311fcfce900fa5d46fa0e4d0967fc1f5b7dd17b452a0cced3de68",
+      "source_bytes": 5168,
+      "marker_families": {
+        "native_file_calls": {
+          "matched_line_count": 3,
+          "first_lines": [
+            103,
+            106,
+            167
+          ]
+        },
+        "game_data_routing": {
+          "matched_line_count": 2,
+          "first_lines": [
+            22,
+            134
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/sdk/src/filesystem/vfs_dump.cpp",
+      "source_sha256": "8eff89579fb803a1d74c4e2a09ac5cc39b4b741c0df1ed4a908bd9f95bb0ff36",
+      "source_bytes": 3628,
+      "marker_families": {
+        "native_file_calls": {
+          "matched_line_count": 1,
+          "first_lines": [
+            73
+          ]
+        },
+        "game_data_routing": {
+          "matched_line_count": 2,
+          "first_lines": [
+            39,
+            66
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/sdk/src/kernel/xam/xam_content_aggregate.cpp",
+      "source_sha256": "f120f9cb8a56d4d5d584fa7dd3bd29b9d92e36d8a3bd0d984c77d83a397a1b41",
+      "source_bytes": 5430,
+      "marker_families": {
+        "guest_disc_path": {
+          "matched_line_count": 9,
+          "first_lines": [
+            32,
+            33,
+            34,
+            82,
+            91,
+            101,
+            146,
+            157,
+            158
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/sdk/src/kernel/xam/xam_content_device.cpp",
+      "source_sha256": "053eabf5b67bc7bb1eed0701b1e337941af4c80cb1987cb86c64b648082696d5",
+      "source_bytes": 6776,
+      "marker_families": {
+        "guest_disc_path": {
+          "matched_line_count": 16,
+          "first_lines": [
+            66,
+            79,
+            111,
+            126,
+            175,
+            176,
+            177,
+            178,
+            179,
+            181,
+            182,
+            183
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/sdk/src/kernel/xam/xam_info.cpp",
+      "source_sha256": "c847210dcec0d2a3ad07e459bd59a7b4acc38d8706187e597f398153a3d31981",
+      "source_bytes": 13461,
+      "marker_families": {
+        "guest_disc_path": {
+          "matched_line_count": 4,
+          "first_lines": [
+            177,
+            182,
+            273,
+            327
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/sdk/src/kernel/xam/xam_locale.cpp",
+      "source_sha256": "5564ee2ca68a6e2b33a3b1c251030a28291cc6482362bea5e3f0ea82318ebfc4",
+      "source_bytes": 18009,
+      "marker_families": {
+        "guest_disc_path": {
+          "matched_line_count": 2,
+          "first_lines": [
+            31,
+            202
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/sdk/src/kernel/xboxkrnl/xboxkrnl_modules.cpp",
+      "source_sha256": "85b8f8aa99e3f5a9133a99986202294c16d0e8a9010ce1713b52c0cf3c89e722",
+      "source_bytes": 9348,
+      "marker_families": {
+        "guest_disc_path": {
+          "matched_line_count": 16,
+          "first_lines": [
+            46,
+            66,
+            86,
+            151,
+            184,
+            188,
+            212,
+            213,
+            221,
+            222,
+            223,
+            225
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/app/src/nfsmw_app.h",
+      "source_sha256": "a8cd99605bc913931356262341d9606a6fb9bb579cc0e7ace33b266b67f8a1f4",
+      "source_bytes": 29097,
+      "marker_families": {
+        "game_data_routing": {
+          "matched_line_count": 5,
+          "first_lines": [
+            126,
+            180,
+            202,
+            203,
+            279
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/sdk/src/codegen/manifest.cpp",
+      "source_sha256": "ccbf013cac41dd65cf6bc157f71009995c125a9910ee0c80d0d14a88a250ebd0",
+      "source_bytes": 8332,
+      "marker_families": {
+        "game_data_routing": {
+          "matched_line_count": 2,
+          "first_lines": [
+            106,
+            107
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/sdk/src/core/utf8.cpp",
+      "source_sha256": "311a089a3068523adc88e45bd18e8b5e576a0741371cb5f421d9eb7f6c085f3e",
+      "source_bytes": 19782,
+      "marker_families": {
+        "game_data_routing": {
+          "matched_line_count": 4,
+          "first_lines": [
+            631,
+            652,
+            661,
+            664
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/sdk/src/graphics/pipeline/shader/shader.cpp",
+      "source_sha256": "6c7fda9bc2d163fc961157164b4498638a2d924b207fe2cb1622ab4d1201ff2f",
+      "source_bytes": 5693,
+      "marker_families": {
+        "game_data_routing": {
+          "matched_line_count": 5,
+          "first_lines": [
+            56,
+            61,
+            63,
+            123,
+            125
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/sdk/src/kernel/xam/xam_misc.cpp",
+      "source_sha256": "9130a6ec9e7b5af8afc12acc9743c9cdfb01df7699f1ec8170ec4617ad8e9382",
+      "source_bytes": 50609,
+      "marker_families": {
+        "game_data_routing": {
+          "matched_line_count": 2,
+          "first_lines": [
+            1022,
+            1023
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/sdk/src/rexglue/commands/init_command.h",
+      "source_sha256": "41624fe34003617a2ac592889afc2bb0c6e1bba334d307249050af20b17fb73d",
+      "source_bytes": 1239,
+      "marker_families": {
+        "game_data_routing": {
+          "matched_line_count": 1,
+          "first_lines": [
+            29
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/android/app/src/main/cpp/afinidad.cpp",
+      "source_sha256": "ab459ac855744951dd5009d2b02efe50ccf8c2847187a36456a0f2de8e84e8a8",
+      "source_bytes": 13620,
+      "marker_families": {
+        "native_file_calls": {
+          "matched_line_count": 1,
+          "first_lines": [
+            87
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/android/app/src/main/java/io/github/nfsmwrecomp/GameActivity.java",
+      "source_sha256": "3cb3cc48005437bf59b137c7b3499da662436522e4d8e0b3a1f4d774d5863748",
+      "source_bytes": 27772,
+      "marker_families": {
+        "native_file_calls": {
+          "matched_line_count": 1,
+          "first_lines": [
+            186
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/android/app/src/main/java/io/github/nfsmwrecomp/MotorNativo.java",
+      "source_sha256": "ddfcbd976ee170c7129b99042f226c411a955959f847cae82e09968d18382aaa",
+      "source_bytes": 16956,
+      "marker_families": {
+        "native_file_calls": {
+          "matched_line_count": 2,
+          "first_lines": [
+            129,
+            188
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/ios/motor/servidor_ea.cpp",
+      "source_sha256": "7bd78ec90befaa232dcba0b8ddb5bcf7cd706116fe800497c613160f0460ae49",
+      "source_bytes": 62213,
+      "marker_families": {
+        "native_file_calls": {
+          "matched_line_count": 2,
+          "first_lines": [
+            541,
+            1071
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/app/src/nfsmw_nativo_dibujos.cpp",
+      "source_sha256": "046ea454634d84169ccda0237c347d17020a63da027878d4fd21f7a3520251e2",
+      "source_bytes": 695211,
+      "marker_families": {
+        "native_file_calls": {
+          "matched_line_count": 2,
+          "first_lines": [
+            551,
+            5311
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/app/src/nfsmw_nativo_dibujos_gles.cpp",
+      "source_sha256": "2d67eae26774decf5ec41b9ae6546a0bc6420fddc53c06a41340c4b5e0147c5d",
+      "source_bytes": 149047,
+      "marker_families": {
+        "native_file_calls": {
+          "matched_line_count": 4,
+          "first_lines": [
+            590,
+            605,
+            607,
+            667
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/app/src/nfsmw_prueba_entrada.cpp",
+      "source_sha256": "64c77e88bb76dd97f35884a70132a8275b3df95253fa86fab0b110979ba69b4f",
+      "source_bytes": 36290,
+      "marker_families": {
+        "native_file_calls": {
+          "matched_line_count": 2,
+          "first_lines": [
+            499,
+            594
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/app/src/nfsmw_video_nativo.cpp",
+      "source_sha256": "21bbfa55463b376da9853bf83b0ac7a2056844954a27faa9a6cbe36ce7395619",
+      "source_bytes": 34107,
+      "marker_families": {
+        "native_file_calls": {
+          "matched_line_count": 1,
+          "first_lines": [
+            340
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/sdk/src/core/filesystem_win.cpp",
+      "source_sha256": "4b8b3e0becd17d631d11693b9ccf264a20268e8286dbeb48b95bc03a33effb74",
+      "source_bytes": 8205,
+      "marker_families": {
+        "native_file_calls": {
+          "matched_line_count": 2,
+          "first_lines": [
+            67,
+            206
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/sdk/src/core/mapped_memory_posix.cpp",
+      "source_sha256": "2bba53205ca080494e86563a0f5e0e2415af8d5f0d4532bb2ee886a712b54fda",
+      "source_bytes": 5123,
+      "marker_families": {
+        "native_file_calls": {
+          "matched_line_count": 3,
+          "first_lines": [
+            106,
+            128,
+            156
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/sdk/src/core/mapped_memory_win.cpp",
+      "source_sha256": "21a04b11e938bb42ac4d77084b7a2dce7d23e501eff0863988924c48689a81bb",
+      "source_bytes": 12119,
+      "marker_families": {
+        "native_file_calls": {
+          "matched_line_count": 6,
+          "first_lines": [
+            106,
+            140,
+            203,
+            248,
+            255,
+            355
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/sdk/src/core/memory_posix.cpp",
+      "source_sha256": "7722687778a612f75e3ce756f1b2d055863b2a60aa67fed78842d37f54d82fb5",
+      "source_bytes": 18291,
+      "marker_families": {
+        "native_file_calls": {
+          "matched_line_count": 1,
+          "first_lines": [
+            467
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/sdk/src/core/switch_libc_supplement.c",
+      "source_sha256": "bcfa6add2be939b3b4c50a3a7601c566f0ae1b7ea80bbc8091787aec1eaf31e8",
+      "source_bytes": 7806,
+      "marker_families": {
+        "native_file_calls": {
+          "matched_line_count": 2,
+          "first_lines": [
+            119,
+            215
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/sdk/src/filesystem/devices/disc_image_device.cpp",
+      "source_sha256": "7e21925599f82f85c62d587d1db459e0007856835bec6db4cffca35931bebcc1",
+      "source_bytes": 9898,
+      "marker_families": {
+        "native_file_calls": {
+          "matched_line_count": 2,
+          "first_lines": [
+            71,
+            108
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/sdk/src/filesystem/devices/disc_image_entry.cpp",
+      "source_sha256": "96338e7b0199e278613ce590ec083e3859a5e6161d23ef6e7fa79c4c383cc96f",
+      "source_bytes": 2232,
+      "marker_families": {
+        "native_file_calls": {
+          "matched_line_count": 1,
+          "first_lines": [
+            35
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/sdk/src/filesystem/devices/host_path_entry.cpp",
+      "source_sha256": "d9cc8916666ab499ccb67fc07c9283917da8bf708c987c05cf9a393ae28bbdb3",
+      "source_bytes": 7281,
+      "marker_families": {
+        "native_file_calls": {
+          "matched_line_count": 2,
+          "first_lines": [
+            53,
+            90
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/sdk/src/filesystem/devices/null_entry.cpp",
+      "source_sha256": "6a0bed9bd10a40e469266018c0bf40e7b83ff818bc9c687e9fb64aa4b2474350",
+      "source_bytes": 1758,
+      "marker_families": {
+        "native_file_calls": {
+          "matched_line_count": 1,
+          "first_lines": [
+            43
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/sdk/src/filesystem/devices/stfs_container_entry.cpp",
+      "source_sha256": "900a73dfc8a45fd6edf9903e499a5c8472599231069b49bc6ccdd0a53b3479cf",
+      "source_bytes": 1708,
+      "marker_families": {
+        "native_file_calls": {
+          "matched_line_count": 1,
+          "first_lines": [
+            36
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/sdk/src/system/user_module.cpp",
+      "source_sha256": "43505572e7c6a1deefa051e1eb4307db57c0823f4a7f00424a33841c12f325c6",
+      "source_bytes": 11584,
+      "marker_families": {
+        "native_file_calls": {
+          "matched_line_count": 1,
+          "first_lines": [
+            80
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/sdk/src/ui/switch_perf.cpp",
+      "source_sha256": "9a9d669ca0322b350cd40460fa3760b4faabe7260bd5df8dde1e229f9095fa34",
+      "source_bytes": 45441,
+      "marker_families": {
+        "native_file_calls": {
+          "matched_line_count": 3,
+          "first_lines": [
+            375,
+            807,
+            816
+          ]
+        }
+      }
+    },
+    {
+      "relative_path": "workspace/nativo/sdk/src/ui/window.cpp",
+      "source_sha256": "61341a15f361dc621d26d5d176620b5526c293874d26b42545ed18185067ed68",
+      "source_bytes": 30107,
+      "marker_families": {
+        "native_file_calls": {
+          "matched_line_count": 1,
+          "first_lines": [
+            206
+          ]
+        }
+      }
+    }
+  ],
+  "markers_are_static_text_search_not_loader_semantics": true,
+  "active_V48_loader_or_live_bundle_verified": false,
+  "BMW_new_ExpN_resolution_in_runtime_verified": false,
+  "new_engine_name_registration_required": null,
+  "FE_catalog_price_and_purchase_verified": false,
+  "game_source_exported": false,
+  "game_assets_exported": false,
+  "game_executed": false,
+  "modified_VPAK_written": false,
+  "APK_built": false,
+  "save_modified": false,
+  "signing_accessed": false,
+  "tuning_enabled": false,
+  "run_id": "42523779079",
+  "utc": "2026-11-08T21:10:35.030139+00:00"
+}
