@@ -1,0 +1,10 @@
+{
+  "stage": "PRE481",
+  "revision": "correct_multiline_python_predicate",
+  "goal": "Repeat exact original BMW profile metadata audit after syntax correction",
+  "safety": {
+    "save_untouched": true,
+    "apk_untouched": true,
+    "asset_bytes_not_exported": true
+  }
+}
