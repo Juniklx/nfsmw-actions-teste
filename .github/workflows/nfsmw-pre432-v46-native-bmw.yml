@@ -1,0 +1,66 @@
+name: NFSMW PRE432 V46 source native ARM64 dual BMW callbacks no APK
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre432_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre432-v46-native-only
+  cancel-in-progress: false
+jobs:
+  native-link:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare Python dependencies and source syntax
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests cryptography >/dev/null
+          python -m py_compile automation/kaggle/pre431_v46_source_dual_trace_compat_readonly.py
+          python -m py_compile automation/kaggle/pre432_v46_native_dual_callback_preflight.py
+      - name: Prepare pinned Android NDK and CMake
+        shell: bash
+        run: |
+          set -euo pipefail
+          SDK="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
+          test -d "$SDK"
+          NEED=()
+          [ -f "$SDK/ndk/28.2.13676358/source.properties" ] || NEED+=("ndk;28.2.13676358")
+          [ -x "$SDK/cmake/3.31.6/bin/cmake" ] || NEED+=("cmake;3.31.6")
+          if [ "${#NEED[@]}" -gt 0 ]; then
+            SDKMANAGER=""
+            for q in "$SDK"/cmdline-tools/*/bin/sdkmanager "$SDK"/tools/bin/sdkmanager; do
+              if [ -x "$q" ]; then SDKMANAGER="$q"; break; fi
+            done
+            test -n "$SDKMANAGER"
+            set +o pipefail
+            yes | "$SDKMANAGER" --sdk_root="$SDK" --install "${NEED[@]}" > /tmp/nfsmw-pre432-sdk.log 2>&1
+            STATUS="${PIPESTATUS[1]}"
+            set -o pipefail
+            if [ "$STATUS" -ne 0 ]; then
+              echo "PRE432 SDK preparation blocked code=$STATUS"; exit "$STATUS"
+            fi
+          fi
+          test -x "$SDK/ndk/28.2.13676358/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android26-clang++"
+          test -x "$SDK/cmake/3.31.6/bin/cmake"
+          echo "PRE432 NDK/CMake ready"
+      - name: Build actual original PAL ARM64 target with V46 staging
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: PYTHONPATH=automation/kaggle python automation/kaggle/pre432_v46_native_dual_callback_preflight.py --run-id "$GITHUB_RUN_ID"
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre432-v46-native-dual-${{ github.run_id }}
+          path: /tmp/nfsmw-pre432/report.json
+          retention-days: 14
+          if-no-files-found: warn
