@@ -1,0 +1,10 @@
+{
+  "stage": "PRE461",
+  "purpose": "map 1390 ZDIR records to original filename hash candidates, find BMW upgrade data",
+  "public_hash_names_source": "Ekey/NFS.BIN.Tool",
+  "provenance_pinned": true,
+  "read_only": true,
+  "feature_flag_enabled": false,
+  "saves_unchanged": true,
+  "apk_unchanged": true
+}
