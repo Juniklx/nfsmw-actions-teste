@@ -1,0 +1,214 @@
+{
+  "stage": "PRE492_PAL_BMW_REFSPEC_DATA_PATCH_GATES",
+  "status": "AUDIT_OK",
+  "source_pal_vpak_sha256": "9f4b04a221232e614b927a870e25da7db100477a7e425114b87082f46e8b99ad",
+  "original_arrays": {
+    "bmwm3gtr": {
+      "categories": {
+        "nos": {
+          "start": 256528,
+          "end": 256560,
+          "capacity": 2,
+          "count": 2,
+          "element_size": 12,
+          "physical_bytes": 32,
+          "upgrade_limit": 3,
+          "room_to_append_second_without_relocation": false
+        },
+        "tires": {
+          "start": 256576,
+          "end": 256596,
+          "capacity": 1,
+          "count": 1,
+          "element_size": 12,
+          "physical_bytes": 20,
+          "upgrade_limit": 0,
+          "room_to_append_second_without_relocation": false
+        },
+        "chassis": {
+          "start": 256620,
+          "end": 256640,
+          "capacity": 1,
+          "count": 1,
+          "element_size": 12,
+          "physical_bytes": 20,
+          "upgrade_limit": 0,
+          "room_to_append_second_without_relocation": false
+        },
+        "transmission": {
+          "start": 256640,
+          "end": 256660,
+          "capacity": 1,
+          "count": 1,
+          "element_size": 12,
+          "physical_bytes": 20,
+          "upgrade_limit": 0,
+          "room_to_append_second_without_relocation": false
+        },
+        "engine": {
+          "start": 256660,
+          "end": 256680,
+          "capacity": 1,
+          "count": 1,
+          "element_size": 12,
+          "physical_bytes": 20,
+          "upgrade_limit": 0,
+          "room_to_append_second_without_relocation": false
+        },
+        "brakes": {
+          "start": 256716,
+          "end": 256736,
+          "capacity": 1,
+          "count": 1,
+          "element_size": 12,
+          "physical_bytes": 20,
+          "upgrade_limit": 0,
+          "room_to_append_second_without_relocation": false
+        }
+      },
+      "intervals_do_not_overlap": true,
+      "metadata_checked": true
+    },
+    "m3gtre46careerstart": {
+      "categories": {
+        "nos": {
+          "start": 269648,
+          "end": 269680,
+          "capacity": 2,
+          "count": 2,
+          "element_size": 12,
+          "physical_bytes": 32,
+          "upgrade_limit": 3,
+          "room_to_append_second_without_relocation": false
+        },
+        "tires": {
+          "start": 269696,
+          "end": 269716,
+          "capacity": 1,
+          "count": 1,
+          "element_size": 12,
+          "physical_bytes": 20,
+          "upgrade_limit": 0,
+          "room_to_append_second_without_relocation": false
+        },
+        "transmission": {
+          "start": 269740,
+          "end": 269760,
+          "capacity": 1,
+          "count": 1,
+          "element_size": 12,
+          "physical_bytes": 20,
+          "upgrade_limit": 0,
+          "room_to_append_second_without_relocation": false
+        },
+        "engine": {
+          "start": 269760,
+          "end": 269780,
+          "capacity": 1,
+          "count": 1,
+          "element_size": 12,
+          "physical_bytes": 20,
+          "upgrade_limit": 0,
+          "room_to_append_second_without_relocation": false
+        },
+        "chassis": {
+          "start": 269836,
+          "end": 269856,
+          "capacity": 1,
+          "count": 1,
+          "element_size": 12,
+          "physical_bytes": 20,
+          "upgrade_limit": 0,
+          "room_to_append_second_without_relocation": false
+        },
+        "brakes": {
+          "start": 269856,
+          "end": 269876,
+          "capacity": 1,
+          "count": 1,
+          "element_size": 12,
+          "physical_bytes": 20,
+          "upgrade_limit": 0,
+          "room_to_append_second_without_relocation": false
+        }
+      },
+      "intervals_do_not_overlap": true,
+      "metadata_checked": true
+    },
+    "punto": {
+      "categories": {
+        "tires": {
+          "start": 258520,
+          "end": 258552,
+          "capacity": 2,
+          "count": 2,
+          "element_size": 12,
+          "physical_bytes": 32,
+          "upgrade_limit": 3,
+          "room_to_append_second_without_relocation": false
+        },
+        "transmission": {
+          "start": 258640,
+          "end": 258672,
+          "capacity": 2,
+          "count": 2,
+          "element_size": 12,
+          "physical_bytes": 32,
+          "upgrade_limit": 4,
+          "room_to_append_second_without_relocation": false
+        },
+        "engine": {
+          "start": 258672,
+          "end": 258704,
+          "capacity": 2,
+          "count": 2,
+          "element_size": 12,
+          "physical_bytes": 32,
+          "upgrade_limit": 4,
+          "room_to_append_second_without_relocation": false
+        },
+        "chassis": {
+          "start": 258760,
+          "end": 258792,
+          "capacity": 2,
+          "count": 2,
+          "element_size": 12,
+          "physical_bytes": 32,
+          "upgrade_limit": 3,
+          "room_to_append_second_without_relocation": false
+        },
+        "brakes": {
+          "start": 258792,
+          "end": 258824,
+          "capacity": 2,
+          "count": 2,
+          "element_size": 12,
+          "physical_bytes": 32,
+          "upgrade_limit": 4,
+          "room_to_append_second_without_relocation": false
+        }
+      },
+      "intervals_do_not_overlap": true,
+      "metadata_checked": true
+    }
+  },
+  "bmw_categories_without_room_for_second_ref": [
+    "engine",
+    "transmission",
+    "chassis",
+    "tires",
+    "brakes"
+  ],
+  "bmw_cannot_gain_valid_second_ref_by_only_changing_u16_count": true,
+  "bmw_needs_valid_additional_class_specific_endpoint": true,
+  "bmw_needs_relocated_array_and_verified_PtrN_linkage": true,
+  "bmw_requires_separate_pvehicle_upgrade_counter_edit": true,
+  "bmw_induction_original_explicit_ref_missing": true,
+  "PAL_engine_automatically_interpolates_two_refs_verified": false,
+  "feature_safe_to_enable": false,
+  "patch_written": false,
+  "apk_built": false,
+  "save_modified": false,
+  "run_id": "42517721026",
+  "utc": "2026-11-08T19:58:54.347863+00:00"
+}
