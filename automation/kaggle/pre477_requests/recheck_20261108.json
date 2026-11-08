@@ -1,0 +1,7 @@
+{
+  "stage": "PRE477",
+  "purpose": "Re-run authenticated original PAL physics layout comparison with sanitized error report if failed",
+  "read_only": true,
+  "preserve_saves": true,
+  "build_APK": false
+}
