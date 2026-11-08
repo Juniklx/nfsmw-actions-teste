@@ -1,0 +1,14 @@
+{
+  "apk_built": false,
+  "backup_created": true,
+  "backup_unchanged": true,
+  "context_bytes": 668661,
+  "github_run_id": "42441653508",
+  "owner_proven": false,
+  "read_only": false,
+  "readback": true,
+  "result_is_not_player_owner_proof": true,
+  "source_commit": "3609cc47930733d917126ed1b046dab62acc9059",
+  "stage": "PRE406",
+  "status": "SYNC_OK"
+}
