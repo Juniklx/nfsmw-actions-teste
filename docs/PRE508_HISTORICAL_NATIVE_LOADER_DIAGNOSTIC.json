@@ -1,0 +1,8 @@
+{
+  "stage": "PRE508_HISTORICAL_ANDROID_GUEST_ASSET_LOADER_SOURCE_CONTEXT",
+  "status": "FAILED",
+  "error_type": "ValueError",
+  "error": "Source fingerprint differs from PRE505 host_path",
+  "run_id": "42524977351",
+  "mod_enabled": false
+}
