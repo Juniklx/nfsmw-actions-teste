@@ -6,7 +6,7 @@ on:
     paths:
       - 'automation/kaggle/pre456_requests/*.json'
 permissions:
-  contents: read
+  contents: write
 concurrency:
   group: nfsmw-pre456-v48-attribute-origin
   cancel-in-progress: false
@@ -39,3 +39,42 @@ jobs:
           path: /tmp/nfsmw-pre456-out/report.json
           if-no-files-found: warn
           retention-days: 14
+
+      - name: Preserve sanitized source provenance in private repository
+        if: success()
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data=json.loads(Path("/tmp/nfsmw-pre456-out/report.json").read_text())
+          if data.get("status")!="AUDIT_OK": raise SystemExit("Gate not verified")
+          clean={k:data[k] for k in ("stage","status","run_id","utc","pre99_sha256","source_sha256_all_verified",
+                  "route_2_load_line","route_1_3_explicit_zero_lines","apk_built","save_modified",
+                  "signing_accessed","guest_executed")}
+          clean["read_only_source_evidence"]={}
+          for key,info in data["functions"].items():
+              lines=info["full_function_lines"]
+              selected=set()
+              for entry in lines:
+                  s=entry["text"]
+                  if "ctx.r11" in s or "REX_LOAD_U32(ctx.r11" in s:
+                      selected.update(range(max(1,entry["line"]-6),min(len(lines),entry["line"]+7)+1))
+              clean["read_only_source_evidence"][key]={
+                  "filename":info["filename"],"sha256":info["sha256"],"function":info["function"],
+                  "total_lines":info["total_lines"],"r11_uses":info["ctx_r11_uses"],
+                  "relevant_lines":[x for x in lines if x["line"] in selected],
+                  "guest_calls":info["guest_calls"]
+              }
+          out=Path("docs/PRE456_V48_ROUTE2_ATTRIBUTE_PROVENANCE_READONLY.json")
+          out.parent.mkdir(parents=True,exist_ok=True)
+          out.write_text(json.dumps(clean,indent=2,ensure_ascii=False)+"\\n")
+          print("PRE456_PRIVATE_SUMMARY",out,"FUNCTIONS",list(clean["read_only_source_evidence"]))
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE456_V48_ROUTE2_ATTRIBUTE_PROVENANCE_READONLY.json
+          git diff --cached --quiet && exit 0
+          git commit -m "PRE456: persist verified route-2 source evidence (read-only)"
+          git push origin HEAD:main
