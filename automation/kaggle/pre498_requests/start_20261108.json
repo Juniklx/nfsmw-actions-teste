@@ -1,0 +1,10 @@
+{
+  "stage": "PRE498",
+  "source_handoff": "docs/PRE498_BMW_ENGINE_IMPLEMENTATION_HANDOFF_20261108.md",
+  "prior_required": "PRE493 — BMW M3 GTR real-upgrade hypothesis and data-capacity handoff",
+  "backup_first": true,
+  "append_only": true,
+  "verify_complete_readback": true,
+  "never_modify_apk": true,
+  "never_modify_save": true
+}
