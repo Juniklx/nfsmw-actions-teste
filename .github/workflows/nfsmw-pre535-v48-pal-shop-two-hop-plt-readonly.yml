@@ -1,0 +1,79 @@
+name: NFSMW PRE535 authentic V48 PAL two-hop shop field writer callgraph readonly
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre535_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre535-v48-guest-two-hop
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install original PAL ELF and Google Drive readers, verify PRE535 syntax
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth pyelftools==0.32 >/dev/null
+          python -m py_compile automation/kaggle/pre535_signed_v48_pal_shop_two_hop_plt_graph_readonly.py
+      - name: Authenticate V48 signed APK and examine numeric guest graph only
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre535_signed_v48_pal_shop_two_hop_plt_graph_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Guard data-only output and commit sanitized report
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          p=Path("/tmp/nfsmw-pre535/report.json")
+          d=json.loads(p.read_text()) if p.exists() else {"stage":"PRE535","status":"FAILED_NO_REPORT"}
+          for key in ("game_data_or_elf_written_or_uploaded","APK_built","save_modified",
+                      "signing_material_accessed","BMW_tuning_enabled"):
+              if d.get(key,False) is not False:
+                  raise SystemExit("PRE535 read-only safety guard failed: "+key)
+          if d.get("status")=="AUDIT_OK":
+              for key in ("guest_SetPackage_guest_address_proven",
+                          "guest_checkout_transaction_path_proven",
+                          "guest_BMW_engine_refspec_accepted"):
+                  if d.get(key) is not False:
+                      raise SystemExit("Cannot claim SetPackage or transaction from graph intersection")
+              dest=Path("docs/PRE535_V48_PAL_SHOP_TWO_HOP_PLT_GRAPH_READONLY.json")
+          else:
+              dest=Path("docs/PRE535_V48_PAL_SHOP_TWO_HOP_DIAGNOSTIC.json")
+              d={k:d.get(k) for k in ("stage","status","error_type","error","run_id") if k in d}
+              d["BMW_tuning_enabled"]=False
+          dest.parent.mkdir(parents=True,exist_ok=True)
+          dest.write_text(json.dumps(d,indent=2,ensure_ascii=False)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE535_V48_PAL_SHOP_TWO_HOP_*json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "PRE535: original V48 PAL shop roots two-hop PLT graph metadata"
+          for n in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
+      - name: Retain only metadata report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre535-v48-shop-two-hop-${{ github.run_id }}
+          path: /tmp/nfsmw-pre535/report.json
+          retention-days: 14
