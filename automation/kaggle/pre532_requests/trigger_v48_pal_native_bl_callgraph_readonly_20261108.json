@@ -1,0 +1,8 @@
+{
+  "stage": "PRE532",
+  "objective": "Authenticate signed V48 ARM64 libmain.so SHA256 and compare guest numeric function direct BL/indirect branches to PRE529 historical PAL source call graph; do not infer guest SetPackage or checkout semantically",
+  "previous_v48_elf_run": 42535508836,
+  "previous_guest_source_run": 42534824686,
+  "read_only": true,
+  "no_save_or_apk_or_game_changes": true
+}
