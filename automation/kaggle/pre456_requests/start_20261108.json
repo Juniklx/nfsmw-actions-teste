@@ -1,0 +1,15 @@
+{
+  "stage": "PRE456",
+  "scope": "read-only-static",
+  "baseline": "V48 PRE452 + PRE455 BMW Punto logs",
+  "target": [
+    "sub_823E5988",
+    "sub_8214B858",
+    "sub_8214EDA8",
+    "sub_8256F818"
+  ],
+  "input_source": "authenticated PRE99",
+  "changes_to_apk": false,
+  "changes_to_save": false,
+  "expose_raw_logs": false
+}
