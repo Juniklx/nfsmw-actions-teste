@@ -1,0 +1,82 @@
+{
+  "stage": "PRE526_PINNED_PC_SHOP_CHECKOUT_TO_PHYSICS_FAILURE_BOUNDARY_READONLY",
+  "status": "AUDIT_OK",
+  "public_source": "dbalatoni13/nfsmw",
+  "public_source_commit": "80993f35224c61d2f1b135beba76c6f8234c7940",
+  "public_source_git_blob_sha1": {
+    "src/Speed/Indep/Src/Frontend/MenuScreens/Safehouse/customize/CustomizeManager.cpp": "607e8f23654941577aff2392b5ae6d39c66bf036",
+    "src/Speed/Indep/Src/Frontend/Database/VehicleDB.cpp": "cca3059dc9d16af9b64fe0de6b4a93a84d42abdb",
+    "src/Speed/Indep/Src/Frontend/Careers/UnlockSystem.cpp": "4209ab53cf5471396206f35da3095cc63d914b3d",
+    "src/Speed/Indep/Src/Physics/PhysicsUpgrades.hpp": "12fe46773114b7a85fb476beba24a247e6aae73b",
+    "src/Speed/Indep/Src/Physics/PhysicsUpgrades.cpp": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+  },
+  "public_reference_platform": "PC reconstructed, NOT authenticated Xbox 360 guest",
+  "named_methods_and_lines": [
+    {
+      "name": "CarCustomizeManager::GetPerformancePartsList",
+      "start_line": 1289
+    },
+    {
+      "name": "CarCustomizeManager::GetNumPackages",
+      "start_line": 421
+    },
+    {
+      "name": "CarCustomizeManager::GetMaxPackages",
+      "start_line": 400
+    },
+    {
+      "name": "CarCustomizeManager::GetPartPrice",
+      "start_line": 261
+    },
+    {
+      "name": "CarCustomizeManager::Checkout",
+      "start_line": 206
+    },
+    {
+      "name": "CarCustomizeManager::InstallPerfPkg",
+      "start_line": 369
+    },
+    {
+      "name": "CarCustomizeManager::PreviewPerfPkg",
+      "start_line": 358
+    },
+    {
+      "name": "FECustomizationRecord::WriteRecordIntoPhysics",
+      "start_line": 1049
+    },
+    {
+      "name": "UnlockSystem::GetPerfPackageCost",
+      "start_line": 731
+    }
+  ],
+  "shop_list_calls_GetMaxLevel": true,
+  "shop_list_checks_locked_state": true,
+  "shop_list_uses_local_upgrade_level_count": true,
+  "shop_checkout_career_normal_cost_charged_before_install": true,
+  "shop_checkout_only_active_items_and_career_not_backroom": true,
+  "shop_checkout_performance_calls_InstallPerfPkg": true,
+  "shop_install_calls_WriteRecordIntoPhysics": true,
+  "shop_install_rolls_back_level0_if_SetPackage_path_fails": true,
+  "shop_install_return_type_void": true,
+  "shop_checkout_explicit_refund_for_failed_Perf_SetPackage": false,
+  "shop_checkout_checks_InstallPerfPkg_success_return": false,
+  "shop_preview_ignores_WriteRecordIntoPhysics_result": true,
+  "FE_vehicle_record_WriteRecordIntoPhysics_delegates_to_SetPackage": true,
+  "PhysicsUpgrades_hpp_declares_core_functions": true,
+  "PhysicsUpgrades_cpp_public_reference_body_bytes": 0,
+  "PhysicsUpgrades_cpp_implementation_available_in_reference": false,
+  "possible_payment_without_installed_upgrade_if_SetPackage_fails_in_PC_reference": true,
+  "user_PAL_FE_cost_original_engine_global_level4": 98000,
+  "price_condition": "only if guest matches PC mapping and availability",
+  "guest_V48_checkout_equivalence_verified": false,
+  "guest_V48_GetMaxLevel_or_SetPackage_behavior_verified": false,
+  "new_BMW_engine_collection_loaded_on_guest_verified": false,
+  "BMW_purchase_approved": false,
+  "safe_to_build_BMW_tuning_APK": false,
+  "asset_bytes_written_or_published": false,
+  "game_or_apk_modified": false,
+  "save_modified": false,
+  "signing_key_accessed": false,
+  "run_id": "42533754164",
+  "timestamp_utc": "2026-11-08T23:09:19.398125+00:00"
+}
