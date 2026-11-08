@@ -1,0 +1,79 @@
+name: NFSMW PRE513 authenticated V48 Java DEX game root and edition selection audit
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre513_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre513-original-v48-apk-markers
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare Google Drive reader and syntax validation
+        run: |
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 androguard==4.1.3 >/dev/null
+          python -m py_compile automation/kaggle/pre513_v48_dex_game_root_selection_readonly.py
+      - name: Authenticate exact V48 signed APK; inspect native library marker metadata without modification
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre513_v48_apk_native_runtime_marker_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Record evidence and block all runtime claims
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          p=Path("/tmp/nfsmw-pre513/report.json")
+          d=json.loads(p.read_text()) if p.is_file() else {"stage":"PRE513","status":"FAILED_NO_REPORT"}
+          for k in ("apk_or_game_data_modified","binary_or_raw_dex_uploaded",
+                    "APK_built","save_modified","release_signing_key_accessed","tuning_enabled"):
+              if d.get(k,False) is not False:
+                  raise SystemExit("PRE513 strict read-only boundary violated: "+k)
+          if d.get("status")=="AUDIT_OK":
+              for k in ("game_file_mount_observed",
+                        "tuning_purchase_proven",
+                        "loader_ZDIR_checksum_semantics_verified",
+                        "actual_phone_edition_or_shared_object_verified"):
+                  if d.get(k) is not False:
+                      raise SystemExit("PRE513 binary search is not an in-game test")
+              dest=Path("docs/PRE513_ORIGINAL_V48_ANDROID_DEX_GAME_ROOT_SELECTION_READONLY.json")
+          else:
+              dest=Path("docs/PRE513_ORIGINAL_V48_ANDROID_DEX_GAME_ROOT_SELECTION_DIAGNOSTIC.json")
+              d={k:d.get(k) for k in ("stage","status","error_type","error","run_id") if k in d}
+              d["tuning_enabled"]=False
+          dest.parent.mkdir(parents=True,exist_ok=True)
+          dest.write_text(json.dumps(d,ensure_ascii=False,indent=2)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE513_ORIGINAL_V48_ANDROID_DEX_GAME_ROOT_SELECTION_*json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "PRE513: authenticated original V48 DEX entrypoints"
+          for i in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
+      - name: Archive metadata only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre513-v48-marker-audit-${{ github.run_id }}
+          path: /tmp/nfsmw-pre513/report.json
+          retention-days: 14
