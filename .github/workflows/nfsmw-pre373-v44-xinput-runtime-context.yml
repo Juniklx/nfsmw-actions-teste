@@ -1,0 +1,48 @@
+name: NFSMW PRE373 V44 Nitro input runtime context sync
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre373_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre373-canonical-context-sync
+  cancel-in-progress: false
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify PRE373 backup-first context script
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre373_sync_v44_runtime_xinput_nitro_context.py
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+      - name: Backup and append verified V44 runtime observations
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre373_sync_v44_runtime_xinput_nitro_context.py
+      - name: Preserve bounded context sync status
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre373-context-status-${{ github.run_id }}
+          path: /tmp/nfsmw-pre373/CONTEXT_SYNC_STATUS.json
+          if-no-files-found: warn
+      - name: Publish sanitized result
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre328_publish_sanitized_audit_status.py --stage PRE373 --report /tmp/nfsmw-pre373/CONTEXT_SYNC_STATUS.json
