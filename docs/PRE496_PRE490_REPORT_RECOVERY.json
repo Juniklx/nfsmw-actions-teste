@@ -1,0 +1,19 @@
+{
+  "stage": "PRE496_PRE490_REPORT_RECOVERY",
+  "status": "AUDIT_OK",
+  "original_run_id": "42517016343",
+  "original_analysis_success": true,
+  "original_workflow_conclusion": "failure",
+  "original_failure_reason": "non-fast-forward Git push after 13 functions were successfully analyzed",
+  "recovery_method": "verified original GitHub Actions artifact, not repeated PRE99 download",
+  "artifact_id": 13632775377,
+  "artifact_original_report_json_sha256": "e33fce658a44f6b8a5e9e10466241e9cc48a26a0d234177d18d540c94c1c77a7",
+  "original_source_SHA256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "original_guest_functions_indexed": 56338,
+  "original_target_functions_analyzed": 13,
+  "candidate_addresses_are_not_semantically_certified": true,
+  "original_report_restored_locally_in_job": true,
+  "apk_built": false,
+  "save_modified": false,
+  "feature_enabled": false
+}
