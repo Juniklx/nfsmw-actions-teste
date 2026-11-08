@@ -1,0 +1,9 @@
+{
+  "stage": "PRE513",
+  "purpose": "Authenticate V48 PRE452 APK and examine compiled Java game-root, edition and native-argument selection methods via static DEX inspection",
+  "previous_report": "docs/PRE511_ORIGINAL_V48_APK_RUNTIME_MARKERS_READONLY.json",
+  "sha256": "c642f95b4a60b9ccf5d8fbd98802afffc0a2247ec5a0783b54cd8083ec55bd35",
+  "private_apk_not_exported": true,
+  "read_only": true,
+  "no_game_or_save_changes": true
+}
