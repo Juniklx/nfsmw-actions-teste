@@ -1,0 +1,8 @@
+{
+  "stage": "PRE487",
+  "purpose": "Filter PPC PAL GetMaxLevel/SetPackage structural candidates by actual loads vs stores and package layout",
+  "no_game_change": true,
+  "no_apk": true,
+  "save_untouched": true,
+  "no_game_source_publish": true
+}
