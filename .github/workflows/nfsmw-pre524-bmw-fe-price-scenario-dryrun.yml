@@ -1,0 +1,71 @@
+name: NFSMW PRE524 PC reference performance package pricing scenario no patch
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre524_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre524-bmw-price-scenario
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Inspect source-backed formula on authenticated metadata only
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre524_bmw_pricing_pc_formula_scenarios_readonly.py
+          python automation/kaggle/pre524_bmw_pricing_pc_formula_scenarios_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Publish verified read-only scenario, not patch
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          p=Path("/tmp/nfsmw-pre524/report.json")
+          d=json.loads(p.read_text()) if p.exists() else {"stage":"PRE524","status":"FAILED_NO_REPORT"}
+          for key in ("game_asset_modified_or_published","APK_built","save_modified","signing_key_accessed","ready_to_enable_BMW_tuning"):
+              if d.get(key,False) is not False:
+                  raise SystemExit("PRE524 game asset safe-boundary failed: "+key)
+          if d.get("status")=="AUDIT_OK":
+              for key in ("same_source_resource_PAL_USA_FE_price_identity_verified",
+                          "actual_Xbox_guest_unlock_price_formula_verified",
+                          "BMW_package_purchase_unlock_status_verified",
+                          "BMW_Physics_SetPackage_or_save_roundtrip_verified"):
+                  if d.get(key) is not False:
+                      raise SystemExit("Cannot promote hypothetical PC price to Xbox runtime proof")
+              destination=Path("docs/PRE524_BMW_PC_REFERENCE_FE_PRICE_SCENARIOS_READONLY.json")
+          else:
+              destination=Path("docs/PRE524_BMW_PC_REFERENCE_FE_PRICE_SCENARIOS_DIAGNOSTIC.json")
+              d={k:d[k] for k in ("stage","status","error_type","error","run_id") if k in d}
+              d["ready_to_enable_BMW_tuning"]=False
+          destination.parent.mkdir(parents=True,exist_ok=True)
+          destination.write_text(json.dumps(d,ensure_ascii=False,indent=2)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE524_BMW_PC_REFERENCE_FE_PRICE_SCENARIOS_*json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "PRE524: BMW reference price mapping scenario guarded"
+          for i in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
+      - name: Archive scenario metadata
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre524-pricing-scenarios-${{ github.run_id }}
+          path: /tmp/nfsmw-pre524/report.json
+          retention-days: 14
