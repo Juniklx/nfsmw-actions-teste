@@ -1,0 +1,63 @@
+name: NFSMW PRE491 PAL data vs PC physical interpolation model
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre491_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre491-pal-pc-interpolation
+  cancel-in-progress: false
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Syntax-check offline original PAL data model test
+        run: python -m py_compile automation/kaggle/pre491_pal_bmw_upgrade_interpolation_model_readonly.py
+      - name: PRE491 compare external PC interpolation hypothesis with authenticated original PAL data
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre491_pal_bmw_upgrade_interpolation_model_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Persist safe model-only report
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("/tmp/nfsmw-pre491/report.json")
+          d=json.loads(p.read_text()) if p.is_file() else {"status":"FAILED_NO_REPORT"}
+          if d.get("safe_to_enable_feature",False) is not False or d.get("generated_apk",False) is not False:
+              raise SystemExit("PRE491 fail-closed invariant")
+          if d.get("status")=="AUDIT_OK":
+              if d.get("engine_behavior_PAL_runtime_verified") is not False:
+                  raise SystemExit("PAL runtime not validated")
+              path=Path("docs/PRE491_PAL_PC_UPGRADE_INTERPOLATION_HYPOTHESIS.json")
+          else:
+              path=Path("docs/PRE491_PAL_PC_INTERPOLATION_DIAGNOSTIC.json")
+              d={k:d.get(k) for k in ("stage","status","error_type","error","run_id") if k in d}
+              d["safe_to_enable_feature"]=False
+          path.parent.mkdir(parents=True,exist_ok=True)
+          path.write_text(json.dumps(d,ensure_ascii=False,indent=2)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE491_PAL_PC_*.json
+          git diff --cached --quiet && exit 0
+          git commit -m "PRE491: validate offline PAL upgrade endpoint model without enabling BMW"
+          git push origin HEAD:main
+      - name: Preserve private report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre491-pc-upgrade-hypothesis-${{ github.run_id }}
+          path: /tmp/nfsmw-pre491/report.json
+          if-no-files-found: warn
+          retention-days: 14
