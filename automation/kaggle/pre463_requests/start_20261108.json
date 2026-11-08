@@ -1,0 +1,9 @@
+{
+  "stage": "PRE463",
+  "source": "USA NFSMW.iso - GLOBAL\\\\ATTRIBUTES.BIN",
+  "purpose": "read original VPAK header vault metadata and string clues for BMW M3 GTR",
+  "max_transfer_bytes": 2097152,
+  "no_game_asset_publication": true,
+  "no_APK": true,
+  "no_save_modification": true
+}
