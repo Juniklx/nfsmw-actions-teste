@@ -1,0 +1,61 @@
+name: NFSMW PRE469 resolve BMW car classes in full BIN metadata
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre469_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre469-bmw-class-map
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare dependencies
+        run: |
+          python -m pip install --disable-pip-version-check google-auth requests >/dev/null
+          python -m py_compile automation/kaggle/pre459_pal_zip_car_catalog_readonly.py automation/kaggle/pre462_usa_raw_iso_attributes_readonly.py automation/kaggle/pre463_usa_vpak_attribute_metadata_readonly.py automation/kaggle/pre465_usa_bmw_vpak_inner_schema_readonly.py automation/kaggle/pre469_usa_class_names_from_bin_readonly.py
+      - name: PRE469 hash-match BMW classes via additional BIN strings
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre469_usa_class_names_from_bin_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Save metadata-only class name matches
+        if: success()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          d=json.loads(Path("/tmp/nfsmw-pre469/report.json").read_text())
+          if d.get("status")!="AUDIT_OK" or d.get("mod_enabled") is not False:
+              raise SystemExit("PRE469 fail closed")
+          out=Path("docs/PRE469_BMW_VLT_CLASSES_FROM_FULL_BIN_READONLY.json")
+          out.parent.mkdir(parents=True,exist_ok=True)
+          out.write_text(json.dumps(d,indent=2,ensure_ascii=False)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE469_BMW_VLT_CLASSES_FROM_FULL_BIN_READONLY.json
+          git diff --cached --quiet && exit 0
+          git commit -m "PRE469: map BMW variants to full BIN class names"
+          git push origin HEAD:main
+      - name: Upload metadata only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre469-class-map-${{ github.run_id }}
+          path: /tmp/nfsmw-pre469/report.json
+          if-no-files-found: warn
+          retention-days: 14
