@@ -10,7 +10,7 @@ from pathlib import Path
 REPO=os.environ["GITHUB_REPOSITORY"]
 TOKEN=os.environ["GITHUB_TOKEN"]
 WORKFLOW="nfsmw-pre380-nitro-lr-entry-canary.yml"
-TARGET="faefa555fa981a5e825bfb82dcb8c83123f14826"
+TARGET="3b41dca0eb330fb04003ab354b8a8bc1e8786bcc"
 HEADERS={"Authorization":f"Bearer {TOKEN}",
          "Accept":"application/vnd.github+json",
          "X-GitHub-Api-Version":"2022-11-28",
