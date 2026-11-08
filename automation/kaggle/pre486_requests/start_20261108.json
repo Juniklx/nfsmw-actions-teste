@@ -1,0 +1,7 @@
+{
+  "stage": "PRE486",
+  "purpose": "Discriminate true physics-field record access from incidental memory offset matches, inspect menu caller and callsite patterns",
+  "no_save_write": true,
+  "no_apk_build": true,
+  "no_guest_execution": true
+}
