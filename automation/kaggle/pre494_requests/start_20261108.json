@@ -1,0 +1,9 @@
+{
+  "stage": "PRE494",
+  "goal": "Validate authenticated BMW M3 GTR engine RefSpec array relocation to existing VPAK padding in RAM using duplicate original stock reference only",
+  "read_only_source": true,
+  "no_asset_output": true,
+  "no_apk": true,
+  "no_save": true,
+  "no_runtime_test": true
+}
