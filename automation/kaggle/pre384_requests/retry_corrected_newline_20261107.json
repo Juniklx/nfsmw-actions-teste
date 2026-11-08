@@ -1,0 +1,7 @@
+{
+  "stage": "PRE386",
+  "retry": "PRE384",
+  "cause": "C++ raw string contained literal \\\\n swallowing REXLOG_INFO",
+  "scope": "host_only_compile",
+  "apk": false
+}
