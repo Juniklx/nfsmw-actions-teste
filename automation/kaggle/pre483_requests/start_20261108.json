@@ -1,0 +1,9 @@
+{
+  "stage": "PRE483",
+  "goal": "Test isolated C++ transactional BMW tuning proposal rollback and FE cost/save gate logic",
+  "offline_only": true,
+  "no_game_memory_access": true,
+  "no_save_access": true,
+  "no_apk_build": true,
+  "runtime_activation": false
+}
