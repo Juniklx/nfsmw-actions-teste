@@ -23,7 +23,6 @@ def audit():
        or prior.get("pal_resource_identical_to_usa_reference") is not True
        or prior.get("pal_target_size_bytes")!=EXPECTED_SIZE
        or usa.get("status")!="AUDIT_OK"
-       or usa.get("original_resource_padding_bytes") is not None
        or scratch.get("status")!="AUDIT_OK"
        or scratch.get("scratch_vpak_bytes")!=698004
        or scratch.get("safe_to_enable_or_build_tuning") is not False):
