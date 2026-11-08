@@ -1,0 +1,11 @@
+{
+  "stage": "PRE514_CANONICAL_CONTEXT_APPEND_WITH_BACKUP",
+  "status": "FAILED",
+  "apk_built": false,
+  "save_modified": false,
+  "game_assets_modified": false,
+  "error_type": "HttpError",
+  "error": "<HttpError 502 when requesting https://www.googleapis.com/upload/drive/v3/files/1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB?supportsAllDrives=true&fields=id%2Cname%2Csize%2CmodifiedTime&alt=json&uploadType=media returned \"Bad Gateway\". Details: \"<!DOCTYPE html>\n<html lang=en>\n  <meta chars",
+  "run_id": "42528039984",
+  "utc": "2026-11-08T22:01:40.017168+00:00"
+}
