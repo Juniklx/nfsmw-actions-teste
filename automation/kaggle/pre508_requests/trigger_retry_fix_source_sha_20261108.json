@@ -1,0 +1,7 @@
+{
+  "stage": "PRE508",
+  "attempt": 2,
+  "reason": "Corrected 57-char typo in host_path_file SHA to PRE505 verified 64-char value; no other operation",
+  "readonly": true,
+  "no_game_patch": true
+}
