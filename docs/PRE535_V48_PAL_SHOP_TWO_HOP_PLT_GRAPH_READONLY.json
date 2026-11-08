@@ -1,0 +1,430 @@
+{
+  "stage": "PRE535_SIGNED_V48_PAL_SHOP_AND_FIELD_WRITER_TWO_HOP_PLT_GRAPH_READONLY",
+  "status": "AUDIT_OK",
+  "published_original_V48_apk_sha256": "c642f95b4a60b9ccf5d8fbd98802afffc0a2247ec5a0783b54cd8083ec55bd35",
+  "published_original_V48_PAL_libmain_sha256": "f39870144295c98cb05b9e8649a378e968fccb5bf479b653d0654158e92316a3",
+  "original_elf_numeric_guest_function_count": 56338,
+  "original_elf_PLT_jump_slot_count": 17107,
+  "original_elf_guest_PLT_relocation_count": 15598,
+  "original_elf_relocation_types": {
+    "1026": 17107
+  },
+  "target_root_count": 5,
+  "first_hop_neighbor_functions_inspected": 72,
+  "total_distinct_functions_inspected": 76,
+  "total_ARM64_function_bytes_scanned": 63192,
+  "root_graph_summaries": {
+    "ui_package_list": {
+      "numeric_root": "sub_8256F818",
+      "direct_BL": 10,
+      "guest_BL_resolved": 9,
+      "unique_direct_guest_callees": 8,
+      "unique_reachable_guest_callees_within_two_hops": 30,
+      "first_hop_numeric_guest_targets": [
+        "sub_8215CB08",
+        "sub_823E5988",
+        "sub_8256BC60",
+        "sub_8256C2F0",
+        "sub_8256CB60",
+        "sub_8256D548",
+        "sub_8256D5F0",
+        "sub_8256D800"
+      ]
+    },
+    "ui_package_related": {
+      "numeric_root": "sub_8256CBC8",
+      "direct_BL": 15,
+      "guest_BL_resolved": 14,
+      "unique_direct_guest_callees": 11,
+      "unique_reachable_guest_callees_within_two_hops": 34,
+      "first_hop_numeric_guest_targets": [
+        "sub_8215CB08",
+        "sub_823E5988",
+        "sub_8256B7C0",
+        "sub_8256BA30",
+        "sub_8256BB10",
+        "sub_8256BC60",
+        "sub_8256C2F0",
+        "sub_8256CB60",
+        "sub_8256D548",
+        "sub_8256D5F0",
+        "sub_8256D800"
+      ]
+    },
+    "ui_list_caller": {
+      "numeric_root": "sub_82582F70",
+      "direct_BL": 47,
+      "guest_BL_resolved": 40,
+      "unique_direct_guest_callees": 18,
+      "unique_reachable_guest_callees_within_two_hops": 58,
+      "first_hop_numeric_guest_targets": [
+        "sub_8215CB08",
+        "sub_8227FD70",
+        "sub_82284E88",
+        "sub_822CC740",
+        "sub_822DADC0",
+        "sub_823E4600",
+        "sub_823E5988",
+        "sub_8256BB10",
+        "sub_8256BC60",
+        "sub_8256CB60",
+        "sub_8256CE68",
+        "sub_8256D2B8",
+        "sub_8256D548",
+        "sub_8256D5F0",
+        "sub_8256F818",
+        "sub_8256F9D8",
+        "sub_82579CE0",
+        "sub_82587498"
+      ]
+    },
+    "historical_field12_writer_A": {
+      "numeric_root": "sub_8256BFC8",
+      "direct_BL": 12,
+      "guest_BL_resolved": 9,
+      "unique_direct_guest_callees": 9,
+      "unique_reachable_guest_callees_within_two_hops": 17,
+      "first_hop_numeric_guest_targets": [
+        "sub_822EAF20",
+        "sub_822EB158",
+        "sub_8255AA08",
+        "sub_8256C668",
+        "sub_8256C848",
+        "sub_8256C980",
+        "sub_8256CF90",
+        "sub_8256F9A0",
+        "sub_825878C8"
+      ]
+    },
+    "historical_field12_writer_B": {
+      "numeric_root": "sub_82564D80",
+      "direct_BL": 79,
+      "guest_BL_resolved": 74,
+      "unique_direct_guest_callees": 42,
+      "unique_reachable_guest_callees_within_two_hops": 119,
+      "first_hop_numeric_guest_targets": [
+        "sub_82158190",
+        "sub_82284928",
+        "sub_82284E88",
+        "sub_82292AC8",
+        "sub_822BCE60",
+        "sub_822BDF08",
+        "sub_822BE678",
+        "sub_822BF6B8",
+        "sub_822BFA00",
+        "sub_822BFB08",
+        "sub_822BFB68",
+        "sub_822BFEC8",
+        "sub_822C43A0",
+        "sub_822C46A0",
+        "sub_822CA1B0",
+        "sub_822CA4A8",
+        "sub_822CB120",
+        "sub_822CB3A0",
+        "sub_822CB878",
+        "sub_822CC308",
+        "sub_822CC818",
+        "sub_822DABB0",
+        "sub_822F5BB8",
+        "sub_824EE000",
+        "sub_8254E8A0",
+        "sub_8254E908",
+        "sub_82556D78",
+        "sub_82558750",
+        "sub_82558D38",
+        "sub_8255A520",
+        "sub_82563518",
+        "sub_82563580",
+        "sub_825641F0",
+        "sub_825644E8",
+        "sub_82564CB0",
+        "sub_825670B8",
+        "sub_82567400",
+        "sub_825681D8",
+        "sub_82568278",
+        "sub_825682F0",
+        "sub_825693C0",
+        "sub_825696C8"
+      ]
+    }
+  },
+  "guest_root_two_hop_intersection_count": 12,
+  "guest_root_two_hop_intersection_samples": [
+    {
+      "numeric_function": "sub_820E25C0",
+      "ui_root_roles_reaching": [
+        "ui_list_caller"
+      ],
+      "field_writer_root_roles_reaching": [
+        "historical_field12_writer_A"
+      ],
+      "witness_paths_at_most_two_calls": {
+        "ui_list_caller": [
+          "sub_82582F70",
+          "sub_82587498",
+          "sub_820E25C0"
+        ],
+        "historical_field12_writer_A": [
+          "sub_8256BFC8",
+          "sub_825878C8",
+          "sub_820E25C0"
+        ]
+      },
+      "does_NOT_identify_checkout_SetPackage_or_cash": true
+    },
+    {
+      "numeric_function": "sub_82152A38",
+      "ui_root_roles_reaching": [
+        "ui_list_caller"
+      ],
+      "field_writer_root_roles_reaching": [
+        "historical_field12_writer_B"
+      ],
+      "witness_paths_at_most_two_calls": {
+        "ui_list_caller": [
+          "sub_82582F70",
+          "sub_8256CE68",
+          "sub_82152A38"
+        ],
+        "historical_field12_writer_B": [
+          "sub_82564D80",
+          "sub_822CC818",
+          "sub_82152A38"
+        ]
+      },
+      "does_NOT_identify_checkout_SetPackage_or_cash": true
+    },
+    {
+      "numeric_function": "sub_8215CB08",
+      "ui_root_roles_reaching": [
+        "ui_package_list",
+        "ui_package_related",
+        "ui_list_caller"
+      ],
+      "field_writer_root_roles_reaching": [
+        "historical_field12_writer_B"
+      ],
+      "witness_paths_at_most_two_calls": {
+        "ui_package_list": [
+          "sub_8256F818",
+          "sub_8215CB08"
+        ],
+        "ui_package_related": [
+          "sub_8256CBC8",
+          "sub_8215CB08"
+        ],
+        "historical_field12_writer_B": [
+          "sub_82564D80",
+          "sub_825693C0",
+          "sub_8215CB08"
+        ]
+      },
+      "does_NOT_identify_checkout_SetPackage_or_cash": true
+    },
+    {
+      "numeric_function": "sub_821E02C0",
+      "ui_root_roles_reaching": [
+        "ui_list_caller"
+      ],
+      "field_writer_root_roles_reaching": [
+        "historical_field12_writer_B"
+      ],
+      "witness_paths_at_most_two_calls": {
+        "ui_list_caller": [
+          "sub_82582F70",
+          "sub_8256CE68",
+          "sub_821E02C0"
+        ],
+        "historical_field12_writer_B": [
+          "sub_82564D80",
+          "sub_8254E908",
+          "sub_821E02C0"
+        ]
+      },
+      "does_NOT_identify_checkout_SetPackage_or_cash": true
+    },
+    {
+      "numeric_function": "sub_8227FD70",
+      "ui_root_roles_reaching": [
+        "ui_list_caller"
+      ],
+      "field_writer_root_roles_reaching": [
+        "historical_field12_writer_B"
+      ],
+      "witness_paths_at_most_two_calls": {
+        "ui_list_caller": [
+          "sub_82582F70",
+          "sub_8227FD70"
+        ],
+        "historical_field12_writer_B": [
+          "sub_82564D80",
+          "sub_82567400",
+          "sub_8227FD70"
+        ]
+      },
+      "does_NOT_identify_checkout_SetPackage_or_cash": true
+    },
+    {
+      "numeric_function": "sub_82282A70",
+      "ui_root_roles_reaching": [
+        "ui_list_caller"
+      ],
+      "field_writer_root_roles_reaching": [
+        "historical_field12_writer_B"
+      ],
+      "witness_paths_at_most_two_calls": {
+        "ui_list_caller": [
+          "sub_82582F70",
+          "sub_8256D2B8",
+          "sub_82282A70"
+        ],
+        "historical_field12_writer_B": [
+          "sub_82564D80",
+          "sub_82567400",
+          "sub_82282A70"
+        ]
+      },
+      "does_NOT_identify_checkout_SetPackage_or_cash": true
+    },
+    {
+      "numeric_function": "sub_82284CC0",
+      "ui_root_roles_reaching": [
+        "ui_list_caller"
+      ],
+      "field_writer_root_roles_reaching": [
+        "historical_field12_writer_B"
+      ],
+      "witness_paths_at_most_two_calls": {
+        "ui_list_caller": [
+          "sub_82582F70",
+          "sub_8227FD70",
+          "sub_82284CC0"
+        ],
+        "historical_field12_writer_B": [
+          "sub_82564D80",
+          "sub_82284E88",
+          "sub_82284CC0"
+        ]
+      },
+      "does_NOT_identify_checkout_SetPackage_or_cash": true
+    },
+    {
+      "numeric_function": "sub_82284E88",
+      "ui_root_roles_reaching": [
+        "ui_list_caller"
+      ],
+      "field_writer_root_roles_reaching": [
+        "historical_field12_writer_B"
+      ],
+      "witness_paths_at_most_two_calls": {
+        "ui_list_caller": [
+          "sub_82582F70",
+          "sub_82284E88"
+        ],
+        "historical_field12_writer_B": [
+          "sub_82564D80",
+          "sub_82284E88"
+        ]
+      },
+      "does_NOT_identify_checkout_SetPackage_or_cash": true
+    },
+    {
+      "numeric_function": "sub_822BCE60",
+      "ui_root_roles_reaching": [
+        "ui_list_caller"
+      ],
+      "field_writer_root_roles_reaching": [
+        "historical_field12_writer_B"
+      ],
+      "witness_paths_at_most_two_calls": {
+        "ui_list_caller": [
+          "sub_82582F70",
+          "sub_8256D2B8",
+          "sub_822BCE60"
+        ],
+        "historical_field12_writer_B": [
+          "sub_82564D80",
+          "sub_822BCE60"
+        ]
+      },
+      "does_NOT_identify_checkout_SetPackage_or_cash": true
+    },
+    {
+      "numeric_function": "sub_822CC740",
+      "ui_root_roles_reaching": [
+        "ui_list_caller"
+      ],
+      "field_writer_root_roles_reaching": [
+        "historical_field12_writer_B"
+      ],
+      "witness_paths_at_most_two_calls": {
+        "ui_list_caller": [
+          "sub_82582F70",
+          "sub_822CC740"
+        ],
+        "historical_field12_writer_B": [
+          "sub_82564D80",
+          "sub_822CC308",
+          "sub_822CC740"
+        ]
+      },
+      "does_NOT_identify_checkout_SetPackage_or_cash": true
+    },
+    {
+      "numeric_function": "sub_822FEB70",
+      "ui_root_roles_reaching": [
+        "ui_list_caller"
+      ],
+      "field_writer_root_roles_reaching": [
+        "historical_field12_writer_B"
+      ],
+      "witness_paths_at_most_two_calls": {
+        "ui_list_caller": [
+          "sub_82582F70",
+          "sub_82284E88",
+          "sub_822FEB70"
+        ],
+        "historical_field12_writer_B": [
+          "sub_82564D80",
+          "sub_825682F0",
+          "sub_822FEB70"
+        ]
+      },
+      "does_NOT_identify_checkout_SetPackage_or_cash": true
+    },
+    {
+      "numeric_function": "sub_823EAE40",
+      "ui_root_roles_reaching": [
+        "ui_list_caller"
+      ],
+      "field_writer_root_roles_reaching": [
+        "historical_field12_writer_B"
+      ],
+      "witness_paths_at_most_two_calls": {
+        "ui_list_caller": [
+          "sub_82582F70",
+          "sub_8256CE68",
+          "sub_823EAE40"
+        ],
+        "historical_field12_writer_B": [
+          "sub_82564D80",
+          "sub_8254E908",
+          "sub_823EAE40"
+        ]
+      },
+      "does_NOT_identify_checkout_SetPackage_or_cash": true
+    }
+  ],
+  "all_intersections_are_static_and_not_symbol_semantics": true,
+  "graph_static_only_NOT_guest_runtime": true,
+  "guest_SetPackage_guest_address_proven": false,
+  "guest_checkout_transaction_path_proven": false,
+  "guest_BMW_engine_refspec_accepted": false,
+  "game_data_or_elf_written_or_uploaded": false,
+  "APK_built": false,
+  "save_modified": false,
+  "signing_material_accessed": false,
+  "BMW_tuning_enabled": false,
+  "run_id": "42536895518",
+  "timestamp_utc": "2026-11-08T23:49:01.131072+00:00"
+}
