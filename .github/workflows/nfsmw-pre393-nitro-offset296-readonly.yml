@@ -1,0 +1,39 @@
+name: NFSMW PRE393 Nitro offset296 source-only audit
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre393_requests/*.json'
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify PRE393 scanner and install Drive read dependencies
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre393_nitro_offset296_source_readonly.py
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+      - name: Read SHA-pinned PRE99 PAL plus296 dataflow
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre393_nitro_offset296_source_readonly.py
+      - name: Preserve bounded audited dataflow
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre393-offset296-${{ github.run_id }}
+          path: /tmp/nfsmw-pre393/PRE393_NITRO_296_DATAFLOW.json
+          if-no-files-found: warn
+          retention-days: 30
