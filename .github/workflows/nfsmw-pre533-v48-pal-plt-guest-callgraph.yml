@@ -1,0 +1,80 @@
+name: NFSMW PRE533 resolve original PAL guest BL via PLT relocations read only
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre533_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre533-v48-pal-plt-relocations
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pinned ARM64 ELF/call graph readers and syntax-check audit
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth pyelftools==0.32 capstone==5.0.6 >/dev/null
+          python -m py_compile automation/kaggle/pre533_signed_v48_pal_guest_plt_relocation_graph_readonly.py
+      - name: Verify original V48 APK PAL ELF and map guest call instructions only
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre533_signed_v48_pal_guest_plt_relocation_graph_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Save safe original ELF call graph metadata
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          src=Path("/tmp/nfsmw-pre533/report.json")
+          d=json.loads(src.read_text()) if src.is_file() else {"stage":"PRE533","status":"FAILED_NO_REPORT"}
+          for key in ("original_APK_or_game_modified","native_binary_or_guest_code_uploaded",
+                      "APK_built","save_modified","signing_key_touched","safe_to_patch_or_buy_BMW"):
+              if d.get(key,False) is not False:
+                  raise SystemExit("PRE533 original binary safety gate failed "+key)
+          if d.get("status")=="AUDIT_OK":
+              for key in ("guest_Xbox_360_SetPackage_address_identified",
+                          "guest_Xbox_360_SetPackage_accepts_new_BMW_profile",
+                          "actual_V48_guest_execution_on_phone_verified",
+                          "guest_checkout_price_or_payment_function_identified"):
+                  if d.get(key) is not False:
+                      raise SystemExit("Do not promote direct BL to guest semantic/functional proof")
+              dst=Path("docs/PRE533_ORIGINAL_V48_PAL_GUEST_RELOCATED_PLT_CALLGRAPH_READONLY.json")
+          else:
+              dst=Path("docs/PRE533_ORIGINAL_V48_PAL_GUEST_RELOCATED_PLT_DIAGNOSTIC.json")
+              d={k:d[k] for k in ("stage","status","error_type","error","run_id") if k in d}
+              d["safe_to_patch_or_buy_BMW"]=False
+          dst.parent.mkdir(parents=True,exist_ok=True)
+          dst.write_text(json.dumps(d,indent=2,ensure_ascii=False)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE533_ORIGINAL_V48_PAL_GUEST_RELOCATED_PLT_*json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "PRE533: authenticated V48 PAL guest ARM64 BL xref evidence"
+          for n in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
+      - name: Retain sanitized original APK PLT-resolved guest call graph metadata
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre533-pal-guest-arm64-callgraph-${{ github.run_id }}
+          path: /tmp/nfsmw-pre533/report.json
+          retention-days: 14
