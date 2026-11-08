@@ -43,7 +43,7 @@ def inspect(sess):
         raise ValueError("Archive metadata identity or size changed")
     tail_len=140000
     tail=read_range(sess,SIZE-tail_len,tail_len)
-    pos=tail.rfind(b"PK\\x05\\x06")
+    pos=tail.rfind(b"PK\x05\x06")
     if pos<0 or pos+22>len(tail):raise ValueError("ZIP EOCD absent")
     fields=struct.unpack_from("<IHHHHIIH",tail,pos)
     disk,cd_disk,count,cd_size,cd_offset=fields[1],fields[2],fields[4],fields[5],fields[6]
@@ -51,10 +51,10 @@ def inspect(sess):
     if count==0xFFFF or cd_offset==0xFFFFFFFF or cd_size==0xFFFFFFFF:
         locator_at=SIZE-tail_len+pos-20
         locator=read_range(sess,locator_at,20)
-        if locator[:4]!=b"PK\\x06\\x07":raise ValueError("ZIP64 locator absent")
+        if locator[:4]!=b"PK\x06\x07":raise ValueError("ZIP64 locator absent")
         _sig,_disk,record_off,_disks=struct.unpack("<IIQI",locator)
         record=read_range(sess,record_off,56)
-        if record[:4]!=b"PK\\x06\\x06":raise ValueError("ZIP64 record absent")
+        if record[:4]!=b"PK\x06\x06":raise ValueError("ZIP64 record absent")
         vals=struct.unpack("<IQHHIIQQQQ",record)
         count,cd_size,cd_offset=vals[-3:]
     if count!=53 or not (1<=cd_size<=100000):
@@ -64,7 +64,7 @@ def inspect(sess):
     if cd_sha!=EXPECTED_CD_SHA:raise ValueError("PRE212 central directory SHA changed")
     pos=0; entries=[]
     for i in range(count):
-        if pos+46>len(cd) or cd[pos:pos+4]!=b"PK\\x01\\x02":
+        if pos+46>len(cd) or cd[pos:pos+4]!=b"PK\x01\x02":
             raise ValueError("Unexpected ZIP directory member")
         vals=struct.unpack_from("<I6H3I5H2I",cd,pos)
         (_,made,need,flags,method,mt,md,crc,csize,usize,nlen,xlen,clen,diskno,ia,ea,offset)=vals
@@ -98,7 +98,7 @@ def main():
                 "error_type":type(e).__name__,"error":str(e)[:200]}
     result.update({"run_id":a.run_id,"utc":datetime.now(timezone.utc).isoformat(),
                    "apk_built":False,"save_touched":False})
-    OUT.write_text(json.dumps(result,indent=2,ensure_ascii=False)+"\\n")
+    OUT.write_text(json.dumps(result,indent=2,ensure_ascii=False)+"\n")
     print("PRE459_STATUS",result["status"],flush=True)
     print("PRE459_DIR_ENTRIES",result.get("entry_count","no"),flush=True)
     print("PRE459_ERROR",result.get("error_type","none"),flush=True)
