@@ -1,0 +1,9 @@
+{
+  "stage": "PRE485",
+  "goal": "Index original PAL generated source call graph and performance-like offset candidates for SetPackage/SetLevel/GetMaxLevel localization",
+  "source_archive": "PRE99 SHA256 af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "read_only": true,
+  "no_guest_execution": true,
+  "no_save_write": true,
+  "no_apk": true
+}
