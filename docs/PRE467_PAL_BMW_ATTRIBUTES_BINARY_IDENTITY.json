@@ -1,0 +1,63 @@
+{
+  "stage": "PRE467_PAL_BMW_ATTRIBUTE_VPAK_AUTHENTICATED",
+  "status": "AUDIT_OK",
+  "original_zip_size": 5567403879,
+  "source_archive_member": "NFS/ZZDATA4.BIN",
+  "source_member_deflate_crc32_verified": true,
+  "source_member_full_uncompressed_bytes": 401068032,
+  "pal_target_resource": "GLOBAL\\ATTRIBUTES.BIN",
+  "pal_target_size_bytes": 697856,
+  "pal_target_sha256": "9f4b04a221232e614b927a870e25da7db100477a7e425114b87082f46e8b99ad",
+  "usa_reference_sha256": "9f4b04a221232e614b927a870e25da7db100477a7e425114b87082f46e8b99ad",
+  "pal_resource_identical_to_usa_reference": true,
+  "vpak_name_count": 1,
+  "vpak_bin_size": 354959,
+  "vpak_vlt_size": 342720,
+  "pal_bin_string_candidate_count": 1920,
+  "pal_target_identifiers": {
+    "BMWM3GTR": {
+      "bin_name_present": true,
+      "bin_text_occurrences": 2,
+      "vlt_text_occurrences": 0
+    },
+    "BMWM3GTRE46": {
+      "bin_name_present": true,
+      "bin_text_occurrences": 1,
+      "vlt_text_occurrences": 0
+    },
+    "m3gtre46careerstart": {
+      "bin_name_present": true,
+      "bin_text_occurrences": 1,
+      "vlt_text_occurrences": 0
+    },
+    "UpgradeSpecs": {
+      "bin_name_present": false,
+      "bin_text_occurrences": 1,
+      "vlt_text_occurrences": 0
+    },
+    "eFEPartUpgradeLevels": {
+      "bin_name_present": false,
+      "bin_text_occurrences": 1,
+      "vlt_text_occurrences": 0
+    },
+    "JunkmanMod": {
+      "bin_name_present": false,
+      "bin_text_occurrences": 1,
+      "vlt_text_occurrences": 0
+    }
+  },
+  "transfer_stats": {
+    "http_range_calls": 63,
+    "compressed_bytes_read": 261097565,
+    "total_deflated_bytes": 401068032,
+    "zzdata_member_crc32": "b46a396c",
+    "target_bytes_collected": 697856
+  },
+  "raw_game_assets_published": false,
+  "game_archive_modified": false,
+  "signed_apk_built": false,
+  "save_modified": false,
+  "bmw_usable_upgrades_proven": false,
+  "run_id": "42509329234",
+  "utc": "2026-11-08T18:19:13.515414+00:00"
+}
