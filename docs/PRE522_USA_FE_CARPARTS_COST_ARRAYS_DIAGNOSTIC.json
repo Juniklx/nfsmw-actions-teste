@@ -1,0 +1,8 @@
+{
+  "stage": "PRE522_ORIGINAL_USA_FECarPartInfo_ARRAY_AND_COST_ENUM_READONLY",
+  "status": "FAILED",
+  "error_type": "ValueError",
+  "error": "PtrN chunk header / stride invalid",
+  "run_id": "42531571120",
+  "BMW_tuning_enabled": false
+}
