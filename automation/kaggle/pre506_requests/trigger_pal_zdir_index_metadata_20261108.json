@@ -1,0 +1,9 @@
+{
+  "stage": "PRE506",
+  "purpose": "Read PAL ZDIR original metadata; compare ATTRIBUTES.BIN original archive4 sector capacity and checksum with USA reference; no game bytes",
+  "source_pal_zip_sha_evidence": "PRE460_PAL_ZDIR_FORMAT_READONLY.json",
+  "target_vpak_sha256": "9f4b04a221232e614b927a870e25da7db100477a7e425114b87082f46e8b99ad",
+  "readonly": true,
+  "asset_writes": false,
+  "save_modified": false
+}
