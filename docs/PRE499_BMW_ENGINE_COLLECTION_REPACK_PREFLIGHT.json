@@ -1,0 +1,88 @@
+{
+  "stage": "PRE499_PAL_BMW_ENGINE_COLLECTION_REPACK_PREFLIGHT",
+  "status": "AUDIT_OK",
+  "source_pal_vpak_sha256": "9f4b04a221232e614b927a870e25da7db100477a7e425114b87082f46e8b99ad",
+  "original_resource_bytes": 697856,
+  "vlt_sections_sizes": {
+    "DatN": 164784,
+    "ExpN": 48000,
+    "PtrN": 129872
+  },
+  "original_exports": 2399,
+  "original_collection_records": 2339,
+  "original_export_ids_unique": true,
+  "engine_collection_records": [
+    {
+      "export_index": 632,
+      "export_id": "da48882c",
+      "export_id_equals_collection_name_hash": false,
+      "class_hash": "f1f5fbc7",
+      "collection_hash": "cd88083f",
+      "parent_hash": "eec2271a",
+      "optional_count": 0,
+      "field_type_count": 1,
+      "record_offset_vlt": 33440,
+      "record_size": 36,
+      "layout_marker": "effecadd",
+      "collection_header_32_bytes_sha256": "40649d212c02b7cfdd17a01ac1d401179e55b988825076f46653d6cf25ed963a"
+    },
+    {
+      "export_index": 674,
+      "export_id": "f5ae15da",
+      "export_id_equals_collection_name_hash": false,
+      "class_hash": "f1f5fbc7",
+      "collection_hash": "39dae0f8",
+      "parent_hash": "4e085fb3",
+      "optional_count": 0,
+      "field_type_count": 1,
+      "record_offset_vlt": 35120,
+      "record_size": 36,
+      "layout_marker": "effecadd",
+      "collection_header_32_bytes_sha256": "ca7f56c7c9ba65c8ca4e5ce8696eb01da29590c112176bd2089becf3ad38c716"
+    }
+  ],
+  "original_engine_layout_pointer_bin_offset": 139176,
+  "original_engine_layout_size": 96,
+  "original_engine_layout_ptrn_source_vlt_offset": 33468,
+  "datn_records_nonoverlapping": true,
+  "datn_last_record_end": 164848,
+  "datn_uncovered_tail_bytes": 0,
+  "ptrn_switches": [
+    {
+      "chunk_relative_offset": 8,
+      "section": 1,
+      "preceding_record_count": 0
+    },
+    {
+      "chunk_relative_offset": 72188,
+      "section": 0,
+      "preceding_record_count": 6014
+    }
+  ],
+  "ptrn_total_switches": 2,
+  "ptrn_section_type_counts": {
+    "section1_kind1_dst_index0": 3144,
+    "section1_kind3_dst_index1": 2870,
+    "section0_kind3_dst_index1": 4601,
+    "section0_kind1_dst_index0": 203
+  },
+  "engine_layout_ptrn_source_reference_count": 1,
+  "candidate_new_collection_name": "bmwm3gtr_upgrade_engine_pre499",
+  "candidate_new_collection_hash": "33b0fa80",
+  "candidate_new_hash_not_in_original_StrE": true,
+  "candidate_new_engine_class_and_collection_pair_unique": true,
+  "string_table_registration_may_be_required_by_game_loader": true,
+  "new_engine_layout_96_bytes_plus_RefSpec_array_32_bytes_fits_old_49_byte_gap": false,
+  "moving_expN_ptrN_chunks_requires_pointer_offset_audit": true,
+  "runtime_loader_acceptance_proven": false,
+  "engine_upgrade_catalog_validated": false,
+  "feasible_to_write_functional_GAME_MOD_NOW": false,
+  "source_touched": false,
+  "modified_VPAK_written": false,
+  "apk_built": false,
+  "save_modified": false,
+  "runtime_tuning_enabled": false,
+  "source_bytes_transferred": 733264,
+  "run_id": "42521869514",
+  "utc": "2026-11-08T20:47:13.585131+00:00"
+}
