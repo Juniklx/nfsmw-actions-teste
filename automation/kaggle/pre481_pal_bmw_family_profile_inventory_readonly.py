@@ -110,9 +110,9 @@ def analyze():
     bmw=samples.get(BMW_BASE,{}).get("performance_classes",{})
     for name,record in samples.items():
         for cls,item in record["performance_classes"].items():
-            if cls in bmw and cls in SIZES and
-                item.get("layout_data_in_original_vpak") and
-                bmw[cls].get("layout_data_in_original_vpak"):
+            if (cls in bmw and cls in SIZES and
+                    item.get("layout_data_in_original_vpak") and
+                    bmw[cls].get("layout_data_in_original_vpak")):
                 item["physical_layout_byte_identical_to_bmwm3gtr"]=(
                     item["class_base_layout_sha256"]==bmw[cls]["class_base_layout_sha256"])
     validated_base=sum(bool(bmw.get(c,{}).get("layout_data_in_original_vpak"))
