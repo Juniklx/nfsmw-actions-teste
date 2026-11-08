@@ -1,0 +1,278 @@
+{
+  "stage": "PRE531_ORIGINAL_V48_PAL_GUEST_ELF_SYMBOL_PROVENANCE_READONLY",
+  "status": "AUDIT_OK",
+  "original_V48_apk_sha256": "c642f95b4a60b9ccf5d8fbd98802afffc0a2247ec5a0783b54cd8083ec55bd35",
+  "original_V48_apk_bytes": 47104233,
+  "authenticated_exact_V48_apk": true,
+  "libraries": [
+    {
+      "zip_entry": "lib/arm64-v8a/libmain.so",
+      "sha256": "f39870144295c98cb05b9e8649a378e968fccb5bf479b653d0654158e92316a3",
+      "original_elf_bytes": 41768224,
+      "ELF_header": {
+        "e_machine": "EM_AARCH64",
+        "e_type": "ET_DYN"
+      },
+      "ELF_section_count": 27,
+      "symbol_table_metadata": [
+        {
+          "table": ".dynsym",
+          "symbol_count": 115606,
+          "defined_function_symbols": 115295,
+          "identified_symbol_counts_by_label": {
+            "attribute_count_lookup": 2,
+            "historical_offset12_writer_B": 2,
+            "attribute_validator": 2,
+            "package_list_builder": 2,
+            "near_shop_candidate_B": 2,
+            "historical_offset12_writer_A": 2,
+            "ui_caller_of_builder": 2,
+            "attribute_reader": 2,
+            "near_shop_candidate_A": 2
+          }
+        }
+      ],
+      "has_static_symtab": false,
+      "has_dynamic_symtab": true,
+      "total_defined_function_symbols_scanned": 114404,
+      "guest_target_elf_symbol_matches": {
+        "package_list_builder": [
+          {
+            "symbol_table": ".dynsym",
+            "symbol_name": "__imp__sub_8256F818",
+            "st_size": 860,
+            "st_value": 25081892,
+            "type": "defined_STT_FUNC"
+          },
+          {
+            "symbol_table": ".dynsym",
+            "symbol_name": "sub_8256F818",
+            "st_size": 860,
+            "st_value": 25081892,
+            "type": "defined_STT_FUNC"
+          }
+        ],
+        "attribute_count_lookup": [
+          {
+            "symbol_table": ".dynsym",
+            "symbol_name": "sub_823E5988",
+            "st_size": 796,
+            "st_value": 20210872,
+            "type": "defined_STT_FUNC"
+          },
+          {
+            "symbol_table": ".dynsym",
+            "symbol_name": "__imp__sub_823E5988",
+            "st_size": 796,
+            "st_value": 20210872,
+            "type": "defined_STT_FUNC"
+          }
+        ],
+        "attribute_validator": [
+          {
+            "symbol_table": ".dynsym",
+            "symbol_name": "sub_8214B858",
+            "st_size": 340,
+            "st_value": 23847140,
+            "type": "defined_STT_FUNC"
+          },
+          {
+            "symbol_table": ".dynsym",
+            "symbol_name": "__imp__sub_8214B858",
+            "st_size": 340,
+            "st_value": 23847140,
+            "type": "defined_STT_FUNC"
+          }
+        ],
+        "attribute_reader": [
+          {
+            "symbol_table": ".dynsym",
+            "symbol_name": "sub_8214EDA8",
+            "st_size": 212,
+            "st_value": 29404296,
+            "type": "defined_STT_FUNC"
+          },
+          {
+            "symbol_table": ".dynsym",
+            "symbol_name": "__imp__sub_8214EDA8",
+            "st_size": 212,
+            "st_value": 29404296,
+            "type": "defined_STT_FUNC"
+          }
+        ],
+        "ui_caller_of_builder": [
+          {
+            "symbol_table": ".dynsym",
+            "symbol_name": "__imp__sub_82582F70",
+            "st_size": 5852,
+            "st_value": 17422576,
+            "type": "defined_STT_FUNC"
+          },
+          {
+            "symbol_table": ".dynsym",
+            "symbol_name": "sub_82582F70",
+            "st_size": 5852,
+            "st_value": 17422576,
+            "type": "defined_STT_FUNC"
+          }
+        ],
+        "near_shop_candidate_A": [
+          {
+            "symbol_table": ".dynsym",
+            "symbol_name": "sub_8256CBC8",
+            "st_size": 1472,
+            "st_value": 36744212,
+            "type": "defined_STT_FUNC"
+          },
+          {
+            "symbol_table": ".dynsym",
+            "symbol_name": "__imp__sub_8256CBC8",
+            "st_size": 1472,
+            "st_value": 36744212,
+            "type": "defined_STT_FUNC"
+          }
+        ],
+        "near_shop_candidate_B": [
+          {
+            "symbol_table": ".dynsym",
+            "symbol_name": "__imp__sub_8256C2F0",
+            "st_size": 508,
+            "st_value": 32334288,
+            "type": "defined_STT_FUNC"
+          },
+          {
+            "symbol_table": ".dynsym",
+            "symbol_name": "sub_8256C2F0",
+            "st_size": 508,
+            "st_value": 32334288,
+            "type": "defined_STT_FUNC"
+          }
+        ],
+        "historical_offset12_writer_A": [
+          {
+            "symbol_table": ".dynsym",
+            "symbol_name": "sub_8256BFC8",
+            "st_size": 1040,
+            "st_value": 32840184,
+            "type": "defined_STT_FUNC"
+          },
+          {
+            "symbol_table": ".dynsym",
+            "symbol_name": "__imp__sub_8256BFC8",
+            "st_size": 1040,
+            "st_value": 32840184,
+            "type": "defined_STT_FUNC"
+          }
+        ],
+        "historical_offset12_writer_B": [
+          {
+            "symbol_table": ".dynsym",
+            "symbol_name": "__imp__sub_82564D80",
+            "st_size": 10496,
+            "st_value": 16779304,
+            "type": "defined_STT_FUNC"
+          },
+          {
+            "symbol_table": ".dynsym",
+            "symbol_name": "sub_82564D80",
+            "st_size": 10496,
+            "st_value": 16779304,
+            "type": "defined_STT_FUNC"
+          }
+        ]
+      },
+      "static_symbol_match_is_not_proof_of_execution_or_semantics": true
+    },
+    {
+      "zip_entry": "lib/arm64-v8a/libmain_usa.so",
+      "sha256": "4f32de8f2ff10d4748aa33f208774038ef9bfa402eacc61a49dd7e70f3b1bc83",
+      "original_elf_bytes": 41749696,
+      "ELF_header": {
+        "e_machine": "EM_AARCH64",
+        "e_type": "ET_DYN"
+      },
+      "ELF_section_count": 27,
+      "symbol_table_metadata": [
+        {
+          "table": ".dynsym",
+          "symbol_count": 115591,
+          "defined_function_symbols": 115280,
+          "identified_symbol_counts_by_label": {
+            "attribute_reader": 2,
+            "attribute_validator": 2
+          }
+        }
+      ],
+      "has_static_symtab": false,
+      "has_dynamic_symtab": true,
+      "total_defined_function_symbols_scanned": 114389,
+      "guest_target_elf_symbol_matches": {
+        "package_list_builder": [],
+        "attribute_count_lookup": [],
+        "attribute_validator": [
+          {
+            "symbol_table": ".dynsym",
+            "symbol_name": "__imp__sub_8214B858",
+            "st_size": 340,
+            "st_value": 23840064,
+            "type": "defined_STT_FUNC"
+          },
+          {
+            "symbol_table": ".dynsym",
+            "symbol_name": "sub_8214B858",
+            "st_size": 340,
+            "st_value": 23840064,
+            "type": "defined_STT_FUNC"
+          }
+        ],
+        "attribute_reader": [
+          {
+            "symbol_table": ".dynsym",
+            "symbol_name": "sub_8214EDA8",
+            "st_size": 212,
+            "st_value": 29396572,
+            "type": "defined_STT_FUNC"
+          },
+          {
+            "symbol_table": ".dynsym",
+            "symbol_name": "__imp__sub_8214EDA8",
+            "st_size": 212,
+            "st_value": 29396572,
+            "type": "defined_STT_FUNC"
+          }
+        ],
+        "ui_caller_of_builder": [],
+        "near_shop_candidate_A": [],
+        "near_shop_candidate_B": [],
+        "historical_offset12_writer_A": [],
+        "historical_offset12_writer_B": []
+      },
+      "static_symbol_match_is_not_proof_of_execution_or_semantics": true
+    }
+  ],
+  "symbol_search_allowlist": {
+    "package_list_builder": "sub_8256F818",
+    "attribute_count_lookup": "sub_823E5988",
+    "attribute_validator": "sub_8214B858",
+    "attribute_reader": "sub_8214EDA8",
+    "ui_caller_of_builder": "sub_82582F70",
+    "near_shop_candidate_A": "sub_8256CBC8",
+    "near_shop_candidate_B": "sub_8256C2F0",
+    "historical_offset12_writer_A": "sub_8256BFC8",
+    "historical_offset12_writer_B": "sub_82564D80"
+  },
+  "all_target_symbols_linked_or_executed_proven": false,
+  "historical_PRE99_to_V48_semantic_equivalence_verified": false,
+  "V48_actual_PAL_library_selected_on_phone_verified": false,
+  "guest_SetPackage_function_identity_verified": false,
+  "guest_SetPackage_synthetic_BMW_acceptance_verified": false,
+  "BMW_upgrade_purchase_or_persistence_verified": false,
+  "new_APK_built": false,
+  "original_game_or_APK_modified": false,
+  "guest_source_or_ELF_published": false,
+  "save_modified": false,
+  "signing_material_accessed": false,
+  "ready_to_enable_BMW_tuning": false,
+  "run_id": "42535508836",
+  "timestamp_utc": "2026-11-08T23:31:46.832575+00:00"
+}
