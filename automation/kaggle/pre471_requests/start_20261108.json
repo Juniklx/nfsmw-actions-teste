@@ -1,0 +1,7 @@
+{
+  "stage": "PRE471",
+  "goal": "Decode BMW UpgradeSpecs field pointer fixups in authenticated PAL VPAK",
+  "feature_off": true,
+  "no_save_write": true,
+  "no_apk_build": true
+}
