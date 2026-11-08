@@ -1,0 +1,339 @@
+{
+  "stage": "PRE472_BMW_UPGRADESPECS_ARRAY_METADATA_READONLY",
+  "status": "AUDIT_OK",
+  "source_pal_vpak_sha256": "9f4b04a221232e614b927a870e25da7db100477a7e425114b87082f46e8b99ad",
+  "upgradespec_element_layout_bytes_from_VaultLib": 16,
+  "upgradespec_array_header_bytes_from_VaultLib": 8,
+  "bmw_upgrade_fields_inspected": 4,
+  "bmw_pointer_array_candidates": [
+    {
+      "variant": "bmwm3gtr",
+      "field_hash": "8ae8bee0",
+      "pointer_target_offset": 256596,
+      "candidates": [
+        {
+          "section": "BIN",
+          "header_endian": "big",
+          "capacity": 1,
+          "actual_count": 1,
+          "element_bytes": 16,
+          "unknown_flags": "0000",
+          "array_bounds_valid": true,
+          "items": [
+            {
+              "item_index": 0,
+              "reference_class_hash": "db01b754",
+              "reference_class_name_candidates": [],
+              "reference_collection_hash": "6eb87040",
+              "reference_collection_name_candidates": [],
+              "reference_opaque_u32": "00000000",
+              "upgrade_level_raw": 0
+            }
+          ],
+          "all_recorded_items_read": true
+        },
+        {
+          "section": "BIN",
+          "header_endian": "little",
+          "capacity": 256,
+          "actual_count": 256,
+          "element_bytes": 4096,
+          "unknown_flags": "0000",
+          "array_bounds_valid": false
+        },
+        {
+          "section": "VLT",
+          "header_endian": "big",
+          "capacity": 4,
+          "actual_count": 50892,
+          "element_bytes": 3,
+          "unknown_flags": "0001",
+          "array_bounds_valid": false
+        },
+        {
+          "section": "VLT",
+          "header_endian": "little",
+          "capacity": 1024,
+          "actual_count": 52422,
+          "element_bytes": 768,
+          "unknown_flags": "0100",
+          "array_bounds_valid": false
+        }
+      ],
+      "plausible_upgrade_arrays": [
+        {
+          "section": "BIN",
+          "header_endian": "big",
+          "capacity": 1,
+          "actual_count": 1,
+          "element_bytes": 16,
+          "unknown_flags": "0000",
+          "array_bounds_valid": true,
+          "items": [
+            {
+              "item_index": 0,
+              "reference_class_hash": "db01b754",
+              "reference_class_name_candidates": [],
+              "reference_collection_hash": "6eb87040",
+              "reference_collection_name_candidates": [],
+              "reference_opaque_u32": "00000000",
+              "upgrade_level_raw": 0
+            }
+          ],
+          "all_recorded_items_read": true
+        }
+      ]
+    },
+    {
+      "variant": "bmwm3gtr",
+      "field_hash": "0e9bfb66",
+      "pointer_target_offset": 256680,
+      "candidates": [
+        {
+          "section": "BIN",
+          "header_endian": "big",
+          "capacity": 1,
+          "actual_count": 1,
+          "element_bytes": 16,
+          "unknown_flags": "0000",
+          "array_bounds_valid": true,
+          "items": [
+            {
+              "item_index": 0,
+              "reference_class_hash": "55624a85",
+              "reference_class_name_candidates": [],
+              "reference_collection_hash": "eec2271a",
+              "reference_collection_name_candidates": [
+                "default"
+              ],
+              "reference_opaque_u32": "00000000",
+              "upgrade_level_raw": 0
+            }
+          ],
+          "all_recorded_items_read": true
+        },
+        {
+          "section": "BIN",
+          "header_endian": "little",
+          "capacity": 256,
+          "actual_count": 256,
+          "element_bytes": 4096,
+          "unknown_flags": "0000",
+          "array_bounds_valid": false
+        },
+        {
+          "section": "VLT",
+          "header_endian": "big",
+          "capacity": 0,
+          "actual_count": 61308,
+          "element_bytes": 1,
+          "unknown_flags": "0000",
+          "array_bounds_valid": false
+        },
+        {
+          "section": "VLT",
+          "header_endian": "little",
+          "capacity": 0,
+          "actual_count": 31983,
+          "element_bytes": 256,
+          "unknown_flags": "0000",
+          "array_bounds_valid": false
+        }
+      ],
+      "plausible_upgrade_arrays": [
+        {
+          "section": "BIN",
+          "header_endian": "big",
+          "capacity": 1,
+          "actual_count": 1,
+          "element_bytes": 16,
+          "unknown_flags": "0000",
+          "array_bounds_valid": true,
+          "items": [
+            {
+              "item_index": 0,
+              "reference_class_hash": "55624a85",
+              "reference_class_name_candidates": [],
+              "reference_collection_hash": "eec2271a",
+              "reference_collection_name_candidates": [
+                "default"
+              ],
+              "reference_opaque_u32": "00000000",
+              "upgrade_level_raw": 0
+            }
+          ],
+          "all_recorded_items_read": true
+        }
+      ]
+    },
+    {
+      "variant": "m3gtre46careerstart",
+      "field_hash": "8ae8bee0",
+      "pointer_target_offset": 269716,
+      "candidates": [
+        {
+          "section": "BIN",
+          "header_endian": "big",
+          "capacity": 1,
+          "actual_count": 1,
+          "element_bytes": 16,
+          "unknown_flags": "0000",
+          "array_bounds_valid": true,
+          "items": [
+            {
+              "item_index": 0,
+              "reference_class_hash": "db01b754",
+              "reference_class_name_candidates": [],
+              "reference_collection_hash": "4013b45d",
+              "reference_collection_name_candidates": [],
+              "reference_opaque_u32": "00000000",
+              "upgrade_level_raw": 0
+            }
+          ],
+          "all_recorded_items_read": true
+        },
+        {
+          "section": "BIN",
+          "header_endian": "little",
+          "capacity": 256,
+          "actual_count": 256,
+          "element_bytes": 4096,
+          "unknown_flags": "0000",
+          "array_bounds_valid": false
+        },
+        {
+          "section": "VLT",
+          "header_endian": "big",
+          "capacity": 1,
+          "actual_count": 0,
+          "element_bytes": 0,
+          "unknown_flags": "0000",
+          "array_bounds_valid": false
+        },
+        {
+          "section": "VLT",
+          "header_endian": "little",
+          "capacity": 256,
+          "actual_count": 0,
+          "element_bytes": 0,
+          "unknown_flags": "0000",
+          "array_bounds_valid": false
+        }
+      ],
+      "plausible_upgrade_arrays": [
+        {
+          "section": "BIN",
+          "header_endian": "big",
+          "capacity": 1,
+          "actual_count": 1,
+          "element_bytes": 16,
+          "unknown_flags": "0000",
+          "array_bounds_valid": true,
+          "items": [
+            {
+              "item_index": 0,
+              "reference_class_hash": "db01b754",
+              "reference_class_name_candidates": [],
+              "reference_collection_hash": "4013b45d",
+              "reference_collection_name_candidates": [],
+              "reference_opaque_u32": "00000000",
+              "upgrade_level_raw": 0
+            }
+          ],
+          "all_recorded_items_read": true
+        }
+      ]
+    },
+    {
+      "variant": "m3gtre46careerstart",
+      "field_hash": "0e9bfb66",
+      "pointer_target_offset": 269800,
+      "candidates": [
+        {
+          "section": "BIN",
+          "header_endian": "big",
+          "capacity": 1,
+          "actual_count": 1,
+          "element_bytes": 16,
+          "unknown_flags": "0000",
+          "array_bounds_valid": true,
+          "items": [
+            {
+              "item_index": 0,
+              "reference_class_hash": "55624a85",
+              "reference_class_name_candidates": [],
+              "reference_collection_hash": "eec2271a",
+              "reference_collection_name_candidates": [
+                "default"
+              ],
+              "reference_opaque_u32": "00000000",
+              "upgrade_level_raw": 0
+            }
+          ],
+          "all_recorded_items_read": true
+        },
+        {
+          "section": "BIN",
+          "header_endian": "little",
+          "capacity": 256,
+          "actual_count": 256,
+          "element_bytes": 4096,
+          "unknown_flags": "0000",
+          "array_bounds_valid": false
+        },
+        {
+          "section": "VLT",
+          "header_endian": "big",
+          "capacity": 3,
+          "actual_count": 1,
+          "element_bytes": 0,
+          "unknown_flags": "2563",
+          "array_bounds_valid": false
+        },
+        {
+          "section": "VLT",
+          "header_endian": "little",
+          "capacity": 768,
+          "actual_count": 256,
+          "element_bytes": 0,
+          "unknown_flags": "6325",
+          "array_bounds_valid": false
+        }
+      ],
+      "plausible_upgrade_arrays": [
+        {
+          "section": "BIN",
+          "header_endian": "big",
+          "capacity": 1,
+          "actual_count": 1,
+          "element_bytes": 16,
+          "unknown_flags": "0000",
+          "array_bounds_valid": true,
+          "items": [
+            {
+              "item_index": 0,
+              "reference_class_hash": "55624a85",
+              "reference_class_name_candidates": [],
+              "reference_collection_hash": "eec2271a",
+              "reference_collection_name_candidates": [
+                "default"
+              ],
+              "reference_opaque_u32": "00000000",
+              "upgrade_level_raw": 0
+            }
+          ],
+          "all_recorded_items_read": true
+        }
+      ]
+    }
+  ],
+  "unique_plausible_array_for_each_field": true,
+  "references_are_not_proven_purchasable_car_parts": true,
+  "safe_to_enable_tuning": false,
+  "game_assets_uploaded": false,
+  "apk_built": false,
+  "save_modified": false,
+  "range_bytes": 733264,
+  "utc": "2026-11-08T18:29:58.574474+00:00",
+  "run_id": "42510278604"
+}
