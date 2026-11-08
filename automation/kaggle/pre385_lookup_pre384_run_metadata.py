@@ -10,7 +10,7 @@ from pathlib import Path
 REPO=os.environ["GITHUB_REPOSITORY"]
 TOKEN=os.environ["GITHUB_TOKEN"]
 WORKFLOW="nfsmw-pre384-nitro-lr-slot-host-compile.yml"
-TARGET="f0c9903f6ca31a3ec88bc69b674071732e44c4b9"
+TARGET="bba21b13e33b1134798275d1fa03db6e125b5d21"
 HEADERS={"Authorization":f"Bearer {TOKEN}",
          "Accept":"application/vnd.github+json",
          "X-GitHub-Api-Version":"2022-11-28",
