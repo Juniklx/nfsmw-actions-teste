@@ -1,0 +1,94 @@
+name: NFSMW PRE496 rescue verified PRE490 report from prior Action artifact
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre496_requests/*.json'
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: nfsmw-pre496-recover-pre490
+  cancel-in-progress: false
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Retrieve already-computed PRE490 verified result (no PRE99 re-download)
+        uses: actions/download-artifact@v4
+        with:
+          name: nfsmw-pre490-pal-guest-args-42517016343
+          run-id: 42517016343
+          repository: Juniklx/nfsmw-actions-teste
+          github-token: ${{ github.token }}
+          path: /tmp/nfsmw-pre496
+      - name: Validate PINNED PRE490 data and stage into private docs
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          source=Path("/tmp/nfsmw-pre496/report.json")
+          raw=source.read_bytes()
+          expected="e33fce658a44f6b8a5e9e10466241e9cc48a26a0d234177d18d540c94c1c77a7"
+          if hashlib.sha256(raw).hexdigest()!=expected:
+              raise SystemExit("Original PRE490 artifact JSON SHA mismatch")
+          d=json.loads(raw)
+          if (d.get("status")!="AUDIT_OK" or d.get("run_id")!="42517016343"
+              or d.get("source_PRE99_sha256")!="af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39"
+              or d.get("generated_files_audited")!=129
+              or d.get("guest_functions_audited")!=56338
+              or len(d.get("target_functions",{}))!=13):
+              raise SystemExit("Original PRE490 content integrity or coverage mismatch")
+          if any(d.get("semantic_"+x+"_proven") is not False
+                 for x in ("GetMaxLevel","SetLevel","SetPackage")):
+              raise SystemExit("PRE490 semantic role not independently proven")
+          if any(d.get(x,False) is not False
+                 for x in ("feature_enabled","apk_built","save_modified","raw_generated_source_published")):
+              raise SystemExit("PRE490 safety gate violation")
+          out=Path("docs/PRE490_PAL_FUNCTION_ARGS_RETURNS_READONLY.json")
+          out.parent.mkdir(parents=True,exist_ok=True)
+          out.write_bytes(raw)
+          summary={
+             "stage":"PRE496_PRE490_REPORT_RECOVERY",
+             "status":"AUDIT_OK",
+             "original_run_id":"42517016343",
+             "original_analysis_success":True,
+             "original_workflow_conclusion":"failure",
+             "original_failure_reason":"non-fast-forward Git push after 13 functions were successfully analyzed",
+             "recovery_method":"verified original GitHub Actions artifact, not repeated PRE99 download",
+             "artifact_id":13632775377,
+             "artifact_original_report_json_sha256":expected,
+             "original_source_SHA256":d["source_PRE99_sha256"],
+             "original_guest_functions_indexed":d["guest_functions_audited"],
+             "original_target_functions_analyzed":len(d["target_functions"]),
+             "candidate_addresses_are_not_semantically_certified":True,
+             "original_report_restored_locally_in_job":True,
+             "apk_built":False,"save_modified":False,"feature_enabled":False
+          }
+          Path("docs/PRE496_PRE490_REPORT_RECOVERY.json").write_text(
+              json.dumps(summary,ensure_ascii=False,indent=2)+"\n")
+          print("PRE496_SOURCE_VALIDATED",len(raw),hashlib.sha256(raw).hexdigest())
+          PY
+      - name: Commit with non-fast-forward recovery and push without clobbering main
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE490_PAL_FUNCTION_ARGS_RETURNS_READONLY.json docs/PRE496_PRE490_REPORT_RECOVERY.json
+          if git diff --cached --quiet; then
+             exit 0
+          fi
+          git commit -m "PRE496: rescue SHA-pinned PRE490 callsite ABI audit from Action artifact"
+          for retry in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo "PRE496_SOURCE_RECOVERED_AND_PERSISTED=1"
+              exit 0
+            fi
+          done
+          exit 1
