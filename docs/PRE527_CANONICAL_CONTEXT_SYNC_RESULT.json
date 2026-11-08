@@ -1,0 +1,22 @@
+{
+  "stage": "PRE527_CANONICAL_CONTEXT_APPEND_WITH_BACKUP",
+  "status": "AUDIT_OK",
+  "apk_built": false,
+  "save_modified": false,
+  "game_assets_modified": false,
+  "backup_created": true,
+  "backup_reused": false,
+  "backup_file_id": "16lHvNf7j4qaTg-0jw1rTOUYY42oN2ob6",
+  "backup_name": "CONTEXTO_NFSMW_BACKUP_PRE527_BMW_TUNING_20261108.md",
+  "canonical_before_bytes": 781858,
+  "canonical_before_sha256": "7e6161a6df5f55e1445fe5aeec9bc594190423bfb7429424b1dff18788d4d3bd",
+  "transient_http_failures": 0,
+  "append_bytes": 5263,
+  "new_total_bytes": 787121,
+  "new_sha256": "9571e7eeb43a5585b8a1f2194708e3e4207b3801645a6a5222be10381a8d2988",
+  "prior_history_bytewise_preserved": true,
+  "postupdate_readback_bytewise_verified": true,
+  "canonical_file_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+  "run_id": "42534050170",
+  "utc": "2026-11-08T23:12:49.480614+00:00"
+}
