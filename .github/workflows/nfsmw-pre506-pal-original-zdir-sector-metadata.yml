@@ -1,0 +1,76 @@
+name: NFSMW PRE506 compare original PAL and USA attribute resource index layout
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre506_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre506-pal-zdir-attribute-layout
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare PAL ZIP index range reader
+        run: |
+          python -m pip install --disable-pip-version-check google-auth requests >/dev/null
+          python -m py_compile automation/kaggle/pre506_pal_zdir_attribute_sector_allocation_readonly.py
+      - name: Compare authenticated original PAL ZDIR sector allocation with PRE503 USA reference
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre506_pal_zdir_attribute_sector_allocation_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Publish metadata report with strict no-asset-writing check
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          f=Path("/tmp/nfsmw-pre506/report.json")
+          d=json.loads(f.read_text()) if f.is_file() else {"status":"FAILED_NO_REPORT"}
+          for k in ("PAL_ZZDATA_bytes_read","modified_ZDIR_written","modified_ZZDATA_written",
+                    "game_asset_uploaded","APK_built","save_modified","signing_accessed","tuning_enabled"):
+              if d.get(k,False) is not False:
+                  raise SystemExit("PRE506 read-only guard violated: "+k)
+          if d.get("status")=="AUDIT_OK":
+              if (d.get("PAL_padding_byte_values_verified") is not False or
+                  d.get("PAL_Loader_acceptance_or_checksum_algorithm_verified") is not False):
+                  raise SystemExit("PRE506 cannot claim loader or checksum semantics")
+              target=Path("docs/PRE506_ORIGINAL_PAL_ZDIR_ATTRIBUTE_ALLOCATION_READONLY.json")
+          else:
+              target=Path("docs/PRE506_ORIGINAL_PAL_ZDIR_DIAGNOSTIC.json")
+              d={k:d.get(k) for k in ("stage","status","error_type","error","run_id") if k in d}
+              d["tuning_enabled"]=False
+          target.parent.mkdir(parents=True,exist_ok=True)
+          target.write_text(json.dumps(d,indent=2,ensure_ascii=False)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE506_ORIGINAL_PAL_ZDIR_*json
+          git diff --cached --quiet && exit 0
+          git commit -m "PRE506: record original PAL ZIP resource sector checksum metadata"
+          for i in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
+      - name: Archive safe original metadata
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre506-pal-zdir-${{ github.run_id }}
+          path: /tmp/nfsmw-pre506/report.json
+          retention-days: 14
