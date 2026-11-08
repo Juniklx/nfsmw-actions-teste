@@ -1,0 +1,8 @@
+{
+  "stage": "PRE522",
+  "goal": "Read only original USA FE_ATTRIB VLT frontend carparts descendants, map feCarPartName enums and FECarPartInfo Level Rep Cost via optional fields PtrN, using public original code schema",
+  "vpak_sha256": "8ac09099cfc98646bbfbdb261d28b9648e3ec8b0d6bdf9d3edd6ef7bc967b528",
+  "no_asset_write": true,
+  "no_apk": true,
+  "no_save_write": true
+}
