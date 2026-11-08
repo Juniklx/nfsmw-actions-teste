@@ -1,0 +1,7 @@
+{
+  "stage": "PRE503",
+  "goal": "Determine whether +148-byte rebuilt BMW VPAK fits original Xbox ZZDATA 2 KiB sector allocation, and inspect ZDIR size CRC without edits",
+  "source_SHA": "9f4b04a221232e614b927a870e25da7db100477a7e425114b87082f46e8b99ad",
+  "no_game_write": true,
+  "no_save_write": true
+}
