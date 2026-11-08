@@ -10,7 +10,7 @@ from pathlib import Path
 REPO=os.environ["GITHUB_REPOSITORY"]
 TOKEN=os.environ["GITHUB_TOKEN"]
 WORKFLOW="nfsmw-pre367-v44-nitro-input-correlation-passive.yml"
-TARGET="4d3172acb4a5bfe67f2458af3657fe2dcec4000f"
+TARGET="1b7b9504ebf0596ec2f632c6bf2ace7ebd600545"
 HEADERS={"Authorization":f"Bearer {TOKEN}",
          "Accept":"application/vnd.github+json",
          "X-GitHub-Api-Version":"2022-11-28",
