@@ -1,0 +1,53 @@
+name: NFSMW PRE492 BMW original RefSpec capacity and relocation gates
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre492_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre492-refspec-capacity
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate script
+        run: python -m py_compile automation/kaggle/pre492_pal_bmw_refspec_capacity_gate_readonly.py
+      - name: Check original BMW fixed-capacity RefSpec arrays
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre492_pal_bmw_refspec_capacity_gate_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Save private read-only result
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("/tmp/nfsmw-pre492/report.json")
+          d=json.loads(p.read_text()) if p.is_file() else {"status":"FAILED_NO_REPORT"}
+          if d.get("feature_safe_to_enable",False) is not False or d.get("apk_built",False) is not False or d.get("patch_written",False) is not False:
+              raise SystemExit("PRE492 unsafe state")
+          if d.get("status")=="AUDIT_OK":
+              dst=Path("docs/PRE492_PAL_BMW_REFSPEC_CAPACITY_RELOCATION_GATES.json")
+          else:
+              dst=Path("docs/PRE492_PAL_BMW_REFSPEC_CAPACITY_DIAGNOSTIC.json")
+              d={k:d.get(k) for k in ("stage","status","error_type","error","run_id") if k in d}
+              d["patch_written"]=False
+          dst.parent.mkdir(parents=True,exist_ok=True)
+          dst.write_text(json.dumps(d,ensure_ascii=False,indent=2)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE492_PAL_BMW_*.json
+          git diff --cached --quiet && exit 0
+          git commit -m "PRE492: document original BMW RefSpec array relocation necessity"
+          git push origin HEAD:main
