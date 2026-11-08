@@ -1,0 +1,13 @@
+{
+  "stage": "PRE530",
+  "goal": "Append authenticated PRE528/PRE529 guest PAL callgraph into canonical Drive CONTEXTO_NFSMW.md using backup-before, exact prefix preservation and readback",
+  "verified_runs": [
+    42534546432,
+    42534824686
+  ],
+  "previous_marker": "PRE527_BMW_TUNING_PRE526_CHECKOUT_PHYSICS_FAILURE_SAFETY_20261108",
+  "new_marker": "PRE530_BMW_TUNING_PRE528_PRE529_GUEST_PAL_CALLGRAPH_20261108",
+  "game_assets_or_apk_unchanged": true,
+  "saves_unchanged": true,
+  "permanent_signer_untouched": true
+}
