@@ -1,0 +1,1716 @@
+{
+  "stage": "PRE456_ROUTE2_ATTRIBUTE_PROVENANCE_READONLY",
+  "status": "AUDIT_OK",
+  "run_id": "42502772448",
+  "utc": "2026-11-08T17:01:34.376992+00:00",
+  "pre99_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "source_sha256_all_verified": true,
+  "route_2_load_line": 104,
+  "route_1_3_explicit_zero_lines": [
+    52,
+    144
+  ],
+  "apk_built": false,
+  "save_modified": false,
+  "signing_accessed": false,
+  "guest_executed": false,
+  "read_only_source_evidence": {
+    "lookup": {
+      "filename": "nfsmw_recomp.28.cpp",
+      "sha256": "11eec8fe3d20dc5d53e262525a4cf31021c2bbfb28e2690b6372c6c3cbea4aad",
+      "function": "sub_823E5988",
+      "total_lines": 155,
+      "r11_uses": [
+        15,
+        17,
+        19,
+        21,
+        23,
+        25,
+        27,
+        29,
+        38,
+        44,
+        46,
+        63,
+        69,
+        80,
+        82,
+        93,
+        95,
+        99,
+        101,
+        104,
+        106,
+        108,
+        112,
+        118,
+        129,
+        131,
+        135,
+        141
+      ],
+      "relevant_lines": [
+        {
+          "line": 9,
+          "text": "\tREX_STORE_U32(ctx.r1.u32 + -8, ctx.r12.u32);"
+        },
+        {
+          "line": 10,
+          "text": "\t// stwu r1,-112(r1)"
+        },
+        {
+          "line": 11,
+          "text": "\tea = -112 + ctx.r1.u32;"
+        },
+        {
+          "line": 12,
+          "text": "\tREX_STORE_U32(ea, ctx.r1.u32);"
+        },
+        {
+          "line": 13,
+          "text": "\tctx.r1.u32 = ea;"
+        },
+        {
+          "line": 14,
+          "text": "\t// lis r11,-32112"
+        },
+        {
+          "line": 15,
+          "text": "\tctx.r11.s64 = -2104492032;"
+        },
+        {
+          "line": 16,
+          "text": "\t// addi r10,r11,-11832"
+        },
+        {
+          "line": 17,
+          "text": "\tctx.r10.s64 = ctx.r11.s64 + -11832;"
+        },
+        {
+          "line": 18,
+          "text": "\t// li r11,0"
+        },
+        {
+          "line": 19,
+          "text": "\tctx.r11.s64 = 0;"
+        },
+        {
+          "line": 20,
+          "text": "\t// stw r11,80(r1)"
+        },
+        {
+          "line": 21,
+          "text": "\tREX_STORE_U32(ctx.r1.u32 + 80, ctx.r11.u32);"
+        },
+        {
+          "line": 22,
+          "text": "\t// stw r11,84(r1)"
+        },
+        {
+          "line": 23,
+          "text": "\tREX_STORE_U32(ctx.r1.u32 + 84, ctx.r11.u32);"
+        },
+        {
+          "line": 24,
+          "text": "\t// stw r11,88(r1)"
+        },
+        {
+          "line": 25,
+          "text": "\tREX_STORE_U32(ctx.r1.u32 + 88, ctx.r11.u32);"
+        },
+        {
+          "line": 26,
+          "text": "\t// stw r11,92(r1)"
+        },
+        {
+          "line": 27,
+          "text": "\tREX_STORE_U32(ctx.r1.u32 + 92, ctx.r11.u32);"
+        },
+        {
+          "line": 28,
+          "text": "\t// mr r11,r10"
+        },
+        {
+          "line": 29,
+          "text": "\tctx.r11.u64 = ctx.r10.u64;"
+        },
+        {
+          "line": 30,
+          "text": "\t// lwz r10,8(r10)"
+        },
+        {
+          "line": 31,
+          "text": "\tctx.r10.u64 = REX_LOAD_U32(ctx.r10.u32 + 8);"
+        },
+        {
+          "line": 32,
+          "text": "\t// cmplwi cr6,r10,0"
+        },
+        {
+          "line": 33,
+          "text": "\tcr6.compare<uint32_t>(ctx.r10.u32, 0, xer);"
+        },
+        {
+          "line": 34,
+          "text": "\t// beq cr6,0x823e5a88"
+        },
+        {
+          "line": 35,
+          "text": "\tif (cr6.eq) goto loc_823E5A88;"
+        },
+        {
+          "line": 36,
+          "text": "loc_823E59C0:"
+        },
+        {
+          "line": 37,
+          "text": "\t// lwz r10,0(r11)"
+        },
+        {
+          "line": 38,
+          "text": "\tctx.r10.u64 = REX_LOAD_U32(ctx.r11.u32 + 0);"
+        },
+        {
+          "line": 39,
+          "text": "\t// cmpw cr6,r10,r4"
+        },
+        {
+          "line": 40,
+          "text": "\tcr6.compare<int32_t>(ctx.r10.s32, ctx.r4.s32, xer);"
+        },
+        {
+          "line": 41,
+          "text": "\t// beq cr6,0x823e59f0"
+        },
+        {
+          "line": 42,
+          "text": "\tif (cr6.eq) goto loc_823E59F0;"
+        },
+        {
+          "line": 43,
+          "text": "\t// addi r11,r11,28"
+        },
+        {
+          "line": 44,
+          "text": "\tctx.r11.s64 = ctx.r11.s64 + 28;"
+        },
+        {
+          "line": 45,
+          "text": "\t// lwz r9,8(r11)"
+        },
+        {
+          "line": 46,
+          "text": "\tctx.r9.u64 = REX_LOAD_U32(ctx.r11.u32 + 8);"
+        },
+        {
+          "line": 47,
+          "text": "\t// cmplwi cr6,r9,0"
+        },
+        {
+          "line": 48,
+          "text": "\tcr6.compare<uint32_t>(ctx.r9.u32, 0, xer);"
+        },
+        {
+          "line": 49,
+          "text": "\t// bne cr6,0x823e59c0"
+        },
+        {
+          "line": 50,
+          "text": "\tif (!cr6.eq) goto loc_823E59C0;"
+        },
+        {
+          "line": 51,
+          "text": "\t// li r3,0"
+        },
+        {
+          "line": 52,
+          "text": "\tctx.r3.s64 = 0;"
+        },
+        {
+          "line": 53,
+          "text": "\t// addi r1,r1,112"
+        },
+        {
+          "line": 57,
+          "text": "\t// mtlr r12"
+        },
+        {
+          "line": 58,
+          "text": "\tctx.lr = ctx.r12.u64;"
+        },
+        {
+          "line": 59,
+          "text": "\t// blr "
+        },
+        {
+          "line": 60,
+          "text": "\treturn;"
+        },
+        {
+          "line": 61,
+          "text": "loc_823E59F0:"
+        },
+        {
+          "line": 62,
+          "text": "\t// cmplwi cr6,r11,0"
+        },
+        {
+          "line": 63,
+          "text": "\tcr6.compare<uint32_t>(ctx.r11.u32, 0, xer);"
+        },
+        {
+          "line": 64,
+          "text": "\t// beq cr6,0x823e5a88"
+        },
+        {
+          "line": 65,
+          "text": "\tif (cr6.eq) goto loc_823E5A88;"
+        },
+        {
+          "line": 66,
+          "text": "\t// addi r5,r1,80"
+        },
+        {
+          "line": 67,
+          "text": "\tctx.r5.s64 = ctx.r1.s64 + 80;"
+        },
+        {
+          "line": 68,
+          "text": "\t// lwz r4,12(r11)"
+        },
+        {
+          "line": 69,
+          "text": "\tctx.r4.u64 = REX_LOAD_U32(ctx.r11.u32 + 12);"
+        },
+        {
+          "line": 70,
+          "text": "\t// bl 0x8214b858"
+        },
+        {
+          "line": 71,
+          "text": "\tctx.lr = 0x823E5A04;"
+        },
+        {
+          "line": 72,
+          "text": "\t__imp__sub_8214B858(ctx, base);"
+        },
+        {
+          "line": 73,
+          "text": "\t// clrlwi r8,r3,24"
+        },
+        {
+          "line": 74,
+          "text": "\tctx.r8.u64 = ctx.r3.u32 & 0xFF;"
+        },
+        {
+          "line": 75,
+          "text": "\t// cmplwi cr6,r8,0"
+        },
+        {
+          "line": 76,
+          "text": "\tcr6.compare<uint32_t>(ctx.r8.u32, 0, xer);"
+        },
+        {
+          "line": 77,
+          "text": "\t// beq cr6,0x823e5a6c"
+        },
+        {
+          "line": 78,
+          "text": "\tif (cr6.eq) goto loc_823E5A6C;"
+        },
+        {
+          "line": 79,
+          "text": "\t// lwz r11,92(r1)"
+        },
+        {
+          "line": 80,
+          "text": "\tctx.r11.u64 = REX_LOAD_U32(ctx.r1.u32 + 92);"
+        },
+        {
+          "line": 81,
+          "text": "\t// cmplwi cr6,r11,0"
+        },
+        {
+          "line": 82,
+          "text": "\tcr6.compare<uint32_t>(ctx.r11.u32, 0, xer);"
+        },
+        {
+          "line": 83,
+          "text": "\t// bne cr6,0x823e5a3c"
+        },
+        {
+          "line": 84,
+          "text": "\tif (!cr6.eq) goto loc_823E5A3C;"
+        },
+        {
+          "line": 85,
+          "text": "\t// li r4,0"
+        },
+        {
+          "line": 86,
+          "text": "\tctx.r4.s64 = 0;"
+        },
+        {
+          "line": 87,
+          "text": "\t// addi r3,r1,80"
+        },
+        {
+          "line": 88,
+          "text": "\tctx.r3.s64 = ctx.r1.s64 + 80;"
+        },
+        {
+          "line": 89,
+          "text": "\t// bl 0x8214eda8"
+        },
+        {
+          "line": 90,
+          "text": "\tctx.lr = 0x823E5A28;"
+        },
+        {
+          "line": 91,
+          "text": "\t__imp__sub_8214EDA8(ctx, base);"
+        },
+        {
+          "line": 92,
+          "text": "\t// mr r11,r3"
+        },
+        {
+          "line": 93,
+          "text": "\tctx.r11.u64 = ctx.r3.u64;"
+        },
+        {
+          "line": 94,
+          "text": "\t// cmplwi cr6,r11,0"
+        },
+        {
+          "line": 95,
+          "text": "\tcr6.compare<uint32_t>(ctx.r11.u32, 0, xer);"
+        },
+        {
+          "line": 96,
+          "text": "\t// bne cr6,0x823e5a3c"
+        },
+        {
+          "line": 97,
+          "text": "\tif (!cr6.eq) goto loc_823E5A3C;"
+        },
+        {
+          "line": 98,
+          "text": "\t// lis r11,-32058"
+        },
+        {
+          "line": 99,
+          "text": "\tctx.r11.s64 = -2100953088;"
+        },
+        {
+          "line": 100,
+          "text": "\t// addi r11,r11,-2672"
+        },
+        {
+          "line": 101,
+          "text": "\tctx.r11.s64 = ctx.r11.s64 + -2672;"
+        },
+        {
+          "line": 102,
+          "text": "loc_823E5A3C:"
+        },
+        {
+          "line": 103,
+          "text": "\t// lwz r3,0(r11)"
+        },
+        {
+          "line": 104,
+          "text": "\tctx.r3.u64 = REX_LOAD_U32(ctx.r11.u32 + 0);"
+        },
+        {
+          "line": 105,
+          "text": "\t// lwz r11,80(r1)"
+        },
+        {
+          "line": 106,
+          "text": "\tctx.r11.u64 = REX_LOAD_U32(ctx.r1.u32 + 80);"
+        },
+        {
+          "line": 107,
+          "text": "\t// cmplwi cr6,r11,0"
+        },
+        {
+          "line": 108,
+          "text": "\tcr6.compare<uint32_t>(ctx.r11.u32, 0, xer);"
+        },
+        {
+          "line": 109,
+          "text": "\t// beq cr6,0x823e5a8c"
+        },
+        {
+          "line": 110,
+          "text": "\tif (cr6.eq) goto loc_823E5A8C;"
+        },
+        {
+          "line": 111,
+          "text": "\t// lhz r7,18(r11)"
+        },
+        {
+          "line": 112,
+          "text": "\tctx.r7.u64 = REX_LOAD_U16(ctx.r11.u32 + 18);"
+        },
+        {
+          "line": 113,
+          "text": "\t// addis r6,r7,1"
+        },
+        {
+          "line": 114,
+          "text": "\tctx.r6.s64 = ctx.r7.s64 + 65536;"
+        },
+        {
+          "line": 115,
+          "text": "\t// addi r6,r6,-1"
+        },
+        {
+          "line": 116,
+          "text": "\tctx.r6.s64 = ctx.r6.s64 + -1;"
+        },
+        {
+          "line": 117,
+          "text": "\t// sth r6,18(r11)"
+        },
+        {
+          "line": 118,
+          "text": "\tREX_STORE_U16(ctx.r11.u32 + 18, ctx.r6.u16);"
+        },
+        {
+          "line": 119,
+          "text": "\t// addi r1,r1,112"
+        },
+        {
+          "line": 120,
+          "text": "\tctx.r1.s64 = ctx.r1.s64 + 112;"
+        },
+        {
+          "line": 121,
+          "text": "\t// lwz r12,-8(r1)"
+        },
+        {
+          "line": 122,
+          "text": "\tctx.r12.u64 = REX_LOAD_U32(ctx.r1.u32 + -8);"
+        },
+        {
+          "line": 123,
+          "text": "\t// mtlr r12"
+        },
+        {
+          "line": 124,
+          "text": "\tctx.lr = ctx.r12.u64;"
+        },
+        {
+          "line": 125,
+          "text": "\t// blr "
+        },
+        {
+          "line": 126,
+          "text": "\treturn;"
+        },
+        {
+          "line": 127,
+          "text": "loc_823E5A6C:"
+        },
+        {
+          "line": 128,
+          "text": "\t// lwz r11,80(r1)"
+        },
+        {
+          "line": 129,
+          "text": "\tctx.r11.u64 = REX_LOAD_U32(ctx.r1.u32 + 80);"
+        },
+        {
+          "line": 130,
+          "text": "\t// cmplwi cr6,r11,0"
+        },
+        {
+          "line": 131,
+          "text": "\tcr6.compare<uint32_t>(ctx.r11.u32, 0, xer);"
+        },
+        {
+          "line": 132,
+          "text": "\t// beq cr6,0x823e5a88"
+        },
+        {
+          "line": 133,
+          "text": "\tif (cr6.eq) goto loc_823E5A88;"
+        },
+        {
+          "line": 134,
+          "text": "\t// lhz r4,18(r11)"
+        },
+        {
+          "line": 135,
+          "text": "\tctx.r4.u64 = REX_LOAD_U16(ctx.r11.u32 + 18);"
+        },
+        {
+          "line": 136,
+          "text": "\t// addis r3,r4,1"
+        },
+        {
+          "line": 137,
+          "text": "\tctx.r3.s64 = ctx.r4.s64 + 65536;"
+        },
+        {
+          "line": 138,
+          "text": "\t// addi r3,r3,-1"
+        },
+        {
+          "line": 139,
+          "text": "\tctx.r3.s64 = ctx.r3.s64 + -1;"
+        },
+        {
+          "line": 140,
+          "text": "\t// sth r3,18(r11)"
+        },
+        {
+          "line": 141,
+          "text": "\tREX_STORE_U16(ctx.r11.u32 + 18, ctx.r3.u16);"
+        },
+        {
+          "line": 142,
+          "text": "loc_823E5A88:"
+        },
+        {
+          "line": 143,
+          "text": "\t// li r3,0"
+        },
+        {
+          "line": 144,
+          "text": "\tctx.r3.s64 = 0;"
+        },
+        {
+          "line": 145,
+          "text": "loc_823E5A8C:"
+        },
+        {
+          "line": 146,
+          "text": "\t// addi r1,r1,112"
+        },
+        {
+          "line": 147,
+          "text": "\tctx.r1.s64 = ctx.r1.s64 + 112;"
+        },
+        {
+          "line": 148,
+          "text": "\t// lwz r12,-8(r1)"
+        }
+      ],
+      "guest_calls": [
+        {
+          "line": 72,
+          "source": "__imp__sub_8214B858(ctx, base);"
+        },
+        {
+          "line": 91,
+          "source": "__imp__sub_8214EDA8(ctx, base);"
+        }
+      ]
+    },
+    "attribute_check": {
+      "filename": "nfsmw_recomp.50.cpp",
+      "sha256": "f20ec567de4c4637756977a71a6c85f3848b63ba639f037b819868328e3f7e9d",
+      "function": "sub_8214B858",
+      "total_lines": 95,
+      "r11_uses": [
+        18,
+        24,
+        30,
+        44,
+        46,
+        50,
+        56,
+        61,
+        67,
+        70
+      ],
+      "relevant_lines": [
+        {
+          "line": 12,
+          "text": "\tREX_STORE_U64(ctx.r1.u32 + -16, r31.u64);"
+        },
+        {
+          "line": 13,
+          "text": "\t// stwu r1,-112(r1)"
+        },
+        {
+          "line": 14,
+          "text": "\tea = -112 + ctx.r1.u32;"
+        },
+        {
+          "line": 15,
+          "text": "\tREX_STORE_U32(ea, ctx.r1.u32);"
+        },
+        {
+          "line": 16,
+          "text": "\tctx.r1.u32 = ea;"
+        },
+        {
+          "line": 17,
+          "text": "\t// lwz r11,4(r3)"
+        },
+        {
+          "line": 18,
+          "text": "\tctx.r11.u64 = REX_LOAD_U32(ctx.r3.u32 + 4);"
+        },
+        {
+          "line": 19,
+          "text": "\t// mr r6,r4"
+        },
+        {
+          "line": 20,
+          "text": "\tctx.r6.u64 = ctx.r4.u64;"
+        },
+        {
+          "line": 21,
+          "text": "\t// mr r31,r5"
+        },
+        {
+          "line": 22,
+          "text": "\tr31.u64 = ctx.r5.u64;"
+        },
+        {
+          "line": 23,
+          "text": "\t// cmplwi cr6,r11,0"
+        },
+        {
+          "line": 24,
+          "text": "\tcr6.compare<uint32_t>(ctx.r11.u32, 0, xer);"
+        },
+        {
+          "line": 25,
+          "text": "\t// beq cr6,0x8214b8e0"
+        },
+        {
+          "line": 26,
+          "text": "\tif (cr6.eq) goto loc_8214B8E0;"
+        },
+        {
+          "line": 27,
+          "text": "\t// mr r5,r3"
+        },
+        {
+          "line": 28,
+          "text": "\tctx.r5.u64 = ctx.r3.u64;"
+        },
+        {
+          "line": 29,
+          "text": "\t// mr r4,r11"
+        },
+        {
+          "line": 30,
+          "text": "\tctx.r4.u64 = ctx.r11.u64;"
+        },
+        {
+          "line": 31,
+          "text": "\t// addi r3,r1,80"
+        },
+        {
+          "line": 32,
+          "text": "\tctx.r3.s64 = ctx.r1.s64 + 80;"
+        },
+        {
+          "line": 33,
+          "text": "\t// bl 0x82148718"
+        },
+        {
+          "line": 34,
+          "text": "\tctx.lr = 0x8214B88C;"
+        },
+        {
+          "line": 35,
+          "text": "\t__imp__sub_82148718(ctx, base);"
+        },
+        {
+          "line": 36,
+          "text": "\t// mr r4,r3"
+        },
+        {
+          "line": 37,
+          "text": "\tctx.r4.u64 = ctx.r3.u64;"
+        },
+        {
+          "line": 38,
+          "text": "\t// mr r3,r31"
+        },
+        {
+          "line": 39,
+          "text": "\tctx.r3.u64 = r31.u64;"
+        },
+        {
+          "line": 40,
+          "text": "\t// bl 0x8214e9e0"
+        },
+        {
+          "line": 41,
+          "text": "\tctx.lr = 0x8214B898;"
+        },
+        {
+          "line": 42,
+          "text": "\t__imp__sub_8214E9E0(ctx, base);"
+        },
+        {
+          "line": 43,
+          "text": "\t// lwz r11,80(r1)"
+        },
+        {
+          "line": 44,
+          "text": "\tctx.r11.u64 = REX_LOAD_U32(ctx.r1.u32 + 80);"
+        },
+        {
+          "line": 45,
+          "text": "\t// cmplwi cr6,r11,0"
+        },
+        {
+          "line": 46,
+          "text": "\tcr6.compare<uint32_t>(ctx.r11.u32, 0, xer);"
+        },
+        {
+          "line": 47,
+          "text": "\t// beq cr6,0x8214b8b4"
+        },
+        {
+          "line": 48,
+          "text": "\tif (cr6.eq) goto loc_8214B8B4;"
+        },
+        {
+          "line": 49,
+          "text": "\t// lhz r10,18(r11)"
+        },
+        {
+          "line": 50,
+          "text": "\tctx.r10.u64 = REX_LOAD_U16(ctx.r11.u32 + 18);"
+        },
+        {
+          "line": 51,
+          "text": "\t// addis r9,r10,1"
+        },
+        {
+          "line": 52,
+          "text": "\tctx.r9.s64 = ctx.r10.s64 + 65536;"
+        },
+        {
+          "line": 53,
+          "text": "\t// addi r9,r9,-1"
+        },
+        {
+          "line": 54,
+          "text": "\tctx.r9.s64 = ctx.r9.s64 + -1;"
+        },
+        {
+          "line": 55,
+          "text": "\t// sth r9,18(r11)"
+        },
+        {
+          "line": 56,
+          "text": "\tREX_STORE_U16(ctx.r11.u32 + 18, ctx.r9.u16);"
+        },
+        {
+          "line": 57,
+          "text": "loc_8214B8B4:"
+        },
+        {
+          "line": 58,
+          "text": "\t// lwz r7,8(r31)"
+        },
+        {
+          "line": 59,
+          "text": "\tctx.r7.u64 = REX_LOAD_U32(r31.u32 + 8);"
+        },
+        {
+          "line": 60,
+          "text": "\t// li r11,1"
+        },
+        {
+          "line": 61,
+          "text": "\tctx.r11.s64 = 1;"
+        },
+        {
+          "line": 62,
+          "text": "\t// cmplwi cr6,r7,0"
+        },
+        {
+          "line": 63,
+          "text": "\tcr6.compare<uint32_t>(ctx.r7.u32, 0, xer);"
+        },
+        {
+          "line": 64,
+          "text": "\t// bne cr6,0x8214b8c8"
+        },
+        {
+          "line": 65,
+          "text": "\tif (!cr6.eq) goto loc_8214B8C8;"
+        },
+        {
+          "line": 66,
+          "text": "\t// li r11,0"
+        },
+        {
+          "line": 67,
+          "text": "\tctx.r11.s64 = 0;"
+        },
+        {
+          "line": 68,
+          "text": "loc_8214B8C8:"
+        },
+        {
+          "line": 69,
+          "text": "\t// clrlwi r3,r11,24"
+        },
+        {
+          "line": 70,
+          "text": "\tctx.r3.u64 = ctx.r11.u32 & 0xFF;"
+        },
+        {
+          "line": 71,
+          "text": "\t// addi r1,r1,112"
+        },
+        {
+          "line": 72,
+          "text": "\tctx.r1.s64 = ctx.r1.s64 + 112;"
+        },
+        {
+          "line": 73,
+          "text": "\t// lwz r12,-8(r1)"
+        },
+        {
+          "line": 74,
+          "text": "\tctx.r12.u64 = REX_LOAD_U32(ctx.r1.u32 + -8);"
+        },
+        {
+          "line": 75,
+          "text": "\t// mtlr r12"
+        },
+        {
+          "line": 76,
+          "text": "\tctx.lr = ctx.r12.u64;"
+        },
+        {
+          "line": 77,
+          "text": "\t// ld r31,-16(r1)"
+        }
+      ],
+      "guest_calls": [
+        {
+          "line": 35,
+          "source": "__imp__sub_82148718(ctx, base);"
+        },
+        {
+          "line": 42,
+          "source": "__imp__sub_8214E9E0(ctx, base);"
+        }
+      ]
+    },
+    "attribute_value": {
+      "filename": "nfsmw_recomp.83.cpp",
+      "sha256": "21e561eeae953888b7d645719dc6bd7077dfa040f3f06896b7bbe3ba3e7774d4",
+      "function": "sub_8214EDA8",
+      "total_lines": 86,
+      "r11_uses": [
+        6,
+        8,
+        12,
+        35,
+        54,
+        56,
+        61,
+        74
+      ],
+      "relevant_lines": [
+        {
+          "line": 1,
+          "text": "DEFINE_REX_FUNC(sub_8214EDA8) {"
+        },
+        {
+          "line": 2,
+          "text": "\tREX_FUNC_PROLOGUE();"
+        },
+        {
+          "line": 3,
+          "text": "\tPPCXERRegister xer{};"
+        },
+        {
+          "line": 4,
+          "text": "\tPPCCRRegister cr6{};"
+        },
+        {
+          "line": 5,
+          "text": "\t// lwz r11,8(r3)"
+        },
+        {
+          "line": 6,
+          "text": "\tctx.r11.u64 = REX_LOAD_U32(ctx.r3.u32 + 8);"
+        },
+        {
+          "line": 7,
+          "text": "\t// cmplwi cr6,r11,0"
+        },
+        {
+          "line": 8,
+          "text": "\tcr6.compare<uint32_t>(ctx.r11.u32, 0, xer);"
+        },
+        {
+          "line": 9,
+          "text": "\t// beq cr6,0x8214ee30"
+        },
+        {
+          "line": 10,
+          "text": "\tif (cr6.eq) goto loc_8214EE30;"
+        },
+        {
+          "line": 11,
+          "text": "\t// lbz r10,11(r11)"
+        },
+        {
+          "line": 12,
+          "text": "\tctx.r10.u64 = REX_LOAD_U8(ctx.r11.u32 + 11);"
+        },
+        {
+          "line": 13,
+          "text": "\t// rlwinm r9,r10,0,30,30"
+        },
+        {
+          "line": 14,
+          "text": "\tctx.r9.u64 = __builtin_rotateleft64(ctx.r10.u32 | (ctx.r10.u64 << 32), 0) & 0x2;"
+        },
+        {
+          "line": 15,
+          "text": "\t// li r10,1"
+        },
+        {
+          "line": 16,
+          "text": "\tctx.r10.s64 = 1;"
+        },
+        {
+          "line": 17,
+          "text": "\t// cmplwi cr6,r9,0"
+        },
+        {
+          "line": 18,
+          "text": "\tcr6.compare<uint32_t>(ctx.r9.u32, 0, xer);"
+        },
+        {
+          "line": 19,
+          "text": "\t// bne cr6,0x8214edcc"
+        },
+        {
+          "line": 29,
+          "text": "\tif (cr6.eq) goto loc_8214EE18;"
+        },
+        {
+          "line": 30,
+          "text": "\t// lwz r6,0(r3)"
+        },
+        {
+          "line": 31,
+          "text": "\tctx.r6.u64 = REX_LOAD_U32(ctx.r3.u32 + 0);"
+        },
+        {
+          "line": 32,
+          "text": "\t// li r10,1"
+        },
+        {
+          "line": 33,
+          "text": "\tctx.r10.s64 = 1;"
+        },
+        {
+          "line": 34,
+          "text": "\t// lbz r5,11(r11)"
+        },
+        {
+          "line": 35,
+          "text": "\tctx.r5.u64 = REX_LOAD_U8(ctx.r11.u32 + 11);"
+        },
+        {
+          "line": 36,
+          "text": "\t// rlwinm r3,r5,0,27,27"
+        },
+        {
+          "line": 37,
+          "text": "\tctx.r3.u64 = __builtin_rotateleft64(ctx.r5.u32 | (ctx.r5.u64 << 32), 0) & 0x10;"
+        },
+        {
+          "line": 38,
+          "text": "\t// lwz r9,8(r6)"
+        },
+        {
+          "line": 39,
+          "text": "\tctx.r9.u64 = REX_LOAD_U32(ctx.r6.u32 + 8);"
+        },
+        {
+          "line": 40,
+          "text": "\t// cmplwi cr6,r3,0"
+        },
+        {
+          "line": 41,
+          "text": "\tcr6.compare<uint32_t>(ctx.r3.u32, 0, xer);"
+        },
+        {
+          "line": 42,
+          "text": "\t// bne cr6,0x8214edf8"
+        },
+        {
+          "line": 48,
+          "text": "\tctx.r8.u64 = ctx.r10.u32 & 0xFF;"
+        },
+        {
+          "line": 49,
+          "text": "\t// cmplwi cr6,r8,0"
+        },
+        {
+          "line": 50,
+          "text": "\tcr6.compare<uint32_t>(ctx.r8.u32, 0, xer);"
+        },
+        {
+          "line": 51,
+          "text": "\t// beq cr6,0x8214ee10"
+        },
+        {
+          "line": 52,
+          "text": "\tif (cr6.eq) goto loc_8214EE10;"
+        },
+        {
+          "line": 53,
+          "text": "\t// lwz r11,4(r11)"
+        },
+        {
+          "line": 54,
+          "text": "\tctx.r11.u64 = REX_LOAD_U32(ctx.r11.u32 + 4);"
+        },
+        {
+          "line": 55,
+          "text": "\t// add r3,r11,r9"
+        },
+        {
+          "line": 56,
+          "text": "\tctx.r3.u64 = ctx.r11.u64 + ctx.r9.u64;"
+        },
+        {
+          "line": 57,
+          "text": "\t// b 0x8214ee14"
+        },
+        {
+          "line": 58,
+          "text": "\tgoto loc_8214EE14;"
+        },
+        {
+          "line": 59,
+          "text": "loc_8214EE10:"
+        },
+        {
+          "line": 60,
+          "text": "\t// lwz r3,4(r11)"
+        },
+        {
+          "line": 61,
+          "text": "\tctx.r3.u64 = REX_LOAD_U32(ctx.r11.u32 + 4);"
+        },
+        {
+          "line": 62,
+          "text": "loc_8214EE14:"
+        },
+        {
+          "line": 63,
+          "text": "\t// b 0x82145428"
+        },
+        {
+          "line": 64,
+          "text": "\t__imp__sub_82145428(ctx, base);"
+        },
+        {
+          "line": 65,
+          "text": "\treturn;"
+        },
+        {
+          "line": 66,
+          "text": "loc_8214EE18:"
+        },
+        {
+          "line": 67,
+          "text": "\t// cmplwi cr6,r4,0"
+        },
+        {
+          "line": 68,
+          "text": "\tcr6.compare<uint32_t>(ctx.r4.u32, 0, xer);"
+        },
+        {
+          "line": 69,
+          "text": "\t// bne cr6,0x8214ee30"
+        },
+        {
+          "line": 70,
+          "text": "\tif (!cr6.eq) goto loc_8214EE30;"
+        },
+        {
+          "line": 71,
+          "text": "\t// lwz r7,0(r3)"
+        },
+        {
+          "line": 72,
+          "text": "\tctx.r7.u64 = REX_LOAD_U32(ctx.r3.u32 + 0);"
+        },
+        {
+          "line": 73,
+          "text": "\t// mr r3,r11"
+        },
+        {
+          "line": 74,
+          "text": "\tctx.r3.u64 = ctx.r11.u64;"
+        },
+        {
+          "line": 75,
+          "text": "\t// lwz r4,8(r7)"
+        },
+        {
+          "line": 76,
+          "text": "\tctx.r4.u64 = REX_LOAD_U32(ctx.r7.u32 + 8);"
+        },
+        {
+          "line": 77,
+          "text": "\t// b 0x82145c50"
+        },
+        {
+          "line": 78,
+          "text": "\tsub_82145C50(ctx, base);"
+        },
+        {
+          "line": 79,
+          "text": "\treturn;"
+        },
+        {
+          "line": 80,
+          "text": "loc_8214EE30:"
+        },
+        {
+          "line": 81,
+          "text": "\t// li r3,0"
+        }
+      ],
+      "guest_calls": [
+        {
+          "line": 64,
+          "source": "__imp__sub_82145428(ctx, base);"
+        }
+      ]
+    },
+    "builder": {
+      "filename": "nfsmw_recomp.57.cpp",
+      "sha256": "a74e2314e878a88d197d2d8774254bf8c7fbc0e835f84a6c048f0ec86d9f455c",
+      "function": "sub_8256F818",
+      "total_lines": 230,
+      "r11_uses": [
+        27,
+        31,
+        57,
+        61,
+        81,
+        95,
+        116,
+        120,
+        124,
+        128,
+        209,
+        215,
+        217,
+        219,
+        221
+      ],
+      "relevant_lines": [
+        {
+          "line": 21,
+          "text": "\tctx.lr = 0x8256F820;"
+        },
+        {
+          "line": 22,
+          "text": "\t// stwu r1,-192(r1)"
+        },
+        {
+          "line": 23,
+          "text": "\tea = -192 + ctx.r1.u32;"
+        },
+        {
+          "line": 24,
+          "text": "\tREX_STORE_U32(ea, ctx.r1.u32);"
+        },
+        {
+          "line": 25,
+          "text": "\tctx.r1.u32 = ea;"
+        },
+        {
+          "line": 26,
+          "text": "\t// lis r11,-32058"
+        },
+        {
+          "line": 27,
+          "text": "\tctx.r11.s64 = -2100953088;"
+        },
+        {
+          "line": 28,
+          "text": "\t// mr r26,r4"
+        },
+        {
+          "line": 29,
+          "text": "\tr26.u64 = ctx.r4.u64;"
+        },
+        {
+          "line": 30,
+          "text": "\t// addi r30,r11,-9752"
+        },
+        {
+          "line": 31,
+          "text": "\tr30.s64 = ctx.r11.s64 + -9752;"
+        },
+        {
+          "line": 32,
+          "text": "\t// mr r25,r5"
+        },
+        {
+          "line": 33,
+          "text": "\tr25.u64 = ctx.r5.u64;"
+        },
+        {
+          "line": 34,
+          "text": "\t// addi r3,r30,8"
+        },
+        {
+          "line": 35,
+          "text": "\tctx.r3.s64 = r30.s64 + 8;"
+        },
+        {
+          "line": 36,
+          "text": "\t// bl 0x823e5988"
+        },
+        {
+          "line": 37,
+          "text": "\tctx.lr = 0x8256F83C;"
+        },
+        {
+          "line": 38,
+          "text": "\t__imp__sub_823E5988(ctx, base);"
+        },
+        {
+          "line": 51,
+          "text": "\t// mr r3,r30"
+        },
+        {
+          "line": 52,
+          "text": "\tctx.r3.u64 = r30.u64;"
+        },
+        {
+          "line": 53,
+          "text": "\t// bl 0x8256cb60"
+        },
+        {
+          "line": 54,
+          "text": "\tctx.lr = 0x8256F85C;"
+        },
+        {
+          "line": 55,
+          "text": "\tsub_8256CB60(ctx, base);"
+        },
+        {
+          "line": 56,
+          "text": "\t// lis r11,-32246"
+        },
+        {
+          "line": 57,
+          "text": "\tctx.r11.s64 = -2113273856;"
+        },
+        {
+          "line": 58,
+          "text": "\t// mr r22,r3"
+        },
+        {
+          "line": 59,
+          "text": "\tr22.u64 = ctx.r3.u64;"
+        },
+        {
+          "line": 60,
+          "text": "\t// addi r20,r11,22396"
+        },
+        {
+          "line": 61,
+          "text": "\tr20.s64 = ctx.r11.s64 + 22396;"
+        },
+        {
+          "line": 62,
+          "text": "\t// li r24,1"
+        },
+        {
+          "line": 63,
+          "text": "\tr24.s64 = 1;"
+        },
+        {
+          "line": 64,
+          "text": "loc_8256F86C:"
+        },
+        {
+          "line": 65,
+          "text": "\t// li r6,0"
+        },
+        {
+          "line": 66,
+          "text": "\tctx.r6.s64 = 0;"
+        },
+        {
+          "line": 67,
+          "text": "\t// li r5,0"
+        },
+        {
+          "line": 68,
+          "text": "\tctx.r5.s64 = 0;"
+        },
+        {
+          "line": 75,
+          "text": "\t__imp__sub_8215CB08(ctx, base);"
+        },
+        {
+          "line": 76,
+          "text": "\t// cmplwi cr6,r3,0"
+        },
+        {
+          "line": 77,
+          "text": "\tcr6.compare<uint32_t>(ctx.r3.u32, 0, xer);"
+        },
+        {
+          "line": 78,
+          "text": "\t// beq cr6,0x8256f8b8"
+        },
+        {
+          "line": 79,
+          "text": "\tif (cr6.eq) goto loc_8256F8B8;"
+        },
+        {
+          "line": 80,
+          "text": "\t// addi r11,r28,1"
+        },
+        {
+          "line": 81,
+          "text": "\tctx.r11.s64 = r28.s64 + 1;"
+        },
+        {
+          "line": 82,
+          "text": "\t// stw r23,12(r3)"
+        },
+        {
+          "line": 83,
+          "text": "\tREX_STORE_U32(ctx.r3.u32 + 12, r23.u32);"
+        },
+        {
+          "line": 84,
+          "text": "\t// stw r20,0(r3)"
+        },
+        {
+          "line": 85,
+          "text": "\tREX_STORE_U32(ctx.r3.u32 + 0, r20.u32);"
+        },
+        {
+          "line": 86,
+          "text": "\t// mr r31,r3"
+        },
+        {
+          "line": 87,
+          "text": "\tr31.u64 = ctx.r3.u64;"
+        },
+        {
+          "line": 88,
+          "text": "\t// stw r23,16(r3)"
+        },
+        {
+          "line": 89,
+          "text": "\tREX_STORE_U32(ctx.r3.u32 + 16, r23.u32);"
+        },
+        {
+          "line": 90,
+          "text": "\t// stw r26,24(r3)"
+        },
+        {
+          "line": 91,
+          "text": "\tREX_STORE_U32(ctx.r3.u32 + 24, r26.u32);"
+        },
+        {
+          "line": 92,
+          "text": "\t// stb r24,28(r3)"
+        },
+        {
+          "line": 93,
+          "text": "\tREX_STORE_U8(ctx.r3.u32 + 28, r24.u8);"
+        },
+        {
+          "line": 94,
+          "text": "\t// stw r11,20(r3)"
+        },
+        {
+          "line": 95,
+          "text": "\tREX_STORE_U32(ctx.r3.u32 + 20, ctx.r11.u32);"
+        },
+        {
+          "line": 96,
+          "text": "\t// stw r24,32(r3)"
+        },
+        {
+          "line": 97,
+          "text": "\tREX_STORE_U32(ctx.r3.u32 + 32, r24.u32);"
+        },
+        {
+          "line": 98,
+          "text": "\t// stw r23,36(r3)"
+        },
+        {
+          "line": 99,
+          "text": "\tREX_STORE_U32(ctx.r3.u32 + 36, r23.u32);"
+        },
+        {
+          "line": 100,
+          "text": "\t// stb r23,40(r3)"
+        },
+        {
+          "line": 101,
+          "text": "\tREX_STORE_U8(ctx.r3.u32 + 40, r23.u8);"
+        },
+        {
+          "line": 102,
+          "text": "\t// b 0x8256f8bc"
+        },
+        {
+          "line": 110,
+          "text": "\t// addi r3,r30,8"
+        },
+        {
+          "line": 111,
+          "text": "\tctx.r3.s64 = r30.s64 + 8;"
+        },
+        {
+          "line": 112,
+          "text": "\t// bl 0x823e5988"
+        },
+        {
+          "line": 113,
+          "text": "\tctx.lr = 0x8256F8C8;"
+        },
+        {
+          "line": 114,
+          "text": "\t__imp__sub_823E5988(ctx, base);"
+        },
+        {
+          "line": 115,
+          "text": "\t// mr r11,r3"
+        },
+        {
+          "line": 116,
+          "text": "\tctx.r11.u64 = ctx.r3.u64;"
+        },
+        {
+          "line": 117,
+          "text": "\t// mr r4,r31"
+        },
+        {
+          "line": 118,
+          "text": "\tctx.r4.u64 = r31.u64;"
+        },
+        {
+          "line": 119,
+          "text": "\t// subf r11,r11,r22"
+        },
+        {
+          "line": 120,
+          "text": "\tctx.r11.u64 = r22.u64 - ctx.r11.u64;"
+        },
+        {
+          "line": 121,
+          "text": "\t// mr r3,r30"
+        },
+        {
+          "line": 122,
+          "text": "\tctx.r3.u64 = r30.u64;"
+        },
+        {
+          "line": 123,
+          "text": "\t// add r11,r11,r28"
+        },
+        {
+          "line": 124,
+          "text": "\tctx.r11.u64 = ctx.r11.u64 + r28.u64;"
+        },
+        {
+          "line": 125,
+          "text": "\t// mr r27,r24"
+        },
+        {
+          "line": 126,
+          "text": "\tr27.u64 = r24.u64;"
+        },
+        {
+          "line": 127,
+          "text": "\t// addi r29,r11,1"
+        },
+        {
+          "line": 128,
+          "text": "\tr29.s64 = ctx.r11.s64 + 1;"
+        },
+        {
+          "line": 129,
+          "text": "\t// mr r5,r29"
+        },
+        {
+          "line": 130,
+          "text": "\tctx.r5.u64 = r29.u64;"
+        },
+        {
+          "line": 131,
+          "text": "\t// bl 0x8256d5f0"
+        },
+        {
+          "line": 132,
+          "text": "\tctx.lr = 0x8256F8EC;"
+        },
+        {
+          "line": 133,
+          "text": "\tsub_8256D5F0(ctx, base);"
+        },
+        {
+          "line": 134,
+          "text": "\t// clrlwi r10,r3,24"
+        },
+        {
+          "line": 135,
+          "text": "\tctx.r10.u64 = ctx.r3.u32 & 0xFF;"
+        },
+        {
+          "line": 203,
+          "text": "\tsub_8256C2F0(ctx, base);"
+        },
+        {
+          "line": 204,
+          "text": "\t// stw r3,36(r31)"
+        },
+        {
+          "line": 205,
+          "text": "\tREX_STORE_U32(r31.u32 + 36, ctx.r3.u32);"
+        },
+        {
+          "line": 206,
+          "text": "\t// lwz r10,4(r25)"
+        },
+        {
+          "line": 207,
+          "text": "\tctx.r10.u64 = REX_LOAD_U32(r25.u32 + 4);"
+        },
+        {
+          "line": 208,
+          "text": "\t// addi r11,r31,4"
+        },
+        {
+          "line": 209,
+          "text": "\tctx.r11.s64 = r31.s64 + 4;"
+        },
+        {
+          "line": 210,
+          "text": "\t// addi r28,r28,1"
+        },
+        {
+          "line": 211,
+          "text": "\tr28.s64 = r28.s64 + 1;"
+        },
+        {
+          "line": 212,
+          "text": "\t// cmpw cr6,r28,r21"
+        },
+        {
+          "line": 213,
+          "text": "\tcr6.compare<int32_t>(r28.s32, r21.s32, xer);"
+        },
+        {
+          "line": 214,
+          "text": "\t// stw r11,0(r10)"
+        },
+        {
+          "line": 215,
+          "text": "\tREX_STORE_U32(ctx.r10.u32 + 0, ctx.r11.u32);"
+        },
+        {
+          "line": 216,
+          "text": "\t// stw r11,4(r25)"
+        },
+        {
+          "line": 217,
+          "text": "\tREX_STORE_U32(r25.u32 + 4, ctx.r11.u32);"
+        },
+        {
+          "line": 218,
+          "text": "\t// stw r25,0(r11)"
+        },
+        {
+          "line": 219,
+          "text": "\tREX_STORE_U32(ctx.r11.u32 + 0, r25.u32);"
+        },
+        {
+          "line": 220,
+          "text": "\t// stw r10,4(r11)"
+        },
+        {
+          "line": 221,
+          "text": "\tREX_STORE_U32(ctx.r11.u32 + 4, ctx.r10.u32);"
+        },
+        {
+          "line": 222,
+          "text": "\t// blt cr6,0x8256f86c"
+        },
+        {
+          "line": 223,
+          "text": "\tif (cr6.lt) goto loc_8256F86C;"
+        },
+        {
+          "line": 224,
+          "text": "loc_8256F990:"
+        },
+        {
+          "line": 225,
+          "text": "\t// addi r1,r1,192"
+        },
+        {
+          "line": 226,
+          "text": "\tctx.r1.s64 = ctx.r1.s64 + 192;"
+        },
+        {
+          "line": 227,
+          "text": "\t// b 0x826bdd48"
+        },
+        {
+          "line": 228,
+          "text": "\treturn;"
+        }
+      ],
+      "guest_calls": [
+        {
+          "line": 38,
+          "source": "__imp__sub_823E5988(ctx, base);"
+        },
+        {
+          "line": 75,
+          "source": "__imp__sub_8215CB08(ctx, base);"
+        },
+        {
+          "line": 114,
+          "source": "__imp__sub_823E5988(ctx, base);"
+        },
+        {
+          "line": 153,
+          "source": "__imp__sub_8256D800(ctx, base);"
+        },
+        {
+          "line": 169,
+          "source": "__imp__sub_8256D548(ctx, base);"
+        },
+        {
+          "line": 187,
+          "source": "__imp__sub_8256BC60(ctx, base);"
+        }
+      ]
+    }
+  }
+}
