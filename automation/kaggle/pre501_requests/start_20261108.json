@@ -1,0 +1,9 @@
+{
+  "stage": "PRE501",
+  "source_SHA256": "9f4b04a221232e614b927a870e25da7db100477a7e425114b87082f46e8b99ad",
+  "goal": "Dry run exactly one BMW engine upgrade counter without affecting other car variants or NOS",
+  "scratch_only": true,
+  "no_game_file": true,
+  "no_apk": true,
+  "no_save": true
+}
