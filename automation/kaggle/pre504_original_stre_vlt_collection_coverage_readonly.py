@@ -20,7 +20,7 @@ def audit():
     proof=json.loads(Path("docs/PRE502_BMW_ENGINE_FULL_LEVEL1_COMBINED_SCRATCH.json").read_text())
     if (proof.get("status")!="AUDIT_OK" or
         proof.get("source_pal_sha256")!=EXPECTED_VPAK_SHA or
-        proof.get("new_collection_name")!=CANDIDATE or
+        proof.get("new_engine_collection_name")!=CANDIDATE or
         proof.get("new_collection_name_missing_original_StrE") is not True or
         proof.get("safe_to_enable_or_build_tuning") is not False):
         raise ValueError("PRE502 authenticated evidence or feature-OFF guard mismatch")
@@ -68,7 +68,7 @@ def audit():
         "candidate_name_in_original_StrE":False,
         "candidate_class_collection_pair_already_exists":False,
         "original_Collections_without_StrE_names_exist":missing>0,
-        "original_loader_initializes_existing_collections":True,
+        "original_collections_present_in_authenticated_asset":True,
         "new_loader_collection_acceptance_proven":False,
         "new_name_registration_required_in_PAL_loader":None,
         "gameplay_tuning_or_purchase_verified":False,
