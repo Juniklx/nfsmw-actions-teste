@@ -1,0 +1,77 @@
+name: NFSMW PRE520 authenticate PAL ZZDATA4 BMW resource sector padding read-only
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre520_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre520-pal-zzdata4-padding
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare authenticated original PAL/USA ranged resource readers
+        run: |
+          python -m pip install --disable-pip-version-check google-auth requests >/dev/null
+          python -m py_compile automation/kaggle/pre520_pal_original_zzdata4_padding_readonly.py
+      - name: Verify pinned ZDIR semantics and checksum candidate without changing game files
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre520_scratch_bmw_vpak_zdir_checksum_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Guard against game modifications and save sanitized metadata
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          p=Path("/tmp/nfsmw-pre520/report.json")
+          d=json.loads(p.read_text()) if p.is_file() else {"stage":"PRE520","status":"FAILED_NO_REPORT"}
+          for k in ("raw_game_asset_written","original_zip_or_ZZDATA_modified",
+                    "original_ZDIR_modified","VPAK_overlay_created",
+                    "APK_built","save_modified","signing_accessed",
+                    "ready_to_modify_original_game","BMW_tuning_enabled"):
+              if d.get(k,False) is not False:
+                  raise SystemExit("PRE520 read-only/safety flag violation: "+k)
+          if d.get("status")=="AUDIT_OK":
+              if d.get("original_loader_acceptance_proven") is not False:
+                  raise SystemExit("Cannot promote checksum match to loader validation")
+              dest=Path("docs/PRE520_ORIGINAL_PAL_ZZDATA4_SECTOR_PADDING_READONLY.json")
+          else:
+              dest=Path("docs/PRE520_ORIGINAL_PAL_ZZDATA4_PADDING_DIAGNOSTIC.json")
+              d={k:d.get(k) for k in ("stage","status","error_type","error","run_id") if k in d}
+              d["BMW_tuning_enabled"]=False
+          dest.parent.mkdir(parents=True,exist_ok=True)
+          dest.write_text(json.dumps(d,indent=2,ensure_ascii=False)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE520_ORIGINAL_PAL_ZZDATA4_*json
+          git diff --cached --quiet && exit 0
+          git commit -m "PRE520: PAL ZZDATA4 source sector padding CRC and zero-byte evidence"
+          for i in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
+      - name: Retain sanitized private verification report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre520-zdir-semantics-${{ github.run_id }}
+          path: /tmp/nfsmw-pre520/report.json
+          retention-days: 14
