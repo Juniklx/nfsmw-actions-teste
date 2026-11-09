@@ -1,0 +1,14 @@
+{
+  "stage": "PRE571",
+  "source_reports": [
+    "PRE567R",
+    "PRE568",
+    "PRE569",
+    "PRE570"
+  ],
+  "backup_first": true,
+  "append_only": true,
+  "expected_previous_bytes": 864277,
+  "expected_previous_sha256": "7227982889c1cbcadb6ce41eb7408289f42d5305eecc5afdcf848f5a4a5c5be4",
+  "save_untouched": true
+}
