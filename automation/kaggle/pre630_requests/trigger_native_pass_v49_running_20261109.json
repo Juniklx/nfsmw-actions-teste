@@ -1,0 +1,12 @@
+{
+  "stage": "PRE630",
+  "previous_sync": "PRE628",
+  "previous_context_bytes": 959741,
+  "previous_context_sha256": "a8793ca61b87823541b0173f04dc6773d9de07a7ee1cc40bc8a10ddbd0051f61",
+  "source_doc": "PRE629",
+  "native_success_run": 42705397176,
+  "release_running_run": 42709319413,
+  "backup_first": true,
+  "append_only": true,
+  "no_phone_assets_or_save_edits": true
+}
