@@ -1,0 +1,33 @@
+{
+  "stage": "PRE625_BMW_EXTRA_HOST_CALLBACK_ARM64_NO_APK",
+  "status": "AUDIT_OK",
+  "source_archive_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "native_cmake_ok": true,
+  "native_build_ok": true,
+  "native_arm64_elf": true,
+  "evidence": {
+    "old_PRE429_PRE447_source_hooks_retained": true,
+    "new_shard_sha256": "476cc1cdc4ccc81d41d3777bf70b39e8d304c31998c2cec78e368b403347a33d",
+    "native_cpp_sha256": "e822651086f35c33038f25c0efa06779f2e678ee2d375cacefde5fcaf38aa0e3",
+    "callback_registered_once": true,
+    "guest_patch_exact_reversal_verified": true,
+    "new_guest_memory_ops_or_calls": 0,
+    "host_callback_no_guest_pointer_dereference": true,
+    "logger_max_lines": 128,
+    "source_reconstructed_in_disposable_native_workspace": true,
+    "new_callback_exported_exactly_once": true,
+    "previous_3_callbacks_exported_once": true,
+    "elf_arm64_sha256": "73c631fb28722ad2716147249f92aaab621f5c62f5720624ba5f11bf86335652",
+    "feature_flag_present_in_compiled_guest": true,
+    "native_module_compiled_once": true
+  },
+  "APK_built": false,
+  "signed": false,
+  "save_modified": false,
+  "game_assets_modified": false,
+  "signing_material_accessed": false,
+  "guest_runtime_executed": false,
+  "tuning_enabled": false,
+  "run_id": "42705397176",
+  "utc": "2026-11-09T22:02:02.332392+00:00"
+}
