@@ -1,0 +1,45 @@
+{
+  "stage": "PRE606_BMW_DERIVED_ENGINE_PARENT_CORRECTED_PRIVATE_PTBR_FRAGMENTS",
+  "status": "AUDIT_OK",
+  "folder_id": "1AR2uE0Oel80gciW7xSjEJEIKjnG9wC4I",
+  "folder_newly_created": true,
+  "ZDIR_fragment": {
+    "id": "1DaeV8ouEkl97D0qJEW1Jab4pi9vh6FyR",
+    "name": "PRE606_ZDIR_BMW_CHILD_PARENT_CORRECTED.bin",
+    "size": 33312,
+    "sha256": "f15d5da54148e0e762f65004d534092dbf3c08d12b0f8b710d6cf599235a32e2",
+    "fresh_upload": true
+  },
+  "ZZDATA4_first_341_sectors_fragment": {
+    "id": "1acGG0hYYzcfYPRWDzpCeuAaUgAJoI7Nk",
+    "name": "PRE606_ZZDATA4_FIRST341_BMW_PARENT_CORRECTED.bin",
+    "size": 698368,
+    "sha256": "93327b44eb54b0ec9b14e51e7b35da9071e9531454c49819c35e6e6172c284a5",
+    "fresh_upload": true
+  },
+  "candidate_VPAK_sha256": "11c122bf9b32011fd3955498517e51f2f1f11551bc2bbd9f448201bc4ef862f3",
+  "candidate_VPAK_bytes": 698004,
+  "candidate_EA_crc32": "31aef5d7",
+  "candidate_parent_hash": "cd88083f",
+  "candidate_engine_counter": 1,
+  "candidate_BMW_two_ref_list_preserved": true,
+  "pre502_comparison_parent_only_4_bytes": [
+    520072,
+    520073,
+    520074,
+    520075
+  ],
+  "experiment_not_functional_tuning_proof": true,
+  "phone_guest_tested": false,
+  "user_game_files_modified": false,
+  "user_save_modified": false,
+  "APK_modified": false,
+  "translated_original_ZZDATA4_full_sha256": "7dd33d214ac45f4b67005685bc0c2b8555eca98a33d24216c934f077d5054951",
+  "translated_full_archive_expected_modified_sha256": "1ed79d0f031d400002da8db6153ee84188d717e33f093a501f7a6bdfc0e5e146",
+  "translated_full_archive_expected_modified_crc32": "d76830d2",
+  "original_zip_member_fully_verified_by_stream": true,
+  "translated_nontarget_archive_bytes_pass_through_unchanged": true,
+  "source_sector_initial_512_padding_bytes_verified": true,
+  "run_id": "42591196366",
+  "utc": "2026-11-09T09:09:47.619116+00:00"
+}
