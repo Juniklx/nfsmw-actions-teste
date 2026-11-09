@@ -1,0 +1,8 @@
+{
+  "stage": "PRE605",
+  "source": "PRE604",
+  "variant": "PRE502 minus incorrect default parent only; child now inherits original stock BMW",
+  "ram_only": true,
+  "phone_tested": false,
+  "new_apk": false
+}
