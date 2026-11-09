@@ -1,0 +1,8 @@
+{
+  "stage": "PRE606",
+  "prior": "PRE604_PRE605",
+  "candidate": "BMW new engine parent cd88083f, upgrade count 1",
+  "validate_original_PTBR_ZIP": true,
+  "private_fragments": true,
+  "no_phone_write": true
+}
