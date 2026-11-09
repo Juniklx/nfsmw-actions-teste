@@ -1,0 +1,14 @@
+{
+  "stage": "PRE574",
+  "status_source": [
+    "PRE571",
+    "PRE572",
+    "PRE573"
+  ],
+  "expected_context_bytes": 870337,
+  "expected_context_sha256": "62ce36223f666a0fba614a2de21e177c31930b71b470387c2ea12770d32e2a02",
+  "append_only": true,
+  "backup_first": true,
+  "user_allows_discarding_save": true,
+  "script_can_delete_save": false
+}
