@@ -1,0 +1,22 @@
+{
+  "stage": "PRE559_CANONICAL_CONTEXT_APPEND_WITH_BACKUP",
+  "status": "AUDIT_OK",
+  "apk_built": false,
+  "save_modified": false,
+  "game_assets_modified": false,
+  "backup_created": true,
+  "backup_reused": false,
+  "backup_file_id": "1hVmBrEa4dZL-zfaOHmBF0oWYClZy3DvM",
+  "backup_name": "CONTEXTO_NFSMW_BACKUP_PRE559_PTBR_HASHES_20261108.md",
+  "canonical_before_bytes": 849626,
+  "canonical_before_sha256": "67be19118bb890a25fce9ad42cd9b2e6dfe03a8020ef040309de89d863ce8ead",
+  "transient_http_failures": 0,
+  "append_bytes": 4109,
+  "new_total_bytes": 853735,
+  "new_sha256": "13c2eb2734032680941de745d57f0c2e738774d4bda36d8afa342d8da6b6c73a",
+  "prior_history_bytewise_preserved": true,
+  "postupdate_readback_bytewise_verified": true,
+  "canonical_file_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+  "run_id": "42551750558",
+  "utc": "2026-11-09T02:35:26.336220+00:00"
+}
