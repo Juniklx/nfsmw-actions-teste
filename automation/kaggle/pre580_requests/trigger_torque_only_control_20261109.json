@@ -1,0 +1,8 @@
+{
+  "stage": "PRE580",
+  "purpose": "isolate stock motor physical float changes from combined VLT repack issue",
+  "prior_device_ab": "PRE579",
+  "previous_combined_patch": "PRE572",
+  "no_phone_changes": true,
+  "no_release_build": true
+}
