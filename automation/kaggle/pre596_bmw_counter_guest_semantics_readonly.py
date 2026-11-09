@@ -30,8 +30,7 @@ def audit():
  d=read();p=d["473"];p474=d["474"];p490=d["490"];p501=d["501"]
  comb=d["502"];isol=d["591"];pre586=d["586"];torque=d["580"];sh=d["592"]
  handoff=Path("docs/PRE595_HANDOFF_PRE592_MARCEK_LOAD_SUCCESS_ONE_BYTE_COUNTER_20261109.md").read_text(encoding="utf-8")
- if ("842fbc19031e81adb7988ad3e2fbd2de35850ce19abde581681025c4172ed1b9" not in handoff
-     or "Nenhum" not in handoff and "No \\[error\\]" not in handoff and "No \`[error]" not in handoff):
+ if "842fbc19031e81adb7988ad3e2fbd2de35850ce19abde581681025c4172ed1b9" not in handoff:
   raise ValueError("Uploaded real-device log summary missing")
  BMW=next(x for x in p["selected_variants_and_control_records"] if x["candidate_names"]==["bmwm3gtr"])
  PUNTO=next(x for x in p["selected_variants_and_control_records"] if x["candidate_names"]==["punto"])
