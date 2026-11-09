@@ -1,0 +1,607 @@
+{
+  "stage": "PRE601_ORIGINAL_PAL_GUEST_COUNTER_TWO_NARROWED_FUNCTION_CONTEXT",
+  "status": "AUDIT_OK",
+  "source_SHA256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "authenticated_source_files": 129,
+  "authenticated_source_functions": 56338,
+  "targets": {
+    "sub_821EFC18": {
+      "guest_function": "sub_821EFC18",
+      "original_generated_file": "nfsmw_recomp.31.cpp",
+      "original_file_sha256": "bc41cc424905b78648e903f04ef812d5cb835e3ed4009574e8330cbacb22e165",
+      "function_source_lines": 144,
+      "guest_calls": [
+        "sub_821B6480",
+        "sub_821E1610",
+        "sub_821E1610",
+        "sub_821E5508",
+        "sub_821E5508",
+        "sub_821E1610",
+        "sub_821E1610",
+        "sub_821E1838"
+      ],
+      "engine_offset_40_sites": [
+        {
+          "generated_function_relative_line": 62,
+          "loaded_register": "r11",
+          "base_register": "r31",
+          "preceding_ppc_sequence": [
+            {
+              "op": "beq",
+              "operands": "cr6,0x821efc5c"
+            },
+            {
+              "op": "stw",
+              "operands": "r30,16(r11)"
+            },
+            {
+              "op": "lwz",
+              "operands": "r3,48(r31)"
+            },
+            {
+              "op": "bl",
+              "operands": "0x821e1610"
+            },
+            {
+              "op": "lwz",
+              "operands": "r11,52(r31)"
+            },
+            {
+              "op": "cmplwi",
+              "operands": "cr6,r11,0"
+            },
+            {
+              "op": "beq",
+              "operands": "cr6,0x821efc74"
+            },
+            {
+              "op": "stw",
+              "operands": "r30,16(r11)"
+            },
+            {
+              "op": "lwz",
+              "operands": "r3,52(r31)"
+            },
+            {
+              "op": "bl",
+              "operands": "0x821e1610"
+            }
+          ],
+          "following_ppc_sequence": [
+            {
+              "op": "cmplwi",
+              "operands": "cr6,r11,0"
+            },
+            {
+              "op": "beq",
+              "operands": "cr6,0x821efc8c"
+            },
+            {
+              "op": "stw",
+              "operands": "r30,8(r11)"
+            },
+            {
+              "op": "lwz",
+              "operands": "r3,40(r31)"
+            },
+            {
+              "op": "bl",
+              "operands": "0x821e5508"
+            },
+            {
+              "op": "lwz",
+              "operands": "r11,44(r31)"
+            },
+            {
+              "op": "cmplwi",
+              "operands": "cr6,r11,0"
+            },
+            {
+              "op": "beq",
+              "operands": "cr6,0x821efca4"
+            },
+            {
+              "op": "stw",
+              "operands": "r30,8(r11)"
+            },
+            {
+              "op": "lwz",
+              "operands": "r3,44(r31)"
+            },
+            {
+              "op": "bl",
+              "operands": "0x821e5508"
+            },
+            {
+              "op": "lwz",
+              "operands": "r11,56(r31)"
+            },
+            {
+              "op": "cmplwi",
+              "operands": "cr6,r11,0"
+            },
+            {
+              "op": "beq",
+              "operands": "cr6,0x821efcbc"
+            },
+            {
+              "op": "stw",
+              "operands": "r30,16(r11)"
+            },
+            {
+              "op": "lwz",
+              "operands": "r3,56(r31)"
+            },
+            {
+              "op": "bl",
+              "operands": "0x821e1610"
+            },
+            {
+              "op": "lwz",
+              "operands": "r11,60(r31)"
+            }
+          ],
+          "direct_loaded_value_comparison": {
+            "ppc_distance": 1,
+            "op": "cmplwi",
+            "args": "cr6,r11,0"
+          },
+          "hypothesis_only_pvehicle_counter": true
+        },
+        {
+          "generated_function_relative_line": 70,
+          "loaded_register": "r3",
+          "base_register": "r31",
+          "preceding_ppc_sequence": [
+            {
+              "op": "lwz",
+              "operands": "r11,52(r31)"
+            },
+            {
+              "op": "cmplwi",
+              "operands": "cr6,r11,0"
+            },
+            {
+              "op": "beq",
+              "operands": "cr6,0x821efc74"
+            },
+            {
+              "op": "stw",
+              "operands": "r30,16(r11)"
+            },
+            {
+              "op": "lwz",
+              "operands": "r3,52(r31)"
+            },
+            {
+              "op": "bl",
+              "operands": "0x821e1610"
+            },
+            {
+              "op": "lwz",
+              "operands": "r11,40(r31)"
+            },
+            {
+              "op": "cmplwi",
+              "operands": "cr6,r11,0"
+            },
+            {
+              "op": "beq",
+              "operands": "cr6,0x821efc8c"
+            },
+            {
+              "op": "stw",
+              "operands": "r30,8(r11)"
+            }
+          ],
+          "following_ppc_sequence": [
+            {
+              "op": "bl",
+              "operands": "0x821e5508"
+            },
+            {
+              "op": "lwz",
+              "operands": "r11,44(r31)"
+            },
+            {
+              "op": "cmplwi",
+              "operands": "cr6,r11,0"
+            },
+            {
+              "op": "beq",
+              "operands": "cr6,0x821efca4"
+            },
+            {
+              "op": "stw",
+              "operands": "r30,8(r11)"
+            },
+            {
+              "op": "lwz",
+              "operands": "r3,44(r31)"
+            },
+            {
+              "op": "bl",
+              "operands": "0x821e5508"
+            },
+            {
+              "op": "lwz",
+              "operands": "r11,56(r31)"
+            },
+            {
+              "op": "cmplwi",
+              "operands": "cr6,r11,0"
+            },
+            {
+              "op": "beq",
+              "operands": "cr6,0x821efcbc"
+            },
+            {
+              "op": "stw",
+              "operands": "r30,16(r11)"
+            },
+            {
+              "op": "lwz",
+              "operands": "r3,56(r31)"
+            },
+            {
+              "op": "bl",
+              "operands": "0x821e1610"
+            },
+            {
+              "op": "lwz",
+              "operands": "r11,60(r31)"
+            },
+            {
+              "op": "cmplwi",
+              "operands": "cr6,r11,0"
+            },
+            {
+              "op": "beq",
+              "operands": "cr6,0x821efcd4"
+            },
+            {
+              "op": "stw",
+              "operands": "r30,16(r11)"
+            },
+            {
+              "op": "lwz",
+              "operands": "r3,60(r31)"
+            }
+          ],
+          "direct_loaded_value_comparison": null,
+          "hypothesis_only_pvehicle_counter": true
+        }
+      ],
+      "start_ppc_prologue": [
+        {
+          "op": "mflr",
+          "operands": "r12"
+        },
+        {
+          "op": "stw",
+          "operands": "r12,-8(r1)"
+        },
+        {
+          "op": "std",
+          "operands": "r30,-24(r1)"
+        },
+        {
+          "op": "std",
+          "operands": "r31,-16(r1)"
+        },
+        {
+          "op": "stwu",
+          "operands": "r1,-112(r1)"
+        },
+        {
+          "op": "mr",
+          "operands": "r31,r3"
+        },
+        {
+          "op": "bl",
+          "operands": "0x821b6480"
+        },
+        {
+          "op": "clrlwi",
+          "operands": "r11,r3,24"
+        },
+        {
+          "op": "cmplwi",
+          "operands": "cr6,r11,0"
+        },
+        {
+          "op": "beq",
+          "operands": "cr6,0x821efcec"
+        },
+        {
+          "op": "lwz",
+          "operands": "r11,48(r31)"
+        },
+        {
+          "op": "li",
+          "operands": "r30,0"
+        },
+        {
+          "op": "cmplwi",
+          "operands": "cr6,r11,0"
+        },
+        {
+          "op": "beq",
+          "operands": "cr6,0x821efc5c"
+        },
+        {
+          "op": "stw",
+          "operands": "r30,16(r11)"
+        },
+        {
+          "op": "lwz",
+          "operands": "r3,48(r31)"
+        },
+        {
+          "op": "bl",
+          "operands": "0x821e1610"
+        },
+        {
+          "op": "lwz",
+          "operands": "r11,52(r31)"
+        }
+      ],
+      "runtime_semantic_identity_proven": false
+    },
+    "sub_8216A928": {
+      "guest_function": "sub_8216A928",
+      "original_generated_file": "nfsmw_recomp.59.cpp",
+      "original_file_sha256": "acf7533e6ca052a5107f1cefe98dc89d5a2b2b7a16fc95f603d402fffba5679d",
+      "function_source_lines": 221,
+      "guest_calls": [
+        "sub_823C80A0",
+        "sub_82470D08",
+        "sub_82470D08",
+        "sub_8216AAD8",
+        "sub_8215CDA0",
+        "sub_82468DB0",
+        "sub_825282A0",
+        "sub_82183B78",
+        "sub_8231B070",
+        "sub_8231F9B8"
+      ],
+      "engine_offset_40_sites": [
+        {
+          "generated_function_relative_line": 105,
+          "loaded_register": "r3",
+          "base_register": "r31",
+          "preceding_ppc_sequence": [
+            {
+              "op": "lwz",
+              "operands": "r3,72(r31)"
+            },
+            {
+              "op": "bl",
+              "operands": "0x82470d08"
+            },
+            {
+              "op": "lwz",
+              "operands": "r3,44(r31)"
+            },
+            {
+              "op": "cmplwi",
+              "operands": "cr6,r3,0"
+            },
+            {
+              "op": "beq",
+              "operands": "cr6,0x8216a9cc"
+            },
+            {
+              "op": "lwz",
+              "operands": "r11,0(r3)"
+            },
+            {
+              "op": "li",
+              "operands": "r4,1"
+            },
+            {
+              "op": "lwz",
+              "operands": "r10,4(r11)"
+            },
+            {
+              "op": "mtctr",
+              "operands": "r10"
+            },
+            {
+              "op": "bctrl",
+              "operands": ""
+            }
+          ],
+          "following_ppc_sequence": [
+            {
+              "op": "cmplwi",
+              "operands": "cr6,r3,0"
+            },
+            {
+              "op": "beq",
+              "operands": "cr6,0x8216a9ec"
+            },
+            {
+              "op": "lwz",
+              "operands": "r9,0(r3)"
+            },
+            {
+              "op": "li",
+              "operands": "r4,1"
+            },
+            {
+              "op": "lwz",
+              "operands": "r8,4(r9)"
+            },
+            {
+              "op": "mtctr",
+              "operands": "r8"
+            },
+            {
+              "op": "bctrl",
+              "operands": ""
+            },
+            {
+              "op": "lwz",
+              "operands": "r27,48(r31)"
+            },
+            {
+              "op": "cmplwi",
+              "operands": "cr6,r27,0"
+            },
+            {
+              "op": "beq",
+              "operands": "cr6,0x8216aa08"
+            },
+            {
+              "op": "mr",
+              "operands": "r3,r27"
+            },
+            {
+              "op": "bl",
+              "operands": "0x8216aad8"
+            },
+            {
+              "op": "mr",
+              "operands": "r3,r27"
+            },
+            {
+              "op": "bl",
+              "operands": "0x8215cda0"
+            },
+            {
+              "op": "lwz",
+              "operands": "r3,72(r31)"
+            },
+            {
+              "op": "cmplwi",
+              "operands": "cr6,r3,0"
+            },
+            {
+              "op": "beq",
+              "operands": "cr6,0x8216aa28"
+            },
+            {
+              "op": "lwz",
+              "operands": "r7,0(r3)"
+            }
+          ],
+          "direct_loaded_value_comparison": {
+            "ppc_distance": 1,
+            "op": "cmplwi",
+            "args": "cr6,r3,0"
+          },
+          "hypothesis_only_pvehicle_counter": true
+        }
+      ],
+      "start_ppc_prologue": [
+        {
+          "op": "mflr",
+          "operands": "r12"
+        },
+        {
+          "op": "bl",
+          "operands": "0x826bdd14"
+        },
+        {
+          "op": "stwu",
+          "operands": "r1,-128(r1)"
+        },
+        {
+          "op": "mr",
+          "operands": "r31,r3"
+        },
+        {
+          "op": "lis",
+          "operands": "r11,-32249"
+        },
+        {
+          "op": "lis",
+          "operands": "r10,-32249"
+        },
+        {
+          "op": "lis",
+          "operands": "r9,-32249"
+        },
+        {
+          "op": "lis",
+          "operands": "r8,-32249"
+        },
+        {
+          "op": "addi",
+          "operands": "r30,r31,24"
+        },
+        {
+          "op": "lwz",
+          "operands": "r3,120(r31)"
+        },
+        {
+          "op": "addi",
+          "operands": "r28,r31,32"
+        },
+        {
+          "op": "addi",
+          "operands": "r29,r31,36"
+        },
+        {
+          "op": "addi",
+          "operands": "r11,r11,-14344"
+        },
+        {
+          "op": "addi",
+          "operands": "r10,r10,-14316"
+        },
+        {
+          "op": "addi",
+          "operands": "r9,r9,-14288"
+        },
+        {
+          "op": "addi",
+          "operands": "r8,r8,-14284"
+        },
+        {
+          "op": "cmplwi",
+          "operands": "cr6,r3,0"
+        },
+        {
+          "op": "stw",
+          "operands": "r11,0(r31)"
+        }
+      ],
+      "runtime_semantic_identity_proven": false
+    }
+  },
+  "direct_callers": {
+    "sub_8216A928": [
+      {
+        "function": "sub_8216A8C0",
+        "filename": "nfsmw_recomp.16.cpp",
+        "source_sha256": "9e4d89c6760f54efdf635d91cb5e682702b3ce0fa7344e997b23dfea5dfd98b4"
+      }
+    ],
+    "sub_821EFC18": []
+  },
+  "direct_caller_counts": {
+    "sub_8216A928": 1,
+    "sub_821EFC18": 0
+  },
+  "direct_caller_intersects_frontend_anchors": {
+    "sub_8216A928": [],
+    "sub_821EFC18": []
+  },
+  "GetMaxLevel_identified": false,
+  "SetLevel_identified": false,
+  "pvehicle_base_register_proven": false,
+  "conditional_branch_sensitive_dataflow_proven": false,
+  "engine_second_reference_lookup_verified": false,
+  "candidate_annotated_ppc_is_not_dynamic_trace": true,
+  "guest_executed": false,
+  "phone_data_modified": false,
+  "game_assets_modified": false,
+  "apk_built": false,
+  "save_modified": false,
+  "signing_accessed": false,
+  "original_generated_source_uploaded": false,
+  "run_id": "42582195386",
+  "utc": "2026-11-09T07:55:00.499035+00:00"
+}
