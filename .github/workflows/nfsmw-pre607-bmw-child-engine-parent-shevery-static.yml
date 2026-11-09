@@ -1,0 +1,88 @@
+name: NFSMW PRE607 Shevery BMW level1 engine inheritance apply/restore static safety
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre607_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre607-child-parent-shell-preflight
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate shell syntax, exact hashes and abort-on-wrong-input
+        run: |
+          set -euo pipefail
+          a=automation/device/pre607_apply_bmw_child_parent_corrected_shevery.sh
+          b=automation/device/pre607_restore_bmw_child_parent_corrected_shevery.sh
+          sh -n "$a"
+          sh -n "$b"
+          grep -Fq 'PRE606_ZDIR_BMW_CHILD_PARENT_CORRECTED.bin' "$a"
+          grep -Fq 'PRE606_ZZDATA4_FIRST341_BMW_PARENT_CORRECTED.bin' "$a"
+          grep -Fq '1ed79d0f031d400002da8db6153ee84188d717e33f093a501f7a6bdfc0e5e146' "$a"
+          grep -Fq '1ed79d0f031d400002da8db6153ee84188d717e33f093a501f7a6bdfc0e5e146' "$b"
+          grep -Fq 'f15d5da54148e0e762f65004d534092dbf3c08d12b0f8b710d6cf599235a32e2' "$a"
+          grep -Fq '93327b44eb54b0ec9b14e51e7b35da9071e9531454c49819c35e6e6172c284a5' "$a"
+          grep -Fq '.pre607_original_backup' "$a"
+          grep -Fq '.pre607_original_backup' "$b"
+          if grep -E '(^|[^[:alpha:]])(rm|force-stop|pm clear)([[:space:]]|$)' "$a" "$b"; then
+              echo "PRE607_FORBIDDEN_COMMAND"; exit 1
+          fi
+          root=$(mktemp -d)
+          trap 'rm -rf "$root"' EXIT
+          mkdir -p "$root/game/NFS" "$root/fragments"
+          printf 'ORIG_ZDIR_FAKE' > "$root/game/NFS/ZDIR.BIN"
+          printf 'ORIG_ZZDATA_FAKE' > "$root/game/NFS/ZZDATA4.BIN"
+          printf 'WRONG_ZDIR' > "$root/fragments/PRE606_ZDIR_BMW_CHILD_PARENT_CORRECTED.bin"
+          printf 'WRONG_DATA' > "$root/fragments/PRE606_ZZDATA4_FIRST341_BMW_PARENT_CORRECTED.bin"
+          cp "$root/game/NFS/ZDIR.BIN" "$root/original_zdir"
+          cp "$root/game/NFS/ZZDATA4.BIN" "$root/original_zz"
+          if sh "$a" "$root/game" "$root/fragments" >"$root/run" 2>&1;then
+            echo "PRE607_ACCEPTED_WRONG_HASH";exit 1
+          fi
+          cmp "$root/original_zdir" "$root/game/NFS/ZDIR.BIN"
+          cmp "$root/original_zz" "$root/game/NFS/ZZDATA4.BIN"
+          test ! -e "$root/game/NFS/ZZDATA4.BIN.pre607_original_backup"
+          if sh "$b" "$root/game" >"$root/revert" 2>&1;then
+            echo "PRE607_RESTORE_ACCEPTED_MISSING_BACKUPS";exit 1
+          fi
+          echo "PRE607_STATIC=AUDIT_OK"
+      - name: Store static-only metadata, not game binaries
+        if: success()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          d={
+            "stage":"PRE607_SHEVERY_CHILD_ENGINE_PARENT_STATIC_PREFLIGHT",
+            "status":"AUDIT_OK",
+            "shell_syntax_valid":True,
+            "wrong_hash_aborted_without_file_write":True,
+            "restore_without_backups_aborted":True,
+            "original_game_or_save_modified":False,
+            "actual_device_experiment_executed":False,
+            "BMW_buyable_tuning_enabled":False,
+            "APK_built":False,
+            "run_id":os.environ.get("GITHUB_RUN_ID","")
+          }
+          Path("docs/PRE607_SHEVERY_CHILD_ENGINE_PARENT_STATIC_PREFLIGHT_RESULT.json").write_text(
+            json.dumps(d,ensure_ascii=False,indent=2)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE607_SHEVERY_CHILD_ENGINE_PARENT_STATIC_PREFLIGHT_RESULT.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "PRE607: static safety of child-parent inheritance device diagnostic scripts"
+          for n in 1 2 3 4 5;do
+             git fetch origin main
+             git rebase origin/main
+             if git push origin HEAD:main;then exit 0;fi
+          done
+          exit 1
