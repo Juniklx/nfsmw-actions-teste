@@ -1,0 +1,83 @@
+name: NFSMW PRE599 authenticated PPC guest BMW motor counter functions read-only
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre599_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre599-pinned-guest-counter-functions
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate source inspection script and install authentication dependencies
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          python -m py_compile automation/kaggle/pre599_bmw_guest_counter_ppc_provenance_readonly.py
+      - name: Authenticate private PRE99 and inspect named candidate PPC instructions
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre599_bmw_guest_counter_ppc_provenance_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Publish metadata only; prevent unproven guest semantics and source uploads
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('/tmp/nfsmw-pre599/report.json')
+          r=json.loads(p.read_text()) if p.exists() else {"stage":"PRE599","status":"FAILED_NO_REPORT"}
+          required={
+           "no_dynamic_guest_exec":True,
+           "no_generated_source_published":True,
+           "no_game_assets_modified":True,
+           "no_APK_built":True,
+           "no_save_modified":True,
+           "no_signing_access":True}
+          if r.get('status')=="AUDIT_OK":
+              for k,v in required.items():
+                  if r.get(k) is not v:raise SystemExit("PRE599 failed safety gate: "+k)
+              if (len(r.get("guest_functions",{}))!=8 or
+                  r.get('guest_generated_file_count')!=129 or
+                  r.get('guest_function_count')!=56338 or
+                  r.get('exact_GetMaxLevel_identity_proven') is not False or
+                  r.get('actual_pvehicle_object_proven_for_pinned_functions') is not False):
+                  raise SystemExit("PRE599 missing pinned source and semantic limits")
+              dest=Path("docs/PRE599_BMW_GUEST_COUNTER_PPC_PROVENANCE_READONLY.json")
+          else:
+              dest=Path("docs/PRE599_BMW_GUEST_COUNTER_PPC_DIAGNOSTIC.json")
+              r={k:r.get(k) for k in ('stage','status','error_type','error','run_id','utc') if k in r}
+          dest.write_text(json.dumps(r,ensure_ascii=False,indent=2)+'\n')
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE599_BMW_GUEST_COUNTER_PPC_*json
+          if git diff --cached --quiet;then exit 0;fi
+          git commit -m "PRE599: bounded PPC guest counter and attribute lookup provenance"
+          for n in 1 2 3 4 5;do
+              git fetch origin main
+              git rebase origin/main
+              if git push origin HEAD:main;then exit 0;fi
+          done
+          exit 1
+      - name: Retain only metadata, never original generated source
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre599-guest-counter-metadata
+          path: /tmp/nfsmw-pre599/report.json
+          retention-days: 14
