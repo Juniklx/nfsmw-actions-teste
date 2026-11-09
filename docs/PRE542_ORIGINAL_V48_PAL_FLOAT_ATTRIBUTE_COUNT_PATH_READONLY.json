@@ -1,0 +1,144 @@
+{
+  "stage": "PRE542_SIGNED_V48_PAL_GUEST_FLOAT_ATTRIBUTE_TWO_EDGE_PATH_READONLY",
+  "status": "AUDIT_OK",
+  "original_signed_V48_APK_sha256": "c642f95b4a60b9ccf5d8fbd98802afffc0a2247ec5a0783b54cd8083ec55bd35",
+  "original_signed_V48_PAL_libmain_sha256": "f39870144295c98cb05b9e8649a378e968fccb5bf479b653d0654158e92316a3",
+  "original_AArch64_PLT_guest_relocations": 15598,
+  "six_original_guest_function_records": {
+    "sub_823EAE40": {
+      "v48_native_ARM64_function_bytes": 2964,
+      "v48_native_AArch64_instruction_count": 741,
+      "v48_float_related_mnemonic_counts": {
+        "fcvt": 112,
+        "fmov": 56,
+        "fmadd": 15,
+        "fcmp": 13,
+        "fadd": 9,
+        "fsub": 9,
+        "fdiv": 6,
+        "fmul": 6
+      },
+      "v48_float_related_instruction_total": 226,
+      "v48_bl_count": 4,
+      "v48_numeric_guest_BL_in_order": [
+        "sub_823EB290",
+        "sub_823EB3B0",
+        "sub_823E4130",
+        "sub_823E4588"
+      ],
+      "v48_unresolved_native_BL_count": 0,
+      "historical_PRE99_numeric_guest_call_list": [
+        "sub_823EB290",
+        "sub_823EB3B0",
+        "sub_823E4130",
+        "sub_823E4588"
+      ],
+      "source_and_original_V48_numeric_guest_call_multisets_match": true,
+      "no_function_semantics_inferred_from_float_opcodes": true
+    },
+    "sub_823EB290": {
+      "v48_native_ARM64_function_bytes": 508,
+      "v48_native_AArch64_instruction_count": 127,
+      "v48_float_related_mnemonic_counts": {},
+      "v48_float_related_instruction_total": 0,
+      "v48_bl_count": 1,
+      "v48_numeric_guest_BL_in_order": [
+        "sub_823EA300"
+      ],
+      "v48_unresolved_native_BL_count": 0,
+      "historical_PRE99_numeric_guest_call_list": [
+        "sub_823EA300"
+      ],
+      "source_and_original_V48_numeric_guest_call_multisets_match": true,
+      "no_function_semantics_inferred_from_float_opcodes": true
+    },
+    "sub_823EB3B0": {
+      "v48_native_ARM64_function_bytes": 508,
+      "v48_native_AArch64_instruction_count": 127,
+      "v48_float_related_mnemonic_counts": {},
+      "v48_float_related_instruction_total": 0,
+      "v48_bl_count": 1,
+      "v48_numeric_guest_BL_in_order": [
+        "sub_823EA300"
+      ],
+      "v48_unresolved_native_BL_count": 0,
+      "historical_PRE99_numeric_guest_call_list": [
+        "sub_823EA300"
+      ],
+      "source_and_original_V48_numeric_guest_call_multisets_match": true,
+      "no_function_semantics_inferred_from_float_opcodes": true
+    },
+    "sub_823E4130": {
+      "v48_native_ARM64_function_bytes": 456,
+      "v48_native_AArch64_instruction_count": 114,
+      "v48_float_related_mnemonic_counts": {
+        "fcvt": 5,
+        "scvtf": 2,
+        "fmov": 1,
+        "fdiv": 1
+      },
+      "v48_float_related_instruction_total": 9,
+      "v48_bl_count": 2,
+      "v48_numeric_guest_BL_in_order": [
+        "sub_823E5988",
+        "sub_823E41C0"
+      ],
+      "v48_unresolved_native_BL_count": 0,
+      "historical_PRE99_numeric_guest_call_list": [
+        "sub_823E5988",
+        "sub_823E41C0"
+      ],
+      "source_and_original_V48_numeric_guest_call_multisets_match": true,
+      "no_function_semantics_inferred_from_float_opcodes": true
+    },
+    "sub_823E4588": {
+      "v48_native_ARM64_function_bytes": 276,
+      "v48_native_AArch64_instruction_count": 69,
+      "v48_float_related_mnemonic_counts": {},
+      "v48_float_related_instruction_total": 0,
+      "v48_bl_count": 1,
+      "v48_numeric_guest_BL_in_order": [
+        "sub_82148818"
+      ],
+      "v48_unresolved_native_BL_count": 0,
+      "historical_PRE99_numeric_guest_call_list": [
+        "sub_82148818"
+      ],
+      "source_and_original_V48_numeric_guest_call_multisets_match": true,
+      "no_function_semantics_inferred_from_float_opcodes": true
+    },
+    "sub_823E5988": {
+      "v48_native_ARM64_function_bytes": 796,
+      "v48_native_AArch64_instruction_count": 199,
+      "v48_float_related_mnemonic_counts": {},
+      "v48_float_related_instruction_total": 0,
+      "v48_bl_count": 2,
+      "v48_numeric_guest_BL_in_order": [
+        "sub_8214B858",
+        "sub_8214EDA8"
+      ],
+      "v48_unresolved_native_BL_count": 0,
+      "historical_PRE99_numeric_guest_call_list": [
+        "sub_8214B858",
+        "sub_8214EDA8"
+      ],
+      "source_and_original_V48_numeric_guest_call_multisets_match": true,
+      "no_function_semantics_inferred_from_float_opcodes": true
+    }
+  },
+  "signed_V48_direct_guest_edge_823EAE40_to_823E4130": true,
+  "signed_V48_direct_guest_edge_823E4130_to_823E5988": true,
+  "signed_V48_guest_numeric_two_hop_attribute_count_path_proven": true,
+  "signed_V48_target_float_related_instruction_count": 226,
+  "float_instruction_counts_do_not_prove_vehicle_physics_or_SetPackage": true,
+  "actual_BMW_motor_data_loaded_or_power_modified": false,
+  "guest_SetPackage_identity_verified": false,
+  "guest_BMW_purchase_or_save_roundtrip_verified": false,
+  "game_data_or_binary_modified_or_published": false,
+  "APK_built": false,
+  "save_modified": false,
+  "signing_material_accessed": false,
+  "tuning_enabled": false,
+  "run_id": "42540238097",
+  "utc": "2026-11-09T00:28:09.209178+00:00"
+}
