@@ -1,0 +1,12 @@
+{
+  "stage": "PRE592_SHEVERY_REFSPEC_POINTER_ONLY_STATIC_PREFLIGHT",
+  "status": "AUDIT_OK",
+  "shell_syntax_valid": true,
+  "wrong_hash_aborted_without_file_write": true,
+  "restore_without_backups_aborted": true,
+  "original_game_or_save_modified": false,
+  "actual_device_experiment_executed": false,
+  "BMW_buyable_tuning_enabled": false,
+  "APK_built": false,
+  "run_id": "42567884850"
+}
