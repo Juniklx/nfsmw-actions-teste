@@ -1,0 +1,8 @@
+{
+  "stage": "PRE599",
+  "source": "PRE99_authenticated",
+  "previous_gate": "PRE596",
+  "task": "isolate pvehicle-like counter field reads and attribute resolver callsites",
+  "read_only": true,
+  "no_guest_mutation": true
+}
