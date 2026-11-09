@@ -1,0 +1,172 @@
+{
+  "stage": "PRE568_EXACT_V48_ANDROID_USER_ROOT_VS_GAME_ROOT_STATIC_DEX",
+  "status": "AUDIT_OK",
+  "exact_original_v48_apk_sha256": "c642f95b4a60b9ccf5d8fbd98802afffc0a2247ec5a0783b54cd8083ec55bd35",
+  "exact_original_v48_apk_bytes": 47104233,
+  "targeted_class_methods_found": 13,
+  "selected_methods": [
+    {
+      "class": "Ajustes",
+      "method": "carpetaDatos",
+      "instruction_count": 8,
+      "call_family_counts": {
+        "external_app_files": 1,
+        "files_constructor": 1,
+        "file_create_dirs": 1
+      }
+    },
+    {
+      "class": "Ajustes",
+      "method": "carpetaLogs",
+      "instruction_count": 8,
+      "call_family_counts": {
+        "external_app_files": 1,
+        "files_constructor": 1,
+        "file_create_dirs": 1
+      }
+    },
+    {
+      "class": "Ajustes",
+      "method": "guardarMisAjustes",
+      "instruction_count": 20,
+      "call_family_counts": {
+        "android_preferences": 2
+      }
+    },
+    {
+      "class": "Ajustes",
+      "method": "argumentos",
+      "instruction_count": 5,
+      "call_family_counts": {}
+    },
+    {
+      "class": "Ajustes",
+      "method": "argumentos",
+      "instruction_count": 221,
+      "call_family_counts": {
+        "native_args": 1,
+        "app_data_root": 1,
+        "files_constructor": 1
+      }
+    },
+    {
+      "class": "Ajustes",
+      "method": "gamertag",
+      "instruction_count": 6,
+      "call_family_counts": {
+        "android_preferences": 1
+      }
+    },
+    {
+      "class": "Ajustes",
+      "method": "gamertag",
+      "instruction_count": 8,
+      "call_family_counts": {
+        "android_preferences": 1
+      }
+    },
+    {
+      "class": "GameActivity",
+      "method": "getArguments",
+      "instruction_count": 2,
+      "call_family_counts": {}
+    },
+    {
+      "class": "GameActivity",
+      "method": "getLibraries",
+      "instruction_count": 19,
+      "call_family_counts": {}
+    },
+    {
+      "class": "GameActivity",
+      "method": "onCreate",
+      "instruction_count": 170,
+      "call_family_counts": {
+        "game_library_selector": 1
+      }
+    },
+    {
+      "class": "MotorNativo",
+      "method": "argumentos",
+      "instruction_count": 331,
+      "call_family_counts": {
+        "native_user_root": 1,
+        "files_constructor": 4,
+        "native_cache_root": 1,
+        "native_args": 1,
+        "app_log_root": 1
+      }
+    },
+    {
+      "class": "MotorNativo",
+      "method": "carpetaCache",
+      "instruction_count": 6,
+      "call_family_counts": {
+        "private_files": 1,
+        "files_constructor": 1
+      }
+    },
+    {
+      "class": "MotorNativo",
+      "method": "carpetaUsuario",
+      "instruction_count": 6,
+      "call_family_counts": {
+        "private_files": 1,
+        "files_constructor": 1
+      }
+    }
+  ],
+  "recognized_safe_literal_flags": {
+    "--user_data_root": 2,
+    "--game_data_root": 1
+  },
+  "referencing_callers": [
+    {
+      "class": "Ajustes",
+      "method": "argumentos",
+      "reference": "game_data_root",
+      "calls": 1
+    },
+    {
+      "class": "MotorNativo",
+      "method": "argumentos",
+      "reference": "user_root",
+      "calls": 1
+    },
+    {
+      "class": "MotorNativo",
+      "method": "glesDisponible",
+      "reference": "user_root",
+      "calls": 1
+    },
+    {
+      "class": "MotorNativo",
+      "method": "preparar",
+      "reference": "user_root",
+      "calls": 1
+    },
+    {
+      "class": "MotorNativo",
+      "method": "traerPartidas",
+      "reference": "game_data_root",
+      "calls": 1
+    }
+  ],
+  "current_v48_native_user_root_method_exists": true,
+  "current_v48_game_data_root_method_exists": true,
+  "current_v48_user_root_source_uses_private_or_external_dir_apis": true,
+  "actual_android_game_data_root_observed": false,
+  "actual_android_save_root_observed": false,
+  "save_profile_MARCEK_read": false,
+  "safe_disposable_profile_isolation_proven": false,
+  "same_package_separate_profile_testing_safe": false,
+  "guest_loader_executed": false,
+  "BMW_tuning_enabled": false,
+  "APK_built": false,
+  "original_apk_modified": false,
+  "save_modified": false,
+  "game_assets_modified": false,
+  "credential_accessed": false,
+  "run_id": "42558650729",
+  "utc": "2026-11-09T03:52:55.751678+00:00"
+}
