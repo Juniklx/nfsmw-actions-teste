@@ -1,0 +1,9 @@
+{
+  "stage": "PRE570_ORIGINAL_V48_COPIARARBOL_CALLS_STATIC_READONLY",
+  "status": "FAILED",
+  "error_type": "ValueError",
+  "error": "PRE569 anchored static source not verified",
+  "run_id": "42559201060",
+  "utc": "2026-11-09T03:58:34.835957+00:00",
+  "save_modified": false
+}
