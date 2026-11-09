@@ -4,7 +4,7 @@
 
 ## ZIP atual e validações
 
-- ZIP original anexo: **80.??? B (tamanho exato não usado neste gate)**, SHA256 **`3f95ab67c9c33b157dad71d8f9bff4a92159c148b21edb1c831bda142d7752c4`**, **13 entradas**, CRC ZIP correto. Manifesto: `NFS Most Wanted Recompiled: partidas exportadas el 2026-11-09 08:13`, `motor=nativo`, `version=0.5.6`.
+- ZIP original anexo: **81.288 bytes**, SHA256 **`3f95ab67c9c33b157dad71d8f9bff4a92159c148b21edb1c831bda142d7752c4`**, **13 entradas**, CRC ZIP correto. Manifesto: `NFS Most Wanted Recompiled: partidas exportadas el 2026-11-09 08:13`, `motor=nativo`, `version=0.5.6`.
 - Contém `NAME`, `MARCEK`, `CC`, `T` e as respectivas cópias de save. Todos os 8 saves atuais/anteriores passaram **MC02 62.688 B, versão interna 0x10D, MD5 do payload e 3 checksums EA CRC32**; a réplica nativa e `actual` do NAME eram iguais.
 - Novo perfil **NAME**: save SHA256 original `aa401b6e3f6a35a27e57dac2ddec144704949089b0b04e5420ce7e1b0d22e76d`; **nenhum carro registrado** na tabela de 119 carros, saldo **0**, car active `0x12345678` (sentinela sem carreira iniciada), rank 16. O nome/alias e progresso existentes foram mantidos byte a byte.
 - Perfil **MARCEK**: save SHA256 `574b3fe386ea38ad41963a148d67dcff0a14f951b86d78660dfac14ff5070c33`; contém BMW normal de fim de carreira já inserida pela PRE260 e pilotada pelo usuário na V37: carro número 82, assinatura nativa `23cc4a4e4e085fb3`, flags `0042`/misc `000f`, parts slot 32, career slot 1. Trata-se de **BMW de fim de carreira**, não da variante inicial `M3GTRCAREERSTART`. O próprio bloco de peças BMW existente de 408 B no MARCEK foi usado como doador, sem precisar fabricar um template de outro jogo.
