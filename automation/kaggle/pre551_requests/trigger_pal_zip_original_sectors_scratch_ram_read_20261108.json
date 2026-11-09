@@ -1,0 +1,9 @@
+{
+  "stage": "PRE551",
+  "objective": "Authentically stream original PAL 261 MB compressed ZIP NFS/ZZDATA4 member, verify complete CRC and exact 512-byte original padding; simulate read of PRE502 BMW scratch 698004-byte VPAK via ephemeral ZDIR/ZZDATA sector RAM, no actual guest execution",
+  "previous_PRE550_canonical_run": 42544072271,
+  "original_game_file_or_ISO_touched": false,
+  "release_APK_V48_unchanged": true,
+  "save_MARCEK_untouched": true,
+  "do_not_publish_game_assets": true
+}
