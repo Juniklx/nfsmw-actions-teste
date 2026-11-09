@@ -1,0 +1,11 @@
+{
+  "stage": "PRE631",
+  "purpose": "sync_verified_PRE626_V49_signed_release_to_canonical_Drive_context_only",
+  "pre626_run_id": 42709319413,
+  "apk_drive_id": "1sa__qEk1t6ZF2_qrgy9MZEx6G4ixZpkh",
+  "apk_sha256": "0fad0c82d9ef5ff591c7f23b32fdab513fe16483756e32a6dd4aab5d4f18447a",
+  "device_tested": false,
+  "apk_rebuild": false,
+  "edit_game_assets": false,
+  "edit_save": false
+}
