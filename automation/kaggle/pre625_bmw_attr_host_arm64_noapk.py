@@ -143,11 +143,11 @@ def check_native(build,original_find):
 
 def audit():
     global PHASE
-    p622=json.loads(Path("docs/PRE622_BMW_ATTR_HOST_VALUE_RAM_PREVIEW.json").read_text())
+    p622_report=json.loads(Path("docs/PRE622_BMW_ATTR_HOST_VALUE_RAM_PREVIEW.json").read_text())
     p624=json.loads(Path("docs/PRE624_CANONICAL_CONTEXT_SYNC_RESULT.json").read_text())
-    if (p622.get("status")!="AUDIT_OK"
-       or p622.get("new_guest_memory_reads")!=0
-       or p622.get("source_reverted_bit_for_bit") is not True
+    if (p622_report.get("status")!="AUDIT_OK"
+       or p622_report.get("new_guest_memory_reads")!=0
+       or p622_report.get("source_reverted_bit_for_bit") is not True
        or p624.get("status")!="AUDIT_OK"
        or p624.get("new_handoff_readback_verified") is not True):
         raise ValueError("PRE625 source/prior context evidence missing")
