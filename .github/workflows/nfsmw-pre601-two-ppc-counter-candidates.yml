@@ -1,0 +1,77 @@
+name: NFSMW PRE601 narrowed PPC engine-counter candidate caller provenance
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre601_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre601-original-guest-two-counter-candidates
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare authenticated original guest source analyzer
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          python -m py_compile automation/kaggle/pre601_two_ppc_counter_candidates_callers_readonly.py
+      - name: Examine PPC branch and direct callers in private PRE99 archive, never publish source
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre601_two_ppc_counter_candidates_callers_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Publish small diagnostic and preserve semantic uncertainty
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('/tmp/nfsmw-pre601/report.json')
+          r=json.loads(p.read_text()) if p.exists() else {"stage":"PRE601","status":"FAILED_NO_REPORT"}
+          for k in ("guest_executed","phone_data_modified","game_assets_modified","apk_built",
+                    "save_modified","signing_accessed","original_generated_source_uploaded"):
+             if r.get(k,False) is not False:raise SystemExit("PRE601 unsafe mutation/claim "+k)
+          if r.get("status")=="AUDIT_OK":
+             if (r.get("authenticated_source_files")!=129 or
+                 r.get("authenticated_source_functions")!=56338 or
+                 set(r.get("targets",{}))!={"sub_8216A928","sub_821EFC18"} or
+                 r.get("GetMaxLevel_identified") is not False or
+                 r.get("pvehicle_base_register_proven") is not False):
+                 raise SystemExit("PRE601 source provenance or interpretive limits missing")
+             dst=Path("docs/PRE601_TWO_GUEST_COUNTER_FUNCTION_CALLERS_READONLY.json")
+          else:
+             dst=Path("docs/PRE601_GUEST_COUNTER_FUNCTION_DIAGNOSTIC.json")
+             r={k:r.get(k) for k in ("stage","status","error_type","error","run_id","utc") if k in r}
+          dst.write_text(json.dumps(r,indent=2,ensure_ascii=False)+'\n')
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE601_*json
+          if git diff --cached --quiet;then exit 0;fi
+          git commit -m "PRE601: two guest counter-read branch candidates and direct callers"
+          for n in 1 2 3 4 5;do
+              git fetch origin main
+              git rebase origin/main
+              if git push origin HEAD:main;then exit 0;fi
+          done
+          exit 1
+      - name: Retain bounded metadata only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre601-two-guest-counter-candidates-metadata
+          path: /tmp/nfsmw-pre601/report.json
+          retention-days: 14
