@@ -1,0 +1,11 @@
+{
+  "stage": "PRE601",
+  "prior": "PRE599_PRE600",
+  "target": [
+    "sub_8216A928",
+    "sub_821EFC18"
+  ],
+  "task": "original guest PPC local source register compare/branch and callers",
+  "no_game_data_changes": true,
+  "no_apk_build": true
+}
