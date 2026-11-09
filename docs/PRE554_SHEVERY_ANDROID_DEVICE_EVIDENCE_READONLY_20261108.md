@@ -23,3 +23,15 @@ Manually provided console outputs by the tester in this conversation. The connec
 
 ## Next evidence
 Repeat a read-only bounded marker summary immediately following a normal app close-and-relaunch (not a data reset and not clearing logcat), or use UI-confirmed edition/data-selection configuration to constrain hypotheses. Absence of the optional log markers must not be treated as a failed mount. Preserve V48, PAL/USA source, original save MARCEK, Nitro PRE398 and prior controls.
+
+## Subsequent Shevery observation (same device)
+Tester attempted to exit/reopen V48, then collected a new logcat sample:
+- `PRE554_NOVO_PID=7430`: same PID as before. This does **not confirm** a full process death/restart; the original Android process may have remained alive.
+- `PRE554_LINHAS=5`: five lines were accessible in this filtered sample.
+- `PRE554_RAIZ=NAO_IDENTIFICADO`
+- `PRE554_IMAGEM=NAO_IDENTIFICADO`
+- `PRE554_PASTA=NAO_IDENTIFICADO`
+- `PRE554_LIB_PAL=NAO_IDENTIFICADO`
+- `PRE554_LIB_USA=NAO_IDENTIFICADO`
+
+**Decision:** Do not repeat the same sparse logcat marker probe; pivot to prior authenticated compiled V48 logic. PRE515 proves the static `SetupActivity.edicionAlJugar` → `Ajustes.iso/uriIso/xexIso`/ `IsoXex.mirar` → `Ediciones` selection chain and `GameActivity.getLibraries` reads `Ediciones$Edicion.libreria`. A PAL-based translation constrains the expected game-data edition but is not an active-library trace. The actual source chosen in the device UI remains unobserved. No real VFS mount proof nor BMW loader verification exists. No modification to APK, save or game assets.
