@@ -1,0 +1,8 @@
+{
+  "stage": "PRE616_CANONICAL_SAVE_ROOT_CONTEXT_SYNC",
+  "status": "FAILED",
+  "error_type": "ValueError",
+  "error": "PRE613 and local-only PRE614 original and edited NAME save metadata insufficient",
+  "run_id": "42609115696",
+  "utc": "2026-11-09T11:27:07.356039+00:00"
+}
