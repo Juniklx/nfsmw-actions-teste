@@ -1,0 +1,298 @@
+{
+  "stage": "PRE541_PAL_GUEST_823EAE40_FOUR_DEPENDENCIES_ORIGINAL_PPC_READONLY",
+  "status": "AUDIT_OK",
+  "PRE99_verified_source_archive_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "PRE99_original_guest_codegen_shards_scanned": 129,
+  "target_and_four_guest_callees_original_PPC_records": {
+    "sub_823E4588": {
+      "numeric_guest_name": "sub_823E4588",
+      "original_guest_source_shard": "nfsmw_recomp.101.cpp",
+      "original_guest_source_sha256": "4ca7b1a401ab9a0ea4e07f57e011a8750461b289aa4031f5b9d3801bb227086c",
+      "original_guest_body_line_count": 74,
+      "direct_guest_callees_in_order": [
+        "sub_82148818"
+      ],
+      "total_direct_guest_calls": 1,
+      "PPC_generated_instruction_comment_mnemonics_top": {
+        "li": 4,
+        "lwz": 3,
+        "mr": 2,
+        "cmplwi": 2,
+        "lis": 2,
+        "bne": 2,
+        "addi": 2,
+        "mflr": 1,
+        "stw": 1,
+        "std": 1,
+        "stwu": 1,
+        "beq": 1,
+        "ori": 1,
+        "bl": 1,
+        "slw": 1,
+        "and": 1,
+        "cmpwi": 1,
+        "mtlr": 1,
+        "ld": 1,
+        "blr": 1
+      },
+      "PPC_comment_instruction_total": 30,
+      "REX_load_opcode_counts": {
+        "U32": 3,
+        "U64": 1
+      },
+      "REX_store_opcode_counts": {
+        "U32": 2,
+        "U64": 1
+      },
+      "return_ctx_r3_mentions": 6,
+      "guest_small_integer_literal_references": {},
+      "branch_label_count": 3,
+      "generated_source_not_executed_on_phone": true
+    },
+    "sub_823EB290": {
+      "numeric_guest_name": "sub_823EB290",
+      "original_guest_source_shard": "nfsmw_recomp.20.cpp",
+      "original_guest_source_sha256": "3c4ea677142919989b0a5f9e2e18efc3b7aecf90c537ff2b1271146691e6292a",
+      "original_guest_body_line_count": 165,
+      "direct_guest_callees_in_order": [
+        "sub_823EA300"
+      ],
+      "total_direct_guest_calls": 1,
+      "PPC_generated_instruction_comment_mnemonics_top": {
+        "lwz": 12,
+        "beq": 8,
+        "li": 8,
+        "cmplwi": 7,
+        "stw": 4,
+        "mr": 4,
+        "clrlwi": 4,
+        "addi": 4,
+        "std": 2,
+        "cmplw": 2,
+        "ld": 2,
+        "mflr": 1,
+        "stwu": 1,
+        "bl": 1,
+        "lhz": 1,
+        "bne": 1,
+        "lis": 1,
+        "cntlzw": 1,
+        "rlwinm": 1,
+        "mtlr": 1,
+        "blr": 1
+      },
+      "PPC_comment_instruction_total": 67,
+      "REX_load_opcode_counts": {
+        "U32": 12,
+        "U16": 1,
+        "U64": 2
+      },
+      "REX_store_opcode_counts": {
+        "U32": 5,
+        "U64": 2
+      },
+      "return_ctx_r3_mentions": 7,
+      "guest_small_integer_literal_references": {},
+      "branch_label_count": 11,
+      "generated_source_not_executed_on_phone": true
+    },
+    "sub_823E5988": {
+      "numeric_guest_name": "sub_823E5988",
+      "original_guest_source_shard": "nfsmw_recomp.28.cpp",
+      "original_guest_source_sha256": "11eec8fe3d20dc5d53e262525a4cf31021c2bbfb28e2690b6372c6c3cbea4aad",
+      "original_guest_body_line_count": 155,
+      "direct_guest_callees_in_order": [
+        "sub_8214B858",
+        "sub_8214EDA8"
+      ],
+      "total_direct_guest_calls": 2,
+      "PPC_generated_instruction_comment_mnemonics_top": {
+        "lwz": 11,
+        "addi": 10,
+        "cmplwi": 8,
+        "beq": 6,
+        "stw": 5,
+        "li": 4,
+        "bne": 3,
+        "mtlr": 3,
+        "blr": 3,
+        "lis": 2,
+        "mr": 2,
+        "bl": 2,
+        "lhz": 2,
+        "addis": 2,
+        "sth": 2,
+        "mflr": 1,
+        "stwu": 1,
+        "cmpw": 1,
+        "clrlwi": 1
+      },
+      "PPC_comment_instruction_total": 69,
+      "REX_load_opcode_counts": {
+        "U32": 11,
+        "U16": 2
+      },
+      "REX_store_opcode_counts": {
+        "U32": 6,
+        "U16": 2
+      },
+      "return_ctx_r3_mentions": 10,
+      "guest_small_integer_literal_references": {},
+      "branch_label_count": 6,
+      "generated_source_not_executed_on_phone": true
+    },
+    "sub_823E4130": {
+      "numeric_guest_name": "sub_823E4130",
+      "original_guest_source_shard": "nfsmw_recomp.3.cpp",
+      "original_guest_source_sha256": "baa3b79ea54b3aab4f4afd9db4d501e32e29a970cdd84c6a945a91fe56842e03",
+      "original_guest_body_line_count": 94,
+      "direct_guest_callees_in_order": [
+        "sub_823E5988",
+        "sub_823E41C0"
+      ],
+      "total_direct_guest_calls": 2,
+      "PPC_generated_instruction_comment_mnemonics_top": {
+        "mr": 5,
+        "addi": 4,
+        "bl": 3,
+        "bne": 2,
+        "lis": 2,
+        "lfs": 2,
+        "extsw": 2,
+        "std": 2,
+        "lfd": 2,
+        "fcfid": 2,
+        "frsp": 2,
+        "mflr": 1,
+        "stwu": 1,
+        "cmpwi": 1,
+        "cmpw": 1,
+        "fdivs": 1
+      },
+      "PPC_comment_instruction_total": 33,
+      "REX_load_opcode_counts": {
+        "U32": 2,
+        "U64": 2
+      },
+      "REX_store_opcode_counts": {
+        "U32": 1,
+        "U64": 2
+      },
+      "return_ctx_r3_mentions": 5,
+      "guest_small_integer_literal_references": {},
+      "branch_label_count": 2,
+      "generated_source_not_executed_on_phone": true
+    },
+    "sub_823EB3B0": {
+      "numeric_guest_name": "sub_823EB3B0",
+      "original_guest_source_shard": "nfsmw_recomp.76.cpp",
+      "original_guest_source_sha256": "3653846cbc173073ca4589d0e61bd322551f18432030d1c76ff44699e5b51637",
+      "original_guest_body_line_count": 165,
+      "direct_guest_callees_in_order": [
+        "sub_823EA300"
+      ],
+      "total_direct_guest_calls": 1,
+      "PPC_generated_instruction_comment_mnemonics_top": {
+        "lwz": 12,
+        "beq": 8,
+        "li": 8,
+        "cmplwi": 7,
+        "stw": 4,
+        "mr": 4,
+        "clrlwi": 4,
+        "addi": 4,
+        "std": 2,
+        "cmplw": 2,
+        "ld": 2,
+        "mflr": 1,
+        "stwu": 1,
+        "bl": 1,
+        "lhz": 1,
+        "bne": 1,
+        "lis": 1,
+        "cntlzw": 1,
+        "rlwinm": 1,
+        "mtlr": 1,
+        "blr": 1
+      },
+      "PPC_comment_instruction_total": 67,
+      "REX_load_opcode_counts": {
+        "U32": 12,
+        "U16": 1,
+        "U64": 2
+      },
+      "REX_store_opcode_counts": {
+        "U32": 5,
+        "U64": 2
+      },
+      "return_ctx_r3_mentions": 7,
+      "guest_small_integer_literal_references": {},
+      "branch_label_count": 11,
+      "generated_source_not_executed_on_phone": true
+    },
+    "sub_823EAE40": {
+      "numeric_guest_name": "sub_823EAE40",
+      "original_guest_source_shard": "nfsmw_recomp.85.cpp",
+      "original_guest_source_sha256": "e8c85788d811c0cb9390c35705ea4e60bb7dbd4210ce73d19d6d03358e5cfbf3",
+      "original_guest_body_line_count": 493,
+      "direct_guest_callees_in_order": [
+        "sub_823EB290",
+        "sub_823EB3B0",
+        "sub_823E4130",
+        "sub_823E4588"
+      ],
+      "total_direct_guest_calls": 4,
+      "PPC_generated_instruction_comment_mnemonics_top": {
+        "lfs": 32,
+        "stfs": 24,
+        "fmadds": 15,
+        "addi": 14,
+        "fmr": 14,
+        "fadds": 9,
+        "fcmpu": 9,
+        "fsubs": 9,
+        "bl": 8,
+        "mr": 7,
+        "ble": 6,
+        "fdivs": 6,
+        "fmuls": 6,
+        "clrlwi": 3,
+        "cmplwi": 3,
+        "li": 3,
+        "blt": 3,
+        "lis": 2,
+        "beq": 2,
+        "mflr": 1,
+        "stwu": 1,
+        "bne": 1,
+        "cmpw": 1,
+        "bge": 1
+      },
+      "PPC_comment_instruction_total": 180,
+      "REX_load_opcode_counts": {
+        "U32": 32
+      },
+      "REX_store_opcode_counts": {
+        "U32": 25
+      },
+      "return_ctx_r3_mentions": 9,
+      "guest_small_integer_literal_references": {},
+      "branch_label_count": 16,
+      "generated_source_not_executed_on_phone": true
+    }
+  },
+  "source_outbound_matches_V48_PAL_function_names": true,
+  "is_source_level_static_audit_only": true,
+  "guest_823EAE40_semantic_role_proven": false,
+  "guest_Phy_Upgrades_SetPackage_proven": false,
+  "guest_engine_bmwm3gtr_new_collection_acceptance_proven": false,
+  "compiled_V48_execution_verified": false,
+  "APK_built": false,
+  "game_binary_or_assets_modified": false,
+  "original_guest_source_published": false,
+  "save_modified": false,
+  "signing_key_accessed": false,
+  "tuning_enabled": false,
+  "run_id": "42539950488",
+  "timestamp_utc": "2026-11-09T00:24:35.319418+00:00"
+}
