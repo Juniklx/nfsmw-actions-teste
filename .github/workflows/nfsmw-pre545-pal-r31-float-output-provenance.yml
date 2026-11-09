@@ -46,9 +46,8 @@ jobs:
               if d.get(k,False) is not False:
                   raise SystemExit("PRE545 read-only safety field unexpectedly true: "+k)
           if d.get("status")=="AUDIT_OK":
-              if (d.get("guest_motor_specific_field_name_proven") is not False or
-                  d.get("guest_SetPackage_identity_proven") is not False or
-                  d.get("guest_synthetic_engine_VPAK_acceptance_proven") is not False):
+              if (d.get("guest_engine_attr_or_power_change_proven") is not False or
+                  d.get("guest_SetPackage_identified") is not False):
                   raise SystemExit("PRE545 cannot promote PRE99 to runtime V48 proof")
               output=Path("docs/PRE545_ORIGINAL_PAL_PPC_R31_FLOAT_OUTPUT_ORIGIN_READONLY.json")
           else:
