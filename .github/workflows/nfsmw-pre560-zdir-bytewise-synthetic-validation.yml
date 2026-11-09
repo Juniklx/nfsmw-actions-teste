@@ -1,0 +1,78 @@
+name: NFSMW PRE560 bytewise PTBR ZDIR Shevery probe regression test
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre560_requests/*.json'
+permissions:
+  contents: write
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Shell syntax and bytewise parser regression on 1388-row synthetic ZDIR
+        run: |
+          set -euo pipefail
+          sh -n automation/device/pre560_translated_zdir_bytewise_namehash_readonly.sh
+          python - <<'PY'
+          import struct,hashlib
+          from pathlib import Path
+          rows=[struct.pack('<IiIIiI',0x11000000+i,i%10,1000+i,900000,2500,0x12345678) for i in range(1388)]
+          rows[806]=struct.pack('<IiIIiI',0x9775379a,4,173795,890205,697856,0x296ad9ed)
+          rows[900]=struct.pack('<IiIIiI',0x80be7b63,2,123,1234,1234,0x33333333)
+          file=Path('/tmp/pre560_synthetic_zdir.bin')
+          raw=b''.join(rows)
+          if len(raw)!=33312:raise SystemExit('Synthetic index length mismatch')
+          file.write_bytes(raw)
+          print('PRE560_SYNTHETIC_SHA256',hashlib.sha256(raw).hexdigest())
+          PY
+          SHA=$(sha256sum /tmp/pre560_synthetic_zdir.bin | awk '{print $1}')
+          sh automation/device/pre560_translated_zdir_bytewise_namehash_readonly.sh /tmp/pre560_synthetic_zdir.bin "$SHA" > /tmp/pre560_synthetic_probe.txt
+          grep -qx 'PRE560_ZDIR_SHA256=CONFIRMADO' /tmp/pre560_synthetic_probe.txt
+          grep -qx 'PRE560_TOTAL_REGISTROS=1388' /tmp/pre560_synthetic_probe.txt
+          grep -qx 'PRE560_ATTR_MATCHES=1' /tmp/pre560_synthetic_probe.txt
+          grep -qx 'PRE560_ATTR_ROW=806' /tmp/pre560_synthetic_probe.txt
+          grep -qx 'PRE560_ATTR_ARCHIVE=4' /tmp/pre560_synthetic_probe.txt
+          grep -qx 'PRE560_ATTR_SIZE=697856' /tmp/pre560_synthetic_probe.txt
+          grep -qx 'PRE560_FE_ATTRIB_MATCHES=1' /tmp/pre560_synthetic_probe.txt
+          # A SHA mismatch should never expose arbitrary file content.
+          sh automation/device/pre560_translated_zdir_bytewise_namehash_readonly.sh /tmp/pre560_synthetic_zdir.bin deadbeef > /tmp/pre560_negative.txt
+          if grep -q PRE560_ZDIR_SHA256=CONFIRMADO /tmp/pre560_negative.txt; then exit 1; fi
+          cat /tmp/pre560_synthetic_probe.txt
+      - name: Publish synthetic-only test metadata, not phone evidence
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          report={
+            'stage':'PRE560_SHEVERY_BYTEWISE_ZDIR_NAMEHASH_PARSER_REGRESSION',
+            'status':'AUDIT_OK',
+            'synthetic_1388_row_index_validated':True,
+            'synthetic_ATTRIBUTES_hash_0x9775379a_at_row_806_detected':True,
+            'synthetic_FE_ATTRIB_hash_at_row_900_detected':True,
+            'real_user_translated_ZDIR_scanned_on_this_runner':False,
+            'user_reported_original_awk_no_match_remains_unresolved':True,
+            'actual_TRANSLATED_ATTRIBUTES_row_verified':False,
+            'next_gate':'RUN_BYTEWISE_PRE560_PROBE_ON_SHEVERY',
+            'APK_built':False,'game_assets_modified':False,
+            'save_modified':False,'signing_accessed':False,
+            'BMW_tuning_enabled':False,
+            'run_id':os.environ.get('GITHUB_RUN_ID')
+          }
+          Path('docs/PRE560_BYTEWISE_ZDIR_PROBE_SYNTHETIC_REGRESSION.json').write_text(json.dumps(report,indent=2)+'\n')
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE560_BYTEWISE_ZDIR_PROBE_SYNTHETIC_REGRESSION.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "PRE560: bytewise ZDIR hash parser synthetic regression pass"
+          for i in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
