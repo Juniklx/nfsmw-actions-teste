@@ -1,0 +1,16 @@
+{
+  "stage": "PRE566_TEMP_FILE_BACKED_PTBR_BMW_READBACK",
+  "trigger": "push",
+  "prior_verified_step": "PRE565",
+  "purpose": "isolate on-disk file-backed scratch proof; never execute guest or export game resources",
+  "allowed_modifications": [
+    "temporary CI scratch only"
+  ],
+  "forbidden": [
+    "original ZIP/game data",
+    "APK",
+    "save MARCEK",
+    "signing credentials"
+  ],
+  "loader_verified_before_run": false
+}
