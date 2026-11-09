@@ -1,0 +1,79 @@
+name: NFSMW PRE591 private BMW RefSpec pointer-only with zero motor levels control
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre591_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre591-unlinked-vlt-engine-collection-control
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare authenticated structural-only source diagnostic
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+          python -m py_compile automation/kaggle/pre591_bmw_refspec_pointer_only_private_control.py
+      - name: Rebuild PRE586 and activate only BMW RefSpec pointer with zero upgrade count, verify PTBR source
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre591_bmw_refspec_pointer_only_private_control.py --run-id "$GITHUB_RUN_ID"
+      - name: Publish metadata-only diagnostic without unproven runtime conclusions
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('/tmp/nfsmw-pre591/report.json')
+          r=json.loads(p.read_text()) if p.exists() else {"stage":"PRE591","status":"FAILED_NO_REPORT"}
+          for k in ('guest_loader_executed','MARCEK_save_load_with_candidate_proven','BMW_tuning_enabled',
+                    'original_translated_game_files_modified','APK_built','save_modified'):
+              if r.get(k,False) is not False:raise SystemExit("PRE591 forbidden runtime/write claim "+k)
+          if r.get('status')=='AUDIT_OK':
+              for key in ('BMW_pvehicle_motor_upgrade_count_zero',
+                          'active_BMW_pvehicle_refspec_points_to_two_ref_array',
+                          'new_VLT_engine_collection_preserved',
+                          'original_zip_member_fully_verified_by_stream'):
+                  if r.get(key) is not True:raise SystemExit("PRE591 verification missing "+key)
+              if r.get('candidate_VPAK_size')!=698004 or r.get('scratch_new_export_count')!=2400:
+                  raise SystemExit("PRE591 VPAK size/record count unexpected")
+              dest=Path('docs/PRE591_BMW_REFSPEC_POINTER_ONLY_PRIVATE_METADATA.json')
+          else:
+              dest=Path('docs/PRE591_BMW_REFSPEC_POINTER_ONLY_DIAGNOSTIC.json')
+              r={k:r.get(k) for k in ('stage','status','error_type','error','run_id','utc') if k in r}
+              r['phone_game_assets_modified']=False
+          dest.write_text(json.dumps(r,indent=2,ensure_ascii=False)+'\n')
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE591_BMW_REFSPEC_POINTER_ONLY_*json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "PRE591: private BMW RefSpec pointer-only zero motor levels metadata gate"
+          for n in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
+      - name: Retain metadata only (no game resources)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre591-bmw-unlinked-vlt-metadata
+          path: /tmp/nfsmw-pre591/report.json
+          retention-days: 14
