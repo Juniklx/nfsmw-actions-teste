@@ -1,0 +1,11 @@
+{
+  "stage": "PRE552",
+  "goal": "Commit PRE551 original complete PAL ZIP CRC and exact zero padding evidence to Drive CONTEXTO_NFSMW.md; preserve all 834187 previous bytes plus readback; no original assets, APK, save modified",
+  "pre551_run": 42545104414,
+  "previous_canonical_bytes": 834187,
+  "previous_marker": "PRE550_BMW_TUNING_PRE548_PRE549_PVEHICLE_HASH_ACCESSOR_GATE_20261108",
+  "new_marker": "PRE552_BMW_TUNING_PRE551_PAL_ZZDATA4_FULL_CRC_RAM_VIRTUAL_RESOURCE_GATE_20261108",
+  "baseline_V48_unchanged": true,
+  "save_MARCEK_untouched": true,
+  "real_guest_loader_not_tested": true
+}
