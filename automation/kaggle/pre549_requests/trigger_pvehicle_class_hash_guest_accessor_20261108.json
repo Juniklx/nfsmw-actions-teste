@@ -1,0 +1,8 @@
+{
+  "stage": "PRE549",
+  "goal": "Inspect exact 13 guest numerical pvehicle class-hash functions and their helper sub_8214D958 in authenticated PRE99 source; verify V48 821E02C0 PLT call and avoid falsely equating attribute class access to installed package writer",
+  "PRE548_run": 42543274703,
+  "baseline_V48_unchanged": true,
+  "save_MARCEK_untouched": true,
+  "mode": "readonly"
+}
