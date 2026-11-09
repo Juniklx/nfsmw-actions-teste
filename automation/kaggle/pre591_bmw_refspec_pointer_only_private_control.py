@@ -112,6 +112,7 @@ def audit():
          "ZDIR_fragment":index_file,
          "ZZDATA4_first_341_sectors_fragment":region_file,
          "candidate_VPAK_size":len(out),
+         "scratch_new_export_count":2400,
          "candidate_VPAK_sha256":sha(out),
          "candidate_EA_crc32":f"{ea:08x}",
          "pointer_fixup_vpak_offset":ptr_off,
