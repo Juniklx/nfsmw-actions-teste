@@ -1,0 +1,8 @@
+{
+  "stage": "PRE594_CANONICAL_SAVE_ROOT_CONTEXT_SYNC",
+  "status": "FAILED",
+  "error_type": "ValueError",
+  "error": "PRE594 handoff is incomplete or duplicated",
+  "run_id": "42568066719",
+  "utc": "2026-11-09T05:34:31.298703+00:00"
+}
