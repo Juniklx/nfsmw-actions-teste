@@ -1,0 +1,15 @@
+{
+  "stage": "PRE626",
+  "source_gate": "PRE625",
+  "source_run": 42705397176,
+  "source_status": "AUDIT_OK",
+  "build_type": "signed release diagnostic only",
+  "versionCode": 49,
+  "packageId": "io.github.nfsmwrecomp",
+  "permanent_cert_sha256": "1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b",
+  "changes": "passive host-only already computed BMW attribute value telemetry",
+  "pre607_archive_untouched": true,
+  "save_untouched": true,
+  "no_tuning_override": true,
+  "verify_APK_before_upload": true
+}
