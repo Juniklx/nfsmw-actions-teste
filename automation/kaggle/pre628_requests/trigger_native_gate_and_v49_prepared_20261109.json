@@ -1,0 +1,10 @@
+{
+  "stage": "PRE628",
+  "previous_context_size": 953585,
+  "previous_context_sha256": "d1422be8fc846427819e8f568e194101d86fafc7af401102583b691e76ea6f0c",
+  "source": "PRE627",
+  "backup_first": true,
+  "append_only": true,
+  "no_game_assets_modified": true,
+  "no_signing_credentials_accessed": true
+}
