@@ -1,0 +1,7 @@
+{
+  "stage": "PRE622",
+  "source": "PRE621",
+  "phone_PRE607_sha_confirmed": true,
+  "task": "preview only host attribute value address and category telemetry",
+  "user_phone_untouched": true
+}
