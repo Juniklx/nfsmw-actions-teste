@@ -1,0 +1,8 @@
+{
+  "stage": "PRE546",
+  "objective": "Trace guest r4 output pointer preparation in 7 PPC callers of sub_823EAE40, all nine numeric BL sites, considering r1-stack aliases vs other registers; metadata only",
+  "pre545_run": 42541711453,
+  "pre544_run": 42541259342,
+  "save_MARCEK_untouched": true,
+  "read_only": true
+}
