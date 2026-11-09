@@ -1,0 +1,7 @@
+{
+  "stage": "PRE618",
+  "log_report": "PRE617",
+  "purpose": "verify PRE607 game archive active identity by SHA on device",
+  "phone_executed": false,
+  "read_only": true
+}
