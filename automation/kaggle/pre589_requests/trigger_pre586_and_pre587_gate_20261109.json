@@ -1,0 +1,13 @@
+{
+  "stage": "PRE589",
+  "source_reports": [
+    "PRE585",
+    "PRE586",
+    "PRE587"
+  ],
+  "expected_old_bytes": 895872,
+  "expected_old_sha256": "ba60e6dd573b3958b64b7e1fc29a355d9afee99b6f05fb218dde53702d3676d6",
+  "backup_first": true,
+  "append_only": true,
+  "phone_not_modified": true
+}
