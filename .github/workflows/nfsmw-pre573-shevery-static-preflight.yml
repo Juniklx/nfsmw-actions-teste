@@ -1,0 +1,88 @@
+name: NFSMW PRE573 static Shevery staging and rollback script safety gate
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre573_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre573-shell-test-static
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Portable shell syntax, staging/rollback hash markers, fail-closed synthetic fixture
+        shell: bash
+        run: |
+          set -euo pipefail
+          apply=automation/device/pre573_apply_bmw_ptbr_shevery.sh
+          restore=automation/device/pre573_restore_bmw_ptbr_shevery.sh
+          sh -n "$apply"
+          sh -n "$restore"
+          grep -Fq '4eca61a0969bd1311e7b664f073ecaab50c950b43b10bb4438858ff3c57b665e' "$apply"
+          grep -Fq '7dd33d214ac45f4b67005685bc0c2b8555eca98a33d24216c934f077d5054951' "$apply"
+          grep -Fq 'PRE573_RESULTADO=ARQUIVOS_EXPERIMENTAIS_APLICADOS' "$apply"
+          grep -Fq '.pre573_original_backup' "$apply"
+          grep -Fq '.pre573_original_backup' "$restore"
+          if grep -E '(^|[^[:alpha:]])(rm|force-stop|pm clear)([[:space:]]|$)' "$apply" "$restore"; then
+            echo "PRE573_SAFETY_GATE=FORBIDDEN_DESTRUCTIVE_COMMAND"
+            exit 1
+          fi
+          root=$(mktemp -d)
+          trap 'rm -rf "$root"' EXIT
+          mkdir -p "$root/game/NFS" "$root/patches"
+          printf 'FAKE_ZDIR' > "$root/game/NFS/ZDIR.BIN"
+          printf 'FAKE_ZZDATA4' > "$root/game/NFS/ZZDATA4.BIN"
+          printf 'BAD_PATCH' > "$root/patches/PRE572_ZDIR_PTBR_BMW_TESTE_FRAGMENT.bin"
+          printf 'BAD_SECTOR' > "$root/patches/PRE572_ZZDATA4_PRIMEIROS_341_SETORES_BMW_TESTE.bin"
+          cp "$root/game/NFS/ZDIR.BIN" "$root/refzdir"
+          cp "$root/game/NFS/ZZDATA4.BIN" "$root/refdata"
+          if sh "$apply" "$root/game" "$root/patches" >"$root/out" 2>&1; then
+             echo "PRE573_BAD_FIXTURE_WAS_WRITTEN"; exit 1
+          fi
+          cmp "$root/refzdir" "$root/game/NFS/ZDIR.BIN"
+          cmp "$root/refdata" "$root/game/NFS/ZZDATA4.BIN"
+          test ! -e "$root/game/NFS/ZZDATA4.BIN.pre573_original_backup"
+          test ! -e "$root/game/NFS/ZZDATA4.BIN.pre573_new"
+          if sh "$restore" "$root/game" >"$root/out2" 2>&1; then
+             echo "PRE573_RESTORE_WITHOUT_BACKUPS_DID_NOT_ABORT"; exit 1
+          fi
+          echo "PRE573_STATIC_PREFLIGHT=AUDIT_OK"
+      - name: Publish bounded test metadata only
+        if: success()
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          result={
+            'stage':'PRE573_SHEVERY_APPLY_ROLLBACK_STATIC_PREFLIGHT',
+            'status':'AUDIT_OK' if True else 'FAILED',
+            'shell_syntax_tested':True,
+            'synthetic_wrong_hash_fail_closed_gate':True,
+            'phone_game_data_modified':False,
+            'phone_save_modified':False,
+            'actual_guest_loader_executed':False,
+            'APK_built':False,
+            'on_device_script_executed':False,
+            'run_id':os.environ.get('GITHUB_RUN_ID','')
+          }
+          Path('docs/PRE573_SHEVERY_SCRIPTS_STATIC_PREFLIGHT_RESULT.json').write_text(json.dumps(result,indent=2)+'\n')
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE573_SHEVERY_SCRIPTS_STATIC_PREFLIGHT_RESULT.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "PRE573: hash-guarded Shevery protocol static safety evidence"
+          for n in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
