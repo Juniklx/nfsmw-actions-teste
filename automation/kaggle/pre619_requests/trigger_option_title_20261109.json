@@ -1,0 +1,11 @@
+{
+  "stage": "PRE619",
+  "source": "PRE617_HANDOFF_NAME_BMW_OPTION_TITLE_SEVEN_CATEGORIES_LOG_20261109.md",
+  "prior_context_bytes": 948576,
+  "prior_context_sha256": "86361195ddd23442d0421773575dc200e5a8afb6643dd6439022dfec2bdc4195",
+  "pre618_run": 42672824917,
+  "backup_first": true,
+  "append_only": true,
+  "no_private_log_uploaded": true,
+  "no_game_save_apk_changes": true
+}
