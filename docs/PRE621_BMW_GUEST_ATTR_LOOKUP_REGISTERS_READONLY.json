@@ -1,0 +1,441 @@
+{
+  "stage": "PRE621_GUEST_ATTR_LOOKUP_RETURN_REGISTERS_BRANCH_METADATA_READONLY",
+  "status": "AUDIT_OK",
+  "private_original_pre99_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "private_original_pre99_bytes": 874780689,
+  "pinned_functions": {
+    "lookup": {
+      "path": "nfsmw_recomp.28.cpp",
+      "sha256": "11eec8fe3d20dc5d53e262525a4cf31021c2bbfb28e2690b6372c6c3cbea4aad",
+      "func": "sub_823E5988",
+      "nlines": 155,
+      "calls_in_order": [
+        "sub_8214B858",
+        "sub_8214EDA8"
+      ],
+      "guest_load_counts": {
+        "REX_LOAD_U8(": 0,
+        "REX_LOAD_U16(": 2,
+        "REX_LOAD_U32(": 11,
+        "REX_LOAD_U64(": 0
+      },
+      "guest_store_counts": {
+        "REX_STORE_U8(": 0,
+        "REX_STORE_U16(": 2,
+        "REX_STORE_U32(": 6,
+        "REX_STORE_U64(": 0
+      },
+      "callsite_relative_lines": [
+        {
+          "target": "sub_8214B858",
+          "line": 72
+        },
+        {
+          "target": "sub_8214EDA8",
+          "line": 91
+        }
+      ],
+      "return_lines": [
+        60,
+        126,
+        153
+      ],
+      "attribute_value_return_relative_lines": [
+        104
+      ],
+      "branch_and_register_metadata": [
+        {
+          "return_line": 60,
+          "last_20_source_lines_categorized": [
+            {
+              "relative_line": 41,
+              "kind": "conditional",
+              "observed_registers": [],
+              "guest_memory_op": null,
+              "guest_call": false
+            },
+            {
+              "relative_line": 43,
+              "kind": "register",
+              "observed_registers": [
+                "ctx.r11"
+              ],
+              "guest_memory_op": null,
+              "guest_call": false
+            },
+            {
+              "relative_line": 45,
+              "kind": "register",
+              "observed_registers": [
+                "ctx.r11"
+              ],
+              "guest_memory_op": "REX_LOAD_U32(",
+              "guest_call": false
+            },
+            {
+              "relative_line": 47,
+              "kind": "other",
+              "observed_registers": [],
+              "guest_memory_op": null,
+              "guest_call": false
+            },
+            {
+              "relative_line": 49,
+              "kind": "conditional",
+              "observed_registers": [],
+              "guest_memory_op": null,
+              "guest_call": false
+            },
+            {
+              "relative_line": 51,
+              "kind": "register",
+              "observed_registers": [
+                "ctx.r3"
+              ],
+              "guest_memory_op": null,
+              "guest_call": false
+            },
+            {
+              "relative_line": 53,
+              "kind": "other",
+              "observed_registers": [],
+              "guest_memory_op": null,
+              "guest_call": false
+            },
+            {
+              "relative_line": 55,
+              "kind": "register",
+              "observed_registers": [
+                "ctx.r12"
+              ],
+              "guest_memory_op": "REX_LOAD_U32(",
+              "guest_call": false
+            },
+            {
+              "relative_line": 57,
+              "kind": "register",
+              "observed_registers": [
+                "ctx.lr",
+                "ctx.r12"
+              ],
+              "guest_memory_op": null,
+              "guest_call": false
+            },
+            {
+              "relative_line": 59,
+              "kind": "return",
+              "observed_registers": [],
+              "guest_memory_op": null,
+              "guest_call": false
+            }
+          ],
+          "return_value_was_zero_or_resolved_attribute": "explicit_zero",
+          "new_guest_reads_needed_for_basic_extra_host_logging": false
+        },
+        {
+          "return_line": 126,
+          "last_20_source_lines_categorized": [
+            {
+              "relative_line": 107,
+              "kind": "register",
+              "observed_registers": [
+                "ctx.r11"
+              ],
+              "guest_memory_op": null,
+              "guest_call": false
+            },
+            {
+              "relative_line": 109,
+              "kind": "conditional",
+              "observed_registers": [],
+              "guest_memory_op": null,
+              "guest_call": false
+            },
+            {
+              "relative_line": 111,
+              "kind": "register",
+              "observed_registers": [
+                "ctx.r11"
+              ],
+              "guest_memory_op": "REX_LOAD_U16(",
+              "guest_call": false
+            },
+            {
+              "relative_line": 113,
+              "kind": "other",
+              "observed_registers": [],
+              "guest_memory_op": null,
+              "guest_call": false
+            },
+            {
+              "relative_line": 115,
+              "kind": "other",
+              "observed_registers": [],
+              "guest_memory_op": null,
+              "guest_call": false
+            },
+            {
+              "relative_line": 117,
+              "kind": "register",
+              "observed_registers": [
+                "ctx.r11"
+              ],
+              "guest_memory_op": "REX_STORE_U16(",
+              "guest_call": false
+            },
+            {
+              "relative_line": 119,
+              "kind": "other",
+              "observed_registers": [],
+              "guest_memory_op": null,
+              "guest_call": false
+            },
+            {
+              "relative_line": 121,
+              "kind": "register",
+              "observed_registers": [
+                "ctx.r12"
+              ],
+              "guest_memory_op": "REX_LOAD_U32(",
+              "guest_call": false
+            },
+            {
+              "relative_line": 123,
+              "kind": "register",
+              "observed_registers": [
+                "ctx.lr",
+                "ctx.r12"
+              ],
+              "guest_memory_op": null,
+              "guest_call": false
+            },
+            {
+              "relative_line": 125,
+              "kind": "return",
+              "observed_registers": [],
+              "guest_memory_op": null,
+              "guest_call": false
+            }
+          ],
+          "return_value_was_zero_or_resolved_attribute": "resolved_attribute",
+          "new_guest_reads_needed_for_basic_extra_host_logging": false
+        },
+        {
+          "return_line": 153,
+          "last_20_source_lines_categorized": [
+            {
+              "relative_line": 134,
+              "kind": "register",
+              "observed_registers": [
+                "ctx.r11",
+                "ctx.r4"
+              ],
+              "guest_memory_op": "REX_LOAD_U16(",
+              "guest_call": false
+            },
+            {
+              "relative_line": 136,
+              "kind": "register",
+              "observed_registers": [
+                "ctx.r3",
+                "ctx.r4"
+              ],
+              "guest_memory_op": null,
+              "guest_call": false
+            },
+            {
+              "relative_line": 138,
+              "kind": "register",
+              "observed_registers": [
+                "ctx.r3"
+              ],
+              "guest_memory_op": null,
+              "guest_call": false
+            },
+            {
+              "relative_line": 140,
+              "kind": "register",
+              "observed_registers": [
+                "ctx.r11",
+                "ctx.r3"
+              ],
+              "guest_memory_op": "REX_STORE_U16(",
+              "guest_call": false
+            },
+            {
+              "relative_line": 143,
+              "kind": "register",
+              "observed_registers": [
+                "ctx.r3"
+              ],
+              "guest_memory_op": null,
+              "guest_call": false
+            },
+            {
+              "relative_line": 146,
+              "kind": "other",
+              "observed_registers": [],
+              "guest_memory_op": null,
+              "guest_call": false
+            },
+            {
+              "relative_line": 148,
+              "kind": "register",
+              "observed_registers": [
+                "ctx.r12"
+              ],
+              "guest_memory_op": "REX_LOAD_U32(",
+              "guest_call": false
+            },
+            {
+              "relative_line": 150,
+              "kind": "register",
+              "observed_registers": [
+                "ctx.lr",
+                "ctx.r12"
+              ],
+              "guest_memory_op": null,
+              "guest_call": false
+            },
+            {
+              "relative_line": 152,
+              "kind": "return",
+              "observed_registers": [],
+              "guest_memory_op": null,
+              "guest_call": false
+            }
+          ],
+          "return_value_was_zero_or_resolved_attribute": "explicit_zero",
+          "new_guest_reads_needed_for_basic_extra_host_logging": false
+        }
+      ]
+    },
+    "attribute_check": {
+      "path": "nfsmw_recomp.50.cpp",
+      "sha256": "f20ec567de4c4637756977a71a6c85f3848b63ba639f037b819868328e3f7e9d",
+      "func": "sub_8214B858",
+      "nlines": 95,
+      "calls_in_order": [
+        "sub_82148718",
+        "sub_8214E9E0"
+      ],
+      "guest_load_counts": {
+        "REX_LOAD_U8(": 0,
+        "REX_LOAD_U16(": 1,
+        "REX_LOAD_U32(": 5,
+        "REX_LOAD_U64(": 2
+      },
+      "guest_store_counts": {
+        "REX_STORE_U8(": 0,
+        "REX_STORE_U16(": 1,
+        "REX_STORE_U32(": 2,
+        "REX_STORE_U64(": 1
+      },
+      "callsite_relative_lines": [
+        {
+          "target": "sub_82148718",
+          "line": 35
+        },
+        {
+          "target": "sub_8214E9E0",
+          "line": 42
+        }
+      ]
+    },
+    "builder": {
+      "path": "nfsmw_recomp.57.cpp",
+      "sha256": "a74e2314e878a88d197d2d8774254bf8c7fbc0e835f84a6c048f0ec86d9f455c",
+      "func": "sub_8256F818",
+      "nlines": 230,
+      "calls_in_order": [
+        "sub_823E5988",
+        "sub_8215CB08",
+        "sub_823E5988",
+        "sub_8256D800",
+        "sub_8256D548",
+        "sub_8256BC60"
+      ],
+      "guest_load_counts": {
+        "REX_LOAD_U8(": 0,
+        "REX_LOAD_U16(": 0,
+        "REX_LOAD_U32(": 1,
+        "REX_LOAD_U64(": 0
+      },
+      "guest_store_counts": {
+        "REX_STORE_U8(": 2,
+        "REX_STORE_U16(": 0,
+        "REX_STORE_U32(": 14,
+        "REX_STORE_U64(": 0
+      },
+      "callsite_relative_lines": [
+        {
+          "target": "sub_823E5988",
+          "line": 38
+        },
+        {
+          "target": "sub_8215CB08",
+          "line": 75
+        },
+        {
+          "target": "sub_823E5988",
+          "line": 114
+        },
+        {
+          "target": "sub_8256D800",
+          "line": 153
+        },
+        {
+          "target": "sub_8256D548",
+          "line": 169
+        },
+        {
+          "target": "sub_8256BC60",
+          "line": 187
+        }
+      ]
+    },
+    "attribute_value": {
+      "path": "nfsmw_recomp.83.cpp",
+      "sha256": "21e561eeae953888b7d645719dc6bd7077dfa040f3f06896b7bbe3ba3e7774d4",
+      "func": "sub_8214EDA8",
+      "nlines": 86,
+      "calls_in_order": [
+        "sub_82145428"
+      ],
+      "guest_load_counts": {
+        "REX_LOAD_U8(": 2,
+        "REX_LOAD_U16(": 0,
+        "REX_LOAD_U32(": 7,
+        "REX_LOAD_U64(": 0
+      },
+      "guest_store_counts": {
+        "REX_STORE_U8(": 0,
+        "REX_STORE_U16(": 0,
+        "REX_STORE_U32(": 0,
+        "REX_STORE_U64(": 0
+      },
+      "callsite_relative_lines": [
+        {
+          "target": "sub_82145428",
+          "line": 64
+        }
+      ]
+    }
+  },
+  "PRE607_active_game_assets_sha_confirmed_by_user": true,
+  "guest_PRE447_reason2_associated_with_resolved_attribute_return": true,
+  "six_zero_one_nitro_three_values_from_prior_uploaded_log": true,
+  "attribute_descriptor_semantic_identity_proven": false,
+  "specific_RefSpec_new_engine_used_by_guest_proven": false,
+  "GetMaxLevel_or_SetLevel_identified": false,
+  "next_step": "Bounded reversible instrumented C++ preview for resolved attribute value and descriptor pointer; pin no new guest loads/stores, no patch release before validate",
+  "guest_executed": false,
+  "source_changed_on_disk": false,
+  "game_assets_modified": false,
+  "save_modified": false,
+  "APK_built": false,
+  "release_key_accessed": false,
+  "original_source_published": false,
+  "run_id": "42676653898",
+  "utc": "2026-11-09T18:45:31.959964+00:00"
+}
