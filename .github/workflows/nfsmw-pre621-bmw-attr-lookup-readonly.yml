@@ -1,0 +1,68 @@
+name: NFSMW PRE621 original PAL attribute lookup return-register read-only audit
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre621_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre621-lookup-registers-readonly
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare source inspection and Drive authentication
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          python -m py_compile automation/kaggle/pre621_bmw_attr_lookup_register_provenance_readonly.py
+      - name: Analyze original pinned guest source and zero/resolved attribute returns
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre621_bmw_attr_lookup_register_provenance_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Publish bounded metadata only, never original source
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('/tmp/nfsmw-pre621/report.json')
+          r=json.loads(p.read_text()) if p.exists() else {"stage":"PRE621","status":"FAILED_NO_REPORT"}
+          for k in ("guest_executed","source_changed_on_disk","game_assets_modified",
+                    "save_modified","APK_built","release_key_accessed","original_source_published"):
+             if r.get(k,False) is not False:raise SystemExit("PRE621 unsafe side effect "+k)
+          if r.get("status")=="AUDIT_OK":
+             if (set(r.get("pinned_functions",{}))!={"lookup","builder","attribute_check","attribute_value"}
+               or r.get("attribute_descriptor_semantic_identity_proven") is not False
+               or r.get("specific_RefSpec_new_engine_used_by_guest_proven") is not False):
+               raise SystemExit("PRE621 inference limit or source proof missing")
+             out=Path("docs/PRE621_BMW_GUEST_ATTR_LOOKUP_REGISTERS_READONLY.json")
+          else:
+             out=Path("docs/PRE621_BMW_GUEST_ATTR_LOOKUP_DIAGNOSTIC.json")
+             r={k:r.get(k) for k in ("stage","status","error_type","error","run_id","utc") if k in r}
+          out.write_text(json.dumps(r,ensure_ascii=False,indent=2)+'\n')
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE621_BMW_GUEST_ATTR_LOOKUP_*json
+          if git diff --cached --quiet;then exit 0;fi
+          git commit -m "PRE621: authentic guest attribute lookup return route register metadata"
+          for i in 1 2 3 4 5;do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main;then exit 0;fi
+          done
+          exit 1
