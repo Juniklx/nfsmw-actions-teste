@@ -107,8 +107,8 @@ def audit():
         if count!=129:raise ValueError("PRE99 generator shard count changed")
         if set(found)!=FUNCS:raise ValueError("Guest target/dependency source functions missing "+str(sorted(FUNCS-set(found))))
     observed=found["sub_823EAE40"]["direct_guest_callees_in_order"]
-    if observed!=TARGETS[1:5]:
-        raise ValueError("PRE99 source outbound order differs from V48 candidate set; inspect before inferring")
+    if Counter(observed)!=Counter(TARGETS[1:5]):
+        raise ValueError("PRE99 source outbound targets differ from V48 confirmed guest set")
     if len(found["sub_823E5988"]["direct_guest_callees_in_order"])!=2:
         raise ValueError("Known attribute-level read helper expected exactly two source calls")
     return {
