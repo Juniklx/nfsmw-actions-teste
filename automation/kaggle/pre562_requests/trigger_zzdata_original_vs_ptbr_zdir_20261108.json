@@ -1,0 +1,9 @@
+{
+  "stage": "PRE562",
+  "source_drive_ptbr_zip_id": "1M95wS9iqrMI-p328Wual7TreqfaPgdL0",
+  "original_pal_zdir_sha256": "7f37d29f958454ec73d5dbd30068a6acb23cf92d5056fa2d944ca5c87c6637ee",
+  "ptbr_zdir_sha256": "832a20dfdca663233f4559236048f21d5ff4e6f65780d1aa18e58b72005245bf",
+  "method": "metadata only; SHA-authenticated 24-byte record diff",
+  "write_game_files": false,
+  "write_save": false
+}
