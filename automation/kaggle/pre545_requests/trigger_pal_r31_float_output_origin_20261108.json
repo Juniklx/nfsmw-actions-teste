@@ -1,0 +1,8 @@
+{
+  "stage": "PRE545",
+  "objective": "Trace original PAL guest PPC r31 register assignments feeding eighteen stfs float stores, confirm whether r31 aliases stack or an input pointer without guessing motor semantics",
+  "PRE544_run": 42541259342,
+  "mode": "authenticated readonly",
+  "APKs_unchanged": true,
+  "save_MARCEK_untouched": true
+}
