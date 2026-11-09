@@ -1,0 +1,11 @@
+{
+  "stage": "PRE567_CANONICAL_CONTEXT_SAFE_SYNC",
+  "verify_from_run_id": 42557428194,
+  "verify_report": "docs/PRE566_PTBR_BMW_TEMP_FILE_BACKED_READBACK_READONLY.json",
+  "expected_previous_canonical_sha256": "074c43bb4d3781e64b7c37bfb9efa92f5ebf1505d11227434901e0ba4f6e1f36",
+  "append_only": true,
+  "backup_first": true,
+  "write_target": "CONTEXTO_NFSMW.md",
+  "apk_modified": false,
+  "saves_modified": false
+}
