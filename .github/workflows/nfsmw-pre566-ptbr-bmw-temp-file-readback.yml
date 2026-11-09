@@ -1,0 +1,84 @@
+name: NFSMW PRE566 temporary file-backed translated BMW readback gate
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre566_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre566-ptbr-bmw-temp-file-readback
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare authenticated synthetic PTBR-only filesystem experiment
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth requests >/dev/null
+          python -m py_compile automation/kaggle/pre566_ptbr_bmw_temp_file_backed_gate.py
+      - name: Validate candidate through private ephemeral file descriptors
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre566_ptbr_bmw_temp_file_backed_gate.py --run-id "$GITHUB_RUN_ID"
+      - name: Enforce no guest execution or phone/assets/save modification
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('/tmp/nfsmw-pre566/report.json')
+          r=json.loads(p.read_text()) if p.exists() else {'stage':'PRE566','status':'FAILED_NO_REPORT'}
+          for k in ('real_guest_loader_executed','V48_hostpath_execution_observed',
+                    'on_device_asset_overlay_ready','safe_save_isolation_proven',
+                    'genuine_upgrade_purchase_validated','BMW_tuning_enabled',
+                    'APK_built','original_translated_game_file_written',
+                    'original_game_asset_uploaded_or_exported','save_modified',
+                    'signing_material_accessed'):
+              if r.get(k,False) is not False:
+                  raise SystemExit('PRE566 unsafe/prohibited claim: '+k)
+          if r.get('status') == 'AUDIT_OK':
+              for k in ('file_backed_scratch_index_readback','file_backed_scratch_resource_readback',
+                        'old_index_rejects_new_scratch_resource','temporary_files_deleted_on_exit',
+                        'temporary_sparse_ZZDATA4_non_target_resources_not_copied'):
+                  if r.get(k) is not True:
+                      raise SystemExit('PRE566 expected scratch proof absent: '+k)
+              if r.get('remaining_zero_padding_bytes') != 364:
+                  raise SystemExit('PRE566 scratch padding mismatch')
+              out=Path('docs/PRE566_PTBR_BMW_TEMP_FILE_BACKED_READBACK_READONLY.json')
+          else:
+              out=Path('docs/PRE566_PTBR_BMW_TEMP_FILE_BACKED_DIAGNOSTIC.json')
+              r={k:r.get(k) for k in ('stage','status','error_type','error','run_id','utc') if k in r}
+              r['BMW_tuning_enabled']=False
+          out.write_text(json.dumps(r,indent=2,ensure_ascii=False)+'\n')
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE566_PTBR_BMW_TEMP_FILE_BACKED_*json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "PRE566: verify isolated PTBR BMW file-backed scratch readback"
+          for n in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
+      - name: Retain only metadata-only report, no temporary asset files
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre566-temp-file-readback-metadata
+          path: /tmp/nfsmw-pre566/report.json
+          retention-days: 14
