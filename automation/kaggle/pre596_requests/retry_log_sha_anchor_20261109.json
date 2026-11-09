@@ -1,0 +1,7 @@
+{
+  "stage": "PRE596",
+  "reason": "corrected exact uploaded device SHA anchoring, without relying on report phrasing",
+  "read_only": true,
+  "after_failed_run": 42580158603,
+  "phone_untouched": true
+}
