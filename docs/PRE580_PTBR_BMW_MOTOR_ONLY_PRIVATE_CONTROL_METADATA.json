@@ -1,0 +1,52 @@
+{
+  "stage": "PRE580_PTBR_BMW_STOCK_MOTOR_TORQUE_ONLY_CONTROL_FRAGMENT",
+  "status": "AUDIT_OK",
+  "folder_id": "150gpKDX4iJvIh4KsJe0UOz9tPJxgBLN-",
+  "folder_newly_created": true,
+  "fragment_original_ZDIR_crc32": "296ad9ed",
+  "fragment_torque_only_ZDIR_EA_crc32": "3ca3a5a9",
+  "ZDIR_original_SHA256": "832a20dfdca663233f4559236048f21d5ff4e6f65780d1aa18e58b72005245bf",
+  "ZDIR_fragment": {
+    "id": "1KalicXYd7DueUZHBn_rvpOKq7dMd33LX",
+    "name": "PRE580_ZDIR_TORQUE_ONLY.bin",
+    "size": 33312,
+    "sha256": "d1dcf673ac06b56967d0596e06f55d106e4a14f0eddf3b71da7007147eaa5f9d",
+    "fresh_upload": true
+  },
+  "ZZDATA4_first_341_sectors_fragment": {
+    "id": "1zfv02Z9Jv7DEodQWx3jfXws_T0pm2zgP",
+    "name": "PRE580_ZZDATA4_FIRST341_TORQUE_ONLY.bin",
+    "size": 698368,
+    "sha256": "fc768236881516fd33871eddf7defc25d616ba32a5360dd4d9f5d342670293b1",
+    "fresh_upload": true
+  },
+  "changed_resource_byte_count": 24,
+  "changed_resource_byte_range": [
+    139313,
+    139347
+  ],
+  "new_engine_layout_sha256": "b0789fa1358a6d23f5be57de4ddd495eac45d2ddc4c287c618c7e19c835d086b",
+  "source_VPAK_bytes": 697856,
+  "candidate_VPAK_bytes": 697856,
+  "original_VLT_bytes_unchanged": true,
+  "original_BIN_non_motor_bytes_unchanged": true,
+  "original_pvehicle_upgrade_counter_unchanged": true,
+  "new_engine_collection_added": false,
+  "new_ExpN_RefSpec_PtrN_added": false,
+  "torque_multiplier_synthetic": 1.05,
+  "full_modified_ZZDATA4_was_written_to_Drive": false,
+  "user_phone_files_modified": false,
+  "guest_loader_executed": false,
+  "MARCEK_save_load_with_candidate_proven": false,
+  "BMW_buyable_upgrade_enabled": false,
+  "APK_built": false,
+  "save_modified": false,
+  "translated_original_ZZDATA4_full_sha256": "7dd33d214ac45f4b67005685bc0c2b8555eca98a33d24216c934f077d5054951",
+  "translated_full_archive_expected_modified_sha256": "95dff1f0e8f72ac54b3039d7627f406bf90b67fe66bee937776846464ea054aa",
+  "translated_full_archive_expected_modified_crc32": "29fa40d1",
+  "original_zip_member_fully_verified_by_stream": true,
+  "translated_nontarget_archive_bytes_pass_through_unchanged": true,
+  "source_sector_initial_512_padding_bytes_verified": true,
+  "run_id": "42563826158",
+  "utc": "2026-11-09T04:49:12.579592+00:00"
+}
