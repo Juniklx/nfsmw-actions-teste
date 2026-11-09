@@ -23,7 +23,7 @@ jobs:
         run: |
           set -euo pipefail
           python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
-          python -m py_compile automation/kaggle/pre574_sync_bmw_patch_save_waiver_context_backup_safe.py
+          python -m py_compile automation/kaggle/pre574_sync_bmw_patch_save_waiver_context_safe.py
       - name: Backup and append only PRE572 and PRE573 private BMW experiment and user waiver
         env:
           GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
@@ -31,7 +31,7 @@ jobs:
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
         run: |
           set -euo pipefail
-          PYTHONPATH=automation/kaggle python automation/kaggle/pre574_sync_bmw_patch_save_waiver_context_backup_safe.py --run-id "$GITHUB_RUN_ID"
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre574_sync_bmw_patch_save_waiver_context_safe.py --run-id "$GITHUB_RUN_ID"
       - name: Publish only sanitized canonical status and fail on mismatch
         if: always()
         run: |
