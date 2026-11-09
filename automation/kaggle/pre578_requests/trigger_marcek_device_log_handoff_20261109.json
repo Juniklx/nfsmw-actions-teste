@@ -1,0 +1,9 @@
+{
+  "stage": "PRE578",
+  "report": "docs/PRE577_HANDOFF_PRE573_DEVICE_LOG_MARCEK_20261109.md",
+  "expected_context_sha": "0f9f3293c04dc4453fb73c2144217aea7cdab1daa99dcef89bf3084b5d483f0a",
+  "expected_context_bytes": 880404,
+  "backup_first": true,
+  "save_modified": false,
+  "game_assets_modified": false
+}
