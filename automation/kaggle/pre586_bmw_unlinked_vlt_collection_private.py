@@ -166,7 +166,7 @@ def audit():
     # Build once, but callback needs the full report meta. PRE502 consumes
     # before its report is finalized, so reconstruct only keys from canonical
     # authenticated PRE502 report already in repo.
-    meta=json.loads(Path("docs/PRE502_BMW_ENGINE_ONE_LEVEL_COMBINED_RAM_REPACK.json").read_text())
+    meta=json.loads(Path("docs/PRE502_BMW_ENGINE_FULL_LEVEL1_COMBINED_SCRATCH.json").read_text())
     if meta.get("status")!="AUDIT_OK" or meta.get("scratch_vpak_bytes")!=ATTR_LEN:
         raise ValueError("PRE502 report unavailable for independent repair")
     rebuilt=scratch_build(consume_scratch=consume)
