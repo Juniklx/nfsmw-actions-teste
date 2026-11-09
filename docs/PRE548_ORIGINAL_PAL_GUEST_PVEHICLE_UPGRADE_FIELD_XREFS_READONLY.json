@@ -1,0 +1,1423 @@
+{
+  "stage": "PRE548_ORIGINAL_PAL_GUEST_PVEHICLE_COUNTER_FIELD_HASH_STATE_WRITER_SCREEN_READONLY",
+  "status": "AUDIT_OK",
+  "PRE99_archive_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "original_guest_shards_scanned": 129,
+  "original_guest_functions_scanned": 56338,
+  "original_guest_source_bytes_scanned": 135601739,
+  "source_PPC_instruction_comments_examined": 2051080,
+  "verified_original_pal_vpak_pvehicle_class_hash": "4a97ec8f",
+  "verified_pvehicle_binary_vpak_upgrade_field_offsets": {
+    "engine_upgrades": 40,
+    "transmission_upgrades": 44,
+    "nos_upgrades": 48,
+    "brakes_upgrades": 52,
+    "tires_upgrades": 60,
+    "induction_upgrades": 68,
+    "chassis_upgrades": 72
+  },
+  "searched_lookup2_hashes": {
+    "pvehicle": "4a97ec8f",
+    "engine": "f1f5fbc7",
+    "bmwm3gtr": "cd88083f",
+    "m3gtre46careerstart": "39dae0f8",
+    "engine_upgrades": "7708db25",
+    "transmission_upgrades": "bb11ea73",
+    "nos_upgrades": "9dc66e81",
+    "brakes_upgrades": "4e168120",
+    "tires_upgrades": "75b0f76b",
+    "induction_upgrades": "7202e66e",
+    "chassis_upgrades": "f62a062d",
+    "punto": "a6ee7a11"
+  },
+  "guest_PPC_lis_then_ori_or_addi_hash_candidate_counts": {
+    "pvehicle": {
+      "matches_total": 16,
+      "samples": [
+        {
+          "guest_function": "sub_824D83E8",
+          "hash_preimage": "pvehicle",
+          "class_or_field_hash_hex": "4a97ec8f",
+          "guest_register": "r4",
+          "construction": "lis_then_ori",
+          "approx_guest_PPC_comment_instruction_ordinal": 7,
+          "register_reaching_definition_unverified": true,
+          "original_guest_codegen_shard": "nfsmw_recomp.108.cpp"
+        },
+        {
+          "guest_function": "sub_823CFAD0",
+          "hash_preimage": "pvehicle",
+          "class_or_field_hash_hex": "4a97ec8f",
+          "guest_register": "r4",
+          "construction": "lis_then_ori",
+          "approx_guest_PPC_comment_instruction_ordinal": 13,
+          "register_reaching_definition_unverified": true,
+          "original_guest_codegen_shard": "nfsmw_recomp.117.cpp"
+        },
+        {
+          "guest_function": "sub_821E0368",
+          "hash_preimage": "pvehicle",
+          "class_or_field_hash_hex": "4a97ec8f",
+          "guest_register": "r3",
+          "construction": "lis_then_ori",
+          "approx_guest_PPC_comment_instruction_ordinal": 2,
+          "register_reaching_definition_unverified": true,
+          "original_guest_codegen_shard": "nfsmw_recomp.13.cpp"
+        },
+        {
+          "guest_function": "sub_82485850",
+          "hash_preimage": "pvehicle",
+          "class_or_field_hash_hex": "4a97ec8f",
+          "guest_register": "r3",
+          "construction": "lis_then_ori",
+          "approx_guest_PPC_comment_instruction_ordinal": 7,
+          "register_reaching_definition_unverified": true,
+          "original_guest_codegen_shard": "nfsmw_recomp.42.cpp"
+        },
+        {
+          "guest_function": "sub_823E4850",
+          "hash_preimage": "pvehicle",
+          "class_or_field_hash_hex": "4a97ec8f",
+          "guest_register": "r4",
+          "construction": "lis_then_ori",
+          "approx_guest_PPC_comment_instruction_ordinal": 291,
+          "register_reaching_definition_unverified": true,
+          "original_guest_codegen_shard": "nfsmw_recomp.44.cpp"
+        },
+        {
+          "guest_function": "sub_823E4850",
+          "hash_preimage": "pvehicle",
+          "class_or_field_hash_hex": "4a97ec8f",
+          "guest_register": "r4",
+          "construction": "lis_then_ori",
+          "approx_guest_PPC_comment_instruction_ordinal": 303,
+          "register_reaching_definition_unverified": true,
+          "original_guest_codegen_shard": "nfsmw_recomp.44.cpp"
+        },
+        {
+          "guest_function": "sub_823E4850",
+          "hash_preimage": "pvehicle",
+          "class_or_field_hash_hex": "4a97ec8f",
+          "guest_register": "r4",
+          "construction": "lis_then_ori",
+          "approx_guest_PPC_comment_instruction_ordinal": 311,
+          "register_reaching_definition_unverified": true,
+          "original_guest_codegen_shard": "nfsmw_recomp.44.cpp"
+        },
+        {
+          "guest_function": "sub_824339A8",
+          "hash_preimage": "pvehicle",
+          "class_or_field_hash_hex": "4a97ec8f",
+          "guest_register": "r4",
+          "construction": "lis_then_ori",
+          "approx_guest_PPC_comment_instruction_ordinal": 19,
+          "register_reaching_definition_unverified": true,
+          "original_guest_codegen_shard": "nfsmw_recomp.47.cpp"
+        },
+        {
+          "guest_function": "sub_823E5B08",
+          "hash_preimage": "pvehicle",
+          "class_or_field_hash_hex": "4a97ec8f",
+          "guest_register": "r4",
+          "construction": "lis_then_ori",
+          "approx_guest_PPC_comment_instruction_ordinal": 369,
+          "register_reaching_definition_unverified": true,
+          "original_guest_codegen_shard": "nfsmw_recomp.48.cpp"
+        },
+        {
+          "guest_function": "sub_823E5B08",
+          "hash_preimage": "pvehicle",
+          "class_or_field_hash_hex": "4a97ec8f",
+          "guest_register": "r4",
+          "construction": "lis_then_ori",
+          "approx_guest_PPC_comment_instruction_ordinal": 386,
+          "register_reaching_definition_unverified": true,
+          "original_guest_codegen_shard": "nfsmw_recomp.48.cpp"
+        },
+        {
+          "guest_function": "sub_823E9D38",
+          "hash_preimage": "pvehicle",
+          "class_or_field_hash_hex": "4a97ec8f",
+          "guest_register": "r4",
+          "construction": "lis_then_ori",
+          "approx_guest_PPC_comment_instruction_ordinal": 7,
+          "register_reaching_definition_unverified": true,
+          "original_guest_codegen_shard": "nfsmw_recomp.50.cpp"
+        },
+        {
+          "guest_function": "sub_823FDDA8",
+          "hash_preimage": "pvehicle",
+          "class_or_field_hash_hex": "4a97ec8f",
+          "guest_register": "r3",
+          "construction": "lis_then_ori",
+          "approx_guest_PPC_comment_instruction_ordinal": 9,
+          "register_reaching_definition_unverified": true,
+          "original_guest_codegen_shard": "nfsmw_recomp.60.cpp"
+        },
+        {
+          "guest_function": "sub_823CFB08",
+          "hash_preimage": "pvehicle",
+          "class_or_field_hash_hex": "4a97ec8f",
+          "guest_register": "r4",
+          "construction": "lis_then_ori",
+          "approx_guest_PPC_comment_instruction_ordinal": 4,
+          "register_reaching_definition_unverified": true,
+          "original_guest_codegen_shard": "nfsmw_recomp.81.cpp"
+        },
+        {
+          "guest_function": "sub_822CBC08",
+          "hash_preimage": "pvehicle",
+          "class_or_field_hash_hex": "4a97ec8f",
+          "guest_register": "r4",
+          "construction": "lis_then_ori",
+          "approx_guest_PPC_comment_instruction_ordinal": 105,
+          "register_reaching_definition_unverified": true,
+          "original_guest_codegen_shard": "nfsmw_recomp.83.cpp"
+        },
+        {
+          "guest_function": "sub_824A2418",
+          "hash_preimage": "pvehicle",
+          "class_or_field_hash_hex": "4a97ec8f",
+          "guest_register": "r3",
+          "construction": "lis_then_ori",
+          "approx_guest_PPC_comment_instruction_ordinal": 148,
+          "register_reaching_definition_unverified": true,
+          "original_guest_codegen_shard": "nfsmw_recomp.85.cpp"
+        },
+        {
+          "guest_function": "sub_821E02C0",
+          "hash_preimage": "pvehicle",
+          "class_or_field_hash_hex": "4a97ec8f",
+          "guest_register": "r3",
+          "construction": "lis_then_ori",
+          "approx_guest_PPC_comment_instruction_ordinal": 7,
+          "register_reaching_definition_unverified": true,
+          "original_guest_codegen_shard": "nfsmw_recomp.86.cpp"
+        }
+      ]
+    },
+    "engine": {
+      "matches_total": 18,
+      "samples": [
+        {
+          "guest_function": "sub_823FF388",
+          "hash_preimage": "engine",
+          "class_or_field_hash_hex": "f1f5fbc7",
+          "guest_register": "r3",
+          "construction": "lis_then_ori",
+          "approx_guest_PPC_comment_instruction_ordinal": 9,
+          "register_reaching_definition_unverified": true,
+          "original_guest_codegen_shard": "nfsmw_recomp.1.cpp"
+        },
+        {
+          "guest_function": "sub_821B0F30",
+          "hash_preimage": "engine",
+          "class_or_field_hash_hex": "f1f5fbc7",
+          "guest_register": "r4",
+          "construction": "lis_then_ori",
+          "approx_guest_PPC_comment_instruction_ordinal": 9,
+          "register_reaching_definition_unverified": true,
+          "original_guest_codegen_shard": "nfsmw_recomp.105.cpp"
+        },
+        {
+          "guest_function": "sub_823E7508",
+          "hash_preimage": "engine",
+          "class_or_field_hash_hex": "f1f5fbc7",
+          "guest_register": "r4",
+          "construction": "lis_then_ori",
+          "approx_guest_PPC_comment_instruction_ordinal": 14,
+          "register_reaching_definition_unverified": true,
+          "original_guest_codegen_shard": "nfsmw_recomp.119.cpp"
+        },
+        {
+          "guest_function": "sub_823E8840",
+          "hash_preimage": "engine",
+          "class_or_field_hash_hex": "f1f5fbc7",
+          "guest_register": "r4",
+          "construction": "lis_then_ori",
+          "approx_guest_PPC_comment_instruction_ordinal": 35,
+          "register_reaching_definition_unverified": true,
+          "original_guest_codegen_shard": "nfsmw_recomp.120.cpp"
+        },
+        {
+          "guest_function": "sub_823FF3D0",
+          "hash_preimage": "engine",
+          "class_or_field_hash_hex": "f1f5fbc7",
+          "guest_register": "r3",
+          "construction": "lis_then_ori",
+          "approx_guest_PPC_comment_instruction_ordinal": 2,
+          "register_reaching_definition_unverified": true,
+          "original_guest_codegen_shard": "nfsmw_recomp.126.cpp"
+        },
+        {
+          "guest_function": "sub_823E7F78",
+          "hash_preimage": "engine",
+          "class_or_field_hash_hex": "f1f5fbc7",
+          "guest_register": "r4",
+          "construction": "lis_then_ori",
+          "approx_guest_PPC_comment_instruction_ordinal": 15,
+          "register_reaching_definition_unverified": true,
+          "original_guest_codegen_shard": "nfsmw_recomp.13.cpp"
+        },
+        {
+          "guest_function": "sub_821B1608",
+          "hash_preimage": "engine",
+          "class_or_field_hash_hex": "f1f5fbc7",
+          "guest_register": "r4",
+          "construction": "lis_then_ori",
+          "approx_guest_PPC_comment_instruction_ordinal": 152,
+          "register_reaching_definition_unverified": true,
+          "original_guest_codegen_shard": "nfsmw_recomp.2.cpp"
+        },
+        {
+          "guest_function": "sub_822A6DD0",
+          "hash_preimage": "engine",
+          "class_or_field_hash_hex": "f1f5fbc7",
+          "guest_register": "r4",
+          "construction": "lis_then_ori",
+          "approx_guest_PPC_comment_instruction_ordinal": 71,
+          "register_reaching_definition_unverified": true,
+          "original_guest_codegen_shard": "nfsmw_recomp.21.cpp"
+        },
+        {
+          "guest_function": "sub_823FF2D8",
+          "hash_preimage": "engine",
+          "class_or_field_hash_hex": "f1f5fbc7",
+          "guest_register": "r3",
+          "construction": "lis_then_ori",
+          "approx_guest_PPC_comment_instruction_ordinal": 7,
+          "register_reaching_definition_unverified": true,
+          "original_guest_codegen_shard": "nfsmw_recomp.23.cpp"
+        },
+        {
+          "guest_function": "sub_823E7D10",
+          "hash_preimage": "engine",
+          "class_or_field_hash_hex": "f1f5fbc7",
+          "guest_register": "r4",
+          "construction": "lis_then_ori",
+          "approx_guest_PPC_comment_instruction_ordinal": 14,
+          "register_reaching_definition_unverified": true,
+          "original_guest_codegen_shard": "nfsmw_recomp.30.cpp"
+        },
+        {
+          "guest_function": "sub_823E8B88",
+          "hash_preimage": "engine",
+          "class_or_field_hash_hex": "f1f5fbc7",
+          "guest_register": "r4",
+          "construction": "lis_then_ori",
+          "approx_guest_PPC_comment_instruction_ordinal": 34,
+          "register_reaching_definition_unverified": true,
+          "original_guest_codegen_shard": "nfsmw_recomp.34.cpp"
+        },
+        {
+          "guest_function": "sub_823E8218",
+          "hash_preimage": "engine",
+          "class_or_field_hash_hex": "f1f5fbc7",
+          "guest_register": "r4",
+          "construction": "lis_then_ori",
+          "approx_guest_PPC_comment_instruction_ordinal": 34,
+          "register_reaching_definition_unverified": true,
+          "original_guest_codegen_shard": "nfsmw_recomp.55.cpp"
+        },
+        {
+          "guest_function": "sub_823E8068",
+          "hash_preimage": "engine",
+          "class_or_field_hash_hex": "f1f5fbc7",
+          "guest_register": "r4",
+          "construction": "lis_then_ori",
+          "approx_guest_PPC_comment_instruction_ordinal": 13,
+          "register_reaching_definition_unverified": true,
+          "original_guest_codegen_shard": "nfsmw_recomp.56.cpp"
+        },
+        {
+          "guest_function": "sub_823EA3C0",
+          "hash_preimage": "engine",
+          "class_or_field_hash_hex": "f1f5fbc7",
+          "guest_register": "r4",
+          "construction": "lis_then_ori",
+          "approx_guest_PPC_comment_instruction_ordinal": 71,
+          "register_reaching_definition_unverified": true,
+          "original_guest_codegen_shard": "nfsmw_recomp.69.cpp"
+        },
+        {
+          "guest_function": "sub_82433D98",
+          "hash_preimage": "engine",
+          "class_or_field_hash_hex": "f1f5fbc7",
+          "guest_register": "r4",
+          "construction": "lis_then_ori",
+          "approx_guest_PPC_comment_instruction_ordinal": 19,
+          "register_reaching_definition_unverified": true,
+          "original_guest_codegen_shard": "nfsmw_recomp.81.cpp"
+        },
+        {
+          "guest_function": "sub_823E7B20",
+          "hash_preimage": "engine",
+          "class_or_field_hash_hex": "f1f5fbc7",
+          "guest_register": "r4",
+          "construction": "lis_then_ori",
+          "approx_guest_PPC_comment_instruction_ordinal": 15,
+          "register_reaching_definition_unverified": true,
+          "original_guest_codegen_shard": "nfsmw_recomp.83.cpp"
+        },
+        {
+          "guest_function": "sub_823E8148",
+          "hash_preimage": "engine",
+          "class_or_field_hash_hex": "f1f5fbc7",
+          "guest_register": "r4",
+          "construction": "lis_then_ori",
+          "approx_guest_PPC_comment_instruction_ordinal": 13,
+          "register_reaching_definition_unverified": true,
+          "original_guest_codegen_shard": "nfsmw_recomp.86.cpp"
+        },
+        {
+          "guest_function": "sub_823E8FA0",
+          "hash_preimage": "engine",
+          "class_or_field_hash_hex": "f1f5fbc7",
+          "guest_register": "r4",
+          "construction": "lis_then_ori",
+          "approx_guest_PPC_comment_instruction_ordinal": 21,
+          "register_reaching_definition_unverified": true,
+          "original_guest_codegen_shard": "nfsmw_recomp.90.cpp"
+        }
+      ]
+    },
+    "bmwm3gtr": {
+      "matches_total": 0,
+      "samples": []
+    },
+    "m3gtre46careerstart": {
+      "matches_total": 0,
+      "samples": []
+    },
+    "engine_upgrades": {
+      "matches_total": 0,
+      "samples": []
+    },
+    "transmission_upgrades": {
+      "matches_total": 0,
+      "samples": []
+    },
+    "nos_upgrades": {
+      "matches_total": 0,
+      "samples": []
+    },
+    "brakes_upgrades": {
+      "matches_total": 0,
+      "samples": []
+    },
+    "tires_upgrades": {
+      "matches_total": 0,
+      "samples": []
+    },
+    "induction_upgrades": {
+      "matches_total": 0,
+      "samples": []
+    },
+    "chassis_upgrades": {
+      "matches_total": 0,
+      "samples": []
+    },
+    "punto": {
+      "matches_total": 0,
+      "samples": []
+    }
+  },
+  "guest_same_base_five_or_more_counter_offsets_match_count": 159,
+  "guest_same_base_five_or_more_offsets_with_lwz_or_stw_store_count": 139,
+  "candidate_same_base_counter_offset_match_histogram": {
+    "7": 40,
+    "6": 34,
+    "5": 85
+  },
+  "bounded_guest_numeric_offset_fingerprint_candidates": [
+    {
+      "numeric_guest_function": "sub_821E11D8",
+      "PPC_base_register": "r31",
+      "different_pvehicle_field_offsets": 7,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        44,
+        48,
+        52,
+        60,
+        68,
+        72
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "transmission_upgrades",
+        "nos_upgrades",
+        "brakes_upgrades",
+        "tires_upgrades",
+        "induction_upgrades",
+        "chassis_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 0,
+      "total_PPC_stw_in_matches": 7,
+      "contains_PPC_store_to_any_matched_offset": true,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_8267A920",
+      "PPC_base_register": "r31",
+      "different_pvehicle_field_offsets": 6,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        44,
+        48,
+        60,
+        68,
+        72
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "transmission_upgrades",
+        "nos_upgrades",
+        "tires_upgrades",
+        "induction_upgrades",
+        "chassis_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 3,
+      "total_PPC_stw_in_matches": 6,
+      "contains_PPC_store_to_any_matched_offset": true,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_8275FCE8",
+      "PPC_base_register": "r31",
+      "different_pvehicle_field_offsets": 5,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        44,
+        48,
+        52,
+        60
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "transmission_upgrades",
+        "nos_upgrades",
+        "brakes_upgrades",
+        "tires_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 5,
+      "total_PPC_stw_in_matches": 0,
+      "contains_PPC_store_to_any_matched_offset": false,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_8220AC08",
+      "PPC_base_register": "r31",
+      "different_pvehicle_field_offsets": 5,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        44,
+        48,
+        52,
+        60
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "transmission_upgrades",
+        "nos_upgrades",
+        "brakes_upgrades",
+        "tires_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 17,
+      "total_PPC_stw_in_matches": 9,
+      "contains_PPC_store_to_any_matched_offset": true,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_82674FA0",
+      "PPC_base_register": "r31",
+      "different_pvehicle_field_offsets": 7,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        44,
+        48,
+        52,
+        60,
+        68,
+        72
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "transmission_upgrades",
+        "nos_upgrades",
+        "brakes_upgrades",
+        "tires_upgrades",
+        "induction_upgrades",
+        "chassis_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 0,
+      "total_PPC_stw_in_matches": 7,
+      "contains_PPC_store_to_any_matched_offset": true,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_8227CC08",
+      "PPC_base_register": "r31",
+      "different_pvehicle_field_offsets": 5,
+      "covered_pvehicle_upgrade_field_offsets": [
+        44,
+        48,
+        52,
+        60,
+        68
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "transmission_upgrades",
+        "nos_upgrades",
+        "brakes_upgrades",
+        "tires_upgrades",
+        "induction_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 0,
+      "total_PPC_stw_in_matches": 6,
+      "contains_PPC_store_to_any_matched_offset": true,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_8248B040",
+      "PPC_base_register": "r31",
+      "different_pvehicle_field_offsets": 5,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        44,
+        60,
+        68,
+        72
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "transmission_upgrades",
+        "tires_upgrades",
+        "induction_upgrades",
+        "chassis_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 1,
+      "total_PPC_stw_in_matches": 5,
+      "contains_PPC_store_to_any_matched_offset": true,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_828A61D8",
+      "PPC_base_register": "r31",
+      "different_pvehicle_field_offsets": 5,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        48,
+        52,
+        60,
+        72
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "nos_upgrades",
+        "brakes_upgrades",
+        "tires_upgrades",
+        "chassis_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 0,
+      "total_PPC_stw_in_matches": 5,
+      "contains_PPC_store_to_any_matched_offset": true,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_8289B8B0",
+      "PPC_base_register": "r31",
+      "different_pvehicle_field_offsets": 5,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        44,
+        48,
+        52,
+        72
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "transmission_upgrades",
+        "nos_upgrades",
+        "brakes_upgrades",
+        "chassis_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 0,
+      "total_PPC_stw_in_matches": 5,
+      "contains_PPC_store_to_any_matched_offset": true,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_8217D000",
+      "PPC_base_register": "r3",
+      "different_pvehicle_field_offsets": 7,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        44,
+        48,
+        52,
+        60,
+        68,
+        72
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "transmission_upgrades",
+        "nos_upgrades",
+        "brakes_upgrades",
+        "tires_upgrades",
+        "induction_upgrades",
+        "chassis_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 0,
+      "total_PPC_stw_in_matches": 7,
+      "contains_PPC_store_to_any_matched_offset": true,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_821EEC90",
+      "PPC_base_register": "r31",
+      "different_pvehicle_field_offsets": 5,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        44,
+        48,
+        52,
+        60
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "transmission_upgrades",
+        "nos_upgrades",
+        "brakes_upgrades",
+        "tires_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 5,
+      "total_PPC_stw_in_matches": 5,
+      "contains_PPC_store_to_any_matched_offset": true,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_82346FD8",
+      "PPC_base_register": "r3",
+      "different_pvehicle_field_offsets": 5,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        44,
+        48,
+        52,
+        60
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "transmission_upgrades",
+        "nos_upgrades",
+        "brakes_upgrades",
+        "tires_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 0,
+      "total_PPC_stw_in_matches": 5,
+      "contains_PPC_store_to_any_matched_offset": true,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_82666790",
+      "PPC_base_register": "r31",
+      "different_pvehicle_field_offsets": 6,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        44,
+        48,
+        52,
+        68,
+        72
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "transmission_upgrades",
+        "nos_upgrades",
+        "brakes_upgrades",
+        "induction_upgrades",
+        "chassis_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 0,
+      "total_PPC_stw_in_matches": 24,
+      "contains_PPC_store_to_any_matched_offset": true,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_828A56D8",
+      "PPC_base_register": "r6",
+      "different_pvehicle_field_offsets": 7,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        44,
+        48,
+        52,
+        60,
+        68,
+        72
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "transmission_upgrades",
+        "nos_upgrades",
+        "brakes_upgrades",
+        "tires_upgrades",
+        "induction_upgrades",
+        "chassis_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 0,
+      "total_PPC_stw_in_matches": 7,
+      "contains_PPC_store_to_any_matched_offset": true,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_821EE950",
+      "PPC_base_register": "r3",
+      "different_pvehicle_field_offsets": 6,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        44,
+        48,
+        52,
+        60,
+        72
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "transmission_upgrades",
+        "nos_upgrades",
+        "brakes_upgrades",
+        "tires_upgrades",
+        "chassis_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 0,
+      "total_PPC_stw_in_matches": 12,
+      "contains_PPC_store_to_any_matched_offset": true,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_8217DE28",
+      "PPC_base_register": "r11",
+      "different_pvehicle_field_offsets": 5,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        44,
+        48,
+        60,
+        68
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "transmission_upgrades",
+        "nos_upgrades",
+        "tires_upgrades",
+        "induction_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 0,
+      "total_PPC_stw_in_matches": 5,
+      "contains_PPC_store_to_any_matched_offset": true,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_825B2D08",
+      "PPC_base_register": "r3",
+      "different_pvehicle_field_offsets": 5,
+      "covered_pvehicle_upgrade_field_offsets": [
+        44,
+        52,
+        60,
+        68,
+        72
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "transmission_upgrades",
+        "brakes_upgrades",
+        "tires_upgrades",
+        "induction_upgrades",
+        "chassis_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 0,
+      "total_PPC_stw_in_matches": 5,
+      "contains_PPC_store_to_any_matched_offset": true,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_82719CB0",
+      "PPC_base_register": "r31",
+      "different_pvehicle_field_offsets": 7,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        44,
+        48,
+        52,
+        60,
+        68,
+        72
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "transmission_upgrades",
+        "nos_upgrades",
+        "brakes_upgrades",
+        "tires_upgrades",
+        "induction_upgrades",
+        "chassis_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 17,
+      "total_PPC_stw_in_matches": 5,
+      "contains_PPC_store_to_any_matched_offset": true,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_821CA360",
+      "PPC_base_register": "r31",
+      "different_pvehicle_field_offsets": 5,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        52,
+        60,
+        68,
+        72
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "brakes_upgrades",
+        "tires_upgrades",
+        "induction_upgrades",
+        "chassis_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 23,
+      "total_PPC_stw_in_matches": 9,
+      "contains_PPC_store_to_any_matched_offset": true,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_8236D210",
+      "PPC_base_register": "r3",
+      "different_pvehicle_field_offsets": 5,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        44,
+        48,
+        52,
+        60
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "transmission_upgrades",
+        "nos_upgrades",
+        "brakes_upgrades",
+        "tires_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 0,
+      "total_PPC_stw_in_matches": 5,
+      "contains_PPC_store_to_any_matched_offset": true,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_8267ED78",
+      "PPC_base_register": "r30",
+      "different_pvehicle_field_offsets": 6,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        44,
+        48,
+        52,
+        60,
+        68
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "transmission_upgrades",
+        "nos_upgrades",
+        "brakes_upgrades",
+        "tires_upgrades",
+        "induction_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 0,
+      "total_PPC_stw_in_matches": 6,
+      "contains_PPC_store_to_any_matched_offset": true,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_824985D0",
+      "PPC_base_register": "r31",
+      "different_pvehicle_field_offsets": 6,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        44,
+        48,
+        52,
+        60,
+        68
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "transmission_upgrades",
+        "nos_upgrades",
+        "brakes_upgrades",
+        "tires_upgrades",
+        "induction_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 0,
+      "total_PPC_stw_in_matches": 6,
+      "contains_PPC_store_to_any_matched_offset": true,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_828A5508",
+      "PPC_base_register": "r11",
+      "different_pvehicle_field_offsets": 5,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        44,
+        48,
+        60,
+        72
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "transmission_upgrades",
+        "nos_upgrades",
+        "tires_upgrades",
+        "chassis_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 0,
+      "total_PPC_stw_in_matches": 5,
+      "contains_PPC_store_to_any_matched_offset": true,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_82682468",
+      "PPC_base_register": "r11",
+      "different_pvehicle_field_offsets": 5,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        44,
+        48,
+        52,
+        60
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "transmission_upgrades",
+        "nos_upgrades",
+        "brakes_upgrades",
+        "tires_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 5,
+      "total_PPC_stw_in_matches": 0,
+      "contains_PPC_store_to_any_matched_offset": false,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_8276AFE0",
+      "PPC_base_register": "r11",
+      "different_pvehicle_field_offsets": 7,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        44,
+        48,
+        52,
+        60,
+        68,
+        72
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "transmission_upgrades",
+        "nos_upgrades",
+        "brakes_upgrades",
+        "tires_upgrades",
+        "induction_upgrades",
+        "chassis_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 0,
+      "total_PPC_stw_in_matches": 7,
+      "contains_PPC_store_to_any_matched_offset": true,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_82683D40",
+      "PPC_base_register": "r29",
+      "different_pvehicle_field_offsets": 5,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        44,
+        48,
+        52,
+        60
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "transmission_upgrades",
+        "nos_upgrades",
+        "brakes_upgrades",
+        "tires_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 0,
+      "total_PPC_stw_in_matches": 5,
+      "contains_PPC_store_to_any_matched_offset": true,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_82272240",
+      "PPC_base_register": "r30",
+      "different_pvehicle_field_offsets": 7,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        44,
+        48,
+        52,
+        60,
+        68,
+        72
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "transmission_upgrades",
+        "nos_upgrades",
+        "brakes_upgrades",
+        "tires_upgrades",
+        "induction_upgrades",
+        "chassis_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 0,
+      "total_PPC_stw_in_matches": 7,
+      "contains_PPC_store_to_any_matched_offset": true,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_824EE000",
+      "PPC_base_register": "r31",
+      "different_pvehicle_field_offsets": 5,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        44,
+        48,
+        52,
+        60
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "transmission_upgrades",
+        "nos_upgrades",
+        "brakes_upgrades",
+        "tires_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 0,
+      "total_PPC_stw_in_matches": 6,
+      "contains_PPC_store_to_any_matched_offset": true,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_825B28F8",
+      "PPC_base_register": "r3",
+      "different_pvehicle_field_offsets": 5,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        44,
+        52,
+        60,
+        72
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "transmission_upgrades",
+        "brakes_upgrades",
+        "tires_upgrades",
+        "chassis_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 0,
+      "total_PPC_stw_in_matches": 5,
+      "contains_PPC_store_to_any_matched_offset": true,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_821EEF58",
+      "PPC_base_register": "r31",
+      "different_pvehicle_field_offsets": 5,
+      "covered_pvehicle_upgrade_field_offsets": [
+        44,
+        48,
+        52,
+        60,
+        72
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "transmission_upgrades",
+        "nos_upgrades",
+        "brakes_upgrades",
+        "tires_upgrades",
+        "chassis_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 11,
+      "total_PPC_stw_in_matches": 4,
+      "contains_PPC_store_to_any_matched_offset": true,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_82206A60",
+      "PPC_base_register": "r31",
+      "different_pvehicle_field_offsets": 5,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        44,
+        48,
+        52,
+        60
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "transmission_upgrades",
+        "nos_upgrades",
+        "brakes_upgrades",
+        "tires_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 0,
+      "total_PPC_stw_in_matches": 5,
+      "contains_PPC_store_to_any_matched_offset": true,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_82319480",
+      "PPC_base_register": "r3",
+      "different_pvehicle_field_offsets": 5,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        44,
+        48,
+        52,
+        60
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "transmission_upgrades",
+        "nos_upgrades",
+        "brakes_upgrades",
+        "tires_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 5,
+      "total_PPC_stw_in_matches": 0,
+      "contains_PPC_store_to_any_matched_offset": false,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_82319480",
+      "PPC_base_register": "r4",
+      "different_pvehicle_field_offsets": 5,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        44,
+        48,
+        52,
+        60
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "transmission_upgrades",
+        "nos_upgrades",
+        "brakes_upgrades",
+        "tires_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 0,
+      "total_PPC_stw_in_matches": 5,
+      "contains_PPC_store_to_any_matched_offset": true,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_8253B5B8",
+      "PPC_base_register": "r31",
+      "different_pvehicle_field_offsets": 7,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        44,
+        48,
+        52,
+        60,
+        68,
+        72
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "transmission_upgrades",
+        "nos_upgrades",
+        "brakes_upgrades",
+        "tires_upgrades",
+        "induction_upgrades",
+        "chassis_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 0,
+      "total_PPC_stw_in_matches": 7,
+      "contains_PPC_store_to_any_matched_offset": true,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_825F2958",
+      "PPC_base_register": "r31",
+      "different_pvehicle_field_offsets": 5,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        44,
+        48,
+        52,
+        60
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "transmission_upgrades",
+        "nos_upgrades",
+        "brakes_upgrades",
+        "tires_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 0,
+      "total_PPC_stw_in_matches": 5,
+      "contains_PPC_store_to_any_matched_offset": true,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_82694EC0",
+      "PPC_base_register": "r28",
+      "different_pvehicle_field_offsets": 7,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        44,
+        48,
+        52,
+        60,
+        68,
+        72
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "transmission_upgrades",
+        "nos_upgrades",
+        "brakes_upgrades",
+        "tires_upgrades",
+        "induction_upgrades",
+        "chassis_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 53,
+      "total_PPC_stw_in_matches": 0,
+      "contains_PPC_store_to_any_matched_offset": false,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_82137068",
+      "PPC_base_register": "r3",
+      "different_pvehicle_field_offsets": 6,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        44,
+        48,
+        52,
+        60,
+        72
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "transmission_upgrades",
+        "nos_upgrades",
+        "brakes_upgrades",
+        "tires_upgrades",
+        "chassis_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 0,
+      "total_PPC_stw_in_matches": 6,
+      "contains_PPC_store_to_any_matched_offset": true,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_825ADA08",
+      "PPC_base_register": "r3",
+      "different_pvehicle_field_offsets": 5,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        44,
+        48,
+        68,
+        72
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "transmission_upgrades",
+        "nos_upgrades",
+        "induction_upgrades",
+        "chassis_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 0,
+      "total_PPC_stw_in_matches": 5,
+      "contains_PPC_store_to_any_matched_offset": true,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_82458310",
+      "PPC_base_register": "r3",
+      "different_pvehicle_field_offsets": 7,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        44,
+        48,
+        52,
+        60,
+        68,
+        72
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "transmission_upgrades",
+        "nos_upgrades",
+        "brakes_upgrades",
+        "tires_upgrades",
+        "induction_upgrades",
+        "chassis_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 0,
+      "total_PPC_stw_in_matches": 7,
+      "contains_PPC_store_to_any_matched_offset": true,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    },
+    {
+      "numeric_guest_function": "sub_824EC6E8",
+      "PPC_base_register": "r3",
+      "different_pvehicle_field_offsets": 7,
+      "covered_pvehicle_upgrade_field_offsets": [
+        40,
+        44,
+        48,
+        52,
+        60,
+        68,
+        72
+      ],
+      "known_field_names_matched_on_layout_only": [
+        "engine_upgrades",
+        "transmission_upgrades",
+        "nos_upgrades",
+        "brakes_upgrades",
+        "tires_upgrades",
+        "induction_upgrades",
+        "chassis_upgrades"
+      ],
+      "total_PPC_lwz_in_matches": 0,
+      "total_PPC_stw_in_matches": 7,
+      "contains_PPC_store_to_any_matched_offset": true,
+      "offsets_are_binary_VPAK_layout_not_proven_guest_runtime_layout": true
+    }
+  ],
+  "PPC_lis_ori_short_window_does_not_exclude_other_hash_loading_methods": true,
+  "PPC_same_base_offsets_not_proven_VLT_runtime_pvehicle_object": true,
+  "counter_fields_are_UPGRADE_AVAILABILITY_not_installed_package": true,
+  "guest_PhysicsUpgrades_SetPackage_address_identified": false,
+  "game_guest_checkout_package_persistence_proven": false,
+  "guest_motor_collection_load_accepted": false,
+  "game_data_or_guest_code_modified_or_published": false,
+  "APK_built": false,
+  "save_modified": false,
+  "signing_material_accessed": false,
+  "BMW_tuning_enabled": false,
+  "run_id": "42543274703",
+  "utc": "2026-11-09T01:02:22.845716+00:00"
+}
