@@ -1,0 +1,8 @@
+{
+  "stage": "PRE596_BMW_ENGINE_ONE_BYTE_GUEST_COUNTER_SEMANTICS_GATE",
+  "status": "FAILED",
+  "error_type": "ValueError",
+  "error": "Uploaded real-device log summary missing",
+  "run_id": "42580158603",
+  "utc": "2026-11-09T07:34:16.700415+00:00"
+}
