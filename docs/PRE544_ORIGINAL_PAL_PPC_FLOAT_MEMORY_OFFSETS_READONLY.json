@@ -1,0 +1,1188 @@
+{
+  "stage": "PRE544_ORIGINAL_PAL_PPC_FLOAT_MEMORY_BASE_REGISTER_CLASSIFICATION_READONLY",
+  "status": "AUDIT_OK",
+  "original_PRE99_archive_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "original_PRE99_archive_bytes": 874780689,
+  "guest_codegen_shards_seen": 129,
+  "guest_functions_audited": 6,
+  "original_guest_memory_operand_metadata": {
+    "sub_823E4588": {
+      "numeric_guest_function": "sub_823E4588",
+      "source_shard_sha256": "4ca7b1a401ab9a0ea4e07f57e011a8750461b289aa4031f5b9d3801bb227086c",
+      "PPC_memory_instruction_counts": {
+        "stw": 1,
+        "std": 1,
+        "lwz": 3,
+        "ld": 1
+      },
+      "unparsed_PPC_memory_operand_count_by_opcode": {},
+      "PPC_memory_op_and_base_register_counts": {
+        "stw@r1": 1,
+        "std@r1": 1,
+        "lwz@r3": 1,
+        "lwz@r11": 1,
+        "lwz@r1": 1,
+        "ld@r1": 1
+      },
+      "PPC_fp_memory_access_sites": [],
+      "PPC_r1_stack_memory_instruction_counts": {
+        "stw": 1,
+        "std": 1,
+        "lwz": 1,
+        "ld": 1
+      },
+      "PPC_non_r1_memory_instruction_counts": {
+        "lwz": 2
+      },
+      "top_PPC_memory_op_base_offset_counts": [
+        {
+          "opcode": "stw",
+          "base": "r1",
+          "signed_offset": -8,
+          "count": 1
+        },
+        {
+          "opcode": "std",
+          "base": "r1",
+          "signed_offset": -16,
+          "count": 1
+        },
+        {
+          "opcode": "lwz",
+          "base": "r3",
+          "signed_offset": 4,
+          "count": 1
+        },
+        {
+          "opcode": "lwz",
+          "base": "r11",
+          "signed_offset": 0,
+          "count": 1
+        },
+        {
+          "opcode": "lwz",
+          "base": "r1",
+          "signed_offset": -8,
+          "count": 1
+        },
+        {
+          "opcode": "ld",
+          "base": "r1",
+          "signed_offset": -16,
+          "count": 1
+        }
+      ],
+      "PPC_comment_offsets_are_not_executed_dataflow": true
+    },
+    "sub_823EB290": {
+      "numeric_guest_function": "sub_823EB290",
+      "source_shard_sha256": "3c4ea677142919989b0a5f9e2e18efc3b7aecf90c537ff2b1271146691e6292a",
+      "PPC_memory_instruction_counts": {
+        "stw": 4,
+        "std": 2,
+        "lwz": 12,
+        "lhz": 1,
+        "ld": 2
+      },
+      "unparsed_PPC_memory_operand_count_by_opcode": {},
+      "PPC_memory_op_and_base_register_counts": {
+        "stw@r1": 1,
+        "std@r1": 2,
+        "lwz@r31": 1,
+        "lwz@r10": 3,
+        "lhz@r31": 1,
+        "lwz@r11": 6,
+        "lwz@r9": 1,
+        "stw@r30": 3,
+        "lwz@r1": 1,
+        "ld@r1": 2
+      },
+      "PPC_fp_memory_access_sites": [],
+      "PPC_r1_stack_memory_instruction_counts": {
+        "stw": 1,
+        "std": 2,
+        "lwz": 1,
+        "ld": 2
+      },
+      "PPC_non_r1_memory_instruction_counts": {
+        "lwz": 11,
+        "lhz": 1,
+        "stw": 3
+      },
+      "top_PPC_memory_op_base_offset_counts": [
+        {
+          "opcode": "lwz",
+          "base": "r11",
+          "signed_offset": 4,
+          "count": 2
+        },
+        {
+          "opcode": "stw",
+          "base": "r1",
+          "signed_offset": -8,
+          "count": 1
+        },
+        {
+          "opcode": "std",
+          "base": "r1",
+          "signed_offset": -24,
+          "count": 1
+        },
+        {
+          "opcode": "std",
+          "base": "r1",
+          "signed_offset": -16,
+          "count": 1
+        },
+        {
+          "opcode": "lwz",
+          "base": "r31",
+          "signed_offset": 4,
+          "count": 1
+        },
+        {
+          "opcode": "lwz",
+          "base": "r10",
+          "signed_offset": 32,
+          "count": 1
+        },
+        {
+          "opcode": "lhz",
+          "base": "r31",
+          "signed_offset": 16,
+          "count": 1
+        },
+        {
+          "opcode": "lwz",
+          "base": "r10",
+          "signed_offset": 16,
+          "count": 1
+        },
+        {
+          "opcode": "lwz",
+          "base": "r11",
+          "signed_offset": 32,
+          "count": 1
+        },
+        {
+          "opcode": "lwz",
+          "base": "r9",
+          "signed_offset": 0,
+          "count": 1
+        },
+        {
+          "opcode": "lwz",
+          "base": "r11",
+          "signed_offset": 36,
+          "count": 1
+        },
+        {
+          "opcode": "lwz",
+          "base": "r10",
+          "signed_offset": 0,
+          "count": 1
+        },
+        {
+          "opcode": "lwz",
+          "base": "r11",
+          "signed_offset": 0,
+          "count": 1
+        },
+        {
+          "opcode": "stw",
+          "base": "r30",
+          "signed_offset": 0,
+          "count": 1
+        },
+        {
+          "opcode": "stw",
+          "base": "r30",
+          "signed_offset": 4,
+          "count": 1
+        },
+        {
+          "opcode": "lwz",
+          "base": "r11",
+          "signed_offset": 8,
+          "count": 1
+        },
+        {
+          "opcode": "stw",
+          "base": "r30",
+          "signed_offset": 8,
+          "count": 1
+        },
+        {
+          "opcode": "lwz",
+          "base": "r1",
+          "signed_offset": -8,
+          "count": 1
+        },
+        {
+          "opcode": "ld",
+          "base": "r1",
+          "signed_offset": -24,
+          "count": 1
+        },
+        {
+          "opcode": "ld",
+          "base": "r1",
+          "signed_offset": -16,
+          "count": 1
+        }
+      ],
+      "PPC_comment_offsets_are_not_executed_dataflow": true
+    },
+    "sub_823E5988": {
+      "numeric_guest_function": "sub_823E5988",
+      "source_shard_sha256": "11eec8fe3d20dc5d53e262525a4cf31021c2bbfb28e2690b6372c6c3cbea4aad",
+      "PPC_memory_instruction_counts": {
+        "stw": 5,
+        "lwz": 11,
+        "lhz": 2,
+        "sth": 2
+      },
+      "unparsed_PPC_memory_operand_count_by_opcode": {},
+      "PPC_memory_op_and_base_register_counts": {
+        "stw@r1": 5,
+        "lwz@r10": 1,
+        "lwz@r11": 4,
+        "lwz@r1": 6,
+        "lhz@r11": 2,
+        "sth@r11": 2
+      },
+      "PPC_fp_memory_access_sites": [],
+      "PPC_r1_stack_memory_instruction_counts": {
+        "stw": 5,
+        "lwz": 6
+      },
+      "PPC_non_r1_memory_instruction_counts": {
+        "lwz": 5,
+        "lhz": 2,
+        "sth": 2
+      },
+      "top_PPC_memory_op_base_offset_counts": [
+        {
+          "opcode": "lwz",
+          "base": "r1",
+          "signed_offset": -8,
+          "count": 3
+        },
+        {
+          "opcode": "lwz",
+          "base": "r11",
+          "signed_offset": 0,
+          "count": 2
+        },
+        {
+          "opcode": "lwz",
+          "base": "r1",
+          "signed_offset": 80,
+          "count": 2
+        },
+        {
+          "opcode": "lhz",
+          "base": "r11",
+          "signed_offset": 18,
+          "count": 2
+        },
+        {
+          "opcode": "sth",
+          "base": "r11",
+          "signed_offset": 18,
+          "count": 2
+        },
+        {
+          "opcode": "stw",
+          "base": "r1",
+          "signed_offset": -8,
+          "count": 1
+        },
+        {
+          "opcode": "stw",
+          "base": "r1",
+          "signed_offset": 80,
+          "count": 1
+        },
+        {
+          "opcode": "stw",
+          "base": "r1",
+          "signed_offset": 84,
+          "count": 1
+        },
+        {
+          "opcode": "stw",
+          "base": "r1",
+          "signed_offset": 88,
+          "count": 1
+        },
+        {
+          "opcode": "stw",
+          "base": "r1",
+          "signed_offset": 92,
+          "count": 1
+        },
+        {
+          "opcode": "lwz",
+          "base": "r10",
+          "signed_offset": 8,
+          "count": 1
+        },
+        {
+          "opcode": "lwz",
+          "base": "r11",
+          "signed_offset": 8,
+          "count": 1
+        },
+        {
+          "opcode": "lwz",
+          "base": "r11",
+          "signed_offset": 12,
+          "count": 1
+        },
+        {
+          "opcode": "lwz",
+          "base": "r1",
+          "signed_offset": 92,
+          "count": 1
+        }
+      ],
+      "PPC_comment_offsets_are_not_executed_dataflow": true
+    },
+    "sub_823E4130": {
+      "numeric_guest_function": "sub_823E4130",
+      "source_shard_sha256": "baa3b79ea54b3aab4f4afd9db4d501e32e29a970cdd84c6a945a91fe56842e03",
+      "PPC_memory_instruction_counts": {
+        "lfs": 2,
+        "std": 2,
+        "lfd": 2
+      },
+      "unparsed_PPC_memory_operand_count_by_opcode": {},
+      "PPC_memory_op_and_base_register_counts": {
+        "lfs@r11": 2,
+        "std@r1": 2,
+        "lfd@r1": 2
+      },
+      "PPC_fp_memory_access_sites": [
+        {
+          "ppc_opcode": "lfs",
+          "base_guest_register": "r11",
+          "signed_offset_bytes": -4944,
+          "function_relative_source_line": 35,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "lfs",
+          "base_guest_register": "r11",
+          "signed_offset_bytes": 12344,
+          "function_relative_source_line": 57,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "lfd",
+          "base_guest_register": "r1",
+          "signed_offset_bytes": 80,
+          "function_relative_source_line": 74,
+          "r1_stack_relative": true
+        },
+        {
+          "ppc_opcode": "lfd",
+          "base_guest_register": "r1",
+          "signed_offset_bytes": 88,
+          "function_relative_source_line": 77,
+          "r1_stack_relative": true
+        }
+      ],
+      "PPC_r1_stack_memory_instruction_counts": {
+        "std": 2,
+        "lfd": 2
+      },
+      "PPC_non_r1_memory_instruction_counts": {
+        "lfs": 2
+      },
+      "top_PPC_memory_op_base_offset_counts": [
+        {
+          "opcode": "lfs",
+          "base": "r11",
+          "signed_offset": -4944,
+          "count": 1
+        },
+        {
+          "opcode": "lfs",
+          "base": "r11",
+          "signed_offset": 12344,
+          "count": 1
+        },
+        {
+          "opcode": "std",
+          "base": "r1",
+          "signed_offset": 80,
+          "count": 1
+        },
+        {
+          "opcode": "std",
+          "base": "r1",
+          "signed_offset": 88,
+          "count": 1
+        },
+        {
+          "opcode": "lfd",
+          "base": "r1",
+          "signed_offset": 80,
+          "count": 1
+        },
+        {
+          "opcode": "lfd",
+          "base": "r1",
+          "signed_offset": 88,
+          "count": 1
+        }
+      ],
+      "PPC_comment_offsets_are_not_executed_dataflow": true
+    },
+    "sub_823EB3B0": {
+      "numeric_guest_function": "sub_823EB3B0",
+      "source_shard_sha256": "3653846cbc173073ca4589d0e61bd322551f18432030d1c76ff44699e5b51637",
+      "PPC_memory_instruction_counts": {
+        "stw": 4,
+        "std": 2,
+        "lwz": 12,
+        "lhz": 1,
+        "ld": 2
+      },
+      "unparsed_PPC_memory_operand_count_by_opcode": {},
+      "PPC_memory_op_and_base_register_counts": {
+        "stw@r1": 1,
+        "std@r1": 2,
+        "lwz@r31": 1,
+        "lwz@r10": 3,
+        "lhz@r31": 1,
+        "lwz@r11": 6,
+        "lwz@r9": 1,
+        "stw@r30": 3,
+        "lwz@r1": 1,
+        "ld@r1": 2
+      },
+      "PPC_fp_memory_access_sites": [],
+      "PPC_r1_stack_memory_instruction_counts": {
+        "stw": 1,
+        "std": 2,
+        "lwz": 1,
+        "ld": 2
+      },
+      "PPC_non_r1_memory_instruction_counts": {
+        "lwz": 11,
+        "lhz": 1,
+        "stw": 3
+      },
+      "top_PPC_memory_op_base_offset_counts": [
+        {
+          "opcode": "lwz",
+          "base": "r11",
+          "signed_offset": 4,
+          "count": 2
+        },
+        {
+          "opcode": "stw",
+          "base": "r1",
+          "signed_offset": -8,
+          "count": 1
+        },
+        {
+          "opcode": "std",
+          "base": "r1",
+          "signed_offset": -24,
+          "count": 1
+        },
+        {
+          "opcode": "std",
+          "base": "r1",
+          "signed_offset": -16,
+          "count": 1
+        },
+        {
+          "opcode": "lwz",
+          "base": "r31",
+          "signed_offset": 4,
+          "count": 1
+        },
+        {
+          "opcode": "lwz",
+          "base": "r10",
+          "signed_offset": 32,
+          "count": 1
+        },
+        {
+          "opcode": "lhz",
+          "base": "r31",
+          "signed_offset": 16,
+          "count": 1
+        },
+        {
+          "opcode": "lwz",
+          "base": "r10",
+          "signed_offset": 16,
+          "count": 1
+        },
+        {
+          "opcode": "lwz",
+          "base": "r11",
+          "signed_offset": 32,
+          "count": 1
+        },
+        {
+          "opcode": "lwz",
+          "base": "r9",
+          "signed_offset": 0,
+          "count": 1
+        },
+        {
+          "opcode": "lwz",
+          "base": "r11",
+          "signed_offset": 36,
+          "count": 1
+        },
+        {
+          "opcode": "lwz",
+          "base": "r10",
+          "signed_offset": 0,
+          "count": 1
+        },
+        {
+          "opcode": "lwz",
+          "base": "r11",
+          "signed_offset": 0,
+          "count": 1
+        },
+        {
+          "opcode": "stw",
+          "base": "r30",
+          "signed_offset": 0,
+          "count": 1
+        },
+        {
+          "opcode": "stw",
+          "base": "r30",
+          "signed_offset": 4,
+          "count": 1
+        },
+        {
+          "opcode": "lwz",
+          "base": "r11",
+          "signed_offset": 8,
+          "count": 1
+        },
+        {
+          "opcode": "stw",
+          "base": "r30",
+          "signed_offset": 8,
+          "count": 1
+        },
+        {
+          "opcode": "lwz",
+          "base": "r1",
+          "signed_offset": -8,
+          "count": 1
+        },
+        {
+          "opcode": "ld",
+          "base": "r1",
+          "signed_offset": -24,
+          "count": 1
+        },
+        {
+          "opcode": "ld",
+          "base": "r1",
+          "signed_offset": -16,
+          "count": 1
+        }
+      ],
+      "PPC_comment_offsets_are_not_executed_dataflow": true
+    },
+    "sub_823EAE40": {
+      "numeric_guest_function": "sub_823EAE40",
+      "source_shard_sha256": "e8c85788d811c0cb9390c35705ea4e60bb7dbd4210ce73d19d6d03358e5cfbf3",
+      "PPC_memory_instruction_counts": {
+        "lfs": 32,
+        "stfs": 24
+      },
+      "unparsed_PPC_memory_operand_count_by_opcode": {},
+      "PPC_memory_op_and_base_register_counts": {
+        "lfs@r25": 4,
+        "stfs@r1": 6,
+        "stfs@r31": 18,
+        "lfs@r30": 3,
+        "lfs@r28": 2,
+        "lfs@r31": 11,
+        "lfs@r1": 12
+      },
+      "PPC_fp_memory_access_sites": [
+        {
+          "ppc_opcode": "lfs",
+          "base_guest_register": "r25",
+          "signed_offset_bytes": -4944,
+          "function_relative_source_line": 49,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "stfs",
+          "base_guest_register": "r1",
+          "signed_offset_bytes": 80,
+          "function_relative_source_line": 53,
+          "r1_stack_relative": true
+        },
+        {
+          "ppc_opcode": "stfs",
+          "base_guest_register": "r1",
+          "signed_offset_bytes": 84,
+          "function_relative_source_line": 56,
+          "r1_stack_relative": true
+        },
+        {
+          "ppc_opcode": "stfs",
+          "base_guest_register": "r1",
+          "signed_offset_bytes": 88,
+          "function_relative_source_line": 59,
+          "r1_stack_relative": true
+        },
+        {
+          "ppc_opcode": "stfs",
+          "base_guest_register": "r1",
+          "signed_offset_bytes": 96,
+          "function_relative_source_line": 62,
+          "r1_stack_relative": true
+        },
+        {
+          "ppc_opcode": "stfs",
+          "base_guest_register": "r1",
+          "signed_offset_bytes": 100,
+          "function_relative_source_line": 65,
+          "r1_stack_relative": true
+        },
+        {
+          "ppc_opcode": "stfs",
+          "base_guest_register": "r1",
+          "signed_offset_bytes": 104,
+          "function_relative_source_line": 68,
+          "r1_stack_relative": true
+        },
+        {
+          "ppc_opcode": "stfs",
+          "base_guest_register": "r31",
+          "signed_offset_bytes": 0,
+          "function_relative_source_line": 107,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "stfs",
+          "base_guest_register": "r31",
+          "signed_offset_bytes": 8,
+          "function_relative_source_line": 111,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "stfs",
+          "base_guest_register": "r31",
+          "signed_offset_bytes": 4,
+          "function_relative_source_line": 118,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "lfs",
+          "base_guest_register": "r30",
+          "signed_offset_bytes": -4,
+          "function_relative_source_line": 151,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "lfs",
+          "base_guest_register": "r30",
+          "signed_offset_bytes": 0,
+          "function_relative_source_line": 157,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "lfs",
+          "base_guest_register": "r28",
+          "signed_offset_bytes": 0,
+          "function_relative_source_line": 166,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "lfs",
+          "base_guest_register": "r31",
+          "signed_offset_bytes": 4,
+          "function_relative_source_line": 190,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "stfs",
+          "base_guest_register": "r31",
+          "signed_offset_bytes": 4,
+          "function_relative_source_line": 198,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "lfs",
+          "base_guest_register": "r30",
+          "signed_offset_bytes": 0,
+          "function_relative_source_line": 201,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "lfs",
+          "base_guest_register": "r31",
+          "signed_offset_bytes": 8,
+          "function_relative_source_line": 206,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "stfs",
+          "base_guest_register": "r31",
+          "signed_offset_bytes": 8,
+          "function_relative_source_line": 213,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "lfs",
+          "base_guest_register": "r28",
+          "signed_offset_bytes": 0,
+          "function_relative_source_line": 216,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "lfs",
+          "base_guest_register": "r31",
+          "signed_offset_bytes": 0,
+          "function_relative_source_line": 221,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "stfs",
+          "base_guest_register": "r31",
+          "signed_offset_bytes": 0,
+          "function_relative_source_line": 230,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "lfs",
+          "base_guest_register": "r25",
+          "signed_offset_bytes": -8800,
+          "function_relative_source_line": 237,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "stfs",
+          "base_guest_register": "r31",
+          "signed_offset_bytes": 4,
+          "function_relative_source_line": 248,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "lfs",
+          "base_guest_register": "r31",
+          "signed_offset_bytes": 8,
+          "function_relative_source_line": 257,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "stfs",
+          "base_guest_register": "r31",
+          "signed_offset_bytes": 8,
+          "function_relative_source_line": 262,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "lfs",
+          "base_guest_register": "r31",
+          "signed_offset_bytes": 0,
+          "function_relative_source_line": 271,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "stfs",
+          "base_guest_register": "r31",
+          "signed_offset_bytes": 0,
+          "function_relative_source_line": 276,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "lfs",
+          "base_guest_register": "r25",
+          "signed_offset_bytes": 2280,
+          "function_relative_source_line": 280,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "lfs",
+          "base_guest_register": "r25",
+          "signed_offset_bytes": 0,
+          "function_relative_source_line": 286,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "lfs",
+          "base_guest_register": "r1",
+          "signed_offset_bytes": 100,
+          "function_relative_source_line": 291,
+          "r1_stack_relative": true
+        },
+        {
+          "ppc_opcode": "lfs",
+          "base_guest_register": "r1",
+          "signed_offset_bytes": 84,
+          "function_relative_source_line": 298,
+          "r1_stack_relative": true
+        },
+        {
+          "ppc_opcode": "lfs",
+          "base_guest_register": "r31",
+          "signed_offset_bytes": 4,
+          "function_relative_source_line": 301,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "stfs",
+          "base_guest_register": "r31",
+          "signed_offset_bytes": 4,
+          "function_relative_source_line": 310,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "stfs",
+          "base_guest_register": "r31",
+          "signed_offset_bytes": 4,
+          "function_relative_source_line": 326,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "lfs",
+          "base_guest_register": "r1",
+          "signed_offset_bytes": 84,
+          "function_relative_source_line": 333,
+          "r1_stack_relative": true
+        },
+        {
+          "ppc_opcode": "lfs",
+          "base_guest_register": "r1",
+          "signed_offset_bytes": 100,
+          "function_relative_source_line": 337,
+          "r1_stack_relative": true
+        },
+        {
+          "ppc_opcode": "lfs",
+          "base_guest_register": "r1",
+          "signed_offset_bytes": 104,
+          "function_relative_source_line": 346,
+          "r1_stack_relative": true
+        },
+        {
+          "ppc_opcode": "lfs",
+          "base_guest_register": "r1",
+          "signed_offset_bytes": 88,
+          "function_relative_source_line": 353,
+          "r1_stack_relative": true
+        },
+        {
+          "ppc_opcode": "lfs",
+          "base_guest_register": "r31",
+          "signed_offset_bytes": 8,
+          "function_relative_source_line": 356,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "stfs",
+          "base_guest_register": "r31",
+          "signed_offset_bytes": 8,
+          "function_relative_source_line": 365,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "stfs",
+          "base_guest_register": "r31",
+          "signed_offset_bytes": 8,
+          "function_relative_source_line": 381,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "lfs",
+          "base_guest_register": "r1",
+          "signed_offset_bytes": 88,
+          "function_relative_source_line": 388,
+          "r1_stack_relative": true
+        },
+        {
+          "ppc_opcode": "lfs",
+          "base_guest_register": "r1",
+          "signed_offset_bytes": 104,
+          "function_relative_source_line": 392,
+          "r1_stack_relative": true
+        },
+        {
+          "ppc_opcode": "lfs",
+          "base_guest_register": "r1",
+          "signed_offset_bytes": 96,
+          "function_relative_source_line": 401,
+          "r1_stack_relative": true
+        },
+        {
+          "ppc_opcode": "lfs",
+          "base_guest_register": "r1",
+          "signed_offset_bytes": 80,
+          "function_relative_source_line": 408,
+          "r1_stack_relative": true
+        },
+        {
+          "ppc_opcode": "lfs",
+          "base_guest_register": "r31",
+          "signed_offset_bytes": 0,
+          "function_relative_source_line": 411,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "stfs",
+          "base_guest_register": "r31",
+          "signed_offset_bytes": 0,
+          "function_relative_source_line": 420,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "stfs",
+          "base_guest_register": "r31",
+          "signed_offset_bytes": 0,
+          "function_relative_source_line": 436,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "lfs",
+          "base_guest_register": "r1",
+          "signed_offset_bytes": 80,
+          "function_relative_source_line": 443,
+          "r1_stack_relative": true
+        },
+        {
+          "ppc_opcode": "lfs",
+          "base_guest_register": "r1",
+          "signed_offset_bytes": 96,
+          "function_relative_source_line": 447,
+          "r1_stack_relative": true
+        },
+        {
+          "ppc_opcode": "lfs",
+          "base_guest_register": "r31",
+          "signed_offset_bytes": 4,
+          "function_relative_source_line": 454,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "lfs",
+          "base_guest_register": "r31",
+          "signed_offset_bytes": 8,
+          "function_relative_source_line": 459,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "lfs",
+          "base_guest_register": "r31",
+          "signed_offset_bytes": 0,
+          "function_relative_source_line": 464,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "stfs",
+          "base_guest_register": "r31",
+          "signed_offset_bytes": 4,
+          "function_relative_source_line": 471,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "stfs",
+          "base_guest_register": "r31",
+          "signed_offset_bytes": 8,
+          "function_relative_source_line": 476,
+          "r1_stack_relative": false
+        },
+        {
+          "ppc_opcode": "stfs",
+          "base_guest_register": "r31",
+          "signed_offset_bytes": 0,
+          "function_relative_source_line": 481,
+          "r1_stack_relative": false
+        }
+      ],
+      "PPC_r1_stack_memory_instruction_counts": {
+        "stfs": 6,
+        "lfs": 12
+      },
+      "PPC_non_r1_memory_instruction_counts": {
+        "lfs": 20,
+        "stfs": 18
+      },
+      "top_PPC_memory_op_base_offset_counts": [
+        {
+          "opcode": "stfs",
+          "base": "r31",
+          "signed_offset": 0,
+          "count": 6
+        },
+        {
+          "opcode": "stfs",
+          "base": "r31",
+          "signed_offset": 8,
+          "count": 6
+        },
+        {
+          "opcode": "stfs",
+          "base": "r31",
+          "signed_offset": 4,
+          "count": 6
+        },
+        {
+          "opcode": "lfs",
+          "base": "r31",
+          "signed_offset": 8,
+          "count": 4
+        },
+        {
+          "opcode": "lfs",
+          "base": "r31",
+          "signed_offset": 0,
+          "count": 4
+        },
+        {
+          "opcode": "lfs",
+          "base": "r31",
+          "signed_offset": 4,
+          "count": 3
+        },
+        {
+          "opcode": "lfs",
+          "base": "r30",
+          "signed_offset": 0,
+          "count": 2
+        },
+        {
+          "opcode": "lfs",
+          "base": "r28",
+          "signed_offset": 0,
+          "count": 2
+        },
+        {
+          "opcode": "lfs",
+          "base": "r1",
+          "signed_offset": 100,
+          "count": 2
+        },
+        {
+          "opcode": "lfs",
+          "base": "r1",
+          "signed_offset": 84,
+          "count": 2
+        },
+        {
+          "opcode": "lfs",
+          "base": "r1",
+          "signed_offset": 104,
+          "count": 2
+        },
+        {
+          "opcode": "lfs",
+          "base": "r1",
+          "signed_offset": 88,
+          "count": 2
+        },
+        {
+          "opcode": "lfs",
+          "base": "r1",
+          "signed_offset": 96,
+          "count": 2
+        },
+        {
+          "opcode": "lfs",
+          "base": "r1",
+          "signed_offset": 80,
+          "count": 2
+        },
+        {
+          "opcode": "lfs",
+          "base": "r25",
+          "signed_offset": -4944,
+          "count": 1
+        },
+        {
+          "opcode": "stfs",
+          "base": "r1",
+          "signed_offset": 80,
+          "count": 1
+        },
+        {
+          "opcode": "stfs",
+          "base": "r1",
+          "signed_offset": 84,
+          "count": 1
+        },
+        {
+          "opcode": "stfs",
+          "base": "r1",
+          "signed_offset": 88,
+          "count": 1
+        },
+        {
+          "opcode": "stfs",
+          "base": "r1",
+          "signed_offset": 96,
+          "count": 1
+        },
+        {
+          "opcode": "stfs",
+          "base": "r1",
+          "signed_offset": 100,
+          "count": 1
+        },
+        {
+          "opcode": "stfs",
+          "base": "r1",
+          "signed_offset": 104,
+          "count": 1
+        },
+        {
+          "opcode": "lfs",
+          "base": "r30",
+          "signed_offset": -4,
+          "count": 1
+        },
+        {
+          "opcode": "lfs",
+          "base": "r25",
+          "signed_offset": -8800,
+          "count": 1
+        },
+        {
+          "opcode": "lfs",
+          "base": "r25",
+          "signed_offset": 2280,
+          "count": 1
+        },
+        {
+          "opcode": "lfs",
+          "base": "r25",
+          "signed_offset": 0,
+          "count": 1
+        }
+      ],
+      "PPC_comment_offsets_are_not_executed_dataflow": true
+    }
+  },
+  "target_original_lfs": 32,
+  "target_original_stfs": 24,
+  "guest_motor_specific_field_name_proven": false,
+  "guest_SetPackage_identity_proven": false,
+  "guest_synthetic_engine_VPAK_acceptance_proven": false,
+  "game_source_assets_or_APK_modified_or_published": false,
+  "APK_built": false,
+  "save_modified": false,
+  "signing_material_accessed": false,
+  "BMW_tuning_enabled": false,
+  "run_id": "42541259342",
+  "utc": "2026-11-09T00:39:17.510031+00:00"
+}
