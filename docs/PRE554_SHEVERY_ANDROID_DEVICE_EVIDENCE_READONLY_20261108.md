@@ -35,3 +35,6 @@ Tester attempted to exit/reopen V48, then collected a new logcat sample:
 - `PRE554_LIB_USA=NAO_IDENTIFICADO`
 
 **Decision:** Do not repeat the same sparse logcat marker probe; pivot to prior authenticated compiled V48 logic. PRE515 proves the static `SetupActivity.edicionAlJugar` → `Ajustes.iso/uriIso/xexIso`/ `IsoXex.mirar` → `Ediciones` selection chain and `GameActivity.getLibraries` reads `Ediciones$Edicion.libreria`. A PAL-based translation constrains the expected game-data edition but is not an active-library trace. The actual source chosen in the device UI remains unobserved. No real VFS mount proof nor BMW loader verification exists. No modification to APK, save or game assets.
+
+## Earlier user-reported runtime setup context (not fresh device trace)
+From earlier user conversation on 2026-11-02, user reported opening their fork with original PAL `default.xex` and extracted `NFS`/`Movies` PT-BR directory data, **without an ISO**. This is a strong historical reason to prioritize the extracted-folder/HostPathDevice route in subsequent source inspections, instead of defaulting to DiscImageDevice. This does NOT independently prove what V48 mounted on 2026-11-08, nor establish an exact URI or device path. Separate the known earlier workflow from current unobserved VFS runtime branch.
