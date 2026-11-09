@@ -1,0 +1,10 @@
+{
+  "stage": "PRE611",
+  "source_report": "docs/PRE610_HANDOFF_PRE607_LIVE_MARCEK_CORRUPT_LOG_20261109.md",
+  "uploaded_log_sha256": "489ba96f60d3eccdbd9e7d5b456e6c39a4f582a430787529e1dd9ab834e7c033",
+  "previous_context_sha256": "64369a4ecf7fed685b0593f8ec9e87ad725fc50d7365a3fa01782ca88066c701",
+  "previous_context_size": 928681,
+  "rollback_not_verified": true,
+  "only_canonical_md_append": true,
+  "no_game_save_apk_write": true
+}
