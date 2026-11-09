@@ -1,0 +1,7 @@
+{
+  "stage": "PRE558",
+  "evidence": "docs/PRE558_SHEVERY_TRANSLATED_PAL_FINGERPRINTS_USER_REPORTED_20261108.json",
+  "original_hashes": "docs/PRE557_ORIGINAL_PAL_ZZDATA4_FULL_SHA256_READONLY.json",
+  "expected": "Both hashes differ, ZDIR original 33360, user 33312",
+  "safety": "read only, no original game data, no APK, no save, no device path disclosure"
+}
