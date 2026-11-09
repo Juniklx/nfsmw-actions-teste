@@ -1,0 +1,7 @@
+{
+  "stage": "PRE573",
+  "target": "offline static check of the manual Shevery scripts",
+  "phone_execution": false,
+  "save_isolation_not_required": true,
+  "data_backup_mandatory": true
+}
