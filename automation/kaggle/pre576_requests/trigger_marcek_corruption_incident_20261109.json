@@ -1,0 +1,9 @@
+{
+  "stage": "PRE576",
+  "source": "user screenshot MARCEK corruption with PRE573 assets present",
+  "previous_verified_context_size": 876816,
+  "expected_sha256": "86570cc299df4adaa84318dfd44f98a79edce6ac50193ed43e266874797dd762",
+  "backups_first": true,
+  "save_modified": false,
+  "original_game_modified_by_workflow": false
+}
