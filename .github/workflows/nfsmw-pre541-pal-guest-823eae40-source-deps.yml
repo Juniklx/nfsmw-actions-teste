@@ -1,0 +1,78 @@
+name: NFSMW PRE541 original PAL guest 823EAE40 PPC source and four dependencies read only
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre541_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre541-original-guest-attr-dependencies-source
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install authenticated private Drive reader and check syntax
+        run: |
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth requests >/dev/null
+          python -m py_compile automation/kaggle/pre541_guest_823eae40_four_deps_ppc_readonly.py
+      - name: Read PRE99 verified original guest code to index upgrade counter and attribute helper calls
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre541_guest_823eae40_four_deps_ppc_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Verify safety fields and persist sanitized metadata only
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          f=Path("/tmp/nfsmw-pre541/report.json")
+          d=json.loads(f.read_text()) if f.is_file() else {"status":"FAILED_NO_REPORT"}
+          for k in ("game_binary_or_assets_modified","original_guest_source_published",
+                    "APK_built","save_modified","signing_key_accessed",
+                    "tuning_enabled"):
+              if d.get(k,False) is not False:
+                  raise SystemExit("PRE541 read-only safety field unexpectedly true: "+k)
+          if d.get("status")=="AUDIT_OK":
+              if (d.get("guest_823EAE40_semantic_role_proven") is not False or
+                  d.get("guest_Phy_Upgrades_SetPackage_proven") is not False or
+                  d.get("guest_engine_bmwm3gtr_new_collection_acceptance_proven") is not False):
+                  raise SystemExit("PRE541 cannot promote PRE99 to runtime V48 proof")
+              output=Path("docs/PRE541_PAL_GUEST_823EAE40_FOUR_DEPS_PPC_READONLY.json")
+          else:
+              output=Path("docs/PRE541_PAL_GUEST_823EAE40_PPC_DIAGNOSTIC.json")
+              d={k:d.get(k) for k in ("stage","status","error_type","error","run_id") if k in d}
+              d["tuning_enabled"]=False
+          output.parent.mkdir(parents=True,exist_ok=True)
+          output.write_text(json.dumps(d,indent=2,ensure_ascii=False)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE541_PAL_GUEST_823EAE40_*json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "PRE541: capture historical native loader code routing evidence"
+          for i in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
+      - name: Archive sanitized report even if publish fails
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre541-native-loader-${{ github.run_id }}
+          path: /tmp/nfsmw-pre541/report.json
+          retention-days: 14
