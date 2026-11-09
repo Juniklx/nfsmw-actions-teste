@@ -1,0 +1,82 @@
+name: NFSMW PRE580 BMW stock torque-only VPAK private control
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre580_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre580-motor-only-diagnostic
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate diagnostic script and authenticated source dependencies
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+          python -m py_compile automation/kaggle/pre580_bmw_stock_motor_torque_only_control_private.py
+      - name: Reconstruct BMW stock torque-only unchanged-layout VPAK and verify translated source
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre580_bmw_stock_motor_torque_only_control_private.py --run-id "$GITHUB_RUN_ID"
+      - name: Publish metadata-only report with protected source and save gates
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          p=Path('/tmp/nfsmw-pre580/report.json')
+          r=json.loads(p.read_text()) if p.exists() else {"stage":"PRE580","status":"FAILED_NO_REPORT"}
+          for k in ('user_phone_files_modified','guest_loader_executed','MARCEK_save_load_with_candidate_proven',
+                    'BMW_buyable_upgrade_enabled','APK_built','save_modified',
+                    'new_engine_collection_added','new_ExpN_RefSpec_PtrN_added',
+                    'original_pvehicle_upgrade_counter_unchanged','original_VLT_bytes_unchanged'):
+              if k in ('original_pvehicle_upgrade_counter_unchanged','original_VLT_bytes_unchanged'):
+                  if r.get('status')=='AUDIT_OK' and r.get(k) is not True:
+                      raise SystemExit('PRE580 changed critical source region '+k)
+              elif r.get(k,False) is not False:raise SystemExit('PRE580 invalid runtime claim '+k)
+          if r.get('status')=='AUDIT_OK':
+              if (r.get('candidate_VPAK_bytes')!=697856 or
+                  r.get('original_zip_member_fully_verified_by_stream') is not True or
+                  r.get('torque_multiplier_synthetic')!=1.05 or
+                  r.get('full_modified_ZZDATA4_was_written_to_Drive') is not False):
+                  raise SystemExit('PRE580 source/control gate incomplete')
+              dst=Path('docs/PRE580_PTBR_BMW_MOTOR_ONLY_PRIVATE_CONTROL_METADATA.json')
+          else:
+              dst=Path('docs/PRE580_PTBR_BMW_MOTOR_ONLY_DIAGNOSTIC.json')
+              r={k:r.get(k) for k in ('stage','status','error_type','error','run_id','utc') if k in r}
+              r['user_phone_files_modified']=False
+          dst.write_text(json.dumps(r,indent=2,ensure_ascii=False)+'\n')
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE580_PTBR_BMW_MOTOR_ONLY_*json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "PRE580: private stock BMW torque-only VPAK control metadata"
+          for n in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
+      - name: Retain metadata only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre580-bmw-stock-motor-only-metadata
+          path: /tmp/nfsmw-pre580/report.json
+          retention-days: 14
