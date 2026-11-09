@@ -1,0 +1,76 @@
+name: NFSMW PRE542 verify signed V48 PAL two-hop float attribute path readonly
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre542_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre542-pal-float-attribute
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare authenticated original V48 guest ELF static code reader
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth pyelftools==0.32 capstone==5.0.6 >/dev/null
+          python -m py_compile automation/kaggle/pre542_signed_v48_pal_float_attribute_twohop_readonly.py
+      - name: Inspect exact signed original V48 PAL ELF guest FP call path
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre542_signed_v48_pal_float_attribute_twohop_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Publish guarded read-only attribute count graph report
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          f=Path("/tmp/nfsmw-pre542/report.json")
+          d=json.loads(f.read_text()) if f.exists() else {"stage":"PRE542","status":"FAILED_NO_REPORT"}
+          for k in ("game_data_or_binary_modified_or_published","APK_built","save_modified","signing_material_accessed","tuning_enabled"):
+              if d.get(k,False) is not False:
+                  raise SystemExit("PRE542 read-only boundary violated: "+k)
+          if d.get("status")=="AUDIT_OK":
+              for k in ("actual_BMW_motor_data_loaded_or_power_modified","guest_SetPackage_identity_verified","guest_BMW_purchase_or_save_roundtrip_verified"):
+                  if d.get(k) is not False:
+                      raise SystemExit("Cannot promote static FP path to runtime BMW proof")
+              out=Path("docs/PRE542_ORIGINAL_V48_PAL_FLOAT_ATTRIBUTE_COUNT_PATH_READONLY.json")
+          else:
+              out=Path("docs/PRE542_ORIGINAL_V48_PAL_FLOAT_ATTRIBUTE_DIAGNOSTIC.json")
+              d={k:d.get(k) for k in ("stage","status","error_type","error","run_id") if k in d}
+              d["tuning_enabled"]=False
+          out.parent.mkdir(parents=True,exist_ok=True)
+          out.write_text(json.dumps(d,indent=2,ensure_ascii=False)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE542_ORIGINAL_V48_PAL_FLOAT_ATTRIBUTE_*json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "PRE542: verified original V48 PAL guest attribute float call path"
+          for n in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
+      - name: Archive bounded original-ELF guest metadata
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre542-original-v48-float-attribute-${{ github.run_id }}
+          path: /tmp/nfsmw-pre542/report.json
+          retention-days: 14
