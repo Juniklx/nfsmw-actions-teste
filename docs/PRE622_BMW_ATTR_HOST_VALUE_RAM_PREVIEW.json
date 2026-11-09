@@ -1,0 +1,41 @@
+{
+  "stage": "PRE622_ORIGINAL_BMW_ATTR_VALUE_HOST_PROBE_RAM_PREVIEW",
+  "status": "AUDIT_OK",
+  "source_original_PRE99_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "original_shard_sha256": "11eec8fe3d20dc5d53e262525a4cf31021c2bbfb28e2690b6372c6c3cbea4aad",
+  "RAM_preview_sha256": "2e6907363bd87ddb2d2643364ab13b72facf28eb1f2c8b6da2c360a3d871f6af",
+  "function": "sub_823E5988",
+  "guest_return_reasons_PRE447": [
+    1,
+    2,
+    3
+  ],
+  "source_guest_attribute_read_relative_line": 104,
+  "guest_attribute_value_read_original_opcode": "REX_LOAD_U32(ctx.r11.u32 + 0)",
+  "recorded_host_fields": [
+    "original_caller_lr",
+    "original_type_0_to_6",
+    "value_address_ctx_r11",
+    "already_resolved_value_ctx_r3"
+  ],
+  "host_original_caller_lr": "0x8256F83C",
+  "host_callback_enabled_by_default": false,
+  "host_callback_compiled": false,
+  "new_guest_memory_reads": 0,
+  "new_guest_memory_writes": 0,
+  "new_guest_calls": 0,
+  "original_PPC_guest_instruction_order_preserved": true,
+  "source_reverted_bit_for_bit": true,
+  "guest_callback_only_original_normal_lookup": true,
+  "direct_attribution_of_zero_to_new_BMW_collection_proven": false,
+  "guest_value_runtime_traced": false,
+  "preview_stored_in_memory_only": true,
+  "no_new_APK_build": true,
+  "phone_game_data_modified": false,
+  "save_modified": false,
+  "signing_accessed": false,
+  "callback_not_linked": true,
+  "pending_runtime_validation": true,
+  "run_id": "42677165694",
+  "utc": "2026-11-09T18:48:22.186415+00:00"
+}
