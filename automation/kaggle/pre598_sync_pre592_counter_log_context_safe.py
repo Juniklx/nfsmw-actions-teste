@@ -1,0 +1,137 @@
+#!/usr/bin/env python3
+"""PRE598 canonical MD append-only recovery and V48 save-root checkpoint.
+Backup first, verify exact existing bytes, append only. No game, APK or save writes.
+"""
+from __future__ import annotations
+import argparse, hashlib, io, json, time
+from pathlib import Path
+from datetime import datetime, timezone
+from googleapiclient.http import MediaIoBaseUpload
+from googleapiclient.errors import HttpError
+from pre480_append_canonical_context_safe import FILE_ID, PARENT, drive_client, get_meta, get_bytes
+
+OUT=Path("/tmp/nfsmw-pre598/report.json")
+HANDOFF=Path("docs/PRE597_HANDOFF_PRE592_DEVICE_LOAD_AND_COUNTER_ONE_BYTE_20261109.md")
+MARKER=b"PRE597_HANDOFF_PRE592_DEVICE_LOAD_AND_COUNTER_ONE_BYTE_20261109"
+PREVIOUS_MARKER=b"PRE593_HANDOFF_PRE587_GUEST_SUCCESS_PRE591_REFSPEC_ONLY_GATE_20261109"
+BACKUP_NAME="CONTEXTO_NFSMW_BACKUP_PRE598_PRE592_LOADED_ONE_BYTE_20261109.md"
+EXPECTED_BYTES=909929
+EXPECTED_SHA="3cb4bb3f9161427f72028600f6582de0f2fea64714ae00f5fa49f51a8f618a48"
+def sha(b):return hashlib.sha256(b).hexdigest()
+def verify_earlier_reports():
+    previous=json.loads(Path("docs/PRE594_CANONICAL_CONTEXT_SYNC_RESULT.json").read_text())
+    p591=json.loads(Path("docs/PRE591_BMW_REFSPEC_POINTER_ONLY_PRIVATE_METADATA.json").read_text())
+    p596=json.loads(Path("docs/PRE596_BMW_COUNTER_ONE_BYTE_GUEST_SEMANTICS_READONLY.json").read_text())
+    handoff=HANDOFF.read_text(encoding="utf-8")
+    if (any(p.get("status")!="AUDIT_OK" for p in (previous,p591,p596))
+        or previous.get("canonical_bytes")!=EXPECTED_BYTES
+        or previous.get("canonical_sha256")!=EXPECTED_SHA
+        or previous.get("new_handoff_readback_verified") is not True
+        or p591.get("BMW_pvehicle_motor_upgrade_count_zero") is not True
+        or p591.get("active_BMW_pvehicle_refspec_points_to_two_ref_array") is not True
+        or p596.get("single_byte_delta_PRE591_vs_PRE502")!=[256619]
+        or p596.get("game_runtime_GetMaxLevel_semantics_proven") is not False
+        or p596.get("causality_fully_proven") is not False
+        or p596.get("new_game_patch_created") is not False
+        or "842fbc19031e81adb7988ad3e2fbd2de35850ce19abde581681025c4172ed1b9" not in handoff
+        or "PRE592_RESTORE=ORIGINAIS_VERIFICADOS" not in handoff
+        or "PRE596" not in handoff):
+        raise ValueError("PRE594/PRE591/PRE596 evidence or user uploaded PRE592 log not anchored")
+
+def audit():
+    verify_earlier_reports()
+    extra=b"\n\n---\n\n"+HANDOFF.read_bytes()
+    if extra.count(MARKER)!=1 or not (2300<=len(extra)<=13000):
+        raise ValueError("PRE598 handoff is incomplete or duplicated")
+    drive=drive_client()
+    meta=get_meta(drive)
+    if (meta.get("id")!=FILE_ID or meta.get("name")!="CONTEXTO_NFSMW.md"
+        or meta.get("mimeType")!="text/markdown" or meta.get("parents")!=[PARENT]):
+        raise ValueError("Canonical Drive file identity or parent changed")
+    before=get_bytes(drive,FILE_ID)
+    if len(before)!=int(meta["size"]):raise ValueError("Canonical size/readback inconsistent")
+    # On retry after a confirmed successful write, do not append twice.
+    if MARKER in before:
+        prefix=before[:-len(extra)] if before.endswith(extra) else b""
+        if (len(prefix)!=EXPECTED_BYTES or sha(prefix)!=EXPECTED_SHA
+            or before.count(MARKER)!=1 or not prefix.count(PREVIOUS_MARKER)==1):
+            raise ValueError("Existing PRE598 append not byte-exact or unexpected original")
+        return {
+          "status":"ALREADY_APPLIED_VERIFIED",
+          "backup_created_this_run":False,
+          "original_context_sha256":EXPECTED_SHA,
+          "original_context_bytes":EXPECTED_BYTES,
+          "canonical_bytes":len(before),
+          "canonical_sha256":sha(before),
+          "prior_context_prefix_preserved":True,
+          "new_handoff_readback_verified":True
+        }
+    if (len(before)!=EXPECTED_BYTES or sha(before)!=EXPECTED_SHA
+        or before.count(PREVIOUS_MARKER)!=1):
+        raise ValueError("Canonical context changed since PRE594: stop without update")
+    expected=before+extra
+    backup=drive.files().copy(fileId=FILE_ID,supportsAllDrives=True,
+      body={"name":BACKUP_NAME,"parents":[PARENT]},
+      fields="id,name,parents,size").execute()
+    backup_id=backup["id"]
+    if (int(backup.get("size",-1))!=EXPECTED_BYTES
+        or get_bytes(drive,backup_id)!=before):
+        raise ValueError("Backup PRE598 not bytewise identical: source untouched")
+    fresh=get_meta(drive)
+    if (fresh.get("modifiedTime")!=meta.get("modifiedTime")
+        or get_bytes(drive,FILE_ID)!=before):
+        raise ValueError("Concurrent Drive edit before PRE598 append")
+    transient=0
+    for attempt in range(3):
+        state=get_bytes(drive,FILE_ID)
+        if state==expected:break
+        if state!=before:raise ValueError("Concurrent context changes during PRE598")
+        media=MediaIoBaseUpload(io.BytesIO(expected),mimetype="text/markdown",resumable=False)
+        try:
+            drive.files().update(fileId=FILE_ID,supportsAllDrives=True,
+               media_body=media,fields="id,name,size,modifiedTime").execute()
+        except HttpError as exc:
+            if int(exc.resp.status) not in (500,502,503,504):raise
+            transient+=1
+            current=get_bytes(drive,FILE_ID)
+            if current==expected:break
+            if current!=before:raise ValueError("Concurrent edit after transient upload error")
+            if attempt==2:raise
+            time.sleep(2*(attempt+1))
+    after=get_bytes(drive,FILE_ID)
+    if (after!=expected or after[:EXPECTED_BYTES]!=before
+        or after.count(MARKER)!=1):
+        raise ValueError("PRE598 canonical append did not pass bytewise readback")
+    return {
+      "status":"AUDIT_OK",
+      "backup_created_this_run":True,
+      "backup_file_id":backup_id,
+      "original_context_sha256":EXPECTED_SHA,
+      "original_context_bytes":EXPECTED_BYTES,
+      "canonical_bytes":len(after),
+      "canonical_sha256":sha(after),
+      "prior_context_prefix_preserved":True,
+      "new_handoff_readback_verified":True,
+      "transient_http_failures":transient
+    }
+
+def main():
+    parser=argparse.ArgumentParser();parser.add_argument("--run-id",required=True)
+    a=parser.parse_args()
+    OUT.parent.mkdir(parents=True,exist_ok=True)
+    r={
+       "stage":"PRE598_CANONICAL_SAVE_ROOT_CONTEXT_SYNC",
+       "status":"FAILED","APK_built":False,
+       "game_assets_modified":False,"save_modified":False,
+       "signing_material_accessed":False,"BMW_tuning_enabled":False
+    }
+    try:r.update(audit())
+    except Exception as e:r.update({"error_type":type(e).__name__,"error":str(e)[:260]})
+    r["run_id"]=a.run_id
+    r["utc"]=datetime.now(timezone.utc).isoformat()
+    OUT.write_text(json.dumps(r,indent=2,ensure_ascii=False)+"\n")
+    print("PRE598_STATUS",r["status"],flush=True)
+    print("PRE598_READBACK",r.get("new_handoff_readback_verified",False),flush=True)
+    print("PRE598_ERROR",r.get("error_type","none"),r.get("error",""),flush=True)
+    return 0 if r["status"] in ("AUDIT_OK","ALREADY_APPLIED_VERIFIED") else 1
+if __name__=="__main__":raise SystemExit(main())
