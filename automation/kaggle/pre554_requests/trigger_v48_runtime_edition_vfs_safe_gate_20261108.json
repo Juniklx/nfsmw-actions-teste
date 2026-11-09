@@ -1,0 +1,11 @@
+{
+  "stage": "PRE554",
+  "task": "verify_static_V48_edition_and_mount_prerequisites_only",
+  "trigger_utc": "2026-11-09",
+  "expected_prev_run": 42545813805,
+  "no_apk_build": true,
+  "no_game_asset_changes": true,
+  "no_save_changes": true,
+  "no_signing_material_access": true,
+  "device_trace_expected": false
+}
