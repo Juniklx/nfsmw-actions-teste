@@ -1,0 +1,13 @@
+{
+  "stage": "PRE550",
+  "goal": "Append evidence PRE548 exact 16 pvehicle hash sites and PRE549 source-to-released-V48 linked pvehicle class accessor, while flagging upgrade max levels not installed package, to canonical CONTEXTO_NFSMW.md, exact prior backup/sha/readback",
+  "previous_marker": "PRE547_BMW_TUNING_PRE544_PRE546_FLOAT_OUTPUT_STACK_ALIAS_REDIRECT_20261108",
+  "new_marker": "PRE550_BMW_TUNING_PRE548_PRE549_PVEHICLE_HASH_ACCESSOR_GATE_20261108",
+  "previous_context_bytes": 827240,
+  "verified_runs": [
+    42543274703,
+    42543751822
+  ],
+  "V48_unchanged": true,
+  "save_MARCEK_untouched": true
+}
