@@ -1,0 +1,9 @@
+{
+  "stage": "PRE625_BMW_EXTRA_HOST_CALLBACK_ARM64_NO_APK",
+  "status": "FAILED",
+  "phase": "START",
+  "error_type": "AttributeError",
+  "error": "'dict' object has no attribute 'SYMBOL'",
+  "run_id": "42705158328",
+  "utc": "2026-11-09T21:43:56.245533+00:00"
+}
