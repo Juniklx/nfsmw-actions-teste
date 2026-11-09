@@ -1,0 +1,8 @@
+{
+  "stage": "PRE587",
+  "source": "PRE586_AUDIT_OK",
+  "purpose": "verify wrong-hash fail closed without touching phone",
+  "requires_rollback_of_PRE581_before_apply": true,
+  "guest_loader_tested": false,
+  "apk_built": false
+}
