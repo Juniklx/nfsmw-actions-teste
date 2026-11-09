@@ -1,0 +1,113 @@
+{
+  "stage": "PRE545_ORIGINAL_PAL_PPC_FLOAT_OUTPUT_R31_REGISTER_ORIGIN_READONLY",
+  "status": "AUDIT_OK",
+  "PRE99_archive_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "PRE99_shard_name": "nfsmw_recomp.85.cpp",
+  "PRE99_shard_sha256": "e8c85788d811c0cb9390c35705ea4e60bb7dbd4210ce73d19d6d03358e5cfbf3",
+  "guest_target_numeric_function": "sub_823EAE40",
+  "original_source_instruction_comments_examined": 185,
+  "PPC_comments_referencing_r31": 30,
+  "r31_explicit_destination_assignment_candidates": [
+    {
+      "relative_original_source_line": 41,
+      "ppc_mnemonic": "mr",
+      "source_registers_except_r31": [
+        "r4"
+      ],
+      "destination_register": "r31",
+      "operand_has_r1_stack_reference": false,
+      "operand_has_r3_or_r4_argument_reference": true
+    }
+  ],
+  "stfs_r31_stores_in_code_order": [
+    {
+      "relative_original_source_line": 107,
+      "r31_relative_output_offset": 0
+    },
+    {
+      "relative_original_source_line": 111,
+      "r31_relative_output_offset": 8
+    },
+    {
+      "relative_original_source_line": 118,
+      "r31_relative_output_offset": 4
+    },
+    {
+      "relative_original_source_line": 198,
+      "r31_relative_output_offset": 4
+    },
+    {
+      "relative_original_source_line": 213,
+      "r31_relative_output_offset": 8
+    },
+    {
+      "relative_original_source_line": 230,
+      "r31_relative_output_offset": 0
+    },
+    {
+      "relative_original_source_line": 248,
+      "r31_relative_output_offset": 4
+    },
+    {
+      "relative_original_source_line": 262,
+      "r31_relative_output_offset": 8
+    },
+    {
+      "relative_original_source_line": 276,
+      "r31_relative_output_offset": 0
+    },
+    {
+      "relative_original_source_line": 310,
+      "r31_relative_output_offset": 4
+    },
+    {
+      "relative_original_source_line": 326,
+      "r31_relative_output_offset": 4
+    },
+    {
+      "relative_original_source_line": 365,
+      "r31_relative_output_offset": 8
+    },
+    {
+      "relative_original_source_line": 381,
+      "r31_relative_output_offset": 8
+    },
+    {
+      "relative_original_source_line": 420,
+      "r31_relative_output_offset": 0
+    },
+    {
+      "relative_original_source_line": 436,
+      "r31_relative_output_offset": 0
+    },
+    {
+      "relative_original_source_line": 471,
+      "r31_relative_output_offset": 4
+    },
+    {
+      "relative_original_source_line": 476,
+      "r31_relative_output_offset": 8
+    },
+    {
+      "relative_original_source_line": 481,
+      "r31_relative_output_offset": 0
+    }
+  ],
+  "stfs_r31_store_offset_histogram": {
+    "0": 6,
+    "8": 6,
+    "4": 6
+  },
+  "number_of_non_r1_fp_output_stores": 18,
+  "register_origin_only_checked_using_recognized_explicit_destinations": true,
+  "any_r31_stack_alias_requires_full_pointer_provenance": true,
+  "guest_engine_attr_or_power_change_proven": false,
+  "guest_SetPackage_identified": false,
+  "APK_built": false,
+  "original_game_source_or_assets_modified_or_published": false,
+  "save_modified": false,
+  "signing_material_accessed": false,
+  "BMW_tuning_enabled": false,
+  "run_id": "42541711453",
+  "utc": "2026-11-09T00:44:10.877596+00:00"
+}
