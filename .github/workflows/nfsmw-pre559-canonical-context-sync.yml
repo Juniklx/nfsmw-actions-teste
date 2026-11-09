@@ -1,0 +1,73 @@
+name: NFSMW PRE559 backup-first PAL translated-folder hash checkpoint sync
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre559_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre559-canonical-drive-context
+  cancel-in-progress: false
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate authenticated Google Drive append helper
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          python -m py_compile automation/kaggle/pre559_sync_pre558_translated_pal_context_safe.py
+      - name: Backup and append exact Shevery PAL translated hashes to canonical context
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre559_sync_pre558_translated_pal_context_safe.py --run-id "$GITHUB_RUN_ID"
+      - name: Publish sanitized metadata only
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          src=Path("/tmp/nfsmw-pre559/report.json")
+          d=json.loads(src.read_text()) if src.exists() else {"stage":"PRE559","status":"FAILED_NO_REPORT"}
+          for k in ("apk_built","save_modified","game_assets_modified"):
+              if d.get(k,False) is not False:
+                  raise SystemExit("PRE559 safety check failed: "+k)
+          if d.get("status")=="AUDIT_OK" and not (
+                  d.get("backup_created") is True and
+                  d.get("prior_history_bytewise_preserved") is True and
+                  d.get("postupdate_readback_bytewise_verified") is True and
+                  d.get("canonical_before_sha256")=="67be19118bb890a25fce9ad42cd9b2e6dfe03a8020ef040309de89d863ce8ead"):
+              raise SystemExit("PRE559 backup/readback validation failed")
+          target=Path("docs/PRE559_CANONICAL_CONTEXT_SYNC_RESULT.json")
+          target.write_text(json.dumps(d,indent=2,ensure_ascii=False)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE559_CANONICAL_CONTEXT_SYNC_RESULT.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "PRE559: verified PAL PTBR source hash checkpoint canonical backup"
+          for n in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
+      - name: Archive sanitized context write status
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre559-canonical-context
+          path: /tmp/nfsmw-pre559/report.json
+          retention-days: 14
