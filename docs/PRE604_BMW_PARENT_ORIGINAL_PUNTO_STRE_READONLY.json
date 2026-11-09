@@ -1,0 +1,52 @@
+{
+  "stage": "PRE604_ORIGINAL_PUNTO_DERIVED_ENGINE_VS_SYNTHETIC_BMW_PARENT_AND_STRE",
+  "status": "AUDIT_OK",
+  "original_VPAK_sha256": "9f4b04a221232e614b927a870e25da7db100477a7e425114b87082f46e8b99ad",
+  "original_engine_controls": {
+    "bmw_stock": {
+      "collection_hash": "cd88083f",
+      "parent_hash": "eec2271a",
+      "name_hash_in_original_StrE": true,
+      "record_offset": 33440
+    },
+    "punto_stock": {
+      "collection_hash": "a6ee7a11",
+      "parent_hash": "eec2271a",
+      "name_hash_in_original_StrE": true,
+      "record_offset": 32680
+    },
+    "punto_second": {
+      "collection_hash": "a6f0f405",
+      "parent_hash": "a6ee7a11",
+      "name_hash_in_original_StrE": false,
+      "record_offset": 34440
+    }
+  },
+  "Punto_engine_second_ref_count": 2,
+  "Punto_engine_upgrade_count": 4,
+  "original_Punto_second_engine_in_VLT": true,
+  "original_Punto_second_engine_absent_StrE": true,
+  "Punto_second_engine_parent_is_Punto_stock": true,
+  "candidate_collection_hash": "33b0fa80",
+  "candidate_class_hash": "f1f5fbc7",
+  "candidate_parent_hash": "eec2271a",
+  "candidate_parent_is_BMW_stock_collection": false,
+  "candidate_parent_is_default": true,
+  "candidate_collection_name_in_original_StrE": false,
+  "synthetic_candidate_VPAK_sha256": "d4fa0e98ba9bd2ee637d768d00a42d7e5a06c6d74df4581d6730f98dad31d8f6",
+  "synthetic_new_collection_original_header_except_name": true,
+  "candidate_parent_linkage_differs_from_original_Punto_derived_convention": true,
+  "StrE_membership_structurally_not_required_for_every_existing_engine_collection": true,
+  "StrE_membership_runtime_required_for_new_collection_proven": false,
+  "candidate_BMW_parent_causes_corrupted_save_proven": false,
+  "BMW_upgrade_GetMaxLevel_semantics_proven": false,
+  "new_parent_variant_patched": false,
+  "new_device_script_prepared": false,
+  "guest_executed": false,
+  "game_assets_modified": false,
+  "save_modified": false,
+  "APK_built": false,
+  "signing_accessed": false,
+  "run_id": "42590630384",
+  "utc": "2026-11-09T09:05:16.683113+00:00"
+}
