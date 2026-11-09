@@ -1,0 +1,22 @@
+{
+  "stage": "PRE565_CANONICAL_CONTEXT_APPEND_WITH_BACKUP",
+  "status": "AUDIT_OK",
+  "apk_built": false,
+  "save_modified": false,
+  "game_assets_modified": false,
+  "backup_created": true,
+  "backup_reused": false,
+  "backup_file_id": "1D1zTIceveQEDDR2feNR-q223IzuZokRt",
+  "backup_name": "CONTEXTO_NFSMW_BACKUP_PRE565_PTBR_BMW_RAM_20261108.md",
+  "canonical_before_bytes": 853735,
+  "canonical_before_sha256": "13c2eb2734032680941de745d57f0c2e738774d4bda36d8afa342d8da6b6c73a",
+  "transient_http_failures": 0,
+  "append_bytes": 6035,
+  "new_total_bytes": 859770,
+  "new_sha256": "074c43bb4d3781e64b7c37bfb9efa92f5ebf1505d11227434901e0ba4f6e1f36",
+  "prior_history_bytewise_preserved": true,
+  "postupdate_readback_bytewise_verified": true,
+  "canonical_file_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+  "run_id": "42556489975",
+  "utc": "2026-11-09T03:27:44.161056+00:00"
+}
