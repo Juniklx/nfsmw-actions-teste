@@ -1,0 +1,10 @@
+{
+  "stage": "PRE556",
+  "predecessor": "PRE555",
+  "pre555_report": "docs/PRE555_PAL_EXTRACTED_FOLDER_HOSTPATH_VFS_READONLY.json",
+  "handoff": "docs/PRE556_HANDOFF_PRE555_PAL_PASTA_EXTRAIDA_HOSTPATH_20261108.md",
+  "canonical_drive_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+  "canonical_before_sha256": "d19cedf297bf9450b938ae68f6f8b597138ef12281765e39ca40d5409e1cf4f2",
+  "backup_first": true,
+  "write_scope": "canonical markdown only; no assets APK save"
+}
