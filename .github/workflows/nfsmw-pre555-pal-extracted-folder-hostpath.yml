@@ -1,0 +1,86 @@
+name: NFSMW PRE555 original PAL extracted-folder HostPath static source gate
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre555_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre555-pal-hostpath-source-readonly
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare pinned PRE99 historical source reader
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth requests >/dev/null
+          python -m py_compile automation/kaggle/pre555_pal_extracted_folder_hostpath_vfs_readonly.py
+      - name: Audit extracted-folder VFS callpath, validate original PAL resource metadata
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre555_pal_extracted_folder_hostpath_vfs_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Publish strictly sanitized source anchor metadata with safety gates
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          source=Path("/tmp/nfsmw-pre555/report.json")
+          d=json.loads(source.read_text()) if source.exists() else {"stage":"PRE555","status":"FAILED_NO_REPORT"}
+          for k in ("game_source_exported","game_assets_modified","APK_built","save_modified",
+                    "signing_material_accessed","BMW_tuning_enabled"):
+              if d.get(k,False) is not False:
+                  raise SystemExit("PRE555 safety boundary violation: "+k)
+          if d.get("status")=="AUDIT_OK":
+              for k in ("translation_extracted_folder_bytes_match_original_PAL_ZIP_proven",
+                        "v48_current_runtime_hostpath_mount_traced",
+                        "pal_guest_libmain_loaded_directly_observed",
+                        "actual_guest_ZDIR_VPAK_loader_execution_proven",
+                        "new_BMW_ExpN_collection_accepted_by_guest",
+                        "FE_price_checkout_physics_save_persistence_proven"):
+                  if d.get(k) is not False:
+                      raise SystemExit("Historical code audit promoted to unproven runtime claim: "+k)
+              if (d.get("PRE99_regular_file_or_URI_uses_discimage_else_folder_uses_hostpath_code_verified") is not True or
+                  d.get("PRE99_guest_kernel_vfs_host_entry_file_read_code_anchors_verified") is not True or
+                  len(d.get("PRE99_source_code_anchor_index",{}))!=6):
+                  raise SystemExit("PRE555 source callpath did not pass the complete six-source gate")
+              dest=Path("docs/PRE555_PAL_EXTRACTED_FOLDER_HOSTPATH_VFS_READONLY.json")
+          else:
+              dest=Path("docs/PRE555_PAL_EXTRACTED_FOLDER_HOSTPATH_VFS_DIAGNOSTIC.json")
+              d={k:d.get(k) for k in ("stage","status","error_type","error","run_id") if k in d}
+              d["BMW_tuning_enabled"]=False
+          dest.parent.mkdir(parents=True,exist_ok=True)
+          dest.write_text(json.dumps(d,indent=2,ensure_ascii=False)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE555_PAL_EXTRACTED_FOLDER_HOSTPATH_VFS_*json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "PRE555: pin historical PAL folder VFS branch and host file read source anchors"
+          for n in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
+      - name: Retain metadata-only PRE555 report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre555-pal-hostpath-readonly
+          path: /tmp/nfsmw-pre555/report.json
+          retention-days: 14
