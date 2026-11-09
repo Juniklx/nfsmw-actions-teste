@@ -1,0 +1,81 @@
+name: NFSMW PRE561 PTBR ZIP direct ZDIR row 805 read-only
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre561_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre561-ptbr-zdir-range-audit
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install private Drive reader and syntax check
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth requests >/dev/null
+          python -m py_compile automation/kaggle/pre561_ptbr_zip_zdir_record_readonly.py
+      - name: Authenticate PTBR ZIP central directory and ZDIR only via strict HTTP206
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre561_ptbr_zip_zdir_record_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Publish metadata only with write-safety and no-loader proof gates
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("/tmp/nfsmw-pre561/report.json")
+          j=json.loads(p.read_text()) if p.exists() else {"stage":"PRE561","status":"FAILED_NO_REPORT"}
+          for k in ("user_game_files_modified","save_modified","APK_built",
+                    "signing_material_accessed","BMW_tuning_enabled",
+                    "actual_guest_loader_from_ptbr_zip_executed",
+                    "phone_translation_zip_matches_installed_ZZDATA4_full_sha256",
+                    "translated_resource_offset_as_operational_proven"):
+              if j.get(k,False) is not False:
+                  raise SystemExit("PRE561 unsupported claim or safety failure: "+k)
+          if j.get("status")=="AUDIT_OK":
+              if(j.get("zdir_matches_shevery_sha256") is not True or
+                 j.get("zdir_sha256")!="832a20dfdca663233f4559236048f21d5ff4e6f65780d1aa18e58b72005245bf" or
+                 j.get("zdir_24_byte_record_count")!=1388 or
+                 j.get("zzdata4_contents_not_read") is not True):
+                  raise SystemExit("PRE561 authenticated ZDIR report invalid")
+              out=Path("docs/PRE561_PTBR_ZIP_ZDIR_DIRECT_RECORD_READONLY.json")
+          else:
+              out=Path("docs/PRE561_PTBR_ZIP_ZDIR_DIRECT_RECORD_DIAGNOSTIC.json")
+              j={k:j.get(k) for k in ("stage","status","error_type","error","run_id") if k in j}
+              j["BMW_tuning_enabled"]=False
+          out.write_text(json.dumps(j,indent=2,ensure_ascii=False)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE561_PTBR_ZIP_ZDIR_DIRECT_RECORD_*json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "PRE561: verified PTBR source ZIP ZDIR attributes row and index metadata only"
+          for n in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
+      - name: Archive sanitized metadata only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre561-ptbr-zdir
+          path: /tmp/nfsmw-pre561/report.json
+          retention-days: 14
