@@ -1,0 +1,88 @@
+name: NFSMW PRE587 Shevery unlinked VLT apply/restore static safety
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre587_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre587-motor-only-shell-preflight
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate shell syntax, exact hashes and abort-on-wrong-input
+        run: |
+          set -euo pipefail
+          a=automation/device/pre587_apply_bmw_unlinked_vlt_shevery.sh
+          b=automation/device/pre587_restore_bmw_unlinked_vlt_shevery.sh
+          sh -n "$a"
+          sh -n "$b"
+          grep -Fq 'PRE586_ZDIR_VLT_NEW_COLLECTION_UNLINKED.bin' "$a"
+          grep -Fq 'PRE586_ZZDATA4_FIRST341_UNLINKED_VLT.bin' "$a"
+          grep -Fq '524c22622039086c9207f25b3a82823fb62d8879e70d0142730bca2b5cdda996' "$a"
+          grep -Fq '524c22622039086c9207f25b3a82823fb62d8879e70d0142730bca2b5cdda996' "$b"
+          grep -Fq '3ed3070bd10bb41789ef7b32b4203805cdb395fabf2665b528848bba3ad31025' "$a"
+          grep -Fq '11f233a7a22df3822573a3a52af50f7c9b27f4b5c5cba77fdaad3c4e03041271' "$a"
+          grep -Fq '.pre587_original_backup' "$a"
+          grep -Fq '.pre587_original_backup' "$b"
+          if grep -E '(^|[^[:alpha:]])(rm|force-stop|pm clear)([[:space:]]|$)' "$a" "$b"; then
+              echo "PRE587_FORBIDDEN_COMMAND"; exit 1
+          fi
+          root=$(mktemp -d)
+          trap 'rm -rf "$root"' EXIT
+          mkdir -p "$root/game/NFS" "$root/fragments"
+          printf 'ORIG_ZDIR_FAKE' > "$root/game/NFS/ZDIR.BIN"
+          printf 'ORIG_ZZDATA_FAKE' > "$root/game/NFS/ZZDATA4.BIN"
+          printf 'WRONG_ZDIR' > "$root/fragments/PRE586_ZDIR_VLT_NEW_COLLECTION_UNLINKED.bin"
+          printf 'WRONG_DATA' > "$root/fragments/PRE586_ZZDATA4_FIRST341_UNLINKED_VLT.bin"
+          cp "$root/game/NFS/ZDIR.BIN" "$root/original_zdir"
+          cp "$root/game/NFS/ZZDATA4.BIN" "$root/original_zz"
+          if sh "$a" "$root/game" "$root/fragments" >"$root/run" 2>&1;then
+            echo "PRE587_ACCEPTED_WRONG_HASH";exit 1
+          fi
+          cmp "$root/original_zdir" "$root/game/NFS/ZDIR.BIN"
+          cmp "$root/original_zz" "$root/game/NFS/ZZDATA4.BIN"
+          test ! -e "$root/game/NFS/ZZDATA4.BIN.pre587_original_backup"
+          if sh "$b" "$root/game" >"$root/revert" 2>&1;then
+            echo "PRE587_RESTORE_ACCEPTED_MISSING_BACKUPS";exit 1
+          fi
+          echo "PRE587_STATIC=AUDIT_OK"
+      - name: Store static-only metadata, not game binaries
+        if: success()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          d={
+            "stage":"PRE587_SHEVERY_TORQUE_ONLY_STATIC_PREFLIGHT",
+            "status":"AUDIT_OK",
+            "shell_syntax_valid":True,
+            "wrong_hash_aborted_without_file_write":True,
+            "restore_without_backups_aborted":True,
+            "original_game_or_save_modified":False,
+            "actual_device_experiment_executed":False,
+            "BMW_buyable_tuning_enabled":False,
+            "APK_built":False,
+            "run_id":os.environ.get("GITHUB_RUN_ID","")
+          }
+          Path("docs/PRE587_SHEVERY_TORQUE_ONLY_STATIC_PREFLIGHT_RESULT.json").write_text(
+            json.dumps(d,ensure_ascii=False,indent=2)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE587_SHEVERY_TORQUE_ONLY_STATIC_PREFLIGHT_RESULT.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "PRE587: static safety of unlinked VLT device diagnostic scripts"
+          for n in 1 2 3 4 5;do
+             git fetch origin main
+             git rebase origin/main
+             if git push origin HEAD:main;then exit 0;fi
+          done
+          exit 1
