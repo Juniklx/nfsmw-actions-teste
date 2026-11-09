@@ -1,0 +1,8 @@
+{
+  "stage": "PRE616",
+  "previous_failed_run": 42609115696,
+  "corrected": "literal privacy marker in PRE615 handoff",
+  "expected_previous_context_sha256": "858bf0b0adf7eea6693d365ab3dd78d000b5630019fdd35b83a04fab0d55ea12",
+  "backup_first": true,
+  "no_private_saves_uploaded": true
+}
