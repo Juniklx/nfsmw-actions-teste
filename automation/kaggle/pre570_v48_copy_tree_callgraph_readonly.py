@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""PRE570: inspect V48 traerPartidas and root wiring, authenticated DEX only.
+"""PRE570: inspect V48 copiarArbol, prepare and root callgraph, authenticated DEX.
 This is only callgraph evidence; never handles game saves or original data.
 """
 from __future__ import annotations
@@ -23,11 +23,11 @@ def sha_file(p):
   for b in iter(lambda:f.read(4*1024*1024),b""):h.update(b)
  return h.hexdigest()
 def audit():
- p568=json.loads(Path("docs/PRE569_V48_SAVE_IMPORT_STATIC_READONLY.json").read_text())
- if(p568.get("status")!="AUDIT_OK" or
-    p568.get("exact_original_v48_apk_sha256")!=APK_SHA or
-    p568.get("safe_disposable_profile_isolation_proven") is not False):
-  raise ValueError("PRE569 anchored static source not verified")
+ p569=json.loads(Path("docs/PRE569_V48_SAVE_IMPORT_STATIC_READONLY.json").read_text())
+ if(p569.get("status")!="AUDIT_OK" or
+    p569.get("V48_sha256")!=APK_SHA or
+    p569.get("MARCEK_save_isolation_proven") is not False):
+  raise ValueError("PRE569 anchored V48 save import code not verified")
  from androguard.core.dex import DEX
  from loguru import logger
  logger.disable("androguard")
