@@ -1,0 +1,10 @@
+{
+  "stage": "PRE545_RETRY",
+  "previous_run": 42541542536,
+  "previous_audit_status": "AUDIT_OK",
+  "previous_output_publish_failure": "Stale workflow safety field names in checkout snapshot: source audit itself verified r31 assigned from r4 and 18 3-field stores",
+  "repair": "Already updated workflow safety field names, rerun same authenticated source-only audit to publish metadata report",
+  "read_only": true,
+  "save_MARCEK_untouched": true,
+  "APK_unchanged": true
+}
