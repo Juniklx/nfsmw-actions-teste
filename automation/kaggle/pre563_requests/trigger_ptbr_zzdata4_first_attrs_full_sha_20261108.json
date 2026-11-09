@@ -1,0 +1,10 @@
+{
+  "stage": "PRE563",
+  "source_zip_id": "1M95wS9iqrMI-p328Wual7TreqfaPgdL0",
+  "source_zdir_sha": "832a20dfdca663233f4559236048f21d5ff4e6f65780d1aa18e58b72005245bf",
+  "source_zzdata4_phone_sha": "7dd33d214ac45f4b67005685bc0c2b8555eca98a33d24216c934f077d5054951",
+  "resource": "GLOBAL/ATTRIBUTES.BIN",
+  "resource_ptbr_sector": 0,
+  "read_only": true,
+  "no_save_modification": true
+}
