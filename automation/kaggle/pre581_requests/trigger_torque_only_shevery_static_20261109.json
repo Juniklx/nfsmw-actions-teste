@@ -1,0 +1,7 @@
+{
+  "stage": "PRE581",
+  "source_variant": "PRE580",
+  "test": "shell static wrong-hash abort",
+  "no_device_write": true,
+  "no_game_bytes_on_ci": true
+}
