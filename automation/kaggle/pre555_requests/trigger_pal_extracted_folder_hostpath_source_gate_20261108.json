@@ -1,0 +1,11 @@
+{
+  "stage": "PRE555",
+  "goal": "Authenticated PRE99 host-folder guest VFS static flow; verify PAL resource boundary offline",
+  "source_type_user_confirmed": "EXTRACTED_FOLDER",
+  "PAL_PTBR_user_reported": true,
+  "recorded_PRE554": "docs/PRE554_SHEVERY_ANDROID_DEVICE_EVIDENCE_READONLY_20261108.md",
+  "no_write": true,
+  "no_apk": true,
+  "no_save": true,
+  "attribution": "User confirmed extracted folder in current chat"
+}
