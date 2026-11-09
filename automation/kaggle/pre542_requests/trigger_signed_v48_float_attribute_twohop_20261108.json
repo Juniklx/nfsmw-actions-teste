@@ -1,0 +1,7 @@
+{
+  "stage": "PRE542",
+  "goal": "After PRE541 original PPC function evidence, authenticate published V48 PAL libmain.so and confirm sub_823EAE40 -> sub_823E4130 -> sub_823E5988 AArch64 PLT-resolved guest calls plus floating point operations, never label SetPackage",
+  "pre541_run": 42539950488,
+  "mode": "read-only",
+  "apk_save_originals_untouched": true
+}
