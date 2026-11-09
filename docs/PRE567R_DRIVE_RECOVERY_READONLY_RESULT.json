@@ -1,0 +1,22 @@
+{
+  "stage": "PRE567R_INDEPENDENT_CANONICAL_DRIVE_RECOVERY_READONLY",
+  "status": "AUDIT_OK",
+  "previous_gitHub_run_42557734548_conclusion": "failure",
+  "previous_run_failure_does_not_negate_verified_drive_append": true,
+  "backup_copy_count_bytewise_verified": 2,
+  "original_context_sha256": "074c43bb4d3781e64b7c37bfb9efa92f5ebf1505d11227434901e0ba4f6e1f36",
+  "original_context_bytes": 859770,
+  "canonical_context_bytes": 864277,
+  "canonical_context_sha256": "7227982889c1cbcadb6ce41eb7408289f42d5305eecc5afdcf848f5a4a5c5be4",
+  "canonical_append_matches_pinned_gitHub_handoff": true,
+  "original_context_prefix_preserved": true,
+  "canonical_postreadback_verified": true,
+  "canonical_or_backup_files_modified_by_PRE567R": false,
+  "APK_built": false,
+  "game_assets_modified": false,
+  "save_modified": false,
+  "signing_material_accessed": false,
+  "BMW_tuning_enabled": false,
+  "run_id": "42558361828",
+  "utc": "2026-11-09T03:48:30.226124+00:00"
+}
