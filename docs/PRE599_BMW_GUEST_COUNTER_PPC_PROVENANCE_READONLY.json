@@ -1,0 +1,851 @@
+{
+  "stage": "PRE599_GUEST_BMW_LEVEL_COUNTER_AND_ATTR_LOOKUP_PPC_PROVENANCE",
+  "status": "AUDIT_OK",
+  "source_archive_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "source_archive_bytes": 874780689,
+  "guest_generated_file_count": 129,
+  "guest_function_count": 56338,
+  "guest_functions": {
+    "sub_82582F70": {
+      "filename": "nfsmw_recomp.11.cpp",
+      "source_file_sha256": "0208ca992595ccbddfddc1299f59a2ff586b9c726ad4a3c4d4c73f6dc40db4e3",
+      "source_function_bytes": 30540,
+      "ppc_comment_instruction_count": 537,
+      "guest_calls_total": 19,
+      "guest_call_targets": [
+        "sub_8215CB08",
+        "sub_822CC740",
+        "sub_822DADC0",
+        "sub_823E4600",
+        "sub_823E5988",
+        "sub_8256BB10",
+        "sub_8256BC60",
+        "sub_8256D548",
+        "sub_8256F818",
+        "sub_8256F9D8",
+        "sub_82579CE0",
+        "sub_82587498"
+      ],
+      "field_40_load_store_sites": [
+        {
+          "line": 252,
+          "memory_operation": "lwz",
+          "offset_decimal": 40,
+          "destination_or_source_reg": "r10",
+          "base_register": "r11",
+          "previous_opcodes": [
+            "lfs",
+            "lwz",
+            "fmr",
+            "fmr",
+            "fmr"
+          ],
+          "following_opcodes": [
+            "mtctr",
+            "bctrl",
+            "li",
+            "li",
+            "mr",
+            "bl"
+          ],
+          "following_comparisons": [],
+          "next_conditional_branch_within_6_PPC": false,
+          "next_guest_call_within_6_PPC": true
+        },
+        {
+          "line": 303,
+          "memory_operation": "lwz",
+          "offset_decimal": 40,
+          "destination_or_source_reg": "r8",
+          "base_register": "r9",
+          "previous_opcodes": [
+            "fmr",
+            "fmr",
+            "lwz",
+            "fmr",
+            "fmr"
+          ],
+          "following_opcodes": [
+            "mtctr",
+            "bctrl",
+            "li",
+            "li",
+            "mr",
+            "bl"
+          ],
+          "following_comparisons": [],
+          "next_conditional_branch_within_6_PPC": false,
+          "next_guest_call_within_6_PPC": true
+        },
+        {
+          "line": 354,
+          "memory_operation": "lwz",
+          "offset_decimal": 40,
+          "destination_or_source_reg": "r6",
+          "base_register": "r7",
+          "previous_opcodes": [
+            "fmr",
+            "fmr",
+            "lwz",
+            "fmr",
+            "fmr"
+          ],
+          "following_opcodes": [
+            "mtctr",
+            "bctrl",
+            "lwz",
+            "li",
+            "addi",
+            "cmplwi"
+          ],
+          "following_comparisons": [
+            {
+              "mnemonic": "cmplwi",
+              "operand_signature": "cr6,r11,6"
+            }
+          ],
+          "next_conditional_branch_within_6_PPC": false,
+          "next_guest_call_within_6_PPC": false
+        },
+        {
+          "line": 810,
+          "memory_operation": "stw",
+          "offset_decimal": 44,
+          "destination_or_source_reg": "r25",
+          "base_register": "r3",
+          "previous_opcodes": [
+            "stfs",
+            "stb",
+            "stfs",
+            "stb",
+            "stfs"
+          ],
+          "following_opcodes": [
+            "stw",
+            "stb",
+            "stb",
+            "stb",
+            "stw",
+            "stw"
+          ],
+          "following_comparisons": [],
+          "next_conditional_branch_within_6_PPC": false,
+          "next_guest_call_within_6_PPC": false
+        },
+        {
+          "line": 812,
+          "memory_operation": "stw",
+          "offset_decimal": 48,
+          "destination_or_source_reg": "r22",
+          "base_register": "r3",
+          "previous_opcodes": [
+            "stb",
+            "stfs",
+            "stb",
+            "stfs",
+            "stw"
+          ],
+          "following_opcodes": [
+            "stb",
+            "stb",
+            "stb",
+            "stw",
+            "stw",
+            "stw"
+          ],
+          "following_comparisons": [],
+          "next_conditional_branch_within_6_PPC": false,
+          "next_guest_call_within_6_PPC": false
+        },
+        {
+          "line": 820,
+          "memory_operation": "stw",
+          "offset_decimal": 72,
+          "destination_or_source_reg": "r22",
+          "base_register": "r3",
+          "previous_opcodes": [
+            "stw",
+            "stw",
+            "stb",
+            "stb",
+            "stb"
+          ],
+          "following_opcodes": [
+            "stw",
+            "stw",
+            "stw",
+            "b",
+            "mr",
+            "addi"
+          ],
+          "following_comparisons": [],
+          "next_conditional_branch_within_6_PPC": false,
+          "next_guest_call_within_6_PPC": false
+        },
+        {
+          "line": 1107,
+          "memory_operation": "lwz",
+          "offset_decimal": 60,
+          "destination_or_source_reg": "r8",
+          "base_register": "r9",
+          "previous_opcodes": [
+            "stb",
+            "stb",
+            "addi",
+            "li",
+            "lwz"
+          ],
+          "following_opcodes": [
+            "mtctr",
+            "b",
+            "lwz",
+            "lbz",
+            "cmplwi",
+            "ble"
+          ],
+          "following_comparisons": [
+            {
+              "mnemonic": "cmplwi",
+              "operand_signature": "cr6,r11,75"
+            }
+          ],
+          "next_conditional_branch_within_6_PPC": true,
+          "next_guest_call_within_6_PPC": false
+        },
+        {
+          "line": 1199,
+          "memory_operation": "lwz",
+          "offset_decimal": 60,
+          "destination_or_source_reg": "r10",
+          "base_register": "r11",
+          "previous_opcodes": [
+            "stb",
+            "stb",
+            "addi",
+            "mr",
+            "lwz"
+          ],
+          "following_opcodes": [
+            "mtctr",
+            "bctrl",
+            "lwz",
+            "mr",
+            "lwz",
+            "mtctr"
+          ],
+          "following_comparisons": [],
+          "next_conditional_branch_within_6_PPC": false,
+          "next_guest_call_within_6_PPC": false
+        }
+      ],
+      "pvehicle_like_fields_per_base_register": {
+        "r11": [
+          40,
+          60
+        ],
+        "r9": [
+          40,
+          60
+        ],
+        "r7": [
+          40
+        ],
+        "r3": [
+          44,
+          48,
+          72
+        ]
+      },
+      "comparison_mnemonics": {
+        "cmplwi": 36,
+        "cmpwi": 4,
+        "cmplw": 2
+      },
+      "blr_count": 0,
+      "potential_common_base_fields_are_syntactic_not_proven_pvehicle": true,
+      "semantic_GetMaxLevel_identity_verified": false
+    },
+    "sub_823E67E8": {
+      "filename": "nfsmw_recomp.15.cpp",
+      "source_file_sha256": "414803e217226952833caf347a1ef61dde781a01a8a518262f77196bbc9a0d3a",
+      "source_function_bytes": 14285,
+      "ppc_comment_instruction_count": 219,
+      "guest_calls_total": 12,
+      "guest_call_targets": [
+        "sub_820E0ED0",
+        "sub_8214B580",
+        "sub_8214BBC0",
+        "sub_8214C420",
+        "sub_82152A38",
+        "sub_823E5988",
+        "sub_823E5B08",
+        "sub_823EB290",
+        "sub_823EB3B0"
+      ],
+      "field_40_load_store_sites": [],
+      "pvehicle_like_fields_per_base_register": {},
+      "comparison_mnemonics": {
+        "cmplwi": 15,
+        "cmpwi": 2
+      },
+      "blr_count": 0,
+      "potential_common_base_fields_are_syntactic_not_proven_pvehicle": true,
+      "semantic_GetMaxLevel_identity_verified": false
+    },
+    "sub_823E5988": {
+      "filename": "nfsmw_recomp.28.cpp",
+      "source_file_sha256": "11eec8fe3d20dc5d53e262525a4cf31021c2bbfb28e2690b6372c6c3cbea4aad",
+      "source_function_bytes": 4008,
+      "ppc_comment_instruction_count": 69,
+      "guest_calls_total": 2,
+      "guest_call_targets": [
+        "sub_8214B858",
+        "sub_8214EDA8"
+      ],
+      "field_40_load_store_sites": [],
+      "pvehicle_like_fields_per_base_register": {},
+      "comparison_mnemonics": {
+        "cmplwi": 8,
+        "cmpw": 1
+      },
+      "blr_count": 3,
+      "potential_common_base_fields_are_syntactic_not_proven_pvehicle": true,
+      "semantic_GetMaxLevel_identity_verified": false
+    },
+    "sub_823E5B08": {
+      "filename": "nfsmw_recomp.48.cpp",
+      "source_file_sha256": "aa68d0c153ce27f5fb27c5d22303dfe1d0abc336038fe5cfff076b3b9eb7487f",
+      "source_function_bytes": 38682,
+      "ppc_comment_instruction_count": 646,
+      "guest_calls_total": 47,
+      "guest_call_targets": [
+        "sub_82145E10",
+        "sub_8214B580",
+        "sub_8214B858",
+        "sub_8214BAA8",
+        "sub_8214BD08",
+        "sub_8214DBE8",
+        "sub_8214DDE8",
+        "sub_8214EC10",
+        "sub_82152A38",
+        "sub_823CFB20",
+        "sub_823E3790",
+        "sub_823E3CD0",
+        "sub_823E4588",
+        "sub_823E4850",
+        "sub_823E5420",
+        "sub_823E5988",
+        "sub_823F9778",
+        "sub_823F9C08",
+        "sub_823F9C58"
+      ],
+      "field_40_load_store_sites": [],
+      "pvehicle_like_fields_per_base_register": {},
+      "comparison_mnemonics": {
+        "cmplwi": 87,
+        "cmpwi": 1,
+        "cmpw": 1,
+        "cmplw": 3
+      },
+      "blr_count": 0,
+      "potential_common_base_fields_are_syntactic_not_proven_pvehicle": true,
+      "semantic_GetMaxLevel_identity_verified": false
+    },
+    "sub_8256F818": {
+      "filename": "nfsmw_recomp.57.cpp",
+      "source_file_sha256": "a74e2314e878a88d197d2d8774254bf8c7fbc0e835f84a6c048f0ec86d9f455c",
+      "source_function_bytes": 5237,
+      "ppc_comment_instruction_count": 96,
+      "guest_calls_total": 6,
+      "guest_call_targets": [
+        "sub_8215CB08",
+        "sub_823E5988",
+        "sub_8256BC60",
+        "sub_8256D548",
+        "sub_8256D800"
+      ],
+      "field_40_load_store_sites": [],
+      "pvehicle_like_fields_per_base_register": {},
+      "comparison_mnemonics": {
+        "cmpwi": 1,
+        "cmplwi": 5,
+        "cmpw": 1
+      },
+      "blr_count": 0,
+      "potential_common_base_fields_are_syntactic_not_proven_pvehicle": true,
+      "semantic_GetMaxLevel_identity_verified": false
+    },
+    "sub_82203AB8": {
+      "filename": "nfsmw_recomp.59.cpp",
+      "source_file_sha256": "acf7533e6ca052a5107f1cefe98dc89d5a2b2b7a16fc95f603d402fffba5679d",
+      "source_function_bytes": 2524,
+      "ppc_comment_instruction_count": 40,
+      "guest_calls_total": 3,
+      "guest_call_targets": [
+        "sub_821B7140",
+        "sub_821E5C60",
+        "sub_825CAE08"
+      ],
+      "field_40_load_store_sites": [
+        {
+          "line": 46,
+          "memory_operation": "lwz",
+          "offset_decimal": 72,
+          "destination_or_source_reg": "r28",
+          "base_register": "r31",
+          "previous_opcodes": [
+            "cmplwi",
+            "beq",
+            "lwz",
+            "lwz",
+            "lwz"
+          ],
+          "following_opcodes": [
+            "lwz",
+            "lwz",
+            "lwz",
+            "lwz",
+            "lwz",
+            "lwz"
+          ],
+          "following_comparisons": [],
+          "next_conditional_branch_within_6_PPC": false,
+          "next_guest_call_within_6_PPC": false
+        },
+        {
+          "line": 48,
+          "memory_operation": "lwz",
+          "offset_decimal": 68,
+          "destination_or_source_reg": "r27",
+          "base_register": "r31",
+          "previous_opcodes": [
+            "beq",
+            "lwz",
+            "lwz",
+            "lwz",
+            "lwz"
+          ],
+          "following_opcodes": [
+            "lwz",
+            "lwz",
+            "lwz",
+            "lwz",
+            "lwz",
+            "lwz"
+          ],
+          "following_comparisons": [],
+          "next_conditional_branch_within_6_PPC": false,
+          "next_guest_call_within_6_PPC": false
+        },
+        {
+          "line": 52,
+          "memory_operation": "lwz",
+          "offset_decimal": 60,
+          "destination_or_source_reg": "r9",
+          "base_register": "r31",
+          "previous_opcodes": [
+            "lwz",
+            "lwz",
+            "lwz",
+            "lwz",
+            "lwz"
+          ],
+          "following_opcodes": [
+            "lwz",
+            "lwz",
+            "lwz",
+            "lwz",
+            "lwz",
+            "stw"
+          ],
+          "following_comparisons": [],
+          "next_conditional_branch_within_6_PPC": false,
+          "next_guest_call_within_6_PPC": false
+        },
+        {
+          "line": 56,
+          "memory_operation": "lwz",
+          "offset_decimal": 52,
+          "destination_or_source_reg": "r7",
+          "base_register": "r31",
+          "previous_opcodes": [
+            "lwz",
+            "lwz",
+            "lwz",
+            "lwz",
+            "lwz"
+          ],
+          "following_opcodes": [
+            "lwz",
+            "lwz",
+            "lwz",
+            "stw",
+            "stw",
+            "stw"
+          ],
+          "following_comparisons": [],
+          "next_conditional_branch_within_6_PPC": false,
+          "next_guest_call_within_6_PPC": false
+        },
+        {
+          "line": 58,
+          "memory_operation": "lwz",
+          "offset_decimal": 48,
+          "destination_or_source_reg": "r6",
+          "base_register": "r31",
+          "previous_opcodes": [
+            "lwz",
+            "lwz",
+            "lwz",
+            "lwz",
+            "lwz"
+          ],
+          "following_opcodes": [
+            "lwz",
+            "lwz",
+            "stw",
+            "stw",
+            "stw",
+            "stw"
+          ],
+          "following_comparisons": [],
+          "next_conditional_branch_within_6_PPC": false,
+          "next_guest_call_within_6_PPC": false
+        },
+        {
+          "line": 60,
+          "memory_operation": "lwz",
+          "offset_decimal": 44,
+          "destination_or_source_reg": "r5",
+          "base_register": "r31",
+          "previous_opcodes": [
+            "lwz",
+            "lwz",
+            "lwz",
+            "lwz",
+            "lwz"
+          ],
+          "following_opcodes": [
+            "lwz",
+            "stw",
+            "stw",
+            "stw",
+            "stw",
+            "stw"
+          ],
+          "following_comparisons": [],
+          "next_conditional_branch_within_6_PPC": false,
+          "next_guest_call_within_6_PPC": false
+        },
+        {
+          "line": 62,
+          "memory_operation": "lwz",
+          "offset_decimal": 40,
+          "destination_or_source_reg": "r4",
+          "base_register": "r31",
+          "previous_opcodes": [
+            "lwz",
+            "lwz",
+            "lwz",
+            "lwz",
+            "lwz"
+          ],
+          "following_opcodes": [
+            "stw",
+            "stw",
+            "stw",
+            "stw",
+            "stw",
+            "bl"
+          ],
+          "following_comparisons": [],
+          "next_conditional_branch_within_6_PPC": false,
+          "next_guest_call_within_6_PPC": true
+        },
+        {
+          "line": 93,
+          "memory_operation": "stw",
+          "offset_decimal": 60,
+          "destination_or_source_reg": "r10",
+          "base_register": "r11",
+          "previous_opcodes": [
+            "lwz",
+            "stw",
+            "cmplwi",
+            "beq",
+            "li"
+          ],
+          "following_opcodes": [
+            "addi",
+            "b"
+          ],
+          "following_comparisons": [],
+          "next_conditional_branch_within_6_PPC": false,
+          "next_guest_call_within_6_PPC": false
+        }
+      ],
+      "pvehicle_like_fields_per_base_register": {
+        "r31": [
+          40,
+          44,
+          48,
+          52,
+          60,
+          68,
+          72
+        ],
+        "r11": [
+          60
+        ]
+      },
+      "comparison_mnemonics": {
+        "cmplwi": 2
+      },
+      "blr_count": 0,
+      "potential_common_base_fields_are_syntactic_not_proven_pvehicle": true,
+      "semantic_GetMaxLevel_identity_verified": false
+    },
+    "sub_823E6560": {
+      "filename": "nfsmw_recomp.81.cpp",
+      "source_file_sha256": "88d0ea1ddc4c6523b530e799a0dc9bb90ef17afbfcda4b1f77bc734d510a7f0d",
+      "source_function_bytes": 8416,
+      "ppc_comment_instruction_count": 150,
+      "guest_calls_total": 10,
+      "guest_call_targets": [
+        "sub_8214B580",
+        "sub_82152A38",
+        "sub_823CFB20",
+        "sub_823E41C0",
+        "sub_823E5420",
+        "sub_823E5988",
+        "sub_823E5B08"
+      ],
+      "field_40_load_store_sites": [],
+      "pvehicle_like_fields_per_base_register": {},
+      "comparison_mnemonics": {
+        "cmplwi": 12,
+        "cmpw": 2,
+        "cmpwi": 2
+      },
+      "blr_count": 0,
+      "potential_common_base_fields_are_syntactic_not_proven_pvehicle": true,
+      "semantic_GetMaxLevel_identity_verified": false
+    },
+    "sub_82752E10": {
+      "filename": "nfsmw_recomp.98.cpp",
+      "source_file_sha256": "f0eddfa79a33ae4f28f1c0651319ba43c6209103b4ccf49a59ea1ef4211ff4d2",
+      "source_function_bytes": 5019,
+      "ppc_comment_instruction_count": 73,
+      "guest_calls_total": 0,
+      "guest_call_targets": [],
+      "field_40_load_store_sites": [
+        {
+          "line": 103,
+          "memory_operation": "lwz",
+          "offset_decimal": 40,
+          "destination_or_source_reg": "r9",
+          "base_register": "r11",
+          "previous_opcodes": [
+            "stw",
+            "lwz",
+            "stw",
+            "lwz",
+            "stw"
+          ],
+          "following_opcodes": [
+            "stw",
+            "lwz",
+            "stw",
+            "lwz",
+            "stw",
+            "lwz"
+          ],
+          "following_comparisons": [],
+          "next_conditional_branch_within_6_PPC": false,
+          "next_guest_call_within_6_PPC": false
+        },
+        {
+          "line": 107,
+          "memory_operation": "lwz",
+          "offset_decimal": 44,
+          "destination_or_source_reg": "r8",
+          "base_register": "r11",
+          "previous_opcodes": [
+            "stw",
+            "lwz",
+            "stw",
+            "lwz",
+            "stw"
+          ],
+          "following_opcodes": [
+            "stw",
+            "lwz",
+            "stw",
+            "lwz",
+            "stw",
+            "lwz"
+          ],
+          "following_comparisons": [],
+          "next_conditional_branch_within_6_PPC": false,
+          "next_guest_call_within_6_PPC": false
+        },
+        {
+          "line": 111,
+          "memory_operation": "lwz",
+          "offset_decimal": 48,
+          "destination_or_source_reg": "r7",
+          "base_register": "r11",
+          "previous_opcodes": [
+            "stw",
+            "lwz",
+            "stw",
+            "lwz",
+            "stw"
+          ],
+          "following_opcodes": [
+            "stw",
+            "lwz",
+            "stw",
+            "lwz",
+            "stw",
+            "lwz"
+          ],
+          "following_comparisons": [],
+          "next_conditional_branch_within_6_PPC": false,
+          "next_guest_call_within_6_PPC": false
+        },
+        {
+          "line": 115,
+          "memory_operation": "lwz",
+          "offset_decimal": 52,
+          "destination_or_source_reg": "r6",
+          "base_register": "r11",
+          "previous_opcodes": [
+            "stw",
+            "lwz",
+            "stw",
+            "lwz",
+            "stw"
+          ],
+          "following_opcodes": [
+            "stw",
+            "lwz",
+            "stw",
+            "lwz",
+            "stw",
+            "lwz"
+          ],
+          "following_comparisons": [],
+          "next_conditional_branch_within_6_PPC": false,
+          "next_guest_call_within_6_PPC": false
+        },
+        {
+          "line": 123,
+          "memory_operation": "lwz",
+          "offset_decimal": 60,
+          "destination_or_source_reg": "r4",
+          "base_register": "r11",
+          "previous_opcodes": [
+            "stw",
+            "lwz",
+            "stw",
+            "lwz",
+            "stw"
+          ],
+          "following_opcodes": [
+            "stw",
+            "lwz",
+            "stw",
+            "lwz",
+            "rotlwi",
+            "add"
+          ],
+          "following_comparisons": [],
+          "next_conditional_branch_within_6_PPC": false,
+          "next_guest_call_within_6_PPC": false
+        },
+        {
+          "line": 131,
+          "memory_operation": "lwz",
+          "offset_decimal": 68,
+          "destination_or_source_reg": "r8",
+          "base_register": "r11",
+          "previous_opcodes": [
+            "stw",
+            "lwz",
+            "stw",
+            "lwz",
+            "stw"
+          ],
+          "following_opcodes": [
+            "rotlwi",
+            "add",
+            "stw",
+            "lwz",
+            "stw",
+            "lwz"
+          ],
+          "following_comparisons": [],
+          "next_conditional_branch_within_6_PPC": false,
+          "next_guest_call_within_6_PPC": false
+        },
+        {
+          "line": 139,
+          "memory_operation": "lwz",
+          "offset_decimal": 72,
+          "destination_or_source_reg": "r7",
+          "base_register": "r11",
+          "previous_opcodes": [
+            "stw",
+            "lwz",
+            "rotlwi",
+            "add",
+            "stw"
+          ],
+          "following_opcodes": [
+            "stw",
+            "lwz",
+            "stw",
+            "lwz",
+            "stw",
+            "stw"
+          ],
+          "following_comparisons": [],
+          "next_conditional_branch_within_6_PPC": false,
+          "next_guest_call_within_6_PPC": false
+        }
+      ],
+      "pvehicle_like_fields_per_base_register": {
+        "r11": [
+          40,
+          44,
+          48,
+          52,
+          60,
+          68,
+          72
+        ]
+      },
+      "comparison_mnemonics": {
+        "cmpwi": 1
+      },
+      "blr_count": 1,
+      "potential_common_base_fields_are_syntactic_not_proven_pvehicle": true,
+      "semantic_GetMaxLevel_identity_verified": false
+    }
+  },
+  "BMW_engine_counter_binary_offset": 256616,
+  "counter_read_offset_in_pvehicle_layout": 40,
+  "exact_GetMaxLevel_identity_proven": false,
+  "actual_pvehicle_object_proven_for_pinned_functions": false,
+  "exact_SetLevel_identity_proven": false,
+  "second_engine_ref_lookup_runtime_proven": false,
+  "no_dynamic_guest_exec": true,
+  "no_generated_source_published": true,
+  "no_game_assets_modified": true,
+  "no_APK_built": true,
+  "no_save_modified": true,
+  "no_signing_access": true,
+  "run_id": "42581301120",
+  "utc": "2026-11-09T07:45:59.723951+00:00"
+}
