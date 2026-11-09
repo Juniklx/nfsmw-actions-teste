@@ -1,0 +1,77 @@
+name: NFSMW PRE546 original PAL guest 7 callers r4 output pointer preparation readonly
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre546_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre546-guest-callers-output-pointer
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare authenticated PRE99 guest source reader and syntax validation
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth requests >/dev/null
+          python -m py_compile automation/kaggle/pre546_pal_seven_callers_r4_output_pointer_readonly.py
+      - name: Verify original PAL guest caller r4 argument setup with read only source
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre546_pal_seven_callers_r4_output_pointer_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Persist only guarded numeric callsite metadata
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("/tmp/nfsmw-pre546/report.json")
+          d=json.loads(p.read_text()) if p.exists() else {"status":"FAILED_NO_REPORT"}
+          for k in ("APK_built","original_game_or_binary_modified_or_published",
+                    "save_modified","signing_material_accessed","BMW_tuning_enabled"):
+              if d.get(k,False) is not False:
+                  raise SystemExit("PRE546 readonly side-effect boundary failed "+k)
+          if d.get("status")=="AUDIT_OK":
+              for k in ("guest_BMW_engine_attribute_identity_proven","guest_SetPackage_identity_proven"):
+                  if d.get(k) is not False:
+                      raise SystemExit("PRE546 cannot claim engine or SetPackage identity")
+              out=Path("docs/PRE546_ORIGINAL_PAL_CALLERS_R4_OUTPUT_POINTER_READONLY.json")
+          else:
+              out=Path("docs/PRE546_ORIGINAL_PAL_CALLERS_R4_OUTPUT_POINTER_DIAGNOSTIC.json")
+              d={k:d.get(k) for k in ("stage","status","error_type","error","run_id") if k in d}
+              d["BMW_tuning_enabled"]=False
+          out.parent.mkdir(parents=True,exist_ok=True)
+          out.write_text(json.dumps(d,indent=2,ensure_ascii=False)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE546_ORIGINAL_PAL_CALLERS_R4_OUTPUT_POINTER_*json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "PRE546: signed source numeric r4 pointer preparation before nine guest calls"
+          for n in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
+      - name: Retain sanitized report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre546-PAL-r4-output-${{ github.run_id }}
+          path: /tmp/nfsmw-pre546/report.json
+          retention-days: 14
