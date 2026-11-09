@@ -1,0 +1,9 @@
+{
+  "stage": "PRE592",
+  "candidate_source": "PRE591",
+  "device_gate": "restore PRE587 before application",
+  "static_test_only": true,
+  "phone_game_data_modified": false,
+  "save_modified": false,
+  "package_unchanged": true
+}
