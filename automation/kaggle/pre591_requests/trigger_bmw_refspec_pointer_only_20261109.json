@@ -1,0 +1,9 @@
+{
+  "stage": "PRE591",
+  "source": "PRE586_AUDIT_OK",
+  "device_observation": "PRE590 user loaded MARCEK with PRE587",
+  "experimental_change": "BMW RefSpec pointer only, pvehicle motor count=0",
+  "original_game_phone_files_untouched": true,
+  "APK_built": false,
+  "active_purchase_not_proven": true
+}
