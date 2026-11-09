@@ -1,0 +1,9 @@
+{
+  "stage": "PRE607",
+  "source": "PRE606",
+  "requires_previous_PRE592_restore": true,
+  "source_sha256": "11c122bf9b32011fd3955498517e51f2f1f11551bc2bbd9f448201bc4ef862f3",
+  "wrong_hash_must_abort": true,
+  "CI_only": true,
+  "phone_untouched": true
+}
