@@ -1,0 +1,14 @@
+{
+  "stage": "PRE618_BMW_ASSET_IDENTITY_READONLY_STATIC",
+  "status": "AUDIT_OK",
+  "source_log_sha256": "dc9fc0bb08ba943ede3e7675570c1c1fb15ddb5db743cee74edda4393109de0e",
+  "shell_syntax_checked": true,
+  "invalid_file_sizes_rejected_without_write": true,
+  "phone_hash_checked": false,
+  "PRE607_active_assets_proven": false,
+  "APK_modified": false,
+  "game_modified": false,
+  "save_modified": false,
+  "signing_accessed": false,
+  "run_id": "42672824917"
+}
