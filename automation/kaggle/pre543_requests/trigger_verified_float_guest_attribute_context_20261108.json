@@ -1,0 +1,13 @@
+{
+  "stage": "PRE543",
+  "purpose": "Append authenticated historical PPC and original V48 ARM64 floating-point -> attribute-count chain, preserving prior canonical context and backup",
+  "prior_marker": "PRE540_BMW_TUNING_PRE539_V48_GUEST_823EAE40_CALLSITES_20261108",
+  "new_marker": "PRE543_BMW_TUNING_PRE541_PRE542_GUEST_ATTRIBUTE_FLOAT_CHAIN_20261108",
+  "prior_bytes": 815626,
+  "proof_runs": [
+    42539950488,
+    42540238097
+  ],
+  "original_APK_unchanged": true,
+  "save_MARCEK_untouched": true
+}
