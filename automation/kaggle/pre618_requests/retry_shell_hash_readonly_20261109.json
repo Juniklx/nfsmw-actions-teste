@@ -1,0 +1,7 @@
+{
+  "stage": "PRE618",
+  "retry": "simplified known-good YAML shell static preflight",
+  "previousRun": 42672321605,
+  "phone_not_accessed": true,
+  "no_device_writes": true
+}
