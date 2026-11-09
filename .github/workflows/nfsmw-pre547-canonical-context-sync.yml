@@ -1,0 +1,67 @@
+name: NFSMW PRE547 backup and append BMW tuning handoff to canonical context
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre547_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre547-canonical-context
+  cancel-in-progress: false
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare Google Drive and syntax validation
+        run: |
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          python -m py_compile automation/kaggle/pre480_append_canonical_context_safe.py automation/kaggle/pre547_append_float_output_stack_alias_context_safe.py
+      - name: Backup and append exact PRE547 GitHub handoff to Drive
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre547_append_float_output_stack_alias_context_safe.py --run-id "$GITHUB_RUN_ID"
+      - name: Persist metadata and backup link even on failed sync
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          f=Path("/tmp/nfsmw-pre547/report.json")
+          d=json.loads(f.read_text()) if f.is_file() else {"stage":"PRE547","status":"FAILED_NO_REPORT"}
+          if d.get("apk_built",False) is not False or d.get("save_modified",False) is not False:
+              raise SystemExit("PRE547 safety check failed")
+          dest=Path("docs/PRE547_CANONICAL_CONTEXT_SYNC_RESULT.json")
+          dest.parent.mkdir(parents=True,exist_ok=True)
+          dest.write_text(json.dumps(d,ensure_ascii=False,indent=2)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE547_CANONICAL_CONTEXT_SYNC_RESULT.json
+          git diff --cached --quiet && exit 0
+          git commit -m "PRE547: record verified context handoff and safe backup"
+          for i in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
+      - name: Archive sanitized context sync status
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre547-canonical-context-${{ github.run_id }}
+          path: /tmp/nfsmw-pre547/report.json
+          if-no-files-found: warn
+          retention-days: 14
