@@ -1,0 +1,257 @@
+{
+  "stage": "PRE569_ORIGINAL_V48_TRAERPARTIDAS_METHOD_ROOT_WIRING_STATIC_READONLY",
+  "status": "AUDIT_OK",
+  "V48_sha256": "c642f95b4a60b9ccf5d8fbd98802afffc0a2247ec5a0783b54cd8083ec55bd35",
+  "methods": [
+    {
+      "class": "Ajustes",
+      "method": "carpetaDatos",
+      "instructions": 8,
+      "safe_calls": [
+        {
+          "target": "Landroid/content/Context;->getExternalFilesDir",
+          "count": 1
+        },
+        {
+          "target": "Ljava/io/File;-><init>",
+          "count": 1
+        },
+        {
+          "target": "Ljava/io/File;->mkdirs",
+          "count": 1
+        }
+      ],
+      "literal_signal_labels": []
+    },
+    {
+      "class": "MotorNativo",
+      "method": "argumentos",
+      "instructions": 331,
+      "safe_calls": [
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->anisotropico",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->antialiasing",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->apiGrafica",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->argumentosDriver",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->audioAAudio",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->calidadSombras",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->carpetaLogs",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->compatibilidad",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->desenfoque",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->direccionValida",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->edicion",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->escalado",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->fijarHilos",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->filtroColor",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->filtroImagen",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->gamertag",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->gamertagValido",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->limiteFps",
+          "count": 2
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->reflejoAsfalto",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->reflejosCoche",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->registroDetallado",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->resolucionInterna",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->resplandorCielo",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->servidorEfectivo",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->sombrasCorte",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->sombrasEscala",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->vibracion",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/MotorNativo;->anisotropico",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/MotorNativo;->argumentosCompatibilidad",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/MotorNativo;->carpetaCache",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/MotorNativo;->carpetaUsuario",
+          "count": 1
+        },
+        {
+          "target": "Ljava/io/File;-><init>",
+          "count": 1
+        },
+        {
+          "target": "Ljava/io/File;->getAbsolutePath",
+          "count": 3
+        }
+      ],
+      "literal_signal_labels": [
+        "user_data",
+        "--user_data_root"
+      ]
+    },
+    {
+      "class": "MotorNativo",
+      "method": "carpetaUsuario",
+      "instructions": 6,
+      "safe_calls": [
+        {
+          "target": "Landroid/content/Context;->getFilesDir",
+          "count": 1
+        },
+        {
+          "target": "Ljava/io/File;-><init>",
+          "count": 1
+        }
+      ],
+      "literal_signal_labels": []
+    },
+    {
+      "class": "MotorNativo",
+      "method": "preparar",
+      "instructions": 22,
+      "safe_calls": [
+        {
+          "target": "Lio/github/nfsmwrecomp/MotorNativo;->carpetaCache",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/MotorNativo;->carpetaUsuario",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/MotorNativo;->instalarAjustes",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/MotorNativo;->instalarShaders",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/MotorNativo;->traerPartidas",
+          "count": 1
+        },
+        {
+          "target": "Ljava/io/File;->getAbsolutePath",
+          "count": 1
+        },
+        {
+          "target": "Ljava/io/File;->isDirectory",
+          "count": 1
+        },
+        {
+          "target": "Ljava/io/File;->mkdirs",
+          "count": 2
+        }
+      ],
+      "literal_signal_labels": []
+    },
+    {
+      "class": "MotorNativo",
+      "method": "traerPartidas",
+      "instructions": 16,
+      "safe_calls": [
+        {
+          "target": "Lio/github/nfsmwrecomp/Ajustes;->carpetaDatos",
+          "count": 1
+        },
+        {
+          "target": "Lio/github/nfsmwrecomp/MotorNativo;->copiarArbol",
+          "count": 1
+        }
+      ],
+      "literal_signal_labels": [
+        "partida"
+      ]
+    }
+  ],
+  "partidas_method_present": true,
+  "partidas_references_app_game_data_root": true,
+  "partidas_references_native_user_root": false,
+  "partidas_method_actual_save_transfer_proven": false,
+  "V48_active_save_root_on_phone_observed": false,
+  "MARCEK_save_isolation_proven": false,
+  "guest_loader_executed": false,
+  "BMW_tuning_enabled": false,
+  "original_game_or_apk_modified": false,
+  "save_modified": false,
+  "signing_accessed": false,
+  "run_id": "42559005223",
+  "utc": "2026-11-09T03:56:58.295691+00:00"
+}
