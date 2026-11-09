@@ -1,0 +1,78 @@
+name: NFSMW PRE554 passive V48 Android edition and VFS evidence gate
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre554_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre554-readonly-runtime-evidence-preparation
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate passive device shell and static-evidence gate syntax
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre554_v48_mount_evidence_gate.py
+          sh -n automation/device/pre554_v48_mount_probe.sh
+      - name: Verify PRE511 PRE515 PRE551 PRE553 metadata without reading APK, game files or saves
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre554_v48_mount_evidence_gate.py --run-id "$GITHUB_RUN_ID"
+      - name: Enforce no runtime claims; publish metadata evidence only
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          p=Path("/tmp/nfsmw-pre554/report.json")
+          r=json.loads(p.read_text()) if p.is_file() else {"status":"FAILED_NO_REPORT","stage":"PRE554"}
+          for k in ("APK_built","game_assets_modified","save_modified","signing_material_accessed","BMW_tuning_enabled"):
+              if r.get(k,False) is not False:
+                  raise SystemExit("PRE554 write safety violated: "+k)
+          if r.get("status")=="AUDIT_OK":
+              for k in ("phone_versionCode_48_independently_observed",
+                        "device_session_library_maps_observed",
+                        "device_session_vfs_mount_branch_proven",
+                        "device_session_vfs_mount_source_proven",
+                        "actual_game_guest_loader_executed",
+                        "synthetic_BMW_engine_accepted_in_game",
+                        "actual_BMW_tuning_bought_or_persistent"):
+                  if r.get(k) is not False:
+                      raise SystemExit("PRE554 static audit cannot claim phone execution: "+k)
+              dest=Path("docs/PRE554_V48_RUNTIME_EVIDENCE_PREPARATION_READONLY.json")
+          else:
+              dest=Path("docs/PRE554_V48_RUNTIME_EVIDENCE_PREPARATION_DIAGNOSTIC.json")
+              r={k:r.get(k) for k in ("stage","status","error_type","error","run_id") if k in r}
+              r["BMW_tuning_enabled"]=False
+          dest.parent.mkdir(parents=True,exist_ok=True)
+          dest.write_text(json.dumps(r,indent=2,ensure_ascii=False)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE554_V48_RUNTIME_EVIDENCE_PREPARATION_*json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "PRE554: record verified readonly V48 device-edition evidence preparation"
+          for n in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
+      - name: Archive sanitized metadata report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre554-readonly-evidence
+          path: /tmp/nfsmw-pre554/report.json
+          retention-days: 14
