@@ -1,0 +1,10 @@
+{
+  "stage": "PRE565",
+  "prior_canonical_context_report": "docs/PRE559_CANONICAL_CONTEXT_SYNC_RESULT.json",
+  "prior_canonical_sha256": "13c2eb2734032680941de745d57f0c2e738774d4bda36d8afa342d8da6b6c73a",
+  "handoff": "docs/PRE565_HANDOFF_PRE561_PRE564_PTBR_ZDIR_SECTOR0_BMW_RAM_20261108.md",
+  "backup_first": true,
+  "source_zip_unchanged": true,
+  "APK_unchanged": true,
+  "save_MARCEK_unchanged": true
+}
