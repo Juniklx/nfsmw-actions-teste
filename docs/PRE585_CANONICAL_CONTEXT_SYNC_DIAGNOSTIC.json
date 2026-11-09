@@ -1,0 +1,8 @@
+{
+  "stage": "PRE585_CANONICAL_SAVE_ROOT_CONTEXT_SYNC",
+  "status": "FAILED",
+  "error_type": "ValueError",
+  "error": "PRE585 handoff is incomplete or duplicated",
+  "run_id": "42565136711",
+  "utc": "2026-11-09T05:04:12.391103+00:00"
+}
