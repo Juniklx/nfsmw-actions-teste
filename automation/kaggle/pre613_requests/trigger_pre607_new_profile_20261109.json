@@ -1,0 +1,11 @@
+{
+  "stage": "PRE613",
+  "source": "PRE612_HANDOFF_PRE607_NEW_PROFILE_NAME_CREATED_REOPENED_20261109.md",
+  "uploaded_log_sha256": "02473a0141b29b04277ecb2febd5a390937e16f421c29d7e51096e06ba7f90ee",
+  "old_context_bytes": 935008,
+  "old_context_sha256": "946875c0a41a7b3f08d530165fb328ea1c39925875b331d1c3a675badf679549",
+  "backup_first": true,
+  "append_only": true,
+  "save_modified_by_workflow": false,
+  "APK_unchanged": true
+}
