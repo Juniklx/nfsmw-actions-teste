@@ -1,0 +1,10 @@
+{
+  "stage": "PRE539",
+  "goal": "In SHA256-authenticated signed V48 PAL ELF libmain.so, inspect 7 exact guest callers of sub_823EAE40 and all 9 BL sites via official .rela.plt to capture only structural instructions/register-write hints, no semantic claims",
+  "previous_PRE537_run": 42537704457,
+  "previous_PRE538_context_run": 42538035285,
+  "mode": "read-only",
+  "saves_untouched": true,
+  "release_APK_untouched": true,
+  "signing_untouched": true
+}
