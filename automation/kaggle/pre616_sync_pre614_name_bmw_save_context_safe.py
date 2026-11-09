@@ -33,7 +33,7 @@ def verify_earlier_reports():
         or "81.110 B" not in handoff
         or "EXATAMENTE dois membros ZIP editados" not in handoff
         or "Ainda não foi importado" not in handoff
-        or "não foi publicado" not in handoff.lower()
+        or "NÃO foram publicados" not in handoff
         or "NAME" not in handoff
         or "MARCEK" not in handoff):
         raise ValueError("PRE613 and local-only PRE614 original and edited NAME save metadata insufficient")
