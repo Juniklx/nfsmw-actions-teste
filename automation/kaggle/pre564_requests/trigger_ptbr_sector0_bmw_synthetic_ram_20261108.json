@@ -1,0 +1,10 @@
+{
+  "stage": "PRE564",
+  "source_zip_drive": "1M95wS9iqrMI-p328Wual7TreqfaPgdL0",
+  "PTBR_ZDIR_sha256": "832a20dfdca663233f4559236048f21d5ff4e6f65780d1aa18e58b72005245bf",
+  "resource": "GLOBAL/ATTRIBUTES.BIN",
+  "record_ptbr": 805,
+  "sector_ptbr": 0,
+  "pre563_report": "docs/PRE563_PTBR_ZZDATA4_ATTRIBUTES_FIRST_REGION_READONLY.json",
+  "prototype": "PRE502 RAM-only engine +5%, no new APK or save modification"
+}
