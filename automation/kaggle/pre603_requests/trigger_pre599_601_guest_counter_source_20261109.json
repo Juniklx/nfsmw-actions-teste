@@ -1,0 +1,10 @@
+{
+  "stage": "PRE603",
+  "prior": "PRE598",
+  "context_previous_bytes": 915789,
+  "context_previous_sha256": "879e842da9e1360c2b7f274f4cf4b94af3c1eba9dc5ae6a78942247bf7ff9aab",
+  "backup_first": true,
+  "append_only": true,
+  "guest_source_not_published": true,
+  "game_assets_unchanged": true
+}
