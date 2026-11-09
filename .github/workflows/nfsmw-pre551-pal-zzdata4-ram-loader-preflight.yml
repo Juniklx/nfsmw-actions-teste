@@ -1,0 +1,88 @@
+name: NFSMW PRE551 PAL original ZZDATA4 pad and BMW RAM virtual read preflight
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre551_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre551-pal-zzdata4-stream
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare authenticated PAL ZIP reader and verify PRE551 syntax
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth requests >/dev/null
+          python -m py_compile automation/kaggle/pre551_pal_ZZDATA4_sector_ram_loader_preflight_readonly.py
+      - name: Stream SHA-authenticated PAL original ZIP member and run RAM-only virtual lookup
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre551_pal_ZZDATA4_sector_ram_loader_preflight_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Validate pure metadata output; publish only if original game assets absent
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          p=Path("/tmp/nfsmw-pre551/report.json")
+          j=json.loads(p.read_text()) if p.exists() else {"stage":"PRE551","status":"FAILED_NO_REPORT"}
+          for k in ("modified_ZDIR_or_ZZDATA_file_written_or_published",
+                    "synthetic_VPAK_game_resource_written_or_published",
+                    "APK_built","save_modified","signing_material_accessed",
+                    "BMW_tuning_enabled"):
+              if j.get(k,False) is not False:
+                  raise SystemExit("PRE551 readonly game-asset boundary violated: "+k)
+          if j.get("status")=="AUDIT_OK":
+              for key in ("actual_game_guest_loader_executed",
+                          "actual_game_guest_VLT_ExpN_RefSpec_accepted",
+                          "actual_game_engine_power_modified",
+                          "on_device_ISO_selection_verified",
+                          "V48_edition_branch_runtime_observed",
+                          "runtime_purchase_or_save_persistence_verified"):
+                  if j.get(key) is not False:
+                      raise SystemExit("Cannot mislabel simulated archive as real runtime loader")
+              if (j.get("original_pal_ZZDATA_sector_padding_all_zero_verified") is not True or
+                  j.get("original_pal_ZDIR_in_ram_resource_lookup_verified") is not True or
+                  j.get("source_PAL_original_ZDIR_sha256")!="7f37d29f958454ec73d5dbd30068a6acb23cf92d5056fa2d944ca5c87c6637ee"):
+                  raise SystemExit("Original PAL data-space security check incomplete")
+              name="docs/PRE551_PAL_ORIGINAL_ZZDATA4_PADDING_AND_VIRTUAL_RESOURCE_READONLY.json"
+          else:
+              name="docs/PRE551_PAL_ORIGINAL_ZZDATA4_PADDING_DIAGNOSTIC.json"
+              j={k:j.get(k) for k in ("stage","status","error_type","error","run_id") if k in j}
+              j["BMW_tuning_enabled"]=False
+          dest=Path(name);dest.parent.mkdir(parents=True,exist_ok=True)
+          dest.write_text(json.dumps(j,indent=2,ensure_ascii=False)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE551_PAL_ORIGINAL_ZZDATA4_PADDING_*json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "PRE551: authenticated PAL ZIP ZZDATA4 reserved-sector data and isolated BMW VPAK RAM-only virtual reader"
+          for n in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
+      - name: Retain only numeric report, never raw game data
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre551-pal-zip-original-data-space-${{ github.run_id }}
+          path: /tmp/nfsmw-pre551/report.json
+          retention-days: 14
