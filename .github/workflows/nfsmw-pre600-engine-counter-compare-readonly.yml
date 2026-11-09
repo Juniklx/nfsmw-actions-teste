@@ -1,0 +1,76 @@
+name: NFSMW PRE600 engine counter direct compare guest read-only
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre600_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre600-counter-compare-full-guest
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare source scanner
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          python -m py_compile automation/kaggle/pre600_guest_pvehicle_counter_compare_filter_readonly.py
+      - name: Audit authenticated PRE99 for counter-use branches while excluding vtable dispatch and copy shapes
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre600_guest_pvehicle_counter_compare_filter_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Publish bounded function and branch candidates, never raw source
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          src=Path('/tmp/nfsmw-pre600/report.json')
+          r=json.loads(src.read_text()) if src.exists() else {"stage":"PRE600","status":"FAILED_NO_REPORT"}
+          for k in ('guest_code_executed','game_assets_modified','apk_built','save_modified',
+                    'release_key_accessed','raw_generated_code_published'):
+              if r.get(k,False) is not False:raise SystemExit("PRE600 unexpected side effect "+k)
+          if r.get("status")=="AUDIT_OK":
+              for k in ("exact_GetMaxLevel_function_identified","exact_SetLevel_function_identified",
+                        "BMW_second_RefSpec_lookup_verified","complete_dynamic_object_pointer_tracking_proven"):
+                  if r.get(k) is not False:raise SystemExit("PRE600 unsupported semantic proof "+k)
+              if r.get("generated_files_visited")!=129 or r.get("guest_functions_visited")!=56338:
+                  raise SystemExit("PRE600 incomplete original guest scan")
+              path=Path("docs/PRE600_GUEST_COUNTER_BRANCH_CANDIDATES_READONLY.json")
+          else:
+              path=Path("docs/PRE600_GUEST_COUNTER_BRANCH_DIAGNOSTIC.json")
+              r={k:r.get(k) for k in ("stage","status","error_type","error","run_id","utc") if k in r}
+          path.write_text(json.dumps(r,indent=2,ensure_ascii=False)+'\n')
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE600_GUEST_COUNTER_BRANCH_*json
+          if git diff --cached --quiet;then exit 0;fi
+          git commit -m "PRE600: read-only filtered PPC engine counter compare and branch candidates"
+          for n in 1 2 3 4 5;do
+              git fetch origin main
+              git rebase origin/main
+              if git push origin HEAD:main;then exit 0;fi
+          done
+          exit 1
+      - name: Retain only bounded metadata
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre600-guest-counter-branch-metadata
+          path: /tmp/nfsmw-pre600/report.json
+          retention-days: 14
