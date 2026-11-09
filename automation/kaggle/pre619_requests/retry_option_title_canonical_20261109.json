@@ -1,0 +1,8 @@
+{
+  "stage": "PRE619",
+  "retry": "GitHub runner returned no jobs on first trigger",
+  "prior_run": 42673096398,
+  "canonical_sha256": "86361195ddd23442d0421773575dc200e5a8afb6643dd6439022dfec2bdc4195",
+  "backup_first": true,
+  "no_save_or_game_data_changes": true
+}
