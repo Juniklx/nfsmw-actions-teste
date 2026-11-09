@@ -24,7 +24,7 @@ jobs:
           set -euo pipefail
           python -m pip install --disable-pip-version-check google-api-python-client google-auth pyelftools==0.32 capstone==5.0.6 >/dev/null
           python -m py_compile automation/kaggle/pre539_v48_pal_guest_823eae40_callsite_context_readonly.py
-      - name: Read SHA-pinned V48 PAL native ELF and audit exactly 12 intersections
+      - name: Read SHA-pinned V48 PAL native ELF and audit seven callers and nine PLT-resolved BL sites
         env:
           GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
