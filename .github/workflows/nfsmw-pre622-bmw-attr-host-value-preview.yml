@@ -1,0 +1,70 @@
+name: NFSMW PRE622 extra BMW attribute source host callback RAM-only dryrun
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre622_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre622-attr-probe-preview
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install private Drive original guest source dependencies
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          python -m py_compile automation/kaggle/pre622_bmw_attr_host_value_probe_ram_only.py
+      - name: Validate reversible only-host callback at already computed guest REX_LOAD return
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre622_bmw_attr_host_value_probe_ram_only.py --run-id "$GITHUB_RUN_ID"
+      - name: Publish only static preview metadata and prohibit runtime claims
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          p=Path('/tmp/nfsmw-pre622/report.json')
+          r=json.loads(p.read_text()) if p.exists() else {"stage":"PRE622","status":"FAILED_NO_REPORT"}
+          for k in ("no_new_APK_build","callback_not_linked"):
+            if r.get(k) is not True:raise SystemExit("PRE622 unsound build/callback assertion")
+          for k in ("phone_game_data_modified","save_modified","signing_accessed"):
+            if r.get(k,False) is not False:raise SystemExit("PRE622 unexpected mutation")
+          if r.get("status")=="AUDIT_OK":
+            if (r.get("source_reverted_bit_for_bit") is not True or
+                r.get("new_guest_memory_reads")!=0 or r.get("new_guest_memory_writes")!=0 or
+                r.get("direct_attribution_of_zero_to_new_BMW_collection_proven") is not False or
+                r.get("guest_value_runtime_traced") is not False):
+              raise SystemExit("PRE622 RAM preview source proof or inference limits missing")
+            dest=Path("docs/PRE622_BMW_ATTR_HOST_VALUE_RAM_PREVIEW.json")
+          else:
+            dest=Path("docs/PRE622_BMW_ATTR_HOST_VALUE_DIAGNOSTIC.json")
+            r={k:r.get(k) for k in ("stage","status","error_type","error","run_id","utc") if k in r}
+          dest.write_text(json.dumps(r,indent=2,ensure_ascii=False)+'\n')
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE622_BMW_ATTR_HOST_VALUE_*json
+          if git diff --cached --quiet;then exit 0;fi
+          git commit -m "PRE622: reversible no-extra-guest-memory attribute-value host telemetry preview"
+          for i in 1 2 3 4 5;do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main;then exit 0;fi
+          done
+          exit 1
