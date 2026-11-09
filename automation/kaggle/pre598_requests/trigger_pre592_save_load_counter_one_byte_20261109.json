@@ -1,0 +1,9 @@
+{
+  "stage": "PRE598",
+  "source_report": "docs/PRE597_HANDOFF_PRE592_DEVICE_LOAD_AND_COUNTER_ONE_BYTE_20261109.md",
+  "previous_context_size": 909929,
+  "previous_context_sha256": "3cb4bb3f9161427f72028600f6582de0f2fea64714ae00f5fa49f51a8f618a48",
+  "backup_first": true,
+  "append_only": true,
+  "no_device_write": true
+}
