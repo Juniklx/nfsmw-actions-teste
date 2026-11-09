@@ -1,0 +1,88 @@
+name: NFSMW PRE592 Shevery BMW RefSpec-only apply/restore static safety
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre592_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre592-refspec-only-shell-preflight
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate shell syntax, exact hashes and abort-on-wrong-input
+        run: |
+          set -euo pipefail
+          a=automation/device/pre592_apply_bmw_refspec_pointer_only_shevery.sh
+          b=automation/device/pre592_restore_bmw_refspec_pointer_only_shevery.sh
+          sh -n "$a"
+          sh -n "$b"
+          grep -Fq 'PRE591_ZDIR_BMW_REFSPEC_POINTER_ONLY.bin' "$a"
+          grep -Fq 'PRE591_ZZDATA4_FIRST341_REFSPEC_POINTER_ONLY.bin' "$a"
+          grep -Fq '522e15940379c8b746ab3c77e771fd22352b0b408cbf6264cf64e99f8a378c29' "$a"
+          grep -Fq '522e15940379c8b746ab3c77e771fd22352b0b408cbf6264cf64e99f8a378c29' "$b"
+          grep -Fq 'f5ba2b4d007f7ace0aa63429dd9f973d2b9f4924db1ab9695e5569038b0715da' "$a"
+          grep -Fq '6ad6e5748115380ab057e65642b2bad0ce83f74282b4d80dbbc5b71f33c8c12d' "$a"
+          grep -Fq '.pre592_original_backup' "$a"
+          grep -Fq '.pre592_original_backup' "$b"
+          if grep -E '(^|[^[:alpha:]])(rm|force-stop|pm clear)([[:space:]]|$)' "$a" "$b"; then
+              echo "PRE592_FORBIDDEN_COMMAND"; exit 1
+          fi
+          root=$(mktemp -d)
+          trap 'rm -rf "$root"' EXIT
+          mkdir -p "$root/game/NFS" "$root/fragments"
+          printf 'ORIG_ZDIR_FAKE' > "$root/game/NFS/ZDIR.BIN"
+          printf 'ORIG_ZZDATA_FAKE' > "$root/game/NFS/ZZDATA4.BIN"
+          printf 'WRONG_ZDIR' > "$root/fragments/PRE591_ZDIR_BMW_REFSPEC_POINTER_ONLY.bin"
+          printf 'WRONG_DATA' > "$root/fragments/PRE591_ZZDATA4_FIRST341_REFSPEC_POINTER_ONLY.bin"
+          cp "$root/game/NFS/ZDIR.BIN" "$root/original_zdir"
+          cp "$root/game/NFS/ZZDATA4.BIN" "$root/original_zz"
+          if sh "$a" "$root/game" "$root/fragments" >"$root/run" 2>&1;then
+            echo "PRE592_ACCEPTED_WRONG_HASH";exit 1
+          fi
+          cmp "$root/original_zdir" "$root/game/NFS/ZDIR.BIN"
+          cmp "$root/original_zz" "$root/game/NFS/ZZDATA4.BIN"
+          test ! -e "$root/game/NFS/ZZDATA4.BIN.pre592_original_backup"
+          if sh "$b" "$root/game" >"$root/revert" 2>&1;then
+            echo "PRE592_RESTORE_ACCEPTED_MISSING_BACKUPS";exit 1
+          fi
+          echo "PRE592_STATIC=AUDIT_OK"
+      - name: Store static-only metadata, not game binaries
+        if: success()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          d={
+            "stage":"PRE592_SHEVERY_REFSPEC_POINTER_ONLY_STATIC_PREFLIGHT",
+            "status":"AUDIT_OK",
+            "shell_syntax_valid":True,
+            "wrong_hash_aborted_without_file_write":True,
+            "restore_without_backups_aborted":True,
+            "original_game_or_save_modified":False,
+            "actual_device_experiment_executed":False,
+            "BMW_buyable_tuning_enabled":False,
+            "APK_built":False,
+            "run_id":os.environ.get("GITHUB_RUN_ID","")
+          }
+          Path("docs/PRE592_SHEVERY_REFSPEC_POINTER_ONLY_STATIC_PREFLIGHT_RESULT.json").write_text(
+            json.dumps(d,ensure_ascii=False,indent=2)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE592_SHEVERY_REFSPEC_POINTER_ONLY_STATIC_PREFLIGHT_RESULT.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "PRE592: static safety of RefSpec pointer-only device diagnostic scripts"
+          for n in 1 2 3 4 5;do
+             git fetch origin main
+             git rebase origin/main
+             if git push origin HEAD:main;then exit 0;fi
+          done
+          exit 1
