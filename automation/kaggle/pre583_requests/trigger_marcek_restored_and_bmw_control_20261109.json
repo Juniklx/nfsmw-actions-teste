@@ -1,0 +1,9 @@
+{
+  "stage": "PRE583",
+  "source": "PRE579-PRE582",
+  "expected_context_bytes": 885141,
+  "expected_context_sha256": "cf39c6f28c5b8a15c2843d860a6b56efbc61e5a021aa211cd32d7ee02caf7406",
+  "backup_first": true,
+  "append_only": true,
+  "no_device_change": true
+}
