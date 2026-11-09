@@ -1,0 +1,27 @@
+# PRE547_BMW_TUNING_PRE544_PRE546_FLOAT_OUTPUT_STACK_ALIAS_REDIRECT_20261108
+
+**Data:** 2026-11-08 local (CI UTC 2026-11-09). **Projeto:** NFSMW-Recompiled-Mobile, Xbox 360 PAL, BMW M3 GTR carreira (type 41). **Objetivo:** tunagem comprável, instalada, com física e persistência reais. **Baseline V48 PRE452 INTACTA**, package `io.github.nfsmwrecomp`, versionCode 48, APK SHA256 `c642f95b4a60b9ccf5d8fbd98802afffc0a2247ec5a0783b54cd8083ec55bd35`. Nitro infinito PRE398, iPega PG-9076/touch, resolução 1920×1080, até 120 FPS, gráficos/shaders/efeitos/física, limites térmicos e save `MARCEK` preservados. Assinatura de release permanente certificado SHA256 `1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b` não acessada.
+
+## PRE544 — acessos de memória PPC na matemática guest
+- [GitHub Actions PRE544 42541259342](https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42541259342), `AUDIT_OK`, relatório `docs/PRE544_ORIGINAL_PAL_PPC_FLOAT_MEMORY_OFFSETS_READONLY.json`.
+- TAR fonte original PRE99 reautenticado por SHA256 `af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39` e tamanho 874.780.689; 129 shards gerados, seis funções numéricas. `sub_823EAE40`, shard `nfsmw_recomp.85.cpp` SHA256 `e8c85788d811c0cb9390c35705ea4e60bb7dbd4210ce73d19d6d03358e5cfbf3`.
+- `sub_823EAE40` possui **32 leituras float `lfs` e 24 gravações `stfs`**. Dessas gravações, **6 são relativas a `r1`**, e **18 relativas a `r31`**, offsets 0, 4 e 8 bytes, repetidos 6 vezes cada. Leituras: r1=12, r31=11, r25=4, r30=3, r28=2. Isso **não prova** escrita persistente, porque r31 pode apontar para a pilha de outro frame.
+- `sub_823E4130` tem 2 `lfs` em `r11` offsets -4944 e +12344. Não declarar que tais offsets são atributos de motor.
+
+## PRE545 — origem de r31 provada no código PPC
+- [Primeiro run PRE545 42541542536](https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42541542536): o próprio script produziu `AUDIT_OK`, mas o job terminou `failure` na publicação por nomes antigos de campos do safety guard. Nenhuma escrita na V48 ou contexto.
+- [Segundo run PRE545 42541711453](https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42541711453): `AUDIT_OK` e publicação aprovada, `docs/PRE545_ORIGINAL_PAL_PPC_R31_FLOAT_OUTPUT_ORIGIN_READONLY.json`. Na linha relativa **41**, `mr r31,r4`; foi a única atribuição explícita a r31 reconhecida pelo parser. As 18 instruções `stfs` depois gravam em **0(r31),4(r31),8(r31)**, 6 vezes por offset. **Portanto r31 contém endereço copiado de r4**, mas isso isoladamente não identifica o objeto de saída.
+
+## PRE546 — oito dos nove chamadores apresentam origem relativa à pilha
+- [GitHub Actions PRE546 42541980202](https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42541980202), `AUDIT_OK`, `docs/PRE546_ORIGINAL_PAL_CALLERS_R4_OUTPUT_POINTER_READONLY.json`. TAR PRE99 autenticado novamente; **sete funções chamadoras e nove sítios** de chamada guest, coincidindo em contagem com PRE539 na V48 nativa.
+- Em **8/9** chamadas, a instrução explicitamente escrevendo r4 mais próxima reconhecida é **`addi r4,r1,...`**, calculando endereço relativo à pilha **do chamador**. Abrange `sub_8226B228`, `sub_8254E908`, `sub_8255C1C8`, `sub_82566BE8` (2), `sub_8256CE68` (2), `sub_82584880`. Na nona, `sub_8226B4C0`, não se encontrou definição próxima de r4 na janela de busca: **origem desconhecida**.
+- Esta é uma **inspeção estrutural de atribuição precedente**, não rastreamento completo dos valores/branches (reaching definitions). Entretanto, 8/9 sítios são fortemente compatíveis com um buffer temporário de **três floats de saída** no frame do chamador.
+- **Correção da leitura PRE544:** os 18 `stfs` em r31 **NÃO devem ser promovidos a mutações de parâmetros persistentes**. Como `r31←r4`, e r4 em 8/9 chamadas é preparado a partir de r1, o uso dominante da função `sub_823EAE40` é compatível com cálculo numérico para estruturas temporárias. **Não é identificado como `Physics::Upgrades::SetPackage` nem demonstrado como alteração de torque BMW.**
+
+## Redirecionamento para atingir tunagem funcional
+1. **Próximo foco PRE548:** localizar escritores do estado de upgrades/pacotes no código PAL guest e suas leituras de atributos `pvehicle`, sem ampliar indefinidamente a busca de funções matemáticas compartilhadas. Associar `SetPackage` somente com prova estrutural e comportamento comprovável.
+2. Considerar gate de maior impacto: testar **carregamento não transacional** de VPAK PRE502/PRE518 em **cópia isolada**, sem alterar V48, ZIP/ISO originais e saves. Engenharia PRE502/PRE518 validou em memória motor BMW `engine/bmwm3gtr_upgrade_engine_pre499` com torque sintético +5%, contagem engine 0→1, checksum EA e encaixe físico; **loader, ExpN, RefSpec e efeito real permanecem sem prova**.
+3. Antes de compras/persistência, validar retorno do guest `SetPackage`, economia e rollback com **save descartável**, nunca `MARCEK`. A PRE526 identificou possível cobrança antes de instalação **apenas no código PC de referência**. Preço condicional 98.000 para único pacote BMW vem da fórmula PC, não foi visto no menu.
+4. Não modificar V48 ou dados originais, não acessar nem recriar chave permanente, não sacrificar Nitro PRE398, PG-9076/touch, gráficos, física, resolução, teto FPS ou thermal. Nenhuma V49 assinada ou testada.
+
+**Status:** PRE544, PRE545 corrigida e PRE546 `AUDIT_OK`, evidência de estrutura temporária de três floats; **SetPackage guest não identificado**, BMW ainda sem tunagem real, nenhuma APK nova ou compra, save MARCEK intacto.
