@@ -1,0 +1,12 @@
+{
+  "stage": "PRE573_SHEVERY_APPLY_ROLLBACK_STATIC_PREFLIGHT",
+  "status": "AUDIT_OK",
+  "shell_syntax_tested": true,
+  "synthetic_wrong_hash_fail_closed_gate": true,
+  "phone_game_data_modified": false,
+  "phone_save_modified": false,
+  "actual_guest_loader_executed": false,
+  "APK_built": false,
+  "on_device_script_executed": false,
+  "run_id": "42560674054"
+}
