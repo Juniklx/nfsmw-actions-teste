@@ -3,7 +3,7 @@
 # Preserve experiment files as *.pre607_test_previous, never delete user saves.
 set -eu
 fail(){ echo "PRE607_RESTORE_ABORTADO: $*" >&2; exit 1; }
-[ "$#" -eq 1 ] || fail "Use: sh pre607_restore_bmw_ptbr_shevery.sh /ABSOLUTE/GAME_ROOT"
+[ "$#" -eq 1 ] || fail "Use: sh pre607_restore_bmw_child_parent_corrected_shevery.sh /ABSOLUTE/GAME_ROOT"
 ROOT="$1"
 case "$ROOT" in /*) :;; *) fail "GAME_ROOT deve ser absoluto";; esac
 command -v sha256sum >/dev/null 2>&1 || fail "sha256sum indisponivel"
