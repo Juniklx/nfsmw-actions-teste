@@ -1,0 +1,88 @@
+{
+  "stage": "PRE561_AUTHENTICATED_PTBR_ZIP_ZDIR_DIRECT_RECORD_ANALYSIS_READONLY",
+  "status": "AUDIT_OK",
+  "translated_source_drive_folder": "Traducao_PTBR_2026",
+  "translated_source_drive_zip_id": "1M95wS9iqrMI-p328Wual7TreqfaPgdL0",
+  "translated_zip_size_bytes": 5416276032,
+  "zip_central_directory_sha256": "8253300ee65d9d921f7965605087e31a2557fa3bbd667401865db9c6fec67222",
+  "zip_entries_total": 50,
+  "zdir_uncompressed_bytes": 33312,
+  "zdir_sha256": "832a20dfdca663233f4559236048f21d5ff4e6f65780d1aa18e58b72005245bf",
+  "zdir_matches_shevery_sha256": true,
+  "zzdata4_member_uncompressed_bytes": 401068032,
+  "zzdata4_member_zip_crc32_hex": "a038afed",
+  "zzdata4_member_compressed_bytes": 261092849,
+  "zzdata4_contents_not_read": true,
+  "zdir_24_byte_record_count": 1388,
+  "zdir_zero_sector_count": 11,
+  "zdir_nonzero_sector_count": 1377,
+  "zdir_archive_0_to_9_nonzero_resource_count": 1301,
+  "selected_original_hash_name_matches": {
+    "GLOBAL_ATTRIBUTES": [
+      {
+        "row": 805,
+        "archive": 4,
+        "sector": 0,
+        "byte_offset": 0,
+        "total_field": 0,
+        "resource_size": 697856,
+        "checksum_hex": "296ad9ed"
+      }
+    ],
+    "GLOBAL_FE_ATTRIB": [
+      {
+        "row": 665,
+        "archive": 0,
+        "sector": 3070,
+        "byte_offset": 6287360,
+        "total_field": 3070,
+        "resource_size": 113856,
+        "checksum_hex": "4ec7acf5"
+      }
+    ],
+    "GLOBAL_GLOBALB_LZC": [
+      {
+        "row": 400,
+        "archive": 4,
+        "sector": 18505,
+        "byte_offset": 37898240,
+        "total_field": 18505,
+        "resource_size": 5018060,
+        "checksum_hex": "0072cd4f"
+      }
+    ],
+    "GLOBAL_GLOBALB_BUN": [
+      {
+        "row": 399,
+        "archive": 4,
+        "sector": 9576,
+        "byte_offset": 19611648,
+        "total_field": 9576,
+        "resource_size": 18285616,
+        "checksum_hex": "91bb2f6b"
+      }
+    ],
+    "GLOBAL_GLOBALA_BUN": [
+      {
+        "row": 398,
+        "archive": 0,
+        "sector": 3503,
+        "byte_offset": 7174144,
+        "total_field": 3503,
+        "resource_size": 871284,
+        "checksum_hex": "4ce34291"
+      }
+    ]
+  },
+  "reported_zero_sector_directly_confirmed_in_translated_ZDIR_bytes": true,
+  "actual_guest_loader_from_ptbr_zip_executed": false,
+  "phone_translation_zip_matches_installed_ZZDATA4_full_sha256": false,
+  "translated_resource_offset_as_operational_proven": false,
+  "user_game_files_modified": false,
+  "save_modified": false,
+  "APK_built": false,
+  "signing_material_accessed": false,
+  "BMW_tuning_enabled": false,
+  "run_id": "42555184282",
+  "utc": "2026-11-09T03:13:38.379821+00:00"
+}
