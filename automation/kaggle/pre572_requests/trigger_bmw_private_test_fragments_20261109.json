@@ -1,0 +1,10 @@
+{
+  "stage": "PRE572",
+  "source_zip_drive_id": "1M95wS9iqrMI-p328Wual7TreqfaPgdL0",
+  "reference_pre566": "AUDIT_OK",
+  "user_accepts_recreating_career_save": true,
+  "save_isolation_gate_required": false,
+  "original_game_assets_must_remain_unchanged": true,
+  "APK_built": false,
+  "synthetic_candidate_not_approved_for_release": true
+}
