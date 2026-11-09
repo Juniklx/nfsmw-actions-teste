@@ -1,0 +1,11 @@
+{
+  "stage": "PRE561",
+  "user_source_type": "EXTRACTED_FOLDER_PTBR_PAL",
+  "drive_zip_id": "1M95wS9iqrMI-p328Wual7TreqfaPgdL0",
+  "drive_folder": "Traducao_PTBR_2026",
+  "phone_ZDIR_sha256": "832a20dfdca663233f4559236048f21d5ff4e6f65780d1aa18e58b72005245bf",
+  "phone_reported_row": 805,
+  "phone_reported_sector": 0,
+  "strict_readonly": true,
+  "never_modify_originals": true
+}
