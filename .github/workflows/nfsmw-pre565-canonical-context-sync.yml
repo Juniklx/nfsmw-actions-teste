@@ -1,0 +1,71 @@
+name: NFSMW PRE565 backup and sync PTBR BMW sector0 source checkpoint
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre565_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre565-canonical-context
+  cancel-in-progress: false
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate Drive canonical backup append script
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          python -m py_compile automation/kaggle/pre565_sync_ptbr_bmw_sector0_context_safe.py
+      - name: Verify prior PRE559 context, backup byte-exact, append PRE561-564 checkpoint
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre565_sync_ptbr_bmw_sector0_context_safe.py --run-id "$GITHUB_RUN_ID"
+      - name: Publish only safe context sync outcome
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          src=Path('/tmp/nfsmw-pre565/report.json')
+          d=json.loads(src.read_text()) if src.exists() else {"stage":"PRE565","status":"FAILED_NO_REPORT"}
+          for k in ('apk_built','save_modified','game_assets_modified'):
+              if d.get(k,False) is not False:raise SystemExit("PRE565 safety failure: "+k)
+          if d.get('status')=='AUDIT_OK' and not (
+                d.get('backup_created') is True and
+                d.get('prior_history_bytewise_preserved') is True and
+                d.get('postupdate_readback_bytewise_verified') is True and
+                d.get('canonical_before_sha256')=='13c2eb2734032680941de745d57f0c2e738774d4bda36d8afa342d8da6b6c73a'):
+              raise SystemExit('PRE565 backup or readback is incomplete')
+          Path('docs/PRE565_CANONICAL_CONTEXT_SYNC_RESULT.json').write_text(json.dumps(d,indent=2,ensure_ascii=False)+'\n')
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE565_CANONICAL_CONTEXT_SYNC_RESULT.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "PRE565: safe canonical context PTBR sector-zero BMW RAM checkpoint"
+          for n in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
+      - name: Retain sanitized context metadata only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre565-canonical-context
+          path: /tmp/nfsmw-pre565/report.json
+          retention-days: 14
