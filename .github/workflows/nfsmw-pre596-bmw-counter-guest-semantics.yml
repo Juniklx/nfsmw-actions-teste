@@ -1,0 +1,62 @@
+name: NFSMW PRE596 one-byte BMW level counter and guest semantics audit
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre596_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre596-bmw-counter-semantics-readonly
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate static report script and independent history records
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre596_bmw_counter_guest_semantics_readonly.py
+          python automation/kaggle/pre596_bmw_counter_guest_semantics_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Publish metadata-only binary-comparison audit
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          p=Path('/tmp/nfsmw-pre596/report.json')
+          r=json.loads(p.read_text()) if p.exists() else {"stage":"PRE596","status":"FAILED_NO_REPORT"}
+          for k in ('new_game_patch_created','phone_game_data_modified','save_modified','APK_built','signing_material_accessed'):
+              if r.get(k,False) is not False:raise SystemExit("PRE596 forbids actual mutations "+k)
+          if r.get('status')=='AUDIT_OK':
+              if (r.get('single_byte_delta_PRE591_vs_PRE502')!=[256619]
+                  or r.get('PRE591_pvehicle_counter_zero') is not True
+                  or r.get('PRE502_pvehicle_counter_one') is not True
+                  or r.get('game_runtime_GetMaxLevel_semantics_proven') is not False
+                  or r.get('causality_fully_proven') is not False
+                  or r.get('recommended_next_device_script_prepared') is not False):
+                  raise SystemExit("PRE596 semantic caution or counter evidence missing")
+              out=Path('docs/PRE596_BMW_COUNTER_ONE_BYTE_GUEST_SEMANTICS_READONLY.json')
+          else:
+              out=Path('docs/PRE596_BMW_COUNTER_GUEST_SEMANTICS_DIAGNOSTIC.json')
+              r={k:r.get(k) for k in ('stage','status','error_type','error','run_id','utc') if k in r}
+          out.write_text(json.dumps(r,indent=2,ensure_ascii=False)+'\n')
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE596_BMW_COUNTER_*json
+          if git diff --cached --quiet;then exit 0;fi
+          git commit -m "PRE596: one-byte BMW motor upgrade gate with semantic unknowns explicit"
+          for n in 1 2 3 4 5;do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main;then exit 0;fi
+          done
+          exit 1
