@@ -1,0 +1,8 @@
+{
+  "stage": "PRE596",
+  "source_handoff": "PRE595",
+  "intent": "no redundant reapplication of PRE573, inspect counter semantics and existing source",
+  "new_patch": false,
+  "APK": false,
+  "save_modified": false
+}
