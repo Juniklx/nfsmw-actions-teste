@@ -1,0 +1,8 @@
+{
+  "stage": "PRE600",
+  "source_archive": "PRE99",
+  "scoped_to": "counter offset 40 read/use and branch, excludes vtable/copy",
+  "read_only": true,
+  "nonewpatch": true,
+  "previous": "PRE599"
+}
