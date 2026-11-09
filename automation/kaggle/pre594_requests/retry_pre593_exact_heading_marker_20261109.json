@@ -1,0 +1,9 @@
+{
+  "stage": "PRE594",
+  "retry": "corrected PRE593 report heading marker",
+  "previous_run": 42568066719,
+  "canonical_previous_bytes": 902251,
+  "canonical_previous_sha256": "65e46fae8ecd398bbb4c858a92ed9fd20c7e1b61d49cf95eeb26493e8841a907",
+  "backup_first": true,
+  "append_only": true
+}
