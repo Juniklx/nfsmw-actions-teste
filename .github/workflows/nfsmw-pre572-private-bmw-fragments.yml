@@ -1,0 +1,80 @@
+name: NFSMW PRE572 prepare private PTBR BMW synthetic guest-test fragment bundle
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre572_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre572-private-ptbr-bmw-patch-bundle
+  cancel-in-progress: false
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare authenticated source and isolated data builder
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+          python -m py_compile automation/kaggle/pre572_prepare_ptbr_bmw_private_patch_fragments.py
+      - name: Verify entire PTBR archive by stream and upload only two private fragments
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre572_prepare_ptbr_bmw_private_patch_fragments.py --run-id "$GITHUB_RUN_ID"
+      - name: Publish metadata-only report and enforce game/save untouched
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          p=Path('/tmp/nfsmw-pre572/report.json')
+          r=json.loads(p.read_text()) if p.exists() else {'stage':'PRE572','status':'FAILED_NO_REPORT'}
+          for k in ('original_ptbr_zip_modified','original_ptbr_phone_folder_modified',
+                    'full_modified_archive_built_or_exported','guest_loader_executed',
+                    'BMW_tuning_enabled','APK_built','save_modified','signing_accessed'):
+              if r.get(k,False) is not False:
+                  raise SystemExit('PRE572 forbidden claim or side effect '+k)
+          if r.get('status')=='AUDIT_OK':
+              if not (r.get('patch_bundle_total_bytes')==731680
+                  and r.get('original_zip_member_fully_verified_by_stream') is True
+                  and r.get('experimental_artifacts_private_drive_only') is True
+                  and r.get('save_isolation_requirement_waived_by_user') is True
+                  and r.get('safe_to_overwrite_game_assets_without_backup') is False):
+                  raise SystemExit('PRE572 private patch bundle gate incomplete')
+              out=Path('docs/PRE572_PTBR_BMW_PRIVATE_PATCH_BUNDLE_METADATA.json')
+          else:
+              out=Path('docs/PRE572_PTBR_BMW_PRIVATE_PATCH_BUNDLE_DIAGNOSTIC.json')
+              r={k:r.get(k) for k in ('stage','status','error_type','error','run_id','utc') if k in r}
+              r['BMW_tuning_enabled']=False
+          out.write_text(json.dumps(r,indent=2,ensure_ascii=False)+'\n')
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE572_PTBR_BMW_PRIVATE_PATCH_BUNDLE_*json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "PRE572: PTBR BMW private patch fragment metadata only"
+          for n in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
+      - name: Retain private report JSON (no game binaries)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre572-private-bmw-patch-metadata-only
+          path: /tmp/nfsmw-pre572/report.json
+          retention-days: 14
