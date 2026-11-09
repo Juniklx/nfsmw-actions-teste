@@ -1,0 +1,8 @@
+{
+  "stage": "PRE568",
+  "reference_APK_SHA256": "c642f95b4a60b9ccf5d8fbd98802afffc0a2247ec5a0783b54cd8083ec55bd35",
+  "status_requirement": "static inspection only",
+  "save_isolation_proven": false,
+  "save_modified": false,
+  "APK_modified": false
+}
