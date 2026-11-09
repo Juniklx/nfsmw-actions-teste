@@ -1,0 +1,81 @@
+name: NFSMW PRE618 Shevery active PTBR archive read-only hash gate static checks
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre618_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre618-archive-identity-static
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Syntax, non-mutating surface, unknown-file refusal
+        run: |
+          set -euo pipefail
+          f=automation/device/pre618_check_active_bmw_archive_readonly_shevery.sh
+          sh -n "$f"
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib,json,re,subprocess,tempfile
+          p=Path('automation/device/pre618_check_active_bmw_archive_readonly_shevery.sh')
+          s=p.read_text()
+          required=[
+             "PRE618_MODO=SOMENTE_LEITURA","PRE618_IDENTIDADE=PRE607_BMW_PARENT_CORRECTED_VERIFICADA",
+             "PRE618_IDENTIDADE=PTBR_ORIGINAL_VERIFICADA",
+             "PRE618_IDENTIDADE=PRE592_REFSPEC_COUNT_ZERO_VERIFICADA",
+             "PRE618_IDENTIDADE=DESCONHECIDA_NAO_MODIFICAR",
+             "PRE618_JOGO_MODIFICADO_PELO_SCRIPT=NAO",
+             "PRE618_SAVE_MODIFICADO_PELO_SCRIPT=NAO",
+             "f15d5da54148e0e762f65004d534092dbf3c08d12b0f8b710d6cf599235a32e2",
+             "1ed79d0f031d400002da8db6153ee84188d717e33f093a501f7a6bdfc0e5e146"
+          ]
+          if any(v not in s for v in required):raise SystemExit('PRE618 expected hash/evidence missing')
+          if re.search(r'(?m)^\s*(?:rm|mv|cp|dd|tee|truncate|touch|mkdir|chmod|chown|mount|umount)\s',s):
+             raise SystemExit('PRE618 mutation command not permitted')
+          with tempfile.TemporaryDirectory() as t:
+             root=Path(t); n=root/'NFS';n.mkdir()
+             z=n/'ZDIR.BIN';d=n/'ZZDATA4.BIN'
+             z.write_bytes(b'x'*64);d.write_bytes(b'y'*128)
+             hashes=(hashlib.sha256(z.read_bytes()).hexdigest(),hashlib.sha256(d.read_bytes()).hexdigest())
+             cp=subprocess.run(['sh',str(p.resolve()),str(root)],capture_output=True,text=True)
+             if cp.returncode==0 or 'PRE618_TAMANHOS_INESPERADOS' not in cp.stderr:
+                raise SystemExit('PRE618 did not fail closed for incorrect archive sizes')
+             if (hashlib.sha256(z.read_bytes()).hexdigest(),hashlib.sha256(d.read_bytes()).hexdigest())!=hashes:
+                raise SystemExit('PRE618 changed test source unexpectedly')
+          report={
+             'stage':'PRE618_ACTIVE_BMW_ASSET_IDENTITY_READONLY_STATIC',
+             'status':'AUDIT_OK','shell_syntax_validated':True,
+             'unknown_input_fails_closed_without_mutation':True,
+             'entire_401MB_file_hash_checked_on_device_if_executed':True,
+             'actual_phone_hash_verification_performed':False,
+             'PRE607_device_asset_identity_verified':False,
+             'save_modified':False,'APK_modified':False,'game_assets_modified':False,
+             'signing_accessed':False,
+             'script_path':str(p),
+             'source_log_sha256':'dc9fc0bb08ba943ede3e7675570c1c1fb15ddb5db743cee74edda4393109de0e'
+          }
+          Path('docs/PRE618_ACTIVE_BMW_ARCHIVE_HASH_READONLY_STATIC_RESULT.json').write_text(
+             json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+          print('PRE618_AUDIT_OK')
+          PY
+      - name: Publish small static report
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE618_ACTIVE_BMW_ARCHIVE_HASH_READONLY_STATIC_RESULT.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "PRE618: read-only device asset hash check fail-closed static audit"
+          for attempt in 1 2 3 4 5; do
+             git fetch origin main
+             git rebase origin/main
+             if git push origin HEAD:main;then exit 0;fi
+          done
+          exit 1
