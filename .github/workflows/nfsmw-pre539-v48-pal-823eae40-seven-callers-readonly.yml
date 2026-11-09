@@ -1,0 +1,79 @@
+name: NFSMW PRE539 original V48 PAL seven guest callers BL callsite context readonly
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre539_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre539-v48-823eae40-caller-audit
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install authenticated ELF and ARM64 readers and validate source
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth pyelftools==0.32 capstone==5.0.6 >/dev/null
+          python -m py_compile automation/kaggle/pre539_v48_pal_guest_823eae40_callsite_context_readonly.py
+      - name: Read SHA-pinned V48 PAL native ELF and audit exactly 12 intersections
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre539_v48_pal_guest_823eae40_callsite_context_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Publish bounded numeric guest metadata or failure diagnostic
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("/tmp/nfsmw-pre539/report.json")
+          d=json.loads(p.read_text()) if p.exists() else {"stage":"PRE539","status":"FAILED_NO_REPORT"}
+          for k in ("original_game_or_APK_modified","original_native_binary_published",
+                    "APK_built","save_modified","signing_material_accessed","BMW_tuning_enabled"):
+              if d.get(k,False) is not False:
+                  raise SystemExit("PRE539 unexpected side effect "+k)
+          if d.get("status")=="AUDIT_OK":
+              for k in ("target_is_guest_SetPackage_proven",
+                        "target_is_shop_checkout_or_purchase_proven",
+                        "target_is_related_to_physical_tuning_proven"):
+                  if d.get(k) is not False:
+                      raise SystemExit("Do not promote static counts into runtime semantics")
+              out=Path("docs/PRE539_ORIGINAL_V48_PAL_823EAE40_SEVEN_CALLERS_READONLY.json")
+          else:
+              out=Path("docs/PRE539_ORIGINAL_V48_PAL_823EAE40_DIAGNOSTIC.json")
+              d={k:d.get(k) for k in ("stage","status","error_type","error","run_id") if k in d}
+              d["BMW_tuning_enabled"]=False
+          out.parent.mkdir(parents=True,exist_ok=True)
+          out.write_text(json.dumps(d,indent=2,ensure_ascii=False)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE539_ORIGINAL_V48_PAL_823EAE40_*json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "PRE539: V48 PAL seven guest callers and 9 callsite contexts"
+          for n in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
+      - name: Retain private sanitised structural diagnostic
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre539-original-v48-seven-callers-${{ github.run_id }}
+          path: /tmp/nfsmw-pre539/report.json
+          retention-days: 14
