@@ -1,0 +1,138 @@
+{
+  "stage": "PRE555_PAL_EXTRACTED_FOLDER_HOSTPATH_VFS_HISTORICAL_SOURCE_AUDIT",
+  "status": "AUDIT_OK",
+  "user_reported_current_game_source": "EXTRACTED_FOLDER_NOT_ISO",
+  "phone_versionCode_48_previous_user_shevery_confirmed": true,
+  "v48_apk_binary_hostpathdevice_marker_confirmed_from_PRE511": true,
+  "v48_compiled_android_edition_selection_chain_confirmed_from_PRE515": true,
+  "PRE99_authenticated_source_archive_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "PRE99_history_not_V48_execution": true,
+  "PRE99_regular_file_or_URI_uses_discimage_else_folder_uses_hostpath_code_verified": true,
+  "PRE99_guest_kernel_vfs_host_entry_file_read_code_anchors_verified": true,
+  "PRE99_source_code_anchor_index": {
+    "host_device": {
+      "historical_source_path": "workspace/nativo/sdk/src/filesystem/devices/host_path_device.cpp",
+      "source_sha256": "dccda2f48817a594aaa1e22dd4d6210e6f8c8eb438345ad9e423420587450be4",
+      "required_code_anchors": {
+        "initialize": {
+          "line": 55,
+          "line_sha256": "550819e058a1cb553f405a3b0853021f3ff6f288b5a44e51790b49f4a05dba7e"
+        },
+        "resolve_guest_relative_path": {
+          "line": 120,
+          "line_sha256": "d0a1d51af73673ec1095db30fd36992bcea92d0bee2336cb8852098abe85ac13"
+        },
+        "physical_child_enumeration": {
+          "line": 168,
+          "line_sha256": "e8f5cd4b945f87be4de91aef5ab28baa69f5465136bbf04d55c63c8dfc3e5292"
+        }
+      }
+    },
+    "host_entry": {
+      "historical_source_path": "workspace/nativo/sdk/src/filesystem/devices/host_path_entry.cpp",
+      "source_sha256": "d9cc8916666ab499ccb67fc07c9283917da8bf708c987c05cf9a393ae28bbdb3",
+      "required_code_anchors": {
+        "open": {
+          "line": 53,
+          "line_sha256": "116bdbfde23864ca020b4ef0cd9eb2eae21743d903821fa86f578b8887be1b83"
+        },
+        "open_existing_host_file": {
+          "line": 78,
+          "line_sha256": "49ece2049853105cdec8581ad0e62221687348ff72270db1ce0d9760717484cf"
+        },
+        "return_host_file": {
+          "line": 74,
+          "line_sha256": "a71528e6f6d5ca0709eabd96cd408121560c0b4268f12cf7bd3237411550a9b3"
+        }
+      }
+    },
+    "host_file": {
+      "historical_source_path": "workspace/nativo/sdk/src/filesystem/devices/host_path_file.cpp",
+      "source_sha256": "7dace8159023592ee8008a0b0528a3798aea6a1856bc8e003492b9c4cce65346",
+      "required_code_anchors": {
+        "read_bytes": {
+          "line": 746,
+          "line_sha256": "94be114796f18ba06880b42448ecd5cfb84b221fc848a688e25005741f093492"
+        }
+      }
+    },
+    "virtual_fs": {
+      "historical_source_path": "workspace/nativo/sdk/src/filesystem/virtual_file_system.cpp",
+      "source_sha256": "a3e89c5d85f899d9756750fcf2dcc47b21cb5afc96f71c1804fc35544902bc9d",
+      "required_code_anchors": {
+        "resolve_mount_device": {
+          "line": 134,
+          "line_sha256": "26b9cee950812bf37de837926e206136f59b6dc54463fb50cb0f0900a54a0d3c"
+        },
+        "open_guest_file": {
+          "line": 195,
+          "line_sha256": "18e39cfce38d84507c2bfbc7d5132884b2d12328039c2659841e5061d5295361"
+        }
+      }
+    },
+    "guest_io": {
+      "historical_source_path": "workspace/nativo/sdk/src/kernel/xboxkrnl/xboxkrnl_io.cpp",
+      "source_sha256": "40869526201fbed631b7bb506c83680edc02b2f4a6701f31a19b1a068c622015",
+      "required_code_anchors": {
+        "guest_kernel_to_vfs_open": {
+          "line": 535,
+          "line_sha256": "d55a8637769167f90d264289175eaec01f708c633c5d7f36ee3fcaff4e11aca3"
+        }
+      }
+    },
+    "runtime": {
+      "historical_source_path": "workspace/nativo/sdk/src/system/runtime.cpp",
+      "source_sha256": "2a0a0f221f4851500afe79a0d7515f3a8815210d8f7f311e9541fdd4d12885d9",
+      "required_code_anchors": {
+        "android_uri_detection": {
+          "line": 321,
+          "line_sha256": "973bf273de56406337aeea78de3cfaaedbe91783a68419d9f1a24d13a55e7e6d"
+        },
+        "regular_image_file_test": {
+          "line": 341,
+          "line_sha256": "b651aa0aaded3e4fe27b26ee380dbd110f36cad13a1d1cf7fee130ec0be1ccea"
+        },
+        "image_device_branch": {
+          "line": 344,
+          "line_sha256": "738e785f39055a286ac2f0b4b7d6433bb94c1b343a24c79b5458be5c9c3e771f"
+        },
+        "folder_device_branch": {
+          "line": 346,
+          "line_sha256": "6b278226c1b678b9b7e8677d11e5c6aa1d3e0e6394834f12e274b655e95cd819"
+        },
+        "exclusive_image_else_folder": {
+          "line": 344,
+          "line_sha256": "738e785f39055a286ac2f0b4b7d6433bb94c1b343a24c79b5458be5c9c3e771f"
+        },
+        "device_initialize": {
+          "line": 349,
+          "line_sha256": "a79469dbb490e14c70c5885358f10160dddac06a73d2ff2203f9146297225ba9"
+        },
+        "register_mount": {
+          "line": 354,
+          "line_sha256": "dbb8e55b4dfb0a5aa3f96e30ff697ba37a460759f2d6d20af622cbd8be60506f"
+        }
+      }
+    }
+  },
+  "original_PAL_ZDIR_index_row_for_GLOBAL_ATTRIBUTES_BIN": 806,
+  "original_PAL_ZZDATA4_resource_offset_bytes": 355932160,
+  "original_PAL_ZZDATA4_reserved_sector_bytes": 698368,
+  "original_PAL_ZZDATA4_zero_padding_bytes": 512,
+  "PRE551_original_PAL_archive_sector_RAM_readback_verified": true,
+  "translation_extracted_folder_bytes_match_original_PAL_ZIP_proven": false,
+  "v48_current_runtime_hostpath_mount_traced": false,
+  "pal_guest_libmain_loaded_directly_observed": false,
+  "actual_guest_ZDIR_VPAK_loader_execution_proven": false,
+  "new_BMW_ExpN_collection_accepted_by_guest": false,
+  "FE_price_checkout_physics_save_persistence_proven": false,
+  "game_source_exported": false,
+  "game_assets_modified": false,
+  "APK_built": false,
+  "save_modified": false,
+  "signing_material_accessed": false,
+  "BMW_tuning_enabled": false,
+  "next_gate": "TRACE_ZDIR_ZZDATA_GUEST_RESOURCE_READER_AND_COMPARE_EXTRACTED_FOLDER_BYTES_NONDESTRUCTIVELY",
+  "run_id": "42549478061",
+  "utc": "2026-11-09T02:11:38.162596+00:00"
+}
