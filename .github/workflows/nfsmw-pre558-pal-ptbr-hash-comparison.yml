@@ -1,0 +1,77 @@
+name: NFSMW PRE558 comparison user-reported PAL PTBR source fingerprints
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre558_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre558-pal-ptbr-hash-only
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate read-only comparison and Shevery helper syntax
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre558_translated_pal_fingerprint_compare_readonly.py
+          sh -n automation/device/pre558_translated_pal_zdir_attributes_record_readonly.sh
+      - name: Verify original PAL references against user-provided translated hashes
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre558_translated_pal_fingerprint_compare_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Publish metadata-only evidence with correct provenance
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          source=Path("/tmp/nfsmw-pre558/report.json")
+          r=json.loads(source.read_text()) if source.exists() else {"stage":"PRE558","status":"FAILED_NO_REPORT"}
+          for k in ("on_device_read_this_CI","APK_built","game_assets_modified",
+                    "save_modified","signing_material_accessed","BMW_tuning_enabled",
+                    "translation_attributes_resource_offset_verified",
+                    "translation_ATTRIBUTES_VPAK_SHA256_verified",
+                    "which_entries_changed_identified",
+                    "original_ZDIR_row_806_transferable_to_translation"):
+              if r.get(k,False) is not False:
+                  raise SystemExit("PRE558 unsupported claim or file modification: "+k)
+          if r.get("status")=="AUDIT_OK":
+              if (r.get("translated_zdir_size_difference_bytes")!=48 or
+                  r.get("same_ZZDATA4_content") is not False or
+                  r.get("translated_source_provenance")!="USER_PASTED_SHEVERY_HASHES_NOT_REMOTE_FILE_VERIFICATION"):
+                  raise SystemExit("PRE558 source parity status invalid")
+              dest=Path("docs/PRE558_PAL_PTBR_HASH_COMPARISON_READONLY.json")
+          else:
+              dest=Path("docs/PRE558_PAL_PTBR_HASH_COMPARISON_DIAGNOSTIC.json")
+              r={k:r.get(k) for k in ("stage","status","error_type","error","run_id") if k in r}
+              r["BMW_tuning_enabled"]=False
+          dest.write_text(json.dumps(r,ensure_ascii=False,indent=2)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE558_PAL_PTBR_HASH_COMPARISON_*json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "PRE558: report Shevery PTBR folder fingerprint differences without asset export"
+          for n in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
+      - name: Archive numerical differences only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre558-pal-ptbr-fingerprint
+          path: /tmp/nfsmw-pre558/report.json
+          retention-days: 14
