@@ -38,3 +38,16 @@ Tester attempted to exit/reopen V48, then collected a new logcat sample:
 
 ## Earlier user-reported runtime setup context (not fresh device trace)
 From earlier user conversation on 2026-11-02, user reported opening their fork with original PAL `default.xex` and extracted `NFS`/`Movies` PT-BR directory data, **without an ISO**. This is a strong historical reason to prioritize the extracted-folder/HostPathDevice route in subsequent source inspections, instead of defaulting to DiscImageDevice. This does NOT independently prove what V48 mounted on 2026-11-08, nor establish an exact URI or device path. Separate the known earlier workflow from current unobserved VFS runtime branch.
+
+## Explicit current-session clarification by tester
+Tester explicitly confirmed on 2026-11-08 (Bahia), after both Shevery samples: **"Sim estou executando via pasta extraída"**. Therefore the **configured game-data source on the phone is a folder of extracted game files, NOT an ISO**. This supersedes the previous weaker wording ("historical hypothesis of extracted folder") **for the source selected by the tester**. PAL translation remains tester-provided; selected guest `libmain.so` cannot be independently enumerated through denied `/proc/PID/maps`.
+
+Use these separate confidence levels:
+- `user_confirmed_source_type=EXTRACTED_FOLDER` = **YES**, directly confirmed by tester in current conversation.
+- `user_confirmed_iso_source=NO` = **YES**.
+- `hostpathdevice_runtime_branch_verified_by_instrumentation=NO`: the source choice predicts the folder/HostPathDevice route but is **not** a runtime mount trace.
+- `guest_library_pal_loaded_directly_verified=NO`.
+- `actual_bmw_upgrade_loader_accepted_synthetic_data=NO`.
+- `save_MARCEK_or_original_game_data_modified=NO`.
+
+**Development consequence:** prioritize original/pinned `HostPathDevice` → host physical reads → game asset path (`NFS/ZZDATA4.BIN`, `NFS/ZDIR.BIN`, `GLOBAL/ATTRIBUTES.BIN`) without designing a disc-image-sector patch as if it were the phone's selected source. PRE551's ZIP-sector simulation remains a useful **offline-only** validation, not an implementation proof for extracted folder data. No more identical Android logcat probes requested.
