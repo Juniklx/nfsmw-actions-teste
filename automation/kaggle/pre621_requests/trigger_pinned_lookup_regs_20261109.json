@@ -1,0 +1,7 @@
+{
+  "stage": "PRE621",
+  "preceding": "PRE620 verified PRE607 active hashes",
+  "read_only": true,
+  "source": "authenticated PRE99 generated guest C++",
+  "next_gate": "instrument non-mutating guest lookup descriptor/value"
+}
