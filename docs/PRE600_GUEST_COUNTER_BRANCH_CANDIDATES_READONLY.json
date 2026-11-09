@@ -1,0 +1,979 @@
+{
+  "stage": "PRE600_ORIGINAL_GUEST_PVEHICLE_ENGINE_COUNTER_USE_FILTERED",
+  "status": "AUDIT_OK",
+  "original_PRE99_source_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "generated_files_visited": 129,
+  "guest_functions_visited": 56338,
+  "engine_counter_offset_40_load_site_count_across_all_56k": 1587,
+  "vtable_dispatch_shape_count": 193,
+  "direct_value_compare_followed_by_branch_count": 512,
+  "candidate_direct_compare_branch_non_vtable_count": 512,
+  "candidate_ranked_top_30": [
+    {
+      "function": "sub_8214D740",
+      "source_file": "nfsmw_recomp.94.cpp",
+      "source_sha256": "d5610c2c58b1bdc1f0f106e8d62c8dbec007827529bdb99abcf54a1d79040094",
+      "site": {
+        "opcode_index": 8,
+        "field_offset": 40,
+        "load_target_reg": "r11",
+        "base_reg": "r31",
+        "next_4_opcodes": [
+          "stw",
+          "cmplwi",
+          "beq",
+          "rlwinm"
+        ],
+        "vtable_dispatch_shape": false,
+        "direct_compare_of_loaded_value_within_13_ppc": true,
+        "comparison_ppc_distance": 2,
+        "comparison_operand_signature": "cr6,r11,0",
+        "conditional_branch_after_comparison": true,
+        "layout_fields_for_same_base_later_or_earlier": [
+          40,
+          44,
+          48
+        ],
+        "semantic_pvehicle_pointer_validated": false
+      }
+    },
+    {
+      "function": "sub_8216A928",
+      "source_file": "nfsmw_recomp.59.cpp",
+      "source_sha256": "acf7533e6ca052a5107f1cefe98dc89d5a2b2b7a16fc95f603d402fffba5679d",
+      "site": {
+        "opcode_index": 41,
+        "field_offset": 40,
+        "load_target_reg": "r3",
+        "base_reg": "r31",
+        "next_4_opcodes": [
+          "cmplwi",
+          "beq",
+          "lwz",
+          "li"
+        ],
+        "vtable_dispatch_shape": false,
+        "direct_compare_of_loaded_value_within_13_ppc": true,
+        "comparison_ppc_distance": 1,
+        "comparison_operand_signature": "cr6,r3,0",
+        "conditional_branch_after_comparison": true,
+        "layout_fields_for_same_base_later_or_earlier": [
+          40,
+          44,
+          48,
+          68,
+          72
+        ],
+        "semantic_pvehicle_pointer_validated": false
+      }
+    },
+    {
+      "function": "sub_8216C4F0",
+      "source_file": "nfsmw_recomp.60.cpp",
+      "source_sha256": "15906e7466fcdc5606c7fc92d99886185ee7d1e993adbd945b6b7af0571f71f7",
+      "site": {
+        "opcode_index": 33,
+        "field_offset": 40,
+        "load_target_reg": "r28",
+        "base_reg": "r31",
+        "next_4_opcodes": [
+          "cmplwi",
+          "beq",
+          "mr",
+          "bl"
+        ],
+        "vtable_dispatch_shape": false,
+        "direct_compare_of_loaded_value_within_13_ppc": true,
+        "comparison_ppc_distance": 1,
+        "comparison_operand_signature": "cr6,r28,0",
+        "conditional_branch_after_comparison": true,
+        "layout_fields_for_same_base_later_or_earlier": [
+          40,
+          60,
+          68
+        ],
+        "semantic_pvehicle_pointer_validated": false
+      }
+    },
+    {
+      "function": "sub_8216D150",
+      "source_file": "nfsmw_recomp.3.cpp",
+      "source_sha256": "baa3b79ea54b3aab4f4afd9db4d501e32e29a970cdd84c6a945a91fe56842e03",
+      "site": {
+        "opcode_index": 33,
+        "field_offset": 40,
+        "load_target_reg": "r28",
+        "base_reg": "r31",
+        "next_4_opcodes": [
+          "cmplwi",
+          "beq",
+          "mr",
+          "bl"
+        ],
+        "vtable_dispatch_shape": false,
+        "direct_compare_of_loaded_value_within_13_ppc": true,
+        "comparison_ppc_distance": 1,
+        "comparison_operand_signature": "cr6,r28,0",
+        "conditional_branch_after_comparison": true,
+        "layout_fields_for_same_base_later_or_earlier": [
+          40,
+          60,
+          68
+        ],
+        "semantic_pvehicle_pointer_validated": false
+      }
+    },
+    {
+      "function": "sub_8216FDD8",
+      "source_file": "nfsmw_recomp.108.cpp",
+      "source_sha256": "562e86fc9cf47c62c8beb06221efc149432188df81351a81455188fad8e84e68",
+      "site": {
+        "opcode_index": 28,
+        "field_offset": 40,
+        "load_target_reg": "r3",
+        "base_reg": "r31",
+        "next_4_opcodes": [
+          "cmplwi",
+          "beq",
+          "lwz",
+          "li"
+        ],
+        "vtable_dispatch_shape": false,
+        "direct_compare_of_loaded_value_within_13_ppc": true,
+        "comparison_ppc_distance": 1,
+        "comparison_operand_signature": "cr6,r3,0",
+        "conditional_branch_after_comparison": true,
+        "layout_fields_for_same_base_later_or_earlier": [
+          40,
+          44,
+          52
+        ],
+        "semantic_pvehicle_pointer_validated": false
+      }
+    },
+    {
+      "function": "sub_8219F008",
+      "source_file": "nfsmw_recomp.107.cpp",
+      "source_sha256": "0e35368260ec0773c22f2cc88d31e2c621d1b79d85b74802931dba54e493d830",
+      "site": {
+        "opcode_index": 81,
+        "field_offset": 40,
+        "load_target_reg": "r7",
+        "base_reg": "r31",
+        "next_4_opcodes": [
+          "addi",
+          "subfic",
+          "lwz",
+          "ori"
+        ],
+        "vtable_dispatch_shape": false,
+        "direct_compare_of_loaded_value_within_13_ppc": true,
+        "comparison_ppc_distance": 5,
+        "comparison_operand_signature": "cr6,r7,r25",
+        "conditional_branch_after_comparison": true,
+        "layout_fields_for_same_base_later_or_earlier": [
+          40,
+          48,
+          52,
+          60
+        ],
+        "semantic_pvehicle_pointer_validated": false
+      }
+    },
+    {
+      "function": "sub_8219F690",
+      "source_file": "nfsmw_recomp.59.cpp",
+      "source_sha256": "acf7533e6ca052a5107f1cefe98dc89d5a2b2b7a16fc95f603d402fffba5679d",
+      "site": {
+        "opcode_index": 80,
+        "field_offset": 40,
+        "load_target_reg": "r7",
+        "base_reg": "r28",
+        "next_4_opcodes": [
+          "addi",
+          "subfic",
+          "lwz",
+          "ori"
+        ],
+        "vtable_dispatch_shape": false,
+        "direct_compare_of_loaded_value_within_13_ppc": true,
+        "comparison_ppc_distance": 5,
+        "comparison_operand_signature": "cr6,r7,r26",
+        "conditional_branch_after_comparison": true,
+        "layout_fields_for_same_base_later_or_earlier": [
+          40,
+          48,
+          52,
+          60
+        ],
+        "semantic_pvehicle_pointer_validated": false
+      }
+    },
+    {
+      "function": "sub_821D4370",
+      "source_file": "nfsmw_recomp.19.cpp",
+      "source_sha256": "52b8f3da6c55b33dd19e9b30545d1157ea79a88c98862523c9fc4b0c0c76fabc",
+      "site": {
+        "opcode_index": 19,
+        "field_offset": 40,
+        "load_target_reg": "r9",
+        "base_reg": "r31",
+        "next_4_opcodes": [
+          "cmplwi",
+          "beq",
+          "lis",
+          "rotlwi"
+        ],
+        "vtable_dispatch_shape": false,
+        "direct_compare_of_loaded_value_within_13_ppc": true,
+        "comparison_ppc_distance": 1,
+        "comparison_operand_signature": "cr6,r9,0",
+        "conditional_branch_after_comparison": true,
+        "layout_fields_for_same_base_later_or_earlier": [
+          40,
+          44,
+          68
+        ],
+        "semantic_pvehicle_pointer_validated": false
+      }
+    },
+    {
+      "function": "sub_821EE310",
+      "source_file": "nfsmw_recomp.103.cpp",
+      "source_sha256": "88d866e93ccbb448186e45cb106fd16d42e033b7c3f9959105ceeea430c3abef",
+      "site": {
+        "opcode_index": 21,
+        "field_offset": 40,
+        "load_target_reg": "r30",
+        "base_reg": "r31",
+        "next_4_opcodes": [
+          "cmplwi",
+          "stw",
+          "beq",
+          "lwz"
+        ],
+        "vtable_dispatch_shape": false,
+        "direct_compare_of_loaded_value_within_13_ppc": true,
+        "comparison_ppc_distance": 1,
+        "comparison_operand_signature": "cr6,r30,0",
+        "conditional_branch_after_comparison": true,
+        "layout_fields_for_same_base_later_or_earlier": [
+          40,
+          44,
+          48,
+          52
+        ],
+        "semantic_pvehicle_pointer_validated": false
+      }
+    },
+    {
+      "function": "sub_821EE4B8",
+      "source_file": "nfsmw_recomp.122.cpp",
+      "source_sha256": "acfbc33cab2c9db4bf0f694104d29b006505198a6063836d8b32d02214098c62",
+      "site": {
+        "opcode_index": 21,
+        "field_offset": 40,
+        "load_target_reg": "r7",
+        "base_reg": "r30",
+        "next_4_opcodes": [
+          "cmplwi",
+          "bne",
+          "li",
+          "bl"
+        ],
+        "vtable_dispatch_shape": false,
+        "direct_compare_of_loaded_value_within_13_ppc": true,
+        "comparison_ppc_distance": 1,
+        "comparison_operand_signature": "cr6,r7,0",
+        "conditional_branch_after_comparison": true,
+        "layout_fields_for_same_base_later_or_earlier": [
+          40,
+          44,
+          48
+        ],
+        "semantic_pvehicle_pointer_validated": false
+      }
+    },
+    {
+      "function": "sub_821EE6B8",
+      "source_file": "nfsmw_recomp.88.cpp",
+      "source_sha256": "cc7257a8d7f6f3d29c2710d6b0d289fa441f17f763728625f4b38e1a86e8e2af",
+      "site": {
+        "opcode_index": 41,
+        "field_offset": 40,
+        "load_target_reg": "r31",
+        "base_reg": "r30",
+        "next_4_opcodes": [
+          "cmplwi",
+          "beq",
+          "lwz",
+          "cmplwi"
+        ],
+        "vtable_dispatch_shape": false,
+        "direct_compare_of_loaded_value_within_13_ppc": true,
+        "comparison_ppc_distance": 1,
+        "comparison_operand_signature": "cr6,r31,0",
+        "conditional_branch_after_comparison": true,
+        "layout_fields_for_same_base_later_or_earlier": [
+          40,
+          44,
+          48
+        ],
+        "semantic_pvehicle_pointer_validated": false
+      }
+    },
+    {
+      "function": "sub_821EE6B8",
+      "source_file": "nfsmw_recomp.88.cpp",
+      "source_sha256": "cc7257a8d7f6f3d29c2710d6b0d289fa441f17f763728625f4b38e1a86e8e2af",
+      "site": {
+        "opcode_index": 57,
+        "field_offset": 40,
+        "load_target_reg": "r10",
+        "base_reg": "r30",
+        "next_4_opcodes": [
+          "cmplwi",
+          "beq",
+          "lwz",
+          "cmplwi"
+        ],
+        "vtable_dispatch_shape": false,
+        "direct_compare_of_loaded_value_within_13_ppc": true,
+        "comparison_ppc_distance": 1,
+        "comparison_operand_signature": "cr6,r10,0",
+        "conditional_branch_after_comparison": true,
+        "layout_fields_for_same_base_later_or_earlier": [
+          40,
+          44,
+          48
+        ],
+        "semantic_pvehicle_pointer_validated": false
+      }
+    },
+    {
+      "function": "sub_821EEC90",
+      "source_file": "nfsmw_recomp.102.cpp",
+      "source_sha256": "a66907b52d4e194edf180c9b220ec1e42f89a9a4469f4cad39fd3e671ac19788",
+      "site": {
+        "opcode_index": 25,
+        "field_offset": 40,
+        "load_target_reg": "r30",
+        "base_reg": "r31",
+        "next_4_opcodes": [
+          "cmplwi",
+          "beq",
+          "lwz",
+          "cmplwi"
+        ],
+        "vtable_dispatch_shape": false,
+        "direct_compare_of_loaded_value_within_13_ppc": true,
+        "comparison_ppc_distance": 1,
+        "comparison_operand_signature": "cr6,r30,0",
+        "conditional_branch_after_comparison": true,
+        "layout_fields_for_same_base_later_or_earlier": [
+          40,
+          44,
+          48,
+          52,
+          60
+        ],
+        "semantic_pvehicle_pointer_validated": false
+      }
+    },
+    {
+      "function": "sub_821EFC18",
+      "source_file": "nfsmw_recomp.31.cpp",
+      "source_sha256": "bc41cc424905b78648e903f04ef812d5cb835e3ed4009574e8330cbacb22e165",
+      "site": {
+        "opcode_index": 23,
+        "field_offset": 40,
+        "load_target_reg": "r11",
+        "base_reg": "r31",
+        "next_4_opcodes": [
+          "cmplwi",
+          "beq",
+          "stw",
+          "lwz"
+        ],
+        "vtable_dispatch_shape": false,
+        "direct_compare_of_loaded_value_within_13_ppc": true,
+        "comparison_ppc_distance": 1,
+        "comparison_operand_signature": "cr6,r11,0",
+        "conditional_branch_after_comparison": true,
+        "layout_fields_for_same_base_later_or_earlier": [
+          40,
+          44,
+          48,
+          52,
+          60
+        ],
+        "semantic_pvehicle_pointer_validated": false
+      }
+    },
+    {
+      "function": "sub_821F1950",
+      "source_file": "nfsmw_recomp.50.cpp",
+      "source_sha256": "f20ec567de4c4637756977a71a6c85f3848b63ba639f037b819868328e3f7e9d",
+      "site": {
+        "opcode_index": 9,
+        "field_offset": 40,
+        "load_target_reg": "r11",
+        "base_reg": "r20",
+        "next_4_opcodes": [
+          "cmplwi",
+          "bne",
+          "li",
+          "stb"
+        ],
+        "vtable_dispatch_shape": false,
+        "direct_compare_of_loaded_value_within_13_ppc": true,
+        "comparison_ppc_distance": 1,
+        "comparison_operand_signature": "cr6,r11,0",
+        "conditional_branch_after_comparison": true,
+        "layout_fields_for_same_base_later_or_earlier": [
+          40,
+          44,
+          48
+        ],
+        "semantic_pvehicle_pointer_validated": false
+      }
+    },
+    {
+      "function": "sub_821F69E0",
+      "source_file": "nfsmw_recomp.128.cpp",
+      "source_sha256": "a892eddeb589eb3c0177264ee09dc89a7c8626685d2d023c2d7ae87bd10f74a5",
+      "site": {
+        "opcode_index": 33,
+        "field_offset": 40,
+        "load_target_reg": "r8",
+        "base_reg": "r31",
+        "next_4_opcodes": [
+          "lis",
+          "lis",
+          "cmplwi",
+          "beq"
+        ],
+        "vtable_dispatch_shape": false,
+        "direct_compare_of_loaded_value_within_13_ppc": true,
+        "comparison_ppc_distance": 3,
+        "comparison_operand_signature": "cr6,r8,0",
+        "conditional_branch_after_comparison": true,
+        "layout_fields_for_same_base_later_or_earlier": [
+          40,
+          48,
+          68,
+          72
+        ],
+        "semantic_pvehicle_pointer_validated": false
+      }
+    },
+    {
+      "function": "sub_821F8830",
+      "source_file": "nfsmw_recomp.34.cpp",
+      "source_sha256": "c972fcac927c13539fd8a536edfc1827d96353d22ab8fe88816d31ec94b3595a",
+      "site": {
+        "opcode_index": 32,
+        "field_offset": 40,
+        "load_target_reg": "r11",
+        "base_reg": "r31",
+        "next_4_opcodes": [
+          "cmplwi",
+          "beq",
+          "mr",
+          "bl"
+        ],
+        "vtable_dispatch_shape": false,
+        "direct_compare_of_loaded_value_within_13_ppc": true,
+        "comparison_ppc_distance": 1,
+        "comparison_operand_signature": "cr6,r11,0",
+        "conditional_branch_after_comparison": true,
+        "layout_fields_for_same_base_later_or_earlier": [
+          40,
+          44,
+          48
+        ],
+        "semantic_pvehicle_pointer_validated": false
+      }
+    },
+    {
+      "function": "sub_8220AC08",
+      "source_file": "nfsmw_recomp.10.cpp",
+      "source_sha256": "42d4f0d1c78c185ad51838e6edad965bc99b170871e310ac985c52c6985a1c76",
+      "site": {
+        "opcode_index": 7,
+        "field_offset": 40,
+        "load_target_reg": "r29",
+        "base_reg": "r31",
+        "next_4_opcodes": [
+          "cmplwi",
+          "beq",
+          "mr",
+          "lwz"
+        ],
+        "vtable_dispatch_shape": false,
+        "direct_compare_of_loaded_value_within_13_ppc": true,
+        "comparison_ppc_distance": 1,
+        "comparison_operand_signature": "cr6,r29,0",
+        "conditional_branch_after_comparison": true,
+        "layout_fields_for_same_base_later_or_earlier": [
+          40,
+          44,
+          48,
+          52,
+          60
+        ],
+        "semantic_pvehicle_pointer_validated": false
+      }
+    },
+    {
+      "function": "sub_8220AC08",
+      "source_file": "nfsmw_recomp.10.cpp",
+      "source_sha256": "42d4f0d1c78c185ad51838e6edad965bc99b170871e310ac985c52c6985a1c76",
+      "site": {
+        "opcode_index": 147,
+        "field_offset": 40,
+        "load_target_reg": "r3",
+        "base_reg": "r31",
+        "next_4_opcodes": [
+          "rlwinm",
+          "add",
+          "cmplwi",
+          "beq"
+        ],
+        "vtable_dispatch_shape": false,
+        "direct_compare_of_loaded_value_within_13_ppc": true,
+        "comparison_ppc_distance": 3,
+        "comparison_operand_signature": "cr6,r3,0",
+        "conditional_branch_after_comparison": true,
+        "layout_fields_for_same_base_later_or_earlier": [
+          40,
+          44,
+          48,
+          52,
+          60
+        ],
+        "semantic_pvehicle_pointer_validated": false
+      }
+    },
+    {
+      "function": "sub_8220AC08",
+      "source_file": "nfsmw_recomp.10.cpp",
+      "source_sha256": "42d4f0d1c78c185ad51838e6edad965bc99b170871e310ac985c52c6985a1c76",
+      "site": {
+        "opcode_index": 234,
+        "field_offset": 40,
+        "load_target_reg": "r3",
+        "base_reg": "r31",
+        "next_4_opcodes": [
+          "cmplwi",
+          "beq",
+          "rlwinm",
+          "mr"
+        ],
+        "vtable_dispatch_shape": false,
+        "direct_compare_of_loaded_value_within_13_ppc": true,
+        "comparison_ppc_distance": 1,
+        "comparison_operand_signature": "cr6,r3,0",
+        "conditional_branch_after_comparison": true,
+        "layout_fields_for_same_base_later_or_earlier": [
+          40,
+          44,
+          48,
+          52,
+          60
+        ],
+        "semantic_pvehicle_pointer_validated": false
+      }
+    },
+    {
+      "function": "sub_82276108",
+      "source_file": "nfsmw_recomp.9.cpp",
+      "source_sha256": "14dfeab9f7112e3904c16cf2650c770a48bf6abff2cdaaa3ff640ccaee2982fd",
+      "site": {
+        "opcode_index": 107,
+        "field_offset": 40,
+        "load_target_reg": "r11",
+        "base_reg": "r28",
+        "next_4_opcodes": [
+          "mr",
+          "lwz",
+          "cmpwi",
+          "beq"
+        ],
+        "vtable_dispatch_shape": false,
+        "direct_compare_of_loaded_value_within_13_ppc": true,
+        "comparison_ppc_distance": 3,
+        "comparison_operand_signature": "cr6,r11,0",
+        "conditional_branch_after_comparison": true,
+        "layout_fields_for_same_base_later_or_earlier": [
+          40,
+          48,
+          72
+        ],
+        "semantic_pvehicle_pointer_validated": false
+      }
+    },
+    {
+      "function": "sub_822779B8",
+      "source_file": "nfsmw_recomp.84.cpp",
+      "source_sha256": "e8a0240fd54b2b7dc26c0f21a0e3fbc0c6a12327cf5b64bc23ccafbc894225bf",
+      "site": {
+        "opcode_index": 29,
+        "field_offset": 40,
+        "load_target_reg": "r11",
+        "base_reg": "r31",
+        "next_4_opcodes": [
+          "li",
+          "cmpwi",
+          "bne",
+          "lis"
+        ],
+        "vtable_dispatch_shape": false,
+        "direct_compare_of_loaded_value_within_13_ppc": true,
+        "comparison_ppc_distance": 2,
+        "comparison_operand_signature": "cr6,r11,0",
+        "conditional_branch_after_comparison": true,
+        "layout_fields_for_same_base_later_or_earlier": [
+          40,
+          44,
+          48,
+          60
+        ],
+        "semantic_pvehicle_pointer_validated": false
+      }
+    },
+    {
+      "function": "sub_8233EA98",
+      "source_file": "nfsmw_recomp.104.cpp",
+      "source_sha256": "918f265ba9d296a4dce8840260f2893c2b15e0aa5116a546f62b9aed1e9e8e4b",
+      "site": {
+        "opcode_index": 28,
+        "field_offset": 40,
+        "load_target_reg": "r6",
+        "base_reg": "r31",
+        "next_4_opcodes": [
+          "li",
+          "addi",
+          "cmplwi",
+          "beq"
+        ],
+        "vtable_dispatch_shape": false,
+        "direct_compare_of_loaded_value_within_13_ppc": true,
+        "comparison_ppc_distance": 3,
+        "comparison_operand_signature": "cr6,r6,0",
+        "conditional_branch_after_comparison": true,
+        "layout_fields_for_same_base_later_or_earlier": [
+          40,
+          44,
+          52
+        ],
+        "semantic_pvehicle_pointer_validated": false
+      }
+    },
+    {
+      "function": "sub_823571C8",
+      "source_file": "nfsmw_recomp.113.cpp",
+      "source_sha256": "1cb11ddb7abdc3d726f9b4da1569a54c4d478660ab4ec56d8580bb5a1d26692a",
+      "site": {
+        "opcode_index": 31,
+        "field_offset": 40,
+        "load_target_reg": "r11",
+        "base_reg": "r28",
+        "next_4_opcodes": [
+          "cmplwi",
+          "beq",
+          "add",
+          "lwz"
+        ],
+        "vtable_dispatch_shape": false,
+        "direct_compare_of_loaded_value_within_13_ppc": true,
+        "comparison_ppc_distance": 1,
+        "comparison_operand_signature": "cr6,r11,0",
+        "conditional_branch_after_comparison": true,
+        "layout_fields_for_same_base_later_or_earlier": [
+          40,
+          44,
+          52
+        ],
+        "semantic_pvehicle_pointer_validated": false
+      }
+    },
+    {
+      "function": "sub_82357400",
+      "source_file": "nfsmw_recomp.0.cpp",
+      "source_sha256": "e140523388541b0c9c041e73c4a8b1b43f2f159b32cc2cd245a35b02416f9a30",
+      "site": {
+        "opcode_index": 31,
+        "field_offset": 40,
+        "load_target_reg": "r11",
+        "base_reg": "r28",
+        "next_4_opcodes": [
+          "cmplwi",
+          "beq",
+          "add",
+          "lwz"
+        ],
+        "vtable_dispatch_shape": false,
+        "direct_compare_of_loaded_value_within_13_ppc": true,
+        "comparison_ppc_distance": 1,
+        "comparison_operand_signature": "cr6,r11,0",
+        "conditional_branch_after_comparison": true,
+        "layout_fields_for_same_base_later_or_earlier": [
+          40,
+          44,
+          52
+        ],
+        "semantic_pvehicle_pointer_validated": false
+      }
+    },
+    {
+      "function": "sub_82357638",
+      "source_file": "nfsmw_recomp.66.cpp",
+      "source_sha256": "eec9b82e51bbfcb573cd0f965e3ed7639bbbd291b285f9fc6d5a7d1e77cd735f",
+      "site": {
+        "opcode_index": 30,
+        "field_offset": 40,
+        "load_target_reg": "r11",
+        "base_reg": "r28",
+        "next_4_opcodes": [
+          "cmplwi",
+          "beq",
+          "add",
+          "lwz"
+        ],
+        "vtable_dispatch_shape": false,
+        "direct_compare_of_loaded_value_within_13_ppc": true,
+        "comparison_ppc_distance": 1,
+        "comparison_operand_signature": "cr6,r11,0",
+        "conditional_branch_after_comparison": true,
+        "layout_fields_for_same_base_later_or_earlier": [
+          40,
+          44,
+          52
+        ],
+        "semantic_pvehicle_pointer_validated": false
+      }
+    },
+    {
+      "function": "sub_82357860",
+      "source_file": "nfsmw_recomp.86.cpp",
+      "source_sha256": "56a208914092a2bbcdfbb5e57d4db71594140fb3bc001d051ee231c5061f8b9e",
+      "site": {
+        "opcode_index": 31,
+        "field_offset": 40,
+        "load_target_reg": "r11",
+        "base_reg": "r28",
+        "next_4_opcodes": [
+          "cmplwi",
+          "beq",
+          "add",
+          "lwz"
+        ],
+        "vtable_dispatch_shape": false,
+        "direct_compare_of_loaded_value_within_13_ppc": true,
+        "comparison_ppc_distance": 1,
+        "comparison_operand_signature": "cr6,r11,0",
+        "conditional_branch_after_comparison": true,
+        "layout_fields_for_same_base_later_or_earlier": [
+          40,
+          44,
+          52
+        ],
+        "semantic_pvehicle_pointer_validated": false
+      }
+    },
+    {
+      "function": "sub_82357A90",
+      "source_file": "nfsmw_recomp.91.cpp",
+      "source_sha256": "89c4ac57c8443f8e2bd08e482d769705218544b885e5cff34db567257b4f4f83",
+      "site": {
+        "opcode_index": 31,
+        "field_offset": 40,
+        "load_target_reg": "r11",
+        "base_reg": "r28",
+        "next_4_opcodes": [
+          "cmplwi",
+          "beq",
+          "add",
+          "lwz"
+        ],
+        "vtable_dispatch_shape": false,
+        "direct_compare_of_loaded_value_within_13_ppc": true,
+        "comparison_ppc_distance": 1,
+        "comparison_operand_signature": "cr6,r11,0",
+        "conditional_branch_after_comparison": true,
+        "layout_fields_for_same_base_later_or_earlier": [
+          40,
+          44,
+          52
+        ],
+        "semantic_pvehicle_pointer_validated": false
+      }
+    },
+    {
+      "function": "sub_82357CC8",
+      "source_file": "nfsmw_recomp.85.cpp",
+      "source_sha256": "e8c85788d811c0cb9390c35705ea4e60bb7dbd4210ce73d19d6d03358e5cfbf3",
+      "site": {
+        "opcode_index": 31,
+        "field_offset": 40,
+        "load_target_reg": "r11",
+        "base_reg": "r28",
+        "next_4_opcodes": [
+          "cmplwi",
+          "beq",
+          "add",
+          "lwz"
+        ],
+        "vtable_dispatch_shape": false,
+        "direct_compare_of_loaded_value_within_13_ppc": true,
+        "comparison_ppc_distance": 1,
+        "comparison_operand_signature": "cr6,r11,0",
+        "conditional_branch_after_comparison": true,
+        "layout_fields_for_same_base_later_or_earlier": [
+          40,
+          44,
+          52
+        ],
+        "semantic_pvehicle_pointer_validated": false
+      }
+    },
+    {
+      "function": "sub_8236A9E0",
+      "source_file": "nfsmw_recomp.93.cpp",
+      "source_sha256": "8ce11ce3eeb22d578b2af4ca6daf79fe3218d4005c3a34203be1b10b0f280261",
+      "site": {
+        "opcode_index": 55,
+        "field_offset": 40,
+        "load_target_reg": "r11",
+        "base_reg": "r29",
+        "next_4_opcodes": [
+          "cmpw",
+          "b",
+          "rlwinm",
+          "rlwinm"
+        ],
+        "vtable_dispatch_shape": false,
+        "direct_compare_of_loaded_value_within_13_ppc": true,
+        "comparison_ppc_distance": 1,
+        "comparison_operand_signature": "cr6,r10,r11",
+        "conditional_branch_after_comparison": true,
+        "layout_fields_for_same_base_later_or_earlier": [
+          40,
+          44,
+          48,
+          52
+        ],
+        "semantic_pvehicle_pointer_validated": false
+      }
+    }
+  ],
+  "candidate_list_truncated": true,
+  "prior_candidate_function_reclassification": {
+    "sub_82203AB8": {
+      "contains_seven_fields_same_base": true,
+      "direct_branch_on_loaded_engine_value": false,
+      "copy_or_marshalling_shape_hypothesis": true,
+      "GetMaxLevel_semantics_proven": false
+    },
+    "sub_82752E10": {
+      "contains_seven_fields_same_base": true,
+      "direct_branch_on_loaded_engine_value": false,
+      "copy_or_marshalling_shape_hypothesis": true,
+      "GetMaxLevel_semantics_proven": false
+    }
+  },
+  "frontend_field_40_shape": {
+    "source_sha256": "0208ca992595ccbddfddc1299f59a2ff586b9c726ad4a3c4d4c73f6dc40db4e3",
+    "filename": "nfsmw_recomp.11.cpp",
+    "details": {
+      "function": "sub_82582F70",
+      "ppc_count": 537,
+      "all_engine_offset_loads": 3,
+      "vtable_dispatch_shape_count": 3,
+      "direct_compare_and_branch_count": 0,
+      "multi_field_same_base_count": 0,
+      "candidate_site_details": [
+        {
+          "opcode_index": 100,
+          "field_offset": 40,
+          "load_target_reg": "r10",
+          "base_reg": "r11",
+          "next_4_opcodes": [
+            "mtctr",
+            "bctrl",
+            "li",
+            "li"
+          ],
+          "vtable_dispatch_shape": true,
+          "direct_compare_of_loaded_value_within_13_ppc": false,
+          "comparison_ppc_distance": null,
+          "comparison_operand_signature": null,
+          "conditional_branch_after_comparison": false,
+          "layout_fields_for_same_base_later_or_earlier": [
+            40,
+            60
+          ],
+          "semantic_pvehicle_pointer_validated": false
+        },
+        {
+          "opcode_index": 123,
+          "field_offset": 40,
+          "load_target_reg": "r8",
+          "base_reg": "r9",
+          "next_4_opcodes": [
+            "mtctr",
+            "bctrl",
+            "li",
+            "li"
+          ],
+          "vtable_dispatch_shape": true,
+          "direct_compare_of_loaded_value_within_13_ppc": false,
+          "comparison_ppc_distance": null,
+          "comparison_operand_signature": null,
+          "conditional_branch_after_comparison": false,
+          "layout_fields_for_same_base_later_or_earlier": [
+            40,
+            60
+          ],
+          "semantic_pvehicle_pointer_validated": false
+        },
+        {
+          "opcode_index": 146,
+          "field_offset": 40,
+          "load_target_reg": "r6",
+          "base_reg": "r7",
+          "next_4_opcodes": [
+            "mtctr",
+            "bctrl",
+            "lwz",
+            "li"
+          ],
+          "vtable_dispatch_shape": true,
+          "direct_compare_of_loaded_value_within_13_ppc": false,
+          "comparison_ppc_distance": null,
+          "comparison_operand_signature": null,
+          "conditional_branch_after_comparison": false,
+          "layout_fields_for_same_base_later_or_earlier": [
+            40
+          ],
+          "semantic_pvehicle_pointer_validated": false
+        }
+      ],
+      "candidate_site_truncated": false
+    }
+  },
+  "candidate_engine_counter_access_is_heuristic_not_dataflow": true,
+  "complete_dynamic_object_pointer_tracking_proven": false,
+  "exact_GetMaxLevel_function_identified": false,
+  "exact_SetLevel_function_identified": false,
+  "BMW_second_RefSpec_lookup_verified": false,
+  "guest_code_executed": false,
+  "game_assets_modified": false,
+  "apk_built": false,
+  "save_modified": false,
+  "release_key_accessed": false,
+  "raw_generated_code_published": false,
+  "run_id": "42581735543",
+  "utc": "2026-11-09T07:50:34.614214+00:00"
+}
