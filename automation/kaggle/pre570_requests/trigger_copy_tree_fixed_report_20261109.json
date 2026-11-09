@@ -1,0 +1,8 @@
+{
+  "stage": "PRE570",
+  "trigger": "rerun_after_verified_report_field_fix",
+  "prior_report": "docs/PRE569_V48_SAVE_IMPORT_STATIC_READONLY.json",
+  "source_sha": "45ef49b56ff5e06c52eec63950296b17c7ec9118",
+  "read_only": true,
+  "saves_untouched": true
+}
