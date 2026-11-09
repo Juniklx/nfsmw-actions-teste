@@ -1,0 +1,8 @@
+{
+  "stage": "PRE567R_VERIFY",
+  "original_run": 42557734548,
+  "expected_backup_size": 859770,
+  "append_marker": "PRE567_HANDOFF_PRE566_PTBR_BMW_FILE_BACKED_20261109",
+  "game_data_modified": false,
+  "save_modified": false
+}
