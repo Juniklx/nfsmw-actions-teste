@@ -1,0 +1,82 @@
+name: NFSMW PRE563 PTBR ZZDATA4 full-file SHA and first attribute region readonly
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre563_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre563-ptbr-zzdata4-stream-readonly
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare private authenticated Drive ZIP reader
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth requests >/dev/null
+          python -m py_compile automation/kaggle/pre563_ptbr_zzdata4_original_attrs_region_readonly.py
+      - name: Stream translated ZZDATA4 in ephemeral RAM and verify its full SHA and resource header
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre563_ptbr_zzdata4_original_attrs_region_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Publish hashes and numeric statistics with strict no-write boundaries
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          src=Path("/tmp/nfsmw-pre563/report.json")
+          r=json.loads(src.read_text()) if src.exists() else {"stage":"PRE563","status":"FAILED_NO_REPORT"}
+          for k in ("full_zip_original_or_translated_asset_written_or_uploaded",
+                    "guest_game_loader_executed","guest_accepts_modified_ATTRIBUTES",
+                    "BMW_tuning_usable_or_saved","APK_built","save_modified",
+                    "game_assets_modified","signing_material_accessed","BMW_tuning_enabled"):
+              if r.get(k,False) is not False:
+                  raise SystemExit("PRE563 write or runtime claim boundary invalid: "+k)
+          if r.get("status")=="AUDIT_OK":
+              if (r.get("translated_ZZDATA4_full_file_matches_Shevery_SHA256") is not True or
+                  r.get("translated_ZZDATA4_full_uncompressed_SHA256")!="7dd33d214ac45f4b67005685bc0c2b8555eca98a33d24216c934f077d5054951" or
+                  r.get("translated_ZZDATA4_full_crc32")!="a038afed" or
+                  r.get("attributes_record_sector")!=0 or
+                  r.get("attributes_record_row")!=805 or
+                  r.get("source_ZZDATA4_member_streamed_ephemerally") is not True):
+                  raise SystemExit("PRE563 source authenticity or stream guards failed")
+              dest=Path("docs/PRE563_PTBR_ZZDATA4_ATTRIBUTES_FIRST_REGION_READONLY.json")
+          else:
+              dest=Path("docs/PRE563_PTBR_ZZDATA4_ATTRIBUTES_FIRST_REGION_DIAGNOSTIC.json")
+              r={k:r.get(k) for k in ("stage","status","error_type","error","run_id") if k in r}
+              r["BMW_tuning_enabled"]=False
+          dest.write_text(json.dumps(r,ensure_ascii=False,indent=2)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE563_PTBR_ZZDATA4_ATTRIBUTES_FIRST_REGION_*json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "PRE563: authenticated PTBR first attributes SHA/CRC and full ZZDATA4 hash"
+          for n in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
+      - name: Archive report metadata only, not assets
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre563-ptbr-attribute-check
+          path: /tmp/nfsmw-pre563/report.json
+          retention-days: 14
