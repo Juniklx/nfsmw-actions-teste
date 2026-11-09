@@ -31,7 +31,7 @@ jobs:
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
         run: |
           set -euo pipefail
-          PYTHONPATH=automation/kaggle python automation/kaggle/pre624_sync_pre614_name_bmw_save_context_safe.py --run-id "$GITHUB_RUN_ID"
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre624_sync_verified_bmw_attr_context_safe.py --run-id "$GITHUB_RUN_ID"
       - name: Publish only sanitized canonical status and fail on mismatch
         if: always()
         run: |
