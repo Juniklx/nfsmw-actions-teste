@@ -13,7 +13,7 @@ from googleapiclient.errors import HttpError
 from pre480_append_canonical_context_safe import (
     FILE_ID, PARENT, sha, drive_client, get_bytes, get_meta)
 
-OUT=Path("/tmp/nfsmw-pre553/report.json")
+OUT=Path("/tmp/nfsmw-pre556/report.json")
 HANDOFF=Path("docs/PRE556_HANDOFF_PRE555_PAL_PASTA_EXTRAIDA_HOSTPATH_20261108.md")
 MARKER="PRE556_HANDOFF_PRE555_PAL_PASTA_EXTRAIDA_HOSTPATH_20261108"
 PREVIOUS="PRE553_CORRECAO_HISTORICA_PRE520_PRE551_PAL_PADDING_VIRTUAL_READ_20261108"
