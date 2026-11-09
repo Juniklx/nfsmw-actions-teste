@@ -1,0 +1,10 @@
+{
+  "stage": "PRE625",
+  "source": "PRE624_PRE622",
+  "native_arm64_no_apk": true,
+  "original_signing_not_accessed": true,
+  "guest_mem_reads_added": 0,
+  "guest_mem_writes_added": 0,
+  "callback": "NFSMW_PRE622_ATTR_VALUE",
+  "test_expected": "4 callbacks native ELF / PRE398 Nitro preserved"
+}
