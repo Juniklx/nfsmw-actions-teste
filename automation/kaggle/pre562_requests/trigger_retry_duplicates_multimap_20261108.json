@@ -1,0 +1,7 @@
+{
+  "stage": "PRE562",
+  "retry": "Treat repeated ZDIR hashes as multimap instead of claiming unique per hash",
+  "source_drive_ptbr_zip_id": "1M95wS9iqrMI-p328Wual7TreqfaPgdL0",
+  "previous_failure_run_id": 42555442319,
+  "safety": "read-only hashes, no original game data publication, APK or save modification"
+}
