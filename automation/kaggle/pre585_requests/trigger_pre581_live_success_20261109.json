@@ -1,0 +1,10 @@
+{
+  "stage": "PRE585",
+  "source": "PRE584",
+  "previous_context_sha256": "80602c5058080eb12742302146eef70967fab4c7e85096bb8e4a2c35139899df",
+  "previous_context_size": 890716,
+  "backup_first": true,
+  "append_only": true,
+  "game_assets_modified": false,
+  "save_modified": false
+}
