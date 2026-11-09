@@ -1,0 +1,11 @@
+{
+  "stage": "PRE624",
+  "checkpoint": "PRE623",
+  "previous_canonic_bytes": 948576,
+  "previous_canonical_sha256": "86361195ddd23442d0421773575dc200e5a8afb6643dd6439022dfec2bdc4195",
+  "backup_first": true,
+  "append_only": true,
+  "source_code_not_published": true,
+  "phone_untouched": true,
+  "APK_untouched": true
+}
