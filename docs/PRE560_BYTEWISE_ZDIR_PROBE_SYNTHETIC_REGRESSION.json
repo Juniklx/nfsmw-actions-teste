@@ -1,0 +1,17 @@
+{
+  "stage": "PRE560_SHEVERY_BYTEWISE_ZDIR_NAMEHASH_PARSER_REGRESSION",
+  "status": "AUDIT_OK",
+  "synthetic_1388_row_index_validated": true,
+  "synthetic_ATTRIBUTES_hash_0x9775379a_at_row_806_detected": true,
+  "synthetic_FE_ATTRIB_hash_at_row_900_detected": true,
+  "real_user_translated_ZDIR_scanned_on_this_runner": false,
+  "user_reported_original_awk_no_match_remains_unresolved": true,
+  "actual_TRANSLATED_ATTRIBUTES_row_verified": false,
+  "next_gate": "RUN_BYTEWISE_PRE560_PROBE_ON_SHEVERY",
+  "APK_built": false,
+  "game_assets_modified": false,
+  "save_modified": false,
+  "signing_accessed": false,
+  "BMW_tuning_enabled": false,
+  "run_id": "42554148892"
+}
