@@ -1,0 +1,82 @@
+name: NFSMW PRE548 original PAL guest pvehicle upgrade field writer hash xrefs read only
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre548_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre548-pal-upgrade-state-writer-xrefs
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare SHA-pinned guest code and VPAK hash reader
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth requests >/dev/null
+          python -m py_compile automation/kaggle/pre548_pal_guest_pvehicle_upgrade_field_hash_xrefs_readonly.py
+      - name: Search original PAL guest for specific pvehicle field offsets and hashes
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre548_pal_guest_pvehicle_upgrade_field_hash_xrefs_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Validate read only result and commit bounded xref metadata
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          f=Path("/tmp/nfsmw-pre548/report.json")
+          d=json.loads(f.read_text()) if f.exists() else {"stage":"PRE548","status":"FAILED_NO_REPORT"}
+          for k in ("game_data_or_guest_code_modified_or_published","APK_built",
+                    "save_modified","signing_material_accessed","BMW_tuning_enabled"):
+              if d.get(k,False) is not False:
+                  raise SystemExit("PRE548 readonly safety boundary failed "+k)
+          if d.get("status")=="AUDIT_OK":
+              for k in ("guest_PhysicsUpgrades_SetPackage_address_identified",
+                        "game_guest_checkout_package_persistence_proven",
+                        "guest_motor_collection_load_accepted"):
+                  if d.get(k) is not False:
+                      raise SystemExit("PRE548 cannot label field fingerprints as SetPackage/runtime proof")
+              if (d.get("counter_fields_are_UPGRADE_AVAILABILITY_not_installed_package") is not True or
+                  d.get("original_guest_functions_scanned")!=56338):
+                  raise SystemExit("PRE548 corpus and field semantics gate changed")
+              output=Path("docs/PRE548_ORIGINAL_PAL_GUEST_PVEHICLE_UPGRADE_FIELD_XREFS_READONLY.json")
+          else:
+              output=Path("docs/PRE548_ORIGINAL_PAL_GUEST_PVEHICLE_UPGRADE_FIELD_DIAGNOSTIC.json")
+              d={k:d.get(k) for k in ("stage","status","error_type","error","run_id") if k in d}
+              d["BMW_tuning_enabled"]=False
+          output.parent.mkdir(parents=True,exist_ok=True)
+          output.write_text(json.dumps(d,ensure_ascii=False,indent=2)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE548_ORIGINAL_PAL_GUEST_PVEHICLE_UPGRADE_FIELD_*json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "PRE548: original PAL pvehicle upgrade field xref and hash codegen metadata"
+          for n in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
+      - name: Retain bounded readonly xref report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre548-pal-upgrade-field-xref-${{ github.run_id }}
+          path: /tmp/nfsmw-pre548/report.json
+          retention-days: 14
