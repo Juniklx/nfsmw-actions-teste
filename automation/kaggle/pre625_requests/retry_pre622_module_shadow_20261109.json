@@ -1,0 +1,8 @@
+{
+  "stage": "PRE625",
+  "retry": "avoid shadowing PRE622 module with report dict",
+  "previous_run": 42705158328,
+  "prior_failure": "AttributeError dict.SYMBOL",
+  "game_assets_untouched": true,
+  "no_apk": true
+}
