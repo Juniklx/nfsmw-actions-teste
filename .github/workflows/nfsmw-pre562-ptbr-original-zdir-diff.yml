@@ -1,0 +1,81 @@
+name: NFSMW PRE562 PAL original versus PTBR ZDIR records read-only
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre562_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre562-zdir-record-diff-readonly
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install private Drive range reader
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth requests >/dev/null
+          python -m py_compile automation/kaggle/pre562_compare_original_ptbr_zdir_readonly.py
+      - name: Compare two SHA-authenticated ZDIR indices without game data export
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre562_compare_original_ptbr_zdir_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Publish sanitized metadata and preserve original source
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          src=Path("/tmp/nfsmw-pre562/report.json")
+          r=json.loads(src.read_text()) if src.exists() else {"stage":"PRE562","status":"FAILED_NO_REPORT"}
+          for k in ("complete_game_archive_or_ZZDATA4_downloaded","APK_built",
+                    "game_assets_modified","save_modified","signing_material_accessed",
+                    "BMW_tuning_enabled","translation_attributes_file_data_verified",
+                    "translation_loader_reads_attributes_at_record_offset_verified"):
+              if r.get(k,False) is not False:
+                  raise SystemExit("PRE562 ungrounded runtime claim or write detected: "+k)
+          if r.get("status")=="AUDIT_OK":
+              if (r.get("original_sha256")!="7f37d29f958454ec73d5dbd30068a6acb23cf92d5056fa2d944ca5c87c6637ee"
+                  or r.get("translated_sha256")!="832a20dfdca663233f4559236048f21d5ff4e6f65780d1aa18e58b72005245bf"
+                  or r.get("original_record_count")!=1390
+                  or r.get("translated_record_count")!=1388
+                  or r.get("attributes_record_translated",{}).get("row")!=805):
+                  raise SystemExit("PRE562 ZDIR evidence identity mismatch")
+              dest=Path("docs/PRE562_ORIGINAL_VS_PTBR_ZDIR_RECORD_DIFF_READONLY.json")
+          else:
+              dest=Path("docs/PRE562_ORIGINAL_VS_PTBR_ZDIR_RECORD_DIFF_DIAGNOSTIC.json")
+              r={k:r.get(k) for k in ("stage","status","error_type","error","run_id") if k in r}
+              r["BMW_tuning_enabled"]=False
+          dest.write_text(json.dumps(r,ensure_ascii=False,indent=2)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE562_ORIGINAL_VS_PTBR_ZDIR_RECORD_DIFF_*json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "PRE562: original and PTBR ZDIR record-level field delta evidence"
+          for n in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
+      - name: Archive metadata-only report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre562-zdir-record-diff
+          path: /tmp/nfsmw-pre562/report.json
+          retention-days: 14
