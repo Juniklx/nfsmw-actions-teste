@@ -1,0 +1,7 @@
+{
+  "stage": "PRE587",
+  "corrected_report_path": "docs/PRE587_SHEVERY_UNLINKED_VLT_STATIC_PREFLIGHT_RESULT.json",
+  "prior_run": 42565834509,
+  "only_static": true,
+  "save_untouched": true
+}
