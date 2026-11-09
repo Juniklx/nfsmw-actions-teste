@@ -1,0 +1,8 @@
+{
+  "stage": "PRE544",
+  "objective": "Inspect SHA-pinned original PAL guest PPC source float memory load and store addresses for target math function and five dependencies; distinguish stack r1 temporaries from nonstack data; do not infer motor torque, purchase, SetPackage",
+  "upstream_PRE542_run": 42540238097,
+  "prior_canonical_run": 42540537926,
+  "original_game_unchanged": true,
+  "save_MARCEK_untouched": true
+}
