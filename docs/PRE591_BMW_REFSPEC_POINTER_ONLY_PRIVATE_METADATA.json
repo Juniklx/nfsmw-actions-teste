@@ -1,0 +1,52 @@
+{
+  "stage": "PRE591_BMW_REFSPEC_ONLY_WITH_ZERO_MOTOR_COUNT_PRIVATE_CONTROL",
+  "status": "AUDIT_OK",
+  "folder_id": "1uCdI3KIIV6OPnlIXMaDLSW4nzwnhrAZ4",
+  "folder_newly_created": true,
+  "ZDIR_fragment": {
+    "id": "101qny9unsxP3xUu3v852D8mKthKp4YhB",
+    "name": "PRE591_ZDIR_BMW_REFSPEC_POINTER_ONLY.bin",
+    "size": 33312,
+    "sha256": "f5ba2b4d007f7ace0aa63429dd9f973d2b9f4924db1ab9695e5569038b0715da",
+    "fresh_upload": true
+  },
+  "ZZDATA4_first_341_sectors_fragment": {
+    "id": "1eQevbPH09L2LsTiWFNLU6cTShbrl8JUy",
+    "name": "PRE591_ZZDATA4_FIRST341_REFSPEC_POINTER_ONLY.bin",
+    "size": 698368,
+    "sha256": "6ad6e5748115380ab057e65642b2bad0ce83f74282b4d80dbbc5b71f33c8c12d",
+    "fresh_upload": true
+  },
+  "candidate_VPAK_size": 698004,
+  "scratch_new_export_count": 2400,
+  "candidate_VPAK_sha256": "b84d1ec037b656063ded48f8ea1e075d6c8425ba438e6366d301fc308c7c9358",
+  "candidate_EA_crc32": "98e13bed",
+  "pointer_fixup_vpak_offset": 642332,
+  "pointer_changed_bytes_vs_PRE586": [
+    642333,
+    642334,
+    642335
+  ],
+  "counter_byte_changed_vs_PRE502": [
+    256619
+  ],
+  "active_BMW_pvehicle_refspec_points_to_two_ref_array": true,
+  "BMW_pvehicle_motor_upgrade_count_zero": true,
+  "new_VLT_engine_collection_preserved": true,
+  "new_engine_not_buyable": true,
+  "full_phone_archive_not_written": true,
+  "guest_loader_executed": false,
+  "MARCEK_save_load_with_candidate_proven": false,
+  "BMW_tuning_enabled": false,
+  "original_translated_game_files_modified": false,
+  "save_modified": false,
+  "APK_built": false,
+  "translated_original_ZZDATA4_full_sha256": "7dd33d214ac45f4b67005685bc0c2b8555eca98a33d24216c934f077d5054951",
+  "translated_full_archive_expected_modified_sha256": "522e15940379c8b746ab3c77e771fd22352b0b408cbf6264cf64e99f8a378c29",
+  "translated_full_archive_expected_modified_crc32": "aee1dc5d",
+  "original_zip_member_fully_verified_by_stream": true,
+  "translated_nontarget_archive_bytes_pass_through_unchanged": true,
+  "source_sector_initial_512_padding_bytes_verified": true,
+  "run_id": "42567684579",
+  "utc": "2026-11-09T05:30:42.889473+00:00"
+}
