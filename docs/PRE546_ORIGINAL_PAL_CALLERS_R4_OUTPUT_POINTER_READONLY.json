@@ -1,0 +1,494 @@
+{
+  "stage": "PRE546_ORIGINAL_PAL_SEVEN_CALLERS_R4_OUTPUT_POINTER_PREPARATION_READONLY",
+  "status": "AUDIT_OK",
+  "verified_PRE99_archive_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "original_generated_guest_shards_scanned": 129,
+  "target_numeric_guest_name": "sub_823EAE40",
+  "original_guest_target_r31_comes_from_r4_proven": true,
+  "caller_numeric_function_count": 7,
+  "original_guest_direct_caller_sites": 9,
+  "caller_r4_nearest_explicit_write_mentions_stack_r1_distribution": {
+    "r1": 8,
+    "unknown": 1
+  },
+  "guest_original_PPC_seven_callers": {
+    "sub_82584880": {
+      "original_source_shard": "nfsmw_recomp.123.cpp",
+      "original_source_shard_sha256": "3f9a9929422e9e5ba2a80f8bc00060e23a204c7e3db214ff0508261adc4c957a",
+      "function_source_lines": 424,
+      "guest_numeric_target_call_count": 1,
+      "callsite_r4_preparation_metadata": [
+        {
+          "caller_guest_function": "sub_82584880",
+          "target_call_function_relative_source_line": 162,
+          "nearest_r4_explicit_write_candidates": [
+            {
+              "PPC_guest_instruction_mnemonic": "addi",
+              "source_guest_registers_except_r4": [
+                "r1"
+              ],
+              "relative_source_line": 156,
+              "source_lines_before_target_call": 6,
+              "operand_mentions_guest_stack_r1": true,
+              "operand_mentions_existing_argument_r3": false,
+              "PPC_branch_call_comments_between_assignment_and_call": 1
+            },
+            {
+              "PPC_guest_instruction_mnemonic": "addi",
+              "source_guest_registers_except_r4": [
+                "r11"
+              ],
+              "relative_source_line": 148,
+              "source_lines_before_target_call": 14,
+              "operand_mentions_guest_stack_r1": false,
+              "operand_mentions_existing_argument_r3": false,
+              "PPC_branch_call_comments_between_assignment_and_call": 2
+            },
+            {
+              "PPC_guest_instruction_mnemonic": "lwz",
+              "source_guest_registers_except_r4": [
+                "r31"
+              ],
+              "relative_source_line": 91,
+              "source_lines_before_target_call": 71,
+              "operand_mentions_guest_stack_r1": false,
+              "operand_mentions_existing_argument_r3": false,
+              "PPC_branch_call_comments_between_assignment_and_call": 3
+            }
+          ],
+          "nearest_r4_write_found": true,
+          "closest_r4_write_mentions_r1": true,
+          "closest_r4_write_source_guest_registers": [
+            "r1"
+          ],
+          "whole_function_register_reaching_definitions_not_proven": true
+        }
+      ]
+    },
+    "sub_8254E908": {
+      "original_source_shard": "nfsmw_recomp.126.cpp",
+      "original_source_shard_sha256": "c9aef77757bf9f1754b2aefd7d205500148f9255d2d9a9b2a33c2727c9241bf8",
+      "function_source_lines": 353,
+      "guest_numeric_target_call_count": 1,
+      "callsite_r4_preparation_metadata": [
+        {
+          "caller_guest_function": "sub_8254E908",
+          "target_call_function_relative_source_line": 228,
+          "nearest_r4_explicit_write_candidates": [
+            {
+              "PPC_guest_instruction_mnemonic": "addi",
+              "source_guest_registers_except_r4": [
+                "r1"
+              ],
+              "relative_source_line": 209,
+              "source_lines_before_target_call": 19,
+              "operand_mentions_guest_stack_r1": true,
+              "operand_mentions_existing_argument_r3": false,
+              "PPC_branch_call_comments_between_assignment_and_call": 1
+            },
+            {
+              "PPC_guest_instruction_mnemonic": "addi",
+              "source_guest_registers_except_r4": [
+                "r11"
+              ],
+              "relative_source_line": 199,
+              "source_lines_before_target_call": 29,
+              "operand_mentions_guest_stack_r1": false,
+              "operand_mentions_existing_argument_r3": false,
+              "PPC_branch_call_comments_between_assignment_and_call": 2
+            },
+            {
+              "PPC_guest_instruction_mnemonic": "lwz",
+              "source_guest_registers_except_r4": [
+                "r30"
+              ],
+              "relative_source_line": 146,
+              "source_lines_before_target_call": 82,
+              "operand_mentions_guest_stack_r1": false,
+              "operand_mentions_existing_argument_r3": false,
+              "PPC_branch_call_comments_between_assignment_and_call": 3
+            },
+            {
+              "PPC_guest_instruction_mnemonic": "li",
+              "source_guest_registers_except_r4": [],
+              "relative_source_line": 137,
+              "source_lines_before_target_call": 91,
+              "operand_mentions_guest_stack_r1": false,
+              "operand_mentions_existing_argument_r3": false,
+              "PPC_branch_call_comments_between_assignment_and_call": 4
+            },
+            {
+              "PPC_guest_instruction_mnemonic": "lwz",
+              "source_guest_registers_except_r4": [
+                "r10"
+              ],
+              "relative_source_line": 107,
+              "source_lines_before_target_call": 121,
+              "operand_mentions_guest_stack_r1": false,
+              "operand_mentions_existing_argument_r3": false,
+              "PPC_branch_call_comments_between_assignment_and_call": 5
+            }
+          ],
+          "nearest_r4_write_found": true,
+          "closest_r4_write_mentions_r1": true,
+          "closest_r4_write_source_guest_registers": [
+            "r1"
+          ],
+          "whole_function_register_reaching_definitions_not_proven": true
+        }
+      ]
+    },
+    "sub_8255C1C8": {
+      "original_source_shard": "nfsmw_recomp.30.cpp",
+      "original_source_shard_sha256": "44d15fb55918657dd395ff523ca86c4a07f2cb43b09d85f0a90f894ef6cc2473",
+      "function_source_lines": 397,
+      "guest_numeric_target_call_count": 1,
+      "callsite_r4_preparation_metadata": [
+        {
+          "caller_guest_function": "sub_8255C1C8",
+          "target_call_function_relative_source_line": 141,
+          "nearest_r4_explicit_write_candidates": [
+            {
+              "PPC_guest_instruction_mnemonic": "addi",
+              "source_guest_registers_except_r4": [
+                "r1"
+              ],
+              "relative_source_line": 135,
+              "source_lines_before_target_call": 6,
+              "operand_mentions_guest_stack_r1": true,
+              "operand_mentions_existing_argument_r3": false,
+              "PPC_branch_call_comments_between_assignment_and_call": 1
+            },
+            {
+              "PPC_guest_instruction_mnemonic": "addi",
+              "source_guest_registers_except_r4": [
+                "r11"
+              ],
+              "relative_source_line": 127,
+              "source_lines_before_target_call": 14,
+              "operand_mentions_guest_stack_r1": false,
+              "operand_mentions_existing_argument_r3": false,
+              "PPC_branch_call_comments_between_assignment_and_call": 2
+            },
+            {
+              "PPC_guest_instruction_mnemonic": "clrlwi",
+              "source_guest_registers_except_r4": [
+                "r11"
+              ],
+              "relative_source_line": 92,
+              "source_lines_before_target_call": 49,
+              "operand_mentions_guest_stack_r1": false,
+              "operand_mentions_existing_argument_r3": false,
+              "PPC_branch_call_comments_between_assignment_and_call": 2
+            },
+            {
+              "PPC_guest_instruction_mnemonic": "lwz",
+              "source_guest_registers_except_r4": [
+                "r30"
+              ],
+              "relative_source_line": 72,
+              "source_lines_before_target_call": 69,
+              "operand_mentions_guest_stack_r1": false,
+              "operand_mentions_existing_argument_r3": false,
+              "PPC_branch_call_comments_between_assignment_and_call": 3
+            }
+          ],
+          "nearest_r4_write_found": true,
+          "closest_r4_write_mentions_r1": true,
+          "closest_r4_write_source_guest_registers": [
+            "r1"
+          ],
+          "whole_function_register_reaching_definitions_not_proven": true
+        }
+      ]
+    },
+    "sub_8256CE68": {
+      "original_source_shard": "nfsmw_recomp.41.cpp",
+      "original_source_shard_sha256": "6e3c83e95e701b55894d503d7fcdaeffca1e4f92019f1fe2a7272e1139136a5b",
+      "function_source_lines": 186,
+      "guest_numeric_target_call_count": 2,
+      "callsite_r4_preparation_metadata": [
+        {
+          "caller_guest_function": "sub_8256CE68",
+          "target_call_function_relative_source_line": 57,
+          "nearest_r4_explicit_write_candidates": [
+            {
+              "PPC_guest_instruction_mnemonic": "addi",
+              "source_guest_registers_except_r4": [
+                "r1"
+              ],
+              "relative_source_line": 51,
+              "source_lines_before_target_call": 6,
+              "operand_mentions_guest_stack_r1": true,
+              "operand_mentions_existing_argument_r3": false,
+              "PPC_branch_call_comments_between_assignment_and_call": 1
+            }
+          ],
+          "nearest_r4_write_found": true,
+          "closest_r4_write_mentions_r1": true,
+          "closest_r4_write_source_guest_registers": [
+            "r1"
+          ],
+          "whole_function_register_reaching_definitions_not_proven": true
+        },
+        {
+          "caller_guest_function": "sub_8256CE68",
+          "target_call_function_relative_source_line": 99,
+          "nearest_r4_explicit_write_candidates": [
+            {
+              "PPC_guest_instruction_mnemonic": "addi",
+              "source_guest_registers_except_r4": [
+                "r1"
+              ],
+              "relative_source_line": 93,
+              "source_lines_before_target_call": 6,
+              "operand_mentions_guest_stack_r1": true,
+              "operand_mentions_existing_argument_r3": false,
+              "PPC_branch_call_comments_between_assignment_and_call": 1
+            },
+            {
+              "PPC_guest_instruction_mnemonic": "lwz",
+              "source_guest_registers_except_r4": [
+                "r11"
+              ],
+              "relative_source_line": 88,
+              "source_lines_before_target_call": 11,
+              "operand_mentions_guest_stack_r1": false,
+              "operand_mentions_existing_argument_r3": false,
+              "PPC_branch_call_comments_between_assignment_and_call": 2
+            },
+            {
+              "PPC_guest_instruction_mnemonic": "lwz",
+              "source_guest_registers_except_r4": [
+                "r11"
+              ],
+              "relative_source_line": 71,
+              "source_lines_before_target_call": 28,
+              "operand_mentions_guest_stack_r1": false,
+              "operand_mentions_existing_argument_r3": false,
+              "PPC_branch_call_comments_between_assignment_and_call": 3
+            },
+            {
+              "PPC_guest_instruction_mnemonic": "addi",
+              "source_guest_registers_except_r4": [
+                "r1"
+              ],
+              "relative_source_line": 51,
+              "source_lines_before_target_call": 48,
+              "operand_mentions_guest_stack_r1": true,
+              "operand_mentions_existing_argument_r3": false,
+              "PPC_branch_call_comments_between_assignment_and_call": 4
+            }
+          ],
+          "nearest_r4_write_found": true,
+          "closest_r4_write_mentions_r1": true,
+          "closest_r4_write_source_guest_registers": [
+            "r1"
+          ],
+          "whole_function_register_reaching_definitions_not_proven": true
+        }
+      ]
+    },
+    "sub_8226B4C0": {
+      "original_source_shard": "nfsmw_recomp.53.cpp",
+      "original_source_shard_sha256": "eb77ef4b41a8370643eb944c20ea38d3a142683b319f771aa7923238208a9fa0",
+      "function_source_lines": 73,
+      "guest_numeric_target_call_count": 1,
+      "callsite_r4_preparation_metadata": [
+        {
+          "caller_guest_function": "sub_8226B4C0",
+          "target_call_function_relative_source_line": 7,
+          "nearest_r4_explicit_write_candidates": [],
+          "nearest_r4_write_found": false,
+          "closest_r4_write_mentions_r1": null,
+          "closest_r4_write_source_guest_registers": [],
+          "whole_function_register_reaching_definitions_not_proven": true
+        }
+      ]
+    },
+    "sub_82566BE8": {
+      "original_source_shard": "nfsmw_recomp.64.cpp",
+      "original_source_shard_sha256": "0f9d34a6f6330d93b8485251041253b54ab1c1eaad526d77f5aaa61fb14537b1",
+      "function_source_lines": 616,
+      "guest_numeric_target_call_count": 2,
+      "callsite_r4_preparation_metadata": [
+        {
+          "caller_guest_function": "sub_82566BE8",
+          "target_call_function_relative_source_line": 179,
+          "nearest_r4_explicit_write_candidates": [
+            {
+              "PPC_guest_instruction_mnemonic": "addi",
+              "source_guest_registers_except_r4": [
+                "r1"
+              ],
+              "relative_source_line": 173,
+              "source_lines_before_target_call": 6,
+              "operand_mentions_guest_stack_r1": true,
+              "operand_mentions_existing_argument_r3": false,
+              "PPC_branch_call_comments_between_assignment_and_call": 1
+            },
+            {
+              "PPC_guest_instruction_mnemonic": "addi",
+              "source_guest_registers_except_r4": [
+                "r11"
+              ],
+              "relative_source_line": 165,
+              "source_lines_before_target_call": 14,
+              "operand_mentions_guest_stack_r1": false,
+              "operand_mentions_existing_argument_r3": false,
+              "PPC_branch_call_comments_between_assignment_and_call": 2
+            },
+            {
+              "PPC_guest_instruction_mnemonic": "lwz",
+              "source_guest_registers_except_r4": [
+                "r31"
+              ],
+              "relative_source_line": 110,
+              "source_lines_before_target_call": 69,
+              "operand_mentions_guest_stack_r1": false,
+              "operand_mentions_existing_argument_r3": false,
+              "PPC_branch_call_comments_between_assignment_and_call": 3
+            }
+          ],
+          "nearest_r4_write_found": true,
+          "closest_r4_write_mentions_r1": true,
+          "closest_r4_write_source_guest_registers": [
+            "r1"
+          ],
+          "whole_function_register_reaching_definitions_not_proven": true
+        },
+        {
+          "caller_guest_function": "sub_82566BE8",
+          "target_call_function_relative_source_line": 323,
+          "nearest_r4_explicit_write_candidates": [
+            {
+              "PPC_guest_instruction_mnemonic": "addi",
+              "source_guest_registers_except_r4": [
+                "r1"
+              ],
+              "relative_source_line": 317,
+              "source_lines_before_target_call": 6,
+              "operand_mentions_guest_stack_r1": true,
+              "operand_mentions_existing_argument_r3": false,
+              "PPC_branch_call_comments_between_assignment_and_call": 1
+            },
+            {
+              "PPC_guest_instruction_mnemonic": "addi",
+              "source_guest_registers_except_r4": [
+                "r11"
+              ],
+              "relative_source_line": 309,
+              "source_lines_before_target_call": 14,
+              "operand_mentions_guest_stack_r1": false,
+              "operand_mentions_existing_argument_r3": false,
+              "PPC_branch_call_comments_between_assignment_and_call": 2
+            },
+            {
+              "PPC_guest_instruction_mnemonic": "lwz",
+              "source_guest_registers_except_r4": [
+                "r31"
+              ],
+              "relative_source_line": 254,
+              "source_lines_before_target_call": 69,
+              "operand_mentions_guest_stack_r1": false,
+              "operand_mentions_existing_argument_r3": false,
+              "PPC_branch_call_comments_between_assignment_and_call": 3
+            },
+            {
+              "PPC_guest_instruction_mnemonic": "addi",
+              "source_guest_registers_except_r4": [
+                "r11"
+              ],
+              "relative_source_line": 205,
+              "source_lines_before_target_call": 118,
+              "operand_mentions_guest_stack_r1": false,
+              "operand_mentions_existing_argument_r3": false,
+              "PPC_branch_call_comments_between_assignment_and_call": 4
+            }
+          ],
+          "nearest_r4_write_found": true,
+          "closest_r4_write_mentions_r1": true,
+          "closest_r4_write_source_guest_registers": [
+            "r1"
+          ],
+          "whole_function_register_reaching_definitions_not_proven": true
+        }
+      ]
+    },
+    "sub_8226B228": {
+      "original_source_shard": "nfsmw_recomp.68.cpp",
+      "original_source_shard_sha256": "3703d9cae96852c014bdb5df54cf5e72c2cfc145100664ca331eb481a1537e6f",
+      "function_source_lines": 451,
+      "guest_numeric_target_call_count": 1,
+      "callsite_r4_preparation_metadata": [
+        {
+          "caller_guest_function": "sub_8226B228",
+          "target_call_function_relative_source_line": 385,
+          "nearest_r4_explicit_write_candidates": [
+            {
+              "PPC_guest_instruction_mnemonic": "addi",
+              "source_guest_registers_except_r4": [
+                "r1"
+              ],
+              "relative_source_line": 379,
+              "source_lines_before_target_call": 6,
+              "operand_mentions_guest_stack_r1": true,
+              "operand_mentions_existing_argument_r3": false,
+              "PPC_branch_call_comments_between_assignment_and_call": 1
+            },
+            {
+              "PPC_guest_instruction_mnemonic": "addi",
+              "source_guest_registers_except_r4": [
+                "r11"
+              ],
+              "relative_source_line": 371,
+              "source_lines_before_target_call": 14,
+              "operand_mentions_guest_stack_r1": false,
+              "operand_mentions_existing_argument_r3": false,
+              "PPC_branch_call_comments_between_assignment_and_call": 2
+            },
+            {
+              "PPC_guest_instruction_mnemonic": "add",
+              "source_guest_registers_except_r4": [
+                "r11",
+                "r10"
+              ],
+              "relative_source_line": 353,
+              "source_lines_before_target_call": 32,
+              "operand_mentions_guest_stack_r1": false,
+              "operand_mentions_existing_argument_r3": false,
+              "PPC_branch_call_comments_between_assignment_and_call": 2
+            },
+            {
+              "PPC_guest_instruction_mnemonic": "lwz",
+              "source_guest_registers_except_r4": [
+                "r31"
+              ],
+              "relative_source_line": 314,
+              "source_lines_before_target_call": 71,
+              "operand_mentions_guest_stack_r1": false,
+              "operand_mentions_existing_argument_r3": false,
+              "PPC_branch_call_comments_between_assignment_and_call": 3
+            }
+          ],
+          "nearest_r4_write_found": true,
+          "closest_r4_write_mentions_r1": true,
+          "closest_r4_write_source_guest_registers": [
+            "r1"
+          ],
+          "whole_function_register_reaching_definitions_not_proven": true
+        }
+      ]
+    }
+  },
+  "nearest_r4_instruction_does_not_establish_pointer_allocation_or_controlflow": true,
+  "guest_BMW_engine_attribute_identity_proven": false,
+  "guest_SetPackage_identity_proven": false,
+  "APK_built": false,
+  "original_game_or_binary_modified_or_published": false,
+  "save_modified": false,
+  "signing_material_accessed": false,
+  "BMW_tuning_enabled": false,
+  "run_id": "42541980202",
+  "utc": "2026-11-09T00:47:05.144685+00:00"
+}
