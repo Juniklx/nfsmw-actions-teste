@@ -1,0 +1,88 @@
+name: NFSMW PRE581 Shevery motor-only apply/restore static safety
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre581_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre581-motor-only-shell-preflight
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate shell syntax, exact hashes and abort-on-wrong-input
+        run: |
+          set -euo pipefail
+          a=automation/device/pre581_apply_bmw_torque_only_shevery.sh
+          b=automation/device/pre581_restore_bmw_torque_only_shevery.sh
+          sh -n "$a"
+          sh -n "$b"
+          grep -Fq 'PRE580_ZDIR_TORQUE_ONLY.bin' "$a"
+          grep -Fq 'PRE580_ZZDATA4_FIRST341_TORQUE_ONLY.bin' "$a"
+          grep -Fq '95dff1f0e8f72ac54b3039d7627f406bf90b67fe66bee937776846464ea054aa' "$a"
+          grep -Fq '95dff1f0e8f72ac54b3039d7627f406bf90b67fe66bee937776846464ea054aa' "$b"
+          grep -Fq 'd1dcf673ac06b56967d0596e06f55d106e4a14f0eddf3b71da7007147eaa5f9d' "$a"
+          grep -Fq 'fc768236881516fd33871eddf7defc25d616ba32a5360dd4d9f5d342670293b1' "$a"
+          grep -Fq '.pre581_original_backup' "$a"
+          grep -Fq '.pre581_original_backup' "$b"
+          if grep -E '(^|[^[:alpha:]])(rm|force-stop|pm clear)([[:space:]]|$)' "$a" "$b"; then
+              echo "PRE581_FORBIDDEN_COMMAND"; exit 1
+          fi
+          root=$(mktemp -d)
+          trap 'rm -rf "$root"' EXIT
+          mkdir -p "$root/game/NFS" "$root/fragments"
+          printf 'ORIG_ZDIR_FAKE' > "$root/game/NFS/ZDIR.BIN"
+          printf 'ORIG_ZZDATA_FAKE' > "$root/game/NFS/ZZDATA4.BIN"
+          printf 'WRONG_ZDIR' > "$root/fragments/PRE580_ZDIR_TORQUE_ONLY.bin"
+          printf 'WRONG_DATA' > "$root/fragments/PRE580_ZZDATA4_FIRST341_TORQUE_ONLY.bin"
+          cp "$root/game/NFS/ZDIR.BIN" "$root/original_zdir"
+          cp "$root/game/NFS/ZZDATA4.BIN" "$root/original_zz"
+          if sh "$a" "$root/game" "$root/fragments" >"$root/run" 2>&1;then
+            echo "PRE581_ACCEPTED_WRONG_HASH";exit 1
+          fi
+          cmp "$root/original_zdir" "$root/game/NFS/ZDIR.BIN"
+          cmp "$root/original_zz" "$root/game/NFS/ZZDATA4.BIN"
+          test ! -e "$root/game/NFS/ZZDATA4.BIN.pre581_original_backup"
+          if sh "$b" "$root/game" >"$root/revert" 2>&1;then
+            echo "PRE581_RESTORE_ACCEPTED_MISSING_BACKUPS";exit 1
+          fi
+          echo "PRE581_STATIC=AUDIT_OK"
+      - name: Store static-only metadata, not game binaries
+        if: success()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          d={
+            "stage":"PRE581_SHEVERY_TORQUE_ONLY_STATIC_PREFLIGHT",
+            "status":"AUDIT_OK",
+            "shell_syntax_valid":True,
+            "wrong_hash_aborted_without_file_write":True,
+            "restore_without_backups_aborted":True,
+            "original_game_or_save_modified":False,
+            "actual_device_experiment_executed":False,
+            "BMW_buyable_tuning_enabled":False,
+            "APK_built":False,
+            "run_id":os.environ.get("GITHUB_RUN_ID","")
+          }
+          Path("docs/PRE581_SHEVERY_TORQUE_ONLY_STATIC_PREFLIGHT_RESULT.json").write_text(
+            json.dumps(d,ensure_ascii=False,indent=2)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE581_SHEVERY_TORQUE_ONLY_STATIC_PREFLIGHT_RESULT.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "PRE581: static safety of motor-only device diagnostic scripts"
+          for n in 1 2 3 4 5;do
+             git fetch origin main
+             git rebase origin/main
+             if git push origin HEAD:main;then exit 0;fi
+          done
+          exit 1
