@@ -1,0 +1,9 @@
+{
+  "stage": "PRE604",
+  "evidence": "PRE474_PRE476_PRE502_PRE504",
+  "source": "authentic original PTBR/PAL VPAK",
+  "goal": "pin second-engine inheritance and StrE missing contrast with BMW synthetic",
+  "no_patch": true,
+  "no_apk": true,
+  "no_save": true
+}
