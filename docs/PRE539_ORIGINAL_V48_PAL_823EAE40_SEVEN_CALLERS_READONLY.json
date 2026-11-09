@@ -1,0 +1,479 @@
+{
+  "stage": "PRE539_SIGNED_V48_PAL_SEVEN_GUEST_CALLERS_TO_823EAE40_READONLY",
+  "status": "AUDIT_OK",
+  "original_signed_V48_APK_sha256": "c642f95b4a60b9ccf5d8fbd98802afffc0a2247ec5a0783b54cd8083ec55bd35",
+  "original_signed_V48_PAL_libmain_sha256": "f39870144295c98cb05b9e8649a378e968fccb5bf479b653d0654158e92316a3",
+  "original_ELF_guest_function_count": 56338,
+  "original_ELF_Plt_guest_relocation_count": 15598,
+  "exact_target_numeric_guest_name": "sub_823EAE40",
+  "exact_target_ARM64_bytes": 2964,
+  "target_outgoing_resolved_guest_calls": {
+    "sub_823EB290": 1,
+    "sub_823EB3B0": 1,
+    "sub_823E4130": 1,
+    "sub_823E4588": 1
+  },
+  "target_incoming_distinct_guest_caller_count": 7,
+  "target_incoming_direct_BL_callsite_count": 9,
+  "all_seven_caller_direct_BL_and_bounded_argument_contexts": [
+    {
+      "guest_caller": "sub_8226B228",
+      "function_ARM64_bytes": 1228,
+      "total_native_BL": 8,
+      "resolved_numeric_guest_BL_count": 8,
+      "other_resolved_numeric_guest_callee_names": {
+        "sub_822BCE60": 2,
+        "sub_822DB758": 1,
+        "sub_821E02C0": 1,
+        "sub_823E4370": 1,
+        "sub_822691E0": 1,
+        "sub_82152A38": 1
+      },
+      "target_callsite_count": 1,
+      "target_callsite_contexts": [
+        {
+          "relative_BL_offset_bytes": 872,
+          "resolved_guest_target": "sub_823EAE40",
+          "preceding_12_mnemonics": [
+            "str",
+            "str",
+            "bl",
+            "ldr",
+            "mov",
+            "mov",
+            "add",
+            "add",
+            "str",
+            "add",
+            "str",
+            "str"
+          ],
+          "following_4_mnemonics": [
+            "ldr",
+            "dup",
+            "adrp",
+            "ldr"
+          ],
+          "previous_arg_register_write_candidates": [
+            {
+              "arg_register": "x0",
+              "prior_instruction_offset": -32
+            },
+            {
+              "arg_register": "x1",
+              "prior_instruction_offset": -28
+            }
+          ],
+          "branch_mnemonics_in_previous_12": [
+            "bl"
+          ],
+          "not_a_data_flow_or_condition_proof": true
+        }
+      ],
+      "semantics_of_call_and_registers_proven": false
+    },
+    {
+      "guest_caller": "sub_8226B4C0",
+      "function_ARM64_bytes": 440,
+      "total_native_BL": 3,
+      "resolved_numeric_guest_BL_count": 3,
+      "other_resolved_numeric_guest_callee_names": {
+        "sub_822691E0": 1,
+        "sub_82152A38": 1
+      },
+      "target_callsite_count": 1,
+      "target_callsite_contexts": [
+        {
+          "relative_BL_offset_bytes": 48,
+          "resolved_guest_target": "sub_823EAE40",
+          "preceding_12_mnemonics": [
+            "stp",
+            "str",
+            "stp",
+            "mov",
+            "ldr",
+            "mov",
+            "mov",
+            "movk",
+            "mov",
+            "add",
+            "str",
+            "str"
+          ],
+          "following_4_mnemonics": [
+            "ldr",
+            "mov",
+            "mov",
+            "add"
+          ],
+          "previous_arg_register_write_candidates": [],
+          "branch_mnemonics_in_previous_12": [],
+          "not_a_data_flow_or_condition_proof": true
+        }
+      ],
+      "semantics_of_call_and_registers_proven": false
+    },
+    {
+      "guest_caller": "sub_8254E908",
+      "function_ARM64_bytes": 1816,
+      "total_native_BL": 33,
+      "resolved_numeric_guest_BL_count": 13,
+      "other_resolved_numeric_guest_callee_names": {
+        "sub_82817CF8": 3,
+        "sub_82812BC0": 1,
+        "sub_82550298": 1,
+        "sub_822CC8F0": 1,
+        "sub_82815D08": 1,
+        "sub_821E02C0": 1,
+        "sub_823E4370": 1,
+        "sub_82550490": 1,
+        "sub_82152A38": 1,
+        "sub_82812BC8": 1
+      },
+      "target_callsite_count": 1,
+      "target_callsite_contexts": [
+        {
+          "relative_BL_offset_bytes": 996,
+          "resolved_guest_target": "sub_823EAE40",
+          "preceding_12_mnemonics": [
+            "movk",
+            "rev",
+            "fmov",
+            "add",
+            "add",
+            "fcvt",
+            "str",
+            "str",
+            "add",
+            "str",
+            "str",
+            "str"
+          ],
+          "following_4_mnemonics": [
+            "str",
+            "mov",
+            "ldr",
+            "ldr"
+          ],
+          "previous_arg_register_write_candidates": [],
+          "branch_mnemonics_in_previous_12": [],
+          "not_a_data_flow_or_condition_proof": true
+        }
+      ],
+      "semantics_of_call_and_registers_proven": false
+    },
+    {
+      "guest_caller": "sub_8255C1C8",
+      "function_ARM64_bytes": 2464,
+      "total_native_BL": 7,
+      "resolved_numeric_guest_BL_count": 4,
+      "other_resolved_numeric_guest_callee_names": {
+        "sub_821E02C0": 1,
+        "sub_823E4370": 1,
+        "sub_82152A38": 1
+      },
+      "target_callsite_count": 1,
+      "target_callsite_contexts": [
+        {
+          "relative_BL_offset_bytes": 508,
+          "resolved_guest_target": "sub_823EAE40",
+          "preceding_12_mnemonics": [
+            "str",
+            "str",
+            "bl",
+            "ldr",
+            "mov",
+            "mov",
+            "add",
+            "add",
+            "str",
+            "add",
+            "str",
+            "str"
+          ],
+          "following_4_mnemonics": [
+            "ldr",
+            "mov",
+            "add",
+            "str"
+          ],
+          "previous_arg_register_write_candidates": [
+            {
+              "arg_register": "x0",
+              "prior_instruction_offset": -32
+            },
+            {
+              "arg_register": "x1",
+              "prior_instruction_offset": -28
+            }
+          ],
+          "branch_mnemonics_in_previous_12": [
+            "bl"
+          ],
+          "not_a_data_flow_or_condition_proof": true
+        }
+      ],
+      "semantics_of_call_and_registers_proven": false
+    },
+    {
+      "guest_caller": "sub_82566BE8",
+      "function_ARM64_bytes": 3164,
+      "total_native_BL": 11,
+      "resolved_numeric_guest_BL_count": 8,
+      "other_resolved_numeric_guest_callee_names": {
+        "sub_821E02C0": 2,
+        "sub_823E4370": 2,
+        "sub_82152A38": 2
+      },
+      "target_callsite_count": 2,
+      "target_callsite_contexts": [
+        {
+          "relative_BL_offset_bytes": 580,
+          "resolved_guest_target": "sub_823EAE40",
+          "preceding_12_mnemonics": [
+            "str",
+            "str",
+            "bl",
+            "ldr",
+            "mov",
+            "mov",
+            "add",
+            "add",
+            "str",
+            "add",
+            "str",
+            "str"
+          ],
+          "following_4_mnemonics": [
+            "ldr",
+            "add",
+            "ldr",
+            "rev"
+          ],
+          "previous_arg_register_write_candidates": [
+            {
+              "arg_register": "x0",
+              "prior_instruction_offset": -32
+            },
+            {
+              "arg_register": "x1",
+              "prior_instruction_offset": -28
+            }
+          ],
+          "branch_mnemonics_in_previous_12": [
+            "bl"
+          ],
+          "not_a_data_flow_or_condition_proof": true
+        },
+        {
+          "relative_BL_offset_bytes": 1016,
+          "resolved_guest_target": "sub_823EAE40",
+          "preceding_12_mnemonics": [
+            "str",
+            "str",
+            "bl",
+            "ldr",
+            "mov",
+            "mov",
+            "add",
+            "add",
+            "str",
+            "add",
+            "str",
+            "str"
+          ],
+          "following_4_mnemonics": [
+            "ldr",
+            "add",
+            "ldr",
+            "rev"
+          ],
+          "previous_arg_register_write_candidates": [
+            {
+              "arg_register": "x0",
+              "prior_instruction_offset": -32
+            },
+            {
+              "arg_register": "x1",
+              "prior_instruction_offset": -28
+            }
+          ],
+          "branch_mnemonics_in_previous_12": [
+            "bl"
+          ],
+          "not_a_data_flow_or_condition_proof": true
+        }
+      ],
+      "semantics_of_call_and_registers_proven": false
+    },
+    {
+      "guest_caller": "sub_8256CE68",
+      "function_ARM64_bytes": 912,
+      "total_native_BL": 5,
+      "resolved_numeric_guest_BL_count": 5,
+      "other_resolved_numeric_guest_callee_names": {
+        "sub_821E02C0": 1,
+        "sub_822CC418": 1,
+        "sub_82152A38": 1
+      },
+      "target_callsite_count": 2,
+      "target_callsite_contexts": [
+        {
+          "relative_BL_offset_bytes": 220,
+          "resolved_guest_target": "sub_823EAE40",
+          "preceding_12_mnemonics": [
+            "cbz",
+            "mov",
+            "ldr",
+            "mov",
+            "movk",
+            "mov",
+            "str",
+            "str",
+            "add",
+            "add",
+            "str",
+            "str"
+          ],
+          "following_4_mnemonics": [
+            "cbz",
+            "cmp",
+            "b.ne",
+            "ldr"
+          ],
+          "previous_arg_register_write_candidates": [
+            {
+              "arg_register": "x0",
+              "prior_instruction_offset": -36
+            },
+            {
+              "arg_register": "x1",
+              "prior_instruction_offset": -28
+            }
+          ],
+          "branch_mnemonics_in_previous_12": [
+            "cbz"
+          ],
+          "not_a_data_flow_or_condition_proof": true
+        },
+        {
+          "relative_BL_offset_bytes": 468,
+          "resolved_guest_target": "sub_823EAE40",
+          "preceding_12_mnemonics": [
+            "rev",
+            "stp",
+            "bl",
+            "ldr",
+            "mov",
+            "mov",
+            "add",
+            "add",
+            "str",
+            "add",
+            "str",
+            "str"
+          ],
+          "following_4_mnemonics": [
+            "ldr",
+            "add",
+            "ldr",
+            "rev"
+          ],
+          "previous_arg_register_write_candidates": [
+            {
+              "arg_register": "x0",
+              "prior_instruction_offset": -32
+            },
+            {
+              "arg_register": "x1",
+              "prior_instruction_offset": -28
+            }
+          ],
+          "branch_mnemonics_in_previous_12": [
+            "bl"
+          ],
+          "not_a_data_flow_or_condition_proof": true
+        }
+      ],
+      "semantics_of_call_and_registers_proven": false
+    },
+    {
+      "guest_caller": "sub_82584880",
+      "function_ARM64_bytes": 2592,
+      "total_native_BL": 7,
+      "resolved_numeric_guest_BL_count": 4,
+      "other_resolved_numeric_guest_callee_names": {
+        "sub_821E02C0": 1,
+        "sub_823E4370": 1,
+        "sub_82152A38": 1
+      },
+      "target_callsite_count": 1,
+      "target_callsite_contexts": [
+        {
+          "relative_BL_offset_bytes": 556,
+          "resolved_guest_target": "sub_823EAE40",
+          "preceding_12_mnemonics": [
+            "str",
+            "str",
+            "bl",
+            "ldr",
+            "mov",
+            "mov",
+            "add",
+            "add",
+            "str",
+            "add",
+            "str",
+            "str"
+          ],
+          "following_4_mnemonics": [
+            "ldr",
+            "add",
+            "ldr",
+            "rev"
+          ],
+          "previous_arg_register_write_candidates": [
+            {
+              "arg_register": "x0",
+              "prior_instruction_offset": -32
+            },
+            {
+              "arg_register": "x1",
+              "prior_instruction_offset": -28
+            }
+          ],
+          "branch_mnemonics_in_previous_12": [
+            "bl"
+          ],
+          "not_a_data_flow_or_condition_proof": true
+        }
+      ],
+      "semantics_of_call_and_registers_proven": false
+    }
+  ],
+  "cross_root_witness_paths_already_in_PRE535": {
+    "shop_menu_to_target": [
+      "sub_82582F70",
+      "sub_8256CE68",
+      "sub_823EAE40"
+    ],
+    "historical_field12_writer_to_target": [
+      "sub_82564D80",
+      "sub_8254E908",
+      "sub_823EAE40"
+    ]
+  },
+  "ARM64_instruction_register_write_hints_are_not_verified_argument_values": true,
+  "target_is_guest_SetPackage_proven": false,
+  "target_is_shop_checkout_or_purchase_proven": false,
+  "target_is_related_to_physical_tuning_proven": false,
+  "guest_actual_V48_execution_or_bmw_save_roundtrip_proven": false,
+  "APK_built": false,
+  "original_game_or_APK_modified": false,
+  "original_native_binary_published": false,
+  "save_modified": false,
+  "signing_material_accessed": false,
+  "BMW_tuning_enabled": false,
+  "run_id": "42538596295",
+  "timestamp_utc": "2026-11-09T00:09:56.411719+00:00"
+}
