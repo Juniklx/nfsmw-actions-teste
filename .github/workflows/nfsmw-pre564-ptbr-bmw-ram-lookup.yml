@@ -1,0 +1,82 @@
+name: NFSMW PRE564 translated PAL sector-0 BMW synthetic RAM reader gate
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre564_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre564-ptbr-bmw-scratch-ram-readonly
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare original authenticated PRE502 builder and translated ZDIR reader
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth requests >/dev/null
+          python -m py_compile automation/kaggle/pre564_ptbr_sector0_bmw_synthetic_ram_readonly.py
+      - name: Rebuild BMW scratch in RAM and simulate translated ZDIR sector-zero lookup
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre564_ptbr_sector0_bmw_synthetic_ram_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Enforce RAM-only proof and do not claim real loader integration
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          p=Path('/tmp/nfsmw-pre564/report.json')
+          r=json.loads(p.read_text()) if p.exists() else {"stage":"PRE564","status":"FAILED_NO_REPORT"}
+          for k in ("original_translated_game_file_written",
+                    "modified_ptbr_ZDIR_or_ZZDATA4_exported",
+                    "real_guest_loader_executed","real_BMW_tuning_installed",
+                    "frontend_price_and_checkout_validated","save_persistence_validated",
+                    "APK_built","save_modified","signing_material_accessed","BMW_tuning_enabled"):
+              if r.get(k,False) is not False:
+                  raise SystemExit("PRE564 prohibited write or runtime claim: "+k)
+          if r.get("status")=="AUDIT_OK":
+              if (r.get("synthetic_overlay_created_only_in_private_RAM") is not True or
+                  r.get("translated_virtual_ZDIR_readback_matches_synthetic_bmw_scratch") is not True or
+                  r.get("translated_source_index_row")!=805 or
+                  r.get("translated_source_resource_sector")!=0 or
+                  r.get("translated_virtual_remaining_sector_padding_zero_bytes")!=364):
+                  raise SystemExit("PRE564 RAM overlay validation incomplete")
+              dest=Path("docs/PRE564_PTBR_BMW_SYNTHETIC_RAM_RESOURCE_LOOKUP_READONLY.json")
+          else:
+              dest=Path("docs/PRE564_PTBR_BMW_SYNTHETIC_RAM_RESOURCE_LOOKUP_DIAGNOSTIC.json")
+              r={k:r.get(k) for k in ("stage","status","error_type","error","run_id") if k in r}
+              r["BMW_tuning_enabled"]=False
+          dest.write_text(json.dumps(r,ensure_ascii=False,indent=2)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE564_PTBR_BMW_SYNTHETIC_RAM_RESOURCE_LOOKUP_*json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "PRE564: PAL PTBR sector-zero BMW RAM-only synthetic resource lookup"
+          for n in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
+      - name: Archive private metadata-only report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre564-ptbr-bmw-scratch-ram
+          path: /tmp/nfsmw-pre564/report.json
+          retention-days: 14
