@@ -1,0 +1,10 @@
+{
+  "stage": "PRE586",
+  "previous_success": "PRE585",
+  "input": "PRE502 authenticated combined VPAK",
+  "diff": "revert active BMW pvehicle counter and RefSpec pointer only",
+  "new_vlt_collection_preserved": true,
+  "original_phone_files_untouched": true,
+  "no_apk_build": true,
+  "guest_acceptance_not_proven": true
+}
