@@ -1,0 +1,11 @@
+{
+  "stage": "PRE616",
+  "previous_sync": "PRE613",
+  "source_report": "PRE615",
+  "previous_context_sha256": "858bf0b0adf7eea6693d365ab3dd78d000b5630019fdd35b83a04fab0d55ea12",
+  "previous_context_bytes": 942054,
+  "backup_first": true,
+  "append_only": true,
+  "no_private_save_upload": true,
+  "no_phone_write": true
+}
