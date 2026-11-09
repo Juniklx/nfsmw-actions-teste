@@ -1,0 +1,7 @@
+{
+  "stage": "PRE557",
+  "original_pal_zip_member": "NFS/ZZDATA4.BIN",
+  "need": "SHA256 full original uncompressed member; future phone extracted folder comparison",
+  "predecessor": "PRE555",
+  "mode": "read-only; never publish source data, never modify APK/game/save"
+}
