@@ -1,0 +1,78 @@
+name: NFSMW PRE549 original PAL pvehicle class hash guest function triage read only
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre549_requests/*.json'
+permissions:
+  contents: write
+concurrency:
+  group: nfsmw-pre549-pal-pvehicle-class-lookup
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare verified original guest PPC source reader
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth requests >/dev/null
+          python -m py_compile automation/kaggle/pre549_pal_pvehicle_class_lookup_guest_source_readonly.py
+      - name: Audit pvehicle class hash call functions in original PAL codegen only
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          PYTHONPATH=automation/kaggle python automation/kaggle/pre549_pal_pvehicle_class_lookup_guest_source_readonly.py --run-id "$GITHUB_RUN_ID"
+      - name: Publish bounded guest numeric class hash metadata with strict safety guard
+        if: always()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          f=Path("/tmp/nfsmw-pre549/report.json")
+          d=json.loads(f.read_text()) if f.exists() else {"stage":"PRE549","status":"FAILED_NO_REPORT"}
+          for k in ("original_guest_source_or_game_modified_or_published","APK_built",
+                    "save_modified","signing_material_accessed","BMW_tuning_enabled"):
+              if d.get(k,False) is not False:
+                  raise SystemExit("PRE549 safety boundary failed "+k)
+          if d.get("status")=="AUDIT_OK":
+              if (d.get("direct_guest_SetPackage_or_checkout_identity_proven") is not False or
+                  d.get("pvehicle_class_hash_lookup_is_not_a_package_installation") is not True or
+                  d.get("original_guest_functions_audited")!=14):
+                  raise SystemExit("PRE549 must remain a source-only pvehicle accessor analysis")
+              out=Path("docs/PRE549_PAL_GUEST_PVEHICLE_CLASS_HASH_ACCESSOR_READONLY.json")
+          else:
+              out=Path("docs/PRE549_PAL_GUEST_PVEHICLE_CLASS_HASH_DIAGNOSTIC.json")
+              d={k:d.get(k) for k in ("stage","status","error_type","error","run_id") if k in d}
+              d["BMW_tuning_enabled"]=False
+          out.parent.mkdir(parents=True,exist_ok=True)
+          out.write_text(json.dumps(d,ensure_ascii=False,indent=2)+"\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PRE549_PAL_GUEST_PVEHICLE_CLASS_HASH_*json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "PRE549: verify guest pvehicle class accessor xrefs versus original V48 signed ELF"
+          for n in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
+      - name: Keep numeric metadata report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre549-pal-pvehicle-class-${{ github.run_id }}
+          path: /tmp/nfsmw-pre549/report.json
+          retention-days: 14
