@@ -1,0 +1,23 @@
+{
+  "stage": "PRE558_SHEVERY_TRANSLATED_PAL_FOLDER_USER_REPORTED_FINGERPRINTS",
+  "origin": "Direct text output pasted by the user from Shevery in current chat; not an independent connected device read",
+  "context": "S24 FE; V48; extracted game folder; user says PAL-based PTBR translation",
+  "files": [
+    {
+      "name": "NFS/ZDIR.BIN",
+      "bytes": 33312,
+      "sha256": "832a20dfdca663233f4559236048f21d5ff4e6f65780d1aa18e58b72005245bf"
+    },
+    {
+      "name": "NFS/ZZDATA4.BIN",
+      "bytes": 401068032,
+      "sha256": "7dd33d214ac45f4b67005685bc0c2b8555eca98a33d24216c934f077d5054951"
+    }
+  ],
+  "paths_disclosed": false,
+  "original_file_contents_shared": false,
+  "game_files_modified": false,
+  "save_modified": false,
+  "APK_built": false,
+  "interpretation_approved": "SHA differences relative to original PAL. 48-byte ZDIR size difference equals two 24-byte records in original format, but not proof of which records were removed or modified."
+}
