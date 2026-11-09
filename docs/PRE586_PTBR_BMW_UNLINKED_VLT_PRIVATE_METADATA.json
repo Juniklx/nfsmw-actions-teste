@@ -1,0 +1,53 @@
+{
+  "stage": "PRE586_BMW_UNLINKED_VLT_COLLECTION_PRIVATE_GATE",
+  "status": "AUDIT_OK",
+  "folder_id": "17KJCMPZ-LwCZZv7SBD1WPU0SIPZpporD",
+  "folder_newly_created": true,
+  "ZDIR_fragment": {
+    "id": "1ubc2uVoFOZhENotBnCC-B_foU3BgC-Fb",
+    "name": "PRE586_ZDIR_VLT_NEW_COLLECTION_UNLINKED.bin",
+    "size": 33312,
+    "sha256": "3ed3070bd10bb41789ef7b32b4203805cdb395fabf2665b528848bba3ad31025",
+    "fresh_upload": true
+  },
+  "ZZDATA4_first_341_sectors_fragment": {
+    "id": "1GS_IG7bsmPNtu44KPqMWXGURWpMdrSwi",
+    "name": "PRE586_ZZDATA4_FIRST341_UNLINKED_VLT.bin",
+    "size": 698368,
+    "sha256": "11f233a7a22df3822573a3a52af50f7c9b27f4b5c5cba77fdaad3c4e03041271",
+    "fresh_upload": true
+  },
+  "candidate_VPAK_size": 698004,
+  "candidate_VPAK_sha256": "a7e37cd5679f8a25d552049d9d0324b81fb74abe3b87c81a65348dbaa9fff7d7",
+  "candidate_EA_crc32": "820a01ba",
+  "PRE502_combined_synthetic_source_sha256": "d4fa0e98ba9bd2ee637d768d00a42d7e5a06c6d74df4581d6730f98dad31d8f6",
+  "PRE502_changed_bytes_reverted": 4,
+  "PRE502_changed_offsets_reverted": [
+    256619,
+    642333,
+    642334,
+    642335
+  ],
+  "original_BMW_pvehicle_engine_upgrade_counter_retained": true,
+  "original_BMW_pvehicle_ref_fixup_restored": true,
+  "new_unlinked_VLT_engine_collection_preserved": true,
+  "scratch_new_export_count": 2400,
+  "unlinked_collection_name_missing_StrE": true,
+  "guest_loader_support_proven": false,
+  "BMW_tuning_enabled": false,
+  "save_load_with_candidate_proven": false,
+  "phone_game_assets_modified": false,
+  "APK_built": false,
+  "save_modified": false,
+  "translated_original_ZZDATA4_full_sha256": "7dd33d214ac45f4b67005685bc0c2b8555eca98a33d24216c934f077d5054951",
+  "translated_full_archive_expected_modified_sha256": "524c22622039086c9207f25b3a82823fb62d8879e70d0142730bca2b5cdda996",
+  "translated_full_archive_expected_modified_crc32": "a9dd9df6",
+  "original_zip_member_fully_verified_by_stream": true,
+  "translated_nontarget_archive_bytes_pass_through_unchanged": true,
+  "source_sector_initial_512_padding_bytes_verified": true,
+  "subject_save_isolation_required": false,
+  "full_game_data_patch_applied_to_phone": false,
+  "original_translated_zip_modified": false,
+  "run_id": "42565596510",
+  "utc": "2026-11-09T05:09:17.992589+00:00"
+}
