@@ -1,0 +1,9 @@
+{
+  "stage": "PRE560",
+  "reason": "User's Shevery translated ZDIR 1388 records, 0 match original GLOBAL ATTRIBUTES hash with od tu4",
+  "probe": "automation/device/pre560_translated_zdir_bytewise_namehash_readonly.sh",
+  "test": "synthetic 1388-row bytewise parser and negative hash mismatch only",
+  "no_actual_phone_file_read_by_ci": true,
+  "no_assets_changed": true,
+  "no_saves_changed": true
+}
