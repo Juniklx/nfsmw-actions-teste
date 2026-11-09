@@ -1,0 +1,10 @@
+{
+  "stage": "PRE559",
+  "prior_run_PRE558": 42551489746,
+  "prior_report": "docs/PRE558_PAL_PTBR_HASH_COMPARISON_READONLY.json",
+  "canonical_before_sha256": "67be19118bb890a25fce9ad42cd9b2e6dfe03a8020ef040309de89d863ce8ead",
+  "backup_first": true,
+  "append_only": true,
+  "save_unchanged": true,
+  "game_data_unchanged": true
+}
