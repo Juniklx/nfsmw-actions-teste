@@ -1,0 +1,20 @@
+{
+  "stage": "PRE571_CANONICAL_SAVE_ROOT_CONTEXT_SYNC",
+  "status": "AUDIT_OK",
+  "APK_built": false,
+  "game_assets_modified": false,
+  "save_modified": false,
+  "signing_material_accessed": false,
+  "BMW_tuning_enabled": false,
+  "backup_created_this_run": true,
+  "backup_file_id": "1MNxuTCw3kwUTo2KaPywSFHnB37EhzpA2",
+  "original_context_sha256": "7227982889c1cbcadb6ce41eb7408289f42d5305eecc5afdcf848f5a4a5c5be4",
+  "original_context_bytes": 864277,
+  "canonical_bytes": 870337,
+  "canonical_sha256": "62ce36223f666a0fba614a2de21e177c31930b71b470387c2ea12770d32e2a02",
+  "prior_context_prefix_preserved": true,
+  "new_handoff_readback_verified": true,
+  "transient_http_failures": 0,
+  "run_id": "42559580260",
+  "utc": "2026-11-09T04:02:52.223409+00:00"
+}
