@@ -1,0 +1,9 @@
+{
+  "stage": "PRE609",
+  "handoff": "PRE608",
+  "expected_original_bytes": 921319,
+  "expected_original_sha256": "b4f7df4db565913856ef82eec71c15a0362c4c52df23d80d264246654e012bd6",
+  "backup_first": true,
+  "append_only": true,
+  "no_phone_write": true
+}
