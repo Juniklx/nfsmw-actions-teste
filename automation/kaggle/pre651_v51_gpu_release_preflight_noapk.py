@@ -153,8 +153,9 @@ def sources():
     main=fn_body(module(SRC652),"main")
     guard=fn_body(module(SRC652),"require_pre651")
     for name,code,required in (
-        ("stage",stage,("shader.stage_source(root)","SOURCE_SHA","HEADER_SHA",
-           "pre638_c3_fallback_bypass","pre638_v49_callbacks_nitro_preserved")),
+        ("stage",stage,("v50.stage_v50(root)","shader.patch_bytes(original)","SOURCE_SHA","HEADER_SHA",
+           "pre638_c3_fallback_bypass","pre638_v49_callbacks_nitro_preserved",
+           "header.exists()","digest(candidate) != SOURCE_SHA")),
         ("verify",verify,("v50.verify_v50(apk, sdk, v30, progress)",
            "PRE648 GPU_SHADER10s","EXPECTED_CERT","pre398_global_nitro_present")),
         ("main",main,("require_pre651()","v49.VERSION = VERSION","v49.APK_NAME = APK_NAME",
