@@ -1,0 +1,24 @@
+{
+  "stage": "PRE659_CONTEXT_PRE658_GPU_C2_PASS_MAPPING",
+  "verified": {
+    "PRE658_run": 42815591562,
+    "PRE658_status": "AUDIT_OK_READONLY_SOURCE_AND_REAL_C2",
+    "report_drive_id": "1TmD89Ye5ntL9O5CMXFFroiEU_Wa0gPDk",
+    "report_sha256": "fba3ab1dd3368b4aa105fe02d34faa562518474e2d38b87bfed474674021d88d",
+    "log_sha256": "649fbe98116b12ade8032b50267e78dcb251832cd8a566fb3d30380d37e325c7"
+  },
+  "canonical": {
+    "file_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+    "size_before": 1053110,
+    "sha256_before": "74e22c2cc58c8da869bc0c7fc1905ceabe38698548aa821b0cf0ed7dac08af5d",
+    "backup_first": true,
+    "append_only": true
+  },
+  "limits": {
+    "fps_gain": false,
+    "apk_built": false,
+    "shaders_modified": false,
+    "release_key_access": false,
+    "thermal_unchanged": true
+  }
+}
