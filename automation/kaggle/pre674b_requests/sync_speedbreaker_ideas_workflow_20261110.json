@@ -1,0 +1,11 @@
+{
+  "stage": "PRE674B",
+  "request": "backup-first append SpeedBreaker idea flow and verified PRE673 status to Drive context",
+  "reference_pre673_run": 42863564617,
+  "reference_pre674_run": 42866684780,
+  "upstream": "SpeedBreakerProject/speedbreaker@fe04285d7629377c6e422a6ace8f535368f23c31",
+  "canonical_sha256_before": "3300c76f7204a89abf767b29d5d73cec9e1f287c6a293b7aaa96e03b9f6fd746",
+  "default_off": true,
+  "signing_material_accessed": false,
+  "apk_created": false
+}
