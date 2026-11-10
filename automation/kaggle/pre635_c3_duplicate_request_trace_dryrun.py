@@ -12,9 +12,9 @@ MARKER='NFSMW_PRE635_C3_TWOREQUEST_TRACE'
 OLD='''    if (indice_fuera || referencia_distinta || copia_duplicada) {
       ApagarEnlaces(fmt::format('''
 NEW='''    if (indice_fuera || referencia_distinta || copia_duplicada) {
-      // NFSMW_PRE635_C3_TWOREQUEST_TRACE: record only the proven duplicate-copy guard.
-      // No pointers or game bytes are logged; both offsets are upload-buffer metadata.
-      // Bounds and reference are checked BEFORE reading the first request's fields.
+      // NFSMW_PRE635_C3_TWOREQUEST_TRACE: only log the proven duplicate-copy guard.
+      // No pointers or game content are logged; both requested buffer offsets are metadata.
+      // Bounds and reference are checked BEFORE consulting the first request's fields.
       if (!indice_fuera && !referencia_distinta && copia_duplicada) {
         const TexturaEnVuelo& primera = en_vuelo_[indice];
         REXLOG_INFO("[NFSMW_PRE635_C3_TWOREQUEST_TRACE] indice={} en_vuelo={} "
