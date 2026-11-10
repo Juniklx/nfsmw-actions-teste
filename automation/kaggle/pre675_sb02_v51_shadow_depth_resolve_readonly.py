@@ -55,8 +55,8 @@ def check_pins():
       and x.get("candidates",[{}])[1].get("id")=="SB-02"
       and x["candidates"][1].get("status")=="queued_readonly"
       and y.get("status")=="AUDIT_OK_SOURCE_SCOPE_AND_QUERY_LIFETIME_CANDIDATES_ONLY"
-      and y.get("authenticated_source",{}).get("renderer_v51_with_pre648_sha256")==PIN_RENDER
-      and y.get("authenticated_source",{}).get("backend_v51_sha256")==PIN_BACKEND
+      and y.get("authenticated_source",{}).get("renderer_v51_sha256")==PIN_RENDER
+      and y.get("authenticated_source",{}).get("backend_sha256")==PIN_BACKEND
       and "SB-02" in f and "GPL" in f
     ):raise ValueError("PRE675 approved flow or V51 source pin mismatch")
     return {"speedbreaker_flow_sha256":sha(PRE674.read_bytes()),
