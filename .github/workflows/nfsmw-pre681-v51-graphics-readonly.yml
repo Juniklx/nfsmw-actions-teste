@@ -2,18 +2,22 @@ name: NFSMW PRE681 - V51 graphics archive (private Drive, read-only)
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/run_requests/PRE681_*.txt'
 
 permissions:
   contents: read
 
 concurrency:
-  group: nfsmw-pre681-manual-private-drive
+  group: nfsmw-pre681-private-drive
   cancel-in-progress: false
 
 jobs:
   pre681:
     name: Verify V51 archived settings without public artifacts
-    if: github.repository == 'Juniklx/nfsmw-actions-teste' && github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch' && github.actor == 'Juniklx'
+    if: github.repository == 'Juniklx/nfsmw-actions-teste' && github.ref == 'refs/heads/main' && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.actor == 'Juniklx'))
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -52,5 +56,5 @@ jobs:
           done
           python automation/kaggle/pre681_actions_v51_archive_readonly.py
 
-# Deliberately NO push, pull_request or pull_request_target triggers.
+# Trigger only by explicitly added PRE681 request on main or manual dispatch; never PR events.
 # Deliberately NO upload-artifact, signing key, release build, or public APK.
