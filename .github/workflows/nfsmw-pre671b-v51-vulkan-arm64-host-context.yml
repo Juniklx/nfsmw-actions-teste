@@ -1,0 +1,43 @@
+name: NFSMW PRE671B verified Vulkan AArch64 adapter plus PFN host mocks canonical Drive context
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre671b_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre671b-v51-vulkan-native-and-mock-context
+  cancel-in-progress: false
+jobs:
+  update-context:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate reproducible audit script syntax and Drive API requirements
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre671b_sync_native_vulkan_context.py
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests
+      - name: Validate PRE671 ARM64 and PFN host ZIP SHA and CRC, back up and append canonical context
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre671b_sync_native_vulkan_context.py
+      - name: Archive evidence of canonical backup and readback
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre671b-gpu-canonical-context
+          path: /tmp/nfsmw-pre671b/report.json
+          if-no-files-found: warn
+          retention-days: 30
