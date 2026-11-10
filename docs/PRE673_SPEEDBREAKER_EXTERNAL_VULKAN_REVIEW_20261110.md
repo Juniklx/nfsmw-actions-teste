@@ -1,0 +1,38 @@
+# PRE673-SB — auditoria externa SpeedBreaker (somente leitura, 2026-11-10)
+
+**Projeto consultado:** https://github.com/SpeedBreakerProject/speedbreaker
+**Commit de referencia da branch main:** `fe04285d7629377c6e422a6ace8f535368f23c31` (commit do autor datado 2026-11-07).
+**Referencia NFSMW interna:** APK V51 PRE652, versionCode 51, sem V52. Gates PRE671 ARM64 + PRE671H HOST e PRE672 HOST/672B aprovados; PRE673 compilacao AArch64 de adapter + guards default OFF iniciada em GitHub Actions 42862951880, conclusao nao presumida.
+**Objetivo:** identificar ideias testaveis para GPU/shaders Android, sem colar codigo de outro runtime nem transformar metricas de outra plataforma em ganho no Galaxy S24 FE.
+
+## 1. EVIDENCIAS REAIS DO PROJETO EXTERNO
+
+1. **Profiling por render pass com Vulkan timestamps** — `runtime/gpu/renderer.cpp` (blob Git SHA `ff8769d939ded8b5286e599df2ab34c92a258c2f`) linhas ~780-799 declaram `NFSMW_PASS_PROFILE`, query pool separado, descritor de pass contendo area, attachments, desenhos, resolves/uploads/submits e bytes sincronizados. Linha ~2856-2874 reseta/escreve timestamp de inicio fora de `cmdBeginRendering`; linha ~2616-2625 encerra o passe e grava o segundo timestamp. ~12188-12224 gera relatorio dos tempos de pass e gaps, com ate 512 queries (256 pares). Existe perfilamento geral de submissao `NFSMW_GPU_TIMING` usando outro pool (linhas 9180+); leitura de amostras ~1280 sob conclusao da submissao. **Relevancia alta para PRE673:** medir pass e gaps separadamente, em vez de deduzir custo de shader pelo numero de draws do VS62/PS58. **NAO copiar sem revisao:** o perfilador do SpeedBreaker faz `vkGetQueryPoolResults` no relatorio e nao valida explicitamente todos VkResult na linha ~12206; no Android exigir fence explicita + availability, valid bits, suporte de stages, multiview/per-tile e reset fora de render pass.
+
+2. **Sombras com resolves adiados / emprestimo da imagem** — `runtime/gpu/shadow_lend.h` blob `6d4f66f27601f54162eacead9e8bfe4f241b265f`, linhas 1-120: mapa de sombra D24S8 1600x1600; adia resolve em memoria guest se textura pode amostrar depth image que permanece valida, materializa guest quando um consumidor real precisa. Inclui criterios precisos de formato, layout, extents, offset, level/layer e sobrescrita, e mecanismo de teste `NFSMW_SHADOW_VERIFY`. Arquivo `runtime/gpu/renderer.cpp` integra ShadowLend. **Relevancia alta e RISCO alto**: sob condicoes demonstravelmente equivalentes pode reduzir movimentos de dados/compute sem degradar sombras; nao e uma otimizacao que se transfira por copia ao backend V51. Xclipse 940 nao foi medida e seus formatos/timing nao foram comparados.
+
+3. **Reduzir pass breaks por efeito solar sem desativar desenho** — `runtime/gpu/renderer.cpp` linhas ~2603-2617 (`NFSMW_PASS_MERGE`): o projeto descreve fusao condicionada dos passes do halo solar e skip apenas de draw sem escrita, sem retirar os efeitos que realmente desenham. O comentario estima ~0,4-0,5 ms numa cena especfica de iPad, NAO benchmark no S24 FE. Precisamos provar equivalencia de attachment/subpass, depth/occlusion e visual para tentar.
+
+4. **Shading e GPU driver** — `runtime/gpu/shader_translator.cpp` linhas ~150-165 explica custo de `precise` via MoltenVK e conserva a semantica particular de multiplicacao Xbox 360; `runtime/gpu/shader_translator.cpp` ~1087-1120 oferece registro escalar opcional, `runtime/gpu/renderer.cpp` ~8550-8560 habilita selecao por driver AMD proprietario; `CHANGELOG.md` v0.2.2 descreve correcao do shader de grama em GPU AMD Windows. **Nao presumir que os mesmos paths sejam vantajosos no driver Samsung Xclipse 940.** Mudancas de precisao/registradores exigem teste SPIR-V, equivalencia visual e compilacao no dispositivo, nao simplesmente tirar `precise`.
+
+5. **Frame pacing e clock do jogo** — `runtime/video/present_schedule.h`, `runtime/video/presenter.cpp` ~440-570 + 4236+ usam `VK_KHR_present_id` e `VK_KHR_present_wait` quando suportados; `runtime/game/frame_time.cpp` linhas 1-60 documentam passo fixo 1/60 s do mundo e quantizacao do clock por vblanks; `runtime/video/frame_rate_policy.cpp` implementa politica 60/30 baseada em custo de CP/GPU e termica. `CHANGELOG.md` v0.1.7 relata cadencia mais uniforme em telas 120/180/240 Hz; v0.1.8 e v0.2.0 descrevem `Smooth Motion` com imagens intermediarias, mas passos de simulacao continuam a 60 por segundo. **Relevancia futura** para sintoma subjetivo de 30fps com FPS medio 60; nao atribuir o sintoma a esse mecanismo sem frametimes/display present times. No codigo atual SpeedBreaker nao oferece Smooth Motion para Android (`presenter.cpp` ~6260-6310), e README marca Android coming soon.
+
+6. **Uso de CPU ociosa** — `runtime/gpu/command_processor.cpp` linhas 60-83 e ~845-862: janela de yield `NFSMW_CP_IDLE_SPIN_US` e backoff para sleep de 100 us. Relatos em Mac incluem menos CPU com FPS semelhante; e um fluxo *command processor*, nao o `SDL_WaitEvent` que nossos DIAG36/DIAG37 investigaram, e 100 us tem comportamento diferente no scheduler Android. Reavaliar somente depois de medir waits e latencia, pois colocar sleep cegamente pode piorar entrada e fluidez.
+
+## 2. COMPATIBILIDADE / LIMITES
+
+- Os dois projetos usam recompilacao estatica Xbox 360, Vulkan e SDL3, mas `runtime/gpu/renderer.cpp` do SpeedBreaker usa comandos/aplicacao e ciclo de recurso proprios; nosso V51 `nfsmw_nativo_dibujos.cpp` / `nfsmw_nativo_destinos.cpp` usa PRE648/C2 e render pass diferente. Nao assumir ABI, equivalencia de patches ou compilacao cruzada.
+- SpeedBreaker distribui codigo sob GPL-3.0 (licenca COPYING e cabecalho dos arquivos); revisar termos e preservacao de avisos caso haja adaptacao literal. O presente adendo apenas referencia ideias; nenhum codigo SpeedBreaker foi incorporado a nossa APK.
+- `NFSMW_PASS_PROFILE`, `NFSMW_GPU_TIMING` e outros nomes sao parametros do SpeedBreaker, **NAO** comandos nem opcoes atualmente verificadas no NFSMW-Recompiled-Mobile V51.
+- O SpeedBreaker fornece timings por pass, nao timings exclusivos de um par VS/PS; as janelas incluem comandos de GPU e possiveis sobreposicoes. Os comentarios de ganho em dispositivos Apple/SteamOS nao predizem economia na GPU Samsung Xclipse 940.
+- `Smooth Motion` nao e incremento da simulacao/fisica a 120 Hz, nao esta demonstrado em Android e nao deve ser incorporado como 'limite 120 FPS' sem validar responsividade e taxa de refresh.
+
+## 3. GATES PROPOSTOS PARA NOSSO PROJETO
+
+A) Concluir PRE673 ARM64 compile-only com o adapter PRE671 + guard PRE672 default OFF, reversao total, sem APK e sem novos comandos Vulkan.
+B) Nova auditoria read-only das operacoes de shadow depth resolve no backend V51 e suas dependencias (CPU reads/guest writes, D24, cache, invalidacao, barriers). Nao aplicar ShadowLend antes de ensaios negativos, equivalencia de pixels/hash e sincronizacao.
+C) Expandir perfil de GPU de PRE673 para recortes **por passe e custo entre passes**, rotulando draws por shader VS62/PS58 e custo de resolves/copias, usando fence e disponibilidade reais. Deixar diagnostico OFF na V51.
+D) So depois de medir GPU/CPU com mesmo 1080p e graficos: avaliar patch isolado, reversivel, medindo simultaneamente frame pacing e termica. SurfaceFlinger e PRE643 continuam pausados ate decisao explicita.
+E) Nenhum novo APK ou versao 52 sem autorizacao e testes; manter cert SHA256 `1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b`, package `io.github.nfsmwrecomp`, Nitro, C3, BMW, controle PG-9076/touch, saves e protecoes termicas.
+
+**Conclusao:** potencial de ajuda **alto como referencia de engenharia e instrumentacao**, mas ganho FPS real **nao demonstrado** e transplantar fonte direta **nao recomendado**.
