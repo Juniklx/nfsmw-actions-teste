@@ -1,0 +1,16 @@
+{
+  "stage": "PRE677B",
+  "run_id": 42874003191,
+  "artifact_id": 13789888733,
+  "source": "docs/PRE677_SB02_V51_EXISTING_DEPTH_VERIFIED.json",
+  "drive_zip_id": "1jtHLbUIFTFAbEQEs-c4aCTkU9YeBbuVE",
+  "drive_zip_sha256": "9fc48095000cb6f58f13695b4260c3b36e01612726e40c8836aa07cc7430280d",
+  "expected_context_before": {
+    "bytes": 1109220,
+    "sha256": "a4c4594bcea31c6ef0f412afa5192d6379caa3039c08905c5e54ec796a5decc1"
+  },
+  "backup_required": true,
+  "readback_required": true,
+  "release_build": false,
+  "no_keys": true
+}
