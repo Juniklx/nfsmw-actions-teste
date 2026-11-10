@@ -44,7 +44,7 @@ def preflight():
     ):raise ValueError("PRE673 prior ARM64 and host capability pins are not authentic")
     for required in (b"namespace nfsmw::pre672",b"constexpr bool kDefaultEnabled = false",
         b"subpass_multiview_status_known",b"per_tile_mode_status_known",
-        b"per_tile_mode_active = true",b"vkCmdResetQueryPool",b"ReadyToEndRenderPass",
+        b"per_tile_mode_active = true",b"outside_render_pass",b"ReadyToEndRenderPass",
         b"VkFenceOutcome::Success",b"QueryOutcome::Error",b"kMaxSlots = 16"):
         if required not in raw: raise ValueError("PRE673 guard missing "+required.decode())
     return sha(raw)
