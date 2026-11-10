@@ -22,7 +22,7 @@ jobs:
       - name: Verify Python and download-only source restore dependencies
         run: |
           set -euo pipefail
-          python -m py_compile automation/kaggle/pre676_sb02_v51_shadow_depth_resolve_readonly.py
+          python -m py_compile automation/kaggle/pre676_sb02_v51_copy_readback_guest_source.py
           python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests zstandard >/dev/null
       - name: Reconstruct V51 authenticated sources in temp and audit shadow-depth copy candidates
         env:
@@ -32,7 +32,7 @@ jobs:
           PYTHONPATH: automation/kaggle
         run: |
           set -euo pipefail
-          python automation/kaggle/pre676_sb02_v51_shadow_depth_resolve_readonly.py
+          python automation/kaggle/pre676_sb02_v51_copy_readback_guest_source.py
           python - <<'PY'
           import json
           from pathlib import Path
