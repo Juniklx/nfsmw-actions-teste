@@ -1,0 +1,41 @@
+name: NFSMW PRE639 exact PRE637/638 canonical Drive context checkpoint
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre639_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre639-canonical-context-append-only
+  cancel-in-progress: false
+jobs:
+  context:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare isolated Drive connector and validate syntax
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests
+          python -m py_compile automation/kaggle/pre639_sync_pre637_arm64_v50_running_context.py
+      - name: Safely append verified PRE637 and pending PRE638 to canonical CONTEXTO_NFSMW.md
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: python automation/kaggle/pre639_sync_pre637_arm64_v50_running_context.py --run-id "$GITHUB_RUN_ID"
+      - name: Save sanitized append/readback report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre639-context-checkpoint-${{ github.run_id }}
+          path: /tmp/nfsmw-pre639/report.json
+          if-no-files-found: warn
+          retention-days: 30
