@@ -1,0 +1,61 @@
+name: NFSMW PRE645 V50 signed shader SPIR-V read-only audit
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre645_requests/*.json'
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: nfsmw-pre645-readonly-shader
+  cancel-in-progress: false
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify PRE645 script syntax
+        run: python3 -m py_compile automation/kaggle/pre645_v50_spirv_inventory_readonly.py
+      - name: Download authenticated PRE638 signed release artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          test "$REPO" = "Juniklx/nfsmw-actions-teste"
+          mkdir -p /tmp/nfsmw-pre645/input
+          gh run download 42748358853 --repo "$REPO" \
+            --name nfsmw-pre638-v50-c3-42748358853 \
+            --dir /tmp/nfsmw-pre645/input
+          test -f /tmp/nfsmw-pre645/input/nfsmw-v50-c3-diagnostic-verified.apk
+          test -f /tmp/nfsmw-pre645/input/pre638-v50-report.json
+          echo "PRE645_AUTHENTICATED_RELEASE_ARTIFACT_READ"
+      - name: Re-run full V50 shader inventory with strict checksum/CRC gates
+        run: |
+          set -euo pipefail
+          python3 automation/kaggle/pre645_v50_spirv_inventory_readonly.py \
+            --input /tmp/nfsmw-pre645/input/nfsmw-v50-c3-diagnostic-verified.apk \
+            --output-dir /tmp/nfsmw-pre645/report
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('/tmp/nfsmw-pre645/report/PRE645_V50_SPIRV_READONLY.json')
+          j=json.loads(p.read_text())
+          counts=[(x['detected_modules'],x['vertex'],x['fragment'],x['unique_module_hashes']) for x in j['packs']]
+          assert counts==[(152,63,89,104),(152,63,89,104),(150,65,85,104),(150,65,85,104)],counts
+          assert j['status']=='AUDIT_OK' and j['apk_built'] is False if 'apk_built' in j else j['status']=='AUDIT_OK'
+          assert j['source_modified'] is False and j['shader_modified'] is False
+          assert j['fps_gain_verified'] is False and j['per_shader_runtime_cost_verified'] is False
+          print('PRE645_PINNED_SHADER_COUNTS=PASS')
+          PY
+      - name: Upload sanitized shader audit evidence (no APK)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre645-v50-spv-audit-${{ github.run_id }}
+          path: /tmp/nfsmw-pre645/report/
+          if-no-files-found: warn
+          retention-days: 30
