@@ -1,0 +1,53 @@
+name: NFSMW PRE675B SB02 Shadow V51 evidence canonical Drive backup
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre675b_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre675b-shadow-context
+  cancel-in-progress: false
+jobs:
+  context-sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Python syntax and required Google Drive API
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre675b_sync_shadow_source_context.py
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+      - name: Backup and append pinned PRE675 SB02 V51 source audit to canonical Drive
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre675b_sync_shadow_source_context.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('/tmp/nfsmw-pre675b/result.json').read_text())
+          assert r['status'] in ('AUDIT_OK','ALREADY_APPLIED_VERIFIED'),r.get('error_summary')
+          assert r['readback_identical'] is True
+          assert r['apk_built'] is False and r['external_speedbreaker_code_imported'] is False
+          assert r['signing_material_accessed'] is False
+          print('PRE675B_SB02_SHADOW_CONTEXT_BACKUP_READBACK=PASS')
+          PY
+      - name: Archive backup and readback evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre675b-sb02-v51-shadow-context-${{ github.run_id }}
+          path: /tmp/nfsmw-pre675b/result.json
+          if-no-files-found: warn
+          retention-days: 30
