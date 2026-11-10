@@ -30,7 +30,7 @@ jobs:
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
           PYTHONPATH: automation/kaggle
-        run: python automation/kaggle/pre640_sync_pre637_arm64_v50_running_context.py --run-id "$GITHUB_RUN_ID"
+        run: python automation/kaggle/pre640_sync_v50_signed_release_context.py --run-id "$GITHUB_RUN_ID"
       - name: Save sanitized append/readback report
         if: always()
         uses: actions/upload-artifact@v4
