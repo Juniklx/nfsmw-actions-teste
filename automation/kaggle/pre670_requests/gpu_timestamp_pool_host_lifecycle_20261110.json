@@ -1,0 +1,11 @@
+{
+  "stage": "PRE670",
+  "source_gate": 42840437196,
+  "prior_compile": 42842752295,
+  "prior_context": 42847515998,
+  "mode": "HOST_LIFECYCLE_ONLY_WITH_ASAN_UBSAN",
+  "risk": "independent timestamp pool, verified VK_SUCCESS fence before reuse, no Vulkan objects",
+  "no_apk": true,
+  "default_off": true,
+  "preserve": "V51 signing, C2 128 marks per slot, game files, shaders, saves, 1080p and protections"
+}
