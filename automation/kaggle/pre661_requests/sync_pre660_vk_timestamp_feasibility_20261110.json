@@ -1,0 +1,20 @@
+{
+  "stage": "PRE661_APPEND_AUTHENTIC_PRE660_VULKAN_TIMESTAMP_SOURCE",
+  "verified_run": 42817191509,
+  "archive_drive_id": "1qtKOFP08kkL9cQfiDDrj8lSyC-HwjLrj",
+  "expected_report_sha256": "868a1eeade88b5255321ee927d2c663efb5ec0d5a8b47601a4d2c18ee8c19e4a",
+  "canonical": {
+    "file_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+    "before_sha256": "fddbcd2475be6fcfa4411330a551e5077cdbae2e8b4464c1e7d21c6fb3be0f23",
+    "before_bytes": 1058995,
+    "append_only": true,
+    "backup_first": true
+  },
+  "limits": {
+    "no_apk": true,
+    "no_shader_edits": true,
+    "no_key_access": true,
+    "no_gpu_shader_time_claim": true,
+    "no_fps_claim": true
+  }
+}
