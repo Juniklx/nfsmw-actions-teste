@@ -1,0 +1,57 @@
+{
+  "stage": "PRE647_V50_SOURCE_GPU_ANCHORS_READONLY",
+  "status": "AUDIT_OK_SOURCE_RECIPE",
+  "github_run_id": 42762305482,
+  "github_run_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42762305482",
+  "github_conclusion": "success",
+  "job_id": 129650637180,
+  "github_artifact_id": 13738247474,
+  "pre99_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "v50_pre638_signed_apk_sha256": "7c49f6c95af5bf20b81c2df0622ce236532edadc70d4619e12021e87b74df4fe",
+  "v50_staged_c3_sha256": "1f890953380502abd0cfc7d140a102bbd7470aff6ca2d37b039a16d9c6ffeb92",
+  "files": [
+    {
+      "path": "nativo/app/src/nfsmw_nativo_dibujos.cpp",
+      "bytes": 696638,
+      "sha256": "1f890953380502abd0cfc7d140a102bbd7470aff6ca2d37b039a16d9c6ffeb92",
+      "anchors": 15
+    },
+    {
+      "path": "nativo/app/src/nfsmw_nativo_shaders.cpp",
+      "bytes": 20244,
+      "sha256": "fa80222febfbb87f42c2d625b088e3b63cf67e39ad247547f9dfb1aec5498895",
+      "anchors": 3
+    },
+    {
+      "path": "nativo/app/src/nfsmw_shader_library.cpp",
+      "bytes": 8015,
+      "sha256": "55f65e65b352bfd567029458b40455ac35fe14dafc202781d8e3f5eae0754ded",
+      "anchors": 2
+    }
+  ],
+  "evidence": {
+    "drive_file_id": "1FkSg9ql5a9eI4B0qKkoOVlJ50nG4wj84",
+    "drive_zip_url": "https://drive.google.com/file/d/1FkSg9ql5a9eI4B0qKkoOVlJ50nG4wj84/view",
+    "zip_size": 2282,
+    "zip_sha256": "95a54bee61345d4f9e0ec327800b0b4a6319cea00ea6c90e9e3d03f97b4d5b1d"
+  },
+  "limits": {
+    "verified_v50_source_recipe": true,
+    "exact_compiled_source_manifest_from_PRE638": false,
+    "bit_identical_v50_elf": false,
+    "per_shader_draw_counts": false,
+    "per_shader_gpu_timings": false,
+    "source_modified": false,
+    "apk_built": false,
+    "signing_accessed": false,
+    "perf_gain_verified": false
+  },
+  "next_gate": "PRE648 guarded bounded VS PS pass draw frequency counter prototype plus host tests and real ARM64 no-APK verification; preserve actual graphics and all system safeguards.",
+  "paused": [
+    "PRE643_C3_new_instrumentation",
+    "frame_pacing",
+    "SurfaceFlinger"
+  ],
+  "signer": "use identical permanent certificate if any future V51 APK is validated",
+  "versionCode_future": ">50"
+}
