@@ -60,7 +60,7 @@ static std::vector<Event> make_events(size_t n, bool diverse) {
   const uint32_t pass=(state%12);
   const bool sky=(i%97==0);
   if (diverse) e.push_back(Event{v,p,pass,sky});
-  else e.push_back(Event{(i%9)+1,(i%21)+1,2,sky});
+  else e.push_back(Event{uint32_t((i%9)+1),uint32_t((i%21)+1),2,sky});
  }
  return e;
 }
