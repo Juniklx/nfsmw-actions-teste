@@ -1,0 +1,13 @@
+{
+  "stage": "PRE660_V51_GPU_VULKAN_TIMESTAMP_SOURCE_FEASIBILITY",
+  "PRE658_run_id": 42815591562,
+  "PRE659_context_run_id": 42816537130,
+  "baseline_source_sha256": "1f890953380502abd0cfc7d140a102bbd7470aff6ca2d37b039a16d9c6ffeb92",
+  "objective": "Read-only inventory of existing Vulkan timestamp query pool writer/reset/result path and feasibility of bounded selective VS62 PS58 measurement, no code edits",
+  "no_apk": true,
+  "no_signing": true,
+  "no_shader_changes": true,
+  "no_graphics_changes": true,
+  "no_device_timing_claims": true,
+  "no_thermal_bypass": true
+}
