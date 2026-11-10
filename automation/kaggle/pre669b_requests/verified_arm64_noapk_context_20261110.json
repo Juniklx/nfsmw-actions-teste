@@ -1,0 +1,9 @@
+{
+  "stage": "PRE669B",
+  "compile_only_run": 42842752295,
+  "failed_preflight_run": 42842352309,
+  "drive_report_id": "1mjtka23ddr35RAJXyENplaFJPcoQL2GU",
+  "drive_zip_sha256": "2aaf65a8775d94da7e6659dc1aa889415982e0e74342c657904793e1e1893175",
+  "canonical_operation": "BACKUP_VERIFY_THEN_APPEND_READBACK",
+  "requires_no_apk": true
+}
