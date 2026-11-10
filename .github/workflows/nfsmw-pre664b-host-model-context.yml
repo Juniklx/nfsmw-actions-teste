@@ -1,0 +1,43 @@
+name: NFSMW PRE664B V51 bounded GPU host model verified canonical Drive context
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre664b_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre664b-host-context-append-only
+  cancel-in-progress: false
+jobs:
+  context:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate context writer and install Drive runtime only
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre664b_sync_host_model_context.py
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests
+      - name: Authenticate PRE664 host artifact in Drive, backup canonical context and append only
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre664b_sync_host_model_context.py --run-id "$GITHUB_RUN_ID"
+      - name: Preserve sanitized backup/readback gate report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre664b-context
+          path: /tmp/nfsmw-pre664b/context_result.json
+          if-no-files-found: warn
+          retention-days: 30
