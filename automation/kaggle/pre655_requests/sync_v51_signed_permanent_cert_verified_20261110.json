@@ -1,0 +1,24 @@
+{
+  "stage": "PRE655_CANONICAL_CONTEXT_V51_SIGNED_RELEASE",
+  "evidence": {
+    "pre652_run": 42798909503,
+    "pre652_status": "SIGNED_AND_DRIVE_VERIFIED",
+    "apk_drive_id": "1H3bUAka0s8f7PR0vi2FYj81Pm7uYc6Ws",
+    "apk_sha256": "207934b667d7023bdbd7334bd448ff0ba1bcf6af5aedf5964f92ef146d127c5b",
+    "archive_drive_id": "12uffGCVyOb3Jncg7yTn7kKu8yqg1-0Rw"
+  },
+  "context": {
+    "file_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+    "expected_bytes": 1041267,
+    "expected_sha256": "372c1146dcac0a5c80818083c33d45ae3d6286727d4f4a742420573d363508a4",
+    "backup_before_write": true,
+    "append_only": true
+  },
+  "limits": {
+    "signed_and_stored": true,
+    "installed_or_tested": false,
+    "fps_gain": false,
+    "thermal_override": false,
+    "signing_material_access": false
+  }
+}
