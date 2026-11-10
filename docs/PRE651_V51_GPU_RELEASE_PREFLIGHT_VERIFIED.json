@@ -1,13 +1,13 @@
 {
   "stage": "PRE651_V51_GPU_RELEASE_PREFLIGHT",
   "status": "AUDIT_OK_NO_APK",
-  "github_run_id": "42796992562",
-  "github_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42796992562",
-  "github_artifact_id": 13753891884,
-  "job_id": 129764587144,
-  "zip_sha256": "4889629e4926ffd0f254aafd337850a0133fedb8901ab0ebb9318f8732fe4b47",
-  "json_sha256": "59ceca550c8a31cf43aa462beb125c56d4817168332d7d941c1bdce36b1888ab",
-  "archive_drive_id": "1IL5OFhJC1H1LoS6PMyA1MpiPUD5yj3fY",
+  "github_run_id": "42798605525",
+  "github_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42798605525",
+  "github_artifact_id": 13754988329,
+  "job_id": 129770042729,
+  "zip_sha256": "1ecba3e5c7fef96c073d272d56c3f3bf9ca924338e4f8e94e5fd03a66a0ab305",
+  "json_sha256": "c707dab9dcaed9876fa60b64b21a6d16c801b659efc76e1137760a86adbed87a",
+  "archive_drive_id": "17doJ3BNHwxHeClS-LpqvBVcny-sfwQVN",
   "preflight_approved": true,
   "target_version_code": 51,
   "package_id": "io.github.nfsmwrecomp",
@@ -23,7 +23,7 @@
   "checks": {
     "header_sha256": "9df6eda58b7585e90192baf18c4bd9e12d4d3cb862c5efb1066577b24ec71dfe",
     "pre648_source_recipe_sha256": "21a31a703b98dd0069a51bb89a4fd5409da7597ee65d9cdca688fbf5b774c52d",
-    "pre652_builder_sha256": "6438c96debeaa059ef395d9eae58dae76fd36f1deaf2f43568c6be533109264d",
+    "pre652_builder_sha256": "97f5b455a1cc09405b5afcb8e0f941cfc6ca5b73d59c1d8114b7df64f20e919f",
     "production_wrapper_ast_contract": true,
     "fixed_counter_bytes": 1638400,
     "log_interval_s": 10,
@@ -42,5 +42,8 @@
   "apk_built": false,
   "user_saves_modified": false,
   "fps_gain_proven": false,
-  "next_gate": "PRE652 full original permanently signed Android V51 runtime-shader-frequency diagnostic candidate; after APK and remote Drive verification, test on Galaxy S24 FE, no FPS claims"
+  "next_gate": "PRE652 full original permanently signed Android V51 runtime-shader-frequency diagnostic candidate; after APK and remote Drive verification, test on Galaxy S24 FE, no FPS claims",
+  "original_preflight_run_id": "42796992562",
+  "supersedes_initial_gate": true,
+  "release_retry_for_failed_run": 42797492310
 }
