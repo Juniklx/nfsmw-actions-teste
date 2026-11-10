@@ -1,0 +1,11 @@
+{
+  "stage": "PRE673SB",
+  "reference_repo": "SpeedBreakerProject/speedbreaker",
+  "reference_commit": "fe04285d7629377c6e422a6ace8f535368f23c31",
+  "report": "docs/PRE673_SPEEDBREAKER_EXTERNAL_VULKAN_REVIEW_20261110.md",
+  "canonical_base_sha256": "a2d1f48625349734e6989be7211ab3df29227e4e703b963b816c96622f42d06b",
+  "backup_first": true,
+  "read_only_review": true,
+  "no_third_party_code_integrated": true,
+  "no_apk": true
+}
