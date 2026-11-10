@@ -1,0 +1,9 @@
+{
+  "stage": "PRE664B",
+  "depends_on_run": 42831540098,
+  "archive_drive_id": "1HJTbTOQ4FWei1gk3RUjZuwXJD5sHBhbo",
+  "intent": "append-only backed up canonical context with verified host-only GPU sampler evidence",
+  "no_apk": true,
+  "no_signing": true,
+  "no_save_change": true
+}
