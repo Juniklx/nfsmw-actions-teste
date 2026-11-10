@@ -1,0 +1,23 @@
+{
+  "stage": "PRE657_CANONICAL_CONTEXT_FIRST_V51_GPU_LOG",
+  "verified": {
+    "run_pre656": 42813194428,
+    "status": "AUDIT_OK_REAL_DEVICE_LOG_READONLY",
+    "log_drive_id": "1u5FBEzB8Oi3xi1EH-iIar3aortJ2zrmd",
+    "log_sha256": "649fbe98116b12ade8032b50267e78dcb251832cd8a566fb3d30380d37e325c7",
+    "report_drive_id": "11rs1L0E1W_xvem4ipVT2675dPH-3clTe"
+  },
+  "expected_canonical": {
+    "bytes": 1046854,
+    "sha256": "7b7ff7175f8a98f8a029a666bbcec8d843f19ca261a1918d443ffb2fde0ccc79",
+    "id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB"
+  },
+  "policy": {
+    "no_apk_build": true,
+    "backup_first": true,
+    "append_only": true,
+    "source_unmodified": true,
+    "no_fps_gain_claim": true,
+    "c3_investigation_paused": true
+  }
+}
