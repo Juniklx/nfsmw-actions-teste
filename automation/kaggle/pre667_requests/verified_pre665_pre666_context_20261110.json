@@ -1,0 +1,10 @@
+{
+  "stage": "PRE667",
+  "source_run": 42837121790,
+  "host_corrected_run": 42838202826,
+  "source_archive_sha": "f5086883884c5153926beaad6ddb7ffa649d56f99b844a78d5388d3e27980198",
+  "host_archive_sha": "05a03dba284e70eede9a4c7a355239b64e857a48df10e8359c598b203a41e063",
+  "mode": "CANONICAL_APPEND_WITH_BACKUP",
+  "no_apk": true,
+  "no_signing": true
+}
