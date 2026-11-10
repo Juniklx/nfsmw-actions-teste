@@ -1,0 +1,12 @@
+{
+  "stage": "PRE679_SB02",
+  "base_signed_release": "V51 PRE652",
+  "prior_authenticated_run": 42876324398,
+  "base_renderer_sha256": "9a76c240852b0cc5c6c80ef608cab3d9302c75368b3237440905caec873dbee2",
+  "base_backend_sha256": "b70497df49440b469018e7ef7a0e007d39ab5df13aa979edc91f37e1d2d42385",
+  "plan": "Trace authentic blur CVar to shader specialization and depth sampler observer plus software configuration loader candidates. Never assert runtime TOML.",
+  "no_source_edits": true,
+  "no_apk": true,
+  "no_gpu": true,
+  "full_effects_preserved": true
+}
