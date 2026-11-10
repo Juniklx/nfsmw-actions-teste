@@ -14,7 +14,7 @@ ZIP665=("1Rlh7sfBzHFs2z0BA3_9LA3L_LrUVWbCs",21463,"f5086883884c5153926beaad6ddb7
 ZIP666=("1I8YGJX_PQJG0RLjugyxp7bHer-Nh8ySg",1253,"05a03dba284e70eede9a4c7a355239b64e857a48df10e8359c598b203a41e063")
 BACKUP_FOLDER="1qVch202E6KrVUiNCcZbenK4MbqqaC8vQ"
 BACKUP_NAME="CONTEXTO_NFSMW_BACKUP_ANTES_PRE667_GPU_SOURCE_AND_SAMPLER_20261110.md"
-MARKER=b"# PRE667 — PRE665 e PRE666 GPU: pontos reais Vulkan e modelo seguro de passagem"
+MARKER="# PRE667 — PRE665 e PRE666 GPU: pontos reais Vulkan e modelo seguro de passagem".encode("utf-8")
 OUT=Path("/tmp/nfsmw-pre667/context_result.json")
 def sha(b):return hashlib.sha256(b).hexdigest()
 APPEND="""
