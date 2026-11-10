@@ -1,0 +1,43 @@
+name: NFSMW PRE667 PRE665-PRE666 GPU source and host safety verified canonical Drive context
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre667_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre667-gpu-context
+  cancel-in-progress: false
+jobs:
+  context:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Compile strict append-only audited context script and install Drive libraries
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre667_sync_gpu_source_sampler_context.py
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests
+      - name: Authenticate PRE665/PRE666 Drive ZIPs and CRC, back up canonical history and append verified record
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre667_sync_gpu_source_sampler_context.py --run-id "$GITHUB_RUN_ID"
+      - name: Archive canonical context backup/readback result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre667-gpu-source-context
+          path: /tmp/nfsmw-pre667/context_result.json
+          if-no-files-found: warn
+          retention-days: 30
