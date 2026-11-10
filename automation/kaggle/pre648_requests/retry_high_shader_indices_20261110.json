@@ -1,0 +1,15 @@
+{
+  "stage": "PRE648_V50_SHADER_PASS_COUNTER_ARM64_NOAPK",
+  "supersedes_run": 42764485327,
+  "reason": "Correct maximum shader index coverage from PRE646 measured vertex_id=150 and fragment_id=142; original 128 slots insufficient",
+  "counter": {
+    "vs_capacity": 160,
+    "ps_capacity": 160,
+    "category_capacity": 16,
+    "storage_bytes": 1638400,
+    "no_dynamic_allocation": true
+  },
+  "gate": "Require genuine high shader ID n150/n142 fixture, exact source rollback, real native ARM64 and preserve V50",
+  "no_apk": true,
+  "no_signature_access": true
+}
