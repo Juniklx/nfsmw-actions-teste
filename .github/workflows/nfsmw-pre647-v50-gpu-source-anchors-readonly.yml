@@ -1,0 +1,41 @@
+name: NFSMW PRE647 V50 authenticated GPU source replay read-only
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre647_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre647-auth-source-gpu-audit
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install PRE99 read-only Google archive dependencies and check script
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2
+          python -m py_compile automation/kaggle/pre647_auth_v50_source_gpu_anchors_readonly.py
+      - name: Authenticate PRE99, replay real PRE638 V50 stage and locate Vulkan shader/pass hooks (NO APK)
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: python automation/kaggle/pre647_auth_v50_source_gpu_anchors_readonly.py
+      - name: Archive sanitized source-hash and future measurement design evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre647-v50-gpu-source-readonly-${{ github.run_id }}
+          path: /tmp/nfsmw-pre647/
+          if-no-files-found: warn
+          retention-days: 30
