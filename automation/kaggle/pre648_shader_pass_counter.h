@@ -21,8 +21,8 @@ struct Informe {
 };
 class ContadorShaderPases {
  public:
-  static constexpr uint32_t kVs = 128;
-  static constexpr uint32_t kPs = 128;
+  static constexpr uint32_t kVs = 160;
+  static constexpr uint32_t kPs = 160;
   static constexpr uint32_t kCategorias = 16;
   static constexpr size_t kCasillas = size_t(kCategorias) * kVs * kPs;
   static constexpr size_t kMemoriaContadores = kCasillas * sizeof(uint32_t);
@@ -78,12 +78,12 @@ class ContadorShaderPases {
   }
 
  private:
-  // 1 MiB fixed cost; no dynamic allocation, hash table, locks or per-draw logging.
+  // 1,638,400 bytes fixed cost; no allocation, hash table, locks or per-draw logging.
   std::array<uint32_t, kCasillas> casillas_{};
   uint64_t total_ = 0;
   uint64_t normales_ = 0;
   uint64_t cielo_ = 0;
   uint64_t fuera_de_rango_ = 0;
 };
-static_assert(ContadorShaderPases::kMemoriaContadores == 1048576);
+static_assert(ContadorShaderPases::kMemoriaContadores == 1638400);
 }  // namespace nfsmw::nativo::pre648
