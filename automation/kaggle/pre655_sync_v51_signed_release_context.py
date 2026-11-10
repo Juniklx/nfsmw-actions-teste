@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """PRE655: audited append-only canonical Drive checkpoint.
-A PRE652 dispatch is NOT an approved signed APK; do not invent its outcome.
+PRE652 V51 signed release is independently verified; phone execution is not.
 Back up bytes first, abort on any changed concurrent context or provenance.
 """
 from __future__ import annotations
@@ -17,7 +17,6 @@ BACKUP_FOLDER="1qVch202E6KrVUiNCcZbenK4MbqqaC8vQ"
 BACKUP_NAME="CONTEXTO_NFSMW_BACKUP_ANTES_PRE655_V51_SIGNED_20261110.md"
 HANDOFF=Path("docs/PRE655_V51_PRE652_SIGNED_GPU_SHADER_RELEASE_DRIVE_VERIFIED_20261110.md")
 RELEASE=Path("docs/PRE652_V51_SIGNED_GPU_SHADER_DIAGNOSTIC_VERIFIED.json")
-BUILD=Path("automation/kaggle/pre652_build_signed_v51_gpu_shader_counts_diag.py")
 MARKER=b"# PRE655 "
 OUT=Path("/tmp/nfsmw-pre655/context_result.json")
 def sha(b):return hashlib.sha256(b).hexdigest()
