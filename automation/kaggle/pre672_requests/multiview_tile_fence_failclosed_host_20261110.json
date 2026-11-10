@@ -1,0 +1,10 @@
+{
+  "stage": "PRE672",
+  "native_baseline_run": 42853007076,
+  "host_pfn_run": 42854074303,
+  "context_checkpoint_run": 42859755774,
+  "mode": "host-only Vulkan timestamp multiview/per-tile/capability/fence deny-by-default gate",
+  "no_apk": true,
+  "no_runtime_vulkan": true,
+  "default_enabled": false
+}
