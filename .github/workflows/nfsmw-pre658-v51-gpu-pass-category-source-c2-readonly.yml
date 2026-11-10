@@ -1,0 +1,58 @@
+name: NFSMW PRE658 V51 real GPU pass categories and C2 cost read-only
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre658_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre658-v51-gpu-pass-c2-readonly
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Compile auditor and install read-only source dependencies
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre658_v51_pal_pass_category_gpu_cost_readonly.py
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests zstandard
+      - name: Authenticate PRE99 backup and replay PRE638 V50 production source, map pass and time from V51 log
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre658_v51_pal_pass_category_gpu_cost_readonly.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          doc=json.loads(Path("/tmp/nfsmw-pre658/PRE658_V51_GPU_PASS_CATEGORY_C2_AUDIT.json").read_text())
+          assert doc["status"]=="AUDIT_OK_READONLY_SOURCE_AND_REAL_C2"
+          assert doc["source"]["sha256"]=="1f890953380502abd0cfc7d140a102bbd7470aff6ca2d37b039a16d9c6ffeb92"
+          assert len(doc["c2_measurements"])==7
+          assert doc["top_shader_pairs_by_render_target"][0]["vs_id"]==62
+          assert doc["top_shader_pairs_by_render_target"][0]["ps_id"]==58
+          assert doc["read_only"] and doc["no_apk_built"]
+          assert not doc["fps_gain_proven"] and not doc["per_shader_gpu_time_measured"]
+          print("PRE658_REAL_PAL_V50_SOURCE_AND_V51_C2_CATEGORY_GATE=PASS")
+          PY
+      - name: Archive non-sensitive source hash/category rules and C2 GPU aggregate report only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre658-v51-gpu-category-cost-${{ github.run_id }}
+          path: |
+            /tmp/nfsmw-pre658/PRE658_V51_GPU_PASS_CATEGORY_C2_AUDIT.json
+            /tmp/nfsmw-pre658/RELATORIO_PRE658_V51_PASS_GPU_TIME_READONLY.md
+          if-no-files-found: warn
+          retention-days: 30
