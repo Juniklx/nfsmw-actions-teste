@@ -1,0 +1,14 @@
+{
+  "stage": "PRE651_REAUDIT_V51_BUILDER_COMPOSITION",
+  "prev_success_run": 42796992562,
+  "failed_release_run": 42797492310,
+  "failed_at": "PRE305_STAGE_BMW_MAIN_MENU_PASSIVE_TRACES",
+  "hypothesis": "PRE648 noAPK stage assumes PRE292 already replayed, production PRE305 has not",
+  "repair": {
+    "pre638_production_stage_once": true,
+    "apply_PRE648_SHA_pinned_patch_after_base_stage": true,
+    "base_original_preserved": true,
+    "signer_untouched": true
+  },
+  "preflight_required": true
+}
