@@ -1,0 +1,20 @@
+{
+  "stage": "PRE653_CANONICAL_V51_PREFLIGHT_CONTEXT",
+  "verified": {
+    "pre651_run_id": 42796992562,
+    "pre651_status": "AUDIT_OK_NO_APK",
+    "pre651_archive_drive": "1IL5OFhJC1H1LoS6PMyA1MpiPUD5yj3fY"
+  },
+  "release_in_progress": {
+    "pre652_run_id": 42797492310,
+    "apk_verified": false,
+    "phone_tested": false
+  },
+  "canonical": {
+    "file_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+    "expected_sha256": "7a745697042f5d65a9f852640f5b6d8629e73c8f56ec1b311f63c8b9298a7c26",
+    "expected_bytes": 1030650,
+    "backup_first": true,
+    "append_only": true
+  }
+}
