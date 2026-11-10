@@ -1,0 +1,17 @@
+{
+  "stage": "PRE677_SB02",
+  "prior_gate_run": 42871368565,
+  "baseline": "V51 PRE652",
+  "renderer_sha256": "9a76c240852b0cc5c6c80ef608cab3d9302c75368b3237440905caec873dbee2",
+  "backend_sha256": "b70497df49440b469018e7ef7a0e007d39ab5df13aa979edc91f37e1d2d42385",
+  "tasks": [
+    "trace existing deferred depth function",
+    "pin source warning about car shadows",
+    "extract pending queue and barriers",
+    "24 negative synthetic host guard cases"
+  ],
+  "no_apk": true,
+  "read_only": true,
+  "no_speedbreaker_literal_copy": true,
+  "fail_closed_on_source_drift": true
+}
