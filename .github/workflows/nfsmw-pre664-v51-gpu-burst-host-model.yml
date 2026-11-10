@@ -1,0 +1,114 @@
+name: NFSMW PRE664 V51 bounded shader burst sampler HOST MODEL ONLY
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre664_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre664-v51-gpu-burst-host-only
+  cancel-in-progress: false
+jobs:
+  model:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Authenticate previous recorded evidence and bounded design assumptions
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          a=json.loads(Path('docs/PRE662_V51_VULKAN_TIMESTAMP_ALIAS_LIFECYCLE_VERIFIED.json').read_text())
+          b=json.loads(Path('docs/PRE658_V51_PASS_CATEGORY_GPU_COST_VERIFIED.json').read_text())
+          assert a['status']=='AUDIT_OK_SOURCE_ALIAS_LIFECYCLE_EXTRACTED'
+          assert a['github_run_id']==42826615797
+          assert a['source']['renderer_sha256']=='1f890953380502abd0cfc7d140a102bbd7470aff6ca2d37b039a16d9c6ffeb92'
+          assert a['source']['timestamp_cpp_sha256']=='b70497df49440b469018e7ef7a0e007d39ab5df13aa979edc91f37e1d2d42385'
+          assert a['verified_code']['marks_per_work_slot']==128
+          assert a['verified_code']['query_pool']['type']=='VK_QUERY_TYPE_TIMESTAMP'
+          assert a['verified_code']['reader_load']['name']=='leer_consultas_'
+          assert a['verified_code']['writer_load']['name']=='escribir_marca_'
+          assert a['verified_code']['query_result_wait_flag_used'] is False
+          assert b['status']=='AUDIT_OK_READONLY_SOURCE_AND_REAL_C2'
+          assert b['runtime_device_log']['sha256']=='649fbe98116b12ade8032b50267e78dcb251832cd8a566fb3d30380d37e325c7'
+          assert (b['lower_bound_top_shader_pairs'][0]['p'],b['lower_bound_top_shader_pairs'][0]['vs'],b['lower_bound_top_shader_pairs'][0]['ps'])==(2,62,58)
+          h=Path('automation/kaggle/pre664_bounded_burst_sampler.h').read_text()
+          assert 'constexpr bool kDefaultEnabled = false;' in h
+          assert 'constexpr uint32_t kMaxPairsPerSlot = 4;' in h
+          assert 'constexpr uint32_t kQueriesPerSlot = 2 * kMaxPairsPerSlot;' in h
+          assert 'vkCmd' not in h and 'vkCreate' not in h and 'vkGetQueryPoolResults' not in h
+          print('PRE664_RECORDED_PRE662_SOURCE_PROVENANCE_AND_BUDGET_GATE=PASS')
+          print('PRE664_FRESH_SOURCE_RECONSTRUCTION=false')
+          PY
+      - name: Host strict C++17 and AddressSanitizer UndefinedBehaviorSanitizer
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/nfsmw-pre664
+          c++ -std=c++17 -Wall -Wextra -Werror -pedantic -O1 -g \
+            -fsanitize=address,undefined -fno-omit-frame-pointer \
+            -Iautomation/kaggle \
+            automation/kaggle/pre664_bounded_burst_host_test.cpp \
+            -o /tmp/nfsmw-pre664/pre664_host_test
+          ASAN_OPTIONS=detect_leaks=1 /tmp/nfsmw-pre664/pre664_host_test | tee /tmp/nfsmw-pre664/host_test.log
+      - name: Write factual report with explicit limits
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib,json,os
+          from pathlib import Path
+          log=Path('/tmp/nfsmw-pre664/host_test.log').read_text()
+          v=dict(line.strip().split('=',1) for line in log.splitlines() if line.startswith('PRE664_') and '=' in line)
+          expected={'PRE664_HOST_MODEL_TEST':'PASS','PRE664_DEFAULT_ENABLED':'false',
+                    'PRE664_MAX_PAIRS_PER_SLOT':'4','PRE664_SEPARATE_QUERIES_PER_SLOT':'8',
+                    'PRE664_C2_POOL_MODIFIED':'false','PRE664_VULKAN_COMMANDS_EXECUTED':'false',
+                    'PRE664_NATIVE_ANDROID_GPU_TIMED':'false','PRE664_FPS_GAIN_PROVEN':'false'}
+          for k,ans in expected.items():
+              assert v.get(k)==ans,(k,v.get(k))
+          h=Path('automation/kaggle/pre664_bounded_burst_sampler.h')
+          c=Path('automation/kaggle/pre664_bounded_burst_host_test.cpp')
+          report={
+            'stage':'PRE664_V51_BOUNDED_SHADER_BURST_SAMPLER_HOST_ONLY',
+            'status':'HOST_MODEL_PASS_NO_VULKAN_INJECTION',
+            'github_run_id':int(os.environ['GITHUB_RUN_ID']),
+            'github_commit':os.environ['GITHUB_SHA'],
+            'prior_gpu_timestamp_source_verification':'PRE662 recorded, NOT freshly reconstructed in this host-only gate',
+            'model':{
+                'default_enabled':False,'max_contiguous_bursts_per_slot':4,
+                'dedicated_query_capacity_per_slot':8,'target':{'pass':2,'vs':62,'ps':58},
+                'cross_slot_fence_completion_necessary':True,'fence_verified_by_model':False,
+                'deferred_sky_interleaving_excluded':True,'query_pool_C2_shared':False,
+                'sampling_bias_not_yet_quantified':True
+            },
+            'verification':{
+                'strict_host_cpp17':True,'asan_ubsan_host':True,
+                'bounded_query_indices':True,'default_off':True,
+                'host_disabled_model_ns_per_draw':float(v['PRE664_HOST_DISABLED_MODEL_NS_PER_DRAW']),
+                'host_microbenchmark_not_android_vulkan_or_frame_pacing':True
+            },
+            'header_sha256':hashlib.sha256(h.read_bytes()).hexdigest(),
+            'host_test_sha256':hashlib.sha256(c.read_bytes()).hexdigest(),
+            'apk_built':False,'native_arm64_built':False,'shader_spirv_modified':False,
+            'vulkan_commands_injected':False,'signing_material_accessed':False,
+            'game_saves_modified':False,'per_shader_gpu_time_measured':False,
+            'fps_gain_proven':False,
+            'next_gate':'PRE665 audited source injection and real ARM64 noAPK plus separate Vulkan query lifecycle and measured Android overhead before any V52'
+          }
+          Path('/tmp/nfsmw-pre664/PRE664_HOST_MODEL_REPORT.json').write_text(json.dumps(report,indent=2)+'\n')
+          print('PRE664_STATUS='+report['status'])
+          print('PRE664_APK_BUILT=false')
+          print('PRE664_FPS_GAIN_PROVEN=false')
+          PY
+      - name: Preserve bounded host test evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre664-host-only
+          path: |
+            /tmp/nfsmw-pre664/host_test.log
+            /tmp/nfsmw-pre664/PRE664_HOST_MODEL_REPORT.json
+          if-no-files-found: warn
+          retention-days: 30
