@@ -1,0 +1,88 @@
+name: NFSMW PRE669 V51 bounded pass model real ARM64 compile-only NO APK
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre669_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre669-v51-compile-only-native
+  cancel-in-progress: false
+jobs:
+  compile-only-native:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Python gate syntax and PRE666 C++17 pass-boundary model
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre669_v51_gpu_model_header_arm64_noapk.py
+          g++ -std=c++17 -O2 -Wall -Wextra -Werror -pedantic \
+            automation/kaggle/pre666_pass_bounded_host_test.cpp \
+            -Iautomation/kaggle -o /tmp/nfsmw-pre669-host
+          /tmp/nfsmw-pre669-host
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests cryptography >/dev/null
+      - name: Prepare pinned NDK 28.2.13676358 and CMake 3.31.6 only
+        shell: bash
+        run: |
+          set -euo pipefail
+          SDK="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
+          test -d "$SDK"
+          NEED=()
+          [ -f "$SDK/ndk/28.2.13676358/source.properties" ] || NEED+=("ndk;28.2.13676358")
+          [ -x "$SDK/cmake/3.31.6/bin/cmake" ] || NEED+=("cmake;3.31.6")
+          if [ "${#NEED[@]}" -gt 0 ]; then
+            SDKMANAGER=""
+            for q in "$SDK"/cmdline-tools/*/bin/sdkmanager "$SDK"/tools/bin/sdkmanager; do
+              if [ -x "$q" ]; then SDKMANAGER="$q"; break; fi
+            done
+            test -n "$SDKMANAGER"
+            set +o pipefail
+            yes | "$SDKMANAGER" --sdk_root="$SDK" --install "${NEED[@]}" > /tmp/nfsmw-pre648-sdk.log 2>&1
+            STATUS="${PIPESTATUS[1]}"
+            set -o pipefail
+            if [ "$STATUS" -ne 0 ]; then echo "PRE669_SDK_SETUP_FAILED=$STATUS"; exit "$STATUS"; fi
+          fi
+          test -x "$SDK/ndk/28.2.13676358/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android26-clang++"
+          test -x "$SDK/cmake/3.31.6/bin/cmake"
+          echo PRE669_ANDROID_NATIVE_TOOLCHAIN_READY
+      - name: Replay authentic V51 renderer, integrate compile-only PRE666 model in temp, compile real PAL ARM64 ELF NO APK
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre669_v51_gpu_model_header_arm64_noapk.py --run-id "$GITHUB_RUN_ID"
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("/tmp/nfsmw-pre669/PRE669_V51_PASS_MODEL_COMPILE_ONLY_ARM64_NOAPK.json")
+          j=json.loads(p.read_text())
+          assert j["status"]=="AUDIT_OK_ARM64_COMPILE_ONLY_NO_GPU_COMMANDS",j.get("error_summary")
+          assert j["native_arm64_compiled"] is True
+          assert j["evidence"]["source_reverse_byte_identical"] is True
+          assert j["evidence"]["model_header_compiled_in_renderer_unit"] is True
+          assert j["model_header_compile_time_default_off"] is True
+          assert j["runtime_sampling_enabled"] is False
+          assert j["vulkan_commands_injected"] is False
+          assert j["vulkan_query_pool_created"] is False
+          assert j["apk_built"] is False and j["signing_material_accessed"] is False
+          assert j["fps_gain_proven"] is False and j["actual_gpu_time_measured"] is False
+          print("PRE669_REAL_ARM64_COMPILE_ONLY_DEFAULT_OFF_NOAPK_GATE=PASS")
+          PY
+      - name: Archive summary only (no source, Android APK, secrets or full game)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre669-v51-compile-only-arm64-${{ github.run_id }}
+          path: /tmp/nfsmw-pre669/PRE669_V51_PASS_MODEL_COMPILE_ONLY_ARM64_NOAPK.json
+          if-no-files-found: warn
+          retention-days: 30
