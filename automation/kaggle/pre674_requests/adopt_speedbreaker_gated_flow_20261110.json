@@ -1,0 +1,14 @@
+{
+  "stage": "PRE674_SPEEDBREAKER_WORKFLOW_POLICY",
+  "date": "2026-11-10",
+  "read_only_external_reference": "SpeedBreakerProject/speedbreaker@fe04285d7629377c6e422a6ace8f535368f23c31",
+  "workflow": "docs/FLUXO_SPEEDBREAKER_NFSMW_ANDROID.md",
+  "backlog": "docs/NFSMW_SPEEDBREAKER_BACKLOG_20261110.json",
+  "validate_seven_candidates": true,
+  "run_eleven_negative_tests": true,
+  "default_off": true,
+  "build_apk": false,
+  "sign_apk": false,
+  "copy_upstream_source": false,
+  "claim_fps_gain": false
+}
