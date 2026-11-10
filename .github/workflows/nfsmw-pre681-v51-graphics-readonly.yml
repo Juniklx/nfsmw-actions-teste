@@ -1,0 +1,57 @@
+name: NFSMW PRE681 - V51 graphics archive (private Drive, read-only)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nfsmw-pre681-manual-private-drive
+  cancel-in-progress: false
+
+jobs:
+  pre681:
+    name: Verify V51 archived settings without public artifacts
+    if: github.repository == 'Juniklx/nfsmw-actions-teste' && github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch' && github.actor == 'Juniklx'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout trusted main only
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Validate code and install Google Drive client (no Secrets in this step)
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre681_actions_v51_archive_readonly.py
+          python -m pip install --disable-pip-version-check \
+            google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          echo "PRE681_CODE_COMPILES=TRUE"
+
+      - name: Audit V51, upload ZIP to private Drive and verify readback
+        shell: bash
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          for secret_name in GOOGLE_REFRESH_TOKEN GOOGLE_CLIENT_ID GOOGLE_CLIENT_SECRET; do
+            if [ -z "${!secret_name:-}" ]; then
+              echo "PRE681_MISSING_SECRET_NAME=$secret_name"
+              exit 2
+            fi
+          done
+          python automation/kaggle/pre681_actions_v51_archive_readonly.py
+
+# Deliberately NO push, pull_request or pull_request_target triggers.
+# Deliberately NO upload-artifact, signing key, release build, or public APK.
