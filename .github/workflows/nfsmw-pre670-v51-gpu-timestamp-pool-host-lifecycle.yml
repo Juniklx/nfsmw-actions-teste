@@ -1,0 +1,144 @@
+name: NFSMW PRE670 V51 independent Vulkan timestamp pool HOST resource safety model
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre670_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre670-v51-timestamp-pool-host
+  cancel-in-progress: false
+jobs:
+  host-resource-gates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 16
+    steps:
+      - uses: actions/checkout@v4
+      - name: Assert PRE668 authenticated Vulkan lifecycle source and PRE669 native-only baseline
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          x=json.loads(Path("docs/PRE668_V51_VULKAN_RENDERPASS_AND_QUERY_SCOPE_VERIFIED.json").read_text())
+          y=json.loads(Path("docs/PRE665_V51_GPU_DRAW_BOUNDARIES_VERIFIED.json").read_text())
+          assert x["github_run_id"]==42840437196
+          assert x["status"]=="AUDIT_OK_SOURCE_SCOPE_AND_QUERY_LIFETIME_CANDIDATES_ONLY"
+          assert x["authenticated_source"]["renderer_v51_sha256"]=="9a76c240852b0cc5c6c80ef608cab3d9302c75368b3237440905caec873dbee2"
+          assert x["authenticated_source"]["backend_sha256"]=="b70497df49440b469018e7ef7a0e007d39ab5df13aa979edc91f37e1d2d42385"
+          assert x["callsite"]["scene_pass_begin"]==[10153]
+          assert x["callsite"]["scene_pass_end"]==[4680]
+          assert x["callsite"]["backend_c2_fence_poll"]==[4927]
+          assert y["github_run_id"]==42837121790
+          assert y["no_apk_built"] and y["no_vk_commands_injected"]
+          assert x["limits"]["native_arm64_compiled"] is False
+          assert x["limits"]["separate_query_pool_created"] is False
+          header=Path("automation/kaggle/pre670_separate_timestamp_pool_lifecycle_model.h").read_text()
+          assert "kDefaultEnabled = false" in header
+          assert "kQueriesPerSlot = 2 * kPairsPerSlot" in header
+          assert "mock_separate_pool_created" in header
+          assert "#include <vulkan" not in header and "vkCmdWriteTimestamp(" not in header
+          print("PRE670_PRIOR_AUTHENTICATED_C2_VULKAN_SOURCE_GATE=PASS")
+          print("PRE670_PRE669_ARM64_BASELINE_RUN=42842752295")
+          PY
+      - name: Compile C++17 strict with ASan UBSan and execute fail-closed simulated resource life cycle
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/nfsmw-pre670
+          g++ -std=c++17 -Wall -Wextra -Werror -pedantic -O1 -g \
+            -fsanitize=address,undefined -fno-omit-frame-pointer \
+            automation/kaggle/pre670_timestamp_lifecycle_host_test.cpp \
+            -Iautomation/kaggle \
+            -o /tmp/nfsmw-pre670/pre670_host_resource_test
+          ASAN_OPTIONS=detect_leaks=1 /tmp/nfsmw-pre670/pre670_host_resource_test \
+            | tee /tmp/nfsmw-pre670/host_test.log
+      - name: Produce independent-pool safety evidence, no Vulkan claims
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json,hashlib,os
+          from pathlib import Path
+          d=Path("/tmp/nfsmw-pre670")
+          kv=dict(line.strip().split("=",1) for line in (d/"host_test.log").read_text().splitlines()
+                  if line.startswith("PRE670_") and "=" in line)
+          require={
+            "PRE670_HOST_RESOURCE_LIFECYCLE_TEST":"PASS",
+            "PRE670_QUERY_POOL_CREATED_IN_VULKAN":"false",
+            "PRE670_SEPARATE_QUERY_BUDGET_PER_SLOT":"8",
+            "PRE670_REAL_FENCE_CHECK":"false",
+            "PRE670_UNCHECKED_FENCE_RESULT_REUSE_REJECTED":"true",
+            "PRE670_INVALID_SUPPORT_DISABLED":"true",
+            "PRE670_EARLY_RESET_REJECTED":"true",
+            "PRE670_WAIT_NOT_READY_REJECTED":"true",
+            "PRE670_SUBMIT_FAILURE_FAIL_CLOSED":"true",
+            "PRE670_FENCE_FAILURE_FAIL_CLOSED":"true",
+            "PRE670_VALID_BITS_MOCK_WRAP":"PASS",
+            "PRE670_REAL_ARM64_BUILD":"false",
+            "PRE670_REAL_GPU_DURATION_MEASURED":"false",
+            "PRE670_APK_BUILT":"false",
+            "PRE670_FPS_GAIN_PROVEN":"false"
+          }
+          for k,v in require.items():assert kv.get(k)==v,(k,kv.get(k),v)
+          files=["automation/kaggle/pre670_separate_timestamp_pool_lifecycle_model.h",
+                 "automation/kaggle/pre670_timestamp_lifecycle_host_test.cpp"]
+          x={"stage":"PRE670_V51_GPU_SEPARATE_TIMESTAMP_POOL_LIFECYCLE_HOST_ONLY",
+             "status":"HOST_PASS_CHECKED_FENCE_RESOURCE_GUARDS_ONLY",
+             "github_run_id":int(os.environ["GITHUB_RUN_ID"]),
+             "github_commit_sha":os.environ["GITHUB_SHA"],
+             "source_gates":{"PRE665_run":42837121790,"PRE668_run":42840437196,
+                             "PRE669_real_ARM64_noAPK_run":42842752295},
+             "default_enabled":False,"max_pairs_per_slot":4,
+             "separate_mock_query_indices_per_slot":8,
+             "C2_existing_timestamp_pool_modified":False,
+             "native_vulkan_pool_created":False,
+             "native_vulkan_calls_injected":False,
+             "runtime_fence_checked":False,
+             "runtime_query_support_probed":False,
+             "real_gpu_time_measured":False,
+             "real_arm64_compiled_in_this_run":False,
+             "apk_built":False,"signing_material_accessed":False,"user_saves_modified":False,
+             "shader_assets_modified":False,"fps_gain_proven":False,
+             "checked_in_host":["mandatory actual-fence success input prior to reuse",
+                                "VK_NOT_READY blocks readback and reset",
+                                "fence error or submit error disables diagnostic",
+                                "dedicated query offsets never overlap by slot",
+                                "unsupported period, valid bits, missing function or pool create fail closed",
+                                "readback failure retains slot, no fabricated GPU times",
+                                "uint64 timestamp wrap model with valid bits",
+                                "exact 4 pairs and 8 queries per slot"],
+             "source_sha256":{p:hashlib.sha256(Path(p).read_bytes()).hexdigest() for p in files},
+             "caveats":["C2 backend currently calls vkWaitForFences without checking VkResult in source",
+                        "actual new pool not allocated, actual query reset/read/wait not exercised",
+                        "timestamp interval is not proven exclusive GPU time for VS62/PS58",
+                        "multiview status and GPU pipeline stage selection not proven on S24 FE",
+                        "GPU/CPU overhead and bias not measured"],
+             "next":"PRE671 verify real Vulkan resource integration placement and error policy in disposable source, then ARM64 NO APK before considering device experiment"}
+          (d/"PRE670_V51_HOST_RESOURCE_SAFETY_REPORT.json").write_text(json.dumps(x,indent=2,ensure_ascii=False)+"\n")
+          md=["# PRE670 — ciclo de vida de pool separado (modelo host)", "",
+              "**Resultado:** "+x["status"], "",
+              "Fonte autenticada de PRE668 e compilacao real ARM64 anterior PRE669 confirmadas.",
+              "Nao criou VkQueryPool, nao chamou API Vulkan, nao gerou APK e nao mediu GPU.",
+              "O gate exige prova de VK_SUCCESS da fence antes de reutilizar indices.",
+              "A leitura de query falha fechado, e o C2 original nao e modificado.",
+              "Proxima PRE671: integrar em arvore temporaria com validacao de erro/fence real."]
+          (d/"PRE670_V51_HOST_RESOURCE_SAFETY_SUMMARY.md").write_text("\n".join(md)+"\n")
+          print("PRE670_STATUS="+x["status"])
+          print("PRE670_NATIVE_VULKAN_OBJECT_CREATED=false")
+          print("PRE670_ARM64_IN_THIS_RUN=false")
+          print("PRE670_APK_BUILT=false")
+          print("PRE670_GPU_DURATION_MEASURED=false")
+          print("PRE670_FPS_GAIN_PROVEN=false")
+          PY
+      - name: Preserve source and host-only evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre670-v51-gpu-query-lifecycle-host
+          path: |
+            /tmp/nfsmw-pre670/host_test.log
+            /tmp/nfsmw-pre670/PRE670_V51_HOST_RESOURCE_SAFETY_REPORT.json
+            /tmp/nfsmw-pre670/PRE670_V51_HOST_RESOURCE_SAFETY_SUMMARY.md
+          if-no-files-found: warn
+          retention-days: 30
