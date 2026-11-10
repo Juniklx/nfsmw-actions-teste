@@ -1,0 +1,74 @@
+{
+  "schema": "nfsmw-pre680-v51-packaged-toml-readonly-v1",
+  "status": "PASS_SIGNED_APK_ASSET_AND_LOG_READONLY",
+  "date": "2026-11-10",
+  "baseline": {
+    "package": "io.github.nfsmwrecomp",
+    "version_code": 51,
+    "apk_sha256": "207934b667d7023bdbd7334bd448ff0ba1bcf6af5aedf5964f92ef146d127c5b",
+    "apk_bytes": 47104417,
+    "permanent_cert_sha256": "1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b"
+  },
+  "apk_asset": {
+    "path": "assets/nativo/nfsmw.toml",
+    "bytes": 5223,
+    "sha256": "9602e9f7409eaab83b295521d00fecb95b04d629a8f7cea48911473f77a4f0d2",
+    "parsed_keys": 121,
+    "only_toml_in_apk": true,
+    "values": {
+      "nfsmw_nativo_sin_desenfoque": true,
+      "nfsmw_sombras_sin_vegetacion": true,
+      "nfsmw_nativo_pcf_barato": true,
+      "nfsmw_render_sin_mosaico": true,
+      "nfsmw_retrovisor_recorte": true,
+      "nfsmw_sombras_corte": 150,
+      "nfsmw_nativo_sombras_escala": 100,
+      "nfsmw_resolucion_interna": "1280x720",
+      "nfsmw_limite_fps": "60",
+      "nfsmw_nativo_restaurar_por_intercambio": false
+    }
+  },
+  "real_log": {
+    "drive_id": "1u5FBEzB8Oi3xi1EH-iIar3aortJ2zrmd",
+    "sha256": "649fbe98116b12ade8032b50267e78dcb251832cd8a566fb3d30380d37e325c7",
+    "bytes": 576129,
+    "settings_log_line": 4,
+    "internal_resolution": "1920x1080",
+    "fps_limit": 60,
+    "shadow_pcf_blur_vegetation_effective_values_verified": false
+  },
+  "interpretation": {
+    "bundle_comment_says_copy_to": "files/nfsmw/user/nfsmw.toml",
+    "actual_GameActivity_copy_rule_verified": false,
+    "actual_user_toml_read": false,
+    "apk_values_are_not_proof_of_device_effective_settings": true,
+    "full_effects_preservation_risk": true,
+    "source_blur_cvar_default_true_verified_PRE678": true,
+    "msaa_absence_only_bundle_comment": true,
+    "shadow_quality_effects_not_visually_validated": true
+  },
+  "artifact": {
+    "name": "NFSMW_PRE680_V51_SIGNED_TOML_AND_RUNTIME_LOG_READONLY_EVIDENCE.zip",
+    "bytes": 7746,
+    "sha256": "00302f363343cecf7efb9f842e9f55e587e51a129f033e87ed4a1d3c9358350c",
+    "crc_ok": true
+  },
+  "github_actions": {
+    "prior_runs": [
+      42878824279,
+      42879117785
+    ],
+    "status": "FAILED_BEFORE_STEPS_NO_LOGS_CAUSE_UNKNOWN",
+    "pre680_ci_not_performed": true
+  },
+  "limits": {
+    "no_apk_new": true,
+    "no_source_changes": true,
+    "no_user_config_changes": true,
+    "no_keys_or_saves_access": true,
+    "no_gpu_time_measurement": true,
+    "no_fps_gain": true,
+    "no_external_speedbreaker_code_import": true
+  },
+  "next": "PRE681 check GameActivity config copy/precedence and actual user TOML only through authorized read-only access; keep full effects and investigate CI runner failures separately."
+}
