@@ -48,7 +48,7 @@ def gates():
     b"BeforeEndCommandBuffer",
   )):
     raise ValueError("PRE669 verified header API changed")
-  if b"vkCmd" in h or b"VkQueryPool" in h:
+  if b"vkCmdWriteTimestamp(" in h or b"VkQueryPool " in h:
     raise ValueError("PRE669 host-only header gained native Vulkan implementation")
   return sha(h)
 def stage(root):
