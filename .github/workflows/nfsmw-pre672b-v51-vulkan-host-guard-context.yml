@@ -32,7 +32,7 @@ jobs:
           PYTHONPATH: automation/kaggle
         run: |
           set -euo pipefail
-          python automation/kaggle/pre672b_sync_native_vulkan_context.py
+          python automation/kaggle/pre672b_sync_vulkan_guard_context.py
       - name: Archive evidence of canonical backup and readback
         if: always()
         uses: actions/upload-artifact@v4
