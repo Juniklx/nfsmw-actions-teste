@@ -4,7 +4,7 @@ Authenticates prior gates, compiles REAL ARM64 libmain.so, creates NO APK.
 Never touches release keys, user saves, Drive sources or installed V50.
 """
 from __future__ import annotations
-import argparse,hashlib,json,re,sys
+import argparse,hashlib,http.client,json,re,sys
 from datetime import datetime,timezone
 from pathlib import Path
 import pre288_bmw_feature_on_pal_native_preflight as native
@@ -204,9 +204,21 @@ def audit(run_id):
  global PHASE
  require_gates()
  old=(native.replay_v37,native.stage_logger,native.find_outputs,
-      native.FEATURE,native.CALLBACK,native.PAL_FILENAME)
+      native.FEATURE,native.CALLBACK,native.PAL_FILENAME,native.download)
  original_find=native.find_outputs
+ original_download=native.download
+ def download_with_retries(client,destination):
+  for attempt in range(3):
+   try:
+    destination.unlink(missing_ok=True)
+    return original_download(client,destination)
+   except (http.client.IncompleteRead,ConnectionError,TimeoutError,OSError) as exc:
+    destination.unlink(missing_ok=True)
+    EVIDENCE["pre99_transfer_transient_retries"]=attempt+1
+    print("PRE648_PRE99_TRANSFER_RETRY="+str(attempt+1)+" CAUSE="+type(exc).__name__)
+    if attempt==2:raise
  try:
+  native.download=download_with_retries
   native.replay_v37=v46.replay_v46_sources
   native.stage_logger=stage_source
   native.find_outputs=lambda build:verify_elf(build,original_find)
@@ -217,7 +229,7 @@ def audit(run_id):
   compiled=native.audit(Path(__file__).resolve().parents[2])
  finally:
   (native.replay_v37,native.stage_logger,native.find_outputs,
-   native.FEATURE,native.CALLBACK,native.PAL_FILENAME)=old
+   native.FEATURE,native.CALLBACK,native.PAL_FILENAME,native.download)=old
  okay=(compiled.get("status")=="AUDIT_OK"
   and compiled.get("cmake_configure",{}).get("ok") is True
   and compiled.get("production_native_build",{}).get("ok") is True
