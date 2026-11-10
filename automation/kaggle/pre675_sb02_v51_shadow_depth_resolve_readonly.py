@@ -103,7 +103,7 @@ def main():
             temp=Path(directory)
             arc=temp/"pre99.tar.gz"
             download(drive_client(),arc)
-            hashgot,size=sha_file(arc)
+            hashgot,_,size=sha_file(arc)
             if (hashgot,size)!=(EXPECTED_SHA256,EXPECTED_BYTES):
                 raise ValueError("PRE675 source archive wrong hash or size")
             dest=temp/"restore";dest.mkdir()
