@@ -1,0 +1,7 @@
+{
+  "stage": "PRE673",
+  "retry_of_run": 42862951880,
+  "reason": "PRE672 HOST safety model intentionally contains no raw Vulkan vkCmdResetQueryPool; require actual outside_render_pass invariant instead; correct artifact path",
+  "default_off": true,
+  "no_apk": true
+}
