@@ -1,0 +1,174 @@
+{
+  "schema": "nfsmw-speedbreaker-backlog-v1",
+  "created_utc_date": "2026-11-10",
+  "upstream": {
+    "repository": "SpeedBreakerProject/speedbreaker",
+    "commit": "fe04285d7629377c6e422a6ace8f535368f23c31",
+    "license_family": "GPL-3.0-or-later",
+    "read_only_reference": true,
+    "automatic_upstream_code_import": false
+  },
+  "internal": {
+    "repo": "Juniklx/nfsmw-actions-teste",
+    "baseline": "V51 PRE652",
+    "version_code": 51,
+    "package": "io.github.nfsmwrecomp",
+    "signed_apk_sha256": "207934b667d7023bdbd7334bd448ff0ba1bcf6af5aedf5964f92ef146d127c5b",
+    "certificate_sha256": "1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b",
+    "native_renderer_source_sha256": "9a76c240852b0cc5c6c80ef608cab3d9302c75368b3237440905caec873dbee2",
+    "internal_resolution": [
+      1920,
+      1080
+    ],
+    "target_fps_limit": 120,
+    "preserve": [
+      "graphics",
+      "shaders",
+      "shadows",
+      "physics",
+      "thermal_protection",
+      "touch",
+      "PG-9076",
+      "Nitro PRE398",
+      "BMW tuning",
+      "C3 guards",
+      "user saves",
+      "signing"
+    ]
+  },
+  "policy": {
+    "gates": [
+      "G0_upstream_pin",
+      "G1_readonly_map",
+      "G2_host_safety_equivalence",
+      "G3_real_arm64_noapk",
+      "G4_device_caps_and_profile",
+      "G5_ab_visual_frametime_thermal_input",
+      "G6_authorized_permanent_signature_release",
+      "G7_drive_backup_context_readback"
+    ],
+    "default_off": true,
+    "no_apk_in_planning": true,
+    "no_claim_of_proven_fps_gain": true,
+    "automatic_release": false
+  },
+  "candidates": [
+    {
+      "id": "SB-01",
+      "priority": 0,
+      "status": "active_audit",
+      "hypothesis": "Vulkan query pool per-pass and gap measurements",
+      "source_paths": [
+        "runtime/gpu/renderer.cpp",
+        "runtime/video/presenter.cpp"
+      ],
+      "required_evidence": [
+        "PRE673 AArch64 compile-only conclusion",
+        "real S24 FE Vulkan capabilities and fence readback gate"
+      ],
+      "implementation_status": "None; current adapter default OFF",
+      "evidence_type": "external_readonly_concept_only",
+      "graphics_fidelity_required": true
+    },
+    {
+      "id": "SB-02",
+      "priority": 1,
+      "status": "queued_readonly",
+      "hypothesis": "Deferred shadow depth resolves with identical scene output",
+      "source_paths": [
+        "runtime/gpu/shadow_lend.h",
+        "runtime/gpu/renderer.cpp"
+      ],
+      "required_evidence": [
+        "authenticated V51 depth resolve graph",
+        "read/write guest memory, formats and barriers audit",
+        "pixel and guest memory equivalence"
+      ],
+      "implementation_status": "No deferred shader or depth changes have been integrated",
+      "evidence_type": "external_readonly_concept_only",
+      "graphics_fidelity_required": true
+    },
+    {
+      "id": "SB-03",
+      "priority": 2,
+      "status": "blocked_on_measurement",
+      "hypothesis": "Renderpass merge around sun glow without deleting visible effects",
+      "source_paths": [
+        "runtime/gpu/renderer.cpp"
+      ],
+      "required_evidence": [
+        "SB-01 per pass GPU evidence",
+        "complete attachments/depth/occlusion proof"
+      ],
+      "implementation_status": "No renderpass changes",
+      "evidence_type": "external_readonly_concept_only",
+      "graphics_fidelity_required": true
+    },
+    {
+      "id": "SB-04",
+      "priority": 2,
+      "status": "blocked_on_measurement",
+      "hypothesis": "Shader scalarization and accurate Xenos arithmetic cost audit",
+      "source_paths": [
+        "runtime/gpu/shader_translator.cpp"
+      ],
+      "required_evidence": [
+        "SB-01 GPU cost evidence",
+        "SPIR-V equality or pixel/physics equivalence tests on Xclipse"
+      ],
+      "implementation_status": "No shader retranslation or fast-math",
+      "evidence_type": "external_readonly_concept_only",
+      "graphics_fidelity_required": true
+    },
+    {
+      "id": "SB-05",
+      "priority": 3,
+      "status": "paused",
+      "hypothesis": "Command processor idle yield/wakeup investigation",
+      "source_paths": [
+        "runtime/gpu/command_processor.cpp"
+      ],
+      "required_evidence": [
+        "resume explicit priority after GPU studies",
+        "compare SDL/CP overhead and input latency"
+      ],
+      "implementation_status": "No sleep or thread affinity changed",
+      "evidence_type": "external_readonly_concept_only",
+      "graphics_fidelity_required": true
+    },
+    {
+      "id": "SB-06",
+      "priority": 3,
+      "status": "paused",
+      "hypothesis": "Frame pacing/vblank smoothness investigation",
+      "source_paths": [
+        "runtime/video/present_schedule.h",
+        "runtime/video/presenter.cpp",
+        "runtime/game/frame_time.cpp"
+      ],
+      "required_evidence": [
+        "resume explicit priority after GPU studies",
+        "actual frame present intervals and game clock data"
+      ],
+      "implementation_status": "No physics rate or SurfaceFlinger changes",
+      "evidence_type": "external_readonly_concept_only",
+      "graphics_fidelity_required": true
+    },
+    {
+      "id": "SB-07",
+      "priority": 4,
+      "status": "no_android_port",
+      "hypothesis": "Smooth Motion research only, not a 120 Hz simulation patch",
+      "source_paths": [
+        "runtime/video/presenter.cpp"
+      ],
+      "required_evidence": [
+        "dedicated Android compatibility demonstration",
+        "gameplay frame interpolation correctness before any proposal"
+      ],
+      "implementation_status": "No extrapolation of 60Hz physics to 120Hz",
+      "evidence_type": "external_readonly_concept_only",
+      "graphics_fidelity_required": true
+    }
+  ]
+}
