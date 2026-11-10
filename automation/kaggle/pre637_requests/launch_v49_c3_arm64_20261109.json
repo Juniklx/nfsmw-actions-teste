@@ -1,0 +1,15 @@
+{
+  "stage": "PRE637",
+  "previous_gate": {
+    "workflow_run": 42745018715,
+    "status": "AUDIT_OK_V49_SOURCE_REPLAY",
+    "c3_source_sha256": "a01f25e531af783d37f70a3c3caa0f3e7a979d2bdbdd923abf7b2c6062d29d1e",
+    "pre635_candidate_sha256": "1f890953380502abd0cfc7d140a102bbd7470aff6ca2d37b039a16d9c6ffeb92"
+  },
+  "only_native_arm64_libmain": true,
+  "no_apk": true,
+  "no_signing": true,
+  "no_credentials_except_drive_readonly": true,
+  "no_game_files_or_saves": true,
+  "next": "validate ELF and callback markers before any release consideration"
+}
