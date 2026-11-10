@@ -1,8 +1,7 @@
 {
   "stage": "PRE670B",
   "approved_run": 42848964021,
-  "drive_evidence": "1AjpdmISLNYQ-pbsL26LhqTto1041pNq7",
-  "correct_drive_evidence": "18MOa647PrVIpj6QH1UhFUoI4sLn7Bf5J",
+  "drive_evidence": "18MOa647PrVIpj6QH1UhFUoI4sLn7Bf5J",
   "zip_sha256": "93de0d4fe092a640436e7ee87613aa6e71faed4f8bde44e5e0bf66e55439ea7b",
   "operation": "SHA_CRC_VERIFY_BACKUP_CANONICAL_APPEND_READBACK",
   "scope": "NO_APK_HOST_ONLY"
