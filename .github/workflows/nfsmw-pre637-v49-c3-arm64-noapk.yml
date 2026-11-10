@@ -1,0 +1,65 @@
+name: NFSMW PRE637 V49 PRE635 C3 diagnostic native ARM64 link NO APK
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre637_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre637-c3-arm64-noapk
+  cancel-in-progress: false
+jobs:
+  native-link:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Audit syntax and read-only archive dependencies
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests cryptography >/dev/null
+          python -m py_compile automation/kaggle/pre635_c3_duplicate_request_trace_dryrun.py automation/kaggle/pre636_v49_c3_replay_noapk.py automation/kaggle/pre637_v49_pre635_c3_native_arm64_noapk.py
+      - name: Install pinned NDK and CMake without Android signing credentials
+        shell: bash
+        run: |
+          set -euo pipefail
+          SDK="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
+          test -d "$SDK"
+          NEED=()
+          [ -f "$SDK/ndk/28.2.13676358/source.properties" ] || NEED+=("ndk;28.2.13676358")
+          [ -x "$SDK/cmake/3.31.6/bin/cmake" ] || NEED+=("cmake;3.31.6")
+          if [ "${#NEED[@]}" -gt 0 ]; then
+            SDKMANAGER=""
+            for q in "$SDK"/cmdline-tools/*/bin/sdkmanager "$SDK"/tools/bin/sdkmanager; do
+              if [ -x "$q" ]; then SDKMANAGER="$q"; break; fi
+            done
+            test -n "$SDKMANAGER"
+            set +o pipefail
+            yes | "$SDKMANAGER" --sdk_root="$SDK" --install "${NEED[@]}" > /tmp/nfsmw-pre637-sdk.log 2>&1
+            STATUS="${PIPESTATUS[1]}"
+            set -o pipefail
+            if [ "$STATUS" -ne 0 ]; then echo "PRE637_SDK_SETUP_FAILED=$STATUS"; exit "$STATUS"; fi
+          fi
+          test -x "$SDK/ndk/28.2.13676358/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android26-clang++"
+          test -x "$SDK/cmake/3.31.6/bin/cmake"
+          echo "PRE637_PINNED_NDK_CMAKE_READY"
+      - name: Compile real PAL ARM64 libmain with PRE635 C3 guard logging (no APK)
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: python automation/kaggle/pre637_v49_pre635_c3_native_arm64_noapk.py --run-id "$GITHUB_RUN_ID"
+      - name: Archive sanitized ARM64 compile gates
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre637-v49-c3-arm64-${{ github.run_id }}
+          path: /tmp/nfsmw-pre637/PRE637_V49_C3_ARM64_NOAPK.json
+          if-no-files-found: warn
+          retention-days: 30
