@@ -86,6 +86,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: nfsmw-pre673-v51-native-vulkan-compile-only-arm64-${{ github.run_id }}
-          path: /tmp/nfsmw-pre673/PRE673_V51_VULKAN_POOL_ADAPTER_ARM64_NOAPK.json
+          path: /tmp/nfsmw-pre673/PRE673_V51_VULKAN_ADAPTER_GUARD_REAL_ARM64_NOAPK.json
           if-no-files-found: warn
           retention-days: 30
