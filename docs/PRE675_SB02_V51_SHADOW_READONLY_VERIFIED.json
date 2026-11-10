@@ -1,0 +1,56 @@
+{
+  "stage": "PRE675_SB02_AUTHENTIC_V51_SHADOW_DEPTH_SOURCE_MAP",
+  "status": "AUDIT_OK_AUTHENTIC_V51_SHADOW_SOURCE_CANDIDATE_MAP_ONLY",
+  "date_utc": "2026-11-10",
+  "github_run_id": 42869180941,
+  "github_job_id": 130015521430,
+  "github_artifact_id": 13788497145,
+  "github_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42869180941",
+  "drive_zip_id": "14D-uUcpZ6vdPPSMOtCYQOv2eGvuVxx_3",
+  "drive_zip_url": "https://drive.google.com/file/d/14D-uUcpZ6vdPPSMOtCYQOv2eGvuVxx_3/view",
+  "drive_zip_bytes": 28240,
+  "drive_zip_sha256": "d3dd6df8794f6a7b1cb16546a07a6e7463bb1e4b281508529667bfdaeae31069",
+  "zip_crc_ok": true,
+  "drive_readback_identical": true,
+  "source": {
+    "pre99_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+    "renderer_original_sha256": "1f890953380502abd0cfc7d140a102bbd7470aff6ca2d37b039a16d9c6ffeb92",
+    "renderer_v51_sha256": "9a76c240852b0cc5c6c80ef608cab3d9302c75368b3237440905caec873dbee2",
+    "backend_v51_sha256": "b70497df49440b469018e7ef7a0e007d39ab5df13aa979edc91f37e1d2d42385",
+    "replay_temporarily_only": true,
+    "bitwise_signed_elf_proven": false
+  },
+  "lexical_sites": {
+    "renderer": {
+      "shadow_and_depth": 211,
+      "copy_resolve_blit": 1,
+      "layout_and_barrier": 15,
+      "depth_stencil_formats": 2,
+      "copy_call_lines": [
+        9770
+      ]
+    },
+    "backend": {
+      "shadow_and_depth": 187,
+      "copy_resolve_blit": 2,
+      "layout_and_barrier": 41,
+      "depth_stencil_formats": 17,
+      "copy_call_lines": [
+        5543,
+        5667
+      ]
+    }
+  },
+  "limits": {
+    "shadow_copy_semantics_proven": false,
+    "guest_read_write_deps_proven": false,
+    "shadow_lend_implemented": false,
+    "shader_spirv_changed": false,
+    "native_arm64_compiled": false,
+    "apk_built": false,
+    "fps_gain_proven": false,
+    "driver_gpu_timestamp_measured": false,
+    "external_upstream_code_imported": false
+  },
+  "next": "PRE676 SB-02: pinpoint guest memory consumers, VkImage format/extent/mip and barrier lifetimes for copy callsites in authenticated V51; do not implement deferred shadow resolves without negative host tests and pixel equivalence."
+}
