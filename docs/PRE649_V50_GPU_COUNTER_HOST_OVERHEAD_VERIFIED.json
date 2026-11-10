@@ -1,0 +1,58 @@
+{
+  "stage": "PRE649_V50_SHADER_COUNTER_HOST_OVERHEAD",
+  "status": "AUDIT_OK_HOST_ONLY",
+  "github_run_id": 42794598045,
+  "github_run_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42794598045",
+  "github_artifact_id": 13752133509,
+  "job_id": 129756401721,
+  "zip_sha256": "33fb20d059a82b2ecc82ea8f074a86a2a4d16ae48d3f1971c4ed64040e7129b5",
+  "json_sha256": "20a44e073e8ae519982e5cee6c20940fbad6fb84ed45523d449f72e3964567cb",
+  "drive_file_id": "1W1pxH9rud_uRDXZbvA-h6op_8XVTuTTF",
+  "drive_url": "https://drive.google.com/file/d/1W1pxH9rud_uRDXZbvA-h6op_8XVTuTTF/view",
+  "previous_gate": {
+    "PRE648_run_id": 42764731926,
+    "status": "AUDIT_OK",
+    "arm64_libmain_sha256": "214ff9b9e41ab823f4a78f172199eee330f23257eb44e65a22fdb174bd2cbb1e",
+    "evidence_zip_drive_id": "1BnK_QBzOrzALsMsQjEI6-kzLyYmA4_dp"
+  },
+  "host_checks": {
+    "static_observer_passed": true,
+    "asan_ubsan_passed": true,
+    "host_invariants_passed": true,
+    "draws_per_trial": 300000,
+    "trials_per_scenario": 9,
+    "estimated_counter_bytes": 1638400
+  },
+  "measurements_linux_host": {
+    "repeated": {
+      "baseline_median_ns_per_draw": 1.29333,
+      "with_counter_median_ns_per_draw": 3.49355,
+      "incremental_median_ns_per_draw": 2.20022,
+      "summary_median_ms": 0.062098
+    },
+    "diverse": {
+      "baseline_median_ns_per_draw": 1.2804,
+      "with_counter_median_ns_per_draw": 4.16038,
+      "incremental_median_ns_per_draw": 2.87998,
+      "summary_median_ms": 0.083228
+    }
+  },
+  "first_host_run": {
+    "id": 42794450285,
+    "status": "failure",
+    "root_cause": "C++ -Werror narrowing conversions inside synthetic fixture only",
+    "fixed_commit": "6b553eb8dce0db2b3a452ef8a920c8ca2c7e4bb8"
+  },
+  "limits": {
+    "android_cpu_measured": false,
+    "android_gpu_measured": false,
+    "per_shader_gpu_time_measured": false,
+    "source_to_v50_signed_elf_bit_identical": false,
+    "shader_optimization_applied": false,
+    "apk_created": false,
+    "signing_material_accessed": false,
+    "gameplay_tested": false,
+    "fps_gain_proven": false
+  },
+  "decision": "PRE649 host only approved; next precise on-device shader frequencies require instrumented diagnostic APK under original permanent certificate, versionCode>50 only after preflight, without changing graphics/physics or installed saves."
+}
