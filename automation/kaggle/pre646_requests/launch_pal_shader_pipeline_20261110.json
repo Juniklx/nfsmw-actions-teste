@@ -1,0 +1,22 @@
+{
+  "stage": "PRE646_V50_PAL_SHADER_PIPELINE_STATIC_MAP",
+  "trigger": "continue after PRE645",
+  "trusted_baseline": {
+    "v50_run_id": 42748358853,
+    "apk_sha256": "7c49f6c95af5bf20b81c2df0622ce236532edadc70d4619e12021e87b74df4fe",
+    "log_sha256": "4fea4a354badd3babd46cebda56482b0c33eeb66aa6ec2fa85bc4cde86f05cce"
+  },
+  "expected": {
+    "pal_matches": 64,
+    "usa_matches": 7,
+    "distinct_vs": 20,
+    "distinct_ps": 27
+  },
+  "restrictions": {
+    "read_only": true,
+    "no_apk": true,
+    "no_keys": true,
+    "no_fps_claims": true,
+    "no_shader_edits": true
+  }
+}
