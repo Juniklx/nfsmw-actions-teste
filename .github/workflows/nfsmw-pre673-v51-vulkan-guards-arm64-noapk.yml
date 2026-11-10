@@ -1,0 +1,91 @@
+name: NFSMW PRE673 V51 combined Vulkan adapter and fail-closed guards real AArch64 compile-only NO APK
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre673_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre673-v51-compile-only-native
+  cancel-in-progress: false
+jobs:
+  compile-only-native:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Python gate syntax and PRE672 capability/fence default-deny HOST gate
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre673_v51_aarch64_combined_vulkan_guard_compileonly_noapk.py
+          g++ -std=c++17 -O2 -Wall -Wextra -Werror -pedantic \
+            automation/kaggle/pre672_gpu_timestamp_capability_failclosed_host_test.cpp \
+            -Iautomation/kaggle -o /tmp/nfsmw-pre673-host
+          /tmp/nfsmw-pre673-host
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests cryptography >/dev/null
+      - name: Prepare pinned NDK 28.2.13676358 and CMake 3.31.6 only
+        shell: bash
+        run: |
+          set -euo pipefail
+          SDK="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
+          test -d "$SDK"
+          NEED=()
+          [ -f "$SDK/ndk/28.2.13676358/source.properties" ] || NEED+=("ndk;28.2.13676358")
+          [ -x "$SDK/cmake/3.31.6/bin/cmake" ] || NEED+=("cmake;3.31.6")
+          if [ "${#NEED[@]}" -gt 0 ]; then
+            SDKMANAGER=""
+            for q in "$SDK"/cmdline-tools/*/bin/sdkmanager "$SDK"/tools/bin/sdkmanager; do
+              if [ -x "$q" ]; then SDKMANAGER="$q"; break; fi
+            done
+            test -n "$SDKMANAGER"
+            set +o pipefail
+            yes | "$SDKMANAGER" --sdk_root="$SDK" --install "${NEED[@]}" > /tmp/nfsmw-pre648-sdk.log 2>&1
+            STATUS="${PIPESTATUS[1]}"
+            set -o pipefail
+            if [ "$STATUS" -ne 0 ]; then echo "PRE673_SDK_SETUP_FAILED=$STATUS"; exit "$STATUS"; fi
+          fi
+          test -x "$SDK/ndk/28.2.13676358/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android26-clang++"
+          test -x "$SDK/cmake/3.31.6/bin/cmake"
+          echo PRE673_ANDROID_NATIVE_TOOLCHAIN_READY
+      - name: Replay verified V51 source, parse native Vulkan adapter in temp TU, compile real AArch64 ELF NO APK
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre673_v51_native_vulkan_adapter_arm64_noapk.py --run-id "$GITHUB_RUN_ID"
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("/tmp/nfsmw-pre673/PRE673_V51_VULKAN_ADAPTER_GUARD_REAL_ARM64_NOAPK.json")
+          j=json.loads(p.read_text())
+          assert j["status"]=="PASS_REAL_ARM64_ADAPTER_AND_CAPABILITY_GUARD_COMPILE_ONLY_NOAPK",j.get("error_summary")
+          assert j["native_arm64_compiled"] is True
+          e=j["evidence"]
+          assert e["pre673_reverse_to_pre671_byte_identical"] is True
+          assert e["native_previous_diagnostic_markers_intact"] is True
+          assert e["default_enabled"] is False
+          assert e["vk_timestamp_runtime_calls_added"] is False
+          assert e["pre671_separate_vk_query_pool_created"] is False
+          assert e["safety_modes_checked_by_runtime"] is False
+          assert j["real_vulkan_pool_created"] is False
+          assert j["runtime_capability_checks_executed"] is False
+          assert j["apk_built"] is False and j["signing_material_accessed"] is False
+          assert j["fps_gain_proven"] is False and j["real_gpu_timestamps"] is False
+          print("PRE673_REAL_AARCH64_VULKAN_ADAPTER_PLUS_GUARD_DEFAULT_OFF_NOAPK_GATE=PASS")
+          PY
+      - name: Archive compile-only Vulkan adapter summary (no APK, secrets or full game)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre673-v51-native-vulkan-compile-only-arm64-${{ github.run_id }}
+          path: /tmp/nfsmw-pre673/PRE673_V51_VULKAN_POOL_ADAPTER_ARM64_NOAPK.json
+          if-no-files-found: warn
+          retention-days: 30
