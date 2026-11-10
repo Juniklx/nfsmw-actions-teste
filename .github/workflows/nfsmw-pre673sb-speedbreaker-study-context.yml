@@ -1,0 +1,53 @@
+name: NFSMW PRE673SB SpeedBreaker source review canonical Drive context backup
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre673sb_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre673sb-context-external-review
+  cancel-in-progress: false
+jobs:
+  sync-context:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check script and install Google Drive API
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre673sb_sync_external_speedbreaker_study_context.py
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+      - name: Backup and append SpeedBreaker study to canonical NFSMW context
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre673sb_sync_external_speedbreaker_study_context.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          j=json.loads(Path('/tmp/nfsmw-pre673sb/result.json').read_text())
+          assert j['status'] in ('AUDIT_OK','ALREADY_APPLIED_VERIFIED')
+          assert j['readback_identical'] is True
+          assert j['apk_built'] is False
+          assert j['third_party_code_incorporated'] is False
+          print('PRE673SB_READONLY_SPEEDBREAKER_CONTEXT_VERIFIED=PASS')
+          PY
+      - name: Archive canonical context readback and backup evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre673sb-speedbreaker-source-study-context-${{ github.run_id }}
+          path: /tmp/nfsmw-pre673sb/result.json
+          if-no-files-found: warn
+          retention-days: 30
