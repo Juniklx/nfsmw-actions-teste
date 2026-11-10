@@ -1,0 +1,10 @@
+{
+  "stage": "PRE673",
+  "pre671_arm64_run": 42853007076,
+  "pre672_host_run": 42860554425,
+  "speedbreaker_parallel_readonly_review": true,
+  "mode": "authentic V51 ARM64 replay with PRE671 and PRE672 compile-only default OFF",
+  "real_gpu_commands": false,
+  "apk": false,
+  "signing": false
+}
