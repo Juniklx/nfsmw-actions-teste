@@ -1,0 +1,14 @@
+{
+  "stage": "PRE671",
+  "baseline": "V51 PRE652",
+  "prior_audit": 42840437196,
+  "prior_host_guard": 42848964021,
+  "prior_native_compile": 42842752295,
+  "scope": "Vulkan PFN header parsed in verified native renderer, not invoked",
+  "default_enabled": false,
+  "apk": false,
+  "signing": false,
+  "shader_changes": false,
+  "saves": false,
+  "copy_source_reversible": true
+}
