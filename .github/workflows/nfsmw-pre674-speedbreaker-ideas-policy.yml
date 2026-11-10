@@ -1,0 +1,51 @@
+name: NFSMW PRE674 SpeedBreaker gated ideas workflow policy
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre674_speedbreaker_workflow_policy_gate.py'
+      - 'docs/NFSMW_SPEEDBREAKER_BACKLOG_20261110.json'
+      - 'docs/FLUXO_SPEEDBREAKER_NFSMW_ANDROID.md'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre674-speedbreaker-ideas-policy
+  cancel-in-progress: false
+jobs:
+  validate-workflow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate reproducible SpeedBreaker backlog and 11 fail-closed cases
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre674_speedbreaker_workflow_policy_gate.py
+          python automation/kaggle/pre674_speedbreaker_workflow_policy_gate.py --self-test
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('/tmp/nfsmw-speedbreaker-flow/PRE674_SPEEDBREAKER_WORKFLOW_BACKLOG_GATE.json')
+          j=json.loads(p.read_text())
+          assert j['status']=='PASS_BACKLOG_POLICY_AND_11_NEGATIVE_CASES',j.get('error_summary')
+          assert j['negative_cases_passed']==11
+          assert j['evidence']['candidates']==7
+          assert j['evidence']['gates']==8
+          assert j['evidence']['no_apk_built'] is True
+          assert j['evidence']['no_upstream_code_import'] is True
+          assert j['evidence']['fps_gain_proven'] is False
+          assert j['apk_built'] is False and j['upstream_code_imported'] is False
+          print('PRE674_SPEEDBREAKER_WORKFLOW_POLICY_GATE=PASS')
+          PY
+      - name: Archive policy-only evidence without APK or secrets
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre674-speedbreaker-flow-policy-${{ github.run_id }}
+          path: /tmp/nfsmw-speedbreaker-flow/PRE674_SPEEDBREAKER_WORKFLOW_BACKLOG_GATE.json
+          if-no-files-found: warn
+          retention-days: 30
