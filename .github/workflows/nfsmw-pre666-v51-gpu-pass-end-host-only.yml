@@ -30,7 +30,7 @@ jobs:
           assert p["verified_calls"]["pre648_accounting_after_draw_lines"]==[3711,3790]
           assert p["remote_redownload_exact_sha256_match"] is True
           assert p["architecture_risk"]["pass_termination_must_flush_sampler"] is True
-          assert p["no_apk_built"] and not p["no_vk_commands_injected"]
+          assert p["no_apk_built"] and p["no_vk_commands_injected"]
           print("PRE666_PRIOR_PRE665_RECORDED_SOURCE_GATE=PASS")
           PY
       - name: C++17 strict host bounded pass-end stress with ASan UBSan
