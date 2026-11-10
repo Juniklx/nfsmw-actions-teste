@@ -1,0 +1,10 @@
+{
+  "stage": "PRE649_V50_SHADER_COUNTER_HOST_OVERHEAD",
+  "retry_of": 42794450285,
+  "root_cause": "Host fixture C++23 -Werror=narrowing from size_t to uint32_t in Event aggregate; static and sanitizer checks passed before compilation stopped",
+  "fix_commit": "6b553eb8dce0db2b3a452ef8a920c8ca2c7e4bb8",
+  "strict_warning_policy_unchanged": true,
+  "no_apk": true,
+  "no_signing": true,
+  "no_android_performance_claim": true
+}
