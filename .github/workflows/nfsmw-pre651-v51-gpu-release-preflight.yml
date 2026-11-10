@@ -1,0 +1,52 @@
+name: NFSMW PRE651 V51 GPU release fail-closed preflight NO APK
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre651_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre651-v51-gpu-release-preflight
+  cancel-in-progress: false
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check Python and unchanged source regression with address and undefined-behavior sanitizers
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre648_v50_shader_pass_counts_arm64_noapk.py automation/kaggle/pre651_v51_gpu_release_preflight_noapk.py automation/kaggle/pre652_build_signed_v51_gpu_shader_counts_diag.py
+          g++ -std=c++23 -O1 -g -fno-omit-frame-pointer -fsanitize=address,undefined -Wall -Wextra -Werror -Iautomation/kaggle automation/kaggle/pre648_shader_counter_host_test.cpp -o /tmp/nfsmw-pre651-sanitized
+          ASAN_OPTIONS=detect_leaks=1 UBSAN_OPTIONS=halt_on_error=1 /tmp/nfsmw-pre651-sanitized
+          echo PRE651_SANITIZED_COUNTER_REGRESSION=PASS
+      - name: Run V51 static release authorization WITHOUT credentials, APK, or Drive edits
+        shell: bash
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre651_v51_gpu_release_preflight_noapk.py --run-id "$GITHUB_RUN_ID"
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          j=json.loads(Path("/tmp/nfsmw-pre651/PRE651_V51_GPU_RELEASE_PREFLIGHT_NOAPK.json").read_text())
+          assert j["stage"]=="PRE651_V51_GPU_RELEASE_PREFLIGHT"
+          assert j["status"]=="AUDIT_OK_NO_APK"
+          assert j["preflight_approved"] is True
+          assert j["target_version_code"]==51
+          assert j["signing_material_accessed"] is False
+          assert j["apk_built"] is False
+          assert j["fps_gain_proven"] is False
+          print("PRE651_FINAL_RELEASE_PREFLIGHT=PASS")
+          PY
+      - name: Preserve result and only the read-only evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre651-v51-shader-release-preflight-${{ github.run_id }}
+          path: /tmp/nfsmw-pre651/PRE651_V51_GPU_RELEASE_PREFLIGHT_NOAPK.json
+          if-no-files-found: warn
+          retention-days: 30
