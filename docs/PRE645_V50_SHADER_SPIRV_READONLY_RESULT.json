@@ -1,0 +1,92 @@
+{
+  "stage": "PRE645_V50_SHADER_SPIRV_READONLY",
+  "status": "AUDIT_OK",
+  "run": {
+    "id": 42758880375,
+    "url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42758880375",
+    "conclusion": "success",
+    "job_id": 129639601508
+  },
+  "baseline": {
+    "apk_name": "NFSMW_V50_PRE638_C3_TWO_REQUEST_DIAGNOSTIC.apk",
+    "apk_bytes": 47104881,
+    "apk_sha256": "7c49f6c95af5bf20b81c2df0622ce236532edadc70d4619e12021e87b74df4fe",
+    "package": "io.github.nfsmwrecomp",
+    "versionCode": 50,
+    "certificate_sha256": "1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b",
+    "source_run": 42748358853
+  },
+  "evidence": {
+    "github_artifact_id": 13737260526,
+    "drive_file_id": "111DYPA5f6rwLTENh3P1w-2ustLqKehDH",
+    "drive_url": "https://drive.google.com/file/d/111DYPA5f6rwLTENh3P1w-2ustLqKehDH/view",
+    "zip_bytes": 27392,
+    "zip_sha256": "d44b69251b1e2db6daaad7090bfc34d61b3d8ae376e163b8d154125f410426d1"
+  },
+  "packs": [
+    {
+      "name": "assets/nativo/nfsmw_shaders.nfsp",
+      "size": 1553464,
+      "modules": 152,
+      "vertex": 63,
+      "fragment": 89,
+      "unique_spirv": 104,
+      "static_instructions": 77441,
+      "sha256": "b84602ca9bf6efd84f54ad1509297baccd57c04ffcda494c77f5780a433f95a7"
+    },
+    {
+      "name": "assets/nativo/nfsmw_shaders_gles.nfsp",
+      "size": 1348724,
+      "modules": 152,
+      "vertex": 63,
+      "fragment": 89,
+      "unique_spirv": 104,
+      "static_instructions": 64562,
+      "sha256": "aa509b41a484b16226b98aa67f51c88d2a193278719f4123840fe689dc4ef02b"
+    },
+    {
+      "name": "assets/nativo/usa/nfsmw_shaders.nfsp",
+      "size": 1558984,
+      "modules": 150,
+      "vertex": 65,
+      "fragment": 85,
+      "unique_spirv": 104,
+      "static_instructions": 77736,
+      "sha256": "8c49de7587c4405a37fe8904981a4902c5294f4e74472dbe3b5d9a643adfa267"
+    },
+    {
+      "name": "assets/nativo/usa/nfsmw_shaders_gles.nfsp",
+      "size": 1354292,
+      "modules": 150,
+      "vertex": 65,
+      "fragment": 85,
+      "unique_spirv": 104,
+      "static_instructions": 64859,
+      "sha256": "8a2c9488e930df1a55b1286ee07c1b4eaf6a0cf89fd75815108ca4f0e76c0e02"
+    }
+  ],
+  "gates": {
+    "apk_verified_against_PRE638": true,
+    "runner_reproduced_inventory": true,
+    "zip_integrity_pass": true,
+    "original_sources_modified": false,
+    "shaders_modified": false,
+    "apk_created": false,
+    "phone_tested_in_stage": false,
+    "gpu_speedup_verified": false,
+    "per_shader_runtime_correlation_verified": false
+  },
+  "roadmap": {
+    "priority1": "Shaders/GPU",
+    "priority2": "CPU opcodes 0x22 and 0x3C",
+    "next_gate": "PRE646 read-only shader-pipeline-pass mapping",
+    "pacing_and_PRE643_C3_instrumentation_suspended": true
+  },
+  "drive_context": {
+    "id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+    "bytes": 1009910,
+    "sha256": "a659ef06d5cced69b2c1e10b3a5cab561c06e991ec8caa95397f63b7f63a1d47",
+    "backup_id": "19b-ooxoIV4C8kfJMnd3ha5ojuNgf53SA"
+  },
+  "method_limitation": "Static instruction and identical-hash counts do not establish shader runtime cost, GPU hot spots or redundant execution; C2 aggregate times do not identify individual modules."
+}
