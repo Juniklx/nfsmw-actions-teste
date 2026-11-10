@@ -1,0 +1,47 @@
+{
+  "stage": "PRE670_V51_SEPARATE_TIMESTAMP_QUERY_POOL_HOST_RESOURCE_SAFETY",
+  "status": "HOST_PASS_CHECKED_FENCE_RESOURCE_GUARDS_ONLY",
+  "github_run_id": 42848964021,
+  "github_job_id": 129944031585,
+  "github_artifact_id": 13777629426,
+  "github_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42848964021",
+  "drive_zip_id": "18MOa647PrVIpj6QH1UhFUoI4sLn7Bf5J",
+  "drive_zip_url": "https://drive.google.com/file/d/18MOa647PrVIpj6QH1UhFUoI4sLn7Bf5J/view",
+  "zip_bytes": 2272,
+  "zip_sha256": "93de0d4fe092a640436e7ee87613aa6e71faed4f8bde44e5e0bf66e55439ea7b",
+  "crc_pass": true,
+  "drive_download_sha_match": true,
+  "prior_source_runs": {
+    "PRE665": 42837121790,
+    "PRE668": 42840437196,
+    "PRE669_REAL_ARM64": 42842752295
+  },
+  "source_sha256": {
+    "automation/kaggle/pre670_separate_timestamp_pool_lifecycle_model.h": "cddcd2e2df7c9a628e66c114db7781f31e263ee2c2bb5be8784f30276fe01d29",
+    "automation/kaggle/pre670_timestamp_lifecycle_host_test.cpp": "7cf4a76ced403b5e0d07fee05bf6153c75ded20f0f85242141f155625bb9424e"
+  },
+  "findings": {
+    "max_pairs_per_slot": 4,
+    "query_indices_per_slot": 8,
+    "default_enabled": false,
+    "rejects_fence_not_ready": true,
+    "rejects_early_reset": true,
+    "mock_timestamp_valid_bits_wrap_tested": true,
+    "host_asan_ubsan_pass": true,
+    "native_pool_created": false,
+    "real_fence_checked": false,
+    "real_arm64_compiled_in_run": false,
+    "actual_shader_gpu_time_measured": false,
+    "apk_built": false,
+    "fps_gain_proven": false
+  },
+  "constraints": {
+    "signed_v51_apk_untouched": true,
+    "c2_query_pool_unmodified": true,
+    "actual_vulkan_resources_unverified": true,
+    "original_c2_vkWaitForFences_return_checked_in_source": false,
+    "new_module_must_verify_wait_or_poll_return": true,
+    "timestamp_interval_not_shader_exclusive": true
+  },
+  "next": "PRE671 reversible default-off native Vulkan integration design, robust query/fence error path, compile arm64 noAPK and check physical device support before runtime GPU instrumentation"
+}
