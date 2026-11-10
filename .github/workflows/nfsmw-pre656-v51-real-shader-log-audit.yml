@@ -1,0 +1,76 @@
+name: NFSMW PRE656 V51 real shader log readonly audit
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre656_requests/*.json'
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: nfsmw-pre656-v51-runtime-shader-counts
+  cancel-in-progress: false
+jobs:
+  analyse:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify PRE656 parser and Drive read-only dependencies
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre656_v51_shader_log_from_drive_audit.py
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests
+      - name: Retrieve immutable PRE645 PAL SPIR-V module inventory
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          test "$REPO" = "Juniklx/nfsmw-actions-teste"
+          mkdir -p /tmp/nfsmw-pre656/baseline
+          gh run download 42758880375 --repo "$REPO" \
+            --name nfsmw-pre645-v50-spv-audit-42758880375 \
+            --dir /tmp/nfsmw-pre656/baseline
+          test -f /tmp/nfsmw-pre656/baseline/PRE645_V50_SPIRV_MODULES.csv
+          sha256sum /tmp/nfsmw-pre656/baseline/PRE645_V50_SPIRV_MODULES.csv
+      - name: Download exact V51 user test log from Drive and correlate top VS PS indices with PAL SPIR-V
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre656_v51_shader_log_from_drive_audit.py \
+            --pre645-csv /tmp/nfsmw-pre656/baseline/PRE645_V50_SPIRV_MODULES.csv
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          j=json.loads(Path("/tmp/nfsmw-pre656/PRE656_V51_REAL_GPU_SHADER_LOG_AUDIT.json").read_text())
+          assert j["status"]=="AUDIT_OK_REAL_DEVICE_LOG_READONLY"
+          assert j["counts"]["total_draws"]==14265243
+          assert j["counts"]["invalid"]==0
+          assert j["counts"]["windows"]==14
+          assert j["top_pairs"][0]["draws_in_reported_top12_lower_bound"]==2186797
+          assert j["top_pairs"][0]["vs_pal_index_zero_based"]==61
+          assert j["top_pairs"][0]["ps_pal_index_zero_based"]==57
+          assert j["limits"]["apk_built"] is False
+          assert j["limits"]["fps_gain_proven"] is False
+          print("PRE656_SHADER_DEVICE_LOG_AND_PAL_MAP_GATE=PASS")
+          PY
+      - name: Archive verified aggregate report only (no raw game log or APK)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre656-v51-real-shader-log-${{ github.run_id }}
+          path: |
+            /tmp/nfsmw-pre656/PRE656_V51_REAL_GPU_SHADER_LOG_AUDIT.json
+            /tmp/nfsmw-pre656/PRE656_V51_TOP_SHADER_PAIRS.csv
+            /tmp/nfsmw-pre656/PRE656_V51_WINDOWS.csv
+          if-no-files-found: warn
+          retention-days: 30
