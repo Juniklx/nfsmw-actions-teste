@@ -1,0 +1,90 @@
+name: NFSMW PRE671H native Vulkan dispatch PFN host safety without GPU
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre671h_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre671h-vulkan-pfn-host-noapk
+  cancel-in-progress: false
+jobs:
+  host-vulkan-mocks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 16
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install official Vulkan C header definitions only, no device use
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends libvulkan-dev >/dev/null
+          test -f /usr/include/vulkan/vulkan.h
+      - name: Compile C++17 typed PFN mock with ASan UBSan and verify all simulated gates
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/nfsmw-pre671h
+          g++ -std=c++17 -Wall -Wextra -Werror -pedantic -O1 -g \
+            -fsanitize=address,undefined -fno-omit-frame-pointer \
+            automation/kaggle/pre671h_vulkan_pfn_mock_host_test.cpp \
+            -Iautomation/kaggle -o /tmp/nfsmw-pre671h/test
+          ASAN_OPTIONS=detect_leaks=1 /tmp/nfsmw-pre671h/test \
+            | tee /tmp/nfsmw-pre671h/host.log
+      - name: Validate fail-closed Vulkan mock report and persist source hashes
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import os,hashlib,json
+          from pathlib import Path
+          p=Path("/tmp/nfsmw-pre671h")
+          labels=dict(line.strip().split("=",1) for line in (p/"host.log").read_text().splitlines()
+            if line.startswith("PRE671H_") and "=" in line)
+          expect={
+            "PRE671H_NATIVE_VULKAN_PFN_HOST_MOCK_TEST":"PASS",
+            "PRE671H_REAL_VK_OBJECT_CREATED":"false",
+            "PRE671H_UNCHECKED_FENCE_READ_REJECTED":"true",
+            "PRE671H_PFN_ABI_TYPED":"PASS",
+            "PRE671H_READ_AVAILABILITY_GUARD":"PASS",
+            "PRE671H_MOCK_QUERY_OFFSETS":"PASS",
+            "PRE671H_DRIVER_GPU_TESTED":"false",
+            "PRE671H_MULTIVIEW_UNTESTED":"true",
+            "PRE671H_PER_TILE_MODE_UNTESTED":"true",
+            "PRE671H_APK_BUILT":"false",
+            "PRE671H_FPS_GAIN_PROVEN":"false",
+          }
+          for k,v in expect.items():assert labels.get(k)==v,(k,labels.get(k),v)
+          files=["automation/kaggle/pre671_vk_separate_timestamp_pool_compile_only.h",
+                 "automation/kaggle/pre671h_vulkan_pfn_mock_host_test.cpp"]
+          report={
+            "stage":"PRE671H_V51_VULKAN_PFN_TYPED_HOST_MOCK",
+            "status":"PASS_HOST_VULKAN_DISPATCH_MOCKS_ONLY",
+            "run_id":int(os.environ["GITHUB_RUN_ID"]),
+            "commit":os.environ["GITHUB_SHA"],
+            "source_sha256":{q:hashlib.sha256(Path(q).read_bytes()).hexdigest() for q in files},
+            "asan_ubsan_pass":True,"Vulkan_header_abi_typed":True,
+            "real_gpu_driver_tested":False,"real_VkQueryPool_created":False,
+            "source_runtime_callsite_connected":False,
+            "fence_guards_simulated":True,"multiview_guard_verified":False,
+            "per_tile_execution_guard_verified":False,
+            "timestamp_valid_bits_runtime_probed":False,
+            "actual_GPU_shader_time_measured":False,
+            "apk_created":False,"signing_material_accessed":False,
+            "fps_gain_proven":False,
+            "next":"Do not enable while multiview/per-tile unknown; PRE672 require guarded callsites, real fence and device capability validation, noAPK first"}
+          (p/"PRE671H_V51_VULKAN_PFN_HOST_MOCK_REPORT.json").write_text(json.dumps(report,indent=2)+"\n")
+          print("PRE671H_STATUS="+report["status"])
+          print("PRE671H_REAL_DEVICE_MEASURED=false")
+          print("PRE671H_APK_CREATED=false")
+          PY
+      - name: Preserve mock test evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre671h-vulkan-pfn-mock-host-${{ github.run_id }}
+          path: |
+            /tmp/nfsmw-pre671h/host.log
+            /tmp/nfsmw-pre671h/PRE671H_V51_VULKAN_PFN_HOST_MOCK_REPORT.json
+          if-no-files-found: warn
+          retention-days: 30
