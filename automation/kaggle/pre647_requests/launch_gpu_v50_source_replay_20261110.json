@@ -1,0 +1,19 @@
+{
+  "stage": "PRE647_V50_AUTH_SOURCE_GPU_ANCHORS_READONLY",
+  "requested": "Continue shader/GPU priority 1",
+  "source_recipe": "PRE99 verified -> PRE431/V46 -> PRE638 actual V50 stage",
+  "baseline_run_id": 42748358853,
+  "expected_apk_sha256": "7c49f6c95af5bf20b81c2df0622ce236532edadc70d4619e12021e87b74df4fe",
+  "prior_passed_run_id": 42760879332,
+  "strict_limits": {
+    "source_replay_in_disposable_tree": true,
+    "source_original_modified": false,
+    "shaders_unchanged": true,
+    "no_apk": true,
+    "no_signing_keys": true,
+    "no_user_saves": true,
+    "no_perf_claims": true,
+    "pacing_and_PRE643_C3_paused": true
+  },
+  "goal": "PIN source GPU file hashes and anchor lines for bounded VS PS pass draw frequency telemetry gate"
+}
