@@ -1,0 +1,12 @@
+{
+  "stage": "PRE676B",
+  "verified_run": 42871368565,
+  "verified_artifact": 13789656935,
+  "drive_zip_id": "12ckHtjYME6_g2PuAHH-S5ftFYBhJh4s5",
+  "zip_sha256": "5eb8bceae7f048e05bf9a26461aa4ddd0567374819b1be7915d8505f59cbb49d",
+  "canonical_before_bytes": 1105324,
+  "canonical_before_sha256": "634818910fab3b236e8dba12aa07f3ec5e21d1e6a59f1ec731080b4cd038413b",
+  "backup_before_append": true,
+  "readback_required": true,
+  "apk_built": false
+}
