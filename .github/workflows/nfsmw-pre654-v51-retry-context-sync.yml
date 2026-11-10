@@ -22,7 +22,7 @@ jobs:
       - name: Verify script and install only Google Drive API runtime
         run: |
           set -euo pipefail
-          python -m py_compile automation/kaggle/pre654_sync_v51_preflight_and_build_dispatched_context.py
+          python -m py_compile automation/kaggle/pre654_sync_v51_failed_pre305_retry_context.py
           python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests
       - name: Backup original canonical context and append verified PRE651 only
         env:
@@ -32,7 +32,7 @@ jobs:
           PYTHONPATH: automation/kaggle
         run: |
           set -euo pipefail
-          python automation/kaggle/pre654_sync_v51_preflight_and_build_dispatched_context.py --run-id "$GITHUB_RUN_ID"
+          python automation/kaggle/pre654_sync_v51_failed_pre305_retry_context.py --run-id "$GITHUB_RUN_ID"
       - name: Archive sanitized append and readback audit
         if: always()
         uses: actions/upload-artifact@v4
