@@ -30,6 +30,11 @@ int main() {
   assert(depth_found && deferred_found && separate_pass_found);
   const auto cleared=probe.ExtraerYLimpiar();
   assert(cleared.total==0 && cleared.fuera_de_rango==0);
+  // PRE646 observed genuine shader IDs up to VS n150, PS n142.
+  probe.Anotar(151,143,8,false);
+  probe.Anotar(152,0,8,false);  // highest index and depth-only
+  const auto high=probe.ExtraerYLimpiar();
+  assert(high.total==2 && high.normales==2 && high.fuera_de_rango==0);
   // Controlled repeated draws: bounded memory, and count exactly matches input.
   for (uint32_t i=0;i<200000;i++) {
     probe.Anotar((i%63)+1,(i%89)+1,(i%7),false);
@@ -40,7 +45,7 @@ int main() {
   uint64_t sum=0;
   for (const auto& p:many.primeros) sum+=p.dibujos;
   assert(sum>0 && sum<=200000);
-  assert(ContadorShaderPases::kMemoriaContadores==1048576);
+  assert(ContadorShaderPases::kMemoriaContadores==1638400);
   std::cout<<"PRE648_COUNTER_HOST_TEST=PASS\n"
            <<"PRE648_EXACT_INPUT_DRAWS=200000\n"
            <<"PRE648_DEPTH_ONLY=PASS\n"
