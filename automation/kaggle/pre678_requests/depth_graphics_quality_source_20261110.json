@@ -1,0 +1,17 @@
+{
+  "stage": "PRE678_SB02",
+  "baseline": "V51 PRE652",
+  "prior_gate": "PRE677 run 42874003191",
+  "renderer_pin": "9a76c240852b0cc5c6c80ef608cab3d9302c75368b3237440905caec873dbee2",
+  "backend_pin": "b70497df49440b469018e7ef7a0e007d39ab5df13aa979edc91f37e1d2d42385",
+  "goals": [
+    "authenticate existing pending depth state and indirect vkCmdCopyImage callsites",
+    "verify in-source defaults for sin_desenfoque and sombras_escala",
+    "flag risks for full 1920x1080 and effects",
+    "no optimization patch without visual G2"
+  ],
+  "source_only": true,
+  "no_apk": true,
+  "no_gpu_benchmark": true,
+  "no_key_access": true
+}
