@@ -1,0 +1,8 @@
+{
+  "stage": "PRE679_SB02_RETRY",
+  "reason": "Initial GitHub Actions job failed in 3 seconds with no downloadable logs/blob; retry unchanged source to discriminate transient runner failure",
+  "original_run": 42878824279,
+  "read_only": true,
+  "no_apk": true,
+  "keep_source_hash": true
+}
