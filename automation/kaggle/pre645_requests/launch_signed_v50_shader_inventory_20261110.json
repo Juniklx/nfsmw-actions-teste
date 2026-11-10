@@ -1,0 +1,15 @@
+{
+  "stage": "PRE645_V50_SHADER_SPIRV_READONLY",
+  "approved_by": "user_request_start",
+  "baseline_run_id": 42748358853,
+  "baseline_artifact_id": 13733586196,
+  "expected_apk_sha256": "7c49f6c95af5bf20b81c2df0622ce236532edadc70d4619e12021e87b74df4fe",
+  "read_only": true,
+  "source_changes": false,
+  "new_apk": false,
+  "signing_access": false,
+  "saves_modified": false,
+  "benchmark_claims": false,
+  "pipeline_cost_established": false,
+  "goal": "inventory exact NFSSPV packs and SPIR-V modules in signed V50 APK"
+}
