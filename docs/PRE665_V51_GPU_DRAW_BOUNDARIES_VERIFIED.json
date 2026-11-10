@@ -1,0 +1,58 @@
+{
+  "stage": "PRE665_V51_GPU_DRAW_EMISSION_BOUNDARY_READONLY",
+  "status": "AUDIT_OK_AUTHENTIC_V51_DRAW_AND_C2_SOURCE_ANCHORS",
+  "github_run_id": 42837121790,
+  "github_job_id": 129902187958,
+  "github_artifact_id": 13774062743,
+  "github_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42837121790",
+  "drive_zip_id": "1Rlh7sfBzHFs2z0BA3_9LA3L_LrUVWbCs",
+  "drive_zip_url": "https://drive.google.com/file/d/1Rlh7sfBzHFs2z0BA3_9LA3L_LrUVWbCs/view",
+  "drive_zip_bytes": 21463,
+  "drive_zip_sha256": "f5086883884c5153926beaad6ddb7ffa649d56f99b844a78d5388d3e27980198",
+  "zip_crc_pass": true,
+  "remote_redownload_exact_sha256_match": true,
+  "authenticated_source": {
+    "pre99_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+    "replay": "PRE99 -> PRE431 -> PRE638 -> PRE648 in temporary tree",
+    "v51_instrumented_renderer_sha256": "9a76c240852b0cc5c6c80ef608cab3d9302c75368b3237440905caec873dbee2",
+    "backend_sha256": "b70497df49440b469018e7ef7a0e007d39ab5df13aa979edc91f37e1d2d42385",
+    "binary_equivalence_to_signed_v51_elf_proven": false
+  },
+  "verified_calls": {
+    "renderer_vkCmdDraw_name_hits": 6,
+    "renderer_vkCmdDraw_actual_calls": 4,
+    "renderer_vulkan_draw_comments": 2,
+    "normal_draw_lines": [
+      3693,
+      3697
+    ],
+    "deferred_sky_draw_lines": [
+      3782,
+      3784
+    ],
+    "pre648_accounting_after_draw_lines": [
+      3711,
+      3790
+    ],
+    "render_target_category_mark_line": 10108,
+    "backend_timestamp_writer_sites": 2,
+    "backend_timestamp_reader_sites": 5,
+    "backend_fence_wait_sites": 3,
+    "backend_query_reset_sites": 5
+  },
+  "architecture_risk": {
+    "post_draw_counter_not_safe_pre_draw_begin_anchor": true,
+    "pass_termination_must_flush_sampler": true,
+    "deferred_sky_must_not_be_counted_as_normal_shader_burst": true,
+    "separate_timestamp_pool_only_planned": true,
+    "no_real_gpu_fence_validation_yet": true,
+    "no_conclusive_shader_gpu_cost": true
+  },
+  "no_apk_built": true,
+  "no_arm64_compiled": true,
+  "no_vk_commands_injected": true,
+  "no_game_saves_modified": true,
+  "no_signing_key_access": true,
+  "no_fps_gain_proven": true,
+  "next": "PRE666 host-only pass-end guard test; afterward ARM64 noAPK using strictly authenticated source and measured overhead before any diagnostic release."
+}
