@@ -1,0 +1,49 @@
+name: NFSMW PRE682 - signed V51 DEX graphics anchors (private report)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/run_requests/PRE682_*.txt'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nfsmw-pre682-v51-dex-audit
+  cancel-in-progress: false
+
+jobs:
+  pre682:
+    if: github.repository == 'Juniklx/nfsmw-actions-teste' && github.ref == 'refs/heads/main' && github.actor == 'Juniklx' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Compile audit script and install Drive client without secrets
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre682_v51_dex_graphics_readonly.py
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          echo "PRE682_SCRIPT_SYNTAX=PASS"
+      - name: Audit authentic signed V51 DEX and upload ONLY to private Drive
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in GOOGLE_REFRESH_TOKEN GOOGLE_CLIENT_ID GOOGLE_CLIENT_SECRET; do
+            if [ -z "${!name:-}" ]; then echo "PRE682_MISSING_SECRET_NAME=$name"; exit 2; fi
+          done
+          python automation/kaggle/pre682_v51_dex_graphics_readonly.py
+
+# Read-only APK inspection; no upload-artifact, signing material, or patch.
