@@ -1,0 +1,23 @@
+name: NFSMW PRE679 CI runner minimal availability probe
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre679_ci_probe_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre679-ci-runner-probe
+  cancel-in-progress: false
+jobs:
+  environment:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: CI minimal shell test without checkout, secrets or external access
+        shell: bash
+        run: |
+          set -euo pipefail
+          printf 'PRE679_RUNNER_PROBE=PASS\n'
+          uname -m
