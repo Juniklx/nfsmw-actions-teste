@@ -1,0 +1,8 @@
+{
+  "stage": "PRE669",
+  "previous_failed_run": 42842352309,
+  "prior_failure": "header contains vkCmdDraw in comment, overbroad lexical reject",
+  "fix_commit": "eaadc79ab2579a7db9a9b082e82d95b280930222",
+  "expect_no_vulkan_commands": true,
+  "mode": "REAL_ARM64_NOAPK_COMPILE_ONLY"
+}
