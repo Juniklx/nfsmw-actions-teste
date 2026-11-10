@@ -24,7 +24,7 @@ TARGETS={
 }
 PINS={
  "c3_pal":BASE_SHA,
- "vulkan_presenter":"eada548b2f683707a14ab8e6dd2c49b0381ac6542e901413fc94e5801fba74d5",
+ "vulkan_presenter":"68998a1db81e9743197e446a5f8dacbf8d3dbcc2a51e4a7e6dac476b87d88c48",
  "ui_presenter":"e4db870dbeae984f9ef28957dafff6c4758471780fe1ac108b5501ebd341c208",
  "command_processor":"b723f9480c3f4909dcc469d74ad42b154e1c700597cae4050504770700bf0058",
 }
@@ -100,7 +100,7 @@ def main():
             evidence["c3_guard"]={"patch_sha256":sha(patched),
                 "failure_guard_preserved":True,"reversible":True,
                 "origin_of_second_upload":"NOT_PROVEN"}
-            evidence["pacing"]={"vulkan_landmarks_found":True,
+            evidence["pacing"]={"vulkan_landmarks_found":all(any(f["role"]=="vulkan_presenter" and f["landmarks"].get(label,{}).get("count",0)>0 for f in evidence["files"]) for label in ("vkQueuePresentKHR","PaintAndPresentImpl")),
                 "8_25ms_mechanism":"NOT_PROVEN",
                 "physical_frame_timestamps":"NOT_AVAILABLE_IN_STATIC_AUDIT"}
             evidence["status"]="AUDIT_OK_PRE99_ONLY"
