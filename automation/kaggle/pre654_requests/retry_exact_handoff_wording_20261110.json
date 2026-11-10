@@ -1,0 +1,11 @@
+{
+  "stage": "PRE654_CONTEXT_RETRY_2",
+  "failed_runs": [
+    42799401172,
+    42799539592
+  ],
+  "root_cause_second": "Fail-closed text anchor incorrectly expected 'NAO confirmado' but handoff uses 'SEM resultado confirmado'",
+  "guard_corrected_commit": "f5142a19b2fe6082186f76f046402ed49c24ef9d",
+  "expected_canonical_sha256": "6c1e7b5c201b30b63295886e1c0cf4ef29827a6cd69fd6b4241e41c76ff714c1",
+  "no_drive_write_on_failed_runs": true
+}
