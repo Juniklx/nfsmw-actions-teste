@@ -1,0 +1,68 @@
+{
+  "stage": "PRE668_V51_VULKAN_RENDERPASS_QUERY_SCOPE_READONLY",
+  "status": "AUDIT_OK_SOURCE_SCOPE_AND_QUERY_LIFETIME_CANDIDATES_ONLY",
+  "github_run_id": 42840437196,
+  "github_job_id": 129913900676,
+  "github_artifact_id": 13774704353,
+  "github_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42840437196",
+  "drive_zip_id": "1AjpdmISLNYQ-pbsL26LhqTto1041pNq7",
+  "drive_zip_url": "https://drive.google.com/file/d/1AjpdmISLNYQ-pbsL26LhqTto1041pNq7/view",
+  "drive_zip_bytes": 44006,
+  "drive_zip_sha256": "feb982402b62bd7dc77b54fcd26ea18783775cf90c70bbfeeb551828c275a201",
+  "zip_crc_pass": true,
+  "drive_readback_sha_match": true,
+  "authenticated_source": {
+    "renderer_v51_sha256": "9a76c240852b0cc5c6c80ef608cab3d9302c75368b3237440905caec873dbee2",
+    "backend_sha256": "b70497df49440b469018e7ef7a0e007d39ab5df13aa979edc91f37e1d2d42385",
+    "pre99_verified": true,
+    "signed_v51_elf_bitwise_proven": false
+  },
+  "callsite": {
+    "scene_pass_begin": [
+      10153
+    ],
+    "scene_pass_end": [
+      4680
+    ],
+    "normal_and_deferred_draw": [
+      3693,
+      3697,
+      3782,
+      3784
+    ],
+    "backend_c2_timestamp_write": [
+      3690,
+      5165
+    ],
+    "backend_c2_fence_poll": [
+      4927
+    ],
+    "backend_work_cmd_begin": [
+      4830
+    ],
+    "backend_work_cmd_end": [
+      5169
+    ],
+    "backend_query_pool_create_count": 5,
+    "backend_query_pool_destroy_count": 3,
+    "backend_timestamp_valid_bits": [
+      1037
+    ],
+    "backend_timestamp_period": [
+      1038,
+      1046
+    ]
+  },
+  "limits": {
+    "real_device_timestamp_valid_bits_rechecked_for_new_pool": false,
+    "separate_query_pool_created": false,
+    "actual_fence_and_slot_guarantee_tested": false,
+    "shader_gpu_time_measured": false,
+    "native_arm64_compiled": false,
+    "apk_built": false,
+    "fps_gain_proven": false,
+    "no_saves_modified": true,
+    "no_key_access": true
+  },
+  "next": "PRE669 default-OFF reversible bridge and real ARM64 NO APK gate; no real GPU timing or release before complete Vulkan resource safety review."
+}
