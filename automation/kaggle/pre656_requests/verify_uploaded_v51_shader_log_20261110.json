@@ -1,0 +1,19 @@
+{
+  "stage": "PRE656_V51_REAL_GPU_SHADER_PASS_USAGE",
+  "v51_run_id": 42798909503,
+  "app_signed_apk_drive_id": "1H3bUAka0s8f7PR0vi2FYj81Pm7uYc6Ws",
+  "user_log_drive_id": "1u5FBEzB8Oi3xi1EH-iIar3aortJ2zrmd",
+  "user_log_sha256": "649fbe98116b12ade8032b50267e78dcb251832cd8a566fb3d30380d37e325c7",
+  "pre645_inventory_run_id": 42758880375,
+  "strict_constraints": {
+    "read_only": true,
+    "no_apk": true,
+    "no_shader_edits": true,
+    "no_keys": true,
+    "no_pacing_or_c3_patch": true,
+    "no_fps_gain_claims": true
+  },
+  "expected_windows": 14,
+  "expected_draws": 14265243,
+  "expected_invalid": 0
+}
