@@ -1,0 +1,60 @@
+{
+  "stage": "PRE648_V50_SHADER_DRAW_COUNTER",
+  "checkpoint": "TEST_HOST_PASS__ARM64_PENDING",
+  "timestamp_utc": "2026-11-10",
+  "provenance": {
+    "PRE646_run": 42760879332,
+    "PRE647_run": 42762305482,
+    "V50_signed_run": 42748358853,
+    "reference_c3_sha256": "1f890953380502abd0cfc7d140a102bbd7470aff6ca2d37b039a16d9c6ffeb92"
+  },
+  "counter": {
+    "group_by": [
+      "pass_category",
+      "VS_ID",
+      "PS_ID"
+    ],
+    "high_indices_seen": {
+      "VS": 150,
+      "PS": 142
+    },
+    "kVS": 160,
+    "kPS": 160,
+    "kPasses": 16,
+    "memory_bytes": 1638400,
+    "heap_allocations_per_draw": 0,
+    "log_lines_per_draw": 0,
+    "deferred_sky_counted_when_draw_submitted": true,
+    "depth_only_ps_zero": true,
+    "actual_gpu_time_measured": false
+  },
+  "runs": [
+    {
+      "id": 42764127693,
+      "result": "failed transient IncompleteRead during PRE99 transfer before stage",
+      "host_test_pass": true,
+      "archive_drive_id": "1_kkWGNudSC_RjmG7NTftZSmOyeuZaS9i"
+    },
+    {
+      "id": 42764485327,
+      "result_at_checkpoint": "in_progress - superseded due to insufficient shader-ID range"
+    },
+    {
+      "id": 42764731926,
+      "result_at_checkpoint": "pending - corrected 160 index capacities"
+    }
+  ],
+  "signed_v50_unchanged": true,
+  "source_replay_changes_only_temporary": true,
+  "apk_built": false,
+  "real_arm64_gate_approved": false,
+  "fps_gain_proven": false,
+  "source_to_signed_v50_bit_exact": false,
+  "canonical_context": {
+    "drive_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+    "sha256": "57d51a0d1f682d67ffdfb6960a49ab5309d42c40cbb87cfa71080be252be5442",
+    "bytes": 1026112,
+    "backup_file_id": "1kzy3afFfW6kDZBw6QsrUIxHm-MxW-GBC"
+  },
+  "next": "Recheck corrected run 42764731926 and JSON; if approved profile overhead in PRE649, not shader GPU runtime yet."
+}
