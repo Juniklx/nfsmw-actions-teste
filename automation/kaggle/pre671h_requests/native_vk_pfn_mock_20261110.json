@@ -1,0 +1,9 @@
+{
+  "stage": "PRE671H",
+  "header": "automation/kaggle/pre671_vk_separate_timestamp_pool_compile_only.h",
+  "mode": "C++17 Vulkan dispatch function mocks with ASan and UBSan only",
+  "default_off": true,
+  "no_apk": true,
+  "no_signing": true,
+  "no_real_gpu": true
+}
