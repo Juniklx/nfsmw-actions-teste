@@ -1,0 +1,42 @@
+name: NFSMW PRE634 authenticated C3 and Vulkan source audit (no APK)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre634_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre634-readonly-source
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - name: Checkout source-audit scripts
+        uses: actions/checkout@v4
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install read-only Google Drive dependencies
+        run: |
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2
+          python -m py_compile             automation/kaggle/pre104_verify_backup_tar.py             automation/kaggle/pre105_read_settings_source.py             automation/kaggle/pre194_c3_guard_pal_diagnostic_patch.py             automation/kaggle/pre634_c3_vulkan_source_gate.py
+      - name: PRE634 authenticated PRE99 source inspection (no Android build or signing)
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: python automation/kaggle/pre634_c3_vulkan_source_gate.py
+      - name: Upload source-provenance evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre634-readonly-audit-${{ github.run_id }}
+          path: /tmp/nfsmw-pre634-source-audit/PRE634_SOURCE_AUDIT.json
+          if-no-files-found: warn
+          retention-days: 30
