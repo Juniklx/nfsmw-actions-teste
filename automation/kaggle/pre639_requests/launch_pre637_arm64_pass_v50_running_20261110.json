@@ -1,0 +1,13 @@
+{
+  "stage": "PRE639",
+  "intent": "append exact PRE637 verified ARM64 and PRE638 V50 running to canonical Drive context",
+  "expected_original_bytes": 980115,
+  "expected_original_sha256": "7ba28e1c2445fae93505e72ac983f05a270ca61d63f07643f0d49501bb3f3e7b",
+  "pre637_run": 42745476208,
+  "pre638_run": 42748358853,
+  "pre638_apk_status": "NOT_YET_VERIFIED",
+  "backup_before_write": true,
+  "readback_verify": true,
+  "no_game_source_changes": true,
+  "no_signing": true
+}
