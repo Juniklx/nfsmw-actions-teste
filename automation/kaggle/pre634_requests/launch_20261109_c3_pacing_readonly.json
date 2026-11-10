@@ -1,0 +1,12 @@
+{
+  "stage": "PRE634",
+  "intent": "read_only_source_provenance",
+  "provenance": "PRE99_SHA_PINNED_NOT_V49_EXACT",
+  "baseline_log_sha256": "223fcc659f6f8b8e0b744c08a8ef7a912c7e38087573174589e75441884c4428",
+  "target": "C3 texture upload ownership + Vulkan present landmarks",
+  "no_apk": true,
+  "no_signing": true,
+  "no_thermal_overrides": true,
+  "no_game_file_modification": true,
+  "next_action": "audit only and decide single reversible measurement if supported"
+}
