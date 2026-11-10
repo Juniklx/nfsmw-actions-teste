@@ -1,0 +1,60 @@
+name: NFSMW PRE665 V51 authenticated GPU draw emission boundaries READONLY
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre665_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre665-v51-gpu-draw-emission-source
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate script and obtain readonly source restore dependencies
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre665_v51_gpu_draw_emission_boundaries_readonly.py
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests zstandard
+      - name: Rebuild authenticated source recipe in temp and discover draw/timestamp callsites
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre665_v51_gpu_draw_emission_boundaries_readonly.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          x=json.loads(Path("/tmp/nfsmw-pre665/PRE665_V51_DRAW_AND_C2_BOUNDARY_AUDIT.json").read_text())
+          assert x["status"]=="AUDIT_OK_AUTHENTIC_V51_DRAW_AND_C2_SOURCE_ANCHORS"
+          assert x["source"]["v51_instrumented_renderer_sha256"]=="9a76c240852b0cc5c6c80ef608cab3d9302c75368b3237440905caec873dbee2"
+          assert x["source"]["vulkan_backend_sha256"]=="b70497df49440b469018e7ef7a0e007d39ab5df13aa979edc91f37e1d2d42385"
+          assert x["anchors"]["renderer_pre648_count"]["total"]==2
+          assert x["anchors"]["backend_writer_pointer"]["total"]>0
+          assert x["anchors"]["backend_reader_pointer"]["total"]>0
+          assert x["apk_built"] is False and x["arm64_compiled"] is False
+          assert x["per_shader_gpu_time_measured"] is False
+          assert x["vulkan_commands_injected"] is False and x["fps_gain_proven"] is False
+          print("PRE665_AUTHENTIC_DRAW_EMISSION_VULKAN_TIMESTAMP_SOURCE_GATE=PASS")
+          PY
+      - name: Preserve source anchor audit for manual analysis, no APK
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre665-v51-source-boundaries
+          path: |
+            /tmp/nfsmw-pre665/PRE665_V51_DRAW_AND_C2_BOUNDARY_AUDIT.json
+            /tmp/nfsmw-pre665/RELATORIO_PRE665_GPU_DRAW_ANCHORS_READONLY.md
+          if-no-files-found: warn
+          retention-days: 30
