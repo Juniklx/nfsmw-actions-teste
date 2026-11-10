@@ -1,0 +1,90 @@
+name: NFSMW PRE672 Vulkan timestamp multiview/tile/fence default-deny HOST safety
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre672_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre672-v51-vulkan-failclosed-host-only
+  cancel-in-progress: false
+jobs:
+  guard-model:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile PRE672 pure C++17 host guard with sanitizers and strict warnings
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/nfsmw-pre672
+          g++ -std=c++17 -O1 -g -Wall -Wextra -Werror -pedantic \
+            -fsanitize=address,undefined -fno-omit-frame-pointer \
+            automation/kaggle/pre672_gpu_timestamp_capability_failclosed_host_test.cpp \
+            -Iautomation/kaggle -o /tmp/nfsmw-pre672/test
+          ASAN_OPTIONS=detect_leaks=1 /tmp/nfsmw-pre672/test | tee /tmp/nfsmw-pre672/host.log
+      - name: Verify simulated safety assertions and archive source-pinned report
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import os,hashlib,json
+          from pathlib import Path
+          base=Path("/tmp/nfsmw-pre672")
+          lines=(base/"host.log").read_text().splitlines()
+          observed=dict(x.split("=",1) for x in lines if x.startswith("PRE672_") and "=" in x)
+          expected={
+             "PRE672_MULTIVIEW_DEFAULT_DENY":"PASS",
+             "PRE672_PER_TILE_UNKNOWN_OR_ENABLED_DENY":"PASS",
+             "PRE672_TIMESTAMP_VALID_BITS_AND_PERIOD_GUARDS":"PASS",
+             "PRE672_RESET_REQUIRES_OUTSIDE_RENDERPASS":"PASS",
+             "PRE672_DEFERRED_SKY_BLOCKED":"PASS",
+             "PRE672_UNBALANCED_TIMESTAMP_PAIR_BLOCKED":"PASS",
+             "PRE672_BOUNDED_QUERY_INDICES":"PASS",
+             "PRE672_FENCE_AND_SUBMIT_ERRORS_FAIL_CLOSED":"PASS",
+             "PRE672_QUERY_AVAILABILITY_REQUIRED":"PASS",
+             "PRE672_HOST_MODEL_ONLY":"true",
+             "PRE672_REAL_VULKAN_POOL_CREATED":"false",
+             "PRE672_REAL_DEVICE_MEASURED":"false",
+             "PRE672_ARM64_COMPILED":"false",
+             "PRE672_APK_BUILT":"false",
+             "PRE672_FPS_GAIN_PROVEN":"false",
+          }
+          for k,v in expected.items():assert observed.get(k)==v,(k,v,observed.get(k))
+          files=["automation/kaggle/pre672_gpu_timestamp_capability_failclosed_host.h",
+                 "automation/kaggle/pre672_gpu_timestamp_capability_failclosed_host_test.cpp"]
+          report={
+             "stage":"PRE672_V51_VULKAN_TIMESTAMP_CAPABILITY_RENDERPASS_FENCE_HOST_GUARD",
+             "status":"PASS_HOST_VULKAN_CAPABILITY_AND_LIFECYCLE_DENY_BY_DEFAULT",
+             "github_run_id":int(os.environ["GITHUB_RUN_ID"]),
+             "git_revision":os.environ["GITHUB_SHA"],
+             "source_sha256":{p:hashlib.sha256(Path(p).read_bytes()).hexdigest() for p in files},
+             "mocked_failclosed_gates":expected,
+             "host_asan_ubsan_pass":True,
+             "real_vk_query_pool_created":False,
+             "runtime_query_integration":False,
+             "real_gpu_timestamp_support_measured":False,
+             "multiview_runtime_status_checked":False,
+             "per_tile_runtime_status_checked":False,
+             "native_arm64_compiled":False,
+             "apk_built":False,
+             "fps_gain_proven":False,
+             "next":"PRE672B pin and backup context, then PRE673 run native ARM64 compile-only with guard coupled to inactive adapter; do not enable until actual driver caps+safe fences checked"
+          }
+          (base/"PRE672_V51_HOST_GUARD_REPORT.json").write_text(json.dumps(report,indent=2)+"\n")
+          print("PRE672_STATUS="+report["status"])
+          print("PRE672_POTENTIAL_GPU_TIMESTAMPS_ACTIVATED=false")
+          PY
+      - name: Archive noAPK host-only evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre672-vulkan-defaultdeny-host-${{ github.run_id }}
+          path: |
+            /tmp/nfsmw-pre672/host.log
+            /tmp/nfsmw-pre672/PRE672_V51_HOST_GUARD_REPORT.json
+          if-no-files-found: warn
+          retention-days: 30
