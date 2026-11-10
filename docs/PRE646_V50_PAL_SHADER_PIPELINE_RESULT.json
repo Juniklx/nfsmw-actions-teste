@@ -1,0 +1,77 @@
+{
+  "stage": "PRE646_V50_PAL_SPIRV_PIPELINE_STATIC_MAP",
+  "status": "AUDIT_OK",
+  "run": {
+    "id": 42760879332,
+    "url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42760879332",
+    "conclusion": "success",
+    "job_id": 129646006467,
+    "artifact_id": 13737846462
+  },
+  "source": {
+    "apk_bytes": 47104881,
+    "apk_sha256": "7c49f6c95af5bf20b81c2df0622ce236532edadc70d4619e12021e87b74df4fe",
+    "apk_run_id": 42748358853,
+    "nfsmw_log_bytes": 972111,
+    "nfsmw_log_sha256": "4fea4a354badd3babd46cebda56482b0c33eeb66aa6ec2fa85bc4cde86f05cce",
+    "historical_source_zip_sha256": "0ab7c949e62d377f444fb7b2489bc66d6387bd49b1798f184c4a953314064231",
+    "historical_source_matches_exact_v50": false
+  },
+  "measured": {
+    "logged_shader_library": {
+      "modules": 152,
+      "vertex": 63,
+      "fragment": 89
+    },
+    "pipeline_creation_records": 64,
+    "pal_vulkan_pairs_stage_compatible": 64,
+    "usa_vulkan_pairs_stage_compatible": 7,
+    "distinct_vertex_ids": 20,
+    "distinct_fragment_ids": 27,
+    "nearby_draw_diag_pairs": 58
+  },
+  "gates": {
+    "apk_sha_pass": true,
+    "nfsp_sha_pass": true,
+    "nfsp_xxh3_body_pass": true,
+    "nfsp_xxh3_entry_pass": true,
+    "pipeline_vs_ps_stage_gate_pass": true,
+    "ci_sanitized_first64_replay_pass": true,
+    "per_shader_draw_frequency_measured": false,
+    "per_shader_gpu_time_measured": false,
+    "shader_modified": false,
+    "source_modified": false,
+    "apk_created": false,
+    "performance_gain_proven": false
+  },
+  "artifacts": [
+    {
+      "kind": "CI sanitized report zip",
+      "drive_id": "1eH2DgL1Ewz9xyulkAuK1yDVE6kDAhFBK",
+      "bytes": 3465,
+      "sha256": "b2e29dd85d347fcb69dea32f5e8b4291ee8d81a770289fba40f1e6391be85a47"
+    },
+    {
+      "kind": "extended local CSV with nearby C6 draw diagnostic matches",
+      "drive_id": "1bLhmUa3VCb-H_xkfzL4UJYliqxKBOieT"
+    },
+    {
+      "kind": "extended local report",
+      "drive_id": "1EZgyWLXoN8AS79rLQBqK564eF1ZOqc52"
+    }
+  ],
+  "next_gate": "PRE647 authenticate exact V50 engine source and prepare guarded per shader/per pass runtime usage profiling without optimizing or packaging unverified APK",
+  "roadmap": {
+    "priority_1": "GPU shaders",
+    "priority_2": "CPU opcodes 0x22 and 0x3C",
+    "pacing_suspended": true,
+    "c3_pre643_suspended": true
+  },
+  "canonical_drive_context": {
+    "id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+    "bytes": 1016449,
+    "sha256": "1b9d3cf580ff18375dacdd5baf99bf5f891d47229076e3576351fe91eaefc39f",
+    "backup_id": "1sfnseqRrZ_ko0__HvxmQyKWWv82x6vfV"
+  },
+  "limitation": "Only early 64 pipeline creations. No per-shader GPU timing, draw frequency, full pipeline to pass binding, or authenticated V50 source equivalence. Source ZIP is historical."
+}
