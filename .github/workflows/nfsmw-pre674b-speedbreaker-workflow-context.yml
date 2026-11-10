@@ -1,0 +1,55 @@
+name: NFSMW PRE674B SpeedBreaker workflow canonical Drive backup
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre674b_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre674b-speedbreaker-flow-context
+  cancel-in-progress: false
+jobs:
+  sync-context:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Python syntax and Google Drive library
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre674b_sync_speedbreaker_workflow_context.py
+          python automation/kaggle/pre674_speedbreaker_workflow_policy_gate.py --self-test
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+      - name: Preserve context backup and append approved ideas workflow and PRE673 evidence
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre674b_sync_speedbreaker_workflow_context.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          j=json.loads(Path('/tmp/nfsmw-pre674b/result.json').read_text())
+          assert j['status'] in ('AUDIT_OK','ALREADY_APPLIED_VERIFIED'),j.get('error_summary')
+          assert j['readback_identical'] is True
+          assert j['apk_built'] is False
+          assert j['external_code_imported'] is False
+          assert j['fps_gain_proven'] is False
+          print('PRE674B_SPEEDBREAKER_WORKFLOW_CANONICAL_CONTEXT=PASS')
+          PY
+      - name: Archive canonical Drive context update evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre674b-speedbreaker-flow-context-${{ github.run_id }}
+          path: /tmp/nfsmw-pre674b/result.json
+          if-no-files-found: warn
+          retention-days: 30
