@@ -1,0 +1,43 @@
+name: NFSMW PRE650 PRE648 PRE649 canonical Drive context sync
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre650_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre650-gpu-canonical-context
+  cancel-in-progress: false
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate Python and install minimum Drive read and write requirements
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre650_sync_pre648_pre649_gpu_context.py
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests
+      - name: Append verified PRE648 PRE649 evidence after exact expected canonical hash and independent backup
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre650_sync_pre648_pre649_gpu_context.py --run-id "$GITHUB_RUN_ID"
+      - name: Save sanitized Drive readback proof only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre650-canonical-gpu-checkpoint-${{ github.run_id }}
+          path: /tmp/nfsmw-pre650/context_result.json
+          if-no-files-found: warn
+          retention-days: 30
