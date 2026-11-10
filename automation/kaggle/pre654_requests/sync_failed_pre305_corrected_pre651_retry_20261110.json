@@ -1,0 +1,23 @@
+{
+  "stage": "PRE654_CANONICAL_CONTEXT_V51_RETRY",
+  "previous_context": {
+    "sha256": "6c1e7b5c201b30b63295886e1c0cf4ef29827a6cd69fd6b4241e41c76ff714c1",
+    "bytes": 1035702,
+    "drive_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB"
+  },
+  "verified": {
+    "first_pre652_run": 42797492310,
+    "result": "AUDIT_OK_NO_APK",
+    "revised_pre651_run": 42798605525,
+    "revised_pre651_zip_drive": "17doJ3BNHwxHeClS-LpqvBVcny-sfwQVN"
+  },
+  "pending": {
+    "pre652_retry_run": 42798909503,
+    "apk_signed_or_tested": false
+  },
+  "policy": {
+    "append_only": true,
+    "backup_first": true,
+    "no_release_claim": true
+  }
+}
