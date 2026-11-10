@@ -67,7 +67,7 @@ jobs:
           p=Path("/tmp/nfsmw-pre648/PRE648_V50_SHADER_COUNTER_ARM64_NOAPK.json")
           j=json.loads(p.read_text())
           assert j["status"]=="AUDIT_OK",j.get("error_summary")
-          assert j["evidence"]["pre648_counter_fixed_size_bytes"]==1048576
+          assert j["evidence"]["pre648_counter_fixed_size_bytes"]==1638400
           assert j["evidence"]["pre648_source_exact_reverse_verified"] is True
           assert j["evidence"]["pre648_marker_linked_in_real_arm64_elf"] is True
           assert j["apk_created"] is False and j["signed"] is False
