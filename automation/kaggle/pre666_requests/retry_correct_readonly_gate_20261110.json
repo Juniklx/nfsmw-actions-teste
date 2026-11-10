@@ -1,0 +1,7 @@
+{
+  "stage": "PRE666",
+  "retry_after_failed_run": 42838073582,
+  "fix_commit": "dffeb9a4db4caf6bd383a2ad46f7c5e8ff01b93b",
+  "failure": "inverted boolean assertion in workflow only, no compilation",
+  "kind": "HOST_ONLY_NO_APK"
+}
