@@ -1,0 +1,125 @@
+{
+  "stage": "PRE658_V51_PAL_RENDER_PASS_CATEGORY_AND_C2_GPU_TIME",
+  "status": "AUDIT_OK_READONLY_SOURCE_AND_REAL_C2",
+  "github_run_id": 42815591562,
+  "github_job_id": 129827743497,
+  "github_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42815591562",
+  "github_artifact_id": 13764545634,
+  "report_archive_drive_id": "1TmD89Ye5ntL9O5CMXFFroiEU_Wa0gPDk",
+  "report_archive_url": "https://drive.google.com/file/d/1TmD89Ye5ntL9O5CMXFFroiEU_Wa0gPDk/view",
+  "report_archive_sha256": "fba3ab1dd3368b4aa105fe02d34faa562518474e2d38b87bfed474674021d88d",
+  "report_json_sha256": "14a54de3855f58413e30302c1aa8cf619ef95c3d9eb511d818d5ff9ca1c8b787",
+  "report_markdown_sha256": "3374ea374d12d6d394cb1073bd112ec79aa12fdf9b2797393601eab825993187",
+  "report_zip_crc_pass": true,
+  "base_source": {
+    "source_run": 42762305482,
+    "source_recipe": "PRE99→PRE431→PRE638",
+    "stage_source_sha256": "1f890953380502abd0cfc7d140a102bbd7470aff6ca2d37b039a16d9c6ffeb92",
+    "function": "CategoriaDeDestino",
+    "function_source_line": 1127,
+    "function_sha256": "ccdaf2ddacbcc21cd421db935f2bc9cca7073b6c052bd2483d8072e8191b5f1e",
+    "numeric_constants_defined_in": "nativo/app/src/nfsmw_nativo_dibujos.h",
+    "enum_source_sha256": "83733fcf583e12a4aa27f0ea8bebccf75a2e231c95e9467c468fc349df48be59"
+  },
+  "runtime_device_log": {
+    "PRE656_run_id": 42813194428,
+    "original_log_drive_id": "1u5FBEzB8Oi3xi1EH-iIar3aortJ2zrmd",
+    "sha256": "649fbe98116b12ade8032b50267e78dcb251832cd8a566fb3d30380d37e325c7",
+    "c2_intervals": 7,
+    "draws": 14265243
+  },
+  "categories": {
+    "p1": {
+      "name": "kGpuSombras",
+      "description": "depth-only no color, pitch >=1600"
+    },
+    "p2": {
+      "name": "kGpuEscena",
+      "description": "pitch >=1280 with depth, except depth-only shadow"
+    },
+    "p3": {
+      "name": "kGpuReflejo",
+      "description": "pitch 640 through 1279"
+    },
+    "p4": {
+      "name": "kGpu320",
+      "description": "pitch 320 through 639, cube/blur group"
+    },
+    "p5": {
+      "name": "kGpuMenores",
+      "description": "pitch below 320"
+    },
+    "p8": {
+      "name": "kGpuEscenaSinProfundidad",
+      "description": "pitch >=1280 without depth"
+    }
+  },
+  "c2_gpu_ms_per_swap_mean_unweighted_7_intervals": {
+    "shadow": 0.54429,
+    "scene": 2.64143,
+    "reflection": 0.65714,
+    "at_320": 1.10714,
+    "minor": 0.12143,
+    "copies": 1.94571,
+    "clear": 0.57571,
+    "scene_no_depth": 0.72714,
+    "asynchronous_gap": 8.41571
+  },
+  "lower_bound_top_shader_pairs": [
+    {
+      "p": 2,
+      "vs": 62,
+      "ps": 58,
+      "draws": 2186797,
+      "type": "scene"
+    },
+    {
+      "p": 1,
+      "vs": 43,
+      "ps": 37,
+      "draws": 1934821,
+      "type": "shadow"
+    },
+    {
+      "p": 4,
+      "vs": 19,
+      "ps": 107,
+      "draws": 1177381,
+      "type": "320 cube/blur"
+    },
+    {
+      "p": 1,
+      "vs": 43,
+      "ps": 0,
+      "draws": 1163481,
+      "type": "shadow depth-only"
+    },
+    {
+      "p": 4,
+      "vs": 62,
+      "ps": 58,
+      "draws": 820092,
+      "type": "320 cube/blur"
+    },
+    {
+      "p": 3,
+      "vs": 6,
+      "ps": 60,
+      "draws": 736923,
+      "type": "reflection"
+    }
+  ],
+  "boundary": {
+    "shader_counts_censored_top12_each_window": true,
+    "draws_not_fragments": true,
+    "subshader_gpu_duration_unknown": true,
+    "compile_runtime_elf_source_identity_unproven": true,
+    "fps_gain_unproven": true,
+    "apk_built": false,
+    "signing_material_accessed": false,
+    "shaders_modified": false,
+    "thermal_unmodified": true,
+    "c3_investigation_paused": true
+  },
+  "next": "PRE660 read-only audit actual Vulkan timestamp query pool and MarcarGpu path to determine valid, low-overhead shader targeted GPU cost diagnostics before any V52 plan"
+}
