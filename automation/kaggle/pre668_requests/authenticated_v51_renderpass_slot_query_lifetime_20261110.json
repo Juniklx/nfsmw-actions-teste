@@ -1,0 +1,11 @@
+{
+  "stage": "PRE668",
+  "prior_verified_run": 42838898438,
+  "baseline_version": 51,
+  "source_hashes": {
+    "renderer": "9a76c240852b0cc5c6c80ef608cab3d9302c75368b3237440905caec873dbee2",
+    "backend": "b70497df49440b469018e7ef7a0e007d39ab5df13aa979edc91f37e1d2d42385"
+  },
+  "scope": "READONLY_NO_APK_NO_VULKAN_INJECTION",
+  "risk_review": "timestamp support, renderpass scope, workload slot and fence synchronization"
+}
