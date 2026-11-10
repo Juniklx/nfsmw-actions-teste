@@ -1,0 +1,9 @@
+PRE681_AUTORUN_REQUEST=2026-11-10-01
+TARGET_WORKFLOW=nfsmw-pre681-v51-graphics-readonly.yml
+MODE=READONLY_ARCHIVED_V51_APK_SOURCE_PRE656_LOG
+NO_APK_PATCH_OR_BUILD=true
+NO_PUBLIC_ARTIFACT=true
+NO_SIGNING_SECRETS=true
+PRIVATE_DRIVE_OUTPUT=06_Logs_e_Medicoes
+
+This file contains no credentials, game assets, or private logs.
