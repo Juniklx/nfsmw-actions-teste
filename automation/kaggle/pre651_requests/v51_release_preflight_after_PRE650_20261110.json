@@ -1,0 +1,21 @@
+{
+  "stage": "PRE651_V51_GPU_RELEASE_PREFLIGHT_NOAPK",
+  "approved_previous": {
+    "pre638_run": 42748358853,
+    "pre648_run": 42764731926,
+    "pre649_run": 42794598045,
+    "pre650_run": 42795428633
+  },
+  "policy": {
+    "version_code": 51,
+    "package_id": "io.github.nfsmwrecomp",
+    "permanent_cert_sha256": "1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b",
+    "no_apk": true,
+    "no_key_access": true,
+    "graphics_untouched": true,
+    "shader_spirv_untouched": true,
+    "save_untouched": true,
+    "thermal_untouched": true
+  },
+  "expected": "V51 candidate recipe static and sanitized counter preflight before optional real release"
+}
