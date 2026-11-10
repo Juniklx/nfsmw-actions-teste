@@ -1,0 +1,32 @@
+{
+  "stage": "PRE671H_V51_NATIVE_VULKAN_DISPATCH_HOST_MOCK_VERIFIED",
+  "status": "PASS_HOST_VULKAN_DISPATCH_MOCKS_ONLY",
+  "github_run_id": 42854074303,
+  "github_job_id": 129962214503,
+  "github_artifact_id": 13781597878,
+  "github_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42854074303",
+  "drive_zip_id": "1CiQiHjPDSRQTxYwcFWPxaqLSw3awxoW_",
+  "drive_zip_url": "https://drive.google.com/file/d/1CiQiHjPDSRQTxYwcFWPxaqLSw3awxoW_/view",
+  "zip_bytes": 1137,
+  "zip_sha256": "eb7477a057b4140ed05e6247c673ca1acaa3d89c8cb574643ab69d1ac68873b2",
+  "zip_crc_pass": true,
+  "drive_readback_sha_match": true,
+  "source_sha256": {
+    "automation/kaggle/pre671_vk_separate_timestamp_pool_compile_only.h": "8f371e041303eab3a83592ce0440cf245b843b04b270bb5e072eab9a54fb1584",
+    "automation/kaggle/pre671h_vulkan_pfn_mock_host_test.cpp": "c0af10f6cf3d631dd29e1d77b8678bd8112c174eae252870943b65314bb3c2e9"
+  },
+  "limits": {
+    "host_compiled_and_sanitizers_passed": true,
+    "real_vk_instance_created": false,
+    "real_device_timing": false,
+    "native_arm64_compiled_by_this_gate": false,
+    "vulkan_multiview_guard_verified": false,
+    "vulkan_per_tile_mode_verified": false,
+    "real_device_timestamp_valid_bits": false,
+    "query_read_after_real_fence": false,
+    "apk_built": false,
+    "signing_accessed": false,
+    "fps_gain_proven": false
+  },
+  "next": "PRE671 real ARM64 gate pending run 42853007076; PRE672 must guard multiview and per-tile before enabling runtime instrumentation"
+}
