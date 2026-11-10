@@ -1,0 +1,43 @@
+name: NFSMW PRE655 V51 signed APK verified canonical Drive context
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre655_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre655-v51-context-append-only
+  cancel-in-progress: false
+jobs:
+  context:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify script and install only Google Drive API runtime
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre655_sync_v51_signed_release_context.py
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests
+      - name: Backup original canonical context and append verified signed V51 PRE652 release
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre655_sync_v51_signed_release_context.py --run-id "$GITHUB_RUN_ID"
+      - name: Archive sanitized append and readback audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre655-v51-context-${{ github.run_id }}
+          path: /tmp/nfsmw-pre655/context_result.json
+          if-no-files-found: warn
+          retention-days: 30
