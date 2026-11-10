@@ -1,0 +1,11 @@
+{
+  "stage": "PRE671B",
+  "native_run": 42853007076,
+  "host_run": 42854074303,
+  "canonical_base_sha256": "47478c1b3ef460490850ab9867246fa06735e462d61961f07a090ce458bd6184",
+  "native_evidence": "docs/PRE671_V51_NATIVE_VULKAN_ARM64_COMPILE_GATE_VERIFIED.json",
+  "host_evidence": "docs/PRE671H_V51_VULKAN_PFN_TYPED_HOST_MOCK_VERIFIED.json",
+  "preserve_history": true,
+  "backup_before_append": true,
+  "expected_no_apk": true
+}
