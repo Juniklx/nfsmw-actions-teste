@@ -1,0 +1,63 @@
+name: NFSMW PRE668 V51 Vulkan renderpass/fence/query pool native source READONLY
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre668_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre668-v51-source-scope
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify Python syntax and install source restore dependencies
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre668_v51_vulkan_renderpass_fence_readonly.py
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests zstandard
+      - name: Restore authenticated source in temporary tree and verify real Vulkan sites
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre668_v51_vulkan_renderpass_fence_readonly.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("/tmp/nfsmw-pre668/PRE668_V51_RENDERPASS_AND_QUERYPOOL_REVIEW.json")
+          x=json.loads(p.read_text())
+          assert x["status"]=="AUDIT_OK_SOURCE_SCOPE_AND_QUERY_LIFETIME_CANDIDATES_ONLY"
+          assert x["authenticated_source"]["renderer_v51_with_pre648_sha256"]=="9a76c240852b0cc5c6c80ef608cab3d9302c75368b3237440905caec873dbee2"
+          assert x["authenticated_source"]["backend_v51_sha256"]=="b70497df49440b469018e7ef7a0e007d39ab5df13aa979edc91f37e1d2d42385"
+          assert x["callsite_evidence"]["renderer_open_pass"]["lines"]==[10153]
+          assert x["callsite_evidence"]["renderer_close_pass"]["lines"]==[4680]
+          assert x["callsite_evidence"]["backend_vk_timestamp_write"]["lines"]==[3690,5165]
+          assert x["technical_decisions"]["extra_query_reset_before_begin_renderpass_required"] is True
+          assert x["vulkan_commands_injected"] is False
+          assert x["actual_fence_guarantees_tested"] is False
+          assert x["arm64_compiled"] is False and x["apk_built"] is False
+          assert x["actual_shader_duration_measured"] is False and x["fps_gain_proven"] is False
+          print("PRE668_AUTHENTIC_NATIVE_VULKAN_SOURCE_SCOPE_GATE=PASS")
+          PY
+      - name: Preserve source risk and exact callsite excerpts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre668-v51-renderpass-query-scope
+          path: |
+            /tmp/nfsmw-pre668/PRE668_V51_RENDERPASS_AND_QUERYPOOL_REVIEW.json
+            /tmp/nfsmw-pre668/PRE668_V51_VULKAN_SOURCE_SCOPE_REVIEW.md
+          if-no-files-found: warn
+          retention-days: 30
