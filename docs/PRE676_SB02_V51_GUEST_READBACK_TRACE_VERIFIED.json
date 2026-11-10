@@ -1,0 +1,71 @@
+{
+  "stage": "PRE676_SB02_V51_GUEST_COPY_READBACK_SOURCE_TRACE",
+  "status": "AUDIT_OK_AUTHENTIC_V51_COPY_READBACK_SOURCE_TRACE_ONLY",
+  "date": "2026-11-10",
+  "github": {
+    "repo": "Juniklx/nfsmw-actions-teste",
+    "run_id": 42871368565,
+    "job_id": 130023187562,
+    "artifact_id": 13789656935,
+    "url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42871368565"
+  },
+  "drive": {
+    "file_id": "12ckHtjYME6_g2PuAHH-S5ftFYBhJh4s5",
+    "url": "https://drive.google.com/file/d/12ckHtjYME6_g2PuAHH-S5ftFYBhJh4s5/view",
+    "bytes": 71801,
+    "sha256": "5eb8bceae7f048e05bf9a26461aa4ddd0567374819b1be7915d8505f59cbb49d",
+    "zip_crc_ok": true,
+    "readback_sha_match": true
+  },
+  "source": {
+    "recipe": "PRE99->PRE431->PRE638->PRE648 temporary V51",
+    "renderer_v51_sha256": "9a76c240852b0cc5c6c80ef608cab3d9302c75368b3237440905caec873dbee2",
+    "backend_v51_sha256": "b70497df49440b469018e7ef7a0e007d39ab5df13aa979edc91f37e1d2d42385",
+    "v51_signed_elf_bitwise_equivalence_proven": false
+  },
+  "sites": {
+    "renderer_9770": "vkCmdCopyBufferToImage upload host buffer->texture",
+    "backend_5543": "vkCmdCopyImageToBuffer with PNG diagnostic path (Volcar)",
+    "backend_5667": "vkCmdCopyImageToBuffer resolved color texture->readback buffer queued with rb_copy_dest_base/pitch"
+  },
+  "backend_queue": {
+    "queued_readback_sites_count": 6,
+    "slot_submission_lines": [
+      5193,
+      5194,
+      5195
+    ],
+    "guest_write_function_line": 5682,
+    "guest_write_call_line": 5717,
+    "host_invalidate_line": 5715,
+    "guest_memory_write_symbol": "EscribirTexelsEnGuest",
+    "completion_wait_line": 4939,
+    "readback_queue_runtime_frequency_measured": false
+  },
+  "deferred_depth_anchors": {
+    "source_lines": [
+      1409,
+      1419,
+      1420,
+      1421,
+      1425,
+      1426
+    ],
+    "function": "CopiarProfundidad",
+    "pending_map": "pendientes_",
+    "existing_deferred_copy_indicated_by_source": true,
+    "runtime_equivalence_proven": false
+  },
+  "limits": {
+    "no_apk": true,
+    "no_native_compile": true,
+    "no_source_edits": true,
+    "no_shader_edits": true,
+    "no_upstream_copy": true,
+    "no_real_vulkan_test": true,
+    "no_fps_proof": true,
+    "no_shadow_deferral_implemented": true,
+    "no_safe_to_defer_conclusion": true
+  },
+  "next": "PRE677 SB02: trace authenticated V51 CopiarProfundidad/pendientes_ deferred implementation, RecogerEnlaces/guest readback and image lifetime; no new optimization without real equivalence tests."
+}
