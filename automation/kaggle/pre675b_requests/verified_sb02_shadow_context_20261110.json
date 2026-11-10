@@ -1,0 +1,11 @@
+{
+  "stage": "PRE675B",
+  "run": 42869180941,
+  "artifact": 13788497145,
+  "drive_zip_id": "14D-uUcpZ6vdPPSMOtCYQOv2eGvuVxx_3",
+  "backup_first": true,
+  "canonical_base_sha256": "7ac311c4af42aaecca73a2d379a7a0bfd5ea98e94d6af067aec844054fe4c790",
+  "no_apk": true,
+  "no_upstream_code_import": true,
+  "readback_required": true
+}
