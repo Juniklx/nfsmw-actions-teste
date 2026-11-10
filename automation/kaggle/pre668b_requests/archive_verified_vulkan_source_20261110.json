@@ -1,0 +1,8 @@
+{
+  "stage": "PRE668B",
+  "prior_run": 42840437196,
+  "report_zip_drive_file_id": "1AjpdmISLNYQ-pbsL26LhqTto1041pNq7",
+  "report_zip_sha256": "feb982402b62bd7dc77b54fcd26ea18783775cf90c70bbfeeb551828c275a201",
+  "canonical_context_action": "BACKUP_THEN_APPEND_WITH_READBACK",
+  "mode": "NO_APK_NO_VULKAN_PATCH"
+}
