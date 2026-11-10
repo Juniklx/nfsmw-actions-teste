@@ -1,0 +1,11 @@
+{
+  "stage": "PRE664",
+  "scope": "host-only bounded contiguous GPU shader burst sampler design test",
+  "previous": "PRE663 canonical verified PRE662",
+  "v51_sha256": "207934b667d7023bdbd7334bd448ff0ba1bcf6af5aedf5964f92ef146d127c5b",
+  "target": "p2 VS62 PS58",
+  "new_apk": false,
+  "signing_access": false,
+  "user_saves_changed": false,
+  "real_gpu_time_claim": false
+}
