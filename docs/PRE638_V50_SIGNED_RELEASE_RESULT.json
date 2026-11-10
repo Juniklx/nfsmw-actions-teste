@@ -1,0 +1,54 @@
+{
+  "stage": "PRE638_V50_C3_TWO_REQUEST_DIAGNOSTIC_SIGNED_RELEASE",
+  "status": "PRE638_V50_SIGNED_DIAGNOSTIC_VERIFIED",
+  "run_id": "42748358853",
+  "run_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42748358853",
+  "run_conclusion": "success",
+  "artifact_id": 13733586196,
+  "artifact_drive_url": "https://drive.google.com/file/d/15XcVDfd35JK5TfVCl9YjkwCo3UE9coXX/view",
+  "app": {
+    "name": "NFSMW_V50_PRE638_C3_TWO_REQUEST_DIAGNOSTIC.apk",
+    "drive_file_id": "1mxqUtzhAWDc6zeJt5cwJrhsWzfOnNucC",
+    "drive_url": "https://drive.google.com/file/d/1mxqUtzhAWDc6zeJt5cwJrhsWzfOnNucC/view",
+    "parent_folder_id": "1ac3fI_ahnp3yp7kU4JvsgDdsKkpy5tBh",
+    "size_bytes": 47104881,
+    "sha256": "7c49f6c95af5bf20b81c2df0622ce236532edadc70d4619e12021e87b74df4fe",
+    "md5": "9d4754757fed72fa62b4cfce871af6a1",
+    "package_id": "io.github.nfsmwrecomp",
+    "version_code": 50,
+    "certificate_sha256": "1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b",
+    "native_libmain_sha256": "0032ea2058f0400a1c06a948fa1c649cea45e941000bb787c10c8e350924bb4a",
+    "native_libmain_size_bytes": 41770704
+  },
+  "gates": {
+    "gradle_release_succeeded": true,
+    "signed_apk_verified": true,
+    "permanent_certificate_verified": true,
+    "apk_v2_certificate_verified": true,
+    "apk_zip_crc_verified": true,
+    "arm64_markers_verified": true,
+    "all_four_bmw_callbacks_exported_once": true,
+    "pal_usa_shaders_preserved": true,
+    "pre398_nitro_marker_present": true,
+    "pre194_c3_guard_present": true,
+    "pre635_trace_marker_present": true,
+    "new_bmw_tuning_packages_created": false,
+    "c3_fallback_bypass": false,
+    "drive_upload_success": true,
+    "drive_upload_remote_md5_matches": true
+  },
+  "runtime": {
+    "v50_installed_on_phone": false,
+    "v50_gameplay_tested": false,
+    "phone_controller_tested": false,
+    "c3_fixed": false,
+    "fps_gain_verified": false
+  },
+  "provenance": "Compiled Github Actions log, real raw JSON and APK inside authenticated GitHub artifact, Drive file metadata, independent SHA256/CRC checks in assistant workspace, November 10 2026.",
+  "security": {
+    "new_signing_key_created": false,
+    "signature_changed": false,
+    "game_saves_modified": false,
+    "thermal_override": false
+  }
+}
