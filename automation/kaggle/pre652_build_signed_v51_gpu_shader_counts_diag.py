@@ -53,22 +53,36 @@ def require_pre651():
     return x
 
 def stage_v51(root:Path)->dict:
-    staged=shader.stage_source(root)
+    """PRE652 repair: production PRE305 has NOT staged PRE292 yet.
+    Run the *normal signed V50 release chain* exactly once; only then apply
+    the SHA-pinned PRE648 GPU patch in this temporary root.
+    The PRE648 no-APK adapter stage_source assumes a pre-replayed V46 tree
+    and suppresses PRE292 registration; using it here was the PRE652 run-1 error.
+    """
+    staged=v50.stage_v50(root)
     source=root/shader.SOURCE
     header=root/shader.DEST_HEADER
-    if not (source.is_file() and header.is_file()
-        and digest(source.read_bytes())==SOURCE_SHA
-        and digest(header.read_bytes())==HEADER_SHA
-        and staged.get("pre648_pre638_replay_verified") is True
-        and staged.get("pre638_c3_fallback_bypass") is False
-        and staged.get("pre638_v49_callbacks_nitro_preserved") is True
-        and staged.get("pre638_save_modified") is False):
-        raise ValueError("PRE652 source stage diverged from PRE648 real ARM64 tested diagnostics")
-    if (not shader.EVIDENCE.get("pre648_source_exact_reverse_verified")
-       or shader.EVIDENCE.get("pre648_counter_fixed_size_bytes")!=1638400):
-        raise ValueError("PRE652 SHA-pinned diagnostic no longer reversible/bounded")
+    if (not source.is_file()
+        or digest(source.read_bytes())!=v50.PIN_PRE635
+        or staged.get("pre638_c3_fallback_bypass") is not False
+        or staged.get("pre638_v49_callbacks_nitro_preserved") is not True
+        or staged.get("pre638_save_modified") is not False):
+        raise ValueError("PRE652 normal V50 production source chain not authenticated")
+    if header.exists():
+        raise ValueError("PRE652 temporary shader header already exists - refuse double apply")
+    original=source.read_bytes()
+    candidate=shader.patch_bytes(original)  # exact anchor and reversal checks
+    header_bytes=shader.HEADER.read_bytes()
+    if digest(candidate)!=SOURCE_SHA or digest(header_bytes)!=HEADER_SHA:
+        raise ValueError("PRE652 counter patch changed versus real PRE648 ARM64 link")
+    source.write_bytes(candidate)
+    header.parent.mkdir(parents=True,exist_ok=True)
+    header.write_bytes(header_bytes)
+    if digest(source.read_bytes())!=SOURCE_SHA or digest(header.read_bytes())!=HEADER_SHA:
+        raise ValueError("PRE652 temporary source patch readback mismatch")
     return {**staged,
        "pre652_version_code":VERSION,
+       "pre652_pre638_production_recipe_staged_once":True,
        "pre652_diagnostic_arm64_source_sha256":SOURCE_SHA,
        "pre652_counter_header_sha256":HEADER_SHA,
        "pre652_only_frequency_diagnostics":True,
