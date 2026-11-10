@@ -43,7 +43,7 @@ def evidence():
        and 3500<len(content)<12000
        and b"42798605525" in content
        and b"42798909503" in content
-       and b"NAO confirmado" in content
+       and b"SEM resultado confirmado" in content
        and b"17doJ3BNHwxHeClS-LpqvBVcny-sfwQVN" in content):
         raise ValueError("PRE654 handoff incomplete or improperly claims a signed V51")
     return b"\n\n---\n\n"+content
