@@ -1,0 +1,8 @@
+{
+  "stage": "PRE679_RUNNER_ONLY",
+  "reason": "Distinguish GitHub hosted runner exhaustion versus PRE679 Python script failure",
+  "no_checkout": true,
+  "no_secrets": true,
+  "no_project_access": true,
+  "no_apk": true
+}
