@@ -1,0 +1,12 @@
+{
+  "stage": "PRE669",
+  "prior_vulkan_audit_run": 42840437196,
+  "prior_canonical_checkpoint_run": 42841456076,
+  "baseline_signed_version": 51,
+  "scope": "RECONSTRUCT_AUTHENTIC_V51_PLUS_PRE666_MODEL_HEADER_ONLY",
+  "compile": "REAL_ARM64_LIBMAIN_NO_APK",
+  "runtime_sampler": false,
+  "vulkan_pool_created": false,
+  "default_off": true,
+  "signing_accessed": false
+}
