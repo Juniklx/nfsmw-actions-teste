@@ -1,0 +1,101 @@
+name: NFSMW PRE666 V51 bounded shader burst pass-end HOST safety model NO APK
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre666_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre666-gpu-pass-end-host
+  cancel-in-progress: false
+jobs:
+  safety:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Read prior authenticated PRE665 renderpass/fence source gate
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=json.loads(Path("docs/PRE665_V51_GPU_DRAW_BOUNDARIES_VERIFIED.json").read_text())
+          assert p["github_run_id"]==42837121790
+          assert p["status"]=="AUDIT_OK_AUTHENTIC_V51_DRAW_AND_C2_SOURCE_ANCHORS"
+          assert p["authenticated_source"]["v51_instrumented_renderer_sha256"]=="9a76c240852b0cc5c6c80ef608cab3d9302c75368b3237440905caec873dbee2"
+          assert p["verified_calls"]["renderer_vkCmdDraw_actual_calls"]==4
+          assert p["verified_calls"]["pre648_accounting_after_draw_lines"]==[3711,3790]
+          assert p["remote_redownload_exact_sha256_match"] is True
+          assert p["architecture_risk"]["pass_termination_must_flush_sampler"] is True
+          assert p["no_apk_built"] and not p["no_vk_commands_injected"]
+          print("PRE666_PRIOR_PRE665_RECORDED_SOURCE_GATE=PASS")
+          PY
+      - name: C++17 strict host bounded pass-end stress with ASan UBSan
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/nfsmw-pre666
+          c++ -std=c++17 -Wall -Wextra -Werror -pedantic -O1 -g \
+            -fsanitize=address,undefined -fno-omit-frame-pointer \
+            -Iautomation/kaggle \
+            automation/kaggle/pre666_pass_bounded_host_test.cpp \
+            -o /tmp/nfsmw-pre666/pre666_host_test
+          ASAN_OPTIONS=detect_leaks=1 /tmp/nfsmw-pre666/pre666_host_test | tee /tmp/nfsmw-pre666/host_test.log
+      - name: Emit strict JSON report without claims of GPU integration
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib,json,os
+          from pathlib import Path
+          txt=Path("/tmp/nfsmw-pre666/host_test.log").read_text()
+          values=dict(x.split("=",1) for x in txt.splitlines() if x.startswith("PRE666_") and "=" in x)
+          required={
+            "PRE666_HOST_PASS_BOUNDARY_TEST":"PASS",
+            "PRE666_DEFAULT_ENABLED":"false",
+            "PRE666_QUERY_BUDGET_PER_SLOT":"8",
+            "PRE666_MAX_BURSTS_PER_SLOT":"4",
+            "PRE666_EXPLICIT_PASS_END":"PASS",
+            "PRE666_FENCE_CHECK_IS_SIMULATED":"true",
+            "PRE666_REAL_VULKAN_COMMANDS":"false",
+            "PRE666_REAL_ARM64_COMPILE":"false",
+            "PRE666_APK_BUILT":"false",
+            "PRE666_GPU_SHADER_TIME_MEASURED":"false",
+            "PRE666_FPS_GAIN_PROVEN":"false"
+          }
+          for k,v in required.items():assert values.get(k)==v,(k,values.get(k))
+          files=["automation/kaggle/pre666_pass_bounded_sampler.h",
+                 "automation/kaggle/pre666_pass_bounded_host_test.cpp"]
+          d={"stage":"PRE666_V51_HOST_ONLY_PASS_END_SAMPLER_CORRECTION",
+             "status":"HOST_PASS_ASAN_UBSAN_NO_VULKAN",
+             "github_run_id":int(os.environ["GITHUB_RUN_ID"]),
+             "github_head_sha":os.environ["GITHUB_SHA"],
+             "source_evidence":"PRE665 recorded source anchor SHA; not fresh native reconstruction",
+             "host_test_pass":True,"default_enabled":False,"max_pairs_per_slot":4,
+             "dedicated_pool_query_count_per_slot_planned":8,
+             "pass_end_flush_tested":True,
+             "command_buffer_end_flush_tested":True,
+             "deferred_sky_excluded":True,
+             "fence_truth_supplied_by_caller_not_checked_in_host":True,
+             "native_gpu_commands_executed":False,
+             "real_arm64_compiled":False,"apk_built":False,
+             "game_assets_changed":False,"signing_accessed":False,
+             "per_shader_gpu_time_measured":False,"fps_gain_proven":False,
+             "source_sha256":{k:hashlib.sha256(Path(k).read_bytes()).hexdigest() for k in files},
+             "limitations":["host model only","no Vulkan renderpass or driver was invoked",
+               "no Android thermal/clock/performance measurement","sampler still susceptible to first-four-bursts selection bias"]}
+          Path("/tmp/nfsmw-pre666/PRE666_V51_HOST_PASS_END_SAFETY_REPORT.json").write_text(json.dumps(d,indent=2)+"\n")
+          print("PRE666_STATUS="+d["status"])
+          print("PRE666_FPS_GAIN_PROVEN=false")
+          PY
+      - name: Preserve host-only evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre666-host-pass-end
+          path: |
+            /tmp/nfsmw-pre666/host_test.log
+            /tmp/nfsmw-pre666/PRE666_V51_HOST_PASS_END_SAFETY_REPORT.json
+          if-no-files-found: warn
+          retention-days: 30
