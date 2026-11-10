@@ -1,0 +1,25 @@
+{
+  "stage": "PRE652_SIGNED_V51_GPU_SHADER_PASS_DRAW_FREQUENCY",
+  "release_dependency": {
+    "PRE651_run_id": 42796992562,
+    "PRE651_status": "AUDIT_OK_NO_APK",
+    "PRE648_run_id": 42764731926,
+    "PRE649_run_id": 42794598045
+  },
+  "intent": "Signed diagnostic-only APK version 51, same original permanent signing identity; exact staged PRE648 counters (top12 each 10 s) and full V50 C3/Nitro/BMW preserved",
+  "android": {
+    "package": "io.github.nfsmwrecomp",
+    "versionCode": 51,
+    "certificate_sha256": "1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b"
+  },
+  "policy": {
+    "no_rekey": true,
+    "no_debug_fallback": true,
+    "no_shader_changes": true,
+    "no_graphics_quality_reductions": true,
+    "no_thermal_bypass": true,
+    "no_save_edits": true,
+    "no_fps_claims": true
+  },
+  "archive": "New unique named APK in NFSMW_Android/02_APKs, old V50 untouched; independent digest/metadata audit after action"
+}
