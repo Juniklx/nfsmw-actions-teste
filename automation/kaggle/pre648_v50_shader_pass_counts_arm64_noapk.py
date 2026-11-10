@@ -158,7 +158,7 @@ def stage_source(root):
  if (root/DEST_HEADER).exists():
   raise ValueError("PRE648 header already exists in replay - refuse double apply")
  header=HEADER.read_bytes()
- if b"class ContadorShaderPases" not in header or b"kMemoriaContadores == 1048576" not in header:
+ if b"class ContadorShaderPases" not in header or b"kMemoriaContadores == 1638400" not in header:
   raise ValueError("PRE648 fixed-bounds counter header invariant missing")
  PHASE="REVERSIBLE_DIAGNOSTIC_PATCH"
  candidate=patch_bytes(original)
@@ -176,7 +176,7 @@ def stage_source(root):
   "pre648_no_shader_spirv_edits":True,
   "pre648_skies_counted_only_when_emitted":True,
   "pre648_depth_only_ps_zero_retained":True,
-  "pre648_counter_fixed_size_bytes":1048576,
+  "pre648_counter_fixed_size_bytes":1638400,
   "pre648_gpu_timing_measured":False,
   "pre648_fps_gain_proven":False})
  PHASE="NATIVE_COMPILE_READY"
