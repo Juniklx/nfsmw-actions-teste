@@ -1,0 +1,46 @@
+{
+  "stage": "PRE672_V51_VULKAN_TIMESTAMP_CAPABILITY_RENDERPASS_FENCE_HOST_GUARD",
+  "status": "PASS_HOST_VULKAN_CAPABILITY_AND_LIFECYCLE_DENY_BY_DEFAULT",
+  "github_run_id": 42860554425,
+  "github_job_id": 129985193591,
+  "github_artifact_id": 13784423841,
+  "github_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42860554425",
+  "drive_zip_id": "1ed40JZKb8Y0G9b3tvd95iSPpFSt82hjt",
+  "drive_zip_url": "https://drive.google.com/file/d/1ed40JZKb8Y0G9b3tvd95iSPpFSt82hjt/view",
+  "zip_bytes": 1457,
+  "zip_sha256": "7ac972ace1dad98740b909921becc4805a6c0c0a24550cbad4846130e02b7b97",
+  "zip_crc_pass": true,
+  "drive_readback_sha_match": true,
+  "code_sha256": {
+    "automation/kaggle/pre672_gpu_timestamp_capability_failclosed_host.h": "c1686a6f0a21a89880aef65dee2251e4e12f3148059ab778a8490bfab1363977",
+    "automation/kaggle/pre672_gpu_timestamp_capability_failclosed_host_test.cpp": "f97be871463f847873efafee605384d86d11bf3e6eb75ccb922dbd2aa8838e8e"
+  },
+  "prior_failed_run_id": 42860425158,
+  "prior_failed_run_reason": "test assertion incorrectly rejected safe end of a recording with zero timestamp pairs; corrected prior to passed run",
+  "observations": {
+    "multiview_unknown_or_nonzero_view_mask_denied": true,
+    "per_tile_unknown_or_active_denied": true,
+    "timestampValidBits_zero_or_outside_1_64_denied": true,
+    "timestampPeriod_nonfinite_or_zero_denied": true,
+    "timestamp_compute_and_graphics_false_denied": true,
+    "PFN_missing_denied": true,
+    "reset_inside_renderpass_denied": true,
+    "deferred_sky_blocked": true,
+    "unbalanced_pairs_blocked": true,
+    "real_fence_NOT_READY_denied": true,
+    "real_fence_ERROR_failclosed_simulated": true,
+    "query_not_available_denied": true,
+    "submit_ERROR_failclosed_simulated": true
+  },
+  "limits": {
+    "host_only": true,
+    "vulkan_driver_invoked": false,
+    "real_gpu_measured": false,
+    "new_vk_pool_created": false,
+    "arm64_compiled_in_this_gate": false,
+    "apk_built": false,
+    "legacy_game_runtime_changed": false,
+    "fps_gain_proven": false
+  },
+  "next": "PRE672B archive in canonical Drive context; PRE673 compile-only native ARM64 with guard connected to inactive Vulkan adapter; no new release or GPU timing before device capability and multiview/per-tile checks"
+}
