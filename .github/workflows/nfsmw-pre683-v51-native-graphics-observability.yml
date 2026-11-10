@@ -1,0 +1,57 @@
+name: NFSMW PRE683 - signed V51 native flags observability
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/run_requests/PRE683_*.txt'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nfsmw-pre683-v51-native-graphics-readonly
+  cancel-in-progress: false
+
+jobs:
+  pre683:
+    name: Read-only native graphics and log audit
+    if: github.repository == 'Juniklx/nfsmw-actions-teste' && github.ref == 'refs/heads/main' && github.actor == 'Juniklx' && (github.event_name == 'workflow_dispatch' || github.event_name == 'push')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout approved main branch only
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Compile scanner and install Drive client, without Secrets
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre683_v51_native_graphics_observability.py
+          python -m pip install --disable-pip-version-check \
+            google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          echo "PRE683_SCRIPT_SYNTAX=PASS"
+      - name: Verify real V51 native libraries and PRE656 graphics log, send only private evidence to Drive
+        shell: bash
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          for key in GOOGLE_REFRESH_TOKEN GOOGLE_CLIENT_ID GOOGLE_CLIENT_SECRET; do
+            if [ -z "${!key:-}" ]; then
+              echo "PRE683_SECRET_UNAVAILABLE=$key"
+              exit 2
+            fi
+          done
+          python automation/kaggle/pre683_v51_native_graphics_observability.py
+
+# No pull_request/pull_request_target. No game files or ZIPs in public Actions artifacts.
+# No signing key access. No modifications to signed V51, graphics settings or device.
