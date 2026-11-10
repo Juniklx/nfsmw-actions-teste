@@ -1,0 +1,74 @@
+name: NFSMW PRE677 SB02 V51 existing lazy depth and shadow regression READONLY
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre677_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre677-sb02-existing-deferred-depth-readonly
+  cancel-in-progress: false
+jobs:
+  source-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify Python and download-only source restore dependencies
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre677_sb02_v51_existing_deferred_depth_readonly.py
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests zstandard >/dev/null
+      - name: Reconstruct V51 authenticated sources in temp and audit shadow-depth copy candidates
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre677_sb02_v51_existing_deferred_depth_readonly.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('/tmp/nfsmw-pre677/PRE677_V51_EXISTING_DEFERRED_DEPTH_SOURCE_AUDIT.json').read_text())
+          assert r['status']=='AUDIT_OK_AUTHENTIC_V51_EXISTING_DEFERRED_DEPTH_SOURCE_TRACE_ONLY',r.get('error_summary')
+          assert r['source']['renderer_v51_counter_sha256']=='9a76c240852b0cc5c6c80ef608cab3d9302c75368b3237440905caec873dbee2'
+          assert r['source']['backend_v51_sha256']=='b70497df49440b469018e7ef7a0e007d39ab5df13aa979edc91f37e1d2d42385'
+          assert len(r['copy_sites'])==3
+          assert r['copy_sites']['renderer_buffer_upload']['line']==9770
+          assert r['copy_sites']['backend_png_dump']['line']==5543
+          assert r['copy_sites']['backend_guest_readback']['line']==5667
+          assert r['consumer_candidates']['backend']['readback_queue']['count']>=2
+          assert r['source_site_classification']['safe_to_defer_any_transfer'] is False
+          assert r['depth_interpretation']['existing_lazy_depth_pipeline_in_V51_source'] is True
+          assert r['depth_interpretation']['previous_shadow_image_swap_regression_in_source_comment'] is True
+          assert r['depth_interpretation']['shadow_swap_safe_to_reenable'] is False
+          assert r['depth_interpretation']['safe_new_depth_deferral_proven'] is False
+          assert r['synthetic_host_guards']['negative_tests']==24
+          assert all(x['expected'] is x['actual'] for x in r['synthetic_host_guards']['tests'])
+          assert r['synthetic_host_guards']['pixel_equivalence_tested'] is False
+          assert r['existing_deferred_depth']['backend']['depth_copy']['count']>0
+          assert r['existing_deferred_depth']['backend']['car_shadow_comment']['count']>0
+          assert r['findings']['safe_shadow_lending_proven'] is False
+          assert r['temp_source_modified'] is False and r['external_code_imported'] is False
+          assert r['shadow_lend_equivalence_proven'] is False
+          assert r['apk_built'] is False and r['arm64_compiled'] is False
+          assert r['gpu_timestamp_measured'] is False and r['fps_gain_proven'] is False
+          print('PRE677_SB02_SHADOW_DEPTH_SOURCE_READONLY_GATE=PASS')
+          PY
+      - name: Archive source graph candidates only, no APK or upstream code
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre677-sb02-v51-existing-deferred-depth-${{ github.run_id }}
+          path: |
+            /tmp/nfsmw-pre677/PRE677_V51_EXISTING_DEFERRED_DEPTH_SOURCE_AUDIT.json
+            /tmp/nfsmw-pre677/PRE677_SB02_DEFERRED_DEPTH_READONLY_REPORT.md
+          if-no-files-found: warn
+          retention-days: 30
