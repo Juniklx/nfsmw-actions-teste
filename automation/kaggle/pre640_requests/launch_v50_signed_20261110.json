@@ -1,0 +1,15 @@
+{
+  "stage": "PRE640_V50_SIGNED_RELEASE_CONTEXT_CHECKPOINT",
+  "intent": "append-only verified PRE638 V50 permanent release into canonical Drive context after backup",
+  "expected_context_bytes": 983596,
+  "expected_context_sha256": "7b5b5d979b8dc63ca179392cb8c4f183e869ddc77f645aec20b0c9651f2da92d",
+  "pre638_run_id": 42748358853,
+  "pre638_artifact": 13733586196,
+  "verified_apk_sha256": "7c49f6c95af5bf20b81c2df0622ce236532edadc70d4619e12021e87b74df4fe",
+  "apk_version_code": 50,
+  "apk_phone_tested": false,
+  "backup_before_append": true,
+  "readback_verify": true,
+  "no_signing_material_access": true,
+  "no_save_or_source_edits": true
+}
