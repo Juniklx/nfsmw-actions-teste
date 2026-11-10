@@ -65,8 +65,9 @@ class GuardedLifecycle final {
   bool BeginSlot(uint32_t id, bool outside_render_pass,
                  VkFenceOutcome previous_fence) noexcept {
     if (!Valid(id) || !outside_render_pass ||
-        previous_fence != VkFenceOutcome::Success ||
         slot_[id].phase != SlotPhase::Free) return false;
+    if (previous_fence == VkFenceOutcome::Error) { Fail(); return false; }
+    if (previous_fence != VkFenceOutcome::Success) return false;
     slot_[id] = Slot{SlotPhase::Recording, false, 0};
     return true;
   }
@@ -108,11 +109,12 @@ class GuardedLifecycle final {
   // availability for *every* timestamp. No VK_QUERY_RESULT_WAIT_BIT.
   bool Reclaim(uint32_t id, VkFenceOutcome fence, QueryOutcome query,
                bool all_timestamp_values_available) noexcept {
-    if (!Valid(id) || slot_[id].phase != SlotPhase::Submitted ||
-        fence != VkFenceOutcome::Success) return false;
+    if (!Valid(id) || slot_[id].phase != SlotPhase::Submitted) return false;
+    if (fence == VkFenceOutcome::Error) { Fail(); return false; }
+    if (fence != VkFenceOutcome::Success) return false;
+    if (query == QueryOutcome::Error) { Fail(); return false; }
     if (query == QueryOutcome::NotReady ||
         !all_timestamp_values_available) return false;
-    if (query == QueryOutcome::Error) { Fail(); return false; }
     slot_[id] = Slot{};
     return true;
   }
