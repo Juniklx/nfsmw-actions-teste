@@ -1,0 +1,7 @@
+{
+  "stage": "PRE672",
+  "retry_of": 42860425158,
+  "reason": "Host test asserted zero-pair Recording slot unbalanced; corrected to permit empty balanced command buffers",
+  "no_app_patch": true,
+  "no_native_apk": true
+}
