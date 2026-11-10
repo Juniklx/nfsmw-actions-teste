@@ -1,0 +1,14 @@
+{
+  "stage": "PRE675_SB02",
+  "date": "2026-11-10",
+  "baseline": "V51 PRE652",
+  "upstream_pin": "SpeedBreakerProject/speedbreaker@fe04285d7629377c6e422a6ace8f535368f23c31",
+  "source_replay": "PRE99 + PRE431 + PRE638 + PRE648 in tmp only",
+  "read_only": true,
+  "import_speedbreaker_source": false,
+  "enable_shadow_lend": false,
+  "apk_built": false,
+  "signing_material_access": false,
+  "protect_saves": true,
+  "question": "Locate shadow/depth Vulkan transfer, barrier, image layout, guest-memory candidates and evaluate evidence gaps, not optimize yet."
+}
