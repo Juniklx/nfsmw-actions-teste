@@ -1,0 +1,9 @@
+{
+  "stage": "PRE675_SB02_RETRY",
+  "retry_of": 42868619512,
+  "reason": "PRE668 verified-source JSON fields renderer_v51_sha256 and backend_sha256 corrected",
+  "authentic_v51": true,
+  "read_only": true,
+  "apk": false,
+  "external_code_import": false
+}
