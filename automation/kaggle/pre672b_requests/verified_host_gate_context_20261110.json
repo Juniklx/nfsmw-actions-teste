@@ -1,0 +1,10 @@
+{
+  "stage": "PRE672B",
+  "approved_run": 42860554425,
+  "prior_failed_run": 42860425158,
+  "verified_drive_zip": "1ed40JZKb8Y0G9b3tvd95iSPpFSt82hjt",
+  "base_context_sha256": "3443d2e16c7adedd1eb1e4706d04840159d0e0facae3612a1d78c73810b3f4e6",
+  "append_only": true,
+  "backup_first": true,
+  "apk": false
+}
