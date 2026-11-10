@@ -1,0 +1,16 @@
+{
+  "stage": "PRE652_V51_SIGNED_GPU_FREQUENCY_RETRY",
+  "failed_run": 42797492310,
+  "failed_phase": "PRE305_STAGE_BMW_MAIN_MENU_PASSIVE_TRACES",
+  "corrected_builder_commit": "c015570775b6cab71cd052e8afbdac2676a947cc",
+  "corrected_builder_sha256": "97f5b455a1cc09405b5afcb8e0f941cfc6ca5b73d59c1d8114b7df64f20e919f",
+  "required_gate": {
+    "run_id": 42798605525,
+    "status": "AUDIT_OK_NO_APK",
+    "archive_drive_id": "17doJ3BNHwxHeClS-LpqvBVcny-sfwQVN"
+  },
+  "version_code": 51,
+  "signer": "original_permanent_only",
+  "effects": "pre638 standard production reconstruction first, add exactly pinned PRE648 GPU-only counter second, verify C3/Nitro/BMW/ARM64/signed release",
+  "no_graphics_or_saves_changes": true
+}
