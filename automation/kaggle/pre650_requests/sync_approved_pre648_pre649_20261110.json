@@ -1,0 +1,21 @@
+{
+  "stage": "PRE650_SYNC_CANONICAL_CONTEXT",
+  "evidence": {
+    "pre648_run": 42764731926,
+    "pre649_run": 42794598045,
+    "pre649_archive_drive": "1W1pxH9rud_uRDXZbvA-h6op_8XVTuTTF",
+    "pre648_archive_drive": "1BnK_QBzOrzALsMsQjEI6-kzLyYmA4_dp"
+  },
+  "expected_context": {
+    "bytes": 1026112,
+    "sha256": "57d51a0d1f682d67ffdfb6960a49ab5309d42c40cbb87cfa71080be252be5442",
+    "file_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB"
+  },
+  "policy": {
+    "backup_before_edit": true,
+    "append_only": true,
+    "fail_on_digest_mismatch": true,
+    "signing_material_access": false,
+    "apk_build": false
+  }
+}
