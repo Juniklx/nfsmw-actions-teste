@@ -1,0 +1,8 @@
+{
+  "stage": "PRE675_SB02_RETRY3",
+  "retry_of": 42868904937,
+  "fix": "sha_file returns digest, metadata, size as proven by PRE665",
+  "mode": "authenticated V51 temporary read-only source scan",
+  "signed_apk_modified": false,
+  "source_modified": false
+}
