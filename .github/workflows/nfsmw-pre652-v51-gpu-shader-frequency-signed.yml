@@ -238,7 +238,7 @@ jobs:
           header=Path("automation/kaggle/pre648_shader_pass_counter.h").read_bytes()
           expected=gate.get("checks",{})
           assert gate.get("status")=="AUDIT_OK_NO_APK"
-          assert gate.get("github_run_id")=="42796992562"
+          assert gate.get("github_run_id")=="42798605525"
           assert gate.get("preflight_approved") is True
           assert gate.get("target_version_code")==51
           assert gate.get("certificate_sha256")=="1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b"
