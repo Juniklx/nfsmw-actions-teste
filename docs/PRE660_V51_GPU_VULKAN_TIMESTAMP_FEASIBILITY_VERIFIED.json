@@ -1,0 +1,49 @@
+{
+  "stage": "PRE660_V51_GPU_SHADER_TIMESTAMP_QUERY_FEASIBILITY",
+  "status": "AUDIT_OK_STATIC_VULKAN_TIMESTAMP_SUPPORT",
+  "github_run_id": 42817191509,
+  "github_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42817191509",
+  "job_id": 129833149605,
+  "artifact_id": 13766041629,
+  "archive_drive_id": "1qtKOFP08kkL9cQfiDDrj8lSyC-HwjLrj",
+  "archive_url": "https://drive.google.com/file/d/1qtKOFP08kkL9cQfiDDrj8lSyC-HwjLrj/view",
+  "archive_sha256": "7c6d3819f20bfd3a333aebcf694d2dd4d35edf8f418a09e615bfe9b5d7c0b387",
+  "json_sha256": "868a1eeade88b5255321ee927d2c663efb5ec0d5a8b47601a4d2c18ee8c19e4a",
+  "markdown_sha256": "fce9f1a8145ece57403f3bc7cf4d871dc2f23999eaf710824dd883918fdc36a2",
+  "zip_crc_pass": true,
+  "source": {
+    "pre99_authentic": true,
+    "pal_v50_source_sha256": "1f890953380502abd0cfc7d140a102bbd7470aff6ca2d37b039a16d9c6ffeb92",
+    "replay": "PRE431→PRE638 V50",
+    "exact_signed_v51_binary_equivalence_not_proven": true,
+    "backend_files": [
+      "nativo/app/src/nfsmw_nativo_destinos.cpp",
+      "nativo/app/src/nfsmw_nativo_destinos.h",
+      "nativo/app/src/nfsmw_nativo_dibujos.cpp",
+      "nativo/app/src/nfsmw_nativo_dibujos.h",
+      "nativo/app/src/nfsmw_nativo_sistema.cpp"
+    ]
+  },
+  "findings": {
+    "gpu_marker_hits": 13,
+    "query_pool_create_hits": 5,
+    "query_pool_reset_hits": 5,
+    "timestamp_query_type_hits": 1,
+    "valid_bits_hits": 1,
+    "timestamp_period_hits": 3,
+    "explicit_vkCmdWriteTimestamp_function_call_matches": 0,
+    "explicit_vkGetQueryPoolResults_function_call_matches": 0,
+    "writer_and_reader_implementation_not_yet_resolved": true
+  },
+  "limits": {
+    "per_shader_GPU_time_measured": false,
+    "only_aggregate_c2_gpu_group_times_available": true,
+    "apk_built": false,
+    "shader_modified": false,
+    "signing_accessed": false,
+    "graphics_unchanged": true,
+    "saves_unchanged": true,
+    "fps_gain_proven": false
+  },
+  "decision": "PRE662 inspect precise MarkarGpu query write/read aliases, query capacity, pool reuse and command buffer lifecycle in authenticated Vulkan source; no V52 until justified"
+}
