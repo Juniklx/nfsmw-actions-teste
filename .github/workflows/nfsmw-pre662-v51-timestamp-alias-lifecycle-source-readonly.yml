@@ -1,0 +1,59 @@
+name: NFSMW PRE662 V51 Vulkan timestamp aliases and query lifecycle NO APK
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre662_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre662-v51-timestamp-alias-source-readonly
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate PRE662 script and install authenticated source restore dependencies
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre662_v51_vulkan_timestamp_alias_capacity_readonly.py
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests zstandard
+      - name: Verify PRE99 and replay PRE638; extract timestamp pointer and query pool lifetimes (NO APK)
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre662_v51_vulkan_timestamp_alias_capacity_readonly.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path("/tmp/nfsmw-pre662/PRE662_V51_GPU_TIMESTAMP_ALIAS_LIFECYCLE_AUDIT.json").read_text())
+          assert d["status"]=="AUDIT_OK_SOURCE_ALIAS_LIFECYCLE_EXTRACTED"
+          assert d["source_authenticated"] is True
+          assert d["source"]["renderer_sha256"]=="1f890953380502abd0cfc7d140a102bbd7470aff6ca2d37b039a16d9c6ffeb92"
+          assert d["source_hits"]["writer_alias"]["total_matches"]>0
+          assert d["source_hits"]["reader_alias"]["total_matches"]>0
+          assert d["source_hits"]["slot_capacity"]["total_matches"]>0
+          assert d["no_apk_built"] and not d["fps_gain_proven"]
+          assert not d["per_shader_gpu_time_measured"]
+          print("PRE662_AUTH_GPU_TIMESTAMP_ALIAS_CAPACITY_LIFECYCLE_GATE=PASS")
+          PY
+      - name: Archive bounded authentic source snippets and JSON inspection report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre662-v51-vulkan-timestamp-lifecycle-${{ github.run_id }}
+          path: |
+            /tmp/nfsmw-pre662/PRE662_V51_GPU_TIMESTAMP_ALIAS_LIFECYCLE_AUDIT.json
+            /tmp/nfsmw-pre662/RELATORIO_PRE662_V51_GPU_TIMESTAMP_LIFECYCLE.md
+          if-no-files-found: warn
+          retention-days: 30
