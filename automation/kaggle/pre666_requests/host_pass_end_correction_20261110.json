@@ -1,0 +1,9 @@
+{
+  "stage": "PRE666",
+  "previous_run": 42837121790,
+  "source_audit_sha256": "f5086883884c5153926beaad6ddb7ffa649d56f99b844a78d5388d3e27980198",
+  "scope": "HOST_MODEL_ONLY",
+  "no_apk": true,
+  "default_off": true,
+  "pass_end_flush": true
+}
