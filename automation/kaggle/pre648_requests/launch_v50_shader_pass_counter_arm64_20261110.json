@@ -1,0 +1,26 @@
+{
+  "stage": "PRE648_V50_SHADER_PASS_COUNTER_ARM64_NOAPK",
+  "prior_verified": {
+    "PRE647_run": 42762305482,
+    "PRE646_run": 42760879332,
+    "PRE638_signed_v50_run": 42748358853
+  },
+  "reconstructed_c3_sha256": "1f890953380502abd0cfc7d140a102bbd7470aff6ca2d37b039a16d9c6ffeb92",
+  "guardrails": {
+    "disposable_source_tree": true,
+    "no_spirv_modification": true,
+    "no_apk": true,
+    "no_signer_credentials": true,
+    "no_save_edits": true,
+    "no_thermal_bypass": true,
+    "no_fps_claims": true,
+    "no_pacing_or_c3_experiments": true
+  },
+  "gates": [
+    "host test grouped counters plus deferred sky and depth-only",
+    "exact source reverse",
+    "V50 source chain hashes",
+    "real ARM64 native link + binary markers"
+  ],
+  "next": "PRE649 assess diagnostic overhead and gate read-only prototype before any V51 on-device testing"
+}
