@@ -1,0 +1,98 @@
+{
+  "schema": "nfsmw-pre677-sb02-depth-trace-v1",
+  "stage": "PRE677_SB02_EXISTING_DEFERRED_DEPTH_AUTHENTIC_V51_SOURCE_AND_SYNTHETIC_NEGATIVES",
+  "status": "AUDIT_OK_AUTHENTIC_V51_EXISTING_DEFERRED_DEPTH_SOURCE_TRACE_ONLY",
+  "date_utc": "2026-11-10",
+  "github": {
+    "repo": "Juniklx/nfsmw-actions-teste",
+    "run_id": 42874003191,
+    "job_id": 130032365729,
+    "artifact_id": 13789888733,
+    "url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42874003191"
+  },
+  "drive": {
+    "id": "1jtHLbUIFTFAbEQEs-c4aCTkU9YeBbuVE",
+    "url": "https://drive.google.com/file/d/1jtHLbUIFTFAbEQEs-c4aCTkU9YeBbuVE/view",
+    "size_bytes": 184147,
+    "sha256": "9fc48095000cb6f58f13695b4260c3b36e01612726e40c8836aa07cc7430280d",
+    "crc_ok": true,
+    "readback_identical": true
+  },
+  "source": {
+    "renderer_v51_sha256": "9a76c240852b0cc5c6c80ef608cab3d9302c75368b3237440905caec873dbee2",
+    "backend_v51_sha256": "b70497df49440b469018e7ef7a0e007d39ab5df13aa979edc91f37e1d2d42385",
+    "recipe": "PRE99 -> PRE431 -> PRE638 -> PRE648 in isolated temporary source tree",
+    "signed_libmain_bitwise_covered": false
+  },
+  "default_cvars_as_defined_in_backend_source": {
+    "nfsmw_nativo_profundidad_perezosa": {
+      "default": true,
+      "line": 318
+    },
+    "nfsmw_nativo_frontal_perezoso": {
+      "default": true,
+      "line": 350
+    },
+    "nfsmw_nativo_sombra_minimo": {
+      "default": true,
+      "line": 390
+    },
+    "nfsmw_nativo_restaurar_por_intercambio": {
+      "default": false,
+      "line": 283
+    }
+  },
+  "findings": {
+    "depth_copy_function_references": [
+      1420,
+      1727,
+      3935,
+      4007,
+      4413
+    ],
+    "before_depth_write_references": [
+      304,
+      317,
+      1682,
+      2925,
+      3333,
+      4140,
+      4195
+    ],
+    "pending_map_text_occurrences_backend": 73,
+    "guest_copy_sink": "EscribirTexelsEnGuest via EscribirLecturas 5717",
+    "depth_image_to_image_indirect_calls": [
+      1834,
+      1888
+    ],
+    "depth_subresources": "VK_IMAGE_ASPECT_DEPTH_BIT at 1828, 1830, 1875, 1877",
+    "prior_pre675_only_direct_vk_calls_was_incomplete": true,
+    "shadow_swap_source_comment_warning": "Source says car shadows disappear if nfsmw_nativo_restaurar_por_intercambio is enabled; left false",
+    "source_comment_claims_nfsmw_nativo_sin_desenfoque_true_by_default": true,
+    "shader_blur_full_quality_checked": false,
+    "source_comment_speed_claim_verified_on_s24_fe": false,
+    "sample_c2_cost_is_not_runtime_timestamp": true,
+    "RecogerEnlaces_present_in_two_scanned_files": false,
+    "other_translation_units_not_inspected": true
+  },
+  "synthetic_guards": {
+    "negative_test_cases": 24,
+    "positive_synthetic_cases": 1,
+    "all_passed": true,
+    "actual_v51_state_machine_tested": false,
+    "real_gpu_tested": false,
+    "images_pixels_equivalence_tested": false
+  },
+  "safety": {
+    "read_only": true,
+    "no_apk": true,
+    "no_source_edits": true,
+    "no_shader_edits": true,
+    "no_upstream_code_import": true,
+    "no_certificate_access": true,
+    "no_saves_changes": true,
+    "no_measured_fps_gain": true,
+    "no_deferral_patch": true
+  },
+  "next": "PRE678 SB-02: follow actual CopiarProfundidad/AntesDeEscribirProfundidad/pendientes_ state transitions, validate source default blur and PCF effects against full-quality constraint, trace indirect copy function pointer binding and pixel/guest equality before optimization."
+}
