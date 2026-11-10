@@ -1,0 +1,59 @@
+name: NFSMW PRE675 SB02 V51 shadow depth resolve source dependency READONLY
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre675_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre675-sb02-shadow-graph-readonly
+  cancel-in-progress: false
+jobs:
+  source-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify Python and download-only source restore dependencies
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre675_sb02_v51_shadow_depth_resolve_readonly.py
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests zstandard >/dev/null
+      - name: Reconstruct V51 authenticated sources in temp and audit shadow-depth copy candidates
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre675_sb02_v51_shadow_depth_resolve_readonly.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('/tmp/nfsmw-pre675/PRE675_V51_SHADOW_DEPTH_RESOLVE_SOURCE_DEPENDENCY_AUDIT.json').read_text())
+          assert r['status']=='AUDIT_OK_AUTHENTIC_V51_SHADOW_SOURCE_CANDIDATE_MAP_ONLY',r.get('error_summary')
+          assert r['source']['renderer_v51_counter_sha256']=='9a76c240852b0cc5c6c80ef608cab3d9302c75368b3237440905caec873dbee2'
+          assert r['source']['backend_v51_sha256']=='b70497df49440b469018e7ef7a0e007d39ab5df13aa979edc91f37e1d2d42385'
+          assert r['findings']['safe_shadow_lending_proven'] is False
+          assert r['temp_source_modified'] is False and r['external_code_imported'] is False
+          assert r['shadow_lend_equivalence_proven'] is False
+          assert r['apk_built'] is False and r['arm64_compiled'] is False
+          assert r['gpu_timestamp_measured'] is False and r['fps_gain_proven'] is False
+          print('PRE675_SB02_SHADOW_DEPTH_SOURCE_READONLY_GATE=PASS')
+          PY
+      - name: Archive source graph candidates only, no APK or upstream code
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre675-sb02-v51-shadow-source-${{ github.run_id }}
+          path: |
+            /tmp/nfsmw-pre675/PRE675_V51_SHADOW_DEPTH_RESOLVE_SOURCE_DEPENDENCY_AUDIT.json
+            /tmp/nfsmw-pre675/PRE675_SB02_SHADOW_DEPTH_READONLY_REPORT.md
+          if-no-files-found: warn
+          retention-days: 30
