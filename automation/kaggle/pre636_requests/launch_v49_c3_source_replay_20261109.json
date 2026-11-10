@@ -1,0 +1,11 @@
+{
+  "stage": "PRE636",
+  "intent": "authenticated V49 source replay PRE635 C3 guard check",
+  "previous_verified_gate": "PRE634 42742959129 AUDIT_OK_PRE99_ONLY",
+  "v49_signed_run_id": 42709319413,
+  "no_apk": true,
+  "no_signing": true,
+  "no_thermal_override": true,
+  "source_mutation_scope": "ephemeral tree only",
+  "post_step": "ARM64 no-APK build only after gate passes"
+}
