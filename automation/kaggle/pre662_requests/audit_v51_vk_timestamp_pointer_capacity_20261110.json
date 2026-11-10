@@ -1,0 +1,19 @@
+{
+  "stage": "PRE662_V51_GPU_TIMESTAMP_ALIAS_CAPACITY_LIFECYCLE_SOURCE_AUDIT",
+  "last_verified_context_sha256": "73271d1a0d2ac2a9065fd4afcc11cfad0d66fc1c230b7cd4ac6adfd90bffd2f3",
+  "previous_verified_pre660_run": 42817191509,
+  "source_sha256": "1f890953380502abd0cfc7d140a102bbd7470aff6ca2d37b039a16d9c6ffeb92",
+  "targets": [
+    "escribir_marca_",
+    "leer_consultas_",
+    "kMarcasPorRanura",
+    "MarcarGpu",
+    "query pool reset and reuse",
+    "fence/order readback"
+  ],
+  "no_apk": true,
+  "no_shader_changes": true,
+  "no_signer_access": true,
+  "no_device_changes": true,
+  "no_fps_claim": true
+}
