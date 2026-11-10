@@ -1,0 +1,10 @@
+{
+  "stage": "PRE648_V50_SHADER_PASS_COUNTER_ARM64_NOAPK",
+  "retry_of": 42764127693,
+  "reason": "Transient PRE99 IncompleteRead before source replay; host regression passed",
+  "transport_policy": "retry up to 3 incomplete reads from beginning, discard partial file each time; require existing PRE99 SHA256+size match",
+  "no_apk": true,
+  "no_signing": true,
+  "no_guest_runtime": true,
+  "no_source_mutation_outside_temp": true
+}
