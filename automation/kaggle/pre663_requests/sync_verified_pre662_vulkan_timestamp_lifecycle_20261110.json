@@ -1,0 +1,25 @@
+{
+  "stage": "PRE663_CONTEXT_PRE662_VULKAN_TIMESTAMP_LIFECYCLE",
+  "verified": {
+    "PRE662_run": 42826615797,
+    "PRE662_status": "AUDIT_OK_SOURCE_ALIAS_LIFECYCLE_EXTRACTED",
+    "report_drive_id": "1jhIoN4Qs8Mp7POF2p_0Wvk_ES9wFCKw4",
+    "report_zip_sha256": "25222b838a8b4b61801b6878896e407fbc76f6fc649bacba0f314fb2f914be3b",
+    "renderer_sha256": "1f890953380502abd0cfc7d140a102bbd7470aff6ca2d37b039a16d9c6ffeb92",
+    "pool_per_slot": 128
+  },
+  "context": {
+    "id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+    "bytes": 1063561,
+    "sha256": "73271d1a0d2ac2a9065fd4afcc11cfad0d66fc1c230b7cd4ac6adfd90bffd2f3",
+    "backup_first": true,
+    "append_only": true
+  },
+  "limits": {
+    "no_apk": true,
+    "no_shader_changes": true,
+    "no_key_access": true,
+    "no_fps_gain_claim": true,
+    "no_c3_rework": true
+  }
+}
