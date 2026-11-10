@@ -1,0 +1,17 @@
+{
+  "stage": "PRE658_V51_PASS_CATEGORY_GPU_COST_READONLY",
+  "prerequisites": {
+    "pre657_context_sha256": "74e22c2cc58c8da869bc0c7fc1905ceabe38698548aa821b0cf0ed7dac08af5d",
+    "pre656_run_id": 42813194428,
+    "real_v51_log_drive_id": "1u5FBEzB8Oi3xi1EH-iIar3aortJ2zrmd",
+    "original_log_sha256": "649fbe98116b12ade8032b50267e78dcb251832cd8a566fb3d30380d37e325c7",
+    "v50_source_pin": "1f890953380502abd0cfc7d140a102bbd7470aff6ca2d37b039a16d9c6ffeb92"
+  },
+  "mission": "authentic reconstruct V50 PAL renderer and map pass category enum vs actual C2 GPU per-pass measurements, compare p2 VS62 PS58 without claiming per shader timing",
+  "no_apk": true,
+  "no_sources_written_to_drive": true,
+  "no_shader_edits": true,
+  "no_cert_usage": true,
+  "thermal_unchanged": true,
+  "fps_gain_not_claimed": true
+}
