@@ -1,0 +1,45 @@
+{
+  "stage": "PRE679",
+  "status": "LOCAL_FALLBACK_SOURCE_EXCERPT_ANCHORS_PASS_CI_BLOCKED",
+  "date": "2026-11-10",
+  "source_approved_pre678_run": 42876324398,
+  "attempted_workflow_runs": [
+    42878824279,
+    42879117785
+  ],
+  "ci_failure": "both completed/failure before any steps, no job logs (404 BlobNotFound), cause unconfirmed",
+  "src_pre679": "automation/kaggle/pre679_sb02_v51_cvar_blur_specialization_readonly.py",
+  "workflow_pre679": ".github/workflows/nfsmw-pre679-sb02-cvar-blur-specialization-readonly.yml",
+  "commit_script": "655bc0b66d0e877cefcd1130b718a1c651479fb4",
+  "commit_workflow": "50e3f1800a39b00a0a55654ea03ee2c5b964abd0",
+  "local_evidence": {
+    "drive_id": "1T49jGlnAktzvBXeNFw4wT5bvSTowHUlk",
+    "url": "https://drive.google.com/file/d/1T49jGlnAktzvBXeNFw4wT5bvSTowHUlk/view",
+    "zip_size": 2810,
+    "sha256": "6a09d1f098bc75b91f688ce3bc0ee0e69e2a0abf3a00f634bb83aaf6de00861a",
+    "zip_crc_ok": true,
+    "drive_readback_identical": true,
+    "source_lines_verified": 8,
+    "logical_cases": 8
+  },
+  "findings": {
+    "blur_default_true_in_replayed_V51_source": true,
+    "blur_cvar_latched_each_frame": true,
+    "dead_depth_read_guard_uses_same_flag": true,
+    "kSpecSinDesenfoque_specialization_in_final_composition": true,
+    "shadow_scale_source_default_percent": 100,
+    "actual_android_toml_unavailable": true,
+    "actual_android_shader_variant_unavailable": true
+  },
+  "limits": {
+    "no_full_PRE679_replay": true,
+    "no_actual_CVar_loader_audit": true,
+    "no_GPU_or_pixels_test": true,
+    "no_apk": true,
+    "no_source_or_shader_edits": true,
+    "no_speedbreaker_code_import": true,
+    "no_key_or_saves_access": true,
+    "no_fps_gain": true
+  },
+  "next": "Investigate early GitHub runner failure vs billing/quota, then rerun PRE679 authentic source probe; inspect actual Android user TOML only when available, ensure full blur/shadow quality is preserved."
+}
