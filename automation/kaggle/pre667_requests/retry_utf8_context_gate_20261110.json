@@ -1,0 +1,7 @@
+{
+  "stage": "PRE667",
+  "previous_failed_run": 42838773931,
+  "fix_commit": "a26a23010f4a62ae27184bd808b58ee8fd4f446e",
+  "reason": "UTF-8 encoded marker instead of invalid non-ASCII byte literal",
+  "no_drive_write_before_retry": true
+}
