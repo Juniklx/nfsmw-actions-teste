@@ -1,0 +1,60 @@
+name: NFSMW PRE660 V51 Vulkan GPU query/timestamp source feasibility NO APK
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre660_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre660-v51-timestamp-readonly
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Compile PRE660 read-only audit and install source restore dependencies
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre660_v51_gpu_vulkan_timestamp_feasibility_readonly.py
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests zstandard
+      - name: Inspect authentic PRE638 V50 native Vulkan timestamp query paths without changing source
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre660_v51_gpu_vulkan_timestamp_feasibility_readonly.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          j=json.loads(Path("/tmp/nfsmw-pre660/PRE660_GPU_VULKAN_TIMESTAMP_SOURCE_AUDIT.json").read_text())
+          assert j["status"]=="AUDIT_OK_STATIC_VULKAN_TIMESTAMP_SUPPORT"
+          assert j["read_only_authenticated_source_verified"] is True
+          assert j["source_audit"]["v50_renderer_sha256"]=="1f890953380502abd0cfc7d140a102bbd7470aff6ca2d37b039a16d9c6ffeb92"
+          assert j["source_audit"]["timing_identification"]["gpu_category_marker_found"] is True
+          assert j["source_audit"]["timing_identification"]["vulkan_timestamp_commands_present"] or j["source_audit"]["timing_identification"]["timestamp_query_type_present"]
+          assert j["apk_created"] is False
+          assert j["shader_spirv_modified"] is False
+          assert j["fps_gain_verified"] is False
+          assert j["timing_per_shader_obtained"] is False
+          print("PRE660_AUTH_VULKAN_GPU_TIMESTAMP_SOURCE_FEASIBILITY=PASS")
+          PY
+      - name: Archive only concise source line evidence and renderer timing capabilities
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre660-v51-vulkan-gpu-timestamp-${{ github.run_id }}
+          path: |
+            /tmp/nfsmw-pre660/PRE660_GPU_VULKAN_TIMESTAMP_SOURCE_AUDIT.json
+            /tmp/nfsmw-pre660/RELATORIO_PRE660_V51_GPU_TIMESTAMP_READONLY.md
+          if-no-files-found: warn
+          retention-days: 30
