@@ -1,0 +1,103 @@
+{
+  "stage": "PRE662_V51_VULKAN_TIMESTAMP_ALIAS_QUERY_POOL_LIFECYCLE",
+  "status": "AUDIT_OK_SOURCE_ALIAS_LIFECYCLE_EXTRACTED",
+  "github_run_id": 42826615797,
+  "github_url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42826615797",
+  "job_id": 129865502424,
+  "artifact_id": 13768844097,
+  "drive_archive_id": "1jhIoN4Qs8Mp7POF2p_0Wvk_ES9wFCKw4",
+  "drive_url": "https://drive.google.com/file/d/1jhIoN4Qs8Mp7POF2p_0Wvk_ES9wFCKw4/view",
+  "archive_bytes": 32433,
+  "archive_sha256": "25222b838a8b4b61801b6878896e407fbc76f6fc649bacba0f314fb2f914be3b",
+  "archive_zip_crc_pass": true,
+  "archive_remote_redownload_verified": true,
+  "json_sha256": "b7d5842410cf16257b33ea3bf7da473a185dfb11f3d73aa51f48eeab469ef910",
+  "markdown_sha256": "f6fc0cb6fa0c7c91d38e3b8dcd6289e30b59fdd21df8be3db9d42b172830db1c",
+  "source": {
+    "pre99_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+    "replay": "PRE99→PRE431→PRE638",
+    "renderer_sha256": "1f890953380502abd0cfc7d140a102bbd7470aff6ca2d37b039a16d9c6ffeb92",
+    "timestamp_cpp_sha256": "b70497df49440b469018e7ef7a0e007d39ab5df13aa979edc91f37e1d2d42385",
+    "timestamp_header_sha256": "daceccb4a5d88fb0584f847ce64c439d579cb9770fa45e7aa1a363746745032f",
+    "binary_equivalence_with_signed_v51_libmain_not_proven": true
+  },
+  "verified_code": {
+    "writer_load": {
+      "line": 1033,
+      "method": "vkGetDeviceProcAddr(device_, \"vkCmdWriteTimestamp\")",
+      "name": "escribir_marca_"
+    },
+    "reader_load": {
+      "line": 1035,
+      "method": "vkGetDeviceProcAddr(device_, \"vkGetQueryPoolResults\")",
+      "name": "leer_consultas_"
+    },
+    "device_validity": {
+      "lines": [
+        1037,
+        1038
+      ],
+      "requires": [
+        "timestampValidBits nonzero",
+        "writer non-null",
+        "reader non-null",
+        "timestampPeriod >0"
+      ]
+    },
+    "query_pool": {
+      "type": "VK_QUERY_TYPE_TIMESTAMP",
+      "line": 1041,
+      "queryCount": "ranuras_.size()*128"
+    },
+    "marks_per_work_slot": 128,
+    "mark_type": "uint64 timestamp",
+    "reserve_final_slot": true,
+    "category_mark_function_line": 3681,
+    "category_skip_repeated_adjacent": true,
+    "category_skip_pool_full": true,
+    "per_slot_max_category_starts": 127,
+    "precise_stage_enabled_uses": "VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT",
+    "nonprecise_uses": "VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT",
+    "end_timestamp_lines": [
+      5162,
+      5167
+    ],
+    "query_reset_line": 4835,
+    "query_read_line": 4956,
+    "query_result_flags": "VK_QUERY_RESULT_64_BIT",
+    "query_result_wait_flag_used": false,
+    "read_lifecycle": {
+      "function": "CompletarUna",
+      "line": 4934,
+      "order": [
+        "vkWaitForFences",
+        "vkResetFences",
+        "leer_consultas_",
+        "aggregate category durations"
+      ],
+      "poll_other_completed_slots": "vkGetFenceStatus"
+    },
+    "gpu_submit_line": 5181,
+    "private_timestamp_writer_pointer_calls": 2,
+    "private_timestamp_reader_pointer_calls_for_timing": 1
+  },
+  "runtime_basis": {
+    "pre656_real_log_sha256": "649fbe98116b12ade8032b50267e78dcb251832cd8a566fb3d30380d37e325c7",
+    "pre648_p2_vs62_ps58_draws_lower_bound": 2186797,
+    "pre658_c2_scene_ms_per_swap_mean": 2.64143,
+    "precise_marks_in_v51_log_enabled": true,
+    "per_shader_gpu_time_not_measured": true
+  },
+  "limitations": {
+    "only_source_replay_not_signed_elf_identity": true,
+    "query_pool_existing_is_occupied_by_category_marks": true,
+    "timestamps_do_not_isolate_gpu_cost_of_interleaved_draws": true,
+    "do_not_inject_timestamps_per_draw": true,
+    "FPS_gain_not_proven": true,
+    "no_apk_built": true,
+    "no_shader_edit": true,
+    "no_signer_access": true,
+    "no_save_changes": true
+  },
+  "next": "PRE664 design/test bounded isolated group-sampled GPU time queries for p2 VS62/PS58, respecting slot fences and avoiding perturbation; require ARM64 noAPK and overhead gate before any V52."
+}
