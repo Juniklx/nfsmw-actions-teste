@@ -1,0 +1,83 @@
+{
+  "schema": "nfsmw-pre678-sb02-quality-depth-source-v1",
+  "stage": "PRE678_SB02_V51_DEPTH_STATE_VULKAN_COPY_INDIRECTION_GRAPHICS_QUALITY",
+  "status": "AUDIT_OK_AUTHENTIC_V51_DEPTH_STATE_AND_GRAPHICS_QUALITY_SOURCE_ONLY",
+  "date_utc": "2026-11-10",
+  "github": {
+    "repo": "Juniklx/nfsmw-actions-teste",
+    "run_id": 42876324398,
+    "job_id": 130040482718,
+    "artifact_id": 13791183670,
+    "url": "https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42876324398"
+  },
+  "drive": {
+    "id": "1hMBm2zfsKgPZLm23wb5P-IkjbIS5Lhkw",
+    "url": "https://drive.google.com/file/d/1hMBm2zfsKgPZLm23wb5P-IkjbIS5Lhkw/view",
+    "bytes": 252112,
+    "sha256": "21b05b399053bcc15e5ae8424978a9fd60e5209534ea7a4fd867d6d5cc61e24f",
+    "crc_ok": true,
+    "readback_identical": true
+  },
+  "source": {
+    "renderer_v51_sha256": "9a76c240852b0cc5c6c80ef608cab3d9302c75368b3237440905caec873dbee2",
+    "backend_v51_sha256": "b70497df49440b469018e7ef7a0e007d39ab5df13aa979edc91f37e1d2d42385",
+    "recipe": "PRE99 + PRE431 + PRE638 + PRE648 isolated replay",
+    "release_elf_bitwise_equivalence_verified": false
+  },
+  "findings": {
+    "radial_blur_disabled_by_default_in_renderer_source": {
+      "flag": "nfsmw_nativo_sin_desenfoque",
+      "defined_default": true,
+      "unit": "renderer",
+      "line": 195,
+      "comment_lines": [
+        187,
+        193
+      ],
+      "source_comment_says_blur_during_speed_and_NOS_removed": true,
+      "actual_runtime_value_unknown": true
+    },
+    "shadow_scale_source_default": {
+      "flag": "nfsmw_nativo_sombras_escala",
+      "defined_default": 100,
+      "unit": "backend",
+      "line": 89,
+      "actual_runtime_value_unknown": true
+    },
+    "depth_lazy_default": true,
+    "front_lazy_default": true,
+    "shadow_minimum_default": true,
+    "shadow_image_swap_default": false,
+    "depth_composition_dead_reads_logic": "renderer checks composition shader fingerprint + sin_desenfoque_fotograma_; sets LecturasDeProfundidadMuertas(true) around sampler preparation, then false",
+    "backend_lazy_depth": "AplazarCopiaProfundidad returns false when lazy disabled, recent dead-read missing or real reader seen; AntesDeEscribirProfundidad flushes or drops queue; guards do not prove pixel identity",
+    "copy_image_driver_binding": "backend 915-922 obtains vkCmdCopyImage via vkGetDeviceProcAddr; fails initialization if missing",
+    "indirect_copy_image_calls": [
+      1613,
+      1834,
+      1888,
+      2287,
+      3324,
+      3450,
+      4296,
+      4337
+    ],
+    "prior_shadow_image_swap_disabled_for_missing_car_shadows": true,
+    "source_subsampling_effect_removal_risk_confirmed": true,
+    "blur_source_default_and_full_effects_requirement_conflict": true
+  },
+  "gate": {
+    "authenticated_source_pass": true,
+    "host_synthetic_negative_cases_carried_from_PRE677": 24,
+    "no_real_V51_state_machine_test": true,
+    "no_pixel_comparison": true,
+    "no_user_TOML_inspection": true,
+    "no_android_probe": true,
+    "no_GPU_timestamps": true,
+    "no_FPS_gain": true,
+    "no_APK_build": true,
+    "no_source_or_shader_modifications": true,
+    "no_external_speedbreaker_code_import": true,
+    "no_signing_material_access": true
+  },
+  "next": "PRE679 SB-02: inspect actual TOML/CVar setting and forced SPIR-V specialization, verify radial blur + shadows/PCF default at runtime without silently changing user config; develop no-APK guard/equivalence fixture for pending depth if possible."
+}
