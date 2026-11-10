@@ -1,0 +1,66 @@
+name: NFSMW PRE646 V50 PAL SPIR-V C6 pipeline static mapping
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre646_requests/*.json'
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: nfsmw-pre646-readonly-gpu-shader-pipeline
+  cancel-in-progress: false
+jobs:
+  map:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify Python and XXH3 shared library
+        run: |
+          set -euo pipefail
+          python3 -m py_compile automation/kaggle/pre646_v50_pal_shader_pipeline_map_readonly.py
+          if ! ldconfig -p | grep -q 'libxxhash.so'; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq libxxhash0
+          fi
+      - name: Download exact signed PRE638 V50 GitHub artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          test "$REPO" = "Juniklx/nfsmw-actions-teste"
+          mkdir -p /tmp/nfsmw-pre646/input
+          gh run download 42748358853 --repo "$REPO" --name nfsmw-pre638-v50-c3-42748358853 --dir /tmp/nfsmw-pre646/input
+          test -f /tmp/nfsmw-pre646/input/nfsmw-v50-c3-diagnostic-verified.apk
+          echo PRE646_SIGNED_V50_ARTIFACT_READY
+      - name: Reproduce authenticated shader index / C6 pipeline map without building APK
+        run: |
+          set -euo pipefail
+          python3 automation/kaggle/pre646_v50_pal_shader_pipeline_map_readonly.py \
+            --apk /tmp/nfsmw-pre646/input/nfsmw-v50-c3-diagnostic-verified.apk \
+            --sanitized-log docs/PRE646_V50_C6_FIRST64_PAIRS_SANITIZED.json \
+            --output /tmp/nfsmw-pre646/report
+          python3 - <<'PY'
+          import csv,json
+          from pathlib import Path
+          r=Path('/tmp/nfsmw-pre646/report')
+          j=json.loads((r/'PRE646_V50_SPIRV_C6_GATE.json').read_text())
+          assert j['status']=='AUDIT_OK'
+          assert (j['pal_stage_valid'],j['usa_stage_valid'])==(64,7)
+          assert (j['distinct_vs'],j['distinct_ps'])==(20,27)
+          assert j['new_apk_created'] is False
+          assert j['fps_gain_verified'] is False
+          assert len(list(csv.DictReader((r/'PRE646_V50_FIRST64_SHADER_PIPELINE_MAP.csv').open())))==64
+          print('PRE646_PINNED_MAP_GATE=PASS')
+          PY
+      - name: Archive sanitized evidence (no original log or APK)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre646-v50-pal-shader-pipeline-${{ github.run_id }}
+          path: /tmp/nfsmw-pre646/report/
+          if-no-files-found: warn
+          retention-days: 30
