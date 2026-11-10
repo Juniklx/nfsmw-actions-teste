@@ -58,7 +58,7 @@ int main(){
  assert(!a.BeginSlot(0,true,VkFenceOutcome::NotReady));
  assert(a.BeginSlot(0,true,VkFenceOutcome::Success));
  assert(!a.BeginSlot(0,true,VkFenceOutcome::Success));
- assert(!a.ReadyToEndRenderPass(0));
+ assert(a.ReadyToEndRenderPass(0)); // empty recorded slot has no dangling pair
  assert(!a.BeginPair(0,false,false));
  assert(!a.BeginPair(0,true,true)); // deferred sky not recorded
  uint32_t first=99,last=99;
