@@ -60,7 +60,7 @@ jobs:
           PYTHONPATH: automation/kaggle
         run: |
           set -euo pipefail
-          python automation/kaggle/pre673_v51_native_vulkan_adapter_arm64_noapk.py --run-id "$GITHUB_RUN_ID"
+          python automation/kaggle/pre673_v51_aarch64_combined_vulkan_guard_compileonly_noapk.py --run-id "$GITHUB_RUN_ID"
           python - <<'PY'
           import json
           from pathlib import Path
