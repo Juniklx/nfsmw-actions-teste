@@ -1,0 +1,73 @@
+{
+  "stage": "PRE679C",
+  "status": "PASS_SIGNED_V51_BUNDLED_TOML_AND_ARCHIVED_JAVA_MAPPING_ONLY",
+  "date_utc": "2026-11-10",
+  "github": {
+    "repo": "Juniklx/nfsmw-actions-teste",
+    "initial_PRE679_runs": [
+      42878824279,
+      42879117785
+    ],
+    "independent_minimal_runner_probe_run": 42881514669,
+    "CI_status": "runner-unavailable-before-any-steps, reason unverified",
+    "source_authenticated_PRE678_run": 42876324398
+  },
+  "apk": {
+    "drive_id": "1H3bUAka0s8f7PR0vi2FYj81Pm7uYc6Ws",
+    "filename": "NFSMW_V51_PRE652_GPU_SHADER_PASS_FREQUENCY_DIAGNOSTIC.apk",
+    "bytes": 47104417,
+    "sha256": "207934b667d7023bdbd7334bd448ff0ba1bcf6af5aedf5964f92ef146d127c5b",
+    "zip_crc_ok": true,
+    "no_apk_modifications": true
+  },
+  "toml": {
+    "asset": "assets/nativo/nfsmw.toml",
+    "sha256": "9602e9f7409eaab83b295521d00fecb95b04d629a8f7cea48911473f77a4f0d2",
+    "byte_identical_to_archived_nativo_app_nfsmw_movil_toml": true,
+    "values": {
+      "nfsmw_nativo_sin_desenfoque": true,
+      "nfsmw_nativo_pcf_barato": true,
+      "nfsmw_sombras_sin_vegetacion": true,
+      "nfsmw_nativo_sombras_escala": 100,
+      "nfsmw_sombras_corte": 150,
+      "nfsmw_resolucion_interna": "1280x720",
+      "nfsmw_limite_fps": "60"
+    },
+    "these_are_packaged_defaults_not_effective_device_values": true
+  },
+  "source": {
+    "source_snapshot_drive_id": "11jLQdQ7UshqWfQ0xctZhVZdCjGbUWHL_",
+    "backend_sha256": "b70497df49440b469018e7ef7a0e007d39ab5df13aa979edc91f37e1d2d42385",
+    "backend_matches_v51_source": true,
+    "renderer_snapshot_differs_from_instrumented_v51": true,
+    "java_source_archive_only": true,
+    "archived_java": "Ajustes.desenfoque default false; MotorNativo passes its inverse as --nfsmw_nativo_sin_desenfoque; archived shadows default rapida and CLI pcf/vegetation; modified user TOML preserved; CLI CVar overrides bundled TOML",
+    "apk_classes_dex_literals_confirmed": true,
+    "v51_java_control_flow_independently_decompiled": false
+  },
+  "evidence": {
+    "drive_id": "1_70uqnZ1tMAN8q6D_SYdOibZmBp7vTwc",
+    "url": "https://drive.google.com/file/d/1_70uqnZ1tMAN8q6D_SYdOibZmBp7vTwc/view",
+    "filename": "NFSMW_PRE679C_V51_SIGNED_APK_GRAPHICS_DEFAULTS_AUDIT.zip",
+    "bytes": 8726,
+    "sha256": "02e93f1c81029c7a5a2c22dbd2f408d71de76467b6d16134112a69eb6f5c02a0",
+    "crc_ok": true,
+    "upload_and_readback_sha_equal": true,
+    "includes": [
+      "pre679c_audit_signed_apk_config.py",
+      "PRE679C_V51_SIGNED_APK_GRAPHICS_DEFAULTS_AUDIT.json",
+      "PRE679C_V51_SIGNED_APK_GRAPHICS_DEFAULTS_SUMMARY.md"
+    ]
+  },
+  "limitations": {
+    "real_device_shared_preferences_not_inspected": true,
+    "device_user_toml_not_read": true,
+    "no_shader_runtime_variant_validation": true,
+    "no_gpu_or_pixel_equivalence": true,
+    "no_ARM64_build": true,
+    "no_new_APK": true,
+    "no_FPS_gain": true,
+    "no_signing_key_or_saves_read": true
+  },
+  "next": "Investigate GitHub Actions failure using platform UI/billing if necessary; read-only inspect actual V51 UI/runtime preferences; design faithful blur+Xbox360 shadow restoration only behind explicit visual and ARM64 gates, no blind Vulkan copy removal."
+}
