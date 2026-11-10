@@ -1,0 +1,23 @@
+{
+  "stage": "PRE649_V50_GPU_SHADER_COUNTER_HOST_OVERHEAD",
+  "verified_dependency": {
+    "PRE648_run": 42764731926,
+    "PRE648_status": "AUDIT_OK",
+    "real_arm64_libmain_sha256": "214ff9b9e41ab823f4a78f172199eee330f23257eb44e65a22fdb174bd2cbb1e",
+    "PRE648_artifact_drive_id": "1BnK_QBzOrzALsMsQjEI6-kzLyYmA4_dp"
+  },
+  "tests": [
+    "host x86_64 release CPU wall-time 9 sample medians, repeated and diverse draw keys",
+    "ASAN/UBSAN correctness",
+    "diagnostic-only static source scope and fixed memory"
+  ],
+  "limits": {
+    "apk_created": false,
+    "signer_access": false,
+    "graphics_unchanged": true,
+    "saves_unchanged": true,
+    "perf_claims": false,
+    "not_a_mobile_gpu_benchmark": true
+  },
+  "next": "Audit PRE649 report, only then decide next controlled Android-oriented stage"
+}
