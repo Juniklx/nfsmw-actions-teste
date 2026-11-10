@@ -1,0 +1,8 @@
+{
+  "stage": "PRE654_CONTEXT_RETRY",
+  "failed_run": 42799401172,
+  "root_cause": "Workflow Python script path old name; no canonical Drive write attempted",
+  "fixed_workflow_commit": "8233a6b9a8302ad4db9e89dd4303954753e5bc31",
+  "expected_canonical_sha256": "6c1e7b5c201b30b63295886e1c0cf4ef29827a6cd69fd6b4241e41c76ff714c1",
+  "no_apk_or_signing_operations": true
+}
