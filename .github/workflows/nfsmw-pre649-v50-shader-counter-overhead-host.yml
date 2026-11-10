@@ -1,0 +1,135 @@
+name: NFSMW PRE649 V50 shader counter host overhead audit
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre649_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre649-shader-counter-overhead-host
+  cancel-in-progress: false
+jobs:
+  counter-host:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify prior PRE648 report identity and static diagnostic boundaries
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          evidence=json.loads(Path("docs/PRE648_GPU_COUNTER_ARM64_CHECKPOINT_PENDING.json").read_text())
+          h=Path("automation/kaggle/pre648_shader_pass_counter.h").read_text()
+          p=Path("automation/kaggle/pre648_v50_shader_pass_counts_arm64_noapk.py").read_text()
+          assert evidence["provenance"]["V50_signed_run"]==42748358853
+          assert evidence["provenance"]["PRE647_run"]==42762305482
+          assert "static constexpr uint32_t kVs = 160;" in h
+          assert "static constexpr uint32_t kPs = 160;" in h
+          assert "static_assert(ContadorShaderPases::kMemoriaContadores == 1638400)" in h
+          assert p.count("shader_por_pase_pre648_.Anotar(")==2
+          assert "PRE648_DIAGNOSTIC_ONLY" in p
+          assert "c.vs_mas_uno, c.ps_mas_uno, c.categoria, true" in p
+          assert "CategoriaDeDestino(pitch, claves), false" in p
+          assert "vkCmdDraw(" not in h and "vkCmdDrawIndexed(" not in h
+          assert "vkCmdDraw(" not in p and "vkCmdDrawIndexed(" not in p
+          assert "NFSMW_PRE635_C3_TWOREQUEST_TRACE" in p
+          print("PRE649_STATIC_DRAW_OBSERVER_GATE=PASS")
+          print("PRE649_COUNTER_HEADER_SHA256="+hashlib.sha256(Path("automation/kaggle/pre648_shader_pass_counter.h").read_bytes()).hexdigest())
+          PY
+      - name: Compile ASAN UBSAN regression test (not the benchmark)
+        run: |
+          set -euo pipefail
+          g++ -std=c++23 -O1 -g -fno-omit-frame-pointer -fsanitize=address,undefined \
+              -Wall -Wextra -Werror -Iautomation/kaggle \
+              automation/kaggle/pre648_shader_counter_host_test.cpp \
+              -o /tmp/nfsmw-pre649-sanitized
+          ASAN_OPTIONS=detect_leaks=1 UBSAN_OPTIONS=halt_on_error=1 /tmp/nfsmw-pre649-sanitized
+          echo PRE649_SANITIZER_HOST=PASS
+      - name: Release-mode CPU microbenchmark over 9 independent samples per workload
+        run: |
+          set -euo pipefail
+          g++ -std=c++23 -O3 -DNDEBUG -Wall -Wextra -Werror \
+              -Iautomation/kaggle \
+              automation/kaggle/pre649_shader_counter_benchmark.cpp \
+              -o /tmp/nfsmw-pre649-benchmark
+          /tmp/nfsmw-pre649-benchmark | tee /tmp/nfsmw-pre649-measured.txt
+      - name: Validate measured output and archive portable JSON
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import datetime,hashlib,json,math,os
+          raw=Path('/tmp/nfsmw-pre649-measured.txt').read_text().splitlines()
+          d={}; scenarios=[]
+          for line in raw:
+           if not line.startswith('PRE649_') or '=' not in line:continue
+           k,v=line.split('=',1)
+           if k=='PRE649_SCENARIO':
+            if d:scenarios.append(d)
+            d={'scenario':v}
+           elif k=='PRE649_HOST_INVARIANTS':
+            if d:scenarios.append(d);d={}
+           else:
+            if d:d[k]=v
+          assert len(scenarios)==2,scenarios
+          assert [x['scenario'] for x in scenarios]==['REPEATED','DIVERSE']
+          for x in scenarios:
+           assert x['PRE649_DRAWS_PER_TRIAL']=='300000'
+           assert x['PRE649_TRIALS']=='9'
+           for k in ('PRE649_BASELINE_MEDIAN_NS_PER_DRAW','PRE649_WITH_COUNTER_MEDIAN_NS_PER_DRAW',
+                     'PRE649_COUNTER_INCREMENTAL_MEDIAN_NS_PER_DRAW','PRE649_REPORT_MEDIAN_MS'):
+            assert math.isfinite(float(x[k]))
+           assert float(x['PRE649_WITH_COUNTER_MEDIAN_NS_PER_DRAW'])>0
+          assert 'PRE649_HOST_INVARIANTS=PASS' in raw
+          assert 'PRE649_FIXED_COUNTER_BYTES=1638400' in raw
+          assert 'PRE649_ANDROID_BENCHMARK=false' in raw
+          assert 'PRE649_FPS_GAIN_PROVEN=false' in raw
+          assert 'PRE649_VULKAN_DRIVER_EXECUTED=false' in raw
+          head=Path('automation/kaggle/pre648_shader_pass_counter.h').read_bytes()
+          result={
+            'stage':'PRE649_V50_SHADER_COUNTER_HOST_OVERHEAD',
+            'status':'AUDIT_OK_HOST_ONLY',
+            'github_run_id':os.environ['GITHUB_RUN_ID'],
+            'timestamp_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),
+            'source_verified_native_PRE648_run':42764731926,
+            'PRE648_arm64_sha256':'214ff9b9e41ab823f4a78f172199eee330f23257eb44e65a22fdb174bd2cbb1e',
+            'counter_header_sha256':hashlib.sha256(head).hexdigest(),
+            'fixed_counter_bytes':1638400,
+            'static_diagnostic_gate_passed':True,
+            'ASAN_UBSAN_host_passed':True,
+            'host_invariants_passed':True,
+            'host_measurements':scenarios,
+            'benchmark_warnings':['Linux x86_64 CPU synthetic draws, not Vulkan driver',
+                 'No Android ARM64 runtime GPU shader cost or FPS measured',
+                 'No fixed overhead threshold; microbenchmark is indicative only',
+                 'Requires on-device validation before considering diagnostic APK'],
+            'android_runtime_measured':False,
+            'per_shader_gpu_time_measured':False,
+            'apk_built':False,
+            'signing_material_accessed':False,
+            'user_saves_modified':False,
+            'fps_gain_proven':False}
+          dest=Path('/tmp/nfsmw-pre649')
+          dest.mkdir(exist_ok=True)
+          p=dest/'PRE649_V50_GPU_COUNTER_HOST_OVERHEAD.json'
+          p.write_text(json.dumps(result,indent=2,ensure_ascii=False)+'\n')
+          print('PRE649_STATUS=AUDIT_OK_HOST_ONLY')
+          print('PRE649_HOST_INVARIANTS=PASS')
+          print('PRE649_SANITIZERS=PASS')
+          print('PRE649_ARM64_RUNTIME_TEST=false')
+          print('PRE649_APK_BUILT=false')
+          PY
+      - name: Upload measured JSON and original benchmark stdout only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre649-v50-host-overhead-${{ github.run_id }}
+          path: |
+            /tmp/nfsmw-pre649/PRE649_V50_GPU_COUNTER_HOST_OVERHEAD.json
+            /tmp/nfsmw-pre649-measured.txt
+          if-no-files-found: warn
+          retention-days: 30
