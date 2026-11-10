@@ -1,0 +1,14 @@
+{
+  "stage": "PRE678B",
+  "verified_run": 42876324398,
+  "verified_artifact": 13791183670,
+  "drive_zip_id": "1hMBm2zfsKgPZLm23wb5P-IkjbIS5Lhkw",
+  "zip_sha256": "21b05b399053bcc15e5ae8424978a9fd60e5209534ea7a4fd867d6d5cc61e24f",
+  "canonical_sha256_before": "fbd977b5d05e90b5f9418194a759c826b3f1947d8bf27394230c11d78be6f8ee",
+  "canonical_bytes_before": 1113744,
+  "backup_required": true,
+  "readback_required": true,
+  "signed_release_preserved": true,
+  "no_apk": true,
+  "graphics_fidelity_goal": true
+}
