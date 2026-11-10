@@ -1,0 +1,21 @@
+{
+  "stage": "PRE638_V50_C3_TWO_REQUEST_DIAGNOSTIC",
+  "reason": "PRE637 real ARM64 libmain C3 two-request diagnostic and four BMW callbacks approved",
+  "source_gate_run_id": 42745476208,
+  "source_gate_status": "AUDIT_OK",
+  "source_gate_libmain_sha256": "b8748dbf74f8fddb1bf3151801b50fe24e159c0f4d9fa6f84f0f675791d0cc9e",
+  "target_package": "io.github.nfsmwrecomp",
+  "target_version_code": 50,
+  "target_filename": "NFSMW_V50_PRE638_C3_TWO_REQUEST_DIAGNOSTIC.apk",
+  "permanent_certificate_sha256": "1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b",
+  "new_keystore_allowed": false,
+  "sign_with_existing_permanent_key_only": true,
+  "preserve_previous_apks": true,
+  "preserve_user_saves": true,
+  "preserve_bmw_and_nitro_stages": true,
+  "preserve_rendering_1920x1080": true,
+  "preserve_thermal_guards": true,
+  "purpose": "passive C3 duplicate-copy cause diagnosis, not FPS optimization or C3 bypass",
+  "release_acceptance": "Only after signed APK AAPT/apksigner, unchanged assets, marker and four callbacks validated",
+  "phone_test_status": "PENDING"
+}
