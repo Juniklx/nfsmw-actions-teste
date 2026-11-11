@@ -63,12 +63,14 @@ parse_dump() {
     {sub(/\r$/,"")}
     NR==1 { if ($0 !~ /^[0-9]+$/ || $0+0<3000000 || $0+0>50000000) exit 21;
             print "PERIOD_NS " $0; next }
-    NF==3 && $1~/^[0-9]+$/ && $2~/^[0-9]+$/ && $3~/^[0-9]+$/ {
-      print "FRAME " $1 " " $2 " " $3; n++; next
+    NF==3 && $1~/^-?[0-9]+$/ && $2~/^-?[0-9]+$/ && $3~/^-?[0-9]+$/ {
+      print "FRAME " $1 " " $2 " " $3; n++;
+      if ($2!="0" && $2!="9223372036854775807" && $2!="-1") valid++;
+      next
     }
     NF==0 {next}
     {exit 22}
-    END {print "FRAME_ROWS " n+0}
+    END {print "FRAME_ROWS " n+0; print "VALID_PRESENT_ROWS " valid+0}
   '
 }
 TMP=''
@@ -102,7 +104,7 @@ worker() {
     parsed="$(printf '%s\n' "$raw" | parse_dump)" || {
       notice "PRE690_SAMPLE_SCHEMA_ERROR_INDEX=$i" >&2; return 26;
     }
-    rows="$(printf '%s\n' "$parsed" | awk '$1=="FRAME_ROWS"{print $2}')"
+    rows="$(printf '%s\n' "$parsed" | awk '$1=="VALID_PRESENT_ROWS"{print $2}')"
     if ((rows>0)); then nonempty=$((nonempty+1)); fi
     printf 'SAMPLE_START %d %s\n%s\nSAMPLE_END %d\n' "$i" "$now" "$parsed" "$i" >> "$TMP"
     sleep 1
