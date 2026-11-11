@@ -1,0 +1,23 @@
+name: NFSMW PRE694 - A B A capture isolation and safety synthetic
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/run_requests/PRE694_ABA_CAPTURE_*.txt'
+permissions:
+  contents: read
+jobs:
+  aba_isolation:
+    if: github.repository == 'Juniklx/nfsmw-actions-teste' && github.ref == 'refs/heads/main' && github.actor == 'Juniklx'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Synthetically verify three isolated phases and fail-closed guards
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          bash automation/tests/test_pre694_aba_synthetic.sh
