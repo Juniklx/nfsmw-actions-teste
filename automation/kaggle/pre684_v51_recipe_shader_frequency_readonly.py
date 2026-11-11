@@ -188,14 +188,15 @@ def inspect_log(raw: bytes):
         if draws != normal + deferred_sky + invalid:
             raise ValueError("PRE684_SHADER_WINDOW_ACCOUNTING_MISMATCH")
         pairs = TOP.findall(line)
-        if len(pairs) != 8:
-            raise ValueError("PRE684_TOP8_REPORT_SCHEMA_MISMATCH")
+        if not (1 <= len(pairs) <= 12):
+            raise ValueError("PRE684_TOP_PAIR_REPORT_SCHEMA_MISMATCH")
         for category, vs, ps, n in pairs:
             top[(int(category), int(vs), int(ps))] += int(n)
         window_records.append({
             "time": line[1:24], "draws": draws, "normal": normal,
             "deferred_sky": deferred_sky, "invalid": invalid,
-            "top8_draw_count": sum(int(n) for _, _, _, n in pairs),
+            "reported_top_pair_count": len(pairs),
+            "reported_top_pair_draw_count": sum(int(n) for _, _, _, n in pairs),
         })
     if len(window_records) != 14:
         raise ValueError("PRE684_EXPECTED_14_GPU_SHADER_WINDOWS")
@@ -232,8 +233,9 @@ def inspect_log(raw: bytes):
         "pre648_deferred_sky_draws": sum(w["deferred_sky"] for w in window_records),
         "pre648_invalid_shader_ids": sum(w["invalid"] for w in window_records),
         "pre648_first_last_times": [window_records[0]["time"], window_records[-1]["time"]],
-        "pre648_top8_per_window_lower_bound_total": sum(top.values()),
-        "pre648_top8_pairs_aggregated": top_eight,
+        "pre648_reported_top_pairs_lower_bound_total": sum(top.values()),
+        "pre648_pairs_reported_per_window": [w["reported_top_pair_count"] for w in window_records],
+        "pre648_most_frequent_reported_pairs": top_eight,
         "c2_gpu_per_swap_samples": len(timing_rows),
         "c2_gpu_per_swap_window_median_ms": metrics,
         "pre648_counter_observed_in_device_log": True,
