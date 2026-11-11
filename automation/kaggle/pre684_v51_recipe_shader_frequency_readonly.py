@@ -222,7 +222,7 @@ def inspect_log(raw: bytes):
             "sample_count": len(values),
         }
     top_eight = [
-        {"category_id": category, "vs_id": vs, "ps_id": ps, "reported_top8_draws": count}
+        {"category_id": category, "vs_id": vs, "ps_id": ps, "reported_top_pairs_draws": count}
         for (category, vs, ps), count in top.most_common(8)
     ]
     return {
