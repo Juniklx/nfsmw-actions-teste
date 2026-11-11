@@ -22,3 +22,11 @@
 O replay de receita em temp não prova igualdade binária da `libmain.so` assinada. A própria presença das chamadas Vulkan não mede sua duração nem comprova que compositor, driver ou motor causem a alternância 8↔25ms. Após gate fonte verificado, planejar trace sincronizado do caminho app → queue/ready → SurfaceFlinger/actual, sem interferência na jogabilidade e sem publicar dados brutos privados.
 
 **Nenhum patch na fonte ativa, V52, assinatura, shader/SPIR-V, save, controle, gráfica, física, clock ou proteção térmica foi feito. Ganho de FPS não comprovado.**
+
+
+## Atualização posterior — falha de rede identificada e retry isolado
+
+- O [run PRE696 43099187370](https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/43099187370) terminou **completed/failure**: o download do arquivo PRE99 de ~875 MB falhou em `http.client.IncompleteRead` (`12827812 bytes read, 3949404 more expected` dentro de um bloco). **Não chegou ao replay** e portanto **não existe divergência de SHA de fonte, binário ou código de pacing observada nessa execução**.
+- A correção aplicada **somente no workflow PRE696**, commit `23ae4d397c4498bf672da0ce28ccbbc75f4c6a07`, faz retry do bloco HTTP incompleto de 8 MiB, com limite e backoff; após o download exige 874.780.689 bytes e SHA256 PRE99 conhecido antes de restaurar a receita. Nenhuma rotina comum PRE105, APK, código Android, shader, assinatura, credencial ou save foi modificada.
+- Novo [run PRE696 43100424122](https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/43100424122) **QUEUED na consulta de criação**, sem aprovação de fonte ainda. Resultado final deverá ser confirmado no job e JSON sanitizado.
+- O contexto canônico no Drive já preservou o checkpoint local exploratório PRE696 e uma cópia integral anterior: [CONTEXTO_NFSMW.md](https://drive.google.com/file/d/1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB/view), SHA256 após checkpoint local `ea3a6eb6d5e27f89061a288b6648a687c7e06c4e2758d68f14224e743fe8cc79`; [backup anterior](https://drive.google.com/file/d/1Li6-sDPtP2QK-0Q9tTpapsEOTyQBP50u/view). O checkpoint local é **preliminar**; essa atualização posterior explicita o erro de rede e o novo gate.
