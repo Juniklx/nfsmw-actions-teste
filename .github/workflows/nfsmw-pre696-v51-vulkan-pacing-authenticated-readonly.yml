@@ -42,8 +42,10 @@ jobs:
           python - <<'PY'
           import hashlib, json, re, tempfile
           from pathlib import Path
-          from pre104_verify_backup_tar import EXPECTED_BYTES, EXPECTED_SHA256, sha_file
-          from pre105_read_settings_source import drive_client, download
+          from pre104_verify_backup_tar import BACKUP_ID, EXPECTED_BYTES, EXPECTED_SHA256, sha_file
+          from pre105_read_settings_source import drive_client
+          from googleapiclient.http import MediaIoBaseDownload
+          import http.client, time
           from pre107_restore_isolated import restore
           import pre431_v46_source_dual_trace_compat_readonly as v46
           import pre434_build_signed_v47_bmw_passive_diag as p434
@@ -73,6 +75,27 @@ jobs:
             'java_settings': ('android/app/src/main/java/io/github/nfsmwrecomp/Ajustes.java', [
               r'limite_fps']),
           }
+          def resilient_pre99_download(drive, destination):
+              # Retry ONLY a failed 8-MiB chunk; downloader advances on complete chunk.
+              req=drive.files().get_media(fileId=BACKUP_ID, supportsAllDrives=True)
+              with destination.open('wb') as stream:
+                  transfer=MediaIoBaseDownload(stream, req, chunksize=8*1024*1024)
+                  consecutive_faults=0
+                  while True:
+                      try:
+                          _, finished=transfer.next_chunk(num_retries=4)
+                      except (http.client.IncompleteRead, ConnectionResetError,
+                              ConnectionAbortedError, BrokenPipeError, TimeoutError, OSError) as ex:
+                          consecutive_faults+=1
+                          if consecutive_faults>9:
+                              raise RuntimeError('PRE696_PRE99_DOWNLOAD_EXHAUSTED_CHUNK_RETRIES') from ex
+                          print('PRE696_PRE99_CHUNK_RETRY='+str(consecutive_faults),flush=True)
+                          time.sleep(min(2**consecutive_faults,20))
+                          continue
+                      consecutive_faults=0
+                      if finished:break
+              if destination.stat().st_size!=EXPECTED_BYTES:
+                  raise ValueError('PRE696_PRE99_SIZE_MISMATCH_AFTER_RETRIES')
           def sha(b): return hashlib.sha256(b).hexdigest()
           gate=json.loads(Path('docs/PRE652_V51_SIGNED_GPU_SHADER_DIAGNOSTIC_VERIFIED.json').read_text())
           apk=gate.get('apk',{})
@@ -93,7 +116,7 @@ jobs:
              'files':{}}
           with tempfile.TemporaryDirectory(prefix='nfsmw_pre696_') as td:
               tmp=Path(td); arc=tmp/'pre99.tar.gz'
-              download(drive_client(),arc)
+              resilient_pre99_download(drive_client(),arc)
               digest,_,size=sha_file(arc)
               assert (digest,size)==(PIN_PRE99,EXPECTED_BYTES), 'PRE696_PRE99_HASH_MISMATCH'
               dest=tmp/'restore';dest.mkdir()
