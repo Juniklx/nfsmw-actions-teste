@@ -1,0 +1,56 @@
+name: NFSMW PRE685 - V51 real Swap intervals (private report)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/run_requests/PRE685_*.txt'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nfsmw-pre685-swap-histograms-v51
+  cancel-in-progress: false
+
+jobs:
+  pre685:
+    name: Analyze PRE656 engine Swap pacing without APK changes
+    if: github.repository == 'Juniklx/nfsmw-actions-teste' && github.ref == 'refs/heads/main' && github.actor == 'Juniklx' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout reviewed main
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Preflight and dependencies without secrets
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre685_v51_swap_histogram_readonly.py
+          python -m pip install --disable-pip-version-check \
+            google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          echo "PRE685_SCRIPT_SYNTAX=PASS"
+      - name: Parse pinned private log and upload sanitized ZIP to private Drive
+        shell: bash
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          for key in GOOGLE_REFRESH_TOKEN GOOGLE_CLIENT_ID GOOGLE_CLIENT_SECRET; do
+            if [ -z "${!key:-}" ]; then
+              echo "PRE685_MISSING_SECRET_NAME=$key"
+              exit 2
+            fi
+          done
+          python automation/kaggle/pre685_v51_swap_histogram_readonly.py
+
+# No public artifacts, source patch, signing, APK, game data, or pull_request triggers.
