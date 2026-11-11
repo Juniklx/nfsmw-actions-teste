@@ -1,0 +1,113 @@
+name: NFSMW PRE690 - ordered per-layer latency collector synthetic safety test
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/run_requests/PRE690_VERIFY_*.txt'
+
+permissions:
+  contents: read
+
+jobs:
+  pre690_mocked_adb:
+    name: Verify layer selection, timestamp schema and offline parser
+    if: github.repository == 'Juniklx/nfsmw-actions-teste' && github.ref == 'refs/heads/main' && github.actor == 'Juniklx'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout safe public scripts
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Static validation without credentials
+        shell: bash
+        run: |
+          set -euo pipefail
+          bash -n automation/termux/nfsmw_pre690_ordered_latency_adb.sh
+          python -m py_compile automation/kaggle/pre690_analyze_ordered_latency.py
+          if grep -En '(^|[[:space:]])(su|setprop|pm[[:space:]]|am[[:space:]]|cmd[[:space:]]thermalservice|override-status)([[:space:]]|$)' automation/termux/nfsmw_pre690_ordered_latency_adb.sh; then
+            echo PRE690_DISALLOWED_SYSTEM_MODIFICATION=TRUE
+            exit 10
+          fi
+          echo PRE690_SCRIPT_SYNTAX_AND_NO_SYSTEM_CHANGE=PASS
+      - name: Simulated wireless ADB layer and frame timestamp capture
+        shell: bash
+        run: |
+          set -euo pipefail
+          t="$(mktemp -d)"
+          trap 'rm -rf "$t"' EXIT
+          mkdir -p "$t/bin" "$t/home" "$t/out"
+          export SIM_DIR="$t"
+          cat > "$t/bin/adb" <<'PY'
+          #!/usr/bin/env python3
+          import os,sys
+          from pathlib import Path
+          args=sys.argv[1:]
+          if args==["devices"]:
+              print("List of devices attached\n127.0.0.1:4567\tdevice")
+              sys.exit(0)
+          if len(args)<4 or args[0]!="-s" or args[2]!="shell":
+              raise SystemExit("PRE690_UNEXPECTED_ADB_INVOCATION")
+          cmd=" ".join(args[3:])
+          if cmd=="id -u":print("2000")
+          elif cmd=="getprop ro.product.model":print("SM-S721B")
+          elif cmd=="dumpsys SurfaceFlinger --list":
+              print("AnotherApp.do.not.collect")
+              print("SurfaceView[io.github.nfsmwrecomp/io.github.nfsmwrecomp.GameActivity]@0(BLAST)#103")
+              if os.environ.get("DOUBLE_LAYER")=="1":
+                  print("SurfaceView[io.github.nfsmwrecomp/io.github.nfsmwrecomp.GameActivity]@0(BLAST)#104")
+          elif cmd=="dumpsys SurfaceFlinger --latency":
+              print("8333333")
+          elif "--latency-clear" in cmd:
+              pass
+          elif "--latency" in cmd:
+              counter=Path(os.environ["SIM_DIR"])/"count.txt"
+              n=int(counter.read_text()) if counter.exists() else 0
+              counter.write_text(str(n+1))
+              print("8333333")
+              for i in range(max(0,n*55-100),n*55+55):
+                  present=10000000000000+i*16666667
+                  print(present-20000000,present,present-10000000)
+          else:
+              raise SystemExit("PRE690_UNEXPECTED_ADB_COMMAND: "+cmd)
+          PY
+          cat > "$t/bin/sleep" <<'SH'
+          #!/bin/sh
+          exit 0
+          SH
+          chmod +x "$t/bin/adb" "$t/bin/sleep"
+          export HOME="$t/home" PATH="$t/bin:$PATH" NFSMW_PRE690_OUT_DIR="$t/out"
+          bash automation/termux/nfsmw_pre690_ordered_latency_adb.sh preflight
+          bash automation/termux/nfsmw_pre690_ordered_latency_adb.sh worker 10 20 TEST1
+          raw="$t/out/NFSMW_PRE690_ORDERED_PRESENT_TEST1.txt"
+          test -s "$raw"
+          ! grep -q 'AnotherApp' "$raw"
+          python automation/kaggle/pre690_analyze_ordered_latency.py "$raw" --output "$t/out/PRE690_SYNTHETIC_ANALYSIS.json"
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          p=Path(os.environ["SIM_DIR"])/"out"/"PRE690_SYNTHETIC_ANALYSIS.json"
+          d=json.loads(p.read_text())
+          assert d["sample_count"]==20
+          assert d["samples_with_valid_frames"]==20
+          assert d["unique_present_timestamps"]>=1000
+          assert d["duplicate_rolling_timestamps_discarded"]>100
+          assert d["limits"]["frame_pacing_cause_proven"] is False
+          print("PRE690_SYNTHETIC_ROLLING_DEDUP=PASS")
+          PY
+          export DOUBLE_LAYER=1
+          if bash automation/termux/nfsmw_pre690_ordered_latency_adb.sh worker 10 20 TEST2; then
+            echo PRE690_DUPLICATE_GAME_LAYER_WAS_NOT_REJECTED
+            exit 12
+          fi
+          test ! -e "$t/out/NFSMW_PRE690_ORDERED_PRESENT_TEST2.txt"
+          test ! -e "$t/out/NFSMW_PRE690_ORDERED_PRESENT_TEST2.txt.tmp"
+          echo PRE690_SYNTHETIC_DOUBLE_LAYER_FAIL_CLOSED=PASS
+          echo PRE690_REAL_GALAXY_S24FE_TEST=NOT_PERFORMED
+# Offline mock only; no Google OAuth, APK files, private logs or release keys.
