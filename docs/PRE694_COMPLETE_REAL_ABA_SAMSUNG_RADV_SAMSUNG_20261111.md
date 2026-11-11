@@ -52,3 +52,9 @@
 - [Relatório canônico de análise no Drive](https://drive.google.com/file/d/1F0YYoltmuJHStWNR7e4BpB1P19Dox_dE/view)
 
 **Sem upload de log bruto, código proprietário, APK, credenciais ou chave privada ao GitHub público.**
+
+
+## Registro canônico verificado após publicação
+- [CONTEXTO_NFSMW.md atualizado](https://drive.google.com/file/d/1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB/view), 1.176.103 bytes, SHA256 `41e8b6bb58a9aef72ab39ad0778eceaaa848dbc8f6c682a87065e0dcf5d679da`; relido integralmente e idêntico ao conteúdo preparado.
+- [Backup integral antes do adendo PRE694 final](https://drive.google.com/file/d/1YvdxwfFmRWS3bTPVQydk1PCz3Vsf8fQR/view), 1.169.911 bytes, SHA256 `7f7158472474b6adae5334bc5628f92a6ffd18123d32eb1e7159607e8d33e58a`. Conteúdo anterior comprovado como prefixo byte a byte idêntico ao novo arquivo; append de 6.192 bytes.
+- Próxima fase **PRE695 sugerida (não executada)**: auditoria somente leitura do pacing Vulkan/SurfaceFlinger; nenhuma alteração na APK V51 nem prova de ganho de FPS.
