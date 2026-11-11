@@ -1,0 +1,52 @@
+name: NFSMW PRE686 - SurfaceFlinger vs engine (private evidence)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/run_requests/PRE686_*.txt'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nfsmw-pre686-surfaceflinger-engine
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    name: Verify private SurfaceFlinger and game log (no APK)
+    if: github.repository == 'Juniklx/nfsmw-actions-teste' && github.ref == 'refs/heads/main' && github.actor == 'Juniklx' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Syntax and Google API tools without secrets
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre686_display_vs_engine_readonly.py
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          echo "PRE686_PYTHON_SYNTAX=PASS"
+      - name: Audit PINNED private logs and upload private report
+        shell: bash
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          for k in GOOGLE_REFRESH_TOKEN GOOGLE_CLIENT_ID GOOGLE_CLIENT_SECRET; do
+            if [ -z "${!k:-}" ]; then echo "PRE686_MISSING_SECRET_NAME=$k"; exit 2; fi
+          done
+          python automation/kaggle/pre686_display_vs_engine_readonly.py
+
+# No artifact upload, release key access, public logs or pull_request triggers.
