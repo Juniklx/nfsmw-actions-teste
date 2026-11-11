@@ -68,15 +68,24 @@ select_layer() {
   while IFS= read -r line; do
     line="${line%$'\r'}"
     [[ "$line" == *"SurfaceView[$PKG/"* ]] || continue
-    # AOSP --list can emit RequestedLayerState{NAME ...}, whereas
-    # --latency requires the exact Layer::getName() string.
+    # On Samsung/AOSP --list is RequestedLayerState{LAYER_NAME parentId=N...}.
+    # LAYER_NAME itself includes a hex token followed by a space:
+    # "fc1e4cf SurfaceView[...GameActivity]@0(BLAST)#15701".
+    # --latency requires this entire name, not the debug wrapper and not just
+    # the substring starting at SurfaceView[.
     if [[ "$line" == 'RequestedLayerState{'* ]]; then
+      [[ "$line" == *' parentId='* ]] || {
+        notice 'PRE690_LAYER_LIST_SCHEMA_UNEXPECTED_ABORT=TRUE' >&2
+        return 20
+      }
       line="${line#RequestedLayerState\{}"
-      line="${line%%[[:space:]]*}"
-      line="${line%\}}"
+      line="${line%% parentId=*}"
     fi
-    if [[ "$line" != "SurfaceView[$PKG/"* || "$line" == *" "* ||
-          "$line" == *"{"* || "$line" == *"}"* ]]; then
+    # Diagnostic "Background for ..." is not the game's presenting layer.
+    [[ "$line" == 'Background for '* ]] && continue
+    # The optional hex prefix permits both the observed Samsung names and
+    # old plain SurfaceView names used by earlier Android builds.
+    if [[ ! "$line" =~ ^([[:xdigit:]]+[[:space:]]+)?SurfaceView\[io\.github\.nfsmwrecomp/io\.github\.nfsmwrecomp\.GameActivity\]@0(\(BLAST\))?#[0-9]+$ ]]; then
       notice 'PRE690_LAYER_LIST_SCHEMA_UNEXPECTED_ABORT=TRUE' >&2
       return 20
     fi
