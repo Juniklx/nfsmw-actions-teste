@@ -30,6 +30,7 @@ dest="$OUT/NFSMW_PRE691_VULKAN_ENV_${stamp}.txt"
   emit "PACKAGE=$PKG"
   emit "DEVICE_MODEL=$model"
   emit "PACKAGE_VERSION_CODE=$vers"
+  if [[ "$vers" == 51 ]]; then emit "V51_VERSION_MATCH=TRUE"; else emit "V51_VERSION_MATCH=FALSE"; fi
   emit "ANDROID_SDK=$(shell getprop ro.build.version.sdk | tr -d '\r\n')"
   for prop in ro.hardware.vulkan ro.hardware.egl ro.board.platform ro.gfx.driver.0; do
     value="$(shell "getprop $prop" | tr -d '\r\n')"
