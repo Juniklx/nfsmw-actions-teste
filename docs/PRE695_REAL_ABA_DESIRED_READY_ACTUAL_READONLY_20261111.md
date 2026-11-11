@@ -51,3 +51,12 @@ Auditar somente leitura o **código real da apresentação** (VulkanPresenter, s
 - [Contexto canônico PRE694 final](https://drive.google.com/file/d/1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB/view), a atualizar para PRE695 somente após backup e leitura de volta.
 
 **Segurança:** síntese estatística e código próprio sem código de jogo, credenciais, assinaturas, dumps crus ou dados pessoais no GitHub. CI sintético remoto ainda não executado para o analisador PRE695.
+
+
+## Sincronização canônica e código reproduzível
+
+- [Script de análise PRE695 em GitHub](https://github.com/Juniklx/nfsmw-actions-teste/blob/main/automation/kaggle/nfsmw_pre695_pacing_attribution_readonly.py), publicado no commit `41fc10f145b1132722297a0383b515f699d14342`; o mesmo conteúdo está no [Drive, pasta 03_Scripts_e_Patches](https://drive.google.com/file/d/1FKFw2GCBRvI7E6mWTb9QQDWUbUsy7U4I/view).
+- Workflow sintético [PRE695 Actions run 43095269762](https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/43095269762), disparado pelo commit `2438d9ded6d7b08a0e6bf3c4e7823dc22d800734`. Na última consulta, **QUEUED**, não aprovado nem reprovado; o teste real S24 FE é local nos ZIPs, NÃO no CI.
+- [CONTEXTO_NFSMW.md canônico atualizado](https://drive.google.com/file/d/1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB/view): **1.181.594 bytes**, SHA256 `a5162d6b41e873d9f84ae6035abc76b982090515562136e115ab5e1a87ff5407`. Readback exato após append de **5.491 bytes**; os 1.176.103 bytes anteriores são um prefixo byte a byte idêntico, SHA256 `41e8b6bb58a9aef72ab39ad0778eceaaa848dbc8f6c682a87065e0dcf5d679da`.
+- [Backup integral antes da PRE695](https://drive.google.com/file/d/1Plji5f35Dr_WXxjk3cAn1s6XE8qQRZj-/view), 1.176.103 bytes, preservado antes de gravar. Nenhuma chave ou APK foi alterada.
+- **Próximo gate PRE696 proposto, ainda não executado**: autenticar as fontes de pacing/MAILBOX usadas na V51 e mapear as funções sem aplicar patch nem criar V52.
