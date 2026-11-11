@@ -80,6 +80,7 @@ select_layer() {
       return 21
     }
     [[ "$before_ns" =~ ^[0-9]+$ ]] || return 21
+    notice "PRE690_LAYER_$((index+1))_BEFORE_ACTUAL_NS=$before_ns" >&2
     before+=("$before_ns")
   done
   sleep 2
@@ -89,6 +90,7 @@ select_layer() {
       return 21
     }
     [[ "$after_ns" =~ ^[0-9]+$ ]] || return 21
+    notice "PRE690_LAYER_$((index+1))_AFTER_ACTUAL_NS=$after_ns" >&2
     if (( after_ns > before[index] )); then
       notice "PRE690_LAYER_$((index+1))_ADVANCING=TRUE" >&2
       moving=$((moving+1))
