@@ -1,0 +1,37 @@
+name: NFSMW PRE698 - Perfetto capability preflight synthetic READONLY
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/nfsmw-pre698-perfetto-readonly-preflight-synthetic.yml'
+      - 'automation/termux/nfsmw_pre698_perfetto_preflight_readonly.sh'
+      - 'automation/kaggle/nfsmw_pre698_perfetto_preflight_synthetic.py'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nfsmw-pre698-perfetto-capability-synthetic
+  cancel-in-progress: false
+
+jobs:
+  noninvasive-preflight-synthetic:
+    if: github.repository == 'Juniklx/nfsmw-actions-teste' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate script syntax and mock ADB responses without real device
+        shell: bash
+        run: |
+          set -euo pipefail
+          bash -n automation/termux/nfsmw_pre698_perfetto_preflight_readonly.sh
+          python -m py_compile automation/kaggle/nfsmw_pre698_perfetto_preflight_synthetic.py
+          python automation/kaggle/nfsmw_pre698_perfetto_preflight_synthetic.py
