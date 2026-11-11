@@ -1,0 +1,79 @@
+name: NFSMW PRE691 - Vulkan driver environment read-only probe synthetic gate
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/run_requests/PRE691_DRIVER_PROBE_VERIFY_*.txt'
+permissions:
+  contents: read
+jobs:
+  vulkan_env_probe:
+    if: github.repository == 'Juniklx/nfsmw-actions-teste' && github.ref == 'refs/heads/main' && github.actor == 'Juniklx'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout read-only source
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Validate safety and simulate Samsung wireless ADB
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          script=automation/termux/nfsmw_pre691_vulkan_driver_readonly_probe.sh
+          bash -n "$script"
+          if grep -En '(^|[[:space:]])(su|setprop|pm install|cmd thermalservice override-status)([[:space:]]|$)' "$script"; then
+            echo PRE691_DISALLOWED_SYSTEM_CHANGE=TRUE
+            exit 10
+          fi
+          tmp="$(mktemp -d)"
+          trap 'rm -rf "$tmp"' EXIT
+          mkdir -p "$tmp/home" "$tmp/out" "$tmp/bin"
+          cat > "$tmp/bin/adb" <<'SH'
+          #!/usr/bin/env bash
+          set -eu
+          if [[ "$1" == "devices" ]]; then
+            printf 'List of devices attached\n127.0.0.1:4567\tdevice\n'
+            if [[ "${MOCK_SECOND:-0}" == 1 ]]; then printf '127.0.0.1:4568\tdevice\n'; fi
+            exit 0
+          fi
+          [[ "$1" == -s && "$3" == shell ]] || exit 90
+          shift 3
+          case "$*" in
+            "id -u") echo 2000 ;;
+            "getprop ro.product.model")
+              if [[ "${MOCK_OTHER_MODEL:-0}" == 1 ]]; then echo UNKNOWN; else echo SM-S721B; fi ;;
+            "pm path io.github.nfsmwrecomp") echo "package:/data/app/test/base.apk" ;;
+            "dumpsys package io.github.nfsmwrecomp") echo "  versionCode=51 minSdk=26 targetSdk=35" ;;
+            "getprop ro.build.version.sdk") echo 37 ;;
+            "getprop ro.hardware.vulkan") echo samsung ;;
+            "getprop ro.hardware.egl") echo mali ;;
+            "getprop ro.board.platform") echo s5e9945 ;;
+            "getprop ro.gfx.driver.0") echo "" ;;
+            "ls /vendor/lib64/hw/vulkan.*.so 2>/dev/null || true") echo "/vendor/lib64/hw/vulkan.samsung.so" ;;
+            *) echo "UNEXPECTED_ADB_QUERY:$*" >&2; exit 91 ;;
+          esac
+          SH
+          chmod +x "$tmp/bin/adb"
+          HOME="$tmp/home" NFSMW_PRE691_OUT_DIR="$tmp/out" NFSMW_ADB_BIN="$tmp/bin/adb" bash "$script"
+          report="$(find "$tmp/out" -maxdepth 1 -name 'NFSMW_PRE691_VULKAN_ENV_*.txt' -print -quit)"
+          test -n "$report" && test -s "$report"
+          grep -q '^PACKAGE_VERSION_CODE=51$' "$report"
+          grep -q '^V51_VERSION_MATCH=TRUE$' "$report"
+          grep -q '^PROP_ro.hardware.vulkan=samsung$' "$report"
+          grep -q '^CUSTOM_DRIVER_LOADED=NOT_DETERMINABLE_BY_THIS_PROBE$' "$report"
+          grep -q '^PRE691_NO_ROOT_NO_SET_PROP_NO_APK_MODIFICATION=TRUE$' "$report"
+          export MOCK_SECOND=1
+          if HOME="$tmp/home" NFSMW_PRE691_OUT_DIR="$tmp/out" NFSMW_ADB_BIN="$tmp/bin/adb" bash "$script"; then
+            echo PRE691_MULTIPLE_ADB_DEVICES_NOT_REJECTED
+            exit 12
+          fi
+          unset MOCK_SECOND
+          export MOCK_OTHER_MODEL=1
+          if HOME="$tmp/home" NFSMW_PRE691_OUT_DIR="$tmp/out" NFSMW_ADB_BIN="$tmp/bin/adb" bash "$script"; then
+            echo PRE691_WRONG_MODEL_NOT_REJECTED
+            exit 13
+          fi
+          echo PRE691_SYNTHETIC_DEVICE_PACKAGE_AND_READONLY_GATE=PASS
+          echo PRE691_REAL_S24FE_RUNTIME_TEST=NOT_YET_PERFORMED
