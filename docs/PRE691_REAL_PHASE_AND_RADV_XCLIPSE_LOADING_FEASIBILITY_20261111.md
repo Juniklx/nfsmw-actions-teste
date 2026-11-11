@@ -70,3 +70,24 @@ Status PRE691B: REAL_ANDROID_ENV_READONLY_PASS; PRIVATE_DRIVE_LOG_SAVED_READBACK
 - Limite específico: RADV Xclipse v1.8.0 converte BCn com potenciais diferenças de precisão/qualidade e pode falhar, travar ou produzir imagens distintas. Não declarar fidelidade equivalência nem ganho FPS até imagens e métricas em execução serem confrontadas.
 
 Status PRE691C: INSTALLED_V51_SHA_MATCH_VERIFIED; PRIVATE_EVIDENCE_DRIVE_READBACK_PASS; V51_CUSTOM_DRIVER_LOADER_STATICALLY_PRESENT; RADV_DEVICE_LOAD_NOT_TESTED; NO_NEW_APK; NO_PROVEN_FPS_GAIN.
+
+
+## PRE691D — RADV Xclipse v1.8.0 realmente carregado na V51 do Galaxy S24 FE (2026-11-11)
+
+**Evidência de hardware real (log privado, não republicado aqui):**
+- Arquivo `nfsmw.log` enviado pelo usuário em 2026-11-11, 56.943 bytes, 419 linhas, SHA256 `b8d514ba1c0a4e061ff412498a0483a3b8a52f289d7483195a59d32545118db7`. Preservado em `NFSMW_Android/06_Logs_e_Medicoes/NFSMW_PRE691_RADV_V1_8_FIRST_RUNTIME_NFSMW_20261111_102846.log` (Drive ID `18wagTnevFsS3OrmdW5zUja58LCuY-mhi`). Upload confirmado e leitura de volta de 56.943 bytes / 419 linhas com os mesmos marcadores.
+- O próprio runtime informou: `Vulkan: driver propio cargado con adrenotools:` seguido de biblioteca **`vulkan.radeon.so`** sob diretório privado do aplicativo `gpu_drivers/RADV_Xclipse_Mesa_27.0.0-devel-269238e_`.
+- O dispositivo Vulkan utilizado aparece como `AMD Radeon Graphics (RADV MAGELLAN CARL)`, `driverID: MesaRadv`, `driverName: radv`, `driverInfo: Mesa 27.0.0-devel (git-269238e853)`, `VK_KHR_swapchain` habilitada. Evidência forte de que o RADV Xclipse **v1.8.0 foi realmente carregado e inicializado**, e **não** fallback silencioso para o Samsung nesta tentativa.
+- `VulkanPresenter: Created 1920x1080 swapchain`, `MAILBOX`, quatro imagens solicitadas. Game render nativo iniciou; houve atividade C2/C3/C6 e pré-aquecimento C6 `145 de 145 pipelines precalentados`, sendo 91 compilados e **0 falhos**.
+- Um único `VK_ERROR_INCOMPATIBLE_DRIVER` foi emitido durante sondagem de `/dev/dri/renderD129` sem AMDGPU / permission denied **ANTES** da identificação bem-sucedida da GPU RADV. Não afirmar que essa mensagem foi fatal, visto que o Vulkan device e swapchain surgiram após ela. Também não afirmar que não exista outro problema em tempo de jogo.
+- O log tem 323 linhas `info` e 96 linhas `warning` (dentre elas avisos de caminhos virtuais `D:\...` indisponíveis), **zero `[error]` e zero `[fatal]`**. Mensagens sobre arquivos ausentes por si sós não comprovam corrupção, embora possam requerer análise se surgirem sintomas.
+- Cobertura temporal **somente 5,384 s**: 10:28:46.624 a 10:28:52.008. O último evento é XInput, não uma mensagem de shutdown ou erro. **Não foi comprovado** que o jogo continuou além desse ponto, que entrou em gameplay estável, que a qualidade visual é equivalente nem que houve ganho de FPS. Sem `PRE648 GPU_SHADER10s` neste trecho, como esperado numa janela tão curta.
+- Parâmetro registrado: resolução interna 1920x1080 e limite efetivo 60 FPS (com modo de vídeo guest 1280x720). A resolução interna e o modo guest são campos distintos; o log não autoriza concluir redução de resolução interna.
+
+### Próximo gate
+1. Confirmar observação do usuário: o app fechou sozinho após ~5s ou o log foi copiado antes de uma execução mais longa? Não declarar crash até testemunho/logcat.
+2. Se o app permaneceu aberto: sessão controlada de gameplay 90–120 s sob RADV v1.8.0, sem mudar configurações gráficas, registrar `nfsmw.log` com `PRE648 GPU_SHADER10s` e `C2`; coletar PRE690 ordered SurfaceFlinger sob RADV e comparar com baseline Samsung no mesmo trecho e mesmas condições. Observar fidelidade, shaders, sombras, blur e controles PG-9076.
+3. Se houve fechamento/crash: evitar benchmark; coletar logcat de processo/fatal signal daquela sessão via ADB, sem root e sem mensagens de outras apps; voltar ao `Driver do sistema` no menu do NFSMW. Investigar causa antes de outro ensaio.
+4. Não atribuir melhora ou piora à RADV enquanto não existirem medições de timestamps emparelhadas, temperatura/clock e resultado visual. Não recompilar V51, não mudar assinatura/versionCode, não tocar em configs térmicas ou driver global do Android.
+
+**Status PRE691D: ACTUAL_RADV_V1_8_LOADED=PASS; VULKAN_DEVICE_AND_SWAPCHAIN_CREATED=PASS; C6_PIPELINE_WARMUP_PASS; OBSERVATION_WINDOW_5S_ONLY; GAMEPLAY_STABILITY_UNKNOWN; RADV_VS_SAMSUNG_PACING_UNTESTED; NO_NEW_APK; NO_FPS_GAIN.**
