@@ -52,3 +52,11 @@
 - [Relatório Markdown](https://drive.google.com/file/d/1jQG0UCOQ78zl2PIo_wQWoi1kVagtjsaT/view)
 
 **Nota de segurança:** nenhum log bruto, ISO, APK, credencial ou chave privada foi adicionado ao repositório público.
+
+
+## PRE694 B — atualização canônica e integridade de leitura de volta
+
+- O ZIP original da fase RADV B foi relido do Google Drive e é **byte a byte idêntico** ao arquivo enviado: 320.818 bytes, SHA256 `08a34d1f844125f8aa17ca4a97b20d7cbbbd9007217def8d9c6c7577947903c4`. O pacote reprodutível também passou na leitura do ZIP e CRC.
+- Backup integral do contexto canônico antes do adendo: [CONTEXTO_NFSMW_BACKUP_ANTES_PRE694_RADV_B_20261111.md](https://drive.google.com/file/d/1rUuYXaG2jtQufVNNBR052OlQfZRxykdd/view), 1.164.785 bytes, SHA256 `a5464d2860184bf46c26801bbb2ed38483897fe4805a8929e2a28d419973b1ba`.
+- [CONTEXTO_NFSMW.md](https://drive.google.com/file/d/1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB/view) atualizado com um **append** de 5.126 bytes: 1.169.911 bytes, SHA256 `7f7158472474b6adae5334bc5628f92a6ffd18123d32eb1e7159607e8d33e58a`. Readback do Drive conferido byte a byte; bytes anteriores são prefixo idêntico aos do backup.
+- Resultado verificado: PRE694 A1 + B em hardware real, sem ganhos de FPS provados, sem alteração de APK ou sistema. **Somente SAMSUNG_A2 falta** para completar a comparação A/B/A. Qualquer descrição antiga dizendo que o contexto ainda precisava de sincronização está superada por este adendo posterior.
