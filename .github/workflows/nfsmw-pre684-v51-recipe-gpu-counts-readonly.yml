@@ -1,0 +1,52 @@
+name: NFSMW PRE684 - V51 recipe and GPU frequency audit (private Drive)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/run_requests/PRE684_*.txt'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nfsmw-pre684-v51-recipe-and-shader-counts
+  cancel-in-progress: false
+
+jobs:
+  pre684:
+    name: Authenticate V51 recipe and PRE656 graphics telemetry
+    if: github.repository == 'Juniklx/nfsmw-actions-teste' && github.ref == 'refs/heads/main' && github.actor == 'Juniklx' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout repository main only
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate scanner and install Drive dependencies (no Secrets)
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre684_v51_recipe_shader_frequency_readonly.py
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          echo "PRE684_PYTHON_SYNTAX=PASS"
+      - name: Scan signed V51 and historical PRE656 log, save private report to Drive
+        shell: bash
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          for name in GOOGLE_REFRESH_TOKEN GOOGLE_CLIENT_ID GOOGLE_CLIENT_SECRET; do
+            if [ -z "${!name:-}" ]; then echo "PRE684_MISSING_SECRET_NAME=$name"; exit 2; fi
+          done
+          python automation/kaggle/pre684_v51_recipe_shader_frequency_readonly.py
+
+# Deliberately no pull_request, public artifact upload, APK build or keystore access.
