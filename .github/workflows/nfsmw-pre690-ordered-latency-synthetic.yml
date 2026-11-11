@@ -62,18 +62,27 @@ jobs:
               print("SurfaceView[io.github.nfsmwrecomp/io.github.nfsmwrecomp.GameActivity]@0(BLAST)#103")
               if os.environ.get("DOUBLE_LAYER")=="1":
                   print("SurfaceView[io.github.nfsmwrecomp/io.github.nfsmwrecomp.GameActivity]@0(BLAST)#104")
+              if os.environ.get("TRIPLE_LAYER")=="1":
+                  print("SurfaceView[io.github.nfsmwrecomp/io.github.nfsmwrecomp.GameActivity]@0(BLAST)#101")
+                  print("SurfaceView[io.github.nfsmwrecomp/io.github.nfsmwrecomp.GameActivity]@0(BLAST)#102")
           elif cmd=="dumpsys SurfaceFlinger --latency":
               print("8333333")
           elif "--latency-clear" in cmd:
               pass
           elif "--latency" in cmd:
-              counter=Path(os.environ["SIM_DIR"])/"count.txt"
-              n=int(counter.read_text()) if counter.exists() else 0
-              counter.write_text(str(n+1))
               print("8333333")
-              for i in range(max(0,n*55-100),n*55+55):
-                  present=10000000000000+i*16666667
-                  print(present-20000000,present,present-10000000)
+              if os.environ.get("TRIPLE_LAYER")=="1" and ("#101" in cmd or "#102" in cmd):
+                  # Stale NFSMW surfaces: valid but fixed old timestamps.
+                  for i in range(10):
+                      present=10000000000000+i*16666667
+                      print(present-20000000,present,present-10000000)
+              else:
+                  counter=Path(os.environ["SIM_DIR"])/"count.txt"
+                  n=int(counter.read_text()) if counter.exists() else 0
+                  counter.write_text(str(n+1))
+                  for i in range(max(0,n*55-100),n*55+55):
+                      present=10000000000000+i*16666667
+                      print(present-20000000,present,present-10000000)
           else:
               raise SystemExit("PRE690_UNEXPECTED_ADB_COMMAND: "+cmd)
           PY
@@ -109,5 +118,20 @@ jobs:
           test ! -e "$t/out/NFSMW_PRE690_ORDERED_PRESENT_TEST2.txt"
           test ! -e "$t/out/NFSMW_PRE690_ORDERED_PRESENT_TEST2.txt.tmp"
           echo PRE690_SYNTHETIC_DOUBLE_LAYER_FAIL_CLOSED=PASS
+          export DOUBLE_LAYER=0 TRIPLE_LAYER=1
+          bash "$P" worker 10 20 TEST3
+          triple="$t/out/NFSMW_PRE690_ORDERED_PRESENT_TEST3.txt"
+          test -s "$triple"
+          grep -q '#103' "$triple"
+          ! grep -q 'AnotherApp' "$triple"
+          python automation/kaggle/pre690_analyze_ordered_latency.py "$triple" --output "$t/out/PRE690_SYNTHETIC_THREE_LAYERS.json"
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          r=json.loads((Path(os.environ["SIM_DIR"])/"out"/"PRE690_SYNTHETIC_THREE_LAYERS.json").read_text())
+          assert r["samples_with_valid_frames"]==20
+          assert r["unique_present_timestamps"]>=1000
+          print("PRE690_SYNTHETIC_THREE_LAYER_UNIQUELY_ACTIVE=PASS")
+          PY
           echo PRE690_REAL_GALAXY_S24FE_TEST=NOT_PERFORMED
 # Offline mock only; no Google OAuth, APK files, private logs or release keys.
