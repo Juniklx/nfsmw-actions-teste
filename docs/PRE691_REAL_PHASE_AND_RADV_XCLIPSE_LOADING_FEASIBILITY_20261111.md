@@ -91,3 +91,14 @@ Status PRE691C: INSTALLED_V51_SHA_MATCH_VERIFIED; PRIVATE_EVIDENCE_DRIVE_READBAC
 4. Não atribuir melhora ou piora à RADV enquanto não existirem medições de timestamps emparelhadas, temperatura/clock e resultado visual. Não recompilar V51, não mudar assinatura/versionCode, não tocar em configs térmicas ou driver global do Android.
 
 **Status PRE691D: ACTUAL_RADV_V1_8_LOADED=PASS; VULKAN_DEVICE_AND_SWAPCHAIN_CREATED=PASS; C6_PIPELINE_WARMUP_PASS; OBSERVATION_WINDOW_5S_ONLY; GAMEPLAY_STABILITY_UNKNOWN; RADV_VS_SAMSUNG_PACING_UNTESTED; NO_NEW_APK; NO_FPS_GAIN.**
+
+
+## PRE691E — usuário confirma que o aplicativo permaneceu aberto (2026-11-11)
+
+Após o primeiro log real de 5,38 segundos com RADV Xclipse v1.8.0, o usuário confirmou explicitamente: **"Permaneceu aberto"**. Essa observação refuta a hipótese de *fechamento imediato* na sessão inicial, mas **não** confirma gameplay de minutos, ausência de problemas gráficos ou estabilidade prolongada. O log continua cobrindo somente os cinco segundos registrados.
+
+**Gate seguinte, somente diagnóstico:** repetir o coletor PRE690 `automation/termux/nfsmw_pre690_ordered_latency_adb.sh` com `preflight` e `arm 110 30` durante NFSMW V51 com RADV selecionado, preferencialmente carro parado no mesmo trecho do baseline Samsung. O coletor termina em arquivos `NFSMW_PRE690_CAPTURE_*.status.txt` e `NFSMW_PRE690_ORDERED_PRESENT_*.txt`, que devem acompanhar `nfsmw.log` da mesma sessão. `arm 110 30` faz uma pré-espera de 110s, escolhe camada SurfaceView ativa e lê 30 consultas de histórico ordenado, aproximadamente uma por segundo; não assumir janela exata de 30s. Não trocar o driver ou ajustes entre a captura e o log. Se falhar, não repetir às cegas: examinar status e log.
+
+**Critérios de comparação:** ambas as sessões devem ter `DRIVER` comprovado no log, resolução interna 1920x1080, modo de apresentação, limite FPS, efeitos e trecho de cena equivalentes, com condição térmica semelhante. Computar distribuições, sequências consecutivas 8↔25ms e caudas por intervalo de 100ms da PRE690, sem inferir causa específica. O histórico SF pode ser parcial; não atribuir lacuna a travamento sem corroborar logcat e C2. Sem patch ou APK nova. `CONTEXTO_NFSMW.md` canônico ainda não recebeu esta atualização; este relatório registra a evidência verificada para sincronização posterior.
+
+Status PRE691E: USER_CONFIRMED_APP_REMAINED_OPEN; DRIVER_LOAD_RUNTIME_VERIFIED; LONG_GAMEPLAY_PENDING; RADV_PACING_CAPTURE_PENDING; NO_NEW_APK; NO_FPS_GAIN_PROVEN.
