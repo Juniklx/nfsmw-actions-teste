@@ -1,0 +1,44 @@
+name: NFSMW PRE689 - guarded normal-exit clarification
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/run_requests/PRE689_CONTEXT_*.txt'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre689-context-private
+  cancel-in-progress: false
+jobs:
+  context-correction:
+    if: github.repository == 'Juniklx/nfsmw-actions-teste' && github.ref == 'refs/heads/main' && github.actor == 'Juniklx'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify syntax and install dependencies before secrets
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre689_context_exit_clarification.py
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          echo PRE689_CONTEXT_SCRIPT_SYNTAX=PASS
+      - name: Private Drive backup-guarded append and SHA256 readback
+        shell: bash
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          for name in GOOGLE_REFRESH_TOKEN GOOGLE_CLIENT_ID GOOGLE_CLIENT_SECRET; do
+            if [ -z "${!name:-}" ]; then echo "PRE689_SECRET_NAME_MISSING=$name"; exit 2; fi
+          done
+          python automation/kaggle/pre689_context_exit_clarification.py
+# No public files, no APK, no build, no native source or signature changes.
