@@ -30,3 +30,9 @@
 - O `CONTEXTO_NFSMW.md` no Drive (`1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB`) ainda termina em PRE690; PRE691–PRE694 permanecem em documentação GitHub e Drive separada. Antes de atualizar canônico, copiar backup integral e aplicar apenas append com evidências, paths e ressalvas; não substituir histórico nem promover hipóteses.
 
 STATUS: PRE694_LOCAL_SYNTHETIC_PASS; PRE694_GITHUB_SYNTHETIC_PASS; REAL_A1_B_A2_PENDING; NO_NEW_APK; NO_PROVEN_DRIVER_CAUSALITY; NO_PROVEN_FPS_GAIN.
+
+## PRE694 A1 — atualizacao de contexto canônico verificada (2026-11-11)
+
+O arquivo histórico completo `NFSMW_Android/CONTEXTO_NFSMW.md` foi atualizado **somente por append**, incorporando as evidências PRE690 real, PRE691F, PRE692, PRE693 e PRE694 A1. Backup integral independente: [CONTEXTO_NFSMW_BACKUP_ANTES_PRE694_A1_REAL_20261111.md](https://drive.google.com/file/d/1zU0rSWVRsbCySJUxZSTcv_hyhi4Ai38M/view) SHA256 `1f66fe4c5448b28697c16ec5c0f001ca9f330319e31fec9b378b1bcbde89c190`, 1.157.094 bytes. Canônico após o append: [CONTEXTO_NFSMW.md](https://drive.google.com/file/d/1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB/view), 1.164.785 bytes, SHA256 `a5464d2860184bf46c26801bbb2ed38483897fe4805a8929e2a28d419973b1ba`. **Readback completo byte a byte idêntico ao append preparado, prefixo original idêntico ao backup.** Informações antigas no texto acima indicando "sincronização pendente" foram superadas por esta atualização posterior.
+
+Próximo gate **RADV_B** com coleta A/B/A (A1 concluída, B e A2 pendentes), sem alterações na APK V51, driver de sistema ou térmica. Nenhuma causalidade sobre travamentos ou ganho de FPS demonstrada.
