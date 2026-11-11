@@ -42,3 +42,10 @@ O replay de receita em temp não prova igualdade binária da `libmain.so` assina
 - Este resultado final **supera** os estados antigos `QUEUED` e a falha de download do run `43099187370` (falha transitória de transporte, reparada no workflow).
 
 **Nenhum APK V52, shader, efeito, física, save, controlador, clock, assinatura ou política térmica foi alterado.**
+
+
+## Sincronização final do contexto canônico
+
+- [CONTEXTO_NFSMW.md no Drive](https://drive.google.com/file/d/1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB/view) atualizado após a confirmação do run PRE696 autenticado, **1.192.046 bytes**, SHA256 `423e28e61e0923c77457c05fb63f9ea82a6fa14338394fb565cc73a782bb1405`.
+- [Backup integral anterior ao PASS](https://drive.google.com/file/d/1Lc5s-R-zxVbetoYwxuMeYKo6VnBGJC4D/view), **1.187.612 bytes**, SHA256 `49f5f576d79984931b4628954d55811844a1320ca700944427eac71efcf1d4fb`.
+- Readback do arquivo no Drive idêntico byte a byte ao conteúdo preparado, histórico anterior como prefixo integral, append final de **4.434 bytes**. Atualização exclusivamente documental; **nenhuma APK V52 nem código ativo editado**.
