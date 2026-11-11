@@ -45,3 +45,30 @@ Somente depois de confirmar o preflight em hardware real, desenhar **uma captura
 A execução [GitHub Actions 43117440370](https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/43117440370), job `130848948700`, foi consultada e terminou **completed/success**. Logs confirmam `PRE698_TEST_BASELINE=PASS`, `FT_NOT_LISTED=PASS`, `QUERY_UNAVAILABLE=PASS`, `LATENCY_UNAVAILABLE=PASS`, `WRONG_VERSION=PASS`, `WRONG_MODEL=PASS`, `WRONG_UID=PASS`, `NO_DEVICE=PASS` e `PRE698_SYNTHETIC_NO_REAL_DEVICE=TRUE`.
 
 Isto valida **o script em condições simuladas**, não mede o telefone real. O preflight precisa ser executado via ADB já pareado para estabelecer a disponibilidade efetiva do serviço no S24 FE. Ainda não houve nova captura Perfetto nem V52; preservar a V51, seu certificado permanente e todas as configurações visuais/térmicas. O histórico principal CONTEXTO_NFSMW.md no Drive ainda requer adendo PRE697/PRE698.
+
+
+---
+
+## PRE698 REAL — preflight no SM-S721B (11/11/2026)
+
+O usuário executou o script de preflight no Termux/ADB e compartilhou a seguinte saída observada. **Esta evidência foi fornecida no chat; ainda não há arquivo bruto desta nova execução no Drive**, e a sessão não deve ser confundida com uma medição Perfetto de quadros:
+
+- SHA do script conferido no terminal: mensagem `o_preflight_readonly.sh: OK` (trecho exibido; hash do binário não foi recalculado remotamente neste registro).
+- `PRE698_PERFETTO_BINARY=RESPONDING`;
+- `PRE698_PREFLIGHT=PASS_READONLY_NO_TRACE`;
+- `PRE698_MODEL=SM-S721B`;
+- `PRE698_PACKAGE=io.github.nfsmwrecomp`, `PRE698_VERSION_CODE=51`;
+- `PRE698_ADB_UID=2000`;
+- `PRE698_PERFETTO_QUERY_COMPLETED=true`;
+- `PRE698_FRAME_TIMELINE_SOURCE=ADVERTISED_NOT_RUNTIME_VALIDATED`;
+- `PRE698_SURFACEFLINGER_LATENCY=PERIOD_READABLE`, `PRE698_DISPLAY_PERIOD_NS=8333333`;
+- `PRE698_REAL_FRAME_TIMELINE_DATA=NOT_CAPTURED`;
+- `PRE698_APP_TO_SURFACE_FRAME_MAPPING=UNVERIFIED`;
+- `PRE698_GPU_QUEUE_AND_FENCE_TIMESTAMPS=NOT_MEASURED`;
+- `PRE698_APK_OR_DEVICE_SETTINGS_MODIFIED=FALSE`, `PRE698_FPS_GAIN_PROVEN=FALSE`.
+
+**Interpretação:** o binário e o serviço Perfetto respondem e anunciam a fonte `android.surfaceflinger.frametimeline`, porém os tokens do `SurfaceView` do NFSMW não foram observados; a documentação oficial avisa que `SurfaceView` não tem suporte completo neste contexto. A interface de `SurfaceFlinger --latency` continua legível a 120 Hz, sem que isso prove FPS real, latência de entrada ou sincronização por ID de frame.
+
+**Próximo gate proposto, separado:** PRE699, uma única captura curta do FrameTimeline solicitada explicitamente por execução de comando do usuário, sem root, alteração de driver, APK, FPS cap, graphics, thermal ou saves. O trace é sistêmico e deve permanecer privado; avaliar arquivos e seu conteúdo antes de correlacionar com PRE690/PRE695.
+
+**STATUS:** PRE698_SYNTHETIC_CI_PASS; PRE698_REAL_PREFLIGHT_PASS_USER_OUTPUT; FRAME_TIMELINE_SOURCE_ADVERTISED; NFSMW_FRAME_TIMELINE_RUNTIME_UNVERIFIED; NO_TRACE; NO_NEW_APK; NO_FPS_GAIN.
