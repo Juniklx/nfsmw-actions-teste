@@ -1,0 +1,44 @@
+name: NFSMW PRE688 - Real ADB SurfaceFlinger vs game telemetry
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/run_requests/PRE688_REAL_*.txt'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre688-real-device-readonly-audit
+  cancel-in-progress: false
+jobs:
+  audit:
+    name: Compare private ADB SurfaceFlinger and original NFSMW log
+    if: github.repository == 'Juniklx/nfsmw-actions-teste' && github.ref == 'refs/heads/main' && github.actor == 'Juniklx'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Syntax and dependencies before secrets
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre688_real_sf_native_private_audit.py
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          echo "PRE688_REAL_AUDIT_SYNTAX=PASS"
+      - name: Validate private SHA-pinned originals and save private ZIP
+        shell: bash
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          for key in GOOGLE_REFRESH_TOKEN GOOGLE_CLIENT_ID GOOGLE_CLIENT_SECRET; do
+            if [ -z "${!key:-}" ]; then echo "PRE688_REAL_SECRET_NAME_MISSING=$key"; exit 2; fi
+          done
+          python automation/kaggle/pre688_real_sf_native_private_audit.py
+# No pull-request execution, APK signing, game binary uploads or public artifact creation.
