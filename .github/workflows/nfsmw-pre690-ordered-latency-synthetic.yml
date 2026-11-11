@@ -119,7 +119,7 @@ jobs:
           test ! -e "$t/out/NFSMW_PRE690_ORDERED_PRESENT_TEST2.txt.tmp"
           echo PRE690_SYNTHETIC_DOUBLE_LAYER_FAIL_CLOSED=PASS
           export DOUBLE_LAYER=0 TRIPLE_LAYER=1
-          bash "$P" worker 10 20 TEST3
+          bash automation/termux/nfsmw_pre690_ordered_latency_adb.sh worker 10 20 TEST3
           triple="$t/out/NFSMW_PRE690_ORDERED_PRESENT_TEST3.txt"
           test -s "$triple"
           grep -q '#103' "$triple"
