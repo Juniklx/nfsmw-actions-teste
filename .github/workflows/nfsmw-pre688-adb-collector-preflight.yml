@@ -1,0 +1,107 @@
+name: NFSMW PRE688 - non-Shevery ADB collector safety preflight
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/run_requests/PRE688_VERIFY_*.txt'
+
+permissions:
+  contents: read
+
+jobs:
+  mocked-adb-audit:
+    name: Verify published collector (synthetic only; no device attached)
+    if: github.repository == 'Juniklx/nfsmw-actions-teste' && github.ref == 'refs/heads/main' && github.actor == 'Juniklx'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Verify shell syntax and no Shevery integration
+        shell: bash
+        run: |
+          set -euo pipefail
+          P=automation/termux/nfsmw_pre688_adb_surfaceflinger.sh
+          bash -n "$P"
+          ! grep -Eqi 'run_rish|shizuku|thermalservice|override-status|setprop' "$P" || {
+            echo 'PRE688_DISALLOWED_APP_OR_SYSTEM_SETTING=TRUE'
+            exit 2
+          }
+          grep -q 'PRE688_LABELED_PRESENT_HISTOGRAMS' "$P"
+          echo 'PRE688_PUBLISHED_COLLECTOR_SYNTAX=PASS'
+      - name: Execute synthetic ADB with one valid game layer and reject two
+        shell: bash
+        run: |
+          set -euo pipefail
+          P="$PWD/automation/termux/nfsmw_pre688_adb_surfaceflinger.sh"
+          WORK="$(mktemp -d)"
+          trap 'rm -rf "$WORK"' EXIT
+          mkdir -p "$WORK/bin" "$WORK/home"
+          export WORK
+          cat > "$WORK/bin/adb" <<'MOCK'
+          #!/usr/bin/env bash
+          if [[ "$1" == devices ]]; then
+            printf 'List of devices attached\n127.0.0.1:37521\tdevice\n'
+            exit 0
+          fi
+          if [[ "$1" == -s && "$3" == shell ]]; then
+            shift 3
+            case "$1 $2 $3" in
+              'id -u ') echo 2000;;
+              'getprop ro.product.model ') echo SM-S721B;;
+              'dumpsys SurfaceFlinger --timestats')
+                 if [[ "$4" == '-dump' ]]; then
+                   cat "$WORK/fixture.txt"
+                   if [[ "$DOUBLE_NFSMW_LAYER" == 1 ]]; then cat "$WORK/fixture.txt"; fi
+                 fi
+                 ;;
+              *) echo 'PRE688_UNEXPECTED_MOCK_ADB_CALL' >&2; exit 3;;
+            esac
+            exit 0
+          fi
+          echo 'PRE688_UNEXPECTED_MOCK_ADB_COMMAND' >&2
+          exit 3
+          MOCK
+          cat > "$WORK/bin/sleep" <<'MOCK'
+          #!/usr/bin/env bash
+          exit 0
+          MOCK
+          chmod +x "$WORK/bin/adb" "$WORK/bin/sleep"
+          cat > "$WORK/fixture.txt" <<'FIXTURE'
+          displayRefreshRate = 120 fps
+          renderRate = 120 fps
+          layerName = SurfaceView[io.github.nfsmwrecomp/io.github.nfsmwrecomp.GameActivity]@0(BLAST)#4891
+          totalFrames = 3
+          droppedFrames = 0
+          averageFPS = 60.000
+          present2present histogram is as below:
+          8ms=1 16ms=1 24ms=1
+          displayRefreshRate = 120 fps
+          layerName = VRI-com.example.other/com.example.other.MainActivity#3
+          totalFrames = 900
+          averageFPS = 900.000
+          FIXTURE
+          export HOME="$WORK/home" PATH="$WORK/bin:$PATH" NFSMW_PRE688_OUT_DIR="$WORK" DOUBLE_NFSMW_LAYER=0
+          bash "$P" preflight
+          bash "$P" worker 10 20 SYNTH_ONE
+          OUTPUT="$WORK/NFSMW_PRE688_PRESENT2PRESENT_SYNTH_ONE.txt"
+          test -s "$OUTPUT"
+          grep -q 'PRE688_NFSMW_SURFACEVIEW_LAYERS=1' "$OUTPUT"
+          grep -q 'PRE688_LABELED_PRESENT_HISTOGRAMS=1' "$OUTPUT"
+          grep -q '8ms=1 16ms=1 24ms=1' "$OUTPUT"
+          ! grep -q 'com.example.other' "$OUTPUT"
+          export DOUBLE_NFSMW_LAYER=1
+          if bash "$P" worker 10 20 SYNTH_TWO; then
+            echo 'PRE688_MULTILAYER_SHOULD_HAVE_FAILED'
+            exit 4
+          fi
+          test ! -e "$WORK/NFSMW_PRE688_PRESENT2PRESENT_SYNTH_TWO.txt"
+          test ! -e "$WORK/NFSMW_PRE688_PRESENT2PRESENT_SYNTH_TWO.txt.tmp"
+          echo 'PRE688_SYNTHETIC_NO_SHEVERY_ADB_SINGLE_LAYER=PASS'
+          echo 'PRE688_SYNTHETIC_MULTILAYER_FAIL_CLOSED=PASS'
+          echo 'PRE688_SYNTHETIC_OTHER_APP_DATA_NOT_SAVED=PASS'
+          echo 'PRE688_REAL_S24_FE_CAPTURE=NOT_PERFORMED'
+# Never give this public repo credentials, private logs, keystore or APK assets.
