@@ -1,0 +1,69 @@
+name: NFSMW PRE691 - installed V51 APK identity readonly synthetic gate
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/run_requests/PRE691_INSTALLED_APK_IDENTITY_*.txt'
+permissions:
+  contents: read
+jobs:
+  identity:
+    if: github.repository == 'Juniklx/nfsmw-actions-teste' && github.ref == 'refs/heads/main' && github.actor == 'Juniklx'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Validate static safety and fake ADB gates
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          script=automation/termux/nfsmw_pre691_installed_apk_identity_readonly.sh
+          bash -n "$script"
+          tmp="$(mktemp -d)"
+          trap 'rm -rf "$tmp"' EXIT
+          mkdir -p "$tmp/home" "$tmp/out" "$tmp/bin"
+          cat > "$tmp/bin/adb" <<'SH'
+          #!/usr/bin/env bash
+          set -eu
+          if [[ "$1" == "devices" ]]; then
+            printf 'List of devices attached\n127.0.0.1:4567\tdevice\n'
+            if [[ "${MOCK_SECOND:-0}" == 1 ]]; then printf '127.0.0.1:4568\tdevice\n'; fi
+            exit 0
+          fi
+          [[ "$1" == -s && "$3" == shell ]] || exit 99
+          shift 3
+          case "$*" in
+            "id -u") echo 2000 ;;
+            "getprop ro.product.model")
+              if [[ "${MOCK_MODEL_BAD:-0}" == 1 ]]; then echo SM-G900; else echo SM-S721B; fi ;;
+            "dumpsys package io.github.nfsmwrecomp")
+              if [[ "${MOCK_VERSION_BAD:-0}" == 1 ]]; then echo 'versionCode=52'; else echo 'versionCode=51'; fi ;;
+            "pm path io.github.nfsmwrecomp") echo 'package:/data/app/~~mock/pkg-abc/base.apk' ;;
+            "sha256sum /data/app/~~mock/pkg-abc/base.apk")
+              if [[ "${MOCK_SHA_BAD:-0}" == 1 ]]; then
+                printf '%064d  /data/app/~~mock/pkg-abc/base.apk\n' 0
+              else
+                echo '207934b667d7023bdbd7334bd448ff0ba1bcf6af5aedf5964f92ef146d127c5b  /data/app/~~mock/pkg-abc/base.apk'
+              fi ;;
+            *) echo "MOCK_UNEXPECTED_READ:$*" >&2; exit 98 ;;
+          esac
+          SH
+          chmod +x "$tmp/bin/adb"
+          PATH="$tmp/bin:$PATH" HOME="$tmp/home" bash "$script"
+          report="$(find "$tmp/home" -maxdepth 1 -name 'NFSMW_PRE691_INSTALLED_APK_IDENTITY_*.txt' -print -quit)"
+          test -n "$report"
+          grep -q '^PRE691_INSTALLED_V51_BINARY_IDENTITY=PASS$' "$report"
+          grep -q '^PRE691_NO_ROOT_NO_APK_PULL_NO_SETTINGS_CHANGE=TRUE$' "$report"
+          for kind in MOCK_SECOND MOCK_MODEL_BAD MOCK_VERSION_BAD MOCK_SHA_BAD; do
+            export "$kind=1"
+            if PATH="$tmp/bin:$PATH" HOME="$tmp/home" bash "$script"; then
+              echo "PRE691_FAIL_CLOSED_GUARD_FAILED=$kind"
+              exit 12
+            fi
+            unset "$kind"
+          done
+          echo PRE691_INSTALLED_APK_SHA_MOCK_AND_FAIL_CLOSED=PASS
+          echo PRE691_REAL_DEVICE_APK_HASH_TEST=NOT_PERFORMED
