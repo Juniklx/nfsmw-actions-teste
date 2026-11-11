@@ -59,18 +59,21 @@ jobs:
           elif cmd=="getprop ro.product.model":print("SM-S721B")
           elif cmd=="dumpsys SurfaceFlinger --list":
               print("AnotherApp.do.not.collect")
-              print("SurfaceView[io.github.nfsmwrecomp/io.github.nfsmwrecomp.GameActivity]@0(BLAST)#103")
+              print("RequestedLayerState{SurfaceView[io.github.nfsmwrecomp/io.github.nfsmwrecomp.GameActivity]@0(BLAST)#103 parentId=778}")
               if os.environ.get("DOUBLE_LAYER")=="1":
-                  print("SurfaceView[io.github.nfsmwrecomp/io.github.nfsmwrecomp.GameActivity]@0(BLAST)#104")
+                  print("RequestedLayerState{SurfaceView[io.github.nfsmwrecomp/io.github.nfsmwrecomp.GameActivity]@0(BLAST)#104 parentId=778}")
               if os.environ.get("TRIPLE_LAYER")=="1":
-                  print("SurfaceView[io.github.nfsmwrecomp/io.github.nfsmwrecomp.GameActivity]@0(BLAST)#101")
-                  print("SurfaceView[io.github.nfsmwrecomp/io.github.nfsmwrecomp.GameActivity]@0(BLAST)#102")
+                  print("RequestedLayerState{SurfaceView[io.github.nfsmwrecomp/io.github.nfsmwrecomp.GameActivity]@0(BLAST)#101 parentId=778}")
+                  print("RequestedLayerState{SurfaceView[io.github.nfsmwrecomp/io.github.nfsmwrecomp.GameActivity]@0(BLAST)#102 parentId=778}")
           elif cmd=="dumpsys SurfaceFlinger --latency":
               print("8333333")
           elif "--latency-clear" in cmd:
               pass
           elif "--latency" in cmd:
               print("8333333")
+              if "RequestedLayerState{" in cmd:
+                  # Exact getName required: debug wrapper must not resolve.
+                  sys.exit(0)
               if os.environ.get("TRIPLE_LAYER")=="1" and ("#101" in cmd or "#102" in cmd):
                   # Stale NFSMW surfaces: valid but fixed old timestamps.
                   for i in range(10):
