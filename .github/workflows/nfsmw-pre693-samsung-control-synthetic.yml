@@ -1,0 +1,82 @@
+name: NFSMW PRE693 - Samsung vs RADV C3 control synthetic gate
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/run_requests/PRE693_SAMSUNG_CONTROL_*.txt'
+permissions:
+  contents: read
+jobs:
+  samsung_control:
+    if: github.repository == 'Juniklx/nfsmw-actions-teste' && github.ref == 'refs/heads/main' && github.actor == 'Juniklx'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Readonly synthetic driver identification and shared C3 error
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          script=automation/kaggle/pre692_c3_watchdog_log_readonly.py
+          python3 -m py_compile "$script"
+          tmp="$(mktemp -d)"
+          trap 'rm -rf "$tmp"' EXIT
+          export PRE693_TEST_DIR="$tmp"
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+          p=Path(os.environ['PRE693_TEST_DIR'])
+          def l(t,severity,message):
+              return f'[{t}] [{severity}] [core] [t101] {message}'
+          def trace(frame):
+              return '[NFSMW_PRE635_C3_TWOREQUEST_TRACE] indice=0 en_vuelo=1 frame={0} textura_frame={0} epoca_ahora={0} epoca_primera={0} offset_primera=0 offset_segunda=51872 mismos_comandos=true subir=true trabajo_huella=0 datos_bytes=43648'.format(frame)
+          guard='[nativo] C3: hilo de enlaces de texturas APAGADO [NFSMW_PRE194_C3 indice_fuera=false referencia_distinta=false copia_duplicada=true]'
+          data=[
+              l('2026-11-11 11:48:53.865','info','[ajustes] resolucion interna 1920x1080 y limite de FPS 60: modo'),
+              l('2026-11-11 11:48:53.876','info','* driverID: SamsungProprietary'),
+              l('2026-11-11 11:48:53.876','info','* driverName: Samsung Proprietary driver'),
+              l('2026-11-11 11:49:19.260','info',trace(1347)),
+              l('2026-11-11 11:49:19.260','error',guard),
+              l('2026-11-11 11:55:13.826','info','[pausa] juego y audio en pausa (segundo plano)'),
+              l('2026-11-11 12:00:29.361','info','[ajustes] resolucion interna 1920x1080 y limite de FPS 60: modo'),
+              l('2026-11-11 12:00:29.362','info','Vulkan: driver propio cargado con adrenotools: /mock/vulkan.radeon.so'),
+              l('2026-11-11 12:00:43.143','error','[vigilante] 5 s sin que se mueva ni un registro'),
+              l('2026-11-11 12:00:58.180','error','[vigilante] 20 s sin que se mueva ni un registro'),
+              l('2026-11-11 12:01:10.100','info','[vigilante] el juego ha vuelto a moverse despues de 31 s parado'),
+              l('2026-11-11 12:02:16.746','info',trace(1766)),
+              l('2026-11-11 12:02:16.746','error',guard),
+          ]
+          (p/'paired.log').write_text('\n'.join(data)+'\n',encoding='utf8')
+          (p/'ambiguous.log').write_text('\n'.join([
+              l('2026-11-11 13:00:00.000','info','[ajustes] resolucion interna 1920x1080 y limite de FPS 60: modo'),
+              l('2026-11-11 13:00:00.010','info','* driverName: Samsung Proprietary driver'),
+              l('2026-11-11 13:00:00.020','info','Vulkan: driver propio cargado con adrenotools: /mock/vulkan.radeon.so'),
+          ])+'\n',encoding='utf8')
+          PY
+          python3 "$script" "$tmp/paired.log" --output "$tmp/paired.json"
+          python3 "$script" "$tmp/ambiguous.log" --output "$tmp/ambiguous.json"
+          python3 - <<'PY'
+          import json,os
+          from pathlib import Path
+          p=Path(os.environ['PRE693_TEST_DIR'])
+          j=json.loads((p/'paired.json').read_text())
+          assert j['session_count']==2,j
+          s,r=j['sessions']
+          assert s['driver']=='SAMSUNG_PROPRIETARY',s
+          assert r['driver']=='RADV_XCLIPSE',r
+          assert s['fps_cap']==r['fps_cap']==60,j
+          assert s['c3_guards']==r['c3_guards']==1,j
+          assert s['watchdog_episode_count']==0,s
+          assert r['watchdog_episode_count']==1,r
+          assert j['unique_pre635_signatures']==1,j
+          assert j['all_traces_paired'] is True,j
+          a=json.loads((p/'ambiguous.json').read_text())
+          assert a['sessions'][0]['driver']=='AMBIGUOUS_MULTIPLE_DRIVERS',a
+          print('PRE693_SAMSUNG_DRIVER_AND_C3_TRACE_SYNTHETIC=PASS')
+          print('PRE693_RADV_SAME_C3_SIGNATURE_SYNTHETIC=PASS')
+          print('PRE693_AMBIGUOUS_DRIVER_REJECTED=PASS')
+          print('PRE693_REAL_DEVICE_LOG=NOT_UPLOADED_TO_CI')
+          PY
