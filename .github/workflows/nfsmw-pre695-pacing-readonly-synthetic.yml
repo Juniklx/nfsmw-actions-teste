@@ -1,0 +1,26 @@
+name: NFSMW PRE695 - desired ready actual pacing synthetic
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "automation/kaggle/nfsmw_pre695_pacing_attribution_readonly.py"
+      - ".github/workflows/nfsmw-pre695-pacing-readonly-synthetic.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  pacing-readonly-synthetic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Assert script syntax
+        run: python3 -m py_compile automation/kaggle/nfsmw_pre695_pacing_attribution_readonly.py
+      - name: Execute deterministic synthetic capture test (no device or private logs)
+        run: |
+          python3 automation/kaggle/nfsmw_pre695_pacing_attribution_readonly.py --selftest
+          echo 'PRE695_GITHUB_SYNTHETIC_ONLY=TRUE'
+          echo 'PRE695_REAL_PHONE_CAPTURE=NOT_EXECUTED_IN_CI'
+          echo 'PRE695_APK_SIGNING_AND_THERMAL_SETTINGS=UNTOUCHED'
