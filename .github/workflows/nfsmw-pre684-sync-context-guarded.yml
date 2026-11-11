@@ -1,0 +1,52 @@
+name: NFSMW PRE684 - backup-guarded canonical context sync
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/run_requests/PRE684_CONTEXT_*.txt'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nfsmw-pre684-canonical-context-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    name: Sync verified PRE681-PRE684 checkpoints
+    if: github.repository == 'Juniklx/nfsmw-actions-teste' && github.ref == 'refs/heads/main' && github.actor == 'Juniklx' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout trusted main only
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Compile preflight without Secrets
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre684_context_sync_guarded.py
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          echo "PRE684_CONTEXT_SCRIPT_SYNTAX=PASS"
+      - name: Compare approved backup then append and read back canonical Drive file
+        shell: bash
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          for k in GOOGLE_REFRESH_TOKEN GOOGLE_CLIENT_ID GOOGLE_CLIENT_SECRET; do
+            if [ -z "${!k:-}" ]; then echo "PRE684_CONTEXT_MISSING_SECRET_NAME=$k"; exit 2; fi
+          done
+          python automation/kaggle/pre684_context_sync_guarded.py
+
+# Never expose private context, tokens, signing keys, APKs, or report files as public artifacts.
