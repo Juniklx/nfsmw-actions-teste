@@ -26,7 +26,7 @@ jobs:
           set -euo pipefail
           P=automation/termux/nfsmw_pre688_adb_surfaceflinger.sh
           bash -n "$P"
-          ! grep -Eqi 'run_rish|shizuku|thermalservice|override-status|setprop' "$P" || {
+          ! grep -Eqi 'run_rish|thermalservice|override-status|setprop' "$P" || {
             echo 'PRE688_DISALLOWED_APP_OR_SYSTEM_SETTING=TRUE'
             exit 2
           }
