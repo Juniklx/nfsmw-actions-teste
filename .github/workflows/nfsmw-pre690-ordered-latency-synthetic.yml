@@ -59,20 +59,23 @@ jobs:
           elif cmd=="getprop ro.product.model":print("SM-S721B")
           elif cmd=="dumpsys SurfaceFlinger --list":
               print("AnotherApp.do.not.collect")
-              print("RequestedLayerState{SurfaceView[io.github.nfsmwrecomp/io.github.nfsmwrecomp.GameActivity]@0(BLAST)#103 parentId=778}")
+              print("RequestedLayerState{Background for fc1e4cf SurfaceView[io.github.nfsmwrecomp/io.github.nfsmwrecomp.GameActivity]@0#15702 parentId=15700 relativeParentId=15696 z=-2147483648}")
+              print("RequestedLayerState{fc1e4cf SurfaceView[io.github.nfsmwrecomp/io.github.nfsmwrecomp.GameActivity]@0(BLAST)#103 parentId=778}")
               if os.environ.get("DOUBLE_LAYER")=="1":
-                  print("RequestedLayerState{SurfaceView[io.github.nfsmwrecomp/io.github.nfsmwrecomp.GameActivity]@0(BLAST)#104 parentId=778}")
+                  print("RequestedLayerState{fc1e4cf SurfaceView[io.github.nfsmwrecomp/io.github.nfsmwrecomp.GameActivity]@0(BLAST)#104 parentId=778}")
               if os.environ.get("TRIPLE_LAYER")=="1":
-                  print("RequestedLayerState{SurfaceView[io.github.nfsmwrecomp/io.github.nfsmwrecomp.GameActivity]@0(BLAST)#101 parentId=778}")
-                  print("RequestedLayerState{SurfaceView[io.github.nfsmwrecomp/io.github.nfsmwrecomp.GameActivity]@0(BLAST)#102 parentId=778}")
+                  print("RequestedLayerState{fc1e4cf SurfaceView[io.github.nfsmwrecomp/io.github.nfsmwrecomp.GameActivity]@0#101 parentId=778 relativeParentId=15696 z=-2}")
+                  print("RequestedLayerState{fc1e4cf SurfaceView[io.github.nfsmwrecomp/io.github.nfsmwrecomp.GameActivity]@0(BLAST)#102 parentId=778}")
           elif cmd=="dumpsys SurfaceFlinger --latency":
               print("8333333")
           elif "--latency-clear" in cmd:
               pass
           elif "--latency" in cmd:
               print("8333333")
-              if "RequestedLayerState{" in cmd:
-                  # Exact getName required: debug wrapper must not resolve.
+              if "RequestedLayerState{" in cmd or "fc1e4cf SurfaceView[" not in cmd:
+                  # Exact getName requires Samsung's per-layer token prefix.
+                  # Calling --latency with the raw debug wrapper or only
+                  # SurfaceView[...] yields no frame rows.
                   sys.exit(0)
               if os.environ.get("TRIPLE_LAYER")=="1" and ("#101" in cmd or "#102" in cmd):
                   # Stale NFSMW surfaces: valid but fixed old timestamps.
@@ -100,6 +103,8 @@ jobs:
           raw="$t/out/NFSMW_PRE690_ORDERED_PRESENT_TEST1.txt"
           test -s "$raw"
           ! grep -q 'AnotherApp' "$raw"
+          ! grep -q 'Background for' "$raw"
+          grep -Fq 'LAYER=fc1e4cf SurfaceView[io.github.nfsmwrecomp/io.github.nfsmwrecomp.GameActivity]@0(BLAST)#103' "$raw"
           python automation/kaggle/pre690_analyze_ordered_latency.py "$raw" --output "$t/out/PRE690_SYNTHETIC_ANALYSIS.json"
           python - <<'PY'
           import json,os
@@ -127,6 +132,8 @@ jobs:
           test -s "$triple"
           grep -q '#103' "$triple"
           ! grep -q 'AnotherApp' "$triple"
+          ! grep -q 'Background for' "$triple"
+          grep -Fq 'LAYER=fc1e4cf SurfaceView[io.github.nfsmwrecomp/io.github.nfsmwrecomp.GameActivity]@0(BLAST)#103' "$triple"
           python automation/kaggle/pre690_analyze_ordered_latency.py "$triple" --output "$t/out/PRE690_SYNTHETIC_THREE_LAYERS.json"
           python - <<'PY'
           import json,os
