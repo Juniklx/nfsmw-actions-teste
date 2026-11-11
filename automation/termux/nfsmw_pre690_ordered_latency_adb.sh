@@ -67,7 +67,20 @@ select_layer() {
   local matches=() before=()
   while IFS= read -r line; do
     line="${line%$'\r'}"
-    [[ "$line" == *"SurfaceView[$PKG/"* ]] && matches+=("$line")
+    [[ "$line" == *"SurfaceView[$PKG/"* ]] || continue
+    # AOSP --list can emit RequestedLayerState{NAME ...}, whereas
+    # --latency requires the exact Layer::getName() string.
+    if [[ "$line" == 'RequestedLayerState{'* ]]; then
+      line="${line#RequestedLayerState\{}"
+      line="${line%%[[:space:]]*}"
+      line="${line%\}}"
+    fi
+    if [[ "$line" != "SurfaceView[$PKG/"* || "$line" == *" "* ||
+          "$line" == *"{"* || "$line" == *"}"* ]]; then
+      notice 'PRE690_LAYER_LIST_SCHEMA_UNEXPECTED_ABORT=TRUE' >&2
+      return 20
+    fi
+    matches+=("$line")
   done < <(shelladb "$d" dumpsys SurfaceFlinger --list)
   notice "PRE690_MATCHING_NFSMW_LAYERS=${#matches[@]}" >&2
   ((${#matches[@]}>0)) || return 20
