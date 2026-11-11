@@ -43,7 +43,21 @@ def audit(path:Path,capture:Path|None=None):
             sessions.append(current)
         if not current or not when: continue
         if "Vulkan: driver propio cargado con adrenotools:" in row:
-            current["driver"]="RADV_XCLIPSE" if "vulkan.radeon.so" in row else "OTHER_CUSTOM"
+            candidate="RADV_XCLIPSE" if "vulkan.radeon.so" in row else "OTHER_CUSTOM"
+            if current["driver"] in ("UNKNOWN",candidate):
+                current["driver"]=candidate
+            else:
+                current["driver"]="AMBIGUOUS_MULTIPLE_DRIVERS"
+        elif "driverName: Samsung Proprietary driver" in row or "driverID: SamsungProprietary" in row:
+            if current["driver"] in ("UNKNOWN","SAMSUNG_PROPRIETARY"):
+                current["driver"]="SAMSUNG_PROPRIETARY"
+            else:
+                current["driver"]="AMBIGUOUS_MULTIPLE_DRIVERS"
+        elif "driverName: radv" in row or "driverID: MesaRadv" in row:
+            if current["driver"] in ("UNKNOWN","RADV_XCLIPSE"):
+                current["driver"]="RADV_XCLIPSE"
+            else:
+                current["driver"]="AMBIGUOUS_MULTIPLE_DRIVERS"
         m=TRACE.search(row)
         if m:
             f=dict(re.findall(r"([a-z_]+)=([^\s]+)",m.group(1)))
