@@ -118,6 +118,40 @@ jobs:
           assert d["limits"]["frame_pacing_cause_proven"] is False
           print("PRE690_SYNTHETIC_ROLLING_DEDUP=PASS")
           PY
+          # Injection only into synthetic records; validates the >100ms
+          # uncertainty rule without touching a phone or using private logs.
+          python - "$raw" "$t/out/NFSMW_PRE690_SYNTHETIC_GAP.txt" <<'PY'
+          from pathlib import Path
+          import sys
+          src,dst=map(Path,sys.argv[1:])
+          lines=src.read_text().splitlines()
+          actual=sorted(set(int(l.split()[2]) for l in lines if l.startswith("FRAME ")))
+          pivot=actual[len(actual)//2]
+          out=[]
+          for l in lines:
+              if l.startswith("FRAME "):
+                  head,d,a,r=l.split()
+                  d,a,r=map(int,(d,a,r))
+                  if a>=pivot:
+                      d+=1_000_000_000
+                      a+=1_000_000_000
+                      r+=1_000_000_000
+                  l=f"{head} {d} {a} {r}"
+              out.append(l)
+          dst.write_text("\n".join(out)+"\n")
+          PY
+          python automation/kaggle/pre690_analyze_ordered_latency.py "$t/out/NFSMW_PRE690_SYNTHETIC_GAP.txt" --output "$t/out/NFSMW_PRE690_SYNTHETIC_GAP.json"
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          r=json.loads((Path(os.environ["SIM_DIR"])/"out"/"NFSMW_PRE690_SYNTHETIC_GAP.json").read_text())
+          gaps=r["uncertain_gaps_over_100ms_ms"]
+          assert len(gaps)==1 and 1000<gaps[0]<1100, gaps
+          assert not r["uncovered_gaps_over_2_5s_ms"]
+          assert r["distinct_adjacent_intervals"]>=1000
+          assert 15<r["interval_ms"]["mean"]<18
+          print("PRE690_SYNTHETIC_GAP_ISOLATION=PASS")
+          PY
           export DOUBLE_LAYER=1
           if bash automation/termux/nfsmw_pre690_ordered_latency_adb.sh worker 10 20 TEST2; then
             echo PRE690_DUPLICATE_GAME_LAYER_WAS_NOT_REJECTED
