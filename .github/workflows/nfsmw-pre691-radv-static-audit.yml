@@ -1,0 +1,88 @@
+name: NFSMW PRE691 - RADV Xclipse package and loader static audit
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/run_requests/PRE691_RADV_AUDIT_*.txt'
+
+permissions:
+  contents: read
+
+jobs:
+  safe_driver_audit:
+    if: github.repository == 'Juniklx/nfsmw-actions-teste' && github.ref == 'refs/heads/main' && github.actor == 'Juniklx'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout audit only; do not persist credentials
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Validate audit syntax and read-only restrictions
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m py_compile automation/kaggle/pre691_radv_release_zip_audit.py
+          if grep -En '\b(subprocess|os\.system|ctypes|dlopen|extractall|eval|exec)\b' automation/kaggle/pre691_radv_release_zip_audit.py; then
+            echo PRE691_DISALLOWED_DRIVER_EXECUTION=TRUE
+            exit 10
+          fi
+          echo PRE691_STATIC_AUDITOR_READONLY=PASS
+      - name: Download pinned official release and verify binary metadata only
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/pre691"
+          cd "$RUNNER_TEMP/pre691"
+          curl --fail --location --retry 3 --connect-timeout 20 --max-time 100 \
+            -o radv-v1.8.0.zip \
+            'https://github.com/JimVulkan/radv-xclipse/releases/download/v1.8.0/radv-xclipse-27.0.0-devel-269238e.zip'
+          python3 "$GITHUB_WORKSPACE/automation/kaggle/pre691_radv_release_zip_audit.py" \
+            radv-v1.8.0.zip --output release_manifest.json
+          python3 - <<'PY'
+          import json
+          j=json.load(open("release_manifest.json", encoding="utf-8"))
+          assert j["libraryName"]=="vulkan.radeon.so"
+          assert j["driver_binary_arch"]=="ELF64_AARCH64"
+          assert j["all_members_crc_ok"]
+          print("PRE691_RELEASE_MANIFEST_FORMAT=PASS")
+          print("PRE691_RELEASE_LABEL="+j["package_name"])
+          print("PRE691_RUNTIME_TEST=NOT_PERFORMED")
+          PY
+      - name: Audit upstream Android loader logic at pinned commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import urllib.request
+          base="https://raw.githubusercontent.com/victorgbd/NFSMW-Recompiled-Mobile/"
+          revision="0b3b3be1f700e2227c03b557dc33e9e50a56c6cc"
+          files={
+            "driver":"android/app/src/main/java/io/github/nfsmwrecomp/Drivers.java",
+            "launcher":"android/app/src/main/java/io/github/nfsmwrecomp/Ajustes.java",
+            "loader":"tools/parche_turnip.py",
+          }
+          data={}
+          for name,path in files.items():
+              with urllib.request.urlopen(base+revision+"/"+path, timeout=35) as response:
+                  data[name]=response.read().decode("utf-8")
+          assert 'meta.optString("libraryName", null)' in data["driver"]
+          assert 'new File(tmp, libreria).isFile()' in data["driver"]
+          assert 'new Driver(nombre, destino, libreria)' in data["driver"]
+          assert '--android_gpu_driver_name=' in data["launcher"]
+          assert 'd != null && d.esTurnip() && turbo()' in data["launcher"]
+          assert "adrenotools_open_libvulkan" in data["loader"]
+          assert "ADRENOTOOLS_DRIVER_CUSTOM" in data["loader"]
+          assert "REX_HAS_ADRENOTOOLS" in data["loader"]
+          print("PRE691_UPSTREAM_GENERIC_LIBRARYNAME_IMPORT=PASS")
+          print("PRE691_UPSTREAM_ADRENOTOOLS_CUSTOM_DRIVER_PATH=PASS")
+          print("PRE691_APK_V51_MATCHES_UPSTREAM=NOT_VERIFIED")
+          PY
+      - name: Completion boundary
+        shell: bash
+        run: |
+          echo PRE691_NO_ANDROID_OR_THERMAL_MODIFICATIONS=TRUE
+          echo PRE691_NO_GAME_OR_SOURCE_FILES_PUBLISHED=TRUE
+          echo PRE691_RADV_S24FE_60FPS_BENEFIT=UNPROVEN
