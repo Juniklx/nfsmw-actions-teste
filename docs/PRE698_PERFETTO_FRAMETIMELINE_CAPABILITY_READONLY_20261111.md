@@ -39,3 +39,9 @@ Somente depois de confirmar o preflight em hardware real, desenhar **uma captura
 **Não demonstrado:** suporte efetivo do FrameTimeline para quadros da `SurfaceView` do NFSMW, eventos por `vkQueuePresentKHR` ou fence, dados de GPU hardware, ganho de FPS, superioridade de driver ou causa do stutter.
 
 **Preservar:** APK V51 `versionCode=51`, pacote `io.github.nfsmwrecomp`, certificado SHA256 `1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b`, resolução interna 1920×1080, limite do teste 60 FPS (meta futura 120), shaders, efeitos, física, controles e proteções térmicas. Nenhum patch de código ativo aplicado pela PRE698.
+
+## CI sintético verificado (adendo de 11/11/2026)
+
+A execução [GitHub Actions 43117440370](https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/43117440370), job `130848948700`, foi consultada e terminou **completed/success**. Logs confirmam `PRE698_TEST_BASELINE=PASS`, `FT_NOT_LISTED=PASS`, `QUERY_UNAVAILABLE=PASS`, `LATENCY_UNAVAILABLE=PASS`, `WRONG_VERSION=PASS`, `WRONG_MODEL=PASS`, `WRONG_UID=PASS`, `NO_DEVICE=PASS` e `PRE698_SYNTHETIC_NO_REAL_DEVICE=TRUE`.
+
+Isto valida **o script em condições simuladas**, não mede o telefone real. O preflight precisa ser executado via ADB já pareado para estabelecer a disponibilidade efetiva do serviço no S24 FE. Ainda não houve nova captura Perfetto nem V52; preservar a V51, seu certificado permanente e todas as configurações visuais/térmicas. O histórico principal CONTEXTO_NFSMW.md no Drive ainda requer adendo PRE697/PRE698.
