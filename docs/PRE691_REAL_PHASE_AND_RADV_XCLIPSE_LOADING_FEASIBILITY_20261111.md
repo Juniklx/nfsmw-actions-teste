@@ -36,3 +36,24 @@ Repositório oficial da adaptação: https://github.com/JimVulkan/radv-xclipse
 4. Se o importador faltar na V51, NÃO fazer patch às cegas. Preparar plano de código reversível com fonte autenticada e eventual versão >51 assinada pela chave permanente; antes de qualquer build, checar status atual de C3/PG-9076/BMW/Nitro e preservar todos os artefatos.
 
 STATUS: PRE691_REAL_PHASE_AUDIT_PASS; RADV_V1_8_STATIC_ARCHIVE_PASS; UPSTREAM_GENERIC_IMPORT_PATH_FOUND; V51_LOADER_NOT_VERIFIED; PRE691_ADB_SYNTHETIC_PASS; REAL_DEVICE_DRIVER_PROBE_PENDING; NO_NEW_APK; NO_FPS_GAIN_PROVEN.
+
+
+## PRE691B — evidência real de ambiente e loader da APK V51 (2026-11-11)
+
+**Relatório enviado pelo usuário e arquivado no Drive:** `NFSMW_PRE691_VULKAN_ENV_20261111_095541.txt`, 505 bytes, SHA256 `09cb89e2c03b79d89229dadb660d6acc0fee96ab9af557780db484cb276bf54d`; Drive ID `1QpL0G2J9c3qIFHVmvJavrwK8C4MnmO70`, pasta `06_Logs_e_Medicoes`, [abrir](https://drive.google.com/file/d/1QpL0G2J9c3qIFHVmvJavrwK8C4MnmO70/view). Readback de 505 bytes igual à saída original.
+
+- `PACKAGE=io.github.nfsmwrecomp`, `DEVICE_MODEL=SM-S721B`, `PACKAGE_VERSION_CODE=51`, `V51_VERSION_MATCH=TRUE`, `ANDROID_SDK=37`.
+- `PROP_ro.hardware.vulkan=samsung`, `PROP_ro.hardware.egl=samsung`, `PROP_ro.board.platform=erd9945`, `PROP_ro.gfx.driver.0=UNSET`; módulo listado: `/vendor/lib64/hw/vulkan.samsung.so`.
+- **Limitação:** propriedades e módulo instalado **não determinam** se o jogo carregou o driver Samsung ou uma biblioteca customizada em execução. O coletor omitiu PID, não inspecionou mapas de processo e não alterou propriedades ou APK.
+
+**APK V51 real arquivada, verificada localmente, sem publicar seu conteúdo:** `NFSMW_V51_PRE652_GPU_SHADER_PASS_FREQUENCY_DIAGNOSTIC.apk`, 47.104.417 bytes, SHA256 `207934b667d7023bdbd7334bd448ff0ba1bcf6af5aedf5964f92ef146d127c5b`, CRC ZIP sem erros.
+
+- `classes.dex` (8.680.496 bytes) contém marcadores `Lio/github/nfsmwrecomp/Drivers;`, `gpu_drivers`, `libraryName`, `--android_gpu_driver_dir=`, `--android_gpu_driver_name=`.
+- A biblioteca real `lib/arm64-v8a/librexruntime.so` (9.098.232 bytes) exporta o símbolo ELF AArch64 **`adrenotools_open_libvulkan`** (observado com `readelf --dyn-syms --wide`). Também contém `adrenotools_set_turbo`, argumentos de seleção customizada e mensagens de sucesso/fallback do carregador Vulkan. `libmain.so` e `libmain_usa.so` contêm termos relacionados a adrenotools; não presumir que o código do driver esteja implementado neles.
+- **Limites:** presença de classe/argumentos/símbolo e mensagens na APK não demonstra que a biblioteca customizada é carregada com sucesso na Xclipse 940, que a APK *instalada no dispositivo* é byte a byte idêntica à V51 arquivada, ou que o RADV melhora FPS, mantém todos os efeitos ou seja estável.
+
+**Nova checagem de identidade instalada (sem root, download ou upload da APK):** script público `automation/termux/nfsmw_pre691_installed_apk_identity_readonly.sh`, obtém `base.apk` via `pm path` e lê apenas SHA256 usando `adb shell sha256sum`. Compara com o hash V51 arquivado e ABORTA em incompatibilidade. GitHub Actions sintético [43025444456](https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/43025444456), job `130538881991`, status `completed/success`, `PRE691_INSTALLED_APK_SHA_MOCK_AND_FAIL_CLOSED=PASS`. Falhas simuladas para múltiplos dispositivos, modelo errado, versionCode diferente e hash divergente; **nenhum dispositivo real nesse gate**.
+
+**Próximo passo:** rodar o coletor de hash no Galaxy, confirmar `PRE691_INSTALLED_V51_BINARY_IDENTITY=PASS` e então documentar eventual ensaio A/B RADV v1.8.0 somente mediante segurança de rollback para driver `sistema`. Evitar ativar turbo KGSL, alterações térmicas, root, mods no OS ou alterar fidelidade gráfica; verificar carregamento efetivo por log e comparar com baseline PRE690. Em qualquer falha, manter Samsung. Sem APK nova, sem prova de ganho de FPS.
+
+Status PRE691B: REAL_ANDROID_ENV_READONLY_PASS; PRIVATE_DRIVE_LOG_SAVED_READBACK_PASS; STORED_V51_APK_SHA_CRC_PASS; V51_DEX_DRIVER_IMPORT_ANCHORS_FOUND; REXRUNTIME_ADRENOTOOLS_SYMBOL_VERIFIED; INSTALLED_APK_SHA_GATE_PENDING; RADV_RUNTIME_NOT_TESTED; NO_NEW_APK; NO_FPS_GAIN.
