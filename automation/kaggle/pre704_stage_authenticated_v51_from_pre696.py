@@ -168,7 +168,7 @@ with tempfile.TemporaryDirectory(prefix='nfsmw_pre696_') as td:
     with zipfile.ZipFile(zpath,'x',compression=zipfile.ZIP_DEFLATED,compresslevel=8) as zf:
         for rel,raw in sorted(candidate_map.items()):
             zf.writestr(rel,raw)
-    (isolated704/'manifest.json').write_text(json.dumps(manifest,sort_keys=True,indent=2)+'\\n')
+    (isolated704/'manifest.json').write_text(json.dumps(manifest,sort_keys=True,indent=2)+'\n')
     with zipfile.ZipFile(zpath) as zf:
         assert zf.testzip() is None
     print('PRE704_AUTH_SOURCE_COUNT='+str(len(entries)))
