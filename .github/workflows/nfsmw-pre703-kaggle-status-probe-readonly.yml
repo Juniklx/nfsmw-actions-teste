@@ -26,7 +26,7 @@ jobs:
           python - <<'PY'
           import json,os,re,subprocess
           from pathlib import Path
-          kernel='juniklx/nfsmw-pre703-v51-pacing-readonly'
+          kernel='juniklx/nfsmw-pre703-v51-timing-readonly'
           p=subprocess.run(['kaggle','kernels','status',kernel],capture_output=True,text=True,timeout=90)
           m=re.search(r'KernelWorkerStatus\.([A-Z_]+)',p.stdout+' '+p.stderr)
           state=m.group(1) if m else 'UNKNOWN'
