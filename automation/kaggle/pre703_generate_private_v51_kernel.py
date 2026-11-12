@@ -10,7 +10,7 @@ import zlib
 from pathlib import Path
 
 PIN='68998a1db81e9743197e446a5f8dacbf8d3dbcc2a51e4a7e6dac476b87d88c48'
-KERNEL='juniklx/nfsmw-pre703-v51-pacing-readonly'
+KERNEL='juniklx/nfsmw-pre703-v51-timing-readonly'
 MARKER='NFSMW_PRE703_KAGGLE_REMOTE.json'
 
 def sha(b):
