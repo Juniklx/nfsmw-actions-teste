@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""PRE712: narrow V51 Vulkan source guard/lookup syntax audit in isolated private Kaggle.
+"""PRE712: bounded source alias, predicate and push_back audit in private Kaggle.
 Only authenticated read-only source. Does not instrument an APK or infer runtime enabled extensions.
 """
 import argparse
@@ -13,6 +13,7 @@ import pre704_generate_private_v51_kernel as pre704
 import pre706_generate_private_v51_kernel as pre706
 import pre709_generate_private_v51_kernel as pre709
 import pre710_generate_private_v51_kernel as pre710
+import pre711_generate_private_v51_kernel as pre711
 
 KERNEL="juniklx/nfsmw-pre712-v51-alias-guards-readonly"
 TITLE="NFSMW PRE712 V51 Alias Guards Readonly"
