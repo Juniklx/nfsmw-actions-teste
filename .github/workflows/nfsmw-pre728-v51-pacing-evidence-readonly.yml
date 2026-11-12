@@ -1,0 +1,71 @@
+name: NFSMW PRE728 - V51 pacing evidence reconciliation READONLY
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['automation/kaggle/pre728_requests/*.json']
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre728-readonly-pacing
+  cancel-in-progress: false
+jobs:
+  pre728-reconcile:
+    if: github.repository == 'Juniklx/nfsmw-actions-teste' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate parser and source pins
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre728_verify_v51_pacing_evidence_readonly.py
+          python automation/kaggle/pre728_verify_v51_pacing_evidence_readonly.py --self-test
+      - name: Install official Drive API package only
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+      - name: Read hashed real prior reports from Drive; export summary only
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre728_verify_v51_pacing_evidence_readonly.py \
+            --apply --out /tmp/nfsmw-pre728/PRE728_V51_REAL_PREVIOUS_REPORTS_RECONCILED.json
+      - name: Strict sanitized evidence gates and scope
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json,pathlib
+          p=pathlib.Path('/tmp/nfsmw-pre728/PRE728_V51_REAL_PREVIOUS_REPORTS_RECONCILED.json')
+          r=json.loads(p.read_text())
+          assert r['status']=='PASS_PRE728_VERIFIED_SECONDARY_REPORT_RECONCILIATION'
+          assert set(r['sources'])=={'700','701','727'}
+          assert r['raw_pre700_zip_replayed'] is False and r['new_phone_trace_captured'] is False
+          assert r['app_version_code']==51 and r['observed_fps_cap']==60 and r['refresh_hz']==120
+          assert r['contiguous_intervals']==2277
+          assert (r['desired_irregular'],r['ready_irregular'],r['actual_present_irregular'])==(3,119,489)
+          assert (r['actual_irregular_with_ready_regular'],r['actual_irregular_with_ready_irregular'],r['ready_irregular_with_actual_regular'])==(459,30,89)
+          assert r['google_display_timing_reported_enabled_pre727'] is False
+          assert r['vulkan_per_frame_present_id']=='NOT_VERIFIED'
+          assert r['pacing_root_cause']=='NOT_VERIFIED'
+          assert r['apk_changed'] is False and r['signing_accessed'] is False and r['fps_gain_proven'] is False
+          assert p.stat().st_size<7000
+          print('PRE728_PINNED_REAL_PREVIOUS_REPORTS_PASS=TRUE')
+          print('PRE728_NO_RAW_CAPTURE_REPLAY_OR_V52=TRUE')
+          print('PRE728_SAFE_NEXT_GATE_PRE729=TRUE')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nfsmw-pre728-v51-readonly-${{ github.run_id }}
+          path: /tmp/nfsmw-pre728/PRE728_V51_REAL_PREVIOUS_REPORTS_RECONCILED.json
+          if-no-files-found: warn
+          retention-days: 30
