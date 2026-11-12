@@ -1,0 +1,12 @@
+{
+  "stage": "PRE723_V51_KAGGLE_SIZE_RECEIVER_READONLY",
+  "parent_verified_run": 43295701230,
+  "parent_artifact_id": 13979377934,
+  "parent_zip_sha256": "e741ee56d3b037f2dd375dd5a720dc3fdb4d972b41a0374c18783c550c283ade",
+  "purpose": "Hash-compare the receiver of .size() assigned to count argument at line 355 with .data() source of ppEnabledExtensionNames at 501; audit bounded lexical receiver references and mutations only.",
+  "notebook": "juniklx/nfsmw-pre723-v51-size-receiver",
+  "no_source_export": true,
+  "source_or_apk_modified": false,
+  "signing_material_accessed": false,
+  "fps_gain_proven": false
+}
