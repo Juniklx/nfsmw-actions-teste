@@ -1,0 +1,76 @@
+name: NFSMW PRE727 - V51 real log Vulkan enabled extensions READONLY
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre727_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre727-readonly-log
+  cancel-in-progress: false
+jobs:
+  verify-v51-real-log:
+    if: github.repository == 'Juniklx/nfsmw-actions-teste' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check synthetic parser and strict SHA pins
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre727_verify_v51_existing_log_enabled_extensions.py
+          python automation/kaggle/pre727_verify_v51_existing_log_enabled_extensions.py --self-test
+      - name: Install only official Google Drive client
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+      - name: Independently fetch and hash-check real V51 log; export summary only
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre727_verify_v51_existing_log_enabled_extensions.py \
+            --apply --out /tmp/nfsmw-pre727/PRE727_V51_REAL_LOG_VULKAN_ENABLED_EXTENSIONS.json
+      - name: Enforce sanitized report and no-googletiming enablement
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json, pathlib
+          p=pathlib.Path('/tmp/nfsmw-pre727/PRE727_V51_REAL_LOG_VULKAN_ENABLED_EXTENSIONS.json')
+          r=json.loads(p.read_text())
+          assert r['status']=='PASS_PRE727_V51_REAL_APP_REPORTED_VULKAN_EXTENSIONS'
+          assert r['source_sha256']=='649fbe98116b12ade8032b50267e78dcb251832cd8a566fb3d30380d37e325c7'
+          assert r['source_bytes']==576129 and r['source_total_lines']==2222
+          assert r['instance_header_line']==35 and r['device_header_line']==42
+          assert r['instance_extensions_reported_enabled']==['VK_KHR_surface','VK_KHR_android_surface','VK_EXT_debug_utils']
+          assert r['device_extensions_reported_enabled']==['VK_EXT_extended_dynamic_state3','VK_EXT_memory_budget','VK_KHR_swapchain']
+          assert r['VK_GOOGLE_display_timing_reported_enabled_in_this_session'] is False
+          assert r['VK_GOOGLE_display_timing_anywhere_in_log'] is False
+          assert r['app_log_is_not_independent_vulkan_api_interception'] is True
+          assert r['driver_vkCreateDevice_actual_pointer_contents']=='NOT_VERIFIED'
+          assert r['original_app_log_exported'] is False
+          assert r['raw_app_log_lines_exported'] is False
+          assert r['apk_modified'] is False and r['apk_compiled'] is False
+          assert r['signing_material_accessed'] is False and r['fps_gain_proven'] is False
+          assert p.stat().st_size<7000
+          print('PRE727_VALIDATED_SANITIZED_REPORT=TRUE')
+          print('PRE727_LOGGED_VULKAN_LIST_IS_SESSION_ONLY=TRUE')
+          print('PRE727_NOT_VKCREATEDEVICE_INTERCEPTION=TRUE')
+          PY
+      - name: Archive ONLY summarized JSON, never original Android log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre727-v51-real-log-${{ github.run_id }}
+          path: /tmp/nfsmw-pre727/PRE727_V51_REAL_LOG_VULKAN_ENABLED_EXTENSIONS.json
+          if-no-files-found: warn
+          retention-days: 30
