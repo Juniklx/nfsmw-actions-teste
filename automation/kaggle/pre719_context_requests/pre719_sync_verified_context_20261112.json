@@ -1,0 +1,15 @@
+{
+  "stage": "PRE719_SYNC_VERIFIED_CONTEXT_TO_DRIVE",
+  "canonical_file_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+  "backup_file_id": "14oiuGnMTou0r5-EyB1C8oiNG4Eq0YMl6",
+  "verified_previous_bytes": 1311450,
+  "verified_previous_sha256": "a8665027e433ac783d97ced6d0aa4bf040b97895f7cf327c5ff82e64bbb1ff76",
+  "runs": [
+    "43280564101",
+    "43284212530",
+    "43287455419"
+  ],
+  "source_or_apk_modified": false,
+  "signing_material_accessed": false,
+  "notes": "Only append verified PRE717-PRE719 context with backup validation and readback, preserve canonical ID and all historical sections."
+}
