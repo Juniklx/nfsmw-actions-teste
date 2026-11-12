@@ -1,0 +1,13 @@
+{
+  "stage": "PRE727_V51_REAL_APP_LOG_VULKAN_EXTENSION_SECTIONS_READONLY",
+  "source_drive_file_id": "1u5FBEzB8Oi3xi1EH-iIar3aortJ2zrmd",
+  "source_sha256": "649fbe98116b12ade8032b50267e78dcb251832cd8a566fb3d30380d37e325c7",
+  "source_size_bytes": 576129,
+  "previous_gate_run": 43307644388,
+  "scope": "Real V51 PRE656 Android runtime app log: independently validate instance and device enabled-extension self-reports, not raw vkCreateDevice interception",
+  "kaggle_required": false,
+  "reason": "This audit requires only authenticated Drive log read and deterministic parser; no private source restore",
+  "source_exported": false,
+  "apk_modified": false,
+  "signing_material_accessed": false
+}
