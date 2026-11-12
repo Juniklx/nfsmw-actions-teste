@@ -118,12 +118,12 @@ with tempfile.TemporaryDirectory(prefix='nfsmw_pre696_') as td:
             assert idx, 'PRE696_SOURCE_ANCHOR_ABSENT '+label+' '+pattern
             hits[pattern]={'count':len(idx),'lines':idx[:20]}
         result['files'][label]={'path':path,'sha256':sha(b),'bytes':len(b),'lines':len(lines),'anchors':hits}
-    if label == 'presenter':
-        assert sha(b)=='68998a1db81e9743197e446a5f8dacbf8d3dbcc2a51e4a7e6dac476b87d88c48', 'PRE703_V51_PRESENTER_FINGERPRINT_MISMATCH'
-        isolated=Path('/tmp/nfsmw-pre703-auth-source')
-        isolated.mkdir(parents=True,exist_ok=True)
-        with (isolated/'vulkan_presenter.cpp').open('xb') as fp:
-            fp.write(b)
+        if label == 'presenter':
+            assert sha(b)=='68998a1db81e9743197e446a5f8dacbf8d3dbcc2a51e4a7e6dac476b87d88c48', 'PRE703_V51_PRESENTER_FINGERPRINT_MISMATCH'
+            isolated=Path('/tmp/nfsmw-pre703-auth-source')
+            isolated.mkdir(parents=True,exist_ok=True)
+            with (isolated/'vulkan_presenter.cpp').open('xb') as fp:
+                fp.write(b)
 result['status']='PASS_AUTHENTICATED_RECIPE_ONLY'
 out=Path('/tmp/nfsmw-pre696');out.mkdir(parents=True,exist_ok=True)
 (out/'PRE696_V51_SOURCE_AUDIT.json').write_text(json.dumps(result,indent=2,ensure_ascii=False)+'\n')
