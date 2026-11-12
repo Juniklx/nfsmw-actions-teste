@@ -1,0 +1,19 @@
+{
+  "stage": "PRE708_V51_KAGGLE_EXTENSION_CONDITION_ARGUMENTS_READONLY",
+  "reference_run": 43208095222,
+  "reason": "Read only authenticated V51 syntactic if-condition operands at device lines 286,290 and instance 448,454, and emplace_back argument lines 291,455",
+  "verification_gates": [
+    "PRE99_SOURCE_SHA",
+    "VULKAN_DEVICE_SHA",
+    "VULKAN_INSTANCE_SHA",
+    "KAGGLE_PRIVATE_NOTEBOOK",
+    "STRUCTURED_REPORT_HASHED_AND_SANITIZED"
+  ],
+  "runtime_enabled_extensions": "NOT_VERIFIED",
+  "v51_apk_modified": false,
+  "build_v52": false,
+  "signing_material_used": false,
+  "gpu_mode_modified": false,
+  "thermal_protections_modified": false,
+  "fps_gain_proven": false
+}
