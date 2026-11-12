@@ -141,6 +141,8 @@ jobs:
                           assert d['pre705_device_create_line_count']>0
                           assert d['pre706_provenance']['stage']=='PRE706_SOURCE_EXTENSION_CONTAINER_PROVENANCE'
                           assert d['pre706_provenance']['source_hashes_verified'] is True
+                          assert d['pre706_provenance']['anchors']['device']['same_identifier'] is True
+                          assert d['pre706_provenance']['anchors']['instance']['same_identifier'] is True
                           assert set(d['pre706_provenance']['anchors'])=={'device','instance'}
                           assert d['pre706_provenance']['complete_cpp_dataflow_proven'] is False
                           assert d['pre706_provenance']['runtime_extension_list']=='NOT_VERIFIED'
