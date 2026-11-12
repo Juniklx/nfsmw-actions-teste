@@ -34,7 +34,7 @@ INSERT=r"""
    raw=z.read(name)
   if len(raw)!=lookup[name]['bytes'] or hashlib.sha256(raw).hexdigest()!=expected:
    raise ValueError('PRE706_SOURCE_TAMPER')
-  return raw.decode('utf8-sig').splitlines()
+  return raw.decode('utf-8-sig').splitlines()
  device_lines=file_lines('nativo/sdk/src/ui/vulkan/vulkan_device.cpp',
                          '24b04ab68d6300977756a1cb55a805b9654963696e7102af8ce1be4e9f072a38')
  instance_lines=file_lines('nativo/sdk/src/ui/vulkan/vulkan_instance.cpp',
@@ -167,6 +167,8 @@ def main():
     if args.self_test:
         body=code({'stage':'PRE704_AUTHENTICATED_V51_UI_SOURCE_BUNDLE'},b'not-a-real-source-bundle','123','1')
         assert 'pre706_provenance' in body
+        assert "decode('utf-8-sig')" in body and "decode('utf8-sig')" not in body
+        assert b'\xef\xbb\xbfA'.decode('utf-8-sig')=='A'
         assert 'PASS_AUTHENTICATED_V51_EXTENSION_CONTAINER_PROVENANCE_INDICATORS_ONLY' in body
         assert 'GOOGLE_REFRESH_TOKEN' not in body and 'KAGGLE_API_TOKEN' not in body
         assert MARKER in body
