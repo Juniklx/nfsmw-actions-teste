@@ -173,11 +173,11 @@ def code(manifest,archive,run,attempt):
     if src.count(PARENT_FINAL)!=1:raise ValueError('PRE710_PARENT_GATE_DRIFT')
     src=src.replace(PARENT_FINAL,PARENT_FINAL+'\n'+EXTRA)
     replacements=[
-        ('NFSMW_PRE708_KAGGLE_REMOTE.json',MARKER),
-        ('PRE708_V51_KAGGLE_CONDITION_ARGUMENT_SYNTAX_READONLY',
+        ('NFSMW_PRE709_KAGGLE_REMOTE.json',MARKER),
+        ('PRE709_V51_KAGGLE_EXTENSION_LOOKUP_GUARDS_READONLY',
          'PRE710_V51_KAGGLE_EXTENSION_LOOKUP_GUARDS_READONLY'),
-        ("print('PRE708_KAGGLE_GATE=","print('PRE710_KAGGLE_GATE="),
-        ("print('PRE708_REPORT=","print('PRE710_REPORT="),
+        ("print('PRE709_KAGGLE_GATE=","print('PRE710_KAGGLE_GATE="),
+        ("print('PRE709_REPORT=","print('PRE710_REPORT="),
     ]
     for a,b in replacements:
         if a not in src:raise ValueError('PRE710_MISSING_PARENT_TOKEN '+a)
