@@ -1,0 +1,17 @@
+{
+  "stage": "PRE719_V51_KAGGLE_POINTER_COUNT_MUTATION_READONLY",
+  "parent_verified_run": 43284212530,
+  "parent_artifact_id": 13974656360,
+  "purpose": "Conservative authenticated V51 Vulkan instance pointer/count lexical value-flow audit (lines 523-540).",
+  "questions": [
+    "Classify range-for loop headers at 528 and 531 and compare hashed range receivers to the initial extension names .data() source.",
+    "Find candidate indexed assignments and potentially mutating vector methods in 523-540 without exporting proprietary identifiers or source text.",
+    "Trace line 535 enabledExtensionCount RHS as a single local symbol, if possible; report its bounded prior references and assignments.",
+    "Distinguish lexical non-observation of ppEnabledExtensionNames reassignment from runtime pointer validity; never claim a bug without proof."
+  ],
+  "expected_notebook": "juniklx/nfsmw-pre719-v51-pointer-count-readonly",
+  "source_or_apk_modified": false,
+  "signing_material_accessed": false,
+  "runtime_vk_extensions_verified": false,
+  "fps_gain_proven": false
+}
