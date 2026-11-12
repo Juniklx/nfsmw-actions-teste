@@ -146,6 +146,8 @@ def main():
     }
     (dest/'kernel-metadata.json').write_text(json.dumps(metadata,indent=2)+'\n')
     (dest/'pre703.ipynb').write_text(json.dumps(assemble(generated),indent=2)+'\n')
+    assert json.loads((dest/'kernel-metadata.json').read_text()) == metadata
+    assert json.loads((dest/'pre703.ipynb').read_text())['nbformat'] == 4
     print('PRE703_KERNEL_PRIVATE=TRUE')
     print('PRE703_KERNEL_ID='+KERNEL)
     print('PRE703_PRESENTER_SHA256='+PIN)
