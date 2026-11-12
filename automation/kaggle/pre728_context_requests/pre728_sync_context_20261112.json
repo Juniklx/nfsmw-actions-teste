@@ -1,0 +1,12 @@
+{
+  "stage": "PRE728_SYNC_VERIFIED_CONTEXT_TO_DRIVE",
+  "canonical_file_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+  "backup_file_id": "1U_3gGMpf4WZ9gHQ_nKlNSwgk7xw5HRH1",
+  "expected_before_size": 1372051,
+  "expected_before_sha256": "09fecefda6409c9f187025c8d30edc8d65492bd58fa0988e99394cf3cf6b803e",
+  "report_run_id": 43312069225,
+  "report_zip_sha256": "885f838bbdcb790db0c71bbb33b302aac335bdb4f50a13281ab209ace5da564c",
+  "scope": "Append PRE728 verified secondary-report consistency audit; strict context/backup equality; readback verification; never change APK or signing",
+  "apk_version": 51,
+  "signing_accessed": false
+}
