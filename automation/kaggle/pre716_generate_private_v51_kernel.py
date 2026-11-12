@@ -35,7 +35,7 @@ EXTRA=r"""
   if not m:return {'declaration_shape':'NOT_CONFIRMED','matched':False},None
   name=m.group(1)
   return {'declaration_shape':'STD_VECTOR_BOOL_PTR_SIMPLE',
-    'declared_on_line':number,'declared_name_sha256':h716(name),
+    'declared_on_line':number,'declared_name_sha256':h716(name),'matched':True,
     'matches_previous_push_receiver_sha':h716(name)==expected_hash,
     'not_full_cpp_ast':True,'runtime_contents':'NOT_VERIFIED'},name
  def references716(lines,name,start,finish,control_line):
