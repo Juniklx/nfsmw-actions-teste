@@ -94,7 +94,7 @@ jobs:
           python - <<'PY'
           import json, os, re, subprocess, time
           from pathlib import Path
-          kernel='juniklx/nfsmw-pre704-v51-timing-readonly'
+          kernel='juniklx/nfsmw-pre704-v51-device-ext-readonly'
           out=Path('/tmp/nfsmw-pre704-result')
           out.mkdir(parents=True,exist_ok=True)
           deadline=time.monotonic()+3400
