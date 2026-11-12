@@ -1,0 +1,12 @@
+{
+  "stage": "PRE722_V51_KAGGLE_CAST_ARGUMENT_ORIGIN_READONLY",
+  "parent_verified_run": 43291927672,
+  "parent_artifact_id": 13977671162,
+  "parent_zip_sha256": "73caf38329372625825509cffbd1c7489b2c5c28ebf2038ccc26f4a7bfc0e673",
+  "purpose": "Trace hashed lexical origin of the single integer cast argument of enabledExtensionCount line 535; compare pointer source line 501 and candidate assignments, without exporting source identifiers.",
+  "notebook": "juniklx/nfsmw-pre722-v51-cast-arg-readonly",
+  "no_source_export": true,
+  "source_or_apk_modified": false,
+  "signing_material_accessed": false,
+  "fps_gain_proven": false
+}
