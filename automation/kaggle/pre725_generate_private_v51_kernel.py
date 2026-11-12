@@ -32,7 +32,7 @@ EXTRA=r"""
    res.append(c)
   return {'found':depth==0,'raw':''.join(res).strip()}
  def probe725():
-  p724=report['pre725_optional_extension_retry_branch_audit']['source_findings']
+  p724=report['pre724_optional_extension_retry_branch_audit']['source_findings']
   p708=report['pre708_conditions']['files']
   a=extract725(instance_lines,455);b=extract725(device_lines,291)
   if not a['found'] or not b['found']:return {'complete':False,'reason':'INSERTION_ARGUMENT_PARSE_FAILED'}
