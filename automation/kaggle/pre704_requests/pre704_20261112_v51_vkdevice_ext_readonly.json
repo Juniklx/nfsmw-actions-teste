@@ -1,0 +1,16 @@
+{
+  "stage": "PRE704_V51_KAGGLE_DEVICE_EXTENSION_SOURCE_READONLY",
+  "environment": "KAGGLE_PRIVATE_ISOLATED_GITHUB_ACTIONS",
+  "source_provenance": "PRE696_PRE697_SHA_AUTHENTICATED_V51_RECIPE",
+  "expected_presenter_sha256": "68998a1db81e9743197e446a5f8dacbf8d3dbcc2a51e4a7e6dac476b87d88c48",
+  "goals": [
+    "Locate vkCreateDevice lexical anchors",
+    "Locate ppEnabledExtensionNames and enabledExtensionCount",
+    "Find VK_GOOGLE_display_timing declarations or references"
+  ],
+  "no_release_apk": true,
+  "no_source_patch": true,
+  "no_signing_material": true,
+  "no_device_changes": true,
+  "user_consent": "User said Continuar 2026-11-12 after PRE703 automatic Kaggle verified"
+}
