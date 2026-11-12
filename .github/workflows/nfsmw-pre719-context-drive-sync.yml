@@ -1,0 +1,44 @@
+name: NFSMW PRE719 - Sync Verified PRE717-719 Context to Drive
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre719_context_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre719-context-drive-sync
+  cancel-in-progress: false
+jobs:
+  sync-context-after-verified-kaggle:
+    if: github.repository == 'Juniklx/nfsmw-actions-teste' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Local syntax and verified checkpoint checks, no Drive writes
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre719_sync_context_drive.py
+          python automation/kaggle/pre719_sync_context_drive.py --self-test
+      - name: Install Google Drive API client only
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests six >/dev/null
+      - name: Validate exact canonical and backup SHA, append PRE717-PRE719 and independently read back
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          test -n "$GOOGLE_REFRESH_TOKEN"
+          test -n "$GOOGLE_CLIENT_ID"
+          test -n "$GOOGLE_CLIENT_SECRET"
+          python automation/kaggle/pre719_sync_context_drive.py --apply
