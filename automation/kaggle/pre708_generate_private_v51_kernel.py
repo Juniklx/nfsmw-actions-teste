@@ -16,7 +16,14 @@ import pre707_generate_private_v51_kernel as pre707
 KERNEL="juniklx/nfsmw-pre708-v51-condition-syntax-readonly"
 TITLE="NFSMW PRE708 V51 Condition Syntax Readonly"
 MARKER="NFSMW_PRE708_KAGGLE_REMOTE.json"
-ANCHOR=" report['analysis_type']='PRE707_LEXICAL_INSERTION_AND_NEARBY_CONTROL_INDICATORS'"
+ANCHOR=""" report['analysis_type']='PRE707_LEXICAL_INSERTION_AND_NEARBY_CONTROL_INDICATORS'
+ report['status']=(
+    'PASS_AUTHENTICATED_V51_EXTENSION_SELECTION_SITES_LEXICAL_ONLY'
+    if report['pre707_selection']['source_hashes_verified']
+    and sites['device']['insert']['container_insert_found']
+    and sites['instance']['insert']['container_insert_found']
+    and report['pre706_provenance']['anchors']['device']['same_identifier']
+    else 'BLOCK_REQUIRED_EXTENSION_SELECTION_SITE')"""
 INJECT=r"""
  # PRE708 — balanced argument parsing for authenticated V51 source lines. No C++ AST.
  def parse_bounded_parentheses(lines,line,keyword,max_lines=10):
@@ -149,7 +156,7 @@ INJECT=r"""
 def code(manifest,archive,run,attempt):
     src=pre707.code(manifest,archive,run,attempt)
     if src.count(ANCHOR)!=1:raise ValueError("PRE708_PARENT_TEMPLATE_DRIFT")
-    src=src.replace(ANCHOR,INJECT)
+    src=src.replace(ANCHOR,ANCHOR+'\n'+INJECT)
     for a,b in [
         ("NFSMW_PRE707_KAGGLE_REMOTE.json",MARKER),
         ("PRE707_V51_KAGGLE_DEVICE_EXTENSION_SELECTION_SITES_READONLY",
