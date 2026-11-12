@@ -1,0 +1,19 @@
+{
+  "stage": "PRE717_V51_KAGGLE_INSTANCE_RETRY_BRANCH_READONLY",
+  "parent_verified_run": 43276695581,
+  "parent_artifact_id": 13970372522,
+  "source": "PRE704 authenticated V51 source recipe, read-only",
+  "questions": [
+    "Whether vkCreateInstance at source lines 523 and 537 is a retry candidate",
+    "Whether range-for line 528 links to false write on line 529",
+    "Which bounded guards, extension-count changes, and call argument shapes occur around both calls"
+  ],
+  "constraints": {
+    "source_or_apk_modified": false,
+    "signing_material_accessed": false,
+    "full_cpp_ast_or_cfg_proven": false,
+    "runtime_retry_proven": false,
+    "fps_gain_proven": false
+  },
+  "expected_notebook": "juniklx/nfsmw-pre717-v51-instance-retry-branch-readonly"
+}
