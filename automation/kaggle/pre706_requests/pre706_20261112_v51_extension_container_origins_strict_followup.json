@@ -1,0 +1,14 @@
+{
+  "stage": "PRE706_V51_KAGGLE_DEVICE_EXTENSION_ORIGINS_READONLY",
+  "run_variant": "STRICT_RECEIVER_PROVENANCE_FOLLOWUP",
+  "reference_run": 43193116985,
+  "reference_status": "PASS_AUDIT_BUT_COUNT_RECEIVER_UNRESOLVED",
+  "scope": "resolve count-container receiver with cast-aware lexer and verify it matches data-pointer receiver for device/instance separately",
+  "generator_fix_commit": "04db04ffaa8de3087fdcaf3b5e545ec8e8ac39bd",
+  "workflow_strict_gate_commit": "338b036108614093f150313b9fd3d2a3892cbeaf",
+  "read_only": true,
+  "apk_modified": false,
+  "source_modified": false,
+  "runtime_enabled_extensions": "NOT_VERIFIED",
+  "fps_gain_proven": false
+}
