@@ -144,8 +144,8 @@ def main():
         'dataset_sources':[],'competition_sources':[],
         'kernel_sources':[],'model_sources':[]
     }
-    (dest/'kernel-metadata.json').write_text(json.dumps(metadata,indent=2)+'\\n')
-    (dest/'pre703.ipynb').write_text(json.dumps(assemble(generated),indent=2)+'\\n')
+    (dest/'kernel-metadata.json').write_text(json.dumps(metadata,indent=2)+'\n')
+    (dest/'pre703.ipynb').write_text(json.dumps(assemble(generated),indent=2)+'\n')
     print('PRE703_KERNEL_PRIVATE=TRUE')
     print('PRE703_KERNEL_ID='+KERNEL)
     print('PRE703_PRESENTER_SHA256='+PIN)
