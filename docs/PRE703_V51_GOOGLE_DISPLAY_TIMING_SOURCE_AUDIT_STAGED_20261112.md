@@ -23,3 +23,16 @@ Reconciliar fingerprints e âncoras, estudar o local de `vkCreateDevice` e swapc
 Preservar V51, package `io.github.nfsmwrecomp`, certificado SHA-256 `1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b`, resolução interna 1920×1080, 60 FPS cap do ensaio PRE700, alvo máximo 120 FPS, gráficos/shaders/efeitos/física, touch/PG-9076, saves e proteções térmicas.
 
 **STATUS:** `PRE702_GOOGLE_TIMING_REPORTED_ADVERTISED; PRE703_SOURCE_READONLY_SCRIPT_STAGED; COLAB_NOT_EXECUTED; NO_CAUSALITY; NO_FPS_GAIN; NO_NEW_APK`.
+
+
+---
+
+## Correção de ambiente — Kaggle é o executor atual (12/11/2026)
+
+**Retificação importante solicitada pelo usuário:** a seção original PRE703 acima foi criada por engano para Google Colab. O fluxo atual usa **Kaggle Notebook `juniklx/nfsmw`**, com scripts de `automation/kaggle` e sincronização seletiva dos logs para o Google Drive. O caminho `/content/nfsmw_build` e `google.colab.drive.mount` **não são válidos para a execução atual**. **NÃO executar** o comando/célula de Colab PRE703 fornecido anteriormente.
+
+Substituto preparado em [`automation/kaggle/nfsmw_pre703_v51_source_readonly.py`](../automation/kaggle/nfsmw_pre703_v51_source_readonly.py), commit `9dec0fa46a958f22a9c18f33f500b6052082776a`. Executar em uma célula Python do Kaggle usando URL `raw.githubusercontent.com` pinada nesse commit, sem Google Drive mount. O script tenta localizar `nativo/sdk/src/ui/vulkan/vulkan_presenter.cpp` em `/kaggle/working` e `/kaggle/input`, ou aceita `--source-root` **somente quando já existe fonte autenticada no workspace**. Salva `NFSMW_PRE703_KAGGLE_SOURCE_AUDIT_*.json` em `/kaggle/working/NFSMW_Kaggle_Logs`, que é o diretório esperado pelo fluxo Kaggle AutoLog conhecido; não assumir que o upload ao Drive ocorreu sem conferir. Não lê segredos, não baixa snapshots, não recompila ou modifica APK.
+
+**Gate fail-closed:** nenhum candidato -> `BLOCK_NO_SOURCE_IN_KAGGLE`; muitos -> `BLOCK_MULTIPLE_SOURCE_CANDIDATES`; hash divergente -> `BLOCK_SOURCE_NOT_AUTHENTICATED_AS_V51_RECIPE`; correspondência hash/âncora -> apenas `PASS_V51_RECIPE_SOURCE_ONLY`, não equivalência com ELF assinado nem acesso efetivo a timestamps GPU. **Não restaurar por conta própria um backup V20/V50 como se fosse V51**, não aplicar patch sem hash. PRE703 ainda não executada no Kaggle real.
+
+A sonda anterior de Colab permanece apenas como arquivo histórico para auditabilidade, **substituída** pela versão Kaggle. A correção de ambiente não muda o resultado real da PRE702 (extensão `VK_GOOGLE_display_timing` anunciada segundo resumo enviado pelo usuário) nem autoriza V52 ou alteração de segurança térmica, gráficos, saves ou chave permanente.
