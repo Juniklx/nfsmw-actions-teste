@@ -31,7 +31,7 @@ EXTRA=r"""
     end=n;break
   return {'found':True,'target_in_lexical_braces':inside,'open_line':op,'close_line':end}
  def probe724():
-  parent=report['pre724_size_receiver_identity_audit']['source_findings']
+  parent=report['pre723_size_receiver_identity_audit']['source_findings']
   old=report['pre717_instance_retry_audit']['source_findings']
   row454=l724(454);row455=l724(455)
   row523=l724(523);row525=l724(525);row535=l724(535);row537=l724(537)
