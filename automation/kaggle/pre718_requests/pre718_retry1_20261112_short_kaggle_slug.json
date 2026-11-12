@@ -1,0 +1,11 @@
+{
+  "stage": "PRE718_V51_KAGGLE_INSTANCE_POINTER_FALLBACK_READONLY",
+  "retry_of_run": 43282944862,
+  "reason": "Authenticated source and notebook preflight succeeded; Kaggle SaveKernel returned HTTP 400; shortened kernel slug from 51 to 42 characters for isolated retry. Exact Kaggle rejection reason unverified.",
+  "previous_run_result": "failure_at_kaggle_savekernel_without_remote_audit",
+  "expected_notebook": "juniklx/nfsmw-pre718-v51-pointer-fallback-readonly",
+  "source_or_apk_modified": false,
+  "signing_material_accessed": false,
+  "runtime_retry_proven": false,
+  "fps_gain_proven": false
+}
