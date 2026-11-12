@@ -1,0 +1,322 @@
+name: NFSMW PRE715 - V51 C++ types and precedence Kaggle READONLY
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre715_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre715-kaggle-readonly
+  cancel-in-progress: false
+jobs:
+  kaggle-v51-presenter-audit:
+    if: github.repository == 'Juniklx/nfsmw-actions-teste' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Local syntax and synthetic gates
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre704_stage_authenticated_v51_from_pre696.py automation/kaggle/pre704_generate_private_v51_kernel.py automation/kaggle/pre715_generate_private_v51_kernel.py
+          python automation/kaggle/pre704_generate_private_v51_kernel.py --self-test
+          python automation/kaggle/pre715_generate_private_v51_kernel.py --self-test
+      - name: Prepare only Google API and Kaggle CLI libraries
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests zstandard kaggle six >/dev/null
+      - name: Authenticate V51 source recipe without APK build
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: |
+          set -euo pipefail
+          test -n "$GOOGLE_REFRESH_TOKEN"
+          test -n "$GOOGLE_CLIENT_ID"
+          test -n "$GOOGLE_CLIENT_SECRET"
+          python automation/kaggle/pre704_stage_authenticated_v51_from_pre696.py
+          python - <<'PY'
+          import json,zipfile
+          from pathlib import Path
+          p=Path('/tmp/nfsmw-pre704-auth-source')
+          m=json.loads((p/'manifest.json').read_text())
+          assert m['stage']=='PRE704_AUTHENTICATED_V51_UI_SOURCE_BUNDLE'
+          assert m['presenter_sha256']=='68998a1db81e9743197e446a5f8dacbf8d3dbcc2a51e4a7e6dac476b87d88c48'
+          assert m['backend_sha256']=='b70497df49440b469018e7ef7a0e007d39ab5df13aa979edc91f37e1d2d42385'
+          assert m['pre99_sha256']=='af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39'
+          with zipfile.ZipFile(p/'pre704_v51_ui_sources.zip') as z:
+              assert z.testzip() is None and len(z.namelist())==m['count']
+          print('PRE704_SOURCE_BUNDLE_AUTHENTICATED=TRUE')
+          print('PRE704_SOURCE_BUNDLE_FILES='+str(m['count']))
+          PY
+      - name: Prepare private isolated Kaggle V51 notebook
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre715_generate_private_v51_kernel.py --manifest /tmp/nfsmw-pre704-auth-source/manifest.json --archive /tmp/nfsmw-pre704-auth-source/pre704_v51_ui_sources.zip --output /tmp/nfsmw-pre715-kernel --run-id "$GITHUB_RUN_ID" --attempt "$GITHUB_RUN_ATTEMPT"
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('/tmp/nfsmw-pre715-kernel')
+          meta=json.loads((p/'kernel-metadata.json').read_text())
+          note=json.loads((p/'pre715.ipynb').read_text())
+          assert meta['id']=='juniklx/nfsmw-pre715-v51-types-precedence-readonly'
+          import re
+          slug=re.sub(r'[^a-z0-9]+','-',meta['title'].lower()).strip('-')
+          assert meta['id']=='juniklx/'+slug
+          assert meta['is_private'] and not meta['enable_gpu'] and not meta['enable_internet']
+          assert len(note['cells'])==2
+          source=''.join(note['cells'][1]['source'])
+          compile(source, '<PRE715 Kaggle notebook>', 'exec')
+          for secret in ('GOOGLE_REFRESH_TOKEN','GOOGLE_CLIENT_SECRET','KAGGLE_API_TOKEN','NFSMW_ASSINATURA_PERMANENTE'):
+              assert secret not in source
+          print('PRE715_KAGGLE_PRIVATE_NOTEBOOK_PREFLIGHT=PASS')
+          PY
+      - name: Start Kaggle isolated notebook, never original juniklx/nfsmw
+        env:
+          KAGGLE_API_TOKEN: ${{ secrets.KAGGLE_API_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "$KAGGLE_API_TOKEN"
+          kaggle kernels push -p /tmp/nfsmw-pre715-kernel
+      - name: Poll Kaggle and verify remote source-only report
+        env:
+          KAGGLE_API_TOKEN: ${{ secrets.KAGGLE_API_TOKEN }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json, os, re, subprocess, time
+          from pathlib import Path
+          kernel='juniklx/nfsmw-pre715-v51-types-precedence-readonly'
+          out=Path('/tmp/nfsmw-pre715-result')
+          out.mkdir(parents=True,exist_ok=True)
+          deadline=time.monotonic()+3400
+          prev=''
+          failures=0
+          while time.monotonic()<deadline:
+              p=subprocess.run(['kaggle','kernels','status',kernel],capture_output=True,text=True,timeout=90)
+              if p.returncode != 0:
+                  failures+=1
+                  if failures >= 10:
+                      raise RuntimeError('PRE715_KAGGLE_STATUS_NOT_READABLE_AFTER_10_CHECKS')
+                  time.sleep(15)
+                  continue
+              failures=0
+              m=re.search(r'KernelWorkerStatus\.([A-Z_]+)',p.stdout+' '+p.stderr)
+              state=m.group(1) if m else 'UNKNOWN'
+              if state!=prev:
+                  print('PRE715_REMOTE_STATE='+state,flush=True)
+                  prev=state
+              if state in ('ERROR','FAILED','CANCELLED','CANCELED'):
+                  raise RuntimeError('PRE715_REMOTE_KAGGLE_FAILED')
+              if state=='COMPLETE':
+                  dl=subprocess.run(['kaggle','kernels','output',kernel,'-p',str(out),'-o'],capture_output=True,text=True,timeout=180)
+                  if dl.returncode==0:
+                      for fp in out.rglob('NFSMW_PRE715_KAGGLE_REMOTE.json'):
+                          d=json.loads(fp.read_text(encoding='utf-8'))
+                          if d.get('github_run_id')!=os.environ['GITHUB_RUN_ID'] or d.get('github_run_attempt')!=os.environ['GITHUB_RUN_ATTEMPT']:
+                              continue
+                          assert d['stage']=='PRE715_V51_KAGGLE_TYPES_PRECEDENCE_READONLY'
+                          assert d['status']=='PASS_PRE715_AUTHENTICATED_SOURCE_CPP_PRECEDENCE_SEPARATE_EVIDENCE'
+                          assert d['presenter_sha256']=='68998a1db81e9743197e446a5f8dacbf8d3dbcc2a51e4a7e6dac476b87d88c48'
+                          assert d['backend_sha256']=='b70497df49440b469018e7ef7a0e007d39ab5df13aa979edc91f37e1d2d42385'
+                          assert d['source_or_apk_modified'] is False
+                          assert d['runtime_vk_device_enabled_extensions']=='NOT_VERIFIED'
+                          assert d['source_to_signed_elf_equivalence']=='UNVERIFIED'
+                          assert d['signing_material_accessed'] is False
+                          assert d['fps_gain_proven'] is False
+                          assert d['runtime_timestamps_captured'] is False
+                          assert isinstance(d['files_with_hits'],list)
+                          assert d['totals']['vkCreateDevice']>0
+                          assert d['analysis_type']=='PRE715_AUTHENTICATED_V51_TYPE_DECLARATIONS_PLUS_SYNTHETIC_CPP_PRECEDENCE'
+                          assert set(d['pre705_flow'])=={'device','instance','presenter','device_header'}
+                          assert d['pre705_device_create_line_count']>0
+                          assert d['pre706_provenance']['stage']=='PRE706_SOURCE_EXTENSION_CONTAINER_PROVENANCE'
+                          assert d['pre707_selection']['stage']=='PRE707_V51_EXTENSION_SELECTION_SITE_CONTEXT'
+                          assert d['pre715_type_precedence_audit']['stage']=='PRE715_V51_CPP_PRECEDENCE_AND_DECLARATION_AUDIT'
+                          assert d['pre715_type_precedence_audit']['authenticated_source_sha_checked'] is True
+                          assert d['pre715_type_precedence_audit']['actual_source_ast_or_cfg_proven'] is False
+                          assert d['pre715_type_precedence_audit']['actual_source_cpp_type_proven'] is False
+                          assert d['pre715_type_precedence_audit']['runtime_enabled_extensions']=='NOT_VERIFIED'
+                          assert d['pre715_type_precedence_audit']['source_to_signed_apk_elf_equivalence']=='UNVERIFIED'
+                          assert d['pre715_type_precedence_audit']['vk_google_display_timing_enabled']=='NOT_VERIFIED'
+                          assert d['pre715_type_precedence_audit']['source_text_exported'] is False
+                          assert d['pre715_type_precedence_audit']['secrets_accessed'] is False
+                          assert d['pre715_type_precedence_audit']['apk_built'] is False
+                          assert d['pre715_type_precedence_audit']['apk_modified'] is False
+                          assert d['pre715_type_precedence_audit']['fps_gain_proven'] is False
+                          assert d['pre715_type_precedence_audit']['synthetic_fixture_distinct_from_actual_source'] is True
+                          assert set(d['pre715_type_precedence_audit']['source_probe'])=={'device','instance'}
+                          assert all(
+                            x['exact_pattern_bang_deref_iterator_member_second'] is True
+                            and x['actual_cpp_operand_type']=='NOT_VERIFIED'
+                            for x in d['pre715_type_precedence_audit']['source_probe'].values()
+                          )
+                          assert d['pre715_type_precedence_audit']['source_probe']['instance']['vector_declaration_line356']['declared_variable_matches_pushback_receiver'] is True
+                          assert d['pre715_type_precedence_audit']['synthetic_cpp_fixture']['not_original_v51_cpp'] is True
+                          assert d['pre714_negation_container']['stage']=='PRE714_V51_NEGATED_PREDICATE_AND_INSTANCE_CONTAINER'
+                          assert d['pre714_negation_container']['source_hashes_authenticated'] is True
+                          assert d['pre714_negation_container']['analysis_scope']=='CONSERVATIVE_LEXICAL_SKELETON_NO_CPP_AST'
+                          assert d['pre714_negation_container']['raw_source_exported'] is False
+                          assert d['pre714_negation_container']['secret_material_accessed'] is False
+                          assert d['pre714_negation_container']['cpp_ast_or_cfg_proven'] is False
+                          assert d['pre714_negation_container']['runtime_enabled_extensions']=='NOT_VERIFIED'
+                          assert d['pre714_negation_container']['signed_apk_binary_equivalence']=='UNVERIFIED'
+                          assert d['pre714_negation_container']['vk_google_display_timing_enabled']=='NOT_VERIFIED'
+                          assert d['pre714_negation_container']['apk_built'] is False
+                          assert d['pre714_negation_container']['apk_modified'] is False
+                          assert d['pre714_negation_container']['fps_gain_proven'] is False
+                          assert set(d['pre714_negation_container']['files'])=={'device','instance'}
+                          assert all(d['pre714_negation_container']['consistency'].values())
+                          assert d['pre714_negation_container']['files']['instance']['pushback_container_reference_line356']['receiver_identifier_present_in_same_line'] is True
+                          assert all(v['negated_expression_structure']['starts_negation'] is True for v in d['pre714_negation_container']['files'].values())
+                          assert d['pre713_find_sentinel_audit']['stage']=='PRE713_V51_BOUNDED_FIND_SENTINEL_NEGATION_PUSHBACK'
+                          assert d['pre713_find_sentinel_audit']['source_hashes_authenticated'] is True
+                          assert d['pre713_find_sentinel_audit']['cpp_ast_and_cfg_proven'] is False
+                          assert d['pre713_find_sentinel_audit']['raw_source_exported'] is False
+                          assert d['pre713_find_sentinel_audit']['runtime_enabled_extensions']=='NOT_VERIFIED'
+                          assert d['pre713_find_sentinel_audit']['source_to_signed_elf_equivalence']=='UNVERIFIED'
+                          assert d['pre713_find_sentinel_audit']['vk_google_display_timing_enabled']=='NOT_VERIFIED'
+                          assert d['pre713_find_sentinel_audit']['apk_built'] is False
+                          assert d['pre713_find_sentinel_audit']['apk_modified'] is False
+                          assert d['pre713_find_sentinel_audit']['secret_accessed'] is False
+                          assert d['pre713_find_sentinel_audit']['fps_gain_proven'] is False
+                          assert set(d['pre713_find_sentinel_audit']['files'])=={'device','instance'}
+                          assert all(d['pre713_find_sentinel_audit']['pair_consistency'].values())
+                          assert all(
+                             x['find']['found'] is True
+                             and x['rhs_sentinel']['rhs_mentions_requested_extensions'] is True
+                             and x['negated_guard']['starts_negation'] is True
+                             for x in d['pre713_find_sentinel_audit']['files'].values()
+                          )
+                          assert d['pre712_alias_guard_audit']['stage']=='PRE712_V51_BOUNDED_ALIAS_PREDICATE_PUSHBACK'
+                          assert d['pre712_alias_guard_audit']['authenticated_v51_source'] is True
+                          assert d['pre712_alias_guard_audit']['raw_cpp_source_exported'] is False
+                          assert d['pre712_alias_guard_audit']['signing_material_accessed'] is False
+                          assert d['pre712_alias_guard_audit']['apk_built'] is False
+                          assert d['pre712_alias_guard_audit']['apk_modified'] is False
+                          assert d['pre712_alias_guard_audit']['fps_gain_proven'] is False
+                          assert d['pre712_alias_guard_audit']['cpp_ast_and_cfg_proven'] is False
+                          assert d['pre712_alias_guard_audit']['runtime_enabled_extensions']=='NOT_VERIFIED'
+                          assert d['pre712_alias_guard_audit']['installed_apk_binary_identity']=='UNVERIFIED'
+                          assert d['pre712_alias_guard_audit']['vk_google_display_timing_enabled']=='NOT_VERIFIED'
+                          assert set(d['pre712_alias_guard_audit']['files'])=={'device','instance'}
+                          assert all(d['pre712_alias_guard_audit']['pair_consistency'].values())
+                          assert all(
+                            x['bounded_pre_guard_assignments']['cpp_alias_or_pointer_identity']=='NOT_VERIFIED'
+                            and x['comparison_rhs']['rhs_mentions_requested_extensions'] is True
+                            and x['negated_condition_callee']['cpp_predicate_semantics']=='NOT_VERIFIED'
+                            and x['cpp_symbol_binding']=='NOT_VERIFIED'
+                            for x in d['pre712_alias_guard_audit']['files'].values()
+                          )
+                          assert d['pre712_alias_guard_audit']['files']['device']['second_guard_body_push_back']['call_count']==0
+                          assert d['pre712_alias_guard_audit']['files']['instance']['second_guard_body_push_back']['call_count']==1
+                          assert d['pre711_operand_links']['stage']=='PRE711_V51_BOUNDED_OPERAND_LINKS'
+                          assert d['pre711_operand_links']['authenticated_source_sha_checks'] is True
+                          assert d['pre711_operand_links']['source_exported'] is False
+                          assert d['pre711_operand_links']['cpp_ast_or_cfg_proven'] is False
+                          assert d['pre711_operand_links']['runtime_enabled_extensions']=='NOT_VERIFIED'
+                          assert d['pre711_operand_links']['installed_apk_binary_identity']=='UNVERIFIED'
+                          assert d['pre711_operand_links']['vk_google_display_timing_enabled']=='NOT_VERIFIED'
+                          assert d['pre711_operand_links']['apk_built'] is False
+                          assert d['pre711_operand_links']['apk_modified'] is False
+                          assert d['pre711_operand_links']['signing_material_accessed'] is False
+                          assert d['pre711_operand_links']['fps_gain_proven'] is False
+                          assert set(d['pre711_operand_links']['files'])=={'device','instance'}
+                          assert all(d['pre711_operand_links']['comparisons'].values())
+                          assert all(
+                             z['first_guard_continue'] is True
+                             and z['cstr_receiver'].get('cpp_member_type','NOT_VERIFIED')=='NOT_VERIFIED'
+                             and z['for_binding'].get('source_not_exported',True) is True
+                             for z in d['pre711_operand_links']['files'].values()
+                          )
+                          assert d['pre711_operand_links']['files']['device']['push_back']['call_count']==0
+                          assert d['pre711_operand_links']['files']['instance']['push_back']['call_count']>0
+                          assert d['pre710_statement_receiver_audit']['stage']=='PRE710_V51_GUARD_BODY_STATEMENT_AND_CSTR_RECEIVER'
+                          assert d['pre710_statement_receiver_audit']['authenticated_v51_sources'] is True
+                          assert d['pre710_statement_receiver_audit']['full_cpp_ast_or_cfg_proven'] is False
+                          assert d['pre710_statement_receiver_audit']['runtime_extension_names']=='NOT_VERIFIED'
+                          assert d['pre710_statement_receiver_audit']['source_to_signed_elf_equivalence']=='UNVERIFIED'
+                          assert d['pre710_statement_receiver_audit']['raw_cpp_source_exported'] is False
+                          assert d['pre710_statement_receiver_audit']['apk_modified'] is False
+                          assert d['pre710_statement_receiver_audit']['private_signing_material_accessed'] is False
+                          assert d['pre710_statement_receiver_audit']['fps_gain_proven'] is False
+                          assert set(d['pre710_statement_receiver_audit']['files'])=={'device','instance'}
+                          assert all(d['pre710_statement_receiver_audit']['pair_consistency'].values())
+                          assert all(
+                            item['first_if']['body']['status']=='BOUNDED_LEXICAL_BODY_STATEMENTS'
+                            and item['second_if']['lexically_contains_insertion'] is True
+                            and item['first_if']['lexically_contains_insertion'] is False
+                            and item['insertion']['argument']['no_unknown_identifier_export'] is True
+                            for item in d['pre710_statement_receiver_audit']['files'].values()
+                          )
+                          assert d['pre709_lookup_guards']['stage']=='PRE709_V51_EXTENSION_SELECTION_LOOKUP_GUARDS'
+                          assert d['pre709_lookup_guards']['sources_authenticated'] is True
+                          assert d['pre709_lookup_guards']['no_source_export'] is True
+                          assert d['pre709_lookup_guards']['complete_cpp_control_flow_proven'] is False
+                          assert d['pre709_lookup_guards']['runtime_enabled_extensions']=='NOT_VERIFIED'
+                          assert d['pre709_lookup_guards']['signed_apk_binary_equivalence']=='UNVERIFIED'
+                          assert set(d['pre709_lookup_guards']['files'])=={'device','instance'}
+                          assert all(d['pre709_lookup_guards']['textual_pair_consistency'].values())
+                          assert all(
+                            len(v['conditions'])==2
+                            and len(v['requested_extensions_mentions'])>0
+                            and v['insertion']['expression']['indicators']['has_c_str_call']
+                            and v['scope']=='BOUNDED_CPP_LEXICAL_BRACE_SCOPE_AND_TOKEN_SUMMARY'
+                            for v in d['pre709_lookup_guards']['files'].values()
+                          )
+                          assert d['pre708_conditions']['stage']=='PRE708_V51_CONDITION_ARGUMENT_SYNTAX'
+                          assert d['pre708_conditions']['source_hashes_verified'] is True
+                          assert d['pre708_conditions']['bounded_expressions_extracted'] is True
+                          assert d['pre708_conditions']['string_literals_exported'] is False
+                          assert d['pre708_conditions']['full_source_exported'] is False
+                          assert d['pre708_conditions']['cpp_ast_proven'] is False
+                          assert d['pre708_conditions']['device_enabled_extension_names']=='NOT_VERIFIED'
+                          assert set(d['pre708_conditions']['files'])=={'device','instance'}
+                          assert all(
+                            all(x['extracted'] for x in item['conditions'])
+                            and item['insert']['extracted']
+                            and item['guard_nesting_proven'] is False
+                            for item in d['pre708_conditions']['files'].values()
+                          )
+                          assert d['pre707_selection']['source_hashes_verified'] is True
+                          assert d['pre707_selection']['scope']=='LEXICAL_PROXIMITY_ONLY_NO_CPP_AST'
+                          assert d['pre707_selection']['runtime_enabled_extensions']=='NOT_VERIFIED'
+                          assert d['pre707_selection']['filter_semantics_proven'] is False
+                          assert set(d['pre707_selection']['sites'])=={'device','instance'}
+                          assert d['pre707_selection']['sites']['device']['insert']['container_insert_found'] is True
+                          assert d['pre707_selection']['sites']['instance']['insert']['container_insert_found'] is True
+                          assert d['pre706_provenance']['source_hashes_verified'] is True
+                          assert d['pre706_provenance']['anchors']['device']['same_identifier'] is True
+                          assert d['pre706_provenance']['anchors']['instance']['same_identifier'] is True
+                          assert set(d['pre706_provenance']['anchors'])=={'device','instance'}
+                          assert d['pre706_provenance']['complete_cpp_dataflow_proven'] is False
+                          assert d['pre706_provenance']['runtime_extension_list']=='NOT_VERIFIED'
+                          assert len(d['pre705_flow']['device']['occurrences']['ppEnabledExtensionNames']['lines'])>0
+                          assert d['runtime_vk_device_enabled_extensions']=='NOT_VERIFIED'
+                          (out/'PRE715_V51_KAGGLE_VALIDATED_SUMMARY.json').write_text(json.dumps(d,indent=2,sort_keys=True)+'\n')
+                          print('PRE715_KAGGLE_REMOTE_VALIDATED=TRUE')
+                          print('PRE715_VKCREATEDEVICE_HITS='+str(d['totals']['vkCreateDevice']))
+                          print('PRE715_GOOGLE_TIMING_HITS='+str(d['totals']['VK_GOOGLE_display_timing']))
+                          raise SystemExit(0)
+              time.sleep(15)
+          raise TimeoutError('PRE715_REMOTE_RESULT_NOT_VERIFIED')
+          PY
+      - name: Archive sanitized reports, never source or secrets
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre715-kaggle-readonly-${{ github.run_id }}
+          path: |
+            /tmp/nfsmw-pre715-result/PRE715_V51_KAGGLE_VALIDATED_SUMMARY.json
+            /tmp/nfsmw-pre715-result/NFSMW_PRE715_KAGGLE_REMOTE.json
+          if-no-files-found: warn
+          retention-days: 30
