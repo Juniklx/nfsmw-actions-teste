@@ -1,0 +1,9 @@
+{
+  "stage": "PRE718_V51_KAGGLE_INSTANCE_POINTER_FALLBACK_READONLY",
+  "retry_of_run": 43283479274,
+  "reason": "Kaggle returned an isolated report with status PASS_PRE717 and failure_type NameError in PRE718 extra probe: generator leaked module identifier pre706 into embedded kernel. Replace only reference with authenticated literal instance source path and SHA; retry no APK changes.",
+  "expected_notebook": "juniklx/nfsmw-pre718-v51-pointer-fallback-readonly",
+  "source_or_apk_modified": false,
+  "signing_material_accessed": false,
+  "fps_gain_proven": false
+}
