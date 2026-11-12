@@ -15,15 +15,15 @@ BACKUP_ID="1YqB_d-_0Qf25H5YFOeFO51iwNIzK8ClB"
 BEFORE_SIZE=1297810
 BEFORE_SHA="836205ff75f040336b48ce046590b9a6a1cdd0c0187e1c5965835f9987779f16"
 CHECKPOINT=Path("docs/PRE715_V51_KAGGLE_CPP_PRECEDENCE_BOOL_POINTER_TYPES_REAL_20261112.md")
-OLD="- **Próximo gate PRE715:** confirmar precedência e tipos C++ da condição negada, a natureza de \`second\` e o tipo/lifetime do vetor da linha 356, se possível com AST autenticada; caso contrário registrar \`NOT_VERIFIED\`. Não modificar APK, MAILBOX, qualidade gráfica, assinatura ou proteções térmicas."
+OLD="- **Próximo gate PRE715:** confirmar precedência e tipos C++ da condição negada, a natureza de `second` e o tipo/lifetime do vetor da linha 356, se possível com AST autenticada; caso contrário registrar `NOT_VERIFIED`. Não modificar APK, MAILBOX, qualidade gráfica, assinatura ou proteções térmicas."
 NEW=(
-"- **PRE715 concluída no Kaggle:** [run 43268860669](https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/43268860669) \`completed/success\`. "
-"Em V51 autenticada, o dispositivo apresenta \`std::unordered_map\` com sintaxe \`bool*\` na declaração de \`requested_extensions\` (linha 155); "
-"na instância, \`std::vector<bool*>\` na linha 356 corresponde ao receptor de \`push_back\` da linha 456. "
-"Compilação/execução **sintética** C++20 confirmou precedência de \`! * iter->second\`, mas **não existe AST da fonte real** nem prova de habilitação Vulkan runtime. "
+"- **PRE715 concluída no Kaggle:** [run 43268860669](https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/43268860669) `completed/success`. "
+"Em V51 autenticada, o dispositivo apresenta `std::unordered_map` com sintaxe `bool*` na declaração de `requested_extensions` (linha 155); "
+"na instância, `std::vector<bool*>` na linha 356 corresponde ao receptor de `push_back` da linha 456. "
+"Compilação/execução **sintética** C++20 confirmou precedência de `! * iter->second`, mas **não existe AST da fonte real** nem prova de habilitação Vulkan runtime. "
 "[ZIP real no Drive](https://drive.google.com/file/d/1RWv7h2NL9BJ45REHj_PG34dg12Ani4Ct/view) com SHA/CRC conferidos.\n"
-"- **Próximo gate PRE716:** identificar escopo/vida útil dos ponteiros de \`std::vector<bool*>\` e relação com \`VkInstanceCreateInfo\`; "
-"recuperar origem de \`requested_extensions\` na instância sem expor código. Sem V52 nem alterações de gráficos ou políticas térmicas."
+"- **Próximo gate PRE716:** identificar escopo/vida útil dos ponteiros de `std::vector<bool*>` e relação com `VkInstanceCreateInfo`; "
+"recuperar origem de `requested_extensions` na instância sem expor código. Sem V52 nem alterações de gráficos ou políticas térmicas."
 )
 def sha(b):return hashlib.sha256(b).hexdigest()
 def render(before,checkpoint):
