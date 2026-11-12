@@ -1,0 +1,15 @@
+{
+  "stage": "PRE705_V51_VKDEVICE_EXTENSION_FLOW_READONLY",
+  "created_utc": "2026-11-12",
+  "reason": "Audit bounded Vulkan instance-vs-device extension selection flow on authenticated V51 source in private isolated Kaggle notebook",
+  "base": "PRE704_43186999052",
+  "authenticating_source": "PRE99+PRE431+PRE638+PRE648",
+  "presenter_sha256": "68998a1db81e9743197e446a5f8dacbf8d3dbcc2a51e4a7e6dac476b87d88c48",
+  "device_runtime_extensions": "NOT_VERIFIED",
+  "apk_build": false,
+  "source_patch": false,
+  "signing_material_access": false,
+  "original_kernel_run": false,
+  "saves_modified": false,
+  "fps_gain_proven": false
+}
