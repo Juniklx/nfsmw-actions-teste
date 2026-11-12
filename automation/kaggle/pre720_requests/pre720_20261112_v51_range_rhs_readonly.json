@@ -1,0 +1,11 @@
+{
+  "stage": "PRE720_V51_KAGGLE_RANGE_RHS_SYNTAX_READONLY",
+  "parent_verified_run": 43287455419,
+  "parent_artifact_id": 13976066246,
+  "purpose": "Classify the source-authenticated Vulkan instance range-for header at 531 and the enabledExtensionCount RHS at 535, using syntax-preserving but source-sanitized lexical probes.",
+  "method": "Namespace-aware standalone range colon separator, hashed range receiver, RHS shape classification and line 532 operator flags; no source export, AST or runtime claims.",
+  "expected_notebook": "juniklx/nfsmw-pre720-v51-range-rhs-readonly",
+  "source_or_apk_modified": false,
+  "signing_material_accessed": false,
+  "fps_gain_proven": false
+}
