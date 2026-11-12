@@ -1,0 +1,13 @@
+{
+  "stage": "PRE714_V51_KAGGLE_NEGATED_FILTER_CONTAINER_READONLY",
+  "reference_run": 43251310836,
+  "purpose": "On authenticated V51 source, compare abstract token syntax of second negated condition in device/instance and source-only std container tokens near instance push_back target at line 356",
+  "kernel": "juniklx/nfsmw-pre714-v51-negation-container-readonly",
+  "read_only": true,
+  "main_kaggle_notebook_not_run": true,
+  "apk_modified": false,
+  "apk_built": false,
+  "signing_material_accessed": false,
+  "graphics_or_thermal_changed": false,
+  "fps_gain_proven": false
+}
