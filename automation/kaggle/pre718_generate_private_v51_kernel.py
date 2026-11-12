@@ -11,8 +11,8 @@ import pre704_generate_private_v51_kernel as pre704
 import pre706_generate_private_v51_kernel as pre706
 import pre717_generate_private_v51_kernel as pre717
 
-KERNEL="juniklx/nfsmw-pre718-v51-instance-pointer-fallback-readonly"
-TITLE="NFSMW PRE718 V51 Instance Pointer Fallback Readonly"
+KERNEL="juniklx/nfsmw-pre718-v51-pointer-fallback-readonly"
+TITLE="NFSMW PRE718 V51 Pointer Fallback Readonly"
 MARKER="NFSMW_PRE718_KAGGLE_REMOTE.json"
 PARENT_FINAL="  else 'BLOCK_PRE717_INSTANCE_RETRY_EVIDENCE_INCOMPLETE')"
 EXTRA=r"""
