@@ -1,0 +1,10 @@
+{
+  "stage": "PRE726_V51_KAGGLE_REQUESTED_DRIVER_ORIGIN_READONLY",
+  "retry_of_failed_run": 43307018613,
+  "reason": "Bounded assignment parser missed requested_extensions.find when the source declaration uses a different auto/format; PRE712/PRE713 already verified alias candidate",
+  "parent_success_run": 43304896210,
+  "notebook": "juniklx/nfsmw-pre726-v51-requested-driver-origin",
+  "source_exported": false,
+  "apk_modified": false,
+  "signing_material_accessed": false
+}
