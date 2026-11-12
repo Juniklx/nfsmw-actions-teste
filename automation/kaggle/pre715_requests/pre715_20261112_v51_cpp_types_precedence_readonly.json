@@ -1,0 +1,15 @@
+{
+  "stage": "PRE715_V51_CPP_TYPES_PRECEDENCE_SOURCE_AUDIT",
+  "reference_completed_run": 43254390952,
+  "objective": "Authenticate V51 source pins; classify requested_extensions nearby type declarations, determine vector line 356 template type flags/receiver identity, and independently compile synthetic C++ fixture for !*it->second precedence; no actual source AST claim",
+  "kernel": "juniklx/nfsmw-pre715-v51-types-precedence-readonly",
+  "safety": {
+    "apk_build": false,
+    "apk_patch": false,
+    "signing_material_access": false,
+    "graphics_changed": false,
+    "thermal_policy_changed": false,
+    "main_notebook_run": false,
+    "fps_gain_claimed": false
+  }
+}
