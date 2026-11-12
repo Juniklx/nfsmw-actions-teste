@@ -68,7 +68,7 @@ jobs:
           p=Path('/tmp/nfsmw-pre718-kernel')
           meta=json.loads((p/'kernel-metadata.json').read_text())
           note=json.loads((p/'pre718.ipynb').read_text())
-          assert meta['id']=='juniklx/nfsmw-pre718-v51-instance-pointer-fallback-readonly'
+          assert meta['id']=='juniklx/nfsmw-pre718-v51-pointer-fallback-readonly'
           import re
           slug=re.sub(r'[^a-z0-9]+','-',meta['title'].lower()).strip('-')
           assert meta['id']=='juniklx/'+slug
@@ -95,7 +95,7 @@ jobs:
           python - <<'PY'
           import json, os, re, subprocess, time
           from pathlib import Path
-          kernel='juniklx/nfsmw-pre718-v51-instance-pointer-fallback-readonly'
+          kernel='juniklx/nfsmw-pre718-v51-pointer-fallback-readonly'
           out=Path('/tmp/nfsmw-pre718-result')
           out.mkdir(parents=True,exist_ok=True)
           deadline=time.monotonic()+3400
