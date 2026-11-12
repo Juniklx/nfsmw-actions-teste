@@ -1,0 +1,13 @@
+{
+  "stage": "PRE706_V51_KAGGLE_DEVICE_EXTENSION_ORIGINS_READONLY",
+  "run_variant": "RETRY_CORRECTED_PYTHON_UTF8_SIG_CODEC",
+  "original_run": 43192574595,
+  "first_failure": "FAIL_CLOSED SOURCE_AUDIT LookupError codec=utf8-sig",
+  "correction_commit": "5ef95b6c0454ed455c0cc3fd1082b70fb054c47d",
+  "source_identity_unchanged": true,
+  "apk_modified": false,
+  "source_modified": false,
+  "signed_release_built": false,
+  "driver_or_device_settings_modified": false,
+  "expected_device_sha256": "24b04ab68d6300977756a1cb55a805b9654963696e7102af8ce1be4e9f072a38"
+}
