@@ -126,6 +126,7 @@ EXTRA=r"""
  ptrmatch=bool(pushm and alias==pushm.group(1))
  key={'alias_hash':h716(alias) if alias else None,
       'push_arg_hash':h716(push),'push_arg_matches_find_iterator_second':ptrmatch,
+      'alias_spelling_differs_from_push_arg_receiver':bool(pushm and not ptrmatch),
       'push_arg_exact_arrow_second_shape':bool(pushm),
       'push_arg_contains_c_str':bool(re.search(r'\bc_str\s*\(',push)),
       'actual_value_of_second':'NOT_VERIFIED',
@@ -152,8 +153,9 @@ EXTRA=r"""
    'apk_built':False,'apk_modified':False,'fps_gain_proven':False}
  report['analysis_type']='PRE716_AUTHENTICATED_V51_BOOL_POINTER_VECTOR_LIFETIME_LEXICAL_ONLY'
  report['status']=('PASS_PRE716_AUTHENTICATED_V51_BOOLPTR_VECTOR_SOURCE_AUDIT'
-  if decl['matches_previous_push_receiver_sha'] and ptrmatch
-     and len(refs['references'])>=2
+  if decl['matches_previous_push_receiver_sha'] and bool(pushm)
+     and ptrmatch is False and len(refs['references'])>=2
+     and deltas['instance_explicit_boolean_write_candidates']['candidate_count']>=1
   else 'BLOCK_PRE716_VECTOR_OR_ALIAS_DRIFT')
 """
 def code(manifest,archive,run,attempt):
