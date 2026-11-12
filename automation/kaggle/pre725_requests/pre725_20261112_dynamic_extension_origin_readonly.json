@@ -1,0 +1,9 @@
+{
+  "stage": "PRE725_V51_KAGGLE_DYNAMIC_EXTENSION_ORIGIN_READONLY",
+  "parent_success_run": 43302155832,
+  "parent_report_sha256": "0a65b85cc99fe48803329d253604c7934c162ddd49514b16b27f089335da56c5",
+  "purpose": "Use authenticated V51 C++ source only: distinguish dynamic extension member c_str origin from fixed string literal at instance line455; compare device line291 and parent PRE708/PRE711 hashes; no Vulkan runtime, no private source export",
+  "notebook": "juniklx/nfsmw-pre725-v51-dynamic-extension-origin",
+  "source_or_apk_modified": false,
+  "signing_material_accessed": false
+}
