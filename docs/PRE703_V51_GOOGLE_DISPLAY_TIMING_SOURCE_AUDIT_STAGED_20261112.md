@@ -36,3 +36,19 @@ Substituto preparado em [`automation/kaggle/nfsmw_pre703_v51_source_readonly.py`
 **Gate fail-closed:** nenhum candidato -> `BLOCK_NO_SOURCE_IN_KAGGLE`; muitos -> `BLOCK_MULTIPLE_SOURCE_CANDIDATES`; hash divergente -> `BLOCK_SOURCE_NOT_AUTHENTICATED_AS_V51_RECIPE`; correspondência hash/âncora -> apenas `PASS_V51_RECIPE_SOURCE_ONLY`, não equivalência com ELF assinado nem acesso efetivo a timestamps GPU. **Não restaurar por conta própria um backup V20/V50 como se fosse V51**, não aplicar patch sem hash. PRE703 ainda não executada no Kaggle real.
 
 A sonda anterior de Colab permanece apenas como arquivo histórico para auditabilidade, **substituída** pela versão Kaggle. A correção de ambiente não muda o resultado real da PRE702 (extensão `VK_GOOGLE_display_timing` anunciada segundo resumo enviado pelo usuário) nem autoriza V52 ou alteração de segurança térmica, gráficos, saves ou chave permanente.
+
+
+---
+
+## Retificação adicional: execução automática Kaggle já comprovada (12/11/2026)
+
+O usuário recordou corretamente que o projeto **já conseguia executar Kaggle de forma automatizada**, e não apenas gerar instruções manuais. Releitura do `CONTEXTO_NFSMW.md` e verificação de runs/workflows públicos do repositório:
+
+- **PRE100**: [run 41800099248](https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/41800099248) `completed/success`, com `kaggle kernels push`, polling de estado, coleta de resultados e relatório `automation/kaggle/status/latest.json`: `kaggle_execution_completed=true`, `result_marker_confirmed=true`, `execution_verification=VALIDADO`. Esse **foi trabalho executado remotamente no Kaggle**, automaticamente por GitHub Actions.
+- **PRE119B**: [run 41830201701](https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/41830201701) `completed/success`, atualizou o notebook original `juniklx/nfsmw` via `kaggle kernels push --no-run` e verificou readback. **Editou, mas NÃO executou código remoto**.
+- **PRE120**: [run 41831030088](https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/41831030088) `completed/success` comprovou que células originais do notebook têm operações Drive/TAR e execução de script remoto. **Não executar automaticamente o notebook `juniklx/nfsmw` inteiro**, porque `kaggle kernels push` normal dispara todas as células. Execução nova não preserva a árvore temporária da sessão interativa anterior.
+- **PRE199**: [run 42231000758](https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/42231000758) `completed/failure`; a submissão do notebook Kaggle isolado ocorreu, mas o relatório remoto identificou `KAGGLE_SECRETS/ConnectionError`. **Não declarar auditoria PRE199 bem-sucedida nem supor que a mesma autenticação esteja funcional hoje**.
+
+A sugestão anterior de o usuário colar manualmente a célula PRE703 contradisse o fluxo automatizado anterior. **O script `automation/kaggle/nfsmw_pre703_v51_source_readonly.py` está preparado, mas não é um workflow de submissão automática e pressupõe que haja fonte V51 no espaço de execução; NÃO anunciar execução remota da PRE703.** Gate automático futuro precisa criar notebook **privado, isolado**, garantir bootstrap/autenticação de **receita V51 por SHA**, e depois efetuar `kaggle kernels push`/poll/relatório, sem executar o notebook original inteiro e sem acessar, exibir ou modificar credenciais da assinatura. Alternativa read-only em GitHub Actions pode auditar a receita autenticada, mas deve ser descrita como **runner GitHub, não execução Kaggle**.
+
+**STATUS CORRIGIDO:** `KAGGLE_AUTOMATED_REMOTE_EXECUTION_PRE100_PROVEN; PRE119B_NOTEBOOK_EDIT_NO_RUN_PROVEN; PRE199_KAGGLE_FAILURE_RECORDED; PRE703_KAGGLE_REMOTE_NOT_RUN; PRE703_AUTO_DISPATCH_NOT_IMPLEMENTED; V51_UNCHANGED`.
