@@ -1,0 +1,13 @@
+{
+  "stage": "PRE709_V51_KAGGLE_EXTENSION_LOOKUP_GUARDS_READONLY",
+  "reference_run": 43210595351,
+  "purpose": "Inspect bounded C++ lexical scope and allowed expression tokens from the four if statements and two emplace_back insertions in V51 authenticated source; distinguish requested from enabled Vulkan extension labels",
+  "authentication": "PRE99+PRE431+PRE638+PRE648 pins, Vulkan device/instance source sha256",
+  "notebook": "juniklx/nfsmw-pre709-v51-guards-and-lookup-readonly",
+  "source_patch": false,
+  "apk_build": false,
+  "original_kaggle_notebook_run": false,
+  "device_modified": false,
+  "signature_or_secret_material_accessed": false,
+  "fps_gain_proven": false
+}
