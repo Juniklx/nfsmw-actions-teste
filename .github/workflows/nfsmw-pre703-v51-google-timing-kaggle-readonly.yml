@@ -1,0 +1,128 @@
+name: NFSMW PRE703 - V51 Vulkan display timing Kaggle source READONLY
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/nfsmw-pre703-v51-google-timing-kaggle-readonly.yml'
+      - 'automation/kaggle/pre703_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre703-kaggle-readonly
+  cancel-in-progress: false
+jobs:
+  kaggle-v51-presenter-audit:
+    if: github.repository == 'Juniklx/nfsmw-actions-teste' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Local syntax and synthetic gates
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre703_stage_authenticated_v51_from_pre696.py automation/kaggle/pre703_generate_private_v51_kernel.py automation/kaggle/nfsmw_pre703_v51_source_readonly.py
+          python automation/kaggle/pre703_generate_private_v51_kernel.py --self-test
+          python automation/kaggle/nfsmw_pre703_v51_source_readonly.py --self-test
+      - name: Prepare only Google API and Kaggle CLI libraries
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests zstandard kaggle six >/dev/null
+      - name: Authenticate V51 source recipe without APK build
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: |
+          set -euo pipefail
+          test -n "$GOOGLE_REFRESH_TOKEN"
+          test -n "$GOOGLE_CLIENT_ID"
+          test -n "$GOOGLE_CLIENT_SECRET"
+          python automation/kaggle/pre703_stage_authenticated_v51_from_pre696.py
+          printf '%s  %s\n' 68998a1db81e9743197e446a5f8dacbf8d3dbcc2a51e4a7e6dac476b87d88c48 /tmp/nfsmw-pre703-auth-source/vulkan_presenter.cpp | sha256sum -c -
+      - name: Prepare private isolated Kaggle V51 notebook
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre703_generate_private_v51_kernel.py --source /tmp/nfsmw-pre703-auth-source/vulkan_presenter.cpp --auditor automation/kaggle/nfsmw_pre703_v51_source_readonly.py --output /tmp/nfsmw-pre703-kernel --run-id "$GITHUB_RUN_ID" --attempt "$GITHUB_RUN_ATTEMPT"
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('/tmp/nfsmw-pre703-kernel')
+          meta=json.loads((p/'kernel-metadata.json').read_text())
+          note=json.loads((p/'pre703.ipynb').read_text())
+          assert meta['id']=='juniklx/nfsmw-pre703-v51-pacing-readonly'
+          assert meta['is_private'] and not meta['enable_gpu'] and not meta['enable_internet']
+          assert len(note['cells'])==2
+          source=''.join(note['cells'][1]['source'])
+          compile(source, '<PRE703 Kaggle notebook>', 'exec')
+          for secret in ('GOOGLE_REFRESH_TOKEN','GOOGLE_CLIENT_SECRET','KAGGLE_API_TOKEN','NFSMW_ASSINATURA_PERMANENTE'):
+              assert secret not in source
+          print('PRE703_KAGGLE_PRIVATE_NOTEBOOK_PREFLIGHT=PASS')
+          PY
+      - name: Start Kaggle isolated notebook, never original juniklx/nfsmw
+        env:
+          KAGGLE_API_TOKEN: ${{ secrets.KAGGLE_API_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "$KAGGLE_API_TOKEN"
+          kaggle kernels push -p /tmp/nfsmw-pre703-kernel
+      - name: Poll Kaggle and verify remote source-only report
+        env:
+          KAGGLE_API_TOKEN: ${{ secrets.KAGGLE_API_TOKEN }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json, os, re, subprocess, time
+          from pathlib import Path
+          kernel='juniklx/nfsmw-pre703-v51-pacing-readonly'
+          out=Path('/tmp/nfsmw-pre703-result')
+          out.mkdir(parents=True,exist_ok=True)
+          deadline=time.monotonic()+3400
+          prev=''
+          while time.monotonic()<deadline:
+              p=subprocess.run(['kaggle','kernels','status',kernel],capture_output=True,text=True,timeout=90)
+              m=re.search(r'KernelWorkerStatus\.([A-Z_]+)',p.stdout+' '+p.stderr)
+              state=m.group(1) if m else 'UNKNOWN'
+              if state!=prev:
+                  print('PRE703_REMOTE_STATE='+state,flush=True)
+                  prev=state
+              if state in ('ERROR','FAILED','CANCELLED','CANCELED'):
+                  raise RuntimeError('PRE703_REMOTE_KAGGLE_FAILED')
+              if state=='COMPLETE':
+                  dl=subprocess.run(['kaggle','kernels','output',kernel,'-p',str(out),'-o'],capture_output=True,text=True,timeout=180)
+                  if dl.returncode==0:
+                      for fp in out.rglob('NFSMW_PRE703_KAGGLE_REMOTE.json'):
+                          d=json.loads(fp.read_text(encoding='utf-8'))
+                          if d.get('github_run_id')!=os.environ['GITHUB_RUN_ID'] or d.get('github_run_attempt')!=os.environ['GITHUB_RUN_ATTEMPT']:
+                              continue
+                          assert d['stage']=='PRE703_V51_KAGGLE_GOOGLE_TIMING_SOURCE_READONLY'
+                          assert d['status']=='PASS_V51_RECIPE_SOURCE_ONLY'
+                          assert d['source_sha256']=='68998a1db81e9743197e446a5f8dacbf8d3dbcc2a51e4a7e6dac476b87d88c48'
+                          assert d['source_or_apk_modified'] is False
+                          assert d['signing_material_accessed'] is False
+                          assert d['fps_gain_proven'] is False
+                          assert d['runtime_vulkan_timestamps_captured'] is False
+                          assert isinstance(d['anchors'],dict)
+                          (out/'PRE703_V51_KAGGLE_VALIDATED_SUMMARY.json').write_text(json.dumps(d,indent=2,sort_keys=True)+'\n')
+                          print('PRE703_KAGGLE_REMOTE_VALIDATED=TRUE')
+                          print('PRE703_GOOGLE_DISPLAY_TIMING_SOURCE_HITS='+str(d.get('google_display_timing_lexical_hits')))
+                          raise SystemExit(0)
+              time.sleep(15)
+          raise TimeoutError('PRE703_REMOTE_RESULT_NOT_VERIFIED')
+          PY
+      - name: Archive sanitized reports, never source or secrets
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre703-kaggle-readonly-${{ github.run_id }}
+          path: |
+            /tmp/nfsmw-pre703-result/PRE703_V51_KAGGLE_VALIDATED_SUMMARY.json
+            /tmp/nfsmw-pre703-result/NFSMW_PRE703_KAGGLE_REMOTE.json
+          if-no-files-found: warn
+          retention-days: 30
