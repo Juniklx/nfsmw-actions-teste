@@ -155,7 +155,9 @@ jobs:
                           assert d['pre716_boolptr_lifetime_map']['apk_modified'] is False
                           assert d['pre716_boolptr_lifetime_map']['fps_gain_proven'] is False
                           assert d['pre716_boolptr_lifetime_map']['source_findings']['instance_declared_vector']['matches_previous_push_receiver_sha'] is True
-                          assert d['pre716_boolptr_lifetime_map']['source_findings']['instance_push_arg_to_find_iterator_link']['push_arg_matches_find_iterator_second'] is True
+                          assert d['pre716_boolptr_lifetime_map']['source_findings']['instance_push_arg_to_find_iterator_link']['push_arg_matches_find_iterator_second'] is False
+                          assert d['pre716_boolptr_lifetime_map']['source_findings']['instance_push_arg_to_find_iterator_link']['alias_spelling_differs_from_push_arg_receiver'] is True
+                          assert d['pre716_boolptr_lifetime_map']['source_findings']['instance_explicit_boolean_write_candidates']['candidate_count']>=1
                           assert d['pre716_boolptr_lifetime_map']['source_findings']['instance_push_arg_to_find_iterator_link']['actual_value_of_second']=='NOT_VERIFIED'
                           assert d['pre716_boolptr_lifetime_map']['source_findings']['instance_vector_references']['actual_pointer_lifetime']=='NOT_VERIFIED'
                           assert d['pre715_type_precedence_audit']['stage']=='PRE715_V51_CPP_PRECEDENCE_AND_DECLARATION_AUDIT'
