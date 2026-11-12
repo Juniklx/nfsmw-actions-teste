@@ -1,0 +1,9 @@
+{
+  "stage": "PRE711_V51_KAGGLE_OPERAND_LINKS_READONLY",
+  "retry_of_run": 43224913196,
+  "reason": "Fix generator Python multiline EXTRA quote boundary; original stopped at local syntax gate, no Kaggle execution",
+  "expected_private_kernel": "juniklx/nfsmw-pre711-v51-operand-links-readonly",
+  "no_source_patch": true,
+  "no_apk_build": true,
+  "no_signing_data_access": true
+}
