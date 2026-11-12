@@ -4,7 +4,6 @@ on:
   push:
     branches: [main]
     paths:
-      - '.github/workflows/nfsmw-pre703-v51-google-timing-kaggle-readonly.yml'
       - 'automation/kaggle/pre703_requests/*.json'
 permissions:
   contents: read
@@ -56,7 +55,10 @@ jobs:
           p=Path('/tmp/nfsmw-pre703-kernel')
           meta=json.loads((p/'kernel-metadata.json').read_text())
           note=json.loads((p/'pre703.ipynb').read_text())
-          assert meta['id']=='juniklx/nfsmw-pre703-v51-pacing-readonly'
+          assert meta['id']=='juniklx/nfsmw-pre703-v51-timing-readonly'
+          import re
+          slug=re.sub(r'[^a-z0-9]+','-',meta['title'].lower()).strip('-')
+          assert meta['id']=='juniklx/'+slug
           assert meta['is_private'] and not meta['enable_gpu'] and not meta['enable_internet']
           assert len(note['cells'])==2
           source=''.join(note['cells'][1]['source'])
@@ -80,13 +82,21 @@ jobs:
           python - <<'PY'
           import json, os, re, subprocess, time
           from pathlib import Path
-          kernel='juniklx/nfsmw-pre703-v51-pacing-readonly'
+          kernel='juniklx/nfsmw-pre703-v51-timing-readonly'
           out=Path('/tmp/nfsmw-pre703-result')
           out.mkdir(parents=True,exist_ok=True)
           deadline=time.monotonic()+3400
           prev=''
+          failures=0
           while time.monotonic()<deadline:
               p=subprocess.run(['kaggle','kernels','status',kernel],capture_output=True,text=True,timeout=90)
+              if p.returncode != 0:
+                  failures+=1
+                  if failures >= 10:
+                      raise RuntimeError('PRE703_KAGGLE_STATUS_NOT_READABLE_AFTER_10_CHECKS')
+                  time.sleep(15)
+                  continue
+              failures=0
               m=re.search(r'KernelWorkerStatus\.([A-Z_]+)',p.stdout+' '+p.stderr)
               state=m.group(1) if m else 'UNKNOWN'
               if state!=prev:
