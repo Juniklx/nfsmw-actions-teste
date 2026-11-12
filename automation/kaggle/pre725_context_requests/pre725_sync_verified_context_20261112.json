@@ -1,0 +1,12 @@
+{
+  "stage": "PRE725_SYNC_VERIFIED_CONTEXT_TO_DRIVE",
+  "canonical_file_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+  "backup_file_id": "18U3ZxxogjuHBhsQBxwWhec9Ch-tT0qZZ",
+  "verified_previous_bytes": 1353045,
+  "verified_previous_sha256": "268a9df752fc51f30e36f16c41c050b7436d3874bede5d4f4f76304d363d2de5",
+  "verified_success_run": 43304896210,
+  "failed_first_run": 43304260326,
+  "verified_artifact_id": 13982164215,
+  "verified_zip_sha256": "7ea89b3d904df1ced5d8e658eecb5cccf49143f5a499595574cb504e4485514f",
+  "operation": "Append verified read-only PRE725 report, preserve failure evidence, ensure canonical and backup SHA exact; never touch game source APK or signing."
+}
