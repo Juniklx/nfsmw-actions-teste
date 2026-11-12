@@ -51,7 +51,14 @@ INSERT=r"""
   shape='size' if label=='count' else 'data'
   pattern=r'\b'+field+r'\s*=\s*(?:static_cast<[^>]+>\s*\(\s*)?([A-Za-z_]\w*)\s*\.\s*'+shape+r'\s*\('
   m=re.search(pattern,fragment)
-  return m.group(1) if m else None
+  if m: return m.group(1)
+  # A count field may contain a cast (for example static_cast<uint32_t>).
+  # Accept only one unambiguous .size() / .data() receiver within the line.
+  fallback=r'\b([A-Za-z_]\w*)\s*\.\s*'+shape+r'\s*\('
+  values=re.findall(fallback,lines[anchor-1])
+  if len(set(values))==1:return values[0]
+  values=re.findall(fallback,fragment)
+  return values[0] if len(set(values))==1 and values else None
  for kind,lines,points in (
   ('device',device_lines,[305,306,567,569,811]),
   ('instance',instance_lines,[500,501,535,639,641])):
@@ -115,6 +122,8 @@ INSERT=r"""
  report['status']=('PASS_AUTHENTICATED_V51_EXTENSION_CONTAINER_PROVENANCE_INDICATORS_ONLY'
      if result['anchors']['device']['observed'][0]['kind']=='EXTENSION_COUNT'
      and result['anchors']['device']['observed'][1]['kind']=='EXTENSION_POINTER'
+     and result['anchors']['device']['same_identifier']
+     and result['anchors']['instance']['same_identifier']
      and report['pre705_device_create_line_count']>0
      else 'BLOCK_DEVICE_EXTENSION_FIELDS_NOT_AUTHENTICATED')
 """
@@ -175,6 +184,8 @@ def main():
         assert re.sub(r'[^a-z0-9]+','-',TITLE.lower()).strip('-')==KERNEL.partition('/')[2]
         assert '.size' not in body or 'enabledExtensionCount' in body
         assert 'runtime_vk_device_enabled_extensions' in body
+        assert "fallback=r'" in body
+        assert "and result['anchors']['device']['same_identifier']" in body
         meta,note=build({'stage':'PRE704_AUTHENTICATED_V51_UI_SOURCE_BUNDLE'},b'x','123','1')
         assert meta['is_private'] and not meta['enable_gpu'] and not meta['enable_internet']
         assert len(note['cells'])==2
