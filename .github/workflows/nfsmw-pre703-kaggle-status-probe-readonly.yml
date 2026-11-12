@@ -32,7 +32,27 @@ jobs:
           state=m.group(1) if m else 'UNKNOWN'
           r={'stage':'PRE703_READONLY_STATUS_PROBE','kernel_id':kernel,
              'github_source_run_id':'43157507188','cli_success':p.returncode==0,
+             'status_returncode':p.returncode,'status_stdout_bytes':len(p.stdout),
+             'status_stderr_bytes':len(p.stderr),
+             'status_error_404':'404' in p.stderr,
+             'status_error_401':'401' in p.stderr,
+             'status_error_403':'403' in p.stderr,
+             'status_error_connection':'Connection' in p.stderr or 'connection' in p.stderr,
+             'status_error_cli_usage':'usage:' in p.stderr.lower(),
              'remote_state':state,'no_submit':True,'no_source_or_apk_change':True}
+          # Confirm kernel metadata is readable independently; no notebook execution.
+          p2=subprocess.run(['kaggle','kernels','pull',kernel,'-p','/tmp/nfsmw-pre703-probe/pulled','-m'],
+                             capture_output=True,text=True,timeout=100)
+          r['kernel_pull_returncode']=p2.returncode
+          r['kernel_pull_404']='404' in p2.stderr
+          r['kernel_pull_403']='403' in p2.stderr
+          from pathlib import Path as P
+          meta=P('/tmp/nfsmw-pre703-probe/pulled/kernel-metadata.json')
+          if meta.is_file():
+              k=json.loads(meta.read_text())
+              r['kernel_metadata_id_matches']=k.get('id')==kernel
+              r['kernel_private_in_metadata']=k.get('is_private') is True
+
           out=Path('/tmp/nfsmw-pre703-probe')
           if state=='COMPLETE':
               x=subprocess.run(['kaggle','kernels','output',kernel,'-p',str(out),'-o'],
