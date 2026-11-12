@@ -1,0 +1,12 @@
+{
+  "stage": "PRE715_VERIFIED_CONTEXT_UPDATE_ONLY",
+  "source_gate_run": 43268860669,
+  "source_gate_status": "completed/success",
+  "source_zip_sha256": "62b34aee9d7aa13d9e015f5257f1d134e1bbda8b6f1981e9c72868acb5b0f233",
+  "context_drive_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+  "before_sha256": "836205ff75f040336b48ce046590b9a6a1cdd0c0187e1c5965835f9987779f16",
+  "backup_drive_id": "1YqB_d-_0Qf25H5YFOeFO51iwNIzK8ClB",
+  "scope": "context-only",
+  "apk_modified": false,
+  "secret_material_uploaded": false
+}
