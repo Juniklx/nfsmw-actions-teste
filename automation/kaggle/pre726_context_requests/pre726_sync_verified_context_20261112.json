@@ -1,0 +1,15 @@
+{
+  "stage": "PRE726_SYNC_VERIFIED_CONTEXT_TO_DRIVE",
+  "canonical_file_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+  "backup_file_id": "1y719NlqKER1GcB9HYu7fPa62kdq9X1tS",
+  "previous_bytes": 1358792,
+  "previous_sha256": "6d5ef5679cfa1b314ea4eb4ae6a40fa59d34b99859d326e959136219f01786a3",
+  "approved_github_run": 43307644388,
+  "first_failed_run": 43307018613,
+  "approved_github_artifact": 13985075924,
+  "approved_zip_sha256": "6b6cef8af0385b2ab8efe1501a0064ad5562ae1923db9bec457b15a3b47f6bf7",
+  "purpose": "Append PRE726 real Kaggle report only after exact prior-context and immutable backup equality; then canonical Drive readback; preserve failed first attempt",
+  "apk_modified": false,
+  "signing_material_accessed": false,
+  "fps_gain_proven": false
+}
