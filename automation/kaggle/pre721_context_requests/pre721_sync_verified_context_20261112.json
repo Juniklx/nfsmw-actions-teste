@@ -1,0 +1,11 @@
+{
+  "stage": "PRE721_SYNC_VERIFIED_CONTEXT_TO_DRIVE",
+  "canonical_file_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+  "backup_file_id": "10GisrM6Rxec829UODRClqinLme8Y5iOK",
+  "verified_previous_bytes": 1329080,
+  "verified_previous_sha256": "e558112000263d3e8301d4962b7b2cbb9da91a1fc85324f32ae3dced2c8a63d3",
+  "verified_pre721_run": 43291927672,
+  "verified_artifact_id": 13977671162,
+  "verified_zip_sha256": "73caf38329372625825509cffbd1c7489b2c5c28ebf2038ccc26f4a7bfc0e673",
+  "operation": "Append PRE721 verified report without altering existing context; block if source/backup SHA mismatch; re-read final Drive file; no APK or signing changes."
+}
