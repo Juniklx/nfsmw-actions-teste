@@ -1,4 +1,4 @@
-name: NFSMW PRE717 - V51 bool-pointer flow Kaggle READONLY
+name: NFSMW PRE717 - V51 instance retry branch Kaggle READONLY
 on:
   workflow_dispatch:
   push:
