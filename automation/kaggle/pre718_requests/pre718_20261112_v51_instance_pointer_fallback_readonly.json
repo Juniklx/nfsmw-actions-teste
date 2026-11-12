@@ -1,0 +1,22 @@
+{
+  "stage": "PRE718_V51_KAGGLE_INSTANCE_POINTER_FALLBACK_READONLY",
+  "parent_verified_run": 43280564101,
+  "parent_artifact_id": 13974095194,
+  "purpose": "Audit Vulkan instance fallback: control guard, enabled extension count, ppEnabledExtensionNames pointer and vector rebuild in authenticated V51 source.",
+  "questions": [
+    "Does the line 525 error guard lexically reference both Vulkan extension/layer not present results?",
+    "Which vector operations occur between vkCreateInstance lines 523 and 537?",
+    "Does ppEnabledExtensionNames get assigned again between calls, and which vector supplies its initial data pointer?",
+    "Does enabledExtensionCount get recomputed from the rebuilt vector?"
+  ],
+  "limitations": {
+    "full_cpp_ast_or_cfg_proven": false,
+    "actual_pointer_lifetime_proven": false,
+    "runtime_retry_observed": false,
+    "stale_pointer_bug_proven": false,
+    "source_or_apk_modified": false,
+    "signing_material_accessed": false,
+    "fps_gain_proven": false
+  },
+  "expected_notebook": "juniklx/nfsmw-pre718-v51-instance-pointer-fallback-readonly"
+}
