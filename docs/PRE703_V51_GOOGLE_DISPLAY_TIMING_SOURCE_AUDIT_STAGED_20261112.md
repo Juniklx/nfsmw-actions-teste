@@ -68,3 +68,37 @@ A sugestão anterior de o usuário colar manualmente a célula PRE703 contradiss
 **Condições preservadas:** APK V51 instalada e certificada, `versionCode 51`, `io.github.nfsmwrecomp`, SHA256 certificado `1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b`; 1920×1080, gráficos/shaders/efeitos/física, touch/PG-9076, saves, proteções térmicas. **Nenhuma V52, patch do presenter, benchmark ou ganho de FPS nesta rodada.** Resultado PRE702 do usuário sobre `VK_GOOGLE_display_timing` anunciada ainda não prova extensão habilitada pelo NFSMW.
 
 **STATUS INTERMEDIÁRIO:** `PRE703_AUTHENTICATED_SOURCE_PASS; PRIVATE_KAGGLE_PUSH_PASS; REMOTE_REPORT_PENDING; NO_APK_BUILD; NO_FPS_GAIN`.
+
+
+---
+
+## Resultado remoto real PRE703 — Kaggle PASS (2026-11-12)
+
+A auditoria foi **efetivamente executada no Kaggle** em notebook privado isolado, após autenticação da receita V51 no GitHub Actions.
+
+- **Fonte**: [GitHub Actions PRE703 run 43157507188](https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/43157507188), com `Authenticate V51 source recipe` e `Prepare private isolated Kaggle V51 notebook` e `Start Kaggle isolated notebook` **PASS**. A **etapa de polling do workflow principal continua com alvo errado**: consultava `juniklx/nfsmw-pre703-v51-pacing-readonly`, enquanto a CLI gerou o slug do **título** `juniklx/nfsmw-pre703-v51-timing-readonly`. Não interpretar eventual falha desse polling como falha de execução do notebook.
+- **Readback remoto independente**: [GitHub Actions status probe 43159132906](https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/43159132906) — `status=COMPLETE`, `kernel_pull_returncode=0`, notebook **privado**, metadados consultáveis, `output_fetch_success=true`, `remote_report_status=PASS_V51_RECIPE_SOURCE_ONLY`, run_id igual a `43157507188` e hash fonte confirmado.
+- **Relatório integral sanitizado**: [GitHub Actions probe 43159302538](https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/43159302538), artifact `13917695916`, com `PRE703_REMOTE_STATUS_PROBE.json` + `NFSMW_PRE703_KAGGLE_REMOTE.json`. ZIP exato **1.514 bytes**, SHA256 **`0209f8cda0d991af303df712559f28d4c064cf229765803587cf971f05ba58a9`**, CRC PASS, [cópia privada no Drive](https://drive.google.com/file/d/1MrfO0kXWXm6dLkbp-uf8vnuk_faFE_fK/view).
+- **Identidade real do relatório:** `status=PASS_V51_RECIPE_SOURCE_ONLY`; `github_run_id=43157507188`; `completed_utc=2026-11-12T04:53:06.267989+00:00`; `source_sha256=68998a1db81e9743197e446a5f8dacbf8d3dbcc2a51e4a7e6dac476b87d88c48`; `source_to_signed_elf_equivalence=UNVERIFIED`, `runtime_extension_enabled=NOT_VERIFIED`, `runtime_vulkan_timestamps_captured=false`, `apk_or_source_modified=false`, `signing_material_accessed=false`, `fps_gain_proven=false`.
+
+### Âncoras lexicais encontradas no `vulkan_presenter.cpp` autenticado
+
+| Símbolo | Linhas com ocorrência |
+|---|---:|
+| `VK_GOOGLE_display_timing` | **0** |
+| `vkGetPastPresentationTimingGOOGLE` | **0** |
+| `vkGetRefreshCycleDurationGOOGLE` | **0** |
+| `VkPresentTimeGOOGLE` / `VkPresentTimesInfoGOOGLE` | **0 / 0** |
+| `VK_KHR_present_id2` | **0** |
+| `vkQueuePresentKHR` | **10** |
+| `vkGetDeviceProcAddr` | **5** |
+| `vkCreateSwapchainKHR` | **1** |
+| `VK_PRESENT_MODE_MAILBOX_KHR` | **3** |
+
+**Interpretação limitada e precisa:** o driver Samsung anuncia `VK_GOOGLE_display_timing` na PRE702 segundo resumo real do usuário; contudo, a receita V51 **não referencia explicitamente** essa extensão no arquivo presenter inspecionado pela PRE703. Isso **não prova** que o recurso esteja ausente ou desabilitado em todos os arquivos da aplicação, nem que seja a causa dos intervalos irregulares de `actualPresent`. O próximo gate **PRE704** deverá auditar a criação de `VkDevice`/lista de extensões em fonte V51 autenticada e planejar uma instrumentação de diagnóstico **reversível** somente se for necessária, sem mudar `MAILBOX` ou renderização.
+
+### Correção de automação ainda a consolidar
+
+O ID e o título do notebook Kaggle devem resolver ao **mesmo slug**. Alterar o workflow principal e o gerador para apontarem ambos a `juniklx/nfsmw-pre703-v51-timing-readonly`, adicionar pré-validação da correspondência título↔ID, e impedir polling infinito quando `kernels status` retorna erro. Não reiniciar Kaggle apenas para corrigir a consulta. O status **real da auditoria remota é PASS**, validado independentemente; o status final do workflow principal pode ser diferente por bug exclusivo de polling.
+
+**Estado do projeto:** APK V51 preservada, `io.github.nfsmwrecomp`, certificado permanente SHA256 `1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b`, interna 1920×1080, 60 FPS no ensaio PRE700, meta até 120, gráficos/efeitos/física, touch/iPega PG-9076, saves e proteção térmica intactos. **Sem build V52, patch, ganho comprovado de FPS ou causa de pacing demonstrada.**
