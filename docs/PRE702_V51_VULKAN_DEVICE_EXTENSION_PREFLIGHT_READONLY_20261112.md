@@ -31,3 +31,26 @@ Se o hardware anunciar `VK_EXT_present_timing` e `VK_KHR_present_id2`, ainda ser
 - [AOSP: Vulkan system loader](https://source.android.com/docs/core/graphics/implement-vulkan)
 
 **Preservação:** V51 instalada `io.github.nfsmwrecomp`, cert permanente `1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b`, resolução interna 1920×1080, cap 60 durante PRE700 e alvo máximo 120 em ensaios futuros, efeitos/shaders/física, touch/iPega PG-9076, saves, backups e proteções térmicas. **Nenhuma V52, build, alteração no jogo ou melhoria de FPS nesta etapa**.
+
+
+---
+
+## Resultado real do S24 FE (informado pelo usuário, 12/11/2026)
+
+O usuário executou o script e compartilhou o conteúdo de `PRE702_SUMMARY.txt`. O resultado **é coerente com a saída do parser PRE702**, mas o `PRE702_VKJSON_RAW.json` original **não foi fornecido para conferir independentemente o SHA**. Assim, os números abaixo são **evidência real reportada pelo dispositivo**, sem promover a integridade do JSON bruto a validação independente.
+
+- `PRE702_CAPTURE=PASS_GPU_DEVICE_EXTENSIONS_ENUMERATED`, fonte `ANDROID_SYSTEM_CMD_GPU_VKJSON`; `SM-S721B`, `io.github.nfsmwrecomp`, `versionCode=51`, `ADB_UID=2000`.
+- `GPU_NAME=Samsung Xclipse 940`; `deviceType=1.0` (enum Vulkan **integrated GPU**, não CPU/SwiftShader); `vendorID=5197.0`; `driverVersion=104869891.0`; **165 extensões únicas** segundo o script.
+- `VK_KHR_swapchain=ADVERTISED`; **`VK_GOOGLE_display_timing=ADVERTISED`**. A extensão GOOGLE depende da KHR swapchain e oferece `vkGetPastPresentationTimingGOOGLE` / `vkGetRefreshCycleDurationGOOGLE`.
+- `VK_EXT_present_timing=NOT_ADVERTISED`, logo **não planejar a via EXT** neste driver. `VK_KHR_present_id2=ADVERTISED`, `VK_KHR_present_wait2=ADVERTISED`; `VK_KHR_present_wait=NOT_ADVERTISED`, `VK_KHR_present_id=ADVERTISED`; `VK_EXT_calibrated_timestamps=ADVERTISED`. **`present_wait2` não substitui feedback de `actualPresentTime` por quadro**.
+- `PRE702_EXT_PRESENT_TIMING_FEATURE_BITS=NOT_QUERIED`, `PRE702_KHR_PRESENT_ID2_FEATURE_BITS=NOT_QUERIED`, `PRE702_NFSMW_ENABLED_EXTENSIONS=NOT_VERIFIED`, `PRE702_PRESENT_TIMESTAMPS=NOT_CAPTURED`.
+- Reportado `PRE702_RAW_SHA256=f61716212d02d557838c03c7b7297fdc8977fe8454b032c8033f8d76bf995496`, `PRE702_RAW_BYTES=116765`. Esses dois valores são **manifesto informado pelo script, não readback externo conferido**.
+- `PRE702_APK_OR_DEVICE_SETTINGS_MODIFIED=FALSE` e `PRE702_FPS_GAIN_PROVEN=FALSE`.
+
+**Inferência técnica fundamentada na documentação oficial:** o caminho de diagnóstico preferível é **`VK_GOOGLE_display_timing`**, por seu suporte anunciado no driver. A funcionalidade real ainda exige habilitar a extensão no momento de criação de `VkDevice`, obter ponteiros de função e interrogar a swapchain. Não mudar `desiredPresentTime`/`MAILBOX` apenas por observar disponibilidade. Timestamps Vulkan no Android são `CLOCK_MONOTONIC`; não cruzá-los diretamente com FrameTimeline `BOOTTIME` da PRE699 sem mapeamento e associação de IDs.
+
+**PRE703 proposta:** examinar a árvore ativa da receita V51 na Colab em **modo exclusivamente read-only** (hash exato de `vulkan_presenter.cpp`, locais de criação de device/swapchain e de `vkQueuePresentKHR`, ocorrência de `VK_GOOGLE_display_timing`), sem copiar a fonte integral, sem patches, build ou V52. A receita autenticada V51 tem SHA256 `68998a1db81e9743197e446a5f8dacbf8d3dbcc2a51e4a7e6dac476b87d88c48` para esse .cpp, mas a correspondência com a lib assinada permanece `UNVERIFIED`. A sonda PRE703 offline foi preparada localmente, com sete invariantes sintéticos aprovados; execução real Colab pendente.
+
+Fontes oficiais consultadas: [VK_GOOGLE_display_timing](https://docs.vulkan.org/refpages/latest/refpages/source/VK_GOOGLE_display_timing.html), [vkGetPastPresentationTimingGOOGLE](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPastPresentationTimingGOOGLE.html), [VK_KHR_present_wait2](https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_present_wait2.html), [Android Vulkan frame pacing](https://developer.android.com/games/develop/vulkan/frame-pacing-extensions).
+
+**STATUS REAL:** `PRE702_REPORTED_DEVICE_ENUMERATION_PASS; GOOGLE_TIMING_ADVERTISED; EXT_TIMING_ABSENT; ACTUAL_VULKAN_TIMING_NOT_CAPTURED; REAL_JSON_RAW_NOT_INDEPENDENTLY_VERIFIED; NO_V52; NO_FPS_GAIN`.
