@@ -1,0 +1,14 @@
+{
+  "stage": "PRE710_V51_KAGGLE_GUARD_STATEMENTS_CSTR_SOURCE_ONLY",
+  "reference_run": 43212432518,
+  "purpose": "Read only V51 authenticated source: classify first guard body statements and second negation, identify bounded c_str receiver and adjacent for header, compare device versus instance without raw source leak",
+  "source_recipe": "PRE704_V51_authenticated_30_file_bundle",
+  "v51_apk_modified": false,
+  "new_release_built": false,
+  "signing_material_accessed": false,
+  "original_kaggle_notebook_run": false,
+  "graphics_resolution_changed": false,
+  "gpu_settings_modified": false,
+  "thermal_protections_modified": false,
+  "fps_gain_proven": false
+}
