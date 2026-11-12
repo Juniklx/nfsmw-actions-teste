@@ -1,0 +1,14 @@
+{
+  "stage": "PRE728_V51_PINNED_FRAME_PACING_REPORT_RECONCILIATION",
+  "source_reports": {
+    "pre700": "1oRoyx0HsbNvsI-jhbQWbvDNZpXoG0bbR",
+    "pre701": "1I3RHJxrDY6up3GbRz3VufDngUqQEb866",
+    "pre727_zip": "1V0-8L65bkwR4GsQ_Atb79MKwbAO7dQvf"
+  },
+  "scope": "Reconcile previously verified PRE700/701 SurfaceView pacing reports and PRE727 reported-enabled Vulkan extensions; no raw PRE700 replay, no new phone test",
+  "apk_version": 51,
+  "read_only": true,
+  "signing_material_accessed": false,
+  "frame_pacing_causality_claimed": false,
+  "perform_kaggle_execution": false
+}
