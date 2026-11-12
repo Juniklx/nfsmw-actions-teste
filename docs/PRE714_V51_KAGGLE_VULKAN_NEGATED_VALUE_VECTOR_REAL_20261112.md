@@ -1,0 +1,28 @@
+# PRE714 — segunda condição negada e contêiner auxiliar na inicialização Vulkan V51
+
+**Data:** 2026-11-12. **Resultado remoto:** `PASS_PRE714_AUTHENTICATED_V51_NEGATION_CONTAINER_LEXICAL`, somente leitura em fonte V51 autenticada. **Não há AST/CFG, runtime Vulkan, alteração de APK, benchmark ou ganho de FPS comprovado.**
+
+## Cadeia de evidência
+
+- [GitHub Actions 43254390952](https://github.com/Juniklx/nfsmw-actions-teste/actions/runs/43254390952) terminou `completed/success`. Todos os passos, incluindo testes sintéticos de sintaxe, reconstrução/autenticação da fonte V51, execução Kaggle privado isolado `juniklx/nfsmw-pre714-v51-negation-container-readonly`, obtenção e validação do relatório remoto e arquivamento, passaram. Notebook original `juniklx/nfsmw` **não foi executado**.
+- JSON do Kaggle: `github_run_id=43254390952`, `github_run_attempt=1`, `completed_utc=2026-11-12T16:05:12.815484+00:00`, `stage=PRE714_V51_KAGGLE_NEGATION_CONTAINER_READONLY`, `status=PASS_PRE714_AUTHENTICATED_V51_NEGATION_CONTAINER_LEXICAL`, `analysis_type=PRE714_NEGATION_AND_PUSH_CONTAINER_SOURCE_STRUCTURE_ONLY`, 30 fontes verificadas na cadeia PRE704–713.
+- [Relatório ZIP PRE714 no Google Drive](https://drive.google.com/file/d/1zuYpkUWdwACluAvCX4jNUbYOXIKIbPs9/view) `NFSMW_PRE714_REAL_KAGGLE_VERIFIED_43254390952.zip`: **27.448 bytes**, SHA-256 `6188e25f1083049b1554281b4e149aa6858c75963441219b952028ca6d08d215`, CRC ZIP PASS e SHA idêntico após leitura de volta do Drive; artifact GitHub ID `13960877436`. Apenas dois JSONs sanitizados, sem fontes brutas, ISO/ROM, APK nem segredos.
+- [Backup do contexto anterior à PRE714](https://drive.google.com/file/d/1QHac0kuCit_tVVVMoUgNrShZ23ebi1f2/view) foi criado antes da atualização do canônico.
+- Os hashes de fonte V51 permanecem: `nativo/sdk/src/ui/vulkan/vulkan_device.cpp` `24b04ab68d6300977756a1cb55a805b9654963696e7102af8ce1be4e9f072a38`; `vulkan_instance.cpp` `700a0fa890d593e937d7eab89c6892b05a92470a779be469c5aa796287c3fd04`; presenter `68998a1db81e9743197e446a5f8dacbf8d3dbcc2a51e4a7e6dac476b87d88c48`. Equivalência com o ELF assinado instalado `UNVERIFIED`.
+
+## Resultados na fonte autenticada
+
+1. **Segundo `if` — dispositivo linha 290, instância linha 454:** o analisador sanitizado produziu a mesma sequência de cinco tokens `! * IDENT -> SECOND`; SHA textual da expressão `6b69196d79db66e22ffbfb61aeee3d24bf1c539854803787e50ffa2a486caf78`. Este é um **esqueleto lexical**, não uma cópia literal do código. Há `!`, operador unário `*` e acesso por `->second`. Não foi encontrada chamada de função nem template `get<...>`. A contagem ingênua de `>` anterior confundia o `>` do operador `->` com possível sinal de template/comparação: **essa evidência anterior estava superinterpretada e precisa ser corrigida**.
+2. **`push_back` adicional da instância:** localizado agora especificamente na linha **456**. O argumento da chamada foi recuperado dentro de parênteses balanceados e seu esqueleto é `IDENT -> SECOND`, com SHA `2c540c69333f50360d0ce2d6b2745ba2949d3fe0da33535af1816d9f3a1556f4`. O receptor da chamada tem o mesmo hash lexical da PRE712/713: `46959009deed2c90f0a4d3c93c3bd4f86ded118c80c88fe5250138e3f3fe6fe7`. Não é automaticamente a mesma coleção `enabled_extensions`.
+3. **Referência prévia ao receptor da instância, linha 356:** a linha contém o mesmo identificador receptor e o token público `std::vector<...>` (tipo `vector` reconhecido), além de ponto-e-vírgula após o identificador; não foi identificado `=` na mesma linha. Isso **sugere uma declaração de vetor**, mas não prova o tipo completo, duração ou destinação. Campo explícito `cpp_declaration_type_proven=false`.
+4. **Estrutura comparada:** `same_guard_source_hash=true`, `same_guard_abstract_skeleton=true`, `instance_push_receiver_hash_matches=true`. `push_back` presente apenas no bloco de instância. As PRE711–713 já tinham demonstrado lexicalmente `requested_extensions.find(...)`, comparação com `requested_extensions.cend()` seguida de `continue;` no primeiro filtro. Esses fatos compõem um provável filtro de extensão pedida e seleção de valor, mas ainda **não comprovam os tipos C++ nem o comportamento em runtime**.
+
+## Limitações e PRE715 sugerida
+
+O resultado declara `analysis_scope=CONSERVATIVE_LEXICAL_SKELETON_NO_CPP_AST`, `cpp_ast_or_cfg_proven=false`, `raw_source_exported=false`, `runtime_enabled_extensions=NOT_VERIFIED`, `signed_apk_binary_equivalence=UNVERIFIED`, `vk_google_display_timing_enabled=NOT_VERIFIED`, `apk_built=false`, `apk_modified=false`, `fps_gain_proven=false`.
+
+**PRE715 sugerida:** auditar a **expressão exata por análise C++ com AST ou parser de escopo conservador** para validar precedência de `! * ID -> second`, natureza e lifetime de `second` e tipo completo do `std::vector` da linha 356. Investigar se o vetor preserva tempo de vida dos valores de extensões antes de `VkInstanceCreateInfo`, distinguindo pedidos, itens selecionados e nomes passados às APIs. Se bibliotecas/headers necessários para AST não estiverem autenticados, registrar `NOT_VERIFIED` e não forçar tipo. Sem patch, sem habilitar `VK_GOOGLE_display_timing`, sem modificar `MAILBOX`, sem build V52 até haver decisão fundamentada.
+
+**Preservar:** APK V51 instalada, pacote `io.github.nfsmwrecomp`, `versionCode=51`, certificado permanente SHA256 `1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b`; interna 1920×1080, gráficos/shaders/efeitos/física, touch/iPega PG-9076, saves e políticas térmicas. Nenhuma melhora de FPS foi comprovada.
+
+**STATUS:** `PRE714_REAL_KAGGLE_PASS; NEGATED_SKELETON_BANG_DEREF_ARROW_SECOND; NO_TEMPLATE_EVIDENCE_FROM_ARROW; INSTANCE_PUSH_456_ARG_ARROW_SECOND; INSTANCE_VECTOR_TOKEN_LINE356; RUNTIME_NOT_VERIFIED; BACKUP_AND_ZIP_PRESERVED; NO_V52; NO_FPS_GAIN`.
