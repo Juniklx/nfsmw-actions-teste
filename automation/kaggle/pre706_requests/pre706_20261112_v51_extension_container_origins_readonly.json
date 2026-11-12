@@ -1,0 +1,17 @@
+{
+  "stage": "PRE706_V51_KAGGLE_DEVICE_EXTENSION_ORIGINS_READONLY",
+  "date_utc": "2026-11-12",
+  "reference_run": "43189687716",
+  "request_type": "authenticated V51 source-only structured extension list dataflow indicators",
+  "kernel": "juniklx/nfsmw-pre706-v51-ext-origins-readonly",
+  "source_recipe": "PRE99_PRE431_PRE638_PRE648",
+  "expected_presenter_sha256": "68998a1db81e9743197e446a5f8dacbf8d3dbcc2a51e4a7e6dac476b87d88c48",
+  "device_source_sha256": "24b04ab68d6300977756a1cb55a805b9654963696e7102af8ce1be4e9f072a38",
+  "instance_source_sha256": "700a0fa890d593e937d7eab89c6892b05a92470a779be469c5aa796287c3fd04",
+  "source_patch": false,
+  "apk_build": false,
+  "signing_material_access": false,
+  "original_notebook_executed": false,
+  "runtime_gpu_instrumented": false,
+  "fps_gain_proven": false
+}
