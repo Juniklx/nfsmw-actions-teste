@@ -41,12 +41,20 @@ EXTRA=r"""
    'range_is_identifier':bool(collection),'type_mentions_vk_extension_properties':'VkExtensionProperties' in left,
    'range_expr_sha256':h726(right),'loop_header_sha256':h726(v)}
  def requested_alias726(lines,first,stop):
-  # The exact initializer was established by PRE712/PRE713; check the alias itself.
+  # Use complete bounded statements: aliases can be const auto&, or initializer multiline.
+  source=mask_cpp('\n'.join(lines[first-1:stop]))
   found=[]
-  for n in range(first,stop+1):
-   v=L726(lines,n)
-   m=re.search(r'\b(?:const\s+)?auto\s+([A-Za-z_]\w*)\s*=\s*requested_extensions\s*\.\s*find\s*\(',v)
-   if m:found.append({'line':n,'alias':m.group(1),'initializer_contains_find':True})
+  for m in re.finditer(r'\b([A-Za-z_]\w*)\s*=(?!=)\s*',source):
+   finish=source.find(';',m.end())
+   if finish<0 or finish-m.end()>600:continue
+   initializer=source[m.end():finish]
+   if not re.search(r'\brequested_extensions\b',initializer):continue
+   if not re.search(r'(?:\.|->)\s*find\s*\(',initializer):continue
+   if not re.search(r'\bextensionName\b',initializer):continue
+   line=first+source[:m.start()].count('\n')
+   found.append({'line':line,'alias':m.group(1),
+      'initializer_contains_find':True,'initializer_contains_extensionName':True,
+      'alias_receiver_hash_is_pre711':h726(m.group(1))==report['pre711_operand_links']['files']['instance']['cstr_receiver']['receiver_object_sha256']})
   return found
  def origin726(lines,for_line,insert_line,kind):
   ranged=range726(lines,for_line)
@@ -64,8 +72,7 @@ EXTRA=r"""
   nearby_enums=[n for n in enum_sites if for_line-80<=n<for_line]
   # Verify Vulkan extensionName property is accessed in the filter's lookup, not infer its value.
   finder_line=matches[0]['line'] if len(matches)==1 else None
-  finder_text=L726(lines,finder_line) if finder_line else ''
-  extension_name_in_find=bool(re.search(r'\bextensionName\b',finder_text))
+  extension_name_in_find=bool(matches and matches[0]['initializer_contains_extensionName'])
   return {'kind':kind,'for_line':for_line,'insert_line':insert_line,
    'loop_header_found':ranged.get('found',False),
    'loop_type_mentions_VkExtensionProperties':ranged.get('type_mentions_vk_extension_properties',False),
