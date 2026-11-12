@@ -1,0 +1,14 @@
+{
+  "stage": "PRE727_SYNC_VERIFIED_CONTEXT_TO_DRIVE",
+  "canonical_file_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+  "backup_file_id": "1zJkeB7V6o5wbOxzxyp-RHugIME7n29jx",
+  "expected_previous_size_bytes": 1365567,
+  "expected_previous_sha256": "e8705fda85e2b9cd9409789dc8a3327f158eea28a18d56e0131b4a5230699c6c",
+  "approved_run_id": 43309874406,
+  "source_v51_log_sha256": "649fbe98116b12ade8032b50267e78dcb251832cd8a566fb3d30380d37e325c7",
+  "report_zip_sha256": "9d5fd40b478eca6a7b2d31b1e9c8b732bd70454dd0585674eaeb4664a0ae1257",
+  "purpose": "Append real Android V51 reported Vulkan enabled extension evidence; strict old context and immutable backup equality; verify Drive readback",
+  "apk_modified": false,
+  "signing_material_accessed": false,
+  "fps_gain_proven": false
+}
