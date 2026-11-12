@@ -103,7 +103,7 @@ INSERT=r"""
  known_names.update(re.findall(r'VK_(?:KHR|EXT|GOOGLE)_[A-Za-z0-9_]+',source_bundle))
  result['possible_extension_names']=sorted(x for x in known_names if len(x)<130)[:100]
  result['possible_extension_names_truncated']=len(known_names)>100
- result['device_and_instance_lists_syntactically_linked']=(
+ result['both_createinfo_fields_resolve_to_local_identifier']=(
    result['anchors']['device']['same_identifier'] and
    result['anchors']['instance']['same_identifier'])
  result['device_extension_container_identified']=result['anchors']['device']['same_identifier']
