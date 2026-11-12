@@ -1,0 +1,13 @@
+{
+  "stage": "PRE724_SYNC_VERIFIED_CONTEXT_TO_DRIVE",
+  "canonical_file_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+  "backup_file_id": "1CyCOazHpQOKiXXVVOufHokvjgLwVjYU5",
+  "verified_previous_bytes": 1346138,
+  "verified_previous_sha256": "1ad1efa074f19239c642a50afb929bbc1abf81e3e8cb928830598beb20b5e7e2",
+  "verified_pre724_run": 43302155832,
+  "first_failed_run": 43301309571,
+  "first_failed_artifact_id": 13981482926,
+  "verified_artifact_id": 13981114259,
+  "verified_zip_sha256": "0a65b85cc99fe48803329d253604c7934c162ddd49514b16b27f089335da56c5",
+  "operation": "Append PRE724 documentation after exact backup/source SHA checks; keep failed run evidence; independently read back canonical and backup; never touch APK or signing."
+}
