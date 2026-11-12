@@ -1,0 +1,61 @@
+name: NFSMW PRE703 - isolated Kaggle status probe READONLY
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/nfsmw-pre703-kaggle-status-probe-readonly.yml'
+permissions:
+  contents: read
+jobs:
+  status-only:
+    if: github.repository == 'Juniklx/nfsmw-actions-teste' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      KAGGLE_API_TOKEN: ${{ secrets.KAGGLE_API_TOKEN }}
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Query isolated PRE703 kernel without any push
+        run: |
+          set -euo pipefail
+          test -n "$KAGGLE_API_TOKEN"
+          python -m pip install --disable-pip-version-check kaggle six >/dev/null
+          mkdir -p /tmp/nfsmw-pre703-probe
+          python - <<'PY'
+          import json,os,re,subprocess
+          from pathlib import Path
+          kernel='juniklx/nfsmw-pre703-v51-pacing-readonly'
+          p=subprocess.run(['kaggle','kernels','status',kernel],capture_output=True,text=True,timeout=90)
+          m=re.search(r'KernelWorkerStatus\.([A-Z_]+)',p.stdout+' '+p.stderr)
+          state=m.group(1) if m else 'UNKNOWN'
+          r={'stage':'PRE703_READONLY_STATUS_PROBE','kernel_id':kernel,
+             'github_source_run_id':'43157507188','cli_success':p.returncode==0,
+             'remote_state':state,'no_submit':True,'no_source_or_apk_change':True}
+          out=Path('/tmp/nfsmw-pre703-probe')
+          if state=='COMPLETE':
+              x=subprocess.run(['kaggle','kernels','output',kernel,'-p',str(out),'-o'],
+                               capture_output=True,text=True,timeout=180)
+              r['output_fetch_success']=x.returncode==0
+              candidates=list(out.rglob('NFSMW_PRE703_KAGGLE_REMOTE.json'))
+              r['report_present']=bool(candidates)
+              for file in candidates:
+                  d=json.loads(file.read_text())
+                  r['remote_report_status']=d.get('status')
+                  r['remote_report_run_id']=d.get('github_run_id')
+                  r['remote_report_failure_phase']=d.get('failure_phase')
+                  r['remote_report_failure_type']=d.get('failure_type')
+                  r['remote_report_source_hash_matches']=d.get('source_sha256')=='68998a1db81e9743197e446a5f8dacbf8d3dbcc2a51e4a7e6dac476b87d88c48'
+                  break
+          (out/'PRE703_REMOTE_STATUS_PROBE.json').write_text(json.dumps(r,indent=2)+'\n')
+          print('PRE703_PROBE_STATE='+state)
+          print('PRE703_PROBE_REPORT='+str(r.get('remote_report_status','NOT_YET_AVAILABLE')))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nfsmw-pre703-kaggle-status-probe-${{ github.run_id }}
+          path: /tmp/nfsmw-pre703-probe/PRE703_REMOTE_STATUS_PROBE.json
+          if-no-files-found: warn
+          retention-days: 7
