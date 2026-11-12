@@ -56,6 +56,15 @@ jobs:
           r['status_error_forbidden']=('forbidden' in p.stderr.lower())
           r['status_error_unrecognized']=('unrecognized' in p.stderr.lower())
           r['status_error_usage']=('usage' in p.stderr.lower())
+          # Only final exception category, with URLs/tokens stripped.
+          def safe_last_line(stderr):
+              lines=[line.strip() for line in stderr.splitlines() if line.strip()]
+              last=lines[-1] if lines else ''
+              last=re.sub(r'https?://\\S+','<URL>',last)
+              last=re.sub(r'(?i)(token|key|secret|password)\\s*[=:]\\s*\\S+',r'\\1=<REDACTED>',last)
+              return last[:220]
+          r['status_error_last_line_redacted']=safe_last_line(p.stderr)
+          r['pull_error_last_line_redacted']=safe_last_line(p2.stderr)
           from pathlib import Path as P
           meta=P('/tmp/nfsmw-pre703-probe/pulled/kernel-metadata.json')
           if meta.is_file():
