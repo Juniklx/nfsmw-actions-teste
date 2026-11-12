@@ -46,6 +46,16 @@ jobs:
           r['kernel_pull_returncode']=p2.returncode
           r['kernel_pull_404']='404' in p2.stderr
           r['kernel_pull_403']='403' in p2.stderr
+          # Safe account-local listing; never log the full private list or tokens.
+          my=subprocess.run(['kaggle','kernels','list','-m','-v','--page-size','100'],
+                            capture_output=True,text=True,timeout=100)
+          r['mine_list_returncode']=my.returncode
+          r['mine_list_contains_target']=kernel in my.stdout
+          r['mine_list_contains_juniklx']=('juniklx/' in my.stdout)
+          r['mine_list_error_403']=('403' in my.stderr)
+          r['status_error_forbidden']=('forbidden' in p.stderr.lower())
+          r['status_error_unrecognized']=('unrecognized' in p.stderr.lower())
+          r['status_error_usage']=('usage' in p.stderr.lower())
           from pathlib import Path as P
           meta=P('/tmp/nfsmw-pre703-probe/pulled/kernel-metadata.json')
           if meta.is_file():
