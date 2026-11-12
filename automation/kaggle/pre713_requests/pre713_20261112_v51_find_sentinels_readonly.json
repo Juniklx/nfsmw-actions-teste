@@ -1,0 +1,12 @@
+{
+  "stage": "PRE713_AUTHENTICATED_V51_FIND_SENTINELS_SOURCE_ONLY",
+  "reference_run": 43246107282,
+  "scope": "Validate source only; .find query origin, == sentinel shape, negated guard syntax, instance-only push_back receiver earlier mentions",
+  "kernel": "juniklx/nfsmw-pre713-v51-find-sentinels-readonly",
+  "main_kaggle_notebook_executed": false,
+  "apk_built": false,
+  "apk_modified": false,
+  "signing_material_accessed": false,
+  "thermal_settings_changed": false,
+  "fps_gain_proven": false
+}
