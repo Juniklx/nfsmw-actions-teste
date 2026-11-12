@@ -1,0 +1,11 @@
+{
+  "stage": "PRE726_V51_KAGGLE_REQUESTED_DRIVER_ORIGIN_READONLY",
+  "parent_success_run": 43304896210,
+  "parent_artifact_sha256": "7ea89b3d904df1ced5d8e658eecb5cccf49143f5a499595574cb504e4485514f",
+  "purpose": "Authenticated V51 lexical trace: in instance/device find requested_extensions key from driver extensionName, compare alias receiver with emplace_back c_str, list only sanitized hashes, booleans and line numbers",
+  "notebook": "juniklx/nfsmw-pre726-v51-requested-driver-origin",
+  "source_exported": false,
+  "apk_modified": false,
+  "signing_material_accessed": false,
+  "real_vulkan_enabled_extensions_tested": false
+}
