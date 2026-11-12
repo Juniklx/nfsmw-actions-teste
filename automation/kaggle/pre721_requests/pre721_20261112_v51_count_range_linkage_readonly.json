@@ -1,0 +1,12 @@
+{
+  "stage": "PRE721_V51_KAGGLE_CALL_RANGE_LINKAGE_READONLY",
+  "parent_verified_run": 43290032934,
+  "parent_artifact_id": 13976588429,
+  "parent_zip_sha256": "e78ea6810d48e61da2276c84d4ab73debf7e21afd7702e0d9032171a62505030",
+  "purpose": "Conservatively relate line 535 function/cast-shaped expression to range-for 531 receiver and line 532 member-assignment receiver; inspect bounded preceding occurrences with only sanitized SHA and flags.",
+  "notebook": "juniklx/nfsmw-pre721-v51-call-range-readonly",
+  "no_source_export": true,
+  "source_or_apk_modified": false,
+  "signing_material_accessed": false,
+  "fps_gain_proven": false
+}
