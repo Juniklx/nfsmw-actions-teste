@@ -1,0 +1,14 @@
+{
+  "stage": "PRE724_V51_KAGGLE_OPTIONAL_RETRY_READONLY",
+  "retry_of_run": 43301309571,
+  "reason": "Fix inherited PRE723 report key in read-only lexical probe; first remote run completed with KeyError and nonpassing parent-stage JSON",
+  "parent_verified_run": 43299482411,
+  "parent_artifact_id": 13981890515,
+  "parent_zip_sha256": "439562f6a4983b5de0d032895780c70c27e1ccd1cb0d0f3a984a450c89e1fcf8",
+  "purpose": "Rerun authenticated source-only optional extension and retry lexical guard after exact one-key fix; preserve failed artifact",
+  "notebook": "juniklx/nfsmw-pre724-v51-optional-retry",
+  "no_source_export": true,
+  "source_or_apk_modified": false,
+  "signing_material_accessed": false,
+  "fps_gain_proven": false
+}
