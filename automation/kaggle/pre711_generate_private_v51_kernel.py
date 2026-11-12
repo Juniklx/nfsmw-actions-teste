@@ -12,6 +12,7 @@ from pathlib import Path
 import pre704_generate_private_v51_kernel as pre704
 import pre706_generate_private_v51_kernel as pre706
 import pre709_generate_private_v51_kernel as pre709
+import pre710_generate_private_v51_kernel as pre710
 
 KERNEL="juniklx/nfsmw-pre711-v51-operand-links-readonly"
 TITLE="NFSMW PRE711 V51 Operand Links Readonly"
