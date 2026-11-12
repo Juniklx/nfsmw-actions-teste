@@ -1,0 +1,11 @@
+{
+  "stage": "PRE723_SYNC_VERIFIED_CONTEXT_TO_DRIVE",
+  "canonical_file_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+  "backup_file_id": "1pW6c1pyY2zydZ5YOSmb10iMFTq5q2Ux-",
+  "verified_previous_bytes": 1339850,
+  "verified_previous_sha256": "0ce7878cc32d6b2cffc48627b54ea2f5d5cc0652dc730b073d66169a6c4b453e",
+  "verified_pre723_run": 43299482411,
+  "verified_artifact_id": 13981890515,
+  "verified_zip_sha256": "439562f6a4983b5de0d032895780c70c27e1ccd1cb0d0f3a984a450c89e1fcf8",
+  "operation": "Append verified PRE723 checkpoint only after byte-identical backup/source SHA checks and independently re-read current Drive canonical. No APK or signing access."
+}
