@@ -1,0 +1,10 @@
+{
+  "stage": "PRE703_V51_GOOGLE_TIMING_SOURCE_KAGGLE_READONLY",
+  "requested_at_utc": "2026-11-12T04:50:15Z",
+  "retry_of_run": 43157167894,
+  "reason": "Source authentication PASS; repair Kaggle kernel-metadata JSON newline encoding and add readback",
+  "expected_presenter_sha256": "68998a1db81e9743197e446a5f8dacbf8d3dbcc2a51e4a7e6dac476b87d88c48",
+  "no_build": true,
+  "no_patch": true,
+  "no_signing": true
+}
