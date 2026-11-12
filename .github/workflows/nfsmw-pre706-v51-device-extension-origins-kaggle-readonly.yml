@@ -1,0 +1,166 @@
+name: NFSMW PRE706 - V51 VkDevice extension provenance Kaggle READONLY
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/kaggle/pre706_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre706-kaggle-readonly
+  cancel-in-progress: false
+jobs:
+  kaggle-v51-presenter-audit:
+    if: github.repository == 'Juniklx/nfsmw-actions-teste' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Local syntax and synthetic gates
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/kaggle/pre704_stage_authenticated_v51_from_pre696.py automation/kaggle/pre704_generate_private_v51_kernel.py automation/kaggle/pre706_generate_private_v51_kernel.py
+          python automation/kaggle/pre704_generate_private_v51_kernel.py --self-test
+          python automation/kaggle/pre706_generate_private_v51_kernel.py --self-test
+      - name: Prepare only Google API and Kaggle CLI libraries
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests zstandard kaggle six >/dev/null
+      - name: Authenticate V51 source recipe without APK build
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        run: |
+          set -euo pipefail
+          test -n "$GOOGLE_REFRESH_TOKEN"
+          test -n "$GOOGLE_CLIENT_ID"
+          test -n "$GOOGLE_CLIENT_SECRET"
+          python automation/kaggle/pre704_stage_authenticated_v51_from_pre696.py
+          python - <<'PY'
+          import json,zipfile
+          from pathlib import Path
+          p=Path('/tmp/nfsmw-pre704-auth-source')
+          m=json.loads((p/'manifest.json').read_text())
+          assert m['stage']=='PRE704_AUTHENTICATED_V51_UI_SOURCE_BUNDLE'
+          assert m['presenter_sha256']=='68998a1db81e9743197e446a5f8dacbf8d3dbcc2a51e4a7e6dac476b87d88c48'
+          assert m['backend_sha256']=='b70497df49440b469018e7ef7a0e007d39ab5df13aa979edc91f37e1d2d42385'
+          assert m['pre99_sha256']=='af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39'
+          with zipfile.ZipFile(p/'pre704_v51_ui_sources.zip') as z:
+              assert z.testzip() is None and len(z.namelist())==m['count']
+          print('PRE704_SOURCE_BUNDLE_AUTHENTICATED=TRUE')
+          print('PRE704_SOURCE_BUNDLE_FILES='+str(m['count']))
+          PY
+      - name: Prepare private isolated Kaggle V51 notebook
+        run: |
+          set -euo pipefail
+          python automation/kaggle/pre706_generate_private_v51_kernel.py --manifest /tmp/nfsmw-pre704-auth-source/manifest.json --archive /tmp/nfsmw-pre704-auth-source/pre704_v51_ui_sources.zip --output /tmp/nfsmw-pre706-kernel --run-id "$GITHUB_RUN_ID" --attempt "$GITHUB_RUN_ATTEMPT"
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('/tmp/nfsmw-pre706-kernel')
+          meta=json.loads((p/'kernel-metadata.json').read_text())
+          note=json.loads((p/'pre706.ipynb').read_text())
+          assert meta['id']=='juniklx/nfsmw-pre706-v51-ext-origins-readonly'
+          import re
+          slug=re.sub(r'[^a-z0-9]+','-',meta['title'].lower()).strip('-')
+          assert meta['id']=='juniklx/'+slug
+          assert meta['is_private'] and not meta['enable_gpu'] and not meta['enable_internet']
+          assert len(note['cells'])==2
+          source=''.join(note['cells'][1]['source'])
+          compile(source, '<PRE706 Kaggle notebook>', 'exec')
+          for secret in ('GOOGLE_REFRESH_TOKEN','GOOGLE_CLIENT_SECRET','KAGGLE_API_TOKEN','NFSMW_ASSINATURA_PERMANENTE'):
+              assert secret not in source
+          print('PRE706_KAGGLE_PRIVATE_NOTEBOOK_PREFLIGHT=PASS')
+          PY
+      - name: Start Kaggle isolated notebook, never original juniklx/nfsmw
+        env:
+          KAGGLE_API_TOKEN: ${{ secrets.KAGGLE_API_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "$KAGGLE_API_TOKEN"
+          kaggle kernels push -p /tmp/nfsmw-pre706-kernel
+      - name: Poll Kaggle and verify remote source-only report
+        env:
+          KAGGLE_API_TOKEN: ${{ secrets.KAGGLE_API_TOKEN }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json, os, re, subprocess, time
+          from pathlib import Path
+          kernel='juniklx/nfsmw-pre706-v51-ext-origins-readonly'
+          out=Path('/tmp/nfsmw-pre706-result')
+          out.mkdir(parents=True,exist_ok=True)
+          deadline=time.monotonic()+3400
+          prev=''
+          failures=0
+          while time.monotonic()<deadline:
+              p=subprocess.run(['kaggle','kernels','status',kernel],capture_output=True,text=True,timeout=90)
+              if p.returncode != 0:
+                  failures+=1
+                  if failures >= 10:
+                      raise RuntimeError('PRE706_KAGGLE_STATUS_NOT_READABLE_AFTER_10_CHECKS')
+                  time.sleep(15)
+                  continue
+              failures=0
+              m=re.search(r'KernelWorkerStatus\.([A-Z_]+)',p.stdout+' '+p.stderr)
+              state=m.group(1) if m else 'UNKNOWN'
+              if state!=prev:
+                  print('PRE706_REMOTE_STATE='+state,flush=True)
+                  prev=state
+              if state in ('ERROR','FAILED','CANCELLED','CANCELED'):
+                  raise RuntimeError('PRE706_REMOTE_KAGGLE_FAILED')
+              if state=='COMPLETE':
+                  dl=subprocess.run(['kaggle','kernels','output',kernel,'-p',str(out),'-o'],capture_output=True,text=True,timeout=180)
+                  if dl.returncode==0:
+                      for fp in out.rglob('NFSMW_PRE706_KAGGLE_REMOTE.json'):
+                          d=json.loads(fp.read_text(encoding='utf-8'))
+                          if d.get('github_run_id')!=os.environ['GITHUB_RUN_ID'] or d.get('github_run_attempt')!=os.environ['GITHUB_RUN_ATTEMPT']:
+                              continue
+                          assert d['stage']=='PRE706_V51_KAGGLE_DEVICE_EXTENSION_ORIGINS_READONLY'
+                          assert d['status']=='PASS_AUTHENTICATED_V51_EXTENSION_CONTAINER_PROVENANCE_INDICATORS_ONLY'
+                          assert d['presenter_sha256']=='68998a1db81e9743197e446a5f8dacbf8d3dbcc2a51e4a7e6dac476b87d88c48'
+                          assert d['backend_sha256']=='b70497df49440b469018e7ef7a0e007d39ab5df13aa979edc91f37e1d2d42385'
+                          assert d['source_or_apk_modified'] is False
+                          assert d['runtime_vk_device_enabled_extensions']=='NOT_VERIFIED'
+                          assert d['source_to_signed_elf_equivalence']=='UNVERIFIED'
+                          assert d['signing_material_accessed'] is False
+                          assert d['fps_gain_proven'] is False
+                          assert d['runtime_timestamps_captured'] is False
+                          assert isinstance(d['files_with_hits'],list)
+                          assert d['totals']['vkCreateDevice']>0
+                          assert d['analysis_type']=='BOUNDED_V51_EXTENSION_CONTAINER_ORIGIN_INDICATORS_ONLY'
+                          assert set(d['pre705_flow'])=={'device','instance','presenter','device_header'}
+                          assert d['pre705_device_create_line_count']>0
+                          assert d['pre706_provenance']['stage']=='PRE706_SOURCE_EXTENSION_CONTAINER_PROVENANCE'
+                          assert d['pre706_provenance']['source_hashes_verified'] is True
+                          assert set(d['pre706_provenance']['anchors'])=={'device','instance'}
+                          assert d['pre706_provenance']['complete_cpp_dataflow_proven'] is False
+                          assert d['pre706_provenance']['runtime_extension_list']=='NOT_VERIFIED'
+                          assert len(d['pre705_flow']['device']['occurrences']['ppEnabledExtensionNames']['lines'])>0
+                          assert d['runtime_vk_device_enabled_extensions']=='NOT_VERIFIED'
+                          (out/'PRE706_V51_KAGGLE_VALIDATED_SUMMARY.json').write_text(json.dumps(d,indent=2,sort_keys=True)+'\n')
+                          print('PRE706_KAGGLE_REMOTE_VALIDATED=TRUE')
+                          print('PRE706_VKCREATEDEVICE_HITS='+str(d['totals']['vkCreateDevice']))
+                          print('PRE706_GOOGLE_TIMING_HITS='+str(d['totals']['VK_GOOGLE_display_timing']))
+                          raise SystemExit(0)
+              time.sleep(15)
+          raise TimeoutError('PRE706_REMOTE_RESULT_NOT_VERIFIED')
+          PY
+      - name: Archive sanitized reports, never source or secrets
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-pre706-kaggle-readonly-${{ github.run_id }}
+          path: |
+            /tmp/nfsmw-pre706-result/PRE706_V51_KAGGLE_VALIDATED_SUMMARY.json
+            /tmp/nfsmw-pre706-result/NFSMW_PRE706_KAGGLE_REMOTE.json
+          if-no-files-found: warn
+          retention-days: 30
