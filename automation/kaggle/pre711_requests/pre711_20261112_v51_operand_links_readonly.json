@@ -1,0 +1,12 @@
+{
+  "stage": "PRE711_V51_KAGGLE_OPERAND_LINKS_READONLY",
+  "preceding_gate_run": 43219894609,
+  "purpose": "Authenticate source V51, analyze bounded C++ range-for binding, == operands, negated guard, c_str member receiver and instance push_back; hashes and allowlisted structural labels only",
+  "scope": "READ_ONLY_AUTHENTICATED_SOURCE",
+  "notebook": "juniklx/nfsmw-pre711-v51-operand-links-readonly",
+  "notebook_main_will_run": false,
+  "apk_built": false,
+  "source_patch": false,
+  "signing_material_accessed": false,
+  "fps_gain_claimed": false
+}
