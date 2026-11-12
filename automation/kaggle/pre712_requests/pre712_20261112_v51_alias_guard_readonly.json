@@ -1,0 +1,12 @@
+{
+  "stage": "PRE712_V51_KAGGLE_ALIAS_GUARDS_READONLY",
+  "prior_completed_run": 43225072682,
+  "objective": "Only authenticated V51 source; bound lexical assignment candidates for == LHS / c_str receiver alias, inspect negated predicate callee fingerprint and instance push_back lexical target declaration candidates",
+  "kernel": "juniklx/nfsmw-pre712-v51-alias-guards-readonly",
+  "original_main_kaggle_notebook_executed": false,
+  "source_modified": false,
+  "apk_built": false,
+  "signing_material_accessed": false,
+  "runtime_vk_google_timing_enabled": "NOT_VERIFIED",
+  "fps_gain_proven": false
+}
