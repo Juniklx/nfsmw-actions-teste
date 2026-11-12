@@ -1,0 +1,12 @@
+{
+  "stage": "PRE716_V51_KAGGLE_BOOL_POINTER_LIFETIME_READONLY",
+  "preceding_gate": 43268860669,
+  "purpose": "Source authenticated V51-only: link instance vector<bool*> at line356 to push_back second at line456, inspect bounded references/potential bool pointer writes and VkInstanceCreateInfo extension list, search requested_extensions declarations across full source prefix",
+  "kernel": "juniklx/nfsmw-pre716-v51-bool-pointers-lifetime-readonly",
+  "scope": "READ_ONLY_LEXICAL_NO_ACTUAL_AST",
+  "main_notebook_executed": false,
+  "apk_built": false,
+  "apk_modified": false,
+  "signing_material_accessed": false,
+  "fps_gain_proven": false
+}
