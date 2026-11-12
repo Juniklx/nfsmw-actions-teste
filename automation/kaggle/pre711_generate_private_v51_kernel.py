@@ -120,7 +120,8 @@ EXTRA=r"""
   and pairs['device']['push_back']['call_count']==0
   and pairs['instance']['push_back']['call_count']>0
   else 'BLOCK_PRE711_SOURCE_RELATIONSHIP_CHECKS')
-"""def code(manifest,archive,run,attempt):
+"""
+def code(manifest,archive,run,attempt):
     src=pre710.code(manifest,archive,run,attempt)
     if src.count(PARENT_FINAL)!=1:raise ValueError('PRE711_PARENT_GATE_DRIFT')
     src=src.replace(PARENT_FINAL,PARENT_FINAL+'\n'+EXTRA)
