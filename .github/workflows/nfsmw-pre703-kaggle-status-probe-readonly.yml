@@ -95,6 +95,8 @@ jobs:
         if: always()
         with:
           name: nfsmw-pre703-kaggle-status-probe-${{ github.run_id }}
-          path: /tmp/nfsmw-pre703-probe/PRE703_REMOTE_STATUS_PROBE.json
+          path: |
+            /tmp/nfsmw-pre703-probe/PRE703_REMOTE_STATUS_PROBE.json
+            /tmp/nfsmw-pre703-probe/NFSMW_PRE703_KAGGLE_REMOTE.json
           if-no-files-found: warn
           retention-days: 7
