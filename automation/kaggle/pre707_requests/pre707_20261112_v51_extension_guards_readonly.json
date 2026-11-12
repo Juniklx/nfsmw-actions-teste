@@ -1,0 +1,14 @@
+{
+  "stage": "PRE707_V51_EXTENSION_SELECTION_SITE_READONLY",
+  "requested_utc": "2026-11-12",
+  "reference_run": 43193776062,
+  "reason": "Inspect authenticated V51 source near extension enumeration/insert sites and compare device vs instance context, without claiming runtime enablement",
+  "authenticating_pre99_sha256": "af8e82e198d00656814477fd64b8cc791fada21d937c1aa1cc583e5d37768b39",
+  "source_replay": "PRE99+PRE431+PRE638+PRE648",
+  "private_isolated_notebook": true,
+  "original_notebook_executed": false,
+  "apk_modified": false,
+  "signing_material_access": false,
+  "gpu_or_thermal_settings_modified": false,
+  "fps_gain_proven": false
+}
