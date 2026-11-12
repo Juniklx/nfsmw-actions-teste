@@ -1,0 +1,10 @@
+{
+  "stage": "PRE725_V51_KAGGLE_DYNAMIC_EXTENSION_ORIGIN_READONLY",
+  "retry_of_failed_run": 43304260326,
+  "reason": "One inherited PRE724 report key incorrectly renamed to PRE725 by generator template; no game source changed",
+  "parent_success_run": 43302155832,
+  "notebook": "juniklx/nfsmw-pre725-v51-dynamic-extension-origin",
+  "no_source_export": true,
+  "apk_modified": false,
+  "signing_material_accessed": false
+}
