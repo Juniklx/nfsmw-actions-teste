@@ -1,0 +1,12 @@
+{
+  "stage": "PRE724_V51_KAGGLE_OPTIONAL_RETRY_READONLY",
+  "parent_verified_run": 43299482411,
+  "parent_artifact_id": 13981890515,
+  "parent_zip_sha256": "439562f6a4983b5de0d032895780c70c27e1ccd1cb0d0f3a984a450c89e1fcf8",
+  "purpose": "Confirm bounded source lexical guard nesting for enabled_extensions.emplace_back at line 455 and vkCreateInstance retry guard 525-537, count reset and unchanged pointer field; run synthetic prefix example only.",
+  "notebook": "juniklx/nfsmw-pre724-v51-optional-retry",
+  "no_source_export": true,
+  "source_or_apk_modified": false,
+  "signing_material_accessed": false,
+  "fps_gain_proven": false
+}
