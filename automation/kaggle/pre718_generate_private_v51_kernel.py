@@ -89,7 +89,7 @@ EXTRA=r"""
    if re.search(r'\b'+re.escape(field)+r'\b\s*=',s718(n)):lines.append(n)
   return lines
  sourcehashes={x['path']:x['sha256'] for x in report['source_hashes']}
- if sourcehashes.get(pre706.INSTANCE)!=pre706.INSTANCE_SHA:
+ if sourcehashes.get('nativo/sdk/src/ui/vulkan/vulkan_instance.cpp')!='700a0fa890d593e937d7eab89c6892b05a92470a779be469c5aa796287c3fd04':
   raise ValueError('PRE718_INSTANCE_SOURCE_AUTHENTICITY_DRIFT')
  old717=report['pre717_instance_retry_audit']
  if old717['source_findings']['create_calls'][0]['line']!=523 or old717['source_findings']['create_calls'][1]['line']!=537:
@@ -195,6 +195,7 @@ def main():
         assert MARKER in script and "PASS_PRE718_V51_CONSERVATIVE_RETRY_POINTER_AUDIT" in script
         assert "'stale_pointer_bug_proven':False" in script
         assert "'raw_source_exported':False" in script
+        assert 'sourcehashes.get(pre706.INSTANCE)' not in script
         for name in ('GOOGLE_REFRESH_TOKEN','KAGGLE_API_TOKEN','NFSMW_ASSINATURA_PERMANENTE'):
             assert name not in script
         assert re.sub('[^a-z0-9]+','-',TITLE.lower()).strip('-')==KERNEL.partition('/')[2]
