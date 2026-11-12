@@ -102,3 +102,14 @@ A auditoria foi **efetivamente executada no Kaggle** em notebook privado isolado
 O ID e o título do notebook Kaggle devem resolver ao **mesmo slug**. Alterar o workflow principal e o gerador para apontarem ambos a `juniklx/nfsmw-pre703-v51-timing-readonly`, adicionar pré-validação da correspondência título↔ID, e impedir polling infinito quando `kernels status` retorna erro. Não reiniciar Kaggle apenas para corrigir a consulta. O status **real da auditoria remota é PASS**, validado independentemente; o status final do workflow principal pode ser diferente por bug exclusivo de polling.
 
 **Estado do projeto:** APK V51 preservada, `io.github.nfsmwrecomp`, certificado permanente SHA256 `1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b`, interna 1920×1080, 60 FPS no ensaio PRE700, meta até 120, gráficos/efeitos/física, touch/iPega PG-9076, saves e proteção térmica intactos. **Sem build V52, patch, ganho comprovado de FPS ou causa de pacing demonstrada.**
+
+
+---
+
+## Consolidação final de automação e Drive (12/11/2026)
+
+**Correção do slug implementada sem nova submissão Kaggle:** [gerador](../automation/kaggle/pre703_generate_private_v51_kernel.py) commit `32fd8138f2e791b1338c0ebe72ab864b59c4c77b`, com `kernel-metadata.json.id` alinhado ao slug do título; [workflow PRE703](../.github/workflows/nfsmw-pre703-v51-google-timing-kaggle-readonly.yml) commit `eb055f9bdde2abd9f90ede7ddb7c110707e83cc5`, com assert título↔ID e `kernels status` no slug correto. Para prevenir execuções duplicadas, gatilho `push` limitado a **requests** em `automation/kaggle/pre703_requests/*.json`; não mais a alterações do próprio workflow. Polling futuro falha após dez consultas sem acesso, em vez de esperar indefinidamente.
+
+**Backup pré-atualização** do contexto: [Drive backup PRE703](https://drive.google.com/file/d/1Gr60NqKTANZLwtlSrt4UPG2CRPM5cfIl/view), 1.231.041 bytes. O [CONTEXTO_NFSMW.md canônico](https://drive.google.com/file/d/1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB/view) foi atualizado **em seu mesmo ID**: 1.236.366 bytes, SHA256 **`b48b21874f3b51bba769fb892d39dd0d5401f99fc1fb42df00b0cafc884ee186`**, tamanho e hash conferidos após download do Drive; **zero referências ao executor anterior no texto**. O ZIP com a resposta real do Kaggle também teve readback privado Drive com SHA256 `0209f8cda0d991af303df712559f28d4c064cf229765803587cf971f05ba58a9` e CRC PASS.
+
+**Gate futuro:** PRE704 para criação do dispositivo Vulkan, enumeração e ativação de extensões, apenas leitura, sem construir V52. A PRE703 foi concluída **no Kaggle**, independentemente do erro de polling histórico do workflow principal.
