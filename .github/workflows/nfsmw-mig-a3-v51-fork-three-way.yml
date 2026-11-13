@@ -1,11 +1,6 @@
 name: NFSMW MIG-A3 - Authenticated PRE99 V51 Fork Three Way Source Audit
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/nfsmw-mig-a3-v51-fork-three-way.yml'
-      - 'automation/actions_only/mig_a3_requests/*.json'
 permissions:
   contents: read
 concurrency:
