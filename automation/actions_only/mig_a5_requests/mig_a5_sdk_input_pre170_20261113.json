@@ -1,0 +1,22 @@
+{
+  "stage": "MIG_A5_CONTEXT_SYNC",
+  "date": "2026-11-13",
+  "private_review_run": 43451194001,
+  "private_review_job": 131973489939,
+  "private_drive_id": "1G-8AJwIyDvwZbOIGZcT83FE9juA5M0VO",
+  "private_zip_sha256": "b209b369cbbcb92620457fe9e155f50dda8fac77ece4be5f5e7b76edf6558159",
+  "private_zip_bytes": 18451,
+  "public_source_test_run": 43452479081,
+  "public_pr_validation_run": 43452750252,
+  "draft_pr": 5,
+  "draft_pr_head": "75d18109a4b0b15e79248f12bc82872c4a1a7e6b",
+  "files_modified_in_draft": 2,
+  "files_modified_in_main": 0,
+  "canonical_drive_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+  "canonical_expected_sha256": "f95fdb71459c9817a4927c3eed5acda16afab21ffc71ba0f4b2402f19a7d9068",
+  "canonical_expected_bytes": 1401039,
+  "backup_drive_id": "1dmq9WJnmiHP5o2SjeYQCjPoAS1GuvVCO",
+  "apk_modified": false,
+  "build_arm64": false,
+  "kaggle_used": false
+}
