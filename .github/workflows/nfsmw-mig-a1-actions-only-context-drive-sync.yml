@@ -1,0 +1,44 @@
+name: NFSMW MIG-A1 - Sync Actions Only Context to Drive
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/actions_only/mig_a1_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-mig-a1-context-drive-sync
+  cancel-in-progress: false
+jobs:
+  sync-context:
+    if: github.repository == 'Juniklx/nfsmw-actions-teste' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Syntax and local checks
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/actions_only/mig_a1_sync_context_drive.py
+          python automation/actions_only/mig_a1_sync_context_drive.py --self-test
+      - name: Install Google Drive client
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests six > /dev/null
+      - name: Verify canonical and immutable backup, update and read back
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          test -n "$GOOGLE_REFRESH_TOKEN"
+          test -n "$GOOGLE_CLIENT_ID"
+          test -n "$GOOGLE_CLIENT_SECRET"
+          python automation/actions_only/mig_a1_sync_context_drive.py --apply
