@@ -1,0 +1,69 @@
+name: NFSMW MIG-A3 - Authenticated PRE99 V51 Fork Three Way Source Audit
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/nfsmw-mig-a3-v51-fork-three-way.yml'
+      - 'automation/actions_only/mig_a3_requests/*.json'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-mig-a3-three-way-readonly
+  cancel-in-progress: false
+jobs:
+  compare-authenticated-sources:
+    if: github.repository == 'Juniklx/nfsmw-actions-teste' && github.ref == 'refs/heads/main' && github.actor == 'Juniklx'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 85
+    steps:
+      - name: Checkout orchestration (no Kaggle)
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Checkout public fork at immutable MIG-A2 integration commit
+        uses: actions/checkout@v4
+        with:
+          repository: Juniklx/NFSMW-Recompiled-Mobile
+          ref: 13373b70642a19adf232cd9ba39fc7ecb2275dc8
+          path: public-fork
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Static syntax and synthetic diff3 self-test
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/actions_only/mig_a3_v51_three_way_audit.py
+          python automation/actions_only/mig_a3_v51_three_way_audit.py --self-test
+      - name: Install authenticated Drive client without Kaggle
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests zstandard > /dev/null
+      - name: Authenticate PRE99 and reconstruct V51, compare to fork source in ephemeral runner
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$GOOGLE_REFRESH_TOKEN"
+          test -n "$GOOGLE_CLIENT_ID"
+          test -n "$GOOGLE_CLIENT_SECRET"
+          python automation/actions_only/mig_a3_v51_three_way_audit.py \
+            --fork-dir "$GITHUB_WORKSPACE/public-fork" \
+            --output-dir "$RUNNER_TEMP/nfsmw_mig_a3"
+      - name: Archive sanitized hash/count report only, never sources
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-mig-a3-three-way-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/nfsmw_mig_a3/MIG_A3_THREE_WAY_SOURCE_REPORT.json
+            ${{ runner.temp }}/nfsmw_mig_a3/MIG_A3_THREE_WAY_SOURCE_REPORT.md
+          if-no-files-found: warn
+          retention-days: 14
