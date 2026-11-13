@@ -1,0 +1,69 @@
+name: NFSMW MIG-A5 - Private SDK Input Patch Review (Actions Only)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/nfsmw-mig-a5-private-sdk-input-patches.yml'
+      - 'automation/actions_only/mig_a5_private_sdk_input_patch_review.py'
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-mig-a5-private-sdk-readonly
+  cancel-in-progress: false
+jobs:
+  inventory-authenticated-patches:
+    if: github.repository == 'Juniklx/nfsmw-actions-teste' && github.ref == 'refs/heads/main' && github.actor == 'Juniklx'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 85
+    steps:
+      - name: Checkout orchestration (no Kaggle)
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Checkout public fork at immutable MIG-A2 integration commit
+        uses: actions/checkout@v4
+        with:
+          repository: Juniklx/NFSMW-Recompiled-Mobile
+          ref: 16233a34b88f0af3880fb506ba68f6d6c6e137f3
+          path: public-fork
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Static syntax and synthetic diff3 self-test
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/actions_only/mig_a5_private_sdk_input_patch_review.py
+          python automation/actions_only/mig_a5_private_sdk_input_patch_review.py --self-test
+      - name: Install authenticated Drive client without Kaggle
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests zstandard > /dev/null
+      - name: Authenticate PRE99 and reconstruct V51, store SDK-only patches in private Drive after readback
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$GOOGLE_REFRESH_TOKEN"
+          test -n "$GOOGLE_CLIENT_ID"
+          test -n "$GOOGLE_CLIENT_SECRET"
+          python automation/actions_only/mig_a5_private_sdk_input_patch_review.py \
+            --fork-dir "$GITHUB_WORKSPACE/public-fork" \
+            --output-dir "$RUNNER_TEMP/nfsmw_mig_a5"
+      - name: Archive SDK patch metadata only, private SDK patch ZIP remains in Drive
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nfsmw-mig-a5-private-sdk-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/nfsmw_mig_a5/MIG_A5_SDK_INPUT_REVIEW_METADATA.json
+            ${{ runner.temp }}/nfsmw_mig_a5/MIG_A5_SDK_INPUT_REVIEW_METADATA.json
+          if-no-files-found: warn
+          retention-days: 14
