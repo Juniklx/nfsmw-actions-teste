@@ -286,9 +286,9 @@ def run(fork_dir: Path, output_dir: Path) -> None:
 def self_test() -> None:
     assert digest(b"abc") == "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
     with tempfile.TemporaryDirectory() as td:
-        b = b"line1\nline2\nline3\n"
-        v = b"line1\nv51\nline3\n"
-        f = b"line1\nline2\nfork\n"
+        b = b"line1\nline2\nmiddle\nline3\n"
+        v = b"line1\nv51\nmiddle\nline3\n"
+        f = b"line1\nline2\nmiddle\nfork\n"
         ref = {"sha256": digest(v), "bytes": len(v)}
         row = analyze_source(b, v, f, ref, Path(td), "fixture")
         assert row["pre99_to_v51"]["hunks"] == 1
