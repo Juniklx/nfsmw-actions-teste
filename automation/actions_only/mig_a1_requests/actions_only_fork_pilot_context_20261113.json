@@ -1,0 +1,16 @@
+{
+  "stage": "MIG_A1_ACTIONS_ONLY_CONTEXT_SYNC",
+  "source_repo": "Juniklx/NFSMW-Recompiled-Mobile",
+  "source_pr": "https://github.com/Juniklx/NFSMW-Recompiled-Mobile/pull/1",
+  "preflight_push_run": 43359748696,
+  "preflight_pr_run": 43359786157,
+  "old_context_sha256": "30dad0c331e3492ed06e895043356d152a885651adfc98befc55b2d435bc1d2b",
+  "old_bytes": 1387355,
+  "backup_id": "11yd6ryDia3eZX6gMx6EZf4wbrWu5PTlC",
+  "context_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+  "migration": "actions_only",
+  "legacy_kaggle_use": false,
+  "full_build_verified": false,
+  "apk_modified": false,
+  "signing_modified": false
+}
