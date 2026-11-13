@@ -243,7 +243,7 @@ def inventory_change(name: str, baseline: bytes | None,
         if any(b"\0" in d for d in (baseline, v51, fork)):
             raise ValueError("MIG_A4_NON_TEXT_SOURCE_ABORT_" + name)
         temp = scratch / "candidate"
-        temp.mkdir(exist_ok=True)
+        temp.mkdir(parents=True, exist_ok=True)
         base_path, v51_path, fork_path = temp / "base", temp / "v51", temp / "fork"
         for p, d in ((base_path, baseline), (v51_path, v51), (fork_path, fork)):
             p.write_bytes(d)
