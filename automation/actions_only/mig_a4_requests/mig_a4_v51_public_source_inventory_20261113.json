@@ -1,0 +1,26 @@
+{
+  "stage": "MIG_A4_CONTEXT_SYNC",
+  "date": "2026-11-13",
+  "run_id": 43394929759,
+  "job_id": 131783448735,
+  "conclusion": "success",
+  "artifact_id": 14021674993,
+  "zip_sha256": "561d7e6fa633d7e4b08afda113091dafedfd65f7f9f5dd09022e2d7d744885a9",
+  "zip_bytes": 3684,
+  "report_drive_id": "1nVo6a_EBssQj4NOnbTny4q8HeuTsARQD",
+  "fork_pr": 4,
+  "fork_merge_commit": "16233a34b88f0af3880fb506ba68f6d6c6e137f3",
+  "counts": {
+    "candidate_public_source_paths": 795,
+    "source_paths_changed_pre99_to_v51_recipe": 10,
+    "v51_changed_fork_still_baseline": 5,
+    "both_changed_need_review": 5,
+    "syntactic_conflict_files": 2
+  },
+  "canonical_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+  "canonical_expected_bytes": 1396995,
+  "canonical_expected_sha256": "9eb9fac722e95ead2a33fca3c05bb2ff8ef9ced912020b56c1eb24e6ace2d726",
+  "backup_id": "1f4QST8BYi863RmGSe93jvX7OQfUBECHL",
+  "kaggle_used": false,
+  "apk_modified": false
+}
