@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/nfsmw-mig-a4-v51-public-source-inventory.yml'
+      - 'automation/actions_only/mig_a4_v51_scoped_source_inventory.py'
 permissions:
   contents: read
 concurrency:
