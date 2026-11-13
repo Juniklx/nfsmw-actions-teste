@@ -1,0 +1,17 @@
+{
+  "stage": "UP057_PUBLIC_SOURCE_AUDIT_CONTEXT_SYNC",
+  "upstream_url": "https://github.com/victorgbd/NFSMW-Recompiled-Mobile",
+  "release": "v0.5.7",
+  "upstream_source_commit": "08b67e47219d90c0d6af8dee0a3570bb7b467e42",
+  "audit_commit": "dcf743ca859a982b1c33947036526924d25e42bf",
+  "canonical_context_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+  "backup_id": "1KTJ7jJd3UkR3Q6Hlr86kL8JNoWA4JfxQ",
+  "expected_before_sha256": "b0f50b6508337b37a46da5f345d25b690ca4cf8897ad57f03cd010cd93b07816",
+  "expected_before_bytes": 1380405,
+  "read_only_analysis": true,
+  "release_build": false,
+  "apk_unchanged": true,
+  "private_source_export": false,
+  "signing_unchanged": true,
+  "next_main_gate": "PRE729"
+}
