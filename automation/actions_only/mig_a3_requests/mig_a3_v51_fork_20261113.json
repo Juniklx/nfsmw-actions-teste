@@ -1,0 +1,25 @@
+{
+  "stage": "MIG_A3_CONTEXT_SYNC",
+  "date": "2026-11-13",
+  "run_id": 43362701434,
+  "job_id": 131679714249,
+  "conclusion": "success",
+  "artifact_id": 14009380825,
+  "zip_sha256": "f86f53009b26bd139d76f87f6d5785b53de15c4559a7715050b48ef2360394d5",
+  "zip_bytes": 2562,
+  "drive_report_id": "1Ab0uboQDlFpa2EiYh58xWQucoWpRvLDN",
+  "pr": 3,
+  "pr_merged_commit": "6cc6d679b9b844a2a798981f4f47095df381be17",
+  "counts": {
+    "same_v51_fork": 1,
+    "v51_changed_since_pre99": 0,
+    "fork_changed_since_pre99": 6,
+    "merge_conflict_files": 0
+  },
+  "canonical_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+  "canonical_expected_sha256": "4f4a8c7c2de75315bdb1f568e1037291a8e8aa46c8d040b2dbb4b1a074b1cbf9",
+  "canonical_expected_bytes": 1393672,
+  "backup_id": "1plQ6GvVpkbW5qTH8Rv-qZW744P_7wh0y",
+  "kaggle_used": false,
+  "apk_modified": false
+}
