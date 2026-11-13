@@ -1,0 +1,23 @@
+{
+  "stage": "MIG_A2_DRIVE_CONTEXT_SYNC",
+  "public_fork": "Juniklx/NFSMW-Recompiled-Mobile",
+  "pr1": 1,
+  "pr1_merge_commit": "d4efb324a04d6c253447de59cd42eca5951b5f0f",
+  "pr2": 2,
+  "pr2_merge_commit": "13373b70642a19adf232cd9ba39fc7ecb2275dc8",
+  "source_fingerprints_run": 43361469978,
+  "pr_validation_run": 43361706718,
+  "counts": {
+    "identical": 1,
+    "different": 6,
+    "missing": 0
+  },
+  "report_drive_id": "1DHAyIkPsCEYk6uopDPv6b9hFjJJN1_Zy",
+  "report_zip_sha256": "d81a79a9a08e78bde8da5c6b8e4dad35f9cac947eb7e87c27c0c8f7bb4a035ff",
+  "before_sha256": "ff37c18eb6e4d87351c5bbca2e6bd9b1693a1a78845caee4c97b0b34d7ab6c9f",
+  "before_bytes": 1390543,
+  "backup_id": "1L514kj5KBhuPhg6Nn2EmnRTr8AZ8vmso",
+  "canonical_id": "1dRoE3qjSWZ4AwOaBQo97IINyecIFh6eB",
+  "kaggle_used": false,
+  "apk_modified": false
+}
