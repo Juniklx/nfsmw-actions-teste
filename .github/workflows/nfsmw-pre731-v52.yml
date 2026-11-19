@@ -266,6 +266,16 @@ jobs:
         run: |
           set -e
           test "${{ steps.android_tools.outcome }}" = "success"
+          PYTHONPATH=automation/kaggle python - <<'PY'
+          from google.auth.exceptions import RefreshError
+          from pre105_read_settings_source import drive_client
+          try:
+              drive_client()
+          except RefreshError as exc:
+              allowed = {"invalid_grant", "invalid_client", "unauthorized_client", "temporarily_unavailable", "invalid_scope"}
+              code = next((arg.get("error") for arg in exc.args if isinstance(arg,dict) and arg.get("error") in allowed), "unclassified")
+              raise SystemExit("Drive OAuth refresh failed: " + code) from None
+          PY
           mkdir -p /tmp/nfsmw-pre731-out
           python automation/kaggle/pre731_v52.py \
             --run-id "$GITHUB_RUN_ID" \
