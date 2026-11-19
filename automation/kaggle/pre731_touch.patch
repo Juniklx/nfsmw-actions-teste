@@ -1,0 +1,77 @@
+--- a/android/app/src/main/java/io/github/nfsmwrecomp/TouchControllerView.java
++++ b/android/app/src/main/java/io/github/nfsmwrecomp/TouchControllerView.java
+@@ -1272,16 +1272,17 @@
+ 
+         if (action == MotionEvent.ACTION_MOVE) {
+             boolean handled = false;
++            boolean redraw = false;
+             for (int i = 0; i < event.getPointerCount(); ++i) {
+                 Control control = pointers.get(event.getPointerId(i));
+                 if (control != null) {
+-                    control.move(event.getX(i), event.getY(i));
++                    redraw |= control.move(event.getX(i), event.getY(i));
+                     handled = true;
+                 }
+             }
+             if (handled) {
+                 sendState();
+-                invalidate();
++                if (redraw) invalidate();
+             }
+             return handled;
+         }
+@@ -2237,7 +2238,8 @@
+         abstract void ocupa(RectF r);
+         abstract boolean contains(float x, float y);
+         void press(float x, float y) { inUse = true; move(x, y); }
+-        void move(float x, float y) {}
++        // Devuelve true si el desplazamiento cambia el dibujo del control.
++        boolean move(float x, float y) { return false; }
+         void release() { inUse = false; }
+         int buttons() { return 0; }
+         // En que disposiciones se ve (EN_NORMAL...): L3 y R3 solo en la normal,
+@@ -2407,7 +2409,8 @@
+             float dx = x - cx, dy = y - cy;
+             return dx * dx + dy * dy <= radius * radius * 1.55f;
+         }
+-        void move(float x, float y) {
++        boolean move(float x, float y) {
++            float oldX = xValue, oldY = yValue;
+             if (esPalanca()) {
+                 // Arriba sube marcha y abajo la baja: el juego cambia cuando el
+                 // stick cruza su umbral, asi que va entero o en el centro. Tocar
+@@ -2415,7 +2418,7 @@
+                 float dy = (y - cy) / radius;
+                 xValue = 0;
+                 yValue = dy < -.3f ? -1 : dy > .3f ? 1 : 0;
+-                return;
++                return oldX != xValue || oldY != yValue;
+             }
+             float dx = (x - cx) / radius;
+             float dy = (y - cy) / radius;
+@@ -2428,6 +2431,7 @@
+             // invertidos en vertical.
+             xValue = Math.abs(dx) < deadzone ? 0 : dx;
+             yValue = Math.abs(dy) < deadzone ? 0 : dy;
++            return oldX != xValue || oldY != yValue;
+         }
+         void release() { super.release(); xValue = 0; yValue = 0; }
+         void draw(Canvas canvas) {
+@@ -2529,7 +2533,8 @@
+         boolean contains(float x, float y) {
+             return Math.abs(x - cx) <= radius && Math.abs(y - cy) <= radius;
+         }
+-        void move(float x, float y) {
++        boolean move(float x, float y) {
++            int oldMask = mask;
+             float dx = x - cx, dy = y - cy;
+             float threshold = radius * .20f;
+             mask = 0;
+@@ -2537,6 +2542,7 @@
+             if (dx > threshold) mask |= DPAD_RIGHT;
+             if (dy < -threshold) mask |= DPAD_UP;
+             if (dy > threshold) mask |= DPAD_DOWN;
++            return oldMask != mask;
+         }
+         void release() { super.release(); mask = 0; }
+         int buttons() { return inUse ? mask : 0; }
