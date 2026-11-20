@@ -1,0 +1,36 @@
+name: NFSMW PRE733 - USA ISO XDVDFS remote Catch-Up audit
+on:
+  push:
+    branches: [audit/pre732-catchup-readonly]
+    paths:
+      - '.github/workflows/nfsmw-pre733-usa-iso-catchup.yml'
+      - 'automation/actions_only/pre733_iso_range_catchup.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  private-usa-iso:
+    if: github.repository == 'Juniklx/nfsmw-actions-teste'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+      GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+      GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install range HTTP client and validate scripts
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+          python -m py_compile automation/actions_only/pre733_iso_range_catchup.py
+      - name: Read only bounded ISO blocks and write only private Drive JSON
+        shell: bash
+        run: |
+          set -euo pipefail
+          umask 077
+          PYTHONPATH=automation/kaggle:automation/actions_only python automation/actions_only/pre733_iso_range_catchup.py --report "$RUNNER_TEMP/pre733_usa_report.json"
+          echo 'PRE733=USA_XDVDFS_READ_ONLY_NO_APK' >> "$GITHUB_STEP_SUMMARY"
