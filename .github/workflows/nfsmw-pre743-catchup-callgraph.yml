@@ -1,0 +1,34 @@
+name: NFSMW PRE743 - guest Catch-Up direct caller graph
+on:
+  push:
+    branches: [audit/pre732-catchup-readonly]
+    paths:
+      - '.github/workflows/nfsmw-pre743-catchup-callgraph.yml'
+      - 'automation/actions_only/pre743_catchup_callgraph.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  original-ppc-readonly:
+    runs-on: ubuntu-latest
+    timeout-minutes: 65
+    env:
+      GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+      GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+      GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install authenticated client
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          python -m py_compile automation/actions_only/pre743_catchup_callgraph.py
+      - name: Build direct callgraph from SHA-verified guest code, report in private Drive
+        run: |
+          set -euo pipefail
+          umask 077
+          PYTHONPATH=automation/kaggle:automation/actions_only python automation/actions_only/pre743_catchup_callgraph.py --report "$RUNNER_TEMP/pre743_private.json"
+          echo 'PRE743=STATIC_CALL_GRAPH_READ_ONLY' >> "$GITHUB_STEP_SUMMARY"
