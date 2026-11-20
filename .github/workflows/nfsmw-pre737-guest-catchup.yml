@@ -1,0 +1,35 @@
+name: NFSMW PRE737 - guest Catch-Up source evidence
+on:
+  push:
+    branches: [audit/pre732-catchup-readonly]
+    paths:
+      - '.github/workflows/nfsmw-pre737-guest-catchup.yml'
+      - 'automation/actions_only/pre737_guest_text_catchup.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 65
+    env:
+      GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+      GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+      GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Drive client
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          python -m py_compile automation/actions_only/pre737_guest_text_catchup.py
+      - name: Audit SHA-pinned private PRE99 guest source and send private report
+        shell: bash
+        run: |
+          set -euo pipefail
+          umask 077
+          PYTHONPATH=automation/kaggle:automation/actions_only python automation/actions_only/pre737_guest_text_catchup.py --report "$RUNNER_TEMP/pre737_source_report.json"
+          echo 'PRE737=GUEST_SOURCE_READ_ONLY_NO_PATCH_NO_APK' >> "$GITHUB_STEP_SUMMARY"
