@@ -147,6 +147,65 @@ def audit(drive):
                                  "file_offset_hex": off_text, "owners": owners,
                                  "nearby_words_be": words})
         rec["attribute_hits_by_vault"] = site_map
+        # PRE736: inspect ExpN collection boundaries on selected race/template vaults.
+        # Only metadata is reported, not game bytes or decrypted ISO.
+        from pre465_usa_bmw_vpak_inner_schema_readonly import hash32
+        focus = {"gpcore", "race_bin_01", "race_bin_04", "race_bin_15"}
+        focused = []
+        for v in vl:
+            if v["name"] not in focus:
+                continue
+            base_vlt = v["vlt_off"]
+            section = blob[base_vlt:base_vlt + v["vlt_bytes"]]
+            entries = []
+            pos = 0
+            while pos + 8 <= len(section):
+                tag = section[pos:pos + 4]
+                length = int.from_bytes(section[pos + 4:pos + 8], "big")
+                if tag not in (b"DepN", b"StrN", b"DatN", b"ExpN", b"PtrN") or length < 8 or pos + length > len(section):
+                    break
+                entries.append({"tag":tag.decode("ascii"),"offset":pos,"length":length})
+                pos += length
+            exp_sections = [x for x in entries if x["tag"] == "ExpN"]
+            if len(exp_sections) != 1:
+                raise ValueError("Expected exactly one ExpN chunk in " + v["name"])
+            exp = exp_sections[0]
+            exp_start = exp["offset"]
+            cnt = int.from_bytes(section[exp_start + 8:exp_start + 12],"big")
+            if not 1 <= cnt <= 50000 or exp_start + 12 + 20 * cnt > exp_start + exp["length"]:
+                raise ValueError("Invalid ExpN count in " + v["name"])
+            attrs = [x for x in site_map if any(y["vault"] == v["name"] for y in x["owners"])]
+            addr = [(x, int(x["file_offset_hex"],16) - base_vlt) for x in attrs]
+            mapped = []
+            collection_examples = []
+            for i in range(cnt):
+                expid,kind,unused,sz,record = struct.unpack_from(">IIIII",section,exp_start + 12 + 20 * i)
+                if record+12 > exp_start or sz > 65536 or sz < 12 or record+sz > exp_start:
+                    continue
+                collection_hash, class_hash, parent_hash = struct.unpack_from(">III",section,record)
+                hits = [{"attribute":hit["attribute"],"file_offset_hex":hit["file_offset_hex"],
+                         "offset_inside_record": rel-record}
+                        for hit,rel in addr if record <= rel < record+sz]
+                if len(collection_examples) < 6:
+                    collection_examples.append({"export_id":hex(expid),"kind":hex(kind),
+                                                "collection_hash":hex(collection_hash),
+                                                "class_hash":hex(class_hash),
+                                                "parent_hash":hex(parent_hash),
+                                                "record_size":sz})
+                if hits:
+                    mapped.append({"export_id":hex(expid),"kind":hex(kind),
+                                   "collection_hash":hex(collection_hash),
+                                   "class_hash":hex(class_hash),
+                                   "parent_hash":hex(parent_hash),
+                                   "record_offset_hex":hex(record),
+                                   "record_size":sz,"matching_fields":hits})
+            focused.append({"vault":v["name"],"chunks":entries,"export_count":cnt,
+                            "mapped_field_count":sum(len(x["matching_fields"]) for x in mapped),
+                            "fields_in_vault":len(attrs),
+                            "collection_samples":collection_examples,
+                            "collections_with_catchup_fields":mapped})
+        rec["pre736_focused_collection_metadata"] = focused
+
         rec["race_bin_vaults"] = [v["name"] for v in vl if "race" in v["name"].lower() or "bin" in v["name"].lower()]
     return rec
 
