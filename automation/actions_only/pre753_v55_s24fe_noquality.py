@@ -65,7 +65,7 @@ def verify(apk,sdk,v30,progress):
     previous=BASE_VERIFY(apk,sdk,v30,progress)
     with zipfile.ZipFile(apk) as z:
         dex=b''.join(z.read(n) for n in z.namelist()
-                     if re.fullmatch(r'classes(?:[0-9]+)?\\.dex',n))
+                     if re.fullmatch(r'classes(?:[0-9]+)?\.dex',n))
         if not dex:
             # No silent skip if the DEX name pattern changes.
             dex=b''.join(z.read(n) for n in z.namelist()
