@@ -340,8 +340,11 @@ jobs:
           assert j["drive_upload_success"] is True
           assert j["pre652_shader_frequency_diagnostic"]["diagnostic_marker_in_signed_pal_libmain"] is True
           assert j["pre752_gate_ok"] is True
+          assert j["pre753_gate_ok"] is True
+          assert j["pre753_s24fe_signed_apk"]["work_slots"] == 3
+          assert len(j["pre753_s24fe_signed_apk"]["cli_flags_in_signed_dex"]) == 2
           assert j["pre752_pal_catchup_signed_apk"]["only_pal_hook_staged"] is True
           assert j["pre752_pal_catchup_signed_apk"]["cvar_off_by_default"] is True
           assert j["pre752_pal_catchup_signed_apk"]["original_usa_library_sha256"]=="4f32de8f2ff10d4748aa33f208774038ef9bfa402eacc61a49dd7e70f3b1bc83"
-          print("PRE752_REAL_SIGNED_V54_PAL_CATCHUP_GATE=PASS")
+          print("PRE753_REAL_SIGNED_V55_S24FE_GATE=PASS")
           PY
