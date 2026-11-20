@@ -22,6 +22,7 @@ EVENT_PARENT_NAMES={
     0x1b298a8b:"lapknockout",
     0x8d217dc7:"speedtraprace",
     0x81ab0f13:"checkpointrace",
+    0x63faf9c3:"tollboothrace",
     0xd1e66b67:"race",
     0x45e21ddd:"basicrace",
 }
