@@ -1,0 +1,64 @@
+name: NFSMW PRE751 - real PAL Catch-Up ARM64 libmain link, no APK
+on:
+  push:
+    branches: [audit/pre732-catchup-readonly]
+    paths:
+      - '.github/workflows/nfsmw-pre751-pal-native-link-noapk.yml'
+      - 'automation/actions_only/pre751_pal_native_link_noapk.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: nfsmw-pre751-pal-catchup-noapk
+  cancel-in-progress: false
+jobs:
+  link-authenticated-pal:
+    runs-on: ubuntu-latest
+    timeout-minutes: 145
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Python prerequisites and verify syntax
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests cryptography >/dev/null
+          python -m py_compile automation/actions_only/pre751_pal_native_link_noapk.py
+      - name: Install pinned NDK 28.2/CMake 3.31.6 without signer
+        run: |
+          set -euo pipefail
+          SDK="$ANDROID_HOME"
+          NEED=""
+          test -f "$SDK/ndk/28.2.13676358/source.properties" || NEED="ndk;28.2.13676358"
+          if [ ! -x "$SDK/cmake/3.31.6/bin/cmake" ]; then
+            if [ -n "$NEED" ]; then
+              echo "PRE751_NEEDS_NDK_AND_CMAKE"
+              yes | "$SDK/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$SDK" --install "ndk;28.2.13676358" "cmake;3.31.6" > "$RUNNER_TEMP/pre751-tools.log" 2>&1 || true
+            else
+              yes | "$SDK/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$SDK" --install "cmake;3.31.6" > "$RUNNER_TEMP/pre751-tools.log" 2>&1 || true
+            fi
+          elif [ -n "$NEED" ]; then
+            yes | "$SDK/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$SDK" --install "ndk;28.2.13676358" > "$RUNNER_TEMP/pre751-tools.log" 2>&1 || true
+          fi
+          test -x "$SDK/cmake/3.31.6/bin/cmake"
+          test -x "$SDK/ndk/28.2.13676358/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android26-clang++"
+          echo "PRE751_PINNED_NATIVE_TOOLCHAIN_READY"
+      - name: Replay authenticated original V51 source plus PAL-only feature, link actual ARM64 game DSO
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle:automation/actions_only
+        run: |
+          set -euo pipefail
+          umask 077
+          python automation/actions_only/pre751_pal_native_link_noapk.py --run-id "$GITHUB_RUN_ID"
+      - name: Store sanitized gate report, never game code or DSO
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pre751-pal-native-link-summary
+          path: /tmp/nfsmw-pre751/PRE751_PAL_REAL_LIBMAIN_NOAPK.json
+          if-no-files-found: warn
+          retention-days: 30
