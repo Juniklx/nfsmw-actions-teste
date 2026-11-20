@@ -106,9 +106,8 @@ def audit(drive):
     }
     if blob[:4] == b"VPAK":
         vaults, nameoff, namelen = struct.unpack_from("<III", blob,4)
-        print("PRE735_VPAK_RAW_HEADER=" + blob[:64].hex(), flush=True)
         print("PRE735_VPAK_META=" + json.dumps({"vault_count":vaults,"name_offset":nameoff,"name_length":namelen,"blob_size":len(blob)}), flush=True)
-        if not (0 < vaults <= 64 and 16 + 20*vaults <= len(blob) and
+        if not (0 < vaults <= 512 and 16 + 20*vaults <= len(blob) and
                 nameoff + namelen <= len(blob)):
             raise ValueError("Invalid gameplay VPAK metadata")
         vl = []
@@ -125,7 +124,9 @@ def audit(drive):
             vl.append({"name": vaultname,"bin_bytes":binlen,"vlt_bytes":vltlen,
                        "bin_head":binbytes[:8].hex(),"vlt_head":vltbytes[:8].hex(),
                        "race_bin_ascii_occurrences": binbytes.lower().count(b"race_bin")})
+        rec["vault_count"] = vaults
         rec["vaults"] = vl
+        rec["race_bin_vaults"] = [v["name"] for v in vl if "race" in v["name"].lower() or "bin" in v["name"].lower()]
     return rec
 
 
