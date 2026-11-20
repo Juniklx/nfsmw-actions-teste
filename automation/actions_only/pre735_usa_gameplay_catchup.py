@@ -174,6 +174,20 @@ def audit(drive):
             cnt = int.from_bytes(section[exp_start + 8:exp_start + 12],"big")
             if not 1 <= cnt <= 50000 or exp_start + 12 + 20 * cnt > exp_start + exp["length"]:
                 raise ValueError("Invalid ExpN count in " + v["name"])
+            bin_section = blob[v["bin_off"]:v["bin_off"]+v["bin_bytes"]]
+            if bin_section[:4] != b"StrE":
+                raise ValueError("Expected StrE table")
+            string_block_end = int.from_bytes(bin_section[4:8], "big")
+            if not (8 <= string_block_end <= len(bin_section)):
+                raise ValueError("Invalid StrE table boundary")
+            known_names = {}
+            for name_raw in bin_section[8:string_block_end].split(b"\x00"):
+                if not 1 <= len(name_raw) <= 128:
+                    continue
+                if any(x < 32 or x > 126 for x in name_raw):
+                    continue
+                value = name_raw.decode("ascii")
+                known_names.setdefault(hash32(value),[]).append(value)
             attrs = [x for x in site_map if any(y["vault"] == v["name"] for y in x["owners"])]
             addr = [(x, int(x["file_offset_hex"],16) - base_vlt) for x in attrs]
             mapped = []
@@ -195,8 +209,10 @@ def audit(drive):
                 if hits:
                     mapped.append({"export_id":hex(expid),"kind":hex(kind),
                                    "collection_hash":hex(collection_hash),
+                                   "collection_name_candidates":known_names.get(collection_hash, []),
                                    "class_hash":hex(class_hash),
                                    "parent_hash":hex(parent_hash),
+                                   "parent_name_candidates":known_names.get(parent_hash, []),
                                    "record_offset_hex":hex(record),
                                    "record_size":sz,"matching_fields":hits})
             focused.append({"vault":v["name"],"chunks":entries,"export_count":cnt,
