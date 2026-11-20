@@ -16,7 +16,7 @@ from pre104_verify_backup_tar import BACKUP_ID, EXPECTED_BYTES, EXPECTED_SHA256,
 from pre105_read_settings_source import drive_client, download
 
 DEST_FOLDER="1yw1Z83O0d83CoQccjYREYfhxAF17eHD-"
-MAX_BYTES=250 * 1024 * 1024
+MAX_BYTES=350 * 1024 * 1024
 PATS={
     "catchup_hash_hex": re.compile(rb"(?i)0x0*10db04e6\b"),
     "catchup_hash_decimal": re.compile(rb"\b282789094\b"),
