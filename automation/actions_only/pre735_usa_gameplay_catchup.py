@@ -56,6 +56,7 @@ def audit(drive):
             rows.append({"index": i, "archive": archive, "sector": sector,
                          "total": total, "size": size, "checksum": checksum})
     if len(rows) != 1:
+        print("PRE735_RESOURCE_HASH_AMBIGUOUS_ROWS=" + json.dumps(rows, sort_keys=True), flush=True)
         raise ValueError("Ambiguous or absent game metadata: %d entries" % len(rows))
     entry = rows[0]
     idx = entry["archive"]
