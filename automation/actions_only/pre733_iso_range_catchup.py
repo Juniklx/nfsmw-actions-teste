@@ -15,7 +15,7 @@ from pre732_private_pre99 import scan_stream
 
 ISO_ID = "1eDWuZTPrtfzk-2qD1l1YgN6GYg-_9mfr"
 EXPECTED_SIZE = 7834892288
-REPORT_FOLDER = "1yw1Z83O0d83CoQccjYREfhxAF17eHD-"
+REPORT_FOLDER = "1yw1Z83O0d83CoQccjYREYfhxAF17eHD-"
 MAGIC = b"MICROSOFT*XBOX*MEDIA"
 SECTOR = 2048
 CACHE = 1024 * 1024
@@ -193,6 +193,8 @@ def main():
         raise ValueError("USA ISO identity/size metadata mismatch")
     iso = RemoteRange(drive._http.credentials, ISO_ID, EXPECTED_SIZE)
     result = audit(iso)
+    print('PRE733_AUDIT_SCANNED_FILES=' + str(result['files_scanned']))
+    print('PRE733_AUDIT_MATCHED_FILES=' + str(len(result['matches'])))
     args.report.parent.mkdir(parents=True, exist_ok=True)
     args.report.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     name = "NFSMW_PRE733_ISO_USA_CATCHUP_READONLY_REPORT.json"
