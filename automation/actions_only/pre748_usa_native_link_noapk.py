@@ -49,7 +49,7 @@ def stage(root):
     dst.write_bytes(header)
     EVIDENCE["v51_original_pal_renderer_sha"]=sha(candidate)
     PHASE="VERIFY_ORIGINAL_USA_CONTROLLER"
-    guest=(root/usa.USAFUNC).read_bytes()
+    guest=(root/"nativo/app_usa/generated/default/nfsmw_recomp.52.cpp").read_bytes()
     marker=b"DEFINE_REX_FUNC(sub_823328C0) {"
     if guest.count(marker)!=1:raise ValueError("USA controller symbol not unique")
     i=guest.index(marker)+len(marker)
@@ -95,7 +95,7 @@ def stage(root):
       "usa_cvar_off_by_default":True,
       "usa_cmake_reversible":True,
       "pal_cmake_preserved":True,
-      "original_usa_generated_guest_unchanged":sha(guest)==sha((root/usa.USAFUNC).read_bytes()),
+      "original_usa_generated_guest_unchanged":sha(guest)==sha((root/"nativo/app_usa/generated/default/nfsmw_recomp.52.cpp").read_bytes()),
     })
     PHASE="STAGED_USA_NO_APK"
     return {"v51_previous_native_diagnostics_preserved":True,
