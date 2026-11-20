@@ -46,7 +46,7 @@ def audit():
     if guest.count(mark)!=1:raise ValueError("USA controller function absent/duplicated")
     i=guest.index(mark)+len(mark)
     j=guest.find(b"\nDEFINE_REX_FUNC(",i)
-    if j<0 or sha(guest[i:j])!=TARGET_SHA:
+    if j<0 or sha(guest[i:j+1])!=TARGET_SHA:
       raise ValueError("USA controller differs from authenticated PRE745")
     PHASE="STAGE_USA_ONLY"
     for name in BLOBS:
@@ -110,6 +110,8 @@ def main():
   print("PRE747_PHASE="+PHASE)
   print("PRE747_USA_ARM64_OBJECT="+str(result.get("real_usa_arm64_object_compiled",False)))
   print("PRE747_NO_APK_NO_SIGNER")
-  if result["status"]=="FAILED":print("PRE747_ERROR_TYPE="+result["error_type"])
+  if result["status"]=="FAILED":
+    print("PRE747_ERROR_TYPE="+result["error_type"])
+    print("PRE747_ERROR_SUMMARY="+result.get("error_summary","")[:300])
   return 0 if result["status"]=="AUDIT_OK_USA_AARCH64_OBJECT" else 1
 if __name__=="__main__":sys.exit(main())

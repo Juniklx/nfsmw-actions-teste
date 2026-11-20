@@ -51,6 +51,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: pre747-usa-ndk-object-report
-          path: /tmp/nfsmw-pre747/PRE747_USA_CATCHUP_ARM64_OBJECT_NOAPK.json
+          path: /tmp/nfsmw-pre747/PRE747_USA_ARM64_OBJECT_NOAPK.json
           if-no-files-found: warn
           retention-days: 30
