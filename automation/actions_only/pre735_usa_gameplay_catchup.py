@@ -121,11 +121,32 @@ def audit(drive):
                 raise ValueError("VPAK vault name invalid")
             vaultname = blob[bound:stop].decode("ascii","replace")
             binbytes, vltbytes = blob[binoff:binoff+binlen],blob[vltoff:vltoff+vltlen]
-            vl.append({"name": vaultname,"bin_bytes":binlen,"vlt_bytes":vltlen,
+            vl.append({"name": vaultname, "bin_off": binoff, "vlt_off": vltoff,
+                       "bin_bytes":binlen,"vlt_bytes":vltlen,
                        "bin_head":binbytes[:8].hex(),"vlt_head":vltbytes[:8].hex(),
                        "race_bin_ascii_occurrences": binbytes.lower().count(b"race_bin")})
         rec["vault_count"] = vaults
         rec["vaults"] = vl
+        site_map = []
+        for hit in matches:
+            for off_text in hit["sample_offsets_hex"]:
+                pos = int(off_text, 16)
+                owners = []
+                for v in vl:
+                    for section, offsetkey, sizekey in (
+                        ("BIN", "bin_off", "bin_bytes"),
+                        ("VLT", "vlt_off", "vlt_bytes")):
+                        rel = pos - v[offsetkey]
+                        if 0 <= rel < v[sizekey]:
+                            owners.append({"vault": v["name"], "section": section,
+                                           "relative_offset_hex": hex(rel)})
+                # Nearby header words retained only in private Drive report.
+                words = [hex(int.from_bytes(blob[pos + k:pos + k + 4], "big"))
+                         for k in (0, 4, 8, 12) if pos + k + 4 <= len(blob)]
+                site_map.append({"attribute": hit["attribute"],
+                                 "file_offset_hex": off_text, "owners": owners,
+                                 "nearby_words_be": words})
+        rec["attribute_hits_by_vault"] = site_map
         rec["race_bin_vaults"] = [v["name"] for v in vl if "race" in v["name"].lower() or "bin" in v["name"].lower()]
     return rec
 
