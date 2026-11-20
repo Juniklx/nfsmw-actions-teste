@@ -46,6 +46,30 @@ def run(drive):
         if actual != expected_sha or blob[:4] != b"VPAK":
             raise ValueError("Pinned VPAK SHA-256 or magic mismatch")
         matches = scan_stream(io.BytesIO(blob))
+        vault_count = int.from_bytes(blob[4:8], "little")
+        if vault_count < 1 or vault_count > 128:
+            raise ValueError("Unexpected VPAK vault count")
+        vaults = []
+        for k in range(vault_count):
+            start = 16 + 20*k
+            name_local, bin_size, vlt_size, bin_off, vlt_off = __import__("struct").unpack_from("<IIIII", blob, start)
+            if bin_off + bin_size > len(blob) or vlt_off + vlt_size > len(blob):
+                raise ValueError("VPAK vault bounds invalid")
+            vaults.append({"bin_offset": bin_off, "bin_size": bin_size,
+                           "vlt_offset": vlt_off, "vlt_size": vlt_size})
+        attr_rows = []
+        for hit in matches:
+            for off_txt in hit["sample_offsets_hex"]:
+                off = int(off_txt, 16)
+                section = "OTHER"
+                for v in vaults:
+                    if v["bin_offset"] <= off < v["bin_offset"] + v["bin_size"]:
+                        section = "BIN"
+                    if v["vlt_offset"] <= off < v["vlt_offset"] + v["vlt_size"]:
+                        section = "VLT"
+                attr_rows.append({"attribute": hit["attribute"], "offset_hex": off_txt,
+                                  "section": section,
+                                  "following_u32_big_endian": hex(int.from_bytes(blob[off+4:off+8], "big"))})
         text_names = {name: blob.count(name.encode("ascii")) for name in (
             "CatchUp", "CatchUpOverride", "CatchUpSkill",
             "CatchUpSpread", "CatchUpIntegral", "CatchUpDerivative")}
@@ -54,6 +78,7 @@ def run(drive):
             "sha256_verified": True, "sha256": actual,
             "absolute_offset_hex": hex(absolute),
             "candidate_hashes": matches,
+            "attribute_row_structure": attr_rows,
             "literal_ascii_tokens": text_names,
         })
     return {
