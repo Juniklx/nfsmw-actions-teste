@@ -5,6 +5,7 @@ on:
     branches: [build/v55-pre753-pal-s24fe-perf]
     paths:
       - '.github/workflows/nfsmw-pre753-v55-pal-s24fe-perf.yml'
+      - 'automation/actions_only/pre753_v55_pal_s24fe_perf.py'
 permissions:
   contents: read
 concurrency:
