@@ -334,7 +334,7 @@ jobs:
           j=json.loads(Path("/tmp/nfsmw-pre753-out/pre753-v55-report.json").read_text())
           assert j["status"]=="PRE652_V51_GPU_DIAGNOSTIC_SIGNED_VERIFIED"
           assert j["pre652_release_approved"] is True
-          assert j["pre652_target_version_code"]==54 and j["v52_touch_dex_verified"]
+          assert j["pre652_target_version_code"]==55 and j["v52_touch_dex_verified"]
           assert j["pre652_expected_certificate_sha256"]=="1ba7bda576cca036f8cb18f496bf7b04e65ff76da43d5c788291059d930d104b"
           assert j["signed_apk_verified"] is True
           assert j["drive_upload_success"] is True
