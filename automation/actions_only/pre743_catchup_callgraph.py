@@ -36,13 +36,13 @@ MAX_CALLERS=90
 
 def inspect(path):
     findings={
-      "stage":"PRE743_X360_GUEST_CATCHUP_CALL_GRAPH_PRIVATE",
+      "stage":"PRE743B_X360_GUEST_CATCHUP_CALL_GRAPH_PRIVATE",
       "pre99_sha256_verified":True,
       "files_scanned":0,"functions_scanned":0,"bytes_scanned":0,
       "targets":{k:{"symbol":sym,"definitions":[],"direct_callers":[]} for k,sym in TARGETS.items()},
       "source_tree_modified":False,"runtime_hook_validated":False,"apk_built":False,"signing_accessed":False,
     }
-    refs={k:re.compile(rb"\b"+v.encode()+rb"\s*\(") for k,v in TARGETS.items()}
+    refs={k:re.compile(rb"(?<![A-Za-z0-9_])(?:__imp__)?"+v.encode()+rb"\s*\(") for k,v in TARGETS.items()}
     with tarfile.open(path,"r:gz",errorlevel=2) as tar:
         for member in tar:
             if not member.isfile() or not SOURCES.match(member.name):continue
@@ -98,7 +98,7 @@ def main():
              for k,v in report["targets"].items()}
     print("PRE743_EXACT_CALL_GRAPH="+json.dumps(summary,sort_keys=True))
     print("PRE743_GUEST_FUNCTIONS="+str(report["functions_scanned"]))
-    name="NFSMW_PRE743_CATCHUP_GUEST_X360_CALL_GRAPH_PRIVATE.json"
+    name="NFSMW_PRE743B_CATCHUP_GUEST_X360_CALL_GRAPH_PRIVATE.json"
     up=drive.files().create(body={"name":name,"parents":[FOLDER],"mimeType":"application/json"},
          media_body=MediaFileUpload(str(o.report),mimetype="application/json"),
          fields="id,name,parents").execute()
