@@ -55,23 +55,32 @@ def audit(drive):
         if name_hash_u32 == TARGET_HASH:
             rows.append({"index": i, "archive": archive, "sector": sector,
                          "total": total, "size": size, "checksum": checksum})
-    if len(rows) != 1:
-        print("PRE735_RESOURCE_HASH_AMBIGUOUS_ROWS=" + json.dumps(rows, sort_keys=True), flush=True)
-        raise ValueError("Ambiguous or absent game metadata: %d entries" % len(rows))
+    if len(rows) not in (1, 2):
+        raise ValueError("Unexpected gameplay resource count: %d" % len(rows))
+    blobs = []
+    locations = []
+    for entry_i in rows:
+        idx_i = entry_i["archive"]
+        if not 0 <= idx_i <= 9:
+            raise ValueError("Unexpected gameplay container number")
+        archive_i = nfs.get(f"NFS/ZZDATA{idx_i}.BIN")
+        if archive_i is None:
+            raise ValueError("Expected ZZDATA not found")
+        relative_i = entry_i["sector"] * SECTOR
+        if not 16 <= entry_i["size"] <= LIMIT or relative_i + entry_i["size"] > archive_i[1]:
+            raise ValueError("Gameplay resource invalid/oversized bounds")
+        reader.seek(base + archive_i[0] * SECTOR + relative_i)
+        raw_i = reader.read(entry_i["size"])
+        if len(raw_i) != entry_i["size"]:
+            raise ValueError("Gameplay resource truncated")
+        blobs.append(raw_i)
+        locations.append({**entry_i, "sha256": hashlib.sha256(raw_i).hexdigest()})
+    print("PRE735_RESOURCE_CANDIDATES=" + json.dumps(locations, sort_keys=True), flush=True)
+    if any(x != blobs[0] for x in blobs[1:]):
+        raise ValueError("Gameplay entries differ bytewise; cannot select authoritative copy")
     entry = rows[0]
     idx = entry["archive"]
-    if not 0 <= idx <= 9:
-        raise ValueError("Unexpected gameplay container number")
-    archive = nfs.get(f"NFS/ZZDATA{idx}.BIN")
-    if archive is None:
-        raise ValueError("Expected ZZDATA not found")
-    relative = entry["sector"] * SECTOR
-    if not 16 <= entry["size"] <= LIMIT or relative + entry["size"] > archive[1]:
-        raise ValueError("Gameplay resource invalid/oversized bounds")
-    reader.seek(base + archive[0] * SECTOR + relative)
-    blob = reader.read(entry["size"])
-    if len(blob) != entry["size"]:
-        raise ValueError("Gameplay resource truncated")
+    blob = blobs[0]
     matches = scan_stream(io.BytesIO(blob))
     rec = {
         "stage": "PRE735_AUTHENTICATED_USA_GAMEPLAY_RESOURCE_READONLY",
@@ -82,6 +91,8 @@ def audit(drive):
         "target_resource_name": TARGET,
         "target_name_hash": hex(TARGET_HASH),
         "zdir_index": entry["index"],
+        "duplicate_locations_verified_bytewise_equal": len(blobs) > 1,
+        "resource_locations": locations,
         "archive_index": idx, "resource_size": len(blob),
         "resource_sha256": hashlib.sha256(blob).hexdigest(),
         "resource_head_magic_hex": blob[:8].hex(),
