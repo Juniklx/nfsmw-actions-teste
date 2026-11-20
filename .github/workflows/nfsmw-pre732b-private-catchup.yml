@@ -1,0 +1,36 @@
+name: NFSMW PRE732B - pinned private archive Catch-Up audit
+on:
+  push:
+    branches: [audit/pre732-catchup-readonly]
+    paths:
+      - '.github/workflows/nfsmw-pre732b-private-catchup.yml'
+      - 'automation/actions_only/pre732_private_pre99.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  private-audit:
+    if: github.repository == 'Juniklx/nfsmw-actions-teste'
+    runs-on: ubuntu-latest
+    timeout-minutes: 80
+    env:
+      GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+      GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+      GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Dependencies and syntax only
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          python -m py_compile automation/actions_only/pre732_private_pre99.py
+      - name: Verify pinned PRE99, scan candidates and upload private Drive report
+        shell: bash
+        run: |
+          set -euo pipefail
+          umask 077
+          PYTHONPATH=automation/kaggle:automation/actions_only python automation/actions_only/pre732_private_pre99.py --report "$RUNNER_TEMP/pre732b_private_report.json"
+          echo 'PRE732B=PRIVATE_ARCHIVE_READ_ONLY_NO_PATCH' >> "$GITHUB_STEP_SUMMARY"

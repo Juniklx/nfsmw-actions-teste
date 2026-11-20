@@ -1,0 +1,33 @@
+name: NFSMW PRE735 - locate USA gameplay VPAK for career Catch-Up
+on:
+  push:
+    branches: [audit/pre732-catchup-readonly]
+    paths:
+      - '.github/workflows/nfsmw-pre735-career-catchup.yml'
+      - 'automation/actions_only/pre735_usa_gameplay_catchup.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  private-usa-gameplay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+      GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+      GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install authenticated read-only Drive client
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+          python -m py_compile automation/actions_only/pre735_usa_gameplay_catchup.py
+      - name: Verify original ZDIR, locate gameplay and emit private report only
+        run: |
+          set -euo pipefail
+          umask 077
+          PYTHONPATH=automation/kaggle:automation/actions_only python automation/actions_only/pre735_usa_gameplay_catchup.py --report "$RUNNER_TEMP/pre735_report.json"

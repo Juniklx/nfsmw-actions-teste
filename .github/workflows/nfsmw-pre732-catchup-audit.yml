@@ -1,0 +1,31 @@
+name: NFSMW PRE732 - Catch-Up source-only audit
+on:
+  push:
+    branches: [audit/pre732-catchup-readonly]
+    paths:
+      - '.github/workflows/nfsmw-pre732-catchup-audit.yml'
+      - 'automation/actions_only/pre732_auditar_catchup_atributos.py'
+      - 'automation/actions_only/test_pre732_auditar_catchup_atributos.py'
+      - 'docs/PRE732_CATCHUP_X360_READONLY.md'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  synthetic-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Compile syntax and test byte-order, boundaries and privacy
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m py_compile automation/actions_only/pre732_auditar_catchup_atributos.py
+          python -m unittest discover -s automation/actions_only -p 'test_pre732_auditar_catchup_atributos.py' -v
+      - name: Explicit evidence boundary
+        run: |
+          echo 'PRE732=SYNTHETIC_ONLY_NO_PRIVATE_GAME_FILES' >> "$GITHUB_STEP_SUMMARY"
+          echo 'NO_PATCH_NO_APK_NO_SIGNING_NO_DEVICE_TEST' >> "$GITHUB_STEP_SUMMARY"

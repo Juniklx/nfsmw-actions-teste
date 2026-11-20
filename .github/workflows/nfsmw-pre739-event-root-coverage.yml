@@ -1,0 +1,34 @@
+name: NFSMW PRE739 - classify career Catch-Up event roots
+on:
+  push:
+    branches: [audit/pre732-catchup-readonly]
+    paths:
+      - '.github/workflows/nfsmw-pre739-event-root-coverage.yml'
+      - 'automation/actions_only/pre739_event_root_coverage.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  private-analysis:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+      GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+      GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Drive Python client
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+          python -m py_compile automation/actions_only/pre739_event_root_coverage.py
+      - name: Authenticate USA VPAK and classify race event roots, private report
+        run: |
+          set -euo pipefail
+          umask 077
+          PYTHONPATH=automation/kaggle:automation/actions_only python automation/actions_only/pre739_event_root_coverage.py --report "$RUNNER_TEMP/pre739_events_report.json"
+          echo 'PRE739=PRIVATE_ANALYSIS_READ_ONLY_NO_PATCH' >> "$GITHUB_STEP_SUMMARY"

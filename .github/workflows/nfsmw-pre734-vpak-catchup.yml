@@ -1,0 +1,36 @@
+name: NFSMW PRE734 - authenticated USA VPAK Catch-Up probe
+on:
+  push:
+    branches: [audit/pre732-catchup-readonly]
+    paths:
+      - '.github/workflows/nfsmw-pre734-vpak-catchup.yml'
+      - 'automation/actions_only/pre734_usa_vpak_catchup.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  pinned-vpak-readonly:
+    if: github.repository == 'Juniklx/nfsmw-actions-teste'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+      GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+      GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install authenticated Drive range client
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 requests >/dev/null
+          python -m py_compile automation/actions_only/pre734_usa_vpak_catchup.py
+      - name: Verify original VPAK SHA and scan six candidate hashes privately
+        shell: bash
+        run: |
+          set -euo pipefail
+          umask 077
+          PYTHONPATH=automation/kaggle:automation/actions_only python automation/actions_only/pre734_usa_vpak_catchup.py --report "$RUNNER_TEMP/pre734_report.json"
+          echo 'PRE734=USA_VPAK_HASH_INVENTORY_READONLY_NO_PATCH' >> "$GITHUB_STEP_SUMMARY"

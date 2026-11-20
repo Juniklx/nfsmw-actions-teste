@@ -1,0 +1,56 @@
+name: NFSMW PRE747 - USA Career Catch-Up real NDK ARM64 object no APK
+on:
+  push:
+    branches: [audit/pre732-catchup-readonly]
+    paths:
+      - '.github/workflows/nfsmw-pre747-usa-arm64-object.yml'
+      - 'automation/actions_only/pre747_usa_arm64_object.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  usa-real-ndk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install private Drive client and check Python syntax
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          python -m py_compile automation/actions_only/pre747_usa_arm64_object.py
+      - name: Ensure Android NDK r28.2 present without signer
+        run: |
+          set -euo pipefail
+          SDK="$ANDROID_HOME"
+          if [ ! -f "$SDK/ndk/28.2.13676358/source.properties" ]; then
+            MANAGER="$SDK/cmdline-tools/latest/bin/sdkmanager"
+            test -x "$MANAGER"
+            set +o pipefail
+            yes | "$MANAGER" --sdk_root="$SDK" --install "ndk;28.2.13676358" > "$RUNNER_TEMP/pre747_ndk_install.log" 2>&1
+            RESULT="$?"
+            set -o pipefail
+            test "$RESULT" -eq 0
+          fi
+          echo "PRE747_NDK_READY"
+      - name: Compile USA hook from original SHA-pinned PRE99 as actual AArch64 object
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle:automation/actions_only
+        run: |
+          set -euo pipefail
+          umask 077
+          python automation/actions_only/pre747_usa_arm64_object.py --run-id "$GITHUB_RUN_ID"
+      - name: Store sanitized audit summary only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pre747-usa-ndk-object-report
+          path: /tmp/nfsmw-pre747/PRE747_USA_ARM64_OBJECT_NOAPK.json
+          if-no-files-found: warn
+          retention-days: 30
