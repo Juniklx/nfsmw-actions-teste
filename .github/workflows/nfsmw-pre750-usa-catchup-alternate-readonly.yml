@@ -1,0 +1,35 @@
+name: NFSMW PRE750 - USA alternative Catch-Up code paths read-only
+on:
+  push:
+    branches: [audit/pre732-catchup-readonly]
+    paths:
+      - '.github/workflows/nfsmw-pre750-usa-catchup-alternate-readonly.yml'
+      - 'automation/actions_only/pre750_usa_catchup_alternate_readonly.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  private-original-usa-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify script and install private Drive client
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth google-auth-httplib2 >/dev/null
+          python -m py_compile automation/actions_only/pre750_usa_catchup_alternate_readonly.py
+      - name: Scan authenticated USA guest only; store private report, never code public
+        env:
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          PYTHONPATH: automation/kaggle:automation/actions_only
+        run: |
+          set -euo pipefail
+          umask 077
+          python automation/actions_only/pre750_usa_catchup_alternate_readonly.py --report "$RUNNER_TEMP/pre750_private.json"
+          echo "PRE750_PRIVATE_USA_ALTERNATE_CALL_PATHS_AUDITED" >> "$GITHUB_STEP_SUMMARY"
